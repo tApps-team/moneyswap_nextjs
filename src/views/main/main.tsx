@@ -1,5 +1,5 @@
-import { getPosts } from "@/shared/api";
 import { PostsList } from "@/widgets/postsList/ui/postsList";
+import { getPosts } from "@/shared/api";
 
 export const Main = async () => {
   const posts = await getPosts();
