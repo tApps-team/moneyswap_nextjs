@@ -1,5 +1,6 @@
 export enum routes {
   main = "/",
-  todos = "/todos",
   about = "/about",
+  partners = "/partners",
+  faq = "/faq",
 }

@@ -3,6 +3,7 @@ import styles from "./layout.module.scss";
 import "../src/shared/styles/globals.scss";
 import { Header } from "@/widgets/header";
 import { Footer } from "@/widgets/footer";
+import { SideBar } from "@/widgets/sideBar";
 
 export const metadata = {
   title: "Next.js",
@@ -23,7 +24,10 @@ export default function RootLayout({
     <html lang="en" className={montserrat.className}>
       <body className={styles.container}>
         <Header />
-        <main className={styles.body}>{children}</main>
+        <main className={styles.body}>
+          <SideBar />
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

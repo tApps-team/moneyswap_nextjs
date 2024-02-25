@@ -1,6 +1,9 @@
 export interface Exchanger {
   id: number;
-  name: string;
+  name: {
+    ru: string;
+    en: string;
+  };
   partner_link: string;
   valute_from: string;
   icon_valute_from: string;
