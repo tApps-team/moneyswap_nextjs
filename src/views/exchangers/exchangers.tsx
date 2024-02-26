@@ -1,5 +1,5 @@
-import { getExchangers } from "@/shared/api";
 import { ExchangersList } from "@/widgets/exchangersList";
+import { getExchangers } from "@/entities/exchanger";
 import styles from "./exchangers.module.scss";
 
 export const Exchangers = async ({

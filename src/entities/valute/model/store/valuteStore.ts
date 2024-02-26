@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { Valute } from "@/shared/types";
+
 import { persist } from "zustand/middleware";
+import { Valute } from "../..";
 
 //Store for Selects
 interface SelectsStore {
@@ -18,6 +19,6 @@ export const useSelectsStore = create<SelectsStore>()(
       setGiveSelect: (valute) => set({ giveSelect: valute }),
       setGetSelect: (valute) => set({ getSelect: valute }),
     }),
-    { name: "selects-store" }
-  )
+    { name: "selects-store" },
+  ),
 );

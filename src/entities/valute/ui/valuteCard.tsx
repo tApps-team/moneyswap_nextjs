@@ -1,11 +1,13 @@
 "use client";
 
-import { FC } from "react";
-import styles from "./valuteCard.module.scss";
-import { Valute, selectType } from "@/shared/types";
-import Link from "next/link";
-import { useSelectsStore } from "@/entities/selectCard";
 import clsx from "clsx";
+import Link from "next/link";
+import { FC } from "react";
+
+import { selectType } from "@/shared/types";
+import { useSelectsStore } from "../model/store/valuteStore";
+import { Valute } from "../model/types/valute";
+import styles from "./valuteCard.module.scss";
 
 interface ValuteCardProps {
   valute: Valute;
@@ -41,7 +43,7 @@ export const ValuteCard: FC<ValuteCardProps> = (props) => {
     styles.valute_card,
     type === selectType.give && giveActiveClass,
     type === selectType.get && getActiveClass,
-    "link"
+    "link",
   );
   return (
     <Link

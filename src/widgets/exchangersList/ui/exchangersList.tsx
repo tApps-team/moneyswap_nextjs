@@ -1,7 +1,7 @@
 import { FC } from "react";
+import { Exchanger, ExchangerCard } from "@/entities/exchanger";
+
 import styles from "./exchangersList.module.scss";
-import { Exchanger } from "@/shared/types";
-import { ExchangerCard } from "@/entities/exchangerCard";
 
 interface ExchangersListProps {
   exchangers: Exchanger[];
