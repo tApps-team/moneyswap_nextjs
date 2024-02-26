@@ -1,4 +1,6 @@
-import { FC } from "react";
+"use client";
+import { FC, useMemo } from "react";
+import { useSearchStore } from "@/features/search";
 import { CategoriesWithLang } from "@/entities/categories";
 import { ValuteCard } from "@/entities/valute";
 import { selectType } from "@/shared/types";
@@ -11,17 +13,23 @@ interface ValutesListProps {
 
 export const ValutesList: FC<ValutesListProps> = (props) => {
   const { selectType, categories } = props;
-
-  const filteredOptions = Object.values(categories?.ru || {});
-
+  const { searchValue } = useSearchStore();
+  console.log(searchValue);
+  const filteredOptions = useMemo(
+    () =>
+      Object.values(categories?.ru || {})
+        .flat()
+        .filter((el) =>
+          el.name.toLowerCase().includes(searchValue.toLowerCase()),
+        ),
+    [categories?.ru, searchValue],
+  );
   return (
     <section className={styles.list}>
       {filteredOptions &&
-        filteredOptions.map((category) =>
-          category.map((valute) => (
-            <ValuteCard key={valute.id} valute={valute} type={selectType} />
-          )),
-        )}
+        filteredOptions.map((valute) => (
+          <ValuteCard key={valute.id} valute={valute} type={selectType} />
+        ))}
     </section>
   );
 };
