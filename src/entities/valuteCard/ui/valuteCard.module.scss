@@ -1,0 +1,33 @@
+.valute_card {
+    border: 0.5px solid rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    padding: 10px;
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .valute_name {
+        font-size: 18px;
+        font-weight: 600;
+        margin-right: 20px;
+        white-space: nowrap;
+        color: #fff;
+    }
+
+    .valute_code {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 400;
+        color: #acacac;
+    }
+}
+
+.active {
+    background: #fff;
+
+    .valute_name {
+        color: #000;
+    }
+}

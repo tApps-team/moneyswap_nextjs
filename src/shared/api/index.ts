@@ -1,1 +1,3 @@
-export { getTodos, getTodo, getPosts, getPost } from "./getData";
+export { getPosts } from "./getData";
+export { getExchangers } from "./getExchangers";
+export { getAvailable } from "./availableValutes";

@@ -12,12 +12,17 @@ export const Navbar = () => {
       <ul>
         <li className={path === routes.about ? styles.active : ""}>
           <Link className="link" href={routes.about}>
-            About
+            О нас
           </Link>
         </li>
-        <li className={path === routes.todos ? styles.active : ""}>
-          <Link className="link" href={routes.todos}>
-            Todos
+        <li className={path === routes.partners ? styles.active : ""}>
+          <Link className="link" href={routes.partners}>
+            Партнерам
+          </Link>
+        </li>
+        <li className={path === routes.faq ? styles.active : ""}>
+          <Link className="link" href={routes.faq}>
+            FAQ
           </Link>
         </li>
       </ul>
