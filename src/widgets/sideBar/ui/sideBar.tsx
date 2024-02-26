@@ -1,5 +1,6 @@
 import { FC } from "react";
 
+import { DirectionTabs } from "@/features/directionTabs";
 import { Search } from "@/features/search";
 import { getAvailable } from "@/entities/categories";
 import { SelectCard } from "@/entities/select";
@@ -18,6 +19,7 @@ export const SideBar: FC<SideBarProps> = async (props) => {
 
   return (
     <section className={styles.sidebar}>
+      <DirectionTabs />
       <Search />
       <SelectCard type={selectType.give} />
       <ValutesList selectType={selectType.give} categories={availableValutes} />
