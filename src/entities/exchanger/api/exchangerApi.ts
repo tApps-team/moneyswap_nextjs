@@ -1,13 +1,29 @@
 import { Exchanger } from "..";
 
-export const getExchangers = async (): Promise<Exchanger[]> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions_multi?city=msk&valute_from=btc&valute_to=cashrub`,
-  );
+type ReqFetchExchangersDto = {
+  from: string | undefined;
+  to: string | undefined;
+  city?: string | undefined;
+};
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+export const getExchangers = async ({
+  from,
+  to,
+  city,
+}: ReqFetchExchangersDto): Promise<Exchanger[]> => {
+  const apiUrl = city
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions_multi?city=${city}&valute_from=${from}&valute_to=${to}`
+    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions_multi?valute_from=${from}&valute_to=${to}`;
+
+  try {
+    const res = await fetch(apiUrl);
+
+    if (!res.ok) {
+      return [];
+    }
+    return res.json();
+  } catch (error: any) {
+    console.error("Error during fetch");
+    return error;
   }
-
-  return res.json();
 };

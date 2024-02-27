@@ -1,5 +1,4 @@
 import { FC } from "react";
-
 import { DirectionTabs } from "@/features/directionTabs";
 import { Search } from "@/features/search";
 import { getAvailable } from "@/entities/categories";
