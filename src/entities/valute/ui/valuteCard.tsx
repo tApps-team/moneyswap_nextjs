@@ -3,7 +3,6 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { FC } from "react";
-
 import { selectType } from "@/shared/types";
 import { useSelectsStore } from "../model/store/valuteStore";
 import { Valute } from "../model/types/valute";
@@ -18,39 +17,40 @@ export const ValuteCard: FC<ValuteCardProps> = (props) => {
   const { valute, type } = props;
   const { giveSelect, getSelect, setGetSelect, setGiveSelect } =
     useSelectsStore((state) => state);
+
   const handleSelect = () => {
     if (type === selectType.give) {
       setGiveSelect(valute);
       setGetSelect(null);
-    } else {
+    } else if (giveSelect) {
       setGetSelect(valute);
     }
   };
 
-  const path =
+  const pagePath =
     type === selectType.get && giveSelect
       ? `${giveSelect?.code_name}-to-${valute.code_name}`
       : "";
 
   // add active className
   const giveActiveClass = clsx({
-    [styles.active]: valute === giveSelect,
+    [styles.active]: valute.id === giveSelect?.id,
   });
   const getActiveClass = clsx({
-    [styles.active]: valute === getSelect,
+    [styles.active]: valute.id === getSelect?.id,
   });
   const linkClasses = clsx(
     styles.valute_card,
-    type === selectType.give && giveActiveClass,
-    type === selectType.get && getActiveClass,
+    type === selectType.give ? giveActiveClass : getActiveClass,
     "link",
   );
+
   return (
     <Link
       onClick={handleSelect}
       className={linkClasses}
-      href={path}
-      scroll={false}
+      href={pagePath}
+      // scroll={false}
     >
       <h3 className={styles.valute_name}>{valute.name}</h3>
       <p className={styles.valute_code}>{valute.code_name}</p>

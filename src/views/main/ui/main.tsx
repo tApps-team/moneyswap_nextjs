@@ -3,7 +3,8 @@ import { getExchangers } from "@/entities/exchanger";
 import styles from "./main.module.scss";
 
 export const Main = async () => {
-  const exchangers = await getExchangers();
+  // подгрузка дефолтных обменников
+  const exchangers = await getExchangers({ from: "btc", to: "SBERRUB" });
   return (
     <section className={styles.container}>
       <div className={styles.content}>
