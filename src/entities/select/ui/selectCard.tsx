@@ -1,5 +1,5 @@
-import { selectType } from "@/shared/types";
 import { FC } from "react";
+import { selectType } from "@/shared/types";
 import styles from "./selectCard.module.scss";
 
 interface SelectCardProps {

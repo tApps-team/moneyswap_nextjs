@@ -1,26 +1,50 @@
-import { getExchangers } from "@/shared/api";
+import { Metadata } from "next";
 import { ExchangersList } from "@/widgets/exchangersList";
+import { getExchangers } from "@/entities/exchanger";
 import styles from "./exchangers.module.scss";
+
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { direction: string };
+// }): Promise<Metadata> {
+//   const direction = params.direction;
+//   // тут мб будет запрос на контент по этому направлению (хз как пока)
+//   const directionContent = await getContent(direction);
+
+//   return {
+//     title: directionContent.title,
+//     description: directionContent.description,
+//   };
+// }
 
 export const Exchangers = async ({
   params,
 }: {
   params: { direction: string };
 }) => {
-  console.log(params.direction);
-  const exchangers = await getExchangers();
+  // извлечение значений валют из пути
+  const currencies = params.direction.split("-to-");
+  const from = currencies[0];
+  const to = currencies[1];
+  const exchangers = await getExchangers({ from, to });
+
   return (
     <section className={styles.container}>
       <div className={styles.content}>
         <h1 className={styles.title}>EXCHANGERS PAGE</h1>
         <p className={styles.description}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-          dolores ut earum saepe illum voluptates, praesentium iusto asperiores
-          corporis laborum harum officia ullam excepturi nobis voluptatum
-          exercitationem sunt. Dolor, quae!
+          ЗДЕСЬ БУДЕТ КОНТЕНТ КОТОРЫЙ ЗАВИСИТ ОТ КОНКРЕТНОГО НАПРАВЛЕНИЯ {from}{" "}
+          И {to}
         </p>
       </div>
-      <ExchangersList exchangers={exchangers} />
+      {exchangers.length > 0 ? (
+        <ExchangersList exchangers={exchangers} />
+      ) : (
+        <h3 className={styles.error}>
+          Нет обменников с данным направлением :(
+        </h3>
+      )}
     </section>
   );
 };

@@ -1,4 +1,4 @@
-export interface Exchanger {
+export type Exchanger = {
   id: number;
   name: {
     ru: string;
@@ -13,4 +13,4 @@ export interface Exchanger {
   out_count: number;
   min_amount: string;
   max_amount: string;
-}
+};

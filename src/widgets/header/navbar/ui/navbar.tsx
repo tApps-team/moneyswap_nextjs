@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./navbar.module.scss";
-import { routes } from "@/shared/router";
 import { usePathname } from "next/navigation";
+import { routes } from "@/shared/router";
+import styles from "./navbar.module.scss";
 
 export const Navbar = () => {
   const path = usePathname();

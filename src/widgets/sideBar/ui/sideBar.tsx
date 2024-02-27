@@ -1,9 +1,11 @@
 import { FC } from "react";
-import styles from "./sideBar.module.scss";
-import { SelectCard } from "@/entities/selectCard/ui/selectCard";
-import { Valute, selectType } from "@/shared/types";
+import { DirectionTabs } from "@/features/directionTabs";
+import { Search } from "@/features/search";
+import { getAvailable } from "@/entities/categories";
+import { SelectCard } from "@/entities/select";
+import { selectType } from "@/shared/types";
 import { ValutesList } from "../valutesList";
-import { getAvailable } from "@/shared/api";
+import styles from "./sideBar.module.scss";
 
 interface SideBarProps {}
 
@@ -16,6 +18,8 @@ export const SideBar: FC<SideBarProps> = async (props) => {
 
   return (
     <section className={styles.sidebar}>
+      <DirectionTabs />
+      <Search />
       <SelectCard type={selectType.give} />
       <ValutesList selectType={selectType.give} categories={availableValutes} />
       <SelectCard type={selectType.get} />

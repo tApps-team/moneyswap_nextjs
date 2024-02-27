@@ -1,6 +1,6 @@
 import { FC } from "react";
+import { SelectCard } from "@/entities/select";
 import styles from "./selectsForm.module.scss";
-import { SelectCard } from "@/entities/selectCard";
 
 interface SelectsFormProps {}
 

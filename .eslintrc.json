@@ -18,5 +18,14 @@
   "plugins": ["@typescript-eslint", "react", "prettier"],
   "rules": {
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/shared/ui/*.tsx"],
+      "rules": {
+        "react/prop-types": [2, { "ignore": ["className"] }],
+        "react-refresh/only-export-components": "off"
+      }
+    }
+  ]
 }

@@ -1,9 +1,9 @@
-import { getPosts } from "@/shared/api";
 import { ExchangersList } from "@/widgets/exchangersList";
+import { getExchangers } from "@/entities/exchanger";
 import styles from "./main.module.scss";
 
 export const Main = async () => {
-  const exchangers = await getPosts();
+  const exchangers = await getExchangers();
   return (
     <section className={styles.container}>
       <div className={styles.content}>
