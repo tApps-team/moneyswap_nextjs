@@ -16,8 +16,7 @@ interface ValuteCardProps {
 
 export const ValuteCard: FC<ValuteCardProps> = (props) => {
   const { valute, type } = props;
-  const { giveSelect, getSelect, setGetSelect, setGiveSelect } =
-    useSelectsStore((state) => state);
+  const { giveSelect, getSelect, setGetSelect, setGiveSelect } = useSelectsStore((state) => state);
   const handleSelect = () => {
     if (type === selectType.give) {
       setGiveSelect(valute);
@@ -28,9 +27,7 @@ export const ValuteCard: FC<ValuteCardProps> = (props) => {
   };
 
   const path =
-    type === selectType.get && giveSelect
-      ? `${giveSelect?.code_name}-to-${valute.code_name}`
-      : "";
+    type === selectType.get && giveSelect ? `${giveSelect?.code_name}-to-${valute.code_name}` : "";
 
   // add active className
   const giveActiveClass = clsx({
@@ -46,12 +43,7 @@ export const ValuteCard: FC<ValuteCardProps> = (props) => {
     "link",
   );
   return (
-    <Link
-      onClick={handleSelect}
-      className={linkClasses}
-      href={path}
-      scroll={false}
-    >
+    <Link onClick={handleSelect} className={linkClasses} href={path} scroll={false}>
       <h3 className={styles.valute_name}>{valute.name}</h3>
       <p className={styles.valute_code}>{valute.code_name}</p>
     </Link>
