@@ -4,7 +4,7 @@ import styles from "./main.module.scss";
 
 export const Main = async () => {
   // подгрузка дефолтных обменников
-  const exchangers = await getExchangers({ from: "btc", to: "SBERRUB" });
+  const exchangers = await getExchangers({ from: "btc", to: "sberrub" });
   return (
     <section className={styles.container}>
       <div className={styles.content}>
