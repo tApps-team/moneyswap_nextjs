@@ -7,9 +7,7 @@ type SearchProps = {
   onChange: (valute: string) => void;
 };
 export const Search = memo((props: SearchProps) => {
-  // const [searchValue, setSearchValue] = useState("");
   const { onChange, searchValute } = props;
-  // const { searchValue, setSearchValue } = useSearchStore();
 
   return (
     <Input
