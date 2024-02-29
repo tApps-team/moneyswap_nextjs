@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 import { selectType } from "@/shared/types";
 import { useSelectsStore } from "../model/store/valuteStore";
@@ -14,7 +14,7 @@ interface ValuteCardProps {
   type: selectType;
 }
 
-export const ValuteCard: FC<ValuteCardProps> = (props) => {
+export const ValuteCard: FC<ValuteCardProps> = memo((props) => {
   const { valute, type } = props;
   const { giveSelect, getSelect, setGetSelect, setGiveSelect } = useSelectsStore((state) => state);
   const handleSelect = () => {
@@ -48,4 +48,4 @@ export const ValuteCard: FC<ValuteCardProps> = (props) => {
       <p className={styles.valute_code}>{valute.code_name}</p>
     </Link>
   );
-};
+});
