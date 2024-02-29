@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { routes } from "@/shared/router";
 import { Navbar } from "../navbar";
 import styles from "./header.module.scss";
-import Link from "next/link";
-import { routes } from "@/shared/router";
-import { useEffect, useState } from "react";
 
 export const Header = () => {
   const [isTop, setIsTop] = useState(true);
@@ -22,9 +22,7 @@ export const Header = () => {
     };
   });
   return (
-    <header
-      className={isTop ? styles.header : `${styles.header} ${styles.active}`}
-    >
+    <header className={isTop ? styles.header : `${styles.header} ${styles.active}`}>
       <Link href={routes.main} className="link">
         <div>LOGO</div>
       </Link>
