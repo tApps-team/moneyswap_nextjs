@@ -1,9 +1,9 @@
 "use client";
-import { ChangeEvent, FC, memo, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, FC, memo, useCallback, useEffect, useMemo, useState } from "react";
 import { DirectionTabs } from "@/features/directionTabs";
 import { Search, useSearchStore } from "@/features/search";
 import { CategoriesWithLang, getAvailable } from "@/entities/categories";
-import { ValuteCard } from "@/entities/valute";
+import { ValuteCard, useSelectsStore } from "@/entities/valute";
 import { selectType } from "@/shared/types";
 import styles from "./valutesList.module.scss";
 
@@ -17,6 +17,16 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
 
   const [searchValute, setSearchValute] = useState("");
   const [directionExchange, setDirectionExchange] = useState("");
+  const [availableDestinations, setAvailableDestinations] = useState<CategoriesWithLang>();
+
+  const toExchange = useSelectsStore((state) => state.giveSelect?.code_name);
+
+  const currentCategories = selectType === "give" ? categories : availableDestinations;
+
+  useEffect(() => {
+    if (toExchange && selectType === "get")
+      getAvailable(toExchange).then((valutes) => setAvailableDestinations(valutes));
+  }, [selectType, toExchange]);
 
   const onChange = useCallback((searchValue: string) => {
     setSearchValute(searchValue);
@@ -28,10 +38,10 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
 
   const filteredValutes = useMemo(
     () =>
-      categories?.ru[directionExchange]?.filter((valute) =>
+      currentCategories?.ru[directionExchange]?.filter((valute) =>
         valute.name.toLowerCase().includes(searchValute.toLowerCase()),
       ),
-    [categories?.ru, directionExchange, searchValute],
+    [currentCategories?.ru, directionExchange, searchValute],
   );
 
   return (
@@ -39,7 +49,7 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
       <DirectionTabs
         directionExchange={directionExchange}
         setDirectionExchange={onChangeDirectionExchager}
-        directions={categories?.ru}
+        directions={currentCategories?.ru}
       />
       <Search onChange={onChange} searchValute={searchValute} />
       {filteredValutes?.map((valute) => (
