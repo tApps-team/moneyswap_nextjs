@@ -37,9 +37,7 @@ export const Header = () => {
   const path = usePathname();
 
   return (
-    <header
-      className={isTop ? styles.header : `${styles.header} ${styles.active}`}
-    >
+    <header className={isTop ? styles.header : `${styles.header} ${styles.active}`}>
       <Link onClick={handeLogoClick} href={routes.main} className="link">
         <div>LOGO</div>
       </Link>
