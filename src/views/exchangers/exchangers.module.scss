@@ -1,0 +1,30 @@
+.container {
+
+    .content {
+        margin-bottom: 50px;
+        display: grid;
+        gap: 20px;
+        justify-content: center;
+        justify-items: center;
+        text-align: center;
+
+        .title {
+            font-size: 30px;
+            font-weight: 500;
+        }
+    
+        .description {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            max-width: 80%;
+        }
+    }
+
+    .error {
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+        color: rgba(0,0,0,0.3);
+    }
+}

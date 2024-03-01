@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./navbar.module.scss";
-import { routes } from "@/shared/router";
 import { usePathname } from "next/navigation";
+import { routes } from "@/shared/router";
+import styles from "./navbar.module.scss";
 
 export const Navbar = () => {
   const path = usePathname();
@@ -12,12 +12,17 @@ export const Navbar = () => {
       <ul>
         <li className={path === routes.about ? styles.active : ""}>
           <Link className="link" href={routes.about}>
-            About
+            О нас
           </Link>
         </li>
-        <li className={path === routes.todos ? styles.active : ""}>
-          <Link className="link" href={routes.todos}>
-            Todos
+        <li className={path === routes.partners ? styles.active : ""}>
+          <Link className="link" href={routes.partners}>
+            Партнерам
+          </Link>
+        </li>
+        <li className={path === routes.faq ? styles.active : ""}>
+          <Link className="link" href={routes.faq}>
+            FAQ
           </Link>
         </li>
       </ul>
