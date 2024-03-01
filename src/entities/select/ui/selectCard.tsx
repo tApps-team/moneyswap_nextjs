@@ -10,9 +10,7 @@ export const SelectCard: FC<SelectCardProps> = (props) => {
   const { type } = props;
   return (
     <section className={styles.select_card}>
-      <h3 className={styles.select_title}>
-        {type === selectType.give ? "Отдаю:" : "Получаю:"}
-      </h3>
+      <h3 className={styles.select_title}>{type === selectType.give ? "Отдаю:" : "Получаю:"}</h3>
     </section>
   );
 };

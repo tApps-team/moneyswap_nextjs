@@ -12,8 +12,8 @@ export const getExchangers = async ({
   city,
 }: ReqFetchExchangersDto): Promise<Exchanger[]> => {
   const apiUrl = city
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions_multi?city=${city}&valute_from=${from}&valute_to=${to}`
-    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions_multi?valute_from=${from}&valute_to=${to}`;
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions?city=${city}&valute_from=${from}&valute_to=${to}`
+    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions?valute_from=${from}&valute_to=${to}`;
 
   try {
     const res = await fetch(apiUrl);

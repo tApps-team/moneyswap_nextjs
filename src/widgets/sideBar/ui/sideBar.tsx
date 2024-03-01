@@ -1,29 +1,23 @@
-import { FC } from "react";
-import { DirectionTabs } from "@/features/directionTabs";
-import { Search } from "@/features/search";
-import { getAvailable } from "@/entities/categories";
+import { FC, useEffect, useState } from "react";
+import { CategoriesWithLang, getAvailable } from "@/entities/categories";
+import { Exchanger, getExchangers } from "@/entities/exchanger";
 import { SelectCard } from "@/entities/select";
+import { useSelectsStore } from "@/entities/valute";
 import { selectType } from "@/shared/types";
 import { ValutesList } from "../valutesList";
 import styles from "./sideBar.module.scss";
 
 interface SideBarProps {}
 
-export const SideBar: FC<SideBarProps> = async (props) => {
+export const SideBar = async (props: SideBarProps) => {
   const availableValutes = await getAvailable("all");
-
-  /// добавить сюда запрос getAvailable и передать дату в ValutesList
-  /// как то сохранять в этом стейте выбранные валюты + передавать их в селектКард
-  /// добавить useEffect для рефетча и + учет get give как то
 
   return (
     <section className={styles.sidebar}>
-      <DirectionTabs />
-      <Search />
       <SelectCard type={selectType.give} />
       <ValutesList selectType={selectType.give} categories={availableValutes} />
       <SelectCard type={selectType.get} />
-      <ValutesList selectType={selectType.get} categories={availableValutes} />
+      <ValutesList selectType={selectType.get} />
     </section>
   );
 };
