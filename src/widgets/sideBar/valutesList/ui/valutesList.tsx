@@ -51,7 +51,7 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
         setDirectionExchange={onChangeDirectionExchager}
         directions={currentCategories?.ru}
       />
-      <Search onChange={onChange} searchValute={searchValute} />
+      <Search onChange={onChange} searchValue={searchValute} />
       {filteredValutes?.map((valute) => (
         <ValuteCard key={valute.id} valute={valute} type={selectType} />
       ))}
