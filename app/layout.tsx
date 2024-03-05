@@ -1,9 +1,8 @@
 import { Montserrat } from "next/font/google";
-import "../src/shared/styles/globals.scss";
+import "@/shared/styles/globals.scss";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 import { SideBar } from "@/widgets/sideBar";
-import styles from "./layout.module.scss";
 
 export const metadata = {
   title: "Next.js",
@@ -15,16 +14,12 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={montserrat.className}>
-      <body className={styles.container}>
+    <html lang="ru" className={montserrat.className}>
+      <body className="container">
         <Header />
-        <main className={styles.body}>
+        <main>
           <SideBar />
           {children}
         </main>

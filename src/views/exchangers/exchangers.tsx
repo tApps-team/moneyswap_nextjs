@@ -18,11 +18,7 @@ import styles from "./exchangers.module.scss";
 //   };
 // }
 
-export const Exchangers = async ({
-  params,
-}: {
-  params: { direction: string };
-}) => {
+export const Exchangers = async ({ params }: { params: { direction: string } }) => {
   // извлечение значений валют из пути
   const currencies = params.direction.split("-to-");
   const from = currencies[0];
@@ -30,20 +26,17 @@ export const Exchangers = async ({
   const exchangers = await getExchangers({ from, to });
 
   return (
-    <section className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={styles.title}>EXCHANGERS PAGE</h1>
-        <p className={styles.description}>
-          ЗДЕСЬ БУДЕТ КОНТЕНТ КОТОРЫЙ ЗАВИСИТ ОТ КОНКРЕТНОГО НАПРАВЛЕНИЯ {from}{" "}
-          И {to}
+    <section className="page__container">
+      <div className="content">
+        <h1 className="title">EXCHANGERS PAGE</h1>
+        <p className="description">
+          ЗДЕСЬ БУДЕТ КОНТЕНТ КОТОРЫЙ ЗАВИСИТ ОТ КОНКРЕТНОГО НАПРАВЛЕНИЯ {from} И {to}
         </p>
       </div>
       {exchangers.length > 0 ? (
         <ExchangersList exchangers={exchangers} />
       ) : (
-        <h3 className={styles.error}>
-          Нет обменников с данным направлением :(
-        </h3>
+        <h3 className="error">Нет обменников с данным направлением :(</h3>
       )}
     </section>
   );

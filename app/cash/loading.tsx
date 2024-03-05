@@ -1,8 +1,6 @@
-import "@/shared/styles/globals.scss";
-
 export default async function Loading() {
   return (
-    <section className="loading">
+    <section>
       <h1>Loading exchangers...</h1>
     </section>
   );

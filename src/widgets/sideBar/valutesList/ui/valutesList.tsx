@@ -1,15 +1,16 @@
 "use client";
-import { ChangeEvent, FC, memo, useCallback, useEffect, useMemo, useState } from "react";
+
+import { FC, memo, useCallback, useEffect, useMemo, useState } from "react";
 import { DirectionTabs } from "@/features/directionTabs";
-import { Search, useSearchStore } from "@/features/search";
+import { Search } from "@/features/search";
 import { CategoriesWithLang, getAvailable } from "@/entities/categories";
 import { ValuteCard, useSelectsStore } from "@/entities/valute";
-import { selectType } from "@/shared/types";
+import { selectTypes } from "@/shared/types";
 import styles from "./valutesList.module.scss";
 
 interface ValutesListProps {
-  selectType: selectType;
-  categories?: CategoriesWithLang;
+  selectType: selectTypes;
+  categories?: CategoriesWithLang | null;
 }
 
 export const ValutesList: FC<ValutesListProps> = memo((props) => {
@@ -21,11 +22,12 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
 
   const toExchange = useSelectsStore((state) => state.giveSelect?.code_name);
 
-  const currentCategories = selectType === "give" ? categories : availableDestinations;
+  const currentCategories = selectType === selectTypes.give ? categories : availableDestinations;
 
   useEffect(() => {
-    if (toExchange && selectType === "get")
+    if (toExchange && selectType === selectTypes.get) {
       getAvailable(toExchange).then((valutes) => setAvailableDestinations(valutes));
+    }
   }, [selectType, toExchange]);
 
   const onChange = useCallback((searchValue: string) => {
