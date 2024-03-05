@@ -17,7 +17,7 @@ export const SideBar = async (props: SideBarProps) => {
   const countries = await getCountries();
   return (
     <section className={styles.sidebar}>
-      <CountriesList countries={countries} />
+      <CountriesList show countries={countries} />
       <SelectCard type={selectType.give} />
       <ValutesList selectType={selectType.give} categories={availableValutes} />
       <SelectCard type={selectType.get} />
