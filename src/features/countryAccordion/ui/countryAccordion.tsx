@@ -22,27 +22,27 @@ export const CountryAccordion = memo((props: CountryAccordionProps) => {
     });
   }, [countries, searchCountry]);
 
+  const valueAccordion = useMemo(
+    () => (searchCountry ? filteredCountries.map((el) => el.name.ru) : undefined),
+    [filteredCountries, searchCountry],
+  );
   return (
-    <>
-      {show ? (
-        <Accordion className="w-full" collapsible type="single">
-          {filteredCountries?.map((country) => (
-            <AccordionItem className="text-nowrap" value={country?.name.ru} key={country?.id}>
-              <AccordionTrigger>{country?.name.ru}</AccordionTrigger>
-              <AccordionContent
-                className="cursor-pointer text-base"
-                onClick={() => setCountry(country)}
-              >
-                {country?.cities.map((city) => (
-                  <div className="p-2 hover:bg-neutral-600 rounded" key={city.id}>
-                    {city?.name?.ru}
-                  </div>
-                ))}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      ) : null}
-    </>
+    <Accordion value={valueAccordion} className="w-full" type="multiple">
+      {filteredCountries?.map((country) => (
+        <AccordionItem className="text-nowrap" value={country?.name.ru} key={country?.id}>
+          <AccordionTrigger>{country?.name.ru}</AccordionTrigger>
+          <AccordionContent
+            className="cursor-pointer text-base"
+            onClick={() => setCountry(country)}
+          >
+            {country?.cities.map((city) => (
+              <div className="p-2 hover:bg-neutral-600 rounded" key={city.id}>
+                {city?.name?.ru}
+              </div>
+            ))}
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
   );
 });
