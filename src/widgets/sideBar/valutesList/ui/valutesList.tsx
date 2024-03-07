@@ -18,15 +18,16 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
 
   const [searchValute, setSearchValute] = useState("");
   const [directionExchange, setDirectionExchange] = useState("");
-  const [availableDestinations, setAvailableDestinations] = useState<CategoriesWithLang>();
+  const [availableDestinations, setAvailableDestinations] = useState<CategoriesWithLang | null>();
 
   const toExchange = useSelectsStore((state) => state.giveSelect?.code_name);
 
   const currentCategories = selectType === selectTypes.give ? categories : availableDestinations;
 
   useEffect(() => {
+    setAvailableDestinations(null);
     if (toExchange && selectType === selectTypes.get) {
-      getAvailable(toExchange).then((valutes) => setAvailableDestinations(valutes));
+      getAvailable({ base: toExchange }).then((valutes) => setAvailableDestinations(valutes));
     }
   }, [selectType, toExchange]);
 
@@ -53,7 +54,7 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
         setDirectionExchange={onChangeDirectionExchager}
         directions={currentCategories?.ru}
       />
-      <Search onChange={onChange} searchValute={searchValute} />
+      <Search onChange={onChange} searchValue={searchValute} />
       {filteredValutes?.map((valute) => (
         <ValuteCard key={valute.id} valute={valute} type={selectType} />
       ))}

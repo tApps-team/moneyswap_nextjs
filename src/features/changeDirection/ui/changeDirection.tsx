@@ -5,18 +5,20 @@ import { DirectionCard, useDirectionStore } from "@/entities/direction";
 import { directions } from "@/shared/types";
 import styles from "./changeDirection.module.scss";
 import { useSelectsStore } from "@/entities/valute";
+import { useCountryStore } from "@/entities/country";
 
 interface ChangeDirectionProps {}
 
 export const ChangeDirection: FC<ChangeDirectionProps> = () => {
   const { selectedDirection, setSelectedDirection } = useDirectionStore((state) => state);
   const { setGetSelect, setGiveSelect } = useSelectsStore((state) => state);
+  const setCountry = useCountryStore((state) => state.setCountry);
 
   const handleChangeDirection = (direction: directions) => {
     setSelectedDirection(direction);
     setGiveSelect(null);
     setGetSelect(null);
-    // добавить сюда очистку location Store в том числе
+    setCountry(null);
   };
 
   return (
