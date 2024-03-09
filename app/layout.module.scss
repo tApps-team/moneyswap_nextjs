@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template: minmax(50px, 80px) 1fr minmax(200px, 300px) / 1fr;
-  padding: 0px 50px;
+  padding: 0px 50px; //Todo при modal почему то не применяется
 
   .body {
     display: grid;
