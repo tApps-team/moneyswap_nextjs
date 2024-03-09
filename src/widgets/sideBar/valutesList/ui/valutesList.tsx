@@ -5,6 +5,7 @@ import { Search, useSearchStore } from "@/features/search";
 import { CategoriesWithLang, getAvailable } from "@/entities/categories";
 import { ValuteCard, useSelectsStore } from "@/entities/valute";
 import { selectType } from "@/shared/types";
+import { Input } from "@/shared/ui";
 import styles from "./valutesList.module.scss";
 
 interface ValutesListProps {
@@ -51,7 +52,11 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
         setDirectionExchange={onChangeDirectionExchager}
         directions={currentCategories?.ru}
       />
-      <Search onChange={onChange} searchValue={searchValute} />
+      <Input
+        className="text-slate-950 rounded-xl text-xl"
+        onChange={(e) => onChange(e.target.value.trim())}
+        value={searchValute}
+      />
       {filteredValutes?.map((valute) => (
         <ValuteCard key={valute.id} valute={valute} type={selectType} />
       ))}
