@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { CountryAccordion } from "@/features/countryAccordion";
+import { CountryModal } from "@/features/countryModal";
 import { CategoriesWithLang, getAvailable } from "@/entities/categories";
 import { getCountries } from "@/entities/country";
 import { Exchanger, getExchangers } from "@/entities/exchanger";
@@ -17,6 +18,7 @@ export const SideBar = async (props: SideBarProps) => {
   const countries = await getCountries();
   return (
     <section className={styles.sidebar}>
+      <CountryModal />
       <CountriesList show countries={countries} />
       <SelectCard type={selectType.give} />
       <ValutesList selectType={selectType.give} categories={availableValutes} />
