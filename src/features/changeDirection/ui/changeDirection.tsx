@@ -14,7 +14,7 @@ export const ChangeDirection: FC<ChangeDirectionProps> = () => {
   const { setGetSelect, setGiveSelect } = useSelectsStore((state) => state);
   const setCountry = useCountryStore((state) => state.setCountry);
 
-  const handleChangeDirection = (direction: directions) => {
+  const handleChangeDirection = (direction: directions | null) => {
     setSelectedDirection(direction);
     setGiveSelect(null);
     setGetSelect(null);

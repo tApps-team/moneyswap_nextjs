@@ -7,6 +7,7 @@ import { selectTypes } from "@/shared/types";
 import { useSelectsStore } from "../model/store/valuteStore";
 import { Valute } from "../model/types/valute";
 import styles from "./valuteCard.module.scss";
+import { useCountryStore } from "@/entities/country";
 
 interface ValuteCardProps {
   valute: Valute;
@@ -16,6 +17,7 @@ interface ValuteCardProps {
 export const ValuteCard: FC<ValuteCardProps> = memo((props) => {
   const { valute, type } = props;
   const { giveSelect, getSelect, setGetSelect, setGiveSelect } = useSelectsStore((state) => state);
+  const cityName = useCountryStore((state) => state.city?.code_name);
 
   const handleSelect = () => {
     if (type === selectTypes.give) {
@@ -26,7 +28,11 @@ export const ValuteCard: FC<ValuteCardProps> = memo((props) => {
     }
   };
 
-  const pagePath =
+  const pagePathCash =
+    type === selectTypes.get && giveSelect
+      ? `${giveSelect?.code_name}-to-${valute.code_name}-${cityName}`
+      : "";
+  const pagePathNoncash =
     type === selectTypes.get && giveSelect ? `${giveSelect?.code_name}-to-${valute.code_name}` : "";
 
   // add active className
@@ -46,8 +52,8 @@ export const ValuteCard: FC<ValuteCardProps> = memo((props) => {
     <Link
       onClick={handleSelect}
       className={linkClasses}
-      href={pagePath}
-      // scroll={false}
+      href={cityName ? pagePathCash : pagePathNoncash}
+      scroll={false}
     >
       <h3 className={styles.valute_name}>{valute.name}</h3>
       <p className={styles.valute_code}>{valute.code_name}</p>

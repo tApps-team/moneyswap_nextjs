@@ -6,8 +6,8 @@ import { directions } from "@/shared/types";
 import styles from "./directionCard.module.scss";
 
 interface DirectionTabProps {
-  direction: directions;
-  selectedDirection: directions;
+  direction: directions | null;
+  selectedDirection: directions | null;
   changeDirection: (direction: directions) => void;
 }
 
@@ -19,7 +19,7 @@ export const DirectionCard: FC<DirectionTabProps> = ({
   return (
     <div
       className={clsx(styles.direction, { [styles.active]: direction === selectedDirection })}
-      onClick={() => changeDirection(direction)}
+      onClick={() => direction && changeDirection(direction)}
     >
       <p className={styles.title}>{direction}</p>
     </div>

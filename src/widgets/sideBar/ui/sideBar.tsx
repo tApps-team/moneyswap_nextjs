@@ -22,15 +22,15 @@ export const SideBar: FC<SideBarProps> = () => {
 
   useEffect(() => {
     if (selectedDirection === directions.cash && city) {
-      getAvailable({ base: "all", city: city.codeName }).then((valutes) =>
-        setAvailableValutes(valutes),
-      );
+      getAvailable({ base: "all", city: city.code_name })
+        .then((valutes) => setAvailableValutes(valutes))
+        .catch(() => setAvailableValutes(null));
     } else if (selectedDirection === directions.cash && !city) {
       setAvailableValutes(null);
     } else {
       getAvailable({ base: "all" }).then((valutes) => setAvailableValutes(valutes));
     }
-    console.log(city?.codeName);
+    console.log(city?.code_name);
   }, [selectedDirection, city]);
 
   return (

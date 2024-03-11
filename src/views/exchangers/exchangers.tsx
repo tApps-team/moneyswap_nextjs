@@ -20,17 +20,19 @@ import styles from "./exchangers.module.scss";
 
 export const Exchangers = async ({ params }: { params: { direction: string } }) => {
   // извлечение значений валют из пути
-  const currencies = params.direction.split("-to-");
+  const currencies = params.direction.split("-");
   const from = currencies[0];
-  const to = currencies[1];
-  const exchangers = await getExchangers({ from, to });
+  const to = currencies[2];
+  const city = currencies[3];
+  const exchangers = await getExchangers({ from, to, city });
 
   return (
     <section className="page__container">
       <div className="content">
         <h1 className="title">EXCHANGERS PAGE</h1>
         <p className="description">
-          ЗДЕСЬ БУДЕТ КОНТЕНТ КОТОРЫЙ ЗАВИСИТ ОТ КОНКРЕТНОГО НАПРАВЛЕНИЯ {from} И {to}
+          ЗДЕСЬ БУДЕТ КОНТЕНТ КОТОРЫЙ ЗАВИСИТ ОТ КОНКРЕТНОГО НАПРАВЛЕНИЯ {from} И {to}{" "}
+          {city && `и ${city}`}
         </p>
       </div>
       {exchangers.length > 0 ? (

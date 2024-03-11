@@ -7,6 +7,7 @@ import { CategoriesWithLang, getAvailable } from "@/entities/categories";
 import { ValuteCard, useSelectsStore } from "@/entities/valute";
 import { selectTypes } from "@/shared/types";
 import styles from "./valutesList.module.scss";
+import { useCountryStore } from "@/entities/country";
 
 interface ValutesListProps {
   selectType: selectTypes;
@@ -21,13 +22,16 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
   const [availableDestinations, setAvailableDestinations] = useState<CategoriesWithLang | null>();
 
   const toExchange = useSelectsStore((state) => state.giveSelect?.code_name);
+  const cityCodeName = useCountryStore((state) => state.city?.code_name);
 
   const currentCategories = selectType === selectTypes.give ? categories : availableDestinations;
 
   useEffect(() => {
     setAvailableDestinations(null);
     if (toExchange && selectType === selectTypes.get) {
-      getAvailable({ base: toExchange }).then((valutes) => setAvailableDestinations(valutes));
+      getAvailable({ base: toExchange, city: cityCodeName }).then((valutes) =>
+        setAvailableDestinations(valutes),
+      );
     }
   }, [selectType, toExchange]);
 

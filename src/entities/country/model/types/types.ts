@@ -3,7 +3,7 @@ import { Name } from "@/shared/types";
 export type City = {
   id: number;
   name: Name;
-  codeName: string;
+  code_name: string;
 };
 
 export type Country = {
