@@ -14,6 +14,7 @@ export const CountryCard = (props: CountryCardProps) => {
       <CardContent className="py-2 hover:bg-slate-400">
         <div onClick={() => onClick(country?.id)} className="flex items-center cursor-pointer ">
           <Image
+            loading="lazy"
             src={country?.icon_url}
             alt={`country ${country.name.ru}`}
             width={32}
