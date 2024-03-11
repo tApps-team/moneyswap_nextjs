@@ -4,6 +4,7 @@ import { CountryAccordion } from "@/features/countryAccordion";
 import { Search } from "@/features/search";
 import { Country, getCountries } from "@/entities/country";
 import { useDebounce, useThrottle } from "@/shared/lib";
+import { Button, Dialog, DialogContent, DialogTrigger } from "@/shared/ui";
 type CountriesListProps = {
   countries: Country[];
   show?: boolean;
@@ -22,8 +23,15 @@ export const CountriesList = (props: CountriesListProps) => {
     <>
       {show ? (
         <div>
-          <Search onChange={onChange} searchValue={searchCountry} />
-          <CountryAccordion show searchCountry={searchCountryThrottled} countries={countries} />
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="secondary">Open modal Accordion</Button>
+            </DialogTrigger>
+            <DialogContent className="min-w-[600px] max-h-[700px] min-h-[700px] overflow-y-scroll">
+              <Search onChange={onChange} searchValue={searchCountry} />
+              <CountryAccordion show searchCountry={searchCountryThrottled} countries={countries} />
+            </DialogContent>
+          </Dialog>
         </div>
       ) : null}
     </>

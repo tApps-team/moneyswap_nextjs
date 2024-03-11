@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { CityCard, Country, CountryCard, getCountries, useCountryStore } from "@/entities/country";
+import { useDebounce } from "@/shared/lib";
 import {
   Button,
   Dialog,
@@ -17,29 +18,35 @@ import {
 
 export const CountryModal = () => {
   const country = useCountryStore((state) => state.country);
+  const setCity = useCountryStore((state) => state.setCity);
+  const city = useCountryStore((state) => state.city);
   const [countries, setCountries] = useState<Country[]>();
-  const [searchCountry, setSearchCountry] = useState("");
   const [currentCountryId, setCurrentCountryId] = useState<number | null>(null);
+  const [searchCountry, setSearchCountry] = useState("");
+  const debouncedSearchCountry = useDebounce(searchCountry);
+  console.log(city);
   const handleChange = useCallback((value: string) => {
     setSearchCountry(value);
     setCurrentCountryId(null);
   }, []);
+
   const handleClick = useCallback((currentCountry: number) => {
     setCurrentCountryId(currentCountry);
   }, []);
+
   useEffect(() => {
     getCountries().then((countries) => setCountries(countries));
   }, []);
-  console.log(currentCountryId);
+
   const filteredCountries = useMemo(() => {
     return countries?.filter((country) => {
       const countryName = country?.name?.ru.toLowerCase();
       const filteredCities = country.cities.filter((city) =>
-        city?.name?.ru.toLowerCase().includes(searchCountry.toLowerCase()),
+        city?.name?.ru.toLowerCase().includes(debouncedSearchCountry.toLowerCase()),
       );
-      return countryName.includes(searchCountry.toLowerCase()) || filteredCities.length;
+      return countryName.includes(debouncedSearchCountry.toLowerCase()) || filteredCities.length;
     });
-  }, [countries, searchCountry]);
+  }, [countries, debouncedSearchCountry]);
 
   const filteredCities = useMemo(() => {
     const selectedCountry = countries?.find((country) => country.id === currentCountryId);
@@ -64,13 +71,13 @@ export const CountryModal = () => {
           <Button>Выберите город </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="min-w-[800px]">
+      <DialogContent className="max-w-[800px]">
         <DialogHeader>
           <DialogTitle>Выбрать город</DialogTitle>
           <DialogDescription>
             <Input
               value={searchCountry}
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e.target.value.trim())}
               className="focus-visible:ring-transparent"
               placeholder="Поиск города и страны"
             />
@@ -83,7 +90,9 @@ export const CountryModal = () => {
             ))}
           </div>
           <div className="border w-96 max-h-[300px] rounded-lg  overflow-y-scroll">
-            {filteredCities?.map((city) => <CityCard key={city.id} city={city} />)}
+            {filteredCities?.map((city) => (
+              <CityCard onClick={setCity} key={city.id} city={city} />
+            ))}
           </div>
         </div>
 
