@@ -5,14 +5,14 @@ import { Card, CardContent } from "@/shared/ui";
 import { City } from "..";
 type CityCardProps = {
   city: City;
-  onClick?: () => void;
+  onClick: (city: City) => void;
 };
 export const CityCard = (props: CityCardProps) => {
   const { city, onClick } = props;
   return (
     <Card className="border-none rounded-none">
       <CardContent className="py-2 hover:bg-slate-400">
-        <div onClick={onClick} className="flex items-center cursor-pointer ">
+        <div onClick={() => onClick(city)} className="flex items-center cursor-pointer ">
           <div>{city?.name.ru}</div>
         </div>
       </CardContent>
