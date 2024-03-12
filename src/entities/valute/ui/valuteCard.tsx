@@ -4,6 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { FC, memo } from "react";
 import { selectType } from "@/shared/types";
+import { DialogClose } from "@/shared/ui";
 import { useSelectsStore } from "../model/store/valuteStore";
 import { Valute } from "../model/types/valute";
 import styles from "./valuteCard.module.scss";
@@ -42,14 +43,16 @@ export const ValuteCard: FC<ValuteCardProps> = memo((props) => {
   );
 
   return (
-    <Link
-      onClick={handleSelect}
-      className={linkClasses}
-      href={pagePath}
-      // scroll={false}
-    >
-      <h3 className={styles.valute_name}>{valute.name}</h3>
-      <p className={styles.valute_code}>{valute.code_name}</p>
-    </Link>
+    <DialogClose asChild>
+      <Link
+        onClick={handleSelect}
+        className={linkClasses}
+        href={pagePath}
+        // scroll={false}
+      >
+        <h3 className={styles.valute_name}>{valute.name}</h3>
+        <p className={styles.valute_code}>{valute.code_name}</p>
+      </Link>
+    </DialogClose>
   );
 });
