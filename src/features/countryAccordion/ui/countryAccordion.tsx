@@ -2,7 +2,13 @@
 
 import { memo, useMemo } from "react";
 import { Country, useCountryStore } from "@/entities/country";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  DialogClose,
+} from "@/shared/ui";
 type CountryAccordionProps = {
   countries: Country[];
   show?: boolean;
@@ -27,18 +33,18 @@ export const CountryAccordion = memo((props: CountryAccordionProps) => {
     [filteredCountries, searchCountry],
   );
   return (
-    <Accordion value={valueAccordion} className="w-full" type="multiple">
+    <Accordion value={valueAccordion} type="multiple">
       {filteredCountries?.map((country) => (
         <AccordionItem className="text-nowrap" value={country?.name.ru} key={country?.id}>
           <AccordionTrigger>{country?.name.ru}</AccordionTrigger>
           <AccordionContent
-            className="cursor-pointer text-base"
+            className="cursor-pointer text-base "
             onClick={() => setCountry(country)}
           >
             {country?.cities.map((city) => (
-              <div className="p-2 hover:bg-neutral-600 rounded" key={city.id}>
-                {city?.name?.ru}
-              </div>
+              <DialogClose asChild key={city.id}>
+                <div className="p-2 hover:bg-neutral-600 rounded">{city?.name?.ru}</div>
+              </DialogClose>
             ))}
           </AccordionContent>
         </AccordionItem>
