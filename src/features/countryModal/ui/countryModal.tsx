@@ -71,7 +71,7 @@ export const CountryModal = () => {
           <Button>Выберите город </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="max-w-[800px]">
+      <DialogContent className="min-w-[800px]">
         <DialogHeader>
           <DialogTitle>Выбрать город</DialogTitle>
           <DialogDescription>
@@ -83,20 +83,18 @@ export const CountryModal = () => {
             />
           </DialogDescription>
         </DialogHeader>
-        <div className="flex">
-          <div className="border w-96 max-h-[300px] rounded-lg overflow-y-scroll ">
+        <div className="flex  min-h-[550px]">
+          <div className="border w-96 max-h-[500px] rounded-lg overflow-y-scroll ">
             {filteredCountries?.map((country) => (
               <CountryCard onClick={handleClick} key={country.id} country={country} />
             ))}
           </div>
-          <div className="border w-96 max-h-[300px] rounded-lg  overflow-y-scroll">
+          <div className="border w-96 max-h-[500px] rounded-lg  overflow-y-scroll">
             {filteredCities?.map((city) => (
               <CityCard onClick={setCity} key={city.id} city={city} />
             ))}
           </div>
         </div>
-
-        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   );
