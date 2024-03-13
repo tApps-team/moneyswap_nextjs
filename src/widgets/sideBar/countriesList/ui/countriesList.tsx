@@ -2,7 +2,8 @@
 import { useCallback, useDeferredValue, useState } from "react";
 import { CountryAccordion } from "@/features/countryAccordion";
 import { Search } from "@/features/search";
-import { Country, getCountries } from "@/entities/country";
+import { Country, getCountries, useCountryStore } from "@/entities/country";
+import { useSelectsStore } from "@/entities/valute";
 import { useDebounce, useThrottle } from "@/shared/lib";
 import { Button, Dialog, DialogContent, DialogTrigger, Input } from "@/shared/ui";
 type CountriesListProps = {
@@ -12,6 +13,8 @@ type CountriesListProps = {
 export const CountriesList = (props: CountriesListProps) => {
   const { countries, show } = props;
   const [searchCountry, setSearchCountry] = useState("");
+  const city = useCountryStore((state) => state.city);
+  const country = useCountryStore((state) => state.country);
   //Todo Обсудить нужен ли throttle или нет
   const searchCountryThrottled = useDebounce(searchCountry, 300);
 
@@ -25,7 +28,9 @@ export const CountriesList = (props: CountriesListProps) => {
         <div>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="secondary">Open modal Accordion</Button>
+              <Button variant="secondary">
+                {country ? `Старна ${country.name.ru}` : "Выберите страну"}
+              </Button>
             </DialogTrigger>
             <DialogContent className="min-w-[600px] overflow-y-scroll">
               <div className="min-h-[600px] max-h-[600px] ">

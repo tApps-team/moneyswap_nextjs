@@ -65,7 +65,7 @@ export const CountryModal = () => {
               src={country.icon_url}
               alt={`country ${country.name.ru}`}
             />
-            <div>Выберите город</div>
+            <div>{`Город ${city?.name.ru}`}</div>
           </Button>
         ) : (
           <Button>Выберите город </Button>
