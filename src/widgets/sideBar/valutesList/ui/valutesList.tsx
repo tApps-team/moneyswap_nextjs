@@ -59,7 +59,9 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
     <section className={styles.list}>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Отдаю {currentSelectName} </Button>
+          <Button>
+            {selectType === selectTypes.give ? "Отдаю" : "Получаю"} {currentSelectName}
+          </Button>
         </DialogTrigger>
         <DialogContent className="min-w-[600px] bg-current">
           <div className="min-h-[400px] grid grid-cols-1 grid-rows-2">

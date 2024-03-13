@@ -35,8 +35,12 @@ export const SideBar: FC<SideBarProps> = () => {
   return (
     <section className={styles.sidebar}>
       <ChangeDirection />
-      <CountryModal />
-      {selectedDirection === directions.cash && <CountriesList />}
+      {selectedDirection === directions.cash && (
+        <>
+          <CountryModal />
+          <CountriesList />
+        </>
+      )}
       <SelectCard type={selectTypes.give} />
       <ValutesList selectType={selectTypes.give} categories={availableValutes} />
       <SelectCard type={selectTypes.get} />

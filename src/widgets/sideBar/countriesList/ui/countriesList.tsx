@@ -1,10 +1,9 @@
 "use client";
-import { useCallback, useDeferredValue, useEffect, useState } from "react";
+
+import { useCallback, useEffect, useState } from "react";
 import { CountryAccordion } from "@/features/countryAccordion";
-import { Search } from "@/features/search";
 import { Country, getCountries, useCountryStore } from "@/entities/country";
-import { useSelectsStore } from "@/entities/valute";
-import { useDebounce, useThrottle } from "@/shared/lib";
+import { useDebounce } from "@/shared/lib";
 import { Button, Dialog, DialogContent, DialogTrigger, Input } from "@/shared/ui";
 
 type CountriesListProps = {};
