@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { CityCard, Country, CountryCard, getCountries, useCountryStore } from "@/entities/country";
 import { useDebounce } from "@/shared/lib";
 import {
   Button,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -18,13 +19,15 @@ import {
 
 export const CountryModal = () => {
   const country = useCountryStore((state) => state.country);
-  const setCity = useCountryStore((state) => state.setCity);
   const city = useCountryStore((state) => state.city);
+  const setCity = useCountryStore((state) => state.setCity);
+
   const [countries, setCountries] = useState<Country[]>();
   const [currentCountryId, setCurrentCountryId] = useState<number | null>(null);
   const [searchCountry, setSearchCountry] = useState("");
+
   const debouncedSearchCountry = useDebounce(searchCountry);
-  console.log(city);
+
   const handleChange = useCallback((value: string) => {
     setSearchCountry(value);
     setCurrentCountryId(null);
@@ -57,14 +60,14 @@ export const CountryModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {country ? (
+        {city ? (
           <Button>
-            <Image
+            {/* <Image
               width={32}
               height={32}
               src={country.icon_url}
               alt={`country ${country.name.ru}`}
-            />
+            /> */}
             <div>{`Город ${city?.name.ru}`}</div>
           </Button>
         ) : (
@@ -74,14 +77,12 @@ export const CountryModal = () => {
       <DialogContent className="min-w-[800px]">
         <DialogHeader>
           <DialogTitle>Выбрать город</DialogTitle>
-          <DialogDescription>
-            <Input
-              value={searchCountry}
-              onChange={(e) => handleChange(e.target.value.trim())}
-              className="focus-visible:ring-transparent"
-              placeholder="Поиск города и страны"
-            />
-          </DialogDescription>
+          <Input
+            value={searchCountry}
+            onChange={(e) => handleChange(e.target.value.trim())}
+            className="focus-visible:ring-transparent"
+            placeholder="Поиск города и страны"
+          />
         </DialogHeader>
         <div className="flex  min-h-[550px]">
           <div className="border w-96 max-h-[500px] rounded-lg overflow-y-scroll ">
@@ -91,7 +92,9 @@ export const CountryModal = () => {
           </div>
           <div className="border w-96 max-h-[500px] rounded-lg  overflow-y-scroll">
             {filteredCities?.map((city) => (
-              <CityCard onClick={setCity} key={city.id} city={city} />
+              <DialogClose asChild key={city.id}>
+                <CityCard onClick={setCity} city={city} />
+              </DialogClose>
             ))}
           </div>
         </div>
