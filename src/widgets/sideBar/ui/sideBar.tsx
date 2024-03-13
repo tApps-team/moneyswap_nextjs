@@ -1,10 +1,10 @@
 "use client";
 
 import { ChangeDirection } from "@/features/changeDirection";
+import { FC, useEffect, useState } from "react";
+import { CountryModal } from "@/features/countryModal";
 import { SelectCard } from "@/entities/select";
 import { directions, selectTypes } from "@/shared/types";
-import { FC, useEffect, useState } from "react";
-import { useSelectsStore } from "@/entities/valute";
 import { CountriesList } from "../countriesList";
 import { ValutesList } from "../valutesList";
 import styles from "./sideBar.module.scss";
@@ -30,12 +30,12 @@ export const SideBar: FC<SideBarProps> = () => {
     } else {
       getAvailable({ base: "all" }).then((valutes) => setAvailableValutes(valutes));
     }
-    console.log(city?.code_name);
   }, [selectedDirection, city]);
 
   return (
     <section className={styles.sidebar}>
       <ChangeDirection />
+      <CountryModal />
       {selectedDirection === directions.cash && <CountriesList />}
       <SelectCard type={selectTypes.give} />
       <ValutesList selectType={selectTypes.give} categories={availableValutes} />

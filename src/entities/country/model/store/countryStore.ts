@@ -4,11 +4,15 @@ import { persist } from "zustand/middleware";
 import { City, Country } from "../..";
 
 type CountryStore = {
+  country: Country | null;
   city: City | null;
-  setCountry: (city: City | null) => void;
+  setCity: (city: City) => void;
+  setCountry: (country: Country) => void;
 };
 
 export const useCountryStore = create<CountryStore>()((set) => ({
   city: null,
-  setCountry: (city) => set({ city: city }),
+  country: null,
+  setCity: (city) => set({ city: city }),
+  setCountry: (country) => set({ country: country }),
 }));

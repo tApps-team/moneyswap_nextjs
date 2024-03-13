@@ -2,7 +2,13 @@
 
 import { memo, useMemo } from "react";
 import { City, Country, useCountryStore } from "@/entities/country";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  DialogClose,
+} from "@/shared/ui";
 import { useSelectsStore } from "@/entities/valute";
 type CountryAccordionProps = {
   countries: Country[];
@@ -11,11 +17,11 @@ type CountryAccordionProps = {
 };
 export const CountryAccordion = memo((props: CountryAccordionProps) => {
   const { countries, show, searchCountry } = props;
-  const setCountry = useCountryStore((state) => state.setCountry);
+  const { setCountry, setCity } = useCountryStore((state) => state);
   const { setGiveSelect, setGetSelect } = useSelectsStore((state) => state);
 
   const handleCityClick = (city: City) => {
-    setCountry(city);
+    setCity(city);
     setGiveSelect(null);
     setGetSelect(null);
   };
@@ -35,19 +41,23 @@ export const CountryAccordion = memo((props: CountryAccordionProps) => {
     [filteredCountries, searchCountry],
   );
   return (
-    <Accordion value={valueAccordion} className="w-full" type="multiple">
+    <Accordion value={valueAccordion} type="multiple">
       {filteredCountries?.map((country) => (
         <AccordionItem className="text-nowrap" value={country?.name.ru} key={country?.id}>
           <AccordionTrigger>{country?.name.ru}</AccordionTrigger>
-          <AccordionContent className="cursor-pointer text-base">
+          <AccordionContent
+            className="cursor-pointer text-base "
+            onClick={() => setCountry(country)}
+          >
             {country?.cities.map((city) => (
-              <div
-                className="p-2 hover:bg-neutral-600 rounded"
-                key={city.id}
-                onClick={() => handleCityClick(city)}
-              >
-                {city?.name?.ru}
-              </div>
+              <DialogClose asChild key={city.id}>
+                <div
+                  onClick={() => handleCityClick(city)}
+                  className="p-2 hover:bg-neutral-600 rounded"
+                >
+                  {city?.name?.ru}
+                </div>
+              </DialogClose>
             ))}
           </AccordionContent>
         </AccordionItem>
