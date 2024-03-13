@@ -53,9 +53,12 @@ export const CountryModal = () => {
 
   const filteredCities = useMemo(() => {
     const selectedCountry = countries?.find((country) => country.id === currentCountryId);
+    const selectedCities = selectedCountry?.cities.filter((city) =>
+      city.name.ru.toLowerCase().includes(searchCountry.toLowerCase()),
+    );
 
-    return selectedCountry?.cities;
-  }, [countries, currentCountryId]);
+    return selectedCities?.length ? selectedCities : selectedCountry?.cities;
+  }, [countries, currentCountryId, searchCountry]);
 
   return (
     <Dialog>
