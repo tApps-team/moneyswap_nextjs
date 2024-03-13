@@ -12,11 +12,9 @@ export const CityCard = (props: CityCardProps) => {
   return (
     <Card className="border-none rounded-none">
       <CardContent className="py-2 hover:bg-slate-400">
-        <DialogClose asChild>
-          <div onClick={() => onClick(city)} className="flex items-center cursor-pointer ">
-            <div>{city?.name.ru}</div>
-          </div>
-        </DialogClose>
+        <div onClick={() => onClick(city)} className="flex items-center cursor-pointer ">
+          <div>{city?.name.ru}</div>
+        </div>
       </CardContent>
     </Card>
   );
