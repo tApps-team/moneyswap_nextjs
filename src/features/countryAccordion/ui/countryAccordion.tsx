@@ -32,6 +32,7 @@ export const CountryAccordion = memo((props: CountryAccordionProps) => {
     () => (searchCountry ? filteredCountries.map((el) => el.name.ru) : undefined),
     [filteredCountries, searchCountry],
   );
+  // если по дизайну будут модалки тогда надо будет сюда перенести input и модалку из widget
   return (
     <Accordion value={valueAccordion} type="multiple">
       {filteredCountries?.map((country) => (
