@@ -5,7 +5,7 @@ import { SelectCard } from "@/entities/select";
 import styles from "./selectsForm.module.scss";
 import { ValutesList } from "../valutesList";
 import { directions, selectTypes } from "@/shared/types";
-import { useCountryStore } from "@/entities/country";
+import { useLocationStore } from "@/entities/location";
 import { CategoriesWithLang, getAvailable } from "@/entities/categories";
 import { SwitchSelects } from "@/features/switchSelects";
 
@@ -14,7 +14,7 @@ interface SelectsFormProps {
 }
 
 export const SelectsForm: FC<SelectsFormProps> = ({ selectedDirection }) => {
-  const city = useCountryStore((state) => state.city);
+  const city = useLocationStore((state) => state.city);
   const [availableValutes, setAvailableValutes] = useState<CategoriesWithLang | null>(null);
 
   useEffect(() => {

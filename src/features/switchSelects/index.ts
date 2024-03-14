@@ -1,1 +1,1 @@
-export { SwitchSelects } from "./ui/swithSelects";
+export { SwitchSelects } from "./ui/switchSelects";

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { CountryAccordion } from "@/features/countryAccordion";
-import { Country, getCountries, useCountryStore } from "@/entities/country";
+import { Country, getCountries, useLocationStore } from "@/entities/location";
 import { useDebounce } from "@/shared/lib";
 import { Button, Dialog, DialogContent, DialogTrigger, Input } from "@/shared/ui";
 
@@ -12,8 +12,8 @@ export const CountriesList = (props: CountriesListProps) => {
   const [searchCountry, setSearchCountry] = useState("");
   const [countries, setCountries] = useState<Country[]>([]);
 
-  const city = useCountryStore((state) => state.city);
-  const country = useCountryStore((state) => state.country);
+  const city = useLocationStore((state) => state.city);
+  const country = useLocationStore((state) => state.country);
 
   const searchCountryThrottled = useDebounce(searchCountry, 300);
 

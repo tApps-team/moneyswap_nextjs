@@ -8,7 +8,7 @@ import { DialogClose } from "@/shared/ui";
 import { useSelectsStore } from "../model/store/valuteStore";
 import { Valute } from "../model/types/valute";
 import styles from "./valuteCard.module.scss";
-import { useCountryStore } from "@/entities/country";
+import { useLocationStore } from "@/entities/location";
 
 interface ValuteCardProps {
   valute: Valute;
@@ -18,7 +18,7 @@ interface ValuteCardProps {
 export const ValuteCard: FC<ValuteCardProps> = memo((props) => {
   const { valute, type } = props;
   const { giveSelect, getSelect, setGetSelect, setGiveSelect } = useSelectsStore((state) => state);
-  const cityName = useCountryStore((state) => state.city?.code_name);
+  const cityName = useLocationStore((state) => state.city?.code_name);
 
   const handleSelect = () => {
     if (type === selectTypes.give) {
