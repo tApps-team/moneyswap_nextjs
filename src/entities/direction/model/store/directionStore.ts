@@ -16,8 +16,4 @@ export const useDirectionStore = create<DirectionStore>()(
     }),
     { name: "direction-store" },
   ),
-  // (set) => ({
-  //   selectedDirection: directions.noncash,
-  //   setSelectedDirection: (direction) => set({ selectedDirection: direction }),
-  // }),
 );

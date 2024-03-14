@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={montserrat.className}>
-      <body className="container">
+      <body className="main_container">
         <Header />
         <main>
           <SideBar />

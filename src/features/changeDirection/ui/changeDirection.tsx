@@ -12,13 +12,14 @@ interface ChangeDirectionProps {}
 export const ChangeDirection: FC<ChangeDirectionProps> = () => {
   const { selectedDirection, setSelectedDirection } = useDirectionStore((state) => state);
   const { setGetSelect, setGiveSelect } = useSelectsStore((state) => state);
-  const setCountry = useCountryStore((state) => state.setCountry);
+  const { setCountry, setCity } = useCountryStore((state) => state);
 
   const handleChangeDirection = (direction: directions | null) => {
     setSelectedDirection(direction);
     setGiveSelect(null);
     setGetSelect(null);
     setCountry(null);
+    setCity(null);
   };
 
   return (
