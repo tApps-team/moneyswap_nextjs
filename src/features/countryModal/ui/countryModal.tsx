@@ -89,16 +89,24 @@ export const CountryModal = () => {
         </DialogHeader>
         <div className="flex  min-h-[550px]">
           <div className="border w-96 max-h-[500px] rounded-lg overflow-y-scroll ">
-            {filteredCountries?.map((country) => (
-              <CountryCard onClick={handleClick} key={country.id} country={country} />
-            ))}
+            {filteredCountries?.length ? (
+              filteredCountries?.map((country) => (
+                <CountryCard onClick={handleClick} key={country.id} country={country} />
+              ))
+            ) : (
+              <div>Список пуст</div>
+            )}
           </div>
           <div className="border w-96 max-h-[500px] rounded-lg  overflow-y-scroll">
-            {filteredCities?.map((city) => (
-              <DialogClose asChild key={city.id}>
-                <CityCard onClick={setCity} city={city} />
-              </DialogClose>
-            ))}
+            {filteredCities ? (
+              filteredCities?.map((city) => (
+                <DialogClose asChild key={city.id}>
+                  <CityCard onClick={setCity} city={city} />
+                </DialogClose>
+              ))
+            ) : (
+              <div>Список пуст</div>
+            )}
           </div>
         </div>
       </DialogContent>
