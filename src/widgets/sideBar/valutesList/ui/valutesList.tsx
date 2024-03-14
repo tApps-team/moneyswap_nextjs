@@ -25,6 +25,7 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
 
   const getSelectName = useSelectsStore((state) => state.getSelect?.name);
   const giveSelectName = useSelectsStore((state) => state.giveSelect?.name);
+
   const currentSelectName = selectType === "give" ? giveSelectName : getSelectName;
 
   const currentCategories = selectType === "give" ? categories : availableDestinations;
@@ -41,7 +42,6 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
   const onChangeDirectionExchager = useCallback((direction: string) => {
     setDirectionExchange(direction);
   }, []);
-
   const filteredValutes = useMemo(
     () =>
       currentCategories?.ru[directionExchange]?.filter((valute) =>
@@ -56,23 +56,31 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
         <DialogTrigger asChild>
           <Button>Отдаю {currentSelectName} </Button>
         </DialogTrigger>
-        <DialogContent className="min-w-[600px] bg-current">
-          <div className="min-h-[400px] grid grid-cols-1 grid-rows-2">
-            <DirectionTabs
-              directionExchange={directionExchange}
-              setDirectionExchange={onChangeDirectionExchager}
-              directions={currentCategories?.ru}
-            />
-            <Input
-              className="text-slate-950 rounded-xl text-xl"
-              onChange={(e) => onChange(e.target.value.trim())}
-              value={searchValute}
-            />
+        <DialogContent className="min-w-[600px] bg-neutral-500">
+          {currentCategories ? (
+            <div className="min-h-[400px] grid grid-cols-1 grid-rows-2">
+              <DirectionTabs
+                directionExchange={directionExchange}
+                setDirectionExchange={onChangeDirectionExchager}
+                directions={currentCategories?.ru}
+              />
+              <Input
+                className="text-slate-950 rounded-xl text-xl"
+                onChange={(e) => onChange(e.target.value.trim())}
+                value={searchValute}
+              />
 
-            {filteredValutes?.map((valute) => (
-              <ValuteCard key={valute.id} valute={valute} type={selectType} />
-            ))}
-          </div>
+              {filteredValutes?.length! > 0 ? (
+                filteredValutes?.map((valute) => (
+                  <ValuteCard key={valute.id} valute={valute} type={selectType} />
+                ))
+              ) : (
+                <div className="text-black">Список пуст...</div>
+              )}
+            </div>
+          ) : (
+            <div className="text-red-900">Список пуст</div>
+          )}
         </DialogContent>
       </Dialog>
     </section>
