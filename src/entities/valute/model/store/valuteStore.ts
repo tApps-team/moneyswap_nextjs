@@ -9,6 +9,7 @@ interface SelectsStore {
   getSelect: Valute | null;
   setGiveSelect: (valute: Valute | null) => void;
   setGetSelect: (valute: Valute | null) => void;
+  switcher: () => Promise<void>;
 }
 
 export const useSelectsStore = create<SelectsStore>()(
@@ -18,6 +19,12 @@ export const useSelectsStore = create<SelectsStore>()(
       getSelect: null,
       setGiveSelect: (valute) => set({ giveSelect: valute }),
       setGetSelect: (valute) => set({ getSelect: valute }),
+      switcher: async () => {
+        await set((state) => ({
+          giveSelect: state.getSelect,
+          getSelect: state.giveSelect,
+        }));
+      },
     }),
     { name: "selects-store" },
   ),

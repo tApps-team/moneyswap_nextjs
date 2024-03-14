@@ -3,15 +3,36 @@
 import { FC } from "react";
 import styles from "./switchSelects.module.scss";
 import ChangeIcon from "@/shared/assets/icons/changeIcon";
+import { useSelectsStore } from "@/entities/valute";
+import { useLocationStore } from "@/entities/location";
+import { useRouter } from "next/navigation";
 
 interface SwitchSelectsProps {}
 
 export const SwitchSelects: FC<SwitchSelectsProps> = () => {
-  // сделать функцию для свитча, но чтоб она работала именно если два селекта заполнены, то есть надо подтянуть селекты
-  const handleSwitch = () => {};
+  const { switcher, giveSelect, getSelect } = useSelectsStore((state) => state);
+  const city = useLocationStore((state) => state.city);
+
+  const router = useRouter();
+
+  // сделать потом асинхронным switcher
+  const handleSwitch = () => {
+    if (giveSelect && getSelect) {
+      switcher();
+
+      if (city) {
+        const pagePathCash = `${getSelect.code_name}-to-${giveSelect.code_name}-${city.code_name}`;
+        router.push(pagePathCash);
+      } else {
+        const pagePathNoncash = `${getSelect.code_name}-to-${giveSelect.code_name}`;
+        router.push(pagePathNoncash);
+      }
+    }
+  };
+
   return (
-    <div className={styles.switcher}>
-      <ChangeIcon fill="#fff" width="30px" height="30px" />
+    <div onClick={handleSwitch} className={styles.switcher}>
+      <ChangeIcon fill={giveSelect && getSelect ? "#fff" : "#909090"} width="30px" height="30px" />
     </div>
   );
 };

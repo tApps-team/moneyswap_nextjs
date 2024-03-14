@@ -22,22 +22,22 @@ export const ValutesList: FC<ValutesListProps> = memo((props) => {
   const [directionExchange, setDirectionExchange] = useState("");
   const [availableDestinations, setAvailableDestinations] = useState<CategoriesWithLang | null>();
 
-  const toExchange = useSelectsStore((state) => state.giveSelect?.code_name);
+  const { setGiveSelect, setGetSelect, giveSelect, getSelect } = useSelectsStore((state) => state);
   const cityCodeName = useLocationStore((state) => state.city?.code_name);
 
   const currentCategories = selectType === selectTypes.give ? categories : availableDestinations;
-  const getSelectName = useSelectsStore((state) => state.getSelect?.name);
-  const giveSelectName = useSelectsStore((state) => state.giveSelect?.name);
-  const currentSelectName = selectType === selectTypes.give ? giveSelectName : getSelectName;
+  const currentSelectName = selectType === selectTypes.give ? giveSelect?.name : getSelect?.name;
 
   useEffect(() => {
     setAvailableDestinations(null);
-    if (toExchange && selectType === selectTypes.get) {
-      getAvailable({ base: toExchange, city: cityCodeName }).then((valutes) =>
-        setAvailableDestinations(valutes),
-      );
+    if (giveSelect && selectType === selectTypes.get) {
+      getAvailable({ base: giveSelect.code_name, city: cityCodeName })
+        .then((valutes) => setAvailableDestinations(valutes))
+        .catch(() => {
+          setGetSelect(null);
+        });
     }
-  }, [selectType, toExchange]);
+  }, [selectType, giveSelect]);
 
   const onChange = useCallback((searchValue: string) => {
     setSearchValute(searchValue);

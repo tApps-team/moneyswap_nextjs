@@ -37,23 +37,23 @@ export const ValuteCard: FC<ValuteCardProps> = memo((props) => {
     type === selectTypes.get && giveSelect ? `${giveSelect?.code_name}-to-${valute.code_name}` : "";
 
   // add active className
-  const giveActiveClass = clsx({
-    [styles.active]: valute.id === giveSelect?.id,
-  });
-  const getActiveClass = clsx({
-    [styles.active]: valute.id === getSelect?.id,
-  });
-  const linkClasses = clsx(
-    styles.valute_card,
-    type === selectTypes.give ? giveActiveClass : getActiveClass,
-    "link",
-  );
+  // const giveActiveClass = clsx({
+  //   [styles.active]: valute.id === giveSelect?.id,
+  // });
+  // const getActiveClass = clsx({
+  //   [styles.active]: valute.id === getSelect?.id,
+  // });
+  // const linkClasses = clsx(
+  //   styles.valute_card,
+  //   type === selectTypes.give ? giveActiveClass : getActiveClass,
+  //   "link",
+  // );
 
   return (
     <DialogClose asChild>
       <Link
         onClick={handleSelect}
-        className={linkClasses}
+        className={`${styles.valute_card} link`}
         href={cityName ? pagePathCash : pagePathNoncash}
         scroll={false}
       >
