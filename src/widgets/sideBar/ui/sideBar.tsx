@@ -1,23 +1,29 @@
-import { FC, useEffect, useState } from "react";
-import { CategoriesWithLang, getAvailable } from "@/entities/categories";
-import { Exchanger, getExchangers } from "@/entities/exchanger";
-import { SelectCard } from "@/entities/select";
-import { useSelectsStore } from "@/entities/valute";
-import { selectType } from "@/shared/types";
-import { ValutesList } from "../valutesList";
+"use client";
+
+import { ChangeDirection } from "@/features/changeDirection";
+import { FC } from "react";
+import { CountryModal } from "@/features/countryModal";
+import { directions } from "@/shared/types";
+import { CountriesList } from "../countriesList";
 import styles from "./sideBar.module.scss";
+import { useDirectionStore } from "@/entities/direction";
+import { SelectsForm } from "../selectsForm";
 
 interface SideBarProps {}
 
-export const SideBar = async (props: SideBarProps) => {
-  const availableValutes = await getAvailable("all");
+export const SideBar: FC<SideBarProps> = () => {
+  const selectedDirection = useDirectionStore((state) => state.selectedDirection);
 
   return (
     <section className={styles.sidebar}>
-      <SelectCard type={selectType.give} />
-      <ValutesList selectType={selectType.give} categories={availableValutes} />
-      <SelectCard type={selectType.get} />
-      <ValutesList selectType={selectType.get} />
+      <ChangeDirection />
+      {selectedDirection === directions.cash && (
+        <>
+          <CountryModal />
+          <CountriesList />
+        </>
+      )}
+      <SelectsForm selectedDirection={selectedDirection} />
     </section>
   );
 };

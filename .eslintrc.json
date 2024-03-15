@@ -19,14 +19,16 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/display-name": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off"
   },
   "overrides": [
     {
       "files": ["src/shared/ui/*.tsx"],
       "rules": {
         "react/prop-types": [2, { "ignore": ["className"] }],
-        "react-refresh/only-export-components": "off"
+        "react-refresh/only-export-components": "off",
       }
     }
   ]
