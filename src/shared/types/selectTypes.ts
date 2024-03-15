@@ -1,4 +1,4 @@
-export enum selectType {
+export enum selectTypes {
   give = "give",
   get = "get",
 }
