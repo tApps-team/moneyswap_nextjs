@@ -9,11 +9,15 @@ interface DirectionStore {
 }
 
 export const useDirectionStore = create<DirectionStore>()(
-  persist(
-    (set) => ({
-      selectedDirection: null,
-      setSelectedDirection: (direction) => set({ selectedDirection: direction }),
-    }),
-    { name: "direction-store" },
-  ),
+  // persist(
+  //   (set) => ({
+  //     selectedDirection: null,
+  //     setSelectedDirection: (direction) => set({ selectedDirection: direction }),
+  //   }),
+  //   { name: "direction-store" },
+  // ),
+  (set) => ({
+    selectedDirection: directions.noncash,
+    setSelectedDirection: (direction) => set({ selectedDirection: direction }),
+  }),
 );

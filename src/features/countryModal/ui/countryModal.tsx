@@ -68,7 +68,7 @@ export const CountryModal = () => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger className="w-full mb-3" asChild>
         {city ? (
           <Button>
             {/* <Image

@@ -29,7 +29,7 @@ export const CountriesList = (props: CountriesListProps) => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="secondary">
+          <Button className="w-full" variant="secondary">
             {country ? `Старна ${country.name.ru}` : "Выберите страну"}
           </Button>
         </DialogTrigger>
