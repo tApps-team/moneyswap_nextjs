@@ -1,10 +1,4 @@
-import { ExchangersList } from "@/widgets/exchangersList";
-import { getExchangers } from "@/entities/exchanger";
-import styles from "./main.module.scss";
-import { SideBar } from "@/widgets/sideBar";
-
 export const Main = async () => {
-  const exchangers = await getExchangers({ from: "btc", to: "sberrub" });
   return (
     <>
       {/* <SideBar /> */}
@@ -17,7 +11,6 @@ export const Main = async () => {
             excepturi nobis voluptatum exercitationem sunt. Dolor, quae!
           </p>
         </div>
-        <ExchangersList exchangers={exchangers} />
       </section>
     </>
   );
