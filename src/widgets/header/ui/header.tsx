@@ -1,13 +1,12 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { routes } from "@/shared/router";
+import { Coins } from "lucide-react";
 import { Navbar } from "../navbar";
-import styles from "./header.module.scss";
 
 export const Header = () => {
   // header background
-  return <header>header</header>;
+  return (
+    <header className="flex items-center border p-4">
+      <Coins width={60} height={60} />
+      <Navbar />
+    </header>
+  );
 };
