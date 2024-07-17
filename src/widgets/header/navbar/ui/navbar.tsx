@@ -1,30 +1,15 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { routes } from "@/shared/router";
-import styles from "./navbar.module.scss";
+import { navbarItems } from "../model/navbarItems";
 
 export const Navbar = () => {
-  const path = usePathname();
   return (
-    <nav className={styles.navbar}>
-      <ul>
-        <li className={path === routes.about ? styles.active : ""}>
-          <Link className="link" href={routes.about}>
-            О нас
-          </Link>
-        </li>
-        <li className={path === routes.partners ? styles.active : ""}>
-          <Link className="link" href={routes.partners}>
-            Партнерам
-          </Link>
-        </li>
-        <li className={path === routes.faq ? styles.active : ""}>
-          <Link className="link" href={routes.faq}>
-            FAQ
-          </Link>
-        </li>
+    <nav className="">
+      <ul className="flex gap-10">
+        {navbarItems.map((item, index) => (
+          <li key={item.value + index}>
+            <Link href={item.href}>{item.value}</Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
