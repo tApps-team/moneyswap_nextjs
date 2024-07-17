@@ -16,9 +16,9 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={montserrat.className}>
-      <body className="main_container">
+      <body className="flex flex-col min-h-screen">
         <Header />
-        <main>{children}</main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>
