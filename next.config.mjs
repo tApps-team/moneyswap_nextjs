@@ -3,8 +3,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/exchanger-:exchanger",
-        destination: "/exchanger/:exchanger",
+        source: "/crypto-exchangers/exchanger/:exchanger",
+        destination: "/crypto-exchangers/exchanger-:exchanger",
       },
     ];
   },
