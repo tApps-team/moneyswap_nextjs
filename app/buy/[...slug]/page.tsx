@@ -1,2 +1,3 @@
-import BuyPage from "../page";
-export default BuyPage;
+export default function Page() {
+  return <h1>Hello, Home page!</h1>;
+}
