@@ -1,3 +1,2 @@
-export default function Page() {
-  return <h1>Hello, Home page!</h1>;
-}
+import { SellPage } from "@/views/sell";
+export default SellPage;
