@@ -1,3 +1,12 @@
+import { FAQ } from "@/widgets/faq";
+import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
+
 export const SellPage = () => {
-  return <p>SellPage</p>;
+  return (
+    <div>
+      <SeoHeaderText />
+      <FAQ />
+      <SeoFooterText />
+    </div>
+  );
 };
