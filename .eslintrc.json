@@ -28,7 +28,7 @@
       "files": ["src/shared/ui/*.tsx"],
       "rules": {
         "react/prop-types": [2, { "ignore": ["className"] }],
-        "react-refresh/only-export-components": "off",
+        "react-refresh/only-export-components": "off"
       }
     }
   ]

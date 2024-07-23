@@ -1,8 +1,7 @@
-import { Montserrat } from "next/font/google";
 import "@/shared/styles/globals.scss";
+import { Montserrat } from "next/font/google";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
-import { SideBar } from "@/widgets/sideBar";
 
 export const metadata = {
   title: "Next.js",
@@ -17,12 +16,9 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={montserrat.className}>
-      <body className="main_container">
+      <body className="flex flex-col min-h-screen">
         <Header />
-        <main>
-          <SideBar />
-          {children}
-        </main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>
