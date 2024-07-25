@@ -17,3 +17,6 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
+export * from "./form";
+export * from "./label";
+export * from "./table";
