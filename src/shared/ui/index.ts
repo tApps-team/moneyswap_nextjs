@@ -20,3 +20,5 @@ export {
 export * from "./form";
 export * from "./label";
 export * from "./table";
+export * from "./dropdown-menu";
+export * from "./checkbox";
