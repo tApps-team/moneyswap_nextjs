@@ -1,3 +1,4 @@
+import { CurrecnySelectForm } from "@/widgets/currency-select-form";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
 import { getSeoTexts } from "@/shared/api";
@@ -8,6 +9,7 @@ export const Main = async () => {
   return (
     <section>
       <SeoHeaderText data={seoTexts.data} />
+      <CurrecnySelectForm />
       <div>main</div>
       <MainFAQ />
       <SeoFooterText data={seoTexts.data} />
