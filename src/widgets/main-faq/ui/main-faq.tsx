@@ -1,4 +1,4 @@
-import { getFilteredMainFaq, getMainFaq } from "@/shared/api";
+import { getFaq } from "@/shared/api";
 import { directions, mainFaqTypes } from "@/shared/types";
 import { AccordionList } from "../accordion";
 
@@ -6,10 +6,10 @@ export const MainFAQ = async () => {
   // надо знать какое направление выбрано cash/noncash
   const direction = directions.cash;
 
-  const filteredFaqs = await getFilteredMainFaq(
+  const filteredFaqs = await getFaq(
     direction === directions.cash ? mainFaqTypes.cash : mainFaqTypes.noncash,
   );
-  const basicFaqs = await getFilteredMainFaq(mainFaqTypes.basic);
+  const basicFaqs = await getFaq(mainFaqTypes.basic);
 
   return (
     <div className="grid grid-cols-2 py-[50px] gap-[5%] w-full">
