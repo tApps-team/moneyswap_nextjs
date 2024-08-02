@@ -1,8 +1,11 @@
+import { cx } from "class-variance-authority";
 import { Bitcoin, ChevronDown } from "lucide-react";
 import Image from "next/image";
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
-import { Currency, CurrencyCard, CurrencyResponse, getAvailableValutes } from "@/entities/currency";
+import { useRouter } from "next/navigation";
+import { useDeferredValue, useEffect, useState } from "react";
+import { Currency, CurrencyCard, CurrencyResponse, useCurrecnyStore } from "@/entities/currency";
 import useLocalStorage from "@/shared/lib/hooks/useLocalStorage";
+import { directions } from "@/shared/types";
 import {
   Dialog,
   DialogClose,
@@ -20,13 +23,14 @@ type CurrencySelectProps = {
   label?: string;
   disabled?: boolean;
   currencies?: CurrencyResponse[];
+  currencyInfo?: Currency | null;
+  onClick: (currency: Currency) => void;
 };
 
 export const CurrencySelect = (props: CurrencySelectProps) => {
-  const { label, disabled, currencies = [] } = props;
-  // const [currencies, setCurrencies] = useState<CurrencyResponse[] | null>(null);
+  const { label, disabled, currencies, currencyInfo, onClick } = props;
   const [searchValue, setSearchValue] = useState<string>("");
-  const [selectCurrency, setSelectCurrency] = useLocalStorage<Currency | null>(label || "", null);
+
   const [amount, setAmount] = useLocalStorage<number | null>("amount", null);
   const searchDeferredValue = useDeferredValue(searchValue);
 
@@ -40,18 +44,18 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
   ];
 
   const filteredTabList = tabList
-    .map((tab) => ({
+    ?.map((tab) => ({
       ...tab,
-      currencies: tab.currencies.filter(
+      currencies: tab?.currencies?.filter(
         (currency) =>
           currency.name.en.toLowerCase().includes(searchDeferredValue.toLowerCase()) ||
           currency.name.ru.toLowerCase().includes(searchDeferredValue.toLowerCase()),
       ),
     }))
-    .filter((tab) => tab.currencies.length > 0);
+    .filter((tab) => tab?.currencies?.length > 0);
 
   return (
-    <div>
+    <div className={cx("flex flex-col ", disabled && "pointer-events-none ")}>
       {label && <p>{label}</p>}
       <div className="flex items-center  rounded-md bg-[#2d3049] gap-10 justify-between py-2 px-4">
         <input
@@ -64,10 +68,10 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         <Dialog>
           <DialogTrigger disabled={disabled}>
             <div className="bg-[#16192e] rounded-sm items-center p-2 flex">
-              {selectCurrency ? (
+              {currencyInfo ? (
                 <Image
-                  alt={`${selectCurrency.name} (${selectCurrency.code_name})`}
-                  src={selectCurrency.icon_url}
+                  alt={`${currencyInfo.name.ru} (${currencyInfo.code_name})`}
+                  src={currencyInfo.icon_url}
                   width={32}
                   height={32}
                 />
@@ -78,7 +82,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <input
                 readOnly
                 className="bg-transparent "
-                value={selectCurrency ? selectCurrency.name.ru : "Наличные руб"}
+                value={currencyInfo ? currencyInfo.name.ru : "Наличные руб"}
               />
               <ChevronDown />
             </div>
@@ -107,7 +111,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                   {tab.currencies.map((currency) => (
                     <DialogClose key={currency.id}>
                       <CurrencyCard
-                        onClick={() => setSelectCurrency(currency)}
+                        onClick={() => onClick(currency)}
                         key={currency.id}
                         currency={currency}
                       />
