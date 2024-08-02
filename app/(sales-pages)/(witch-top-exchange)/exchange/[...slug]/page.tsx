@@ -1,2 +1,2 @@
-import { ExchnagePage } from "@/views/exchange";
-export default ExchnagePage;
+import { ExchangePage } from "@/views/exchange";
+export default ExchangePage;

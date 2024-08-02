@@ -1,4 +1,3 @@
-export { MainBg } from "./mainBg";
 export { Input } from "./input";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
@@ -17,3 +16,8 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
+export * from "./form";
+export * from "./label";
+export * from "./table";
+export * from "./dropdown-menu";
+export * from "./checkbox";

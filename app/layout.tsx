@@ -1,5 +1,6 @@
 import "@/shared/styles/globals.scss";
 import { Montserrat } from "next/font/google";
+import Providers from "@/app/providers/react-query";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 
@@ -18,7 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ru" className={montserrat.className}>
       <body className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-grow">{children}</main>
+        <Providers>
+          <main className="flex-grow max-w-[1300px] mx-[auto] w-full">{children}</main>
+        </Providers>
         <Footer />
       </body>
     </html>
