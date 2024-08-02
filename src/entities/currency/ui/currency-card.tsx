@@ -3,13 +3,13 @@ import { Currency } from "../model/types/currencyType";
 
 type CurrencyCardProps = {
   currency: Currency;
-  onClick?: (currency: Currency) => void;
+  onClick?: () => void;
 };
 export const CurrencyCard = (props: CurrencyCardProps) => {
   const { currency, onClick } = props;
   return (
     // <DialogClose asChild>
-    <div onClick={() => onClick?.(currency)} className="flex gap-4 items-center">
+    <div onClick={onClick} className="flex gap-4 items-center">
       <Image
         src={currency.icon_url}
         width={30}
