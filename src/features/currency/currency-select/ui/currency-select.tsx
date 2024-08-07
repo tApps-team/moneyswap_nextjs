@@ -56,34 +56,39 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
 
   return (
     <div className={cx("flex flex-col ", disabled && "pointer-events-none ")}>
-      {label && <p>{label}</p>}
-      <div className="flex items-center  rounded-md bg-[#2d3049] gap-10 justify-between py-2 px-4">
+      {label && <p className="uppercase">{label}</p>}
+      <div className="flex items-center border border-[#bbbbbb]  rounded-full bg-gradient-to-l from-[#606060] gap-10 justify-between  ">
         <input
           disabled={disabled}
           type="number"
-          className="bg-transparent"
+          className="bg-transparent text-[#f6ff5f] px-6 "
           value={amount || ""}
           onChange={(e) => setAmount(e.target.valueAsNumber)}
         />
         <Dialog>
           <DialogTrigger disabled={disabled}>
-            <div className="bg-[#16192e] rounded-sm items-center p-2 flex">
-              {currencyInfo ? (
-                <Image
-                  alt={`${currencyInfo.name.ru} (${currencyInfo.code_name})`}
-                  src={currencyInfo.icon_url}
-                  width={32}
-                  height={32}
+            <div className="bg-[#2d2d2d]  rounded-full items-center p-2 flex h-full">
+              <div className="flex gap-2">
+                {currencyInfo ? (
+                  <Image
+                    alt={`${currencyInfo?.name?.ru} (${currencyInfo?.code_name})`}
+                    src={currencyInfo?.icon_url}
+                    width={32}
+                    height={32}
+                  />
+                ) : (
+                  <Bitcoin />
+                )}
+                {/* <div className="flex flex-col items-start">
+                <div>{currencyInfo?.name?.ru}</div>
+                <div>{currencyInfo?.code_name}</div>
+              </div> */}
+                <input
+                  readOnly
+                  className="bg-transparent "
+                  value={currencyInfo ? currencyInfo?.name?.ru : "Наличные руб"}
                 />
-              ) : (
-                <Bitcoin />
-              )}
-
-              <input
-                readOnly
-                className="bg-transparent "
-                value={currencyInfo ? currencyInfo.name.ru : "Наличные руб"}
-              />
+              </div>
               <ChevronDown />
             </div>
           </DialogTrigger>
