@@ -5,14 +5,14 @@ import { getSeoTexts } from "@/shared/api";
 import { pageTypes } from "@/shared/types";
 
 export const Main = async () => {
-  const seoTexts = await getSeoTexts({ page: pageTypes.main });
+  // const seoTexts = await getSeoTexts({ page: pageTypes.main });
   return (
     <section>
-      <SeoHeaderText data={seoTexts.data} />
+      {/* <SeoHeaderText data={seoTexts.data} /> */}
       <CurrecnySelectForm />
       <div>main</div>
       <MainFAQ />
-      <SeoFooterText data={seoTexts.data} />
+      {/* <SeoFooterText data={seoTexts.data} /> */}
     </section>
   );
 };
