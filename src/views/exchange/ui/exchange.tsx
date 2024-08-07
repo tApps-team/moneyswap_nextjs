@@ -18,36 +18,58 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
 
   const giveCurrency = await getSpecificValute({ codeName: valute_from });
   const getCurrency = await getSpecificValute({ codeName: valute_to });
-  const location = await getSpecificCity({ codeName: city });
+  const location = city ? await getSpecificCity({ codeName: city }) : null;
   const currentDirection = city ? directions.cash : directions.noncash;
-  const reqParams =
-    currentDirection === directions.cash
-      ? {
-          page: pageTypes.exchange_cash,
-          giveCurrency: `${giveCurrency?.name?.ru} ${giveCurrency?.code_name}`,
-          getCurrency: `${getCurrency?.name?.ru} ${getCurrency?.code_name}`,
-          city: location?.name?.ru,
-          country: location?.country?.name?.ru,
-        }
-      : {
-          page: pageTypes.exchange_noncash,
-          giveCurrency: `${giveCurrency?.name?.ru} ${giveCurrency?.code_name}`,
-          getCurrency: `${getCurrency?.name?.ru} ${getCurrency?.code_name}`,
-        };
 
-  // запрос на сео текста
-  const seoTexts = await getSeoTexts(reqParams);
-  // запрос на мета данные
-  const seoMeta = await getSeoMeta(reqParams);
+  // const reqParams =
+  //   currentDirection === directions.cash
+  //     ? {
+  //         page: pageTypes.exchange_cash,
+  //         giveCurrency: `${giveCurrency?.name?.ru} ${giveCurrency?.code_name}`,
+  //         getCurrency: `${getCurrency?.name?.ru} ${getCurrency?.code_name}`,
+  //         city: location?.name?.ru,
+  //         country: location?.country?.name?.ru,
+  //       }
+  //     : {
+  //         page: pageTypes.exchange_noncash,
+  //         giveCurrency: `${giveCurrency?.name?.ru} ${giveCurrency?.code_name}`,
+  //         getCurrency: `${getCurrency?.name?.ru} ${getCurrency?.code_name}`,
+  //       };
+
+  // // запрос на сео текста
+  // const seoTexts = await getSeoTexts(reqParams);
+  // // запрос на мета данные
+  // const seoMeta = await getSeoMeta(reqParams);
 
   return (
     <div>
-      <SeoHeaderText data={seoTexts.data} />
-      <CurrecnySelectForm />
+      {/* <SeoHeaderText data={seoTexts.data} /> */}
+      <CurrecnySelectForm
+        urlGetCurrency={{
+          id: getCurrency?.name?.ru,
+          code_name: getCurrency?.code_name,
+          icon_url: getCurrency?.icon_url,
+          name: getCurrency?.name,
+        }}
+        urlGiveCurrency={{
+          id: giveCurrency?.name?.ru,
+          code_name: giveCurrency?.code_name,
+          icon_url: giveCurrency?.icon_url,
+          name: giveCurrency?.name,
+        }}
+        urlDirection={currentDirection}
+        urlLocation={{
+          cityCodeName: location?.code_name,
+          cityName: location?.name?.ru,
+          countryIconUrl: location?.country.icon_url,
+          countryName: location?.country.name.ru,
+          id: location?.id,
+        }}
+      />
       <ExchangersTable columns={columns} data={exchangers} />
 
       <MainFAQ />
-      <SeoFooterText data={seoTexts.data} />
+      {/* <SeoFooterText data={seoTexts.data} /> */}
     </div>
   );
 };
