@@ -67,7 +67,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="min-w-[800px] h-[600px]  ">
+      <DialogContent className="min-w-[800px] text-black h-[600px]  ">
         <DialogTitle className="m-0">Выбрать город</DialogTitle>
         <Input
           value={locationSearchValue}
