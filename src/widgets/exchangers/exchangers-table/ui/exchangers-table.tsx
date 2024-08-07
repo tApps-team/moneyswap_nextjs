@@ -61,7 +61,7 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
 
   return (
     <div className="flex flex-col mt-10 gap-12 w-full">
-      <div className="rounded-3xl bg-[#2d2d2d] text-white shadow-2xl shadow-black">
+      <div className="rounded-3xl bg-[#2d2d2d] text-white shadow-2xl  shadow-black">
         <Table className="">
           <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
