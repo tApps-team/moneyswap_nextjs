@@ -4,22 +4,25 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { CurrecnySwitcher, CurrencySelect } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { useCurrecnyStore, useGetAvailableValutes } from "@/entities/currency";
+import { Currency, useCurrecnyStore, useGetAvailableValutes } from "@/entities/currency";
 import { useDirectionStore } from "@/entities/direction";
-import { useGetCountries, useLocationStore } from "@/entities/location";
+import { Location, useGetCountries, useLocationStore } from "@/entities/location";
 import { cn } from "@/shared/lib";
 import { directions } from "@/shared/types";
 import { Button } from "@/shared/ui";
 
 type CurrecnySelectFormProps = {
   url?: string;
+  urlLocation?: Location;
+  urlGetCurrency?: Currency;
+  urlGiveCurrency?: Currency;
+  urlDirection: directions;
 };
 export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
-  const { url } = props;
-  const router = useRouter();
+  const { url, urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection } = props;
 
-  const searchParams = useSearchParams();
-  const location = useLocationStore((state) => state.location);
+  const router = useRouter();
+  const { location, setLocation } = useLocationStore((state) => state);
   const {
     getCurrency,
     giveCurrency,
@@ -62,14 +65,14 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
     city: direction === directions.cash ? location?.cityCodeName : undefined,
   });
 
-  useEffect(() => {
-    if (getCurrenciesIsError) {
-      direction === directions.cash ? resetCashCurrencies() : resetNoCashCurrencies();
-    }
-  }, [getCurrenciesIsError, resetCashCurrencies, resetNoCashCurrencies, direction]);
+  // useEffect(() => {
+  //   if (getCurrenciesIsError) {
+  //     direction === directions.cash ? resetCashCurrencies() : resetNoCashCurrencies();
+  //   }
+  // }, [direction, getCurrenciesIsError, resetCashCurrencies, resetNoCashCurrencies]);
   useEffect(() => {
     const valuteNotEmpty = currentGiveCurrency && currentGetCurrency;
-    if (valuteNotEmpty && direction !== directions.cash) {
+    if (valuteNotEmpty && direction === directions.noncash) {
       router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
     }
     if (valuteNotEmpty && direction === directions.cash) {
@@ -77,37 +80,64 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
         `/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
       );
     }
-  }, [currentGetCurrency, currentGiveCurrency, location?.cityCodeName, router, direction]);
+  }, [currentGetCurrency, currentGiveCurrency, direction, location?.cityCodeName, router]);
 
+  // const onClickGetCurrency = (currency: Currency) => {
+  //   currentSetGetCurrency(currency);
+  //   const valuteNotEmpty = currentGiveCurrency && currentGetCurrency;
+
+  //   if (valuteNotEmpty && direction !== directions.cash) {
+  //     router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
+  //   }
+  //   if (valuteNotEmpty && direction === directions.cash) {
+  //     router.push(
+  //       `/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
+  //     );
+  //   }
+  // };
+  useEffect(() => {
+    const isSetCurrencies = urlGiveCurrency && urlGetCurrency;
+    if (isSetCurrencies) {
+      currentSetGiveCurrency(urlGiveCurrency);
+      currentSetGetCurrency(urlGetCurrency);
+    }
+    if (urlDirection) {
+      setDirection(urlDirection);
+    }
+    if (urlLocation) {
+      setLocation(urlLocation);
+    }
+  }, []);
   return (
     // <Form {...form}>
-    <form className="text-white h-72 py-4 px-7 bg-[#16192e] rounded-lg">
+    <form className="text-white border border-[#bbbbbb] h-72 py-4 px-7 bg-[#2d2d2d] rounded-lg">
       <div className=" flex items-center justify-between">
-        <p>Выберите направление обмена</p>
-        <div className="flex gap-4 bg-[#2d3049] rounded-[4px] p-1">
+        <p className="uppercase">Выберите направление обмена</p>
+        <div className="flex items-center">
           <Button
             type="button"
             role="tab"
             id="changeCash"
             className={cn(
-              "bg-transparent rounded-[4px] py-2 px-6 hover:brightness-125 ",
-              direction === directions.cash && "bg-[#16192e]",
+              "bg-transparent rounded-[4px] py-2 px-6  uppercase",
+              direction === directions.cash && "text-[#f6ff5f]",
             )}
             onClick={() => setDirection(directions.cash)}
           >
-            Обмен наличных
+            Наличные
           </Button>
+          <div>\</div>
           <Button
             type="button"
             role="tab"
             id="changeOnline"
             className={cn(
-              "bg-transparent rounded-[4px] py-2 px-6 hover:brightness-125",
-              direction === directions.noncash && "bg-[#16192e]",
+              "bg-transparent rounded-[4px] py-2 px-6  uppercase",
+              direction === directions.noncash && "text-[#f6ff5f]",
             )}
             onClick={() => setDirection(directions.noncash)}
           >
-            Обмен онлайн
+            Безналичные
           </Button>
         </div>
       </div>
@@ -118,7 +148,7 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
             disabled={(direction === directions.cash && !location) || !giveCurrencies}
             currencyInfo={currentGiveCurrency}
             currencies={giveCurrencies}
-            label="Отдаете"
+            label="отдаю"
           />
           <CurrecnySwitcher />
           <CurrencySelect
@@ -129,7 +159,7 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
               (!currentGetCurrency && !getCurrencies)
             }
             currencies={getCurrencies}
-            label="Получаете"
+            label="получаю"
           />
 
           {direction === directions.cash && <LocationSelect countries={countries || []} />}
