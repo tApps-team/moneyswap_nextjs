@@ -15,7 +15,6 @@ export const Main = async () => {
       <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
       <CurrecnySelectForm />
-      <div>main</div>
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={directions.noncash} />
     </section>
