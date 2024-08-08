@@ -1,54 +1,55 @@
 "use client";
 import { type ColumnDef } from "@tanstack/react-table";
-import { ChevronDown, ChevronUp, ChevronUpIcon, SortAsc } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { Exchanger } from "@/entities/exchanger";
-import { Button } from "@/shared/ui";
 
 export type ExchangerTable = Exchanger;
 
 export const columns: ColumnDef<ExchangerTable>[] = [
   {
     accessorKey: `name.ru`,
+    id: "name",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
+        <button
+          className="flex items-center uppercase"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Обменник
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-4 w-4" />
+            <ChevronDown className="ml-2 h-6 w-6" />
           ) : (
-            <ChevronUp className="ml-2 h-4 w-4" />
+            <ChevronUp className="ml-2 h-6 w-6" />
           )}
-        </Button>
+        </button>
       );
     },
+    cell: ({ row }) => <p className="font-semibold text-base">{row.original?.name?.ru}</p>,
   },
   {
     accessorFn: (exchanger) => exchanger.in_count,
     id: "Give",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
+        <button
+          className="flex items-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ОТДАЕТЕ
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-4 w-4" />
+            <ChevronDown className="ml-2 h-6 w-6" />
           ) : (
-            <ChevronUp className="ml-2 h-4 w-4" />
+            <ChevronUp className="ml-2 h-6 w-6" />
           )}
-        </Button>
+        </button>
       );
     },
     sortDescFirst: false,
     sortUndefined: "last",
     cell: ({ row }) => (
-      <div className="flex gap-2">
-        <div className="text-[#f6ff5f]">{row.original.in_count}</div>
-        <div>{row.original.valute_from}</div>
+      <div className="flex gap-2 items-center">
+        <div className="text-[#f6ff5f] text-base">{row.original.in_count}</div>
+        <div className="font-normal">{row.original.valute_from}</div>
       </div>
     ),
   },
@@ -56,23 +57,23 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     accessorFn: (exchanger) => exchanger.out_count,
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
+        <button
+          className="flex items-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ПОЛУЧАЕТЕ
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-4 w-4" />
+            <ChevronDown className="ml-2 h-6 w-6" />
           ) : (
-            <ChevronUp className="ml-2 h-4 w-4" />
+            <ChevronUp className="ml-2 h-6 w-6" />
           )}
-        </Button>
+        </button>
       );
     },
     id: "Get",
     cell: ({ row }) => (
-      <div className="flex gap-2">
-        <div className="text-[#f6ff5f]">{row.original.out_count}</div>
+      <div className="flex gap-2 items-center">
+        <div className="text-[#f6ff5f] text-base">{row.original.out_count}</div>
         <div>{row.original.valute_to}</div>
       </div>
     ),
@@ -82,12 +83,12 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: "Сумма Обмена",
     cell: ({ row }) => (
       <div className="flex flex-col">
-        <div className="flex gap-1">
-          <div>ОТ</div>
+        <div className="flex gap-1 items-center">
+          <div className="text-xs">ОТ</div>
           <div>{row.original.min_amount}</div>
         </div>
-        <div className="flex gap-1">
-          <div>ДО</div>
+        <div className="flex gap-1 items-center">
+          <div className="text-xs">ДО</div>
           <div>{row.original.max_amount}</div>
         </div>
       </div>
@@ -97,17 +98,17 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     accessorFn: (exchanger) => exchanger.review_count.positive,
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
+        <button
+          className="flex items-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ОТЗЫВЫ
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-4 w-4" />
+            <ChevronDown className="ml-2 h-6 w-6" />
           ) : (
-            <ChevronUp className="ml-2 h-4 w-4" />
+            <ChevronUp className="ml-2 h-6 w-6" />
           )}
-        </Button>
+        </button>
       );
     },
     id: "Review",
