@@ -67,7 +67,10 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead className="uppercase p-4" key={header.id}>
+                  <TableHead
+                    className="uppercase py-6 px-4 text-[#bbbbbb] font-semibold"
+                    key={header.id}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
