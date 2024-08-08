@@ -1,6 +1,6 @@
-import { pageTypes, mainFaqTypes } from "../types";
+import { pageTypes, faqTypes } from "../types";
 
-export const getFaq = async (type?: mainFaqTypes) => {
+export const getFaq = async (type?: faqTypes) => {
   const path = type ? `main-faqs?filters[type][$eq]=${type}` : `main-faqs`;
   const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/${path}`, {
     cache: "no-store",
@@ -75,8 +75,38 @@ export const getSeoMeta = async ({
   return res.json();
 };
 
-export const getAboutUsPage = async () => {
+export const getAboutPage = async () => {
   const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/about-us`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
+export const getHelpTitle = async () => {
+  const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-title`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
+export const getHelpArticle = async () => {
+  const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-article`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
+export const getArticle = async () => {
+  const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/article`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

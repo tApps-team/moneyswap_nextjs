@@ -11,3 +11,8 @@ export type CurrencyResponse = {
   name: Name;
   currencies: Currency[];
 };
+
+export enum ExchangeType {
+  cash = "cash",
+  no_cash = "no_cash",
+}

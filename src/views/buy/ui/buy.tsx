@@ -1,7 +1,7 @@
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
 import { getSeoTexts } from "@/shared/api";
-import { pageTypes } from "@/shared/types";
+import { directions, pageTypes } from "@/shared/types";
 
 export const BuyPage = async () => {
   const seoTexts = await getSeoTexts({
@@ -13,8 +13,8 @@ export const BuyPage = async () => {
     <section>
       <SeoHeaderText data={seoTexts.data} />
       <div>sell</div>
-      <MainFAQ />
       <SeoFooterText data={seoTexts.data} />
+      <MainFAQ direction={directions.noncash} />
     </section>
   );
 };

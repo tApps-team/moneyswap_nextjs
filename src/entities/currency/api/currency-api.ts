@@ -3,6 +3,8 @@ import { apiClient } from "@/shared/api";
 import {
   GetAvailableValutesDtoRequest,
   GetAvailableValutesDtoResponse,
+  GetDirectionsRequest,
+  GetDirectionsResponse,
   GetSpecificValuteRequest,
   GetSpecificValuteResponse,
 } from "./currency-dto";
@@ -61,5 +63,32 @@ export const getSpecificValute = async (
   const result = await fetch(url, { method: "GET" });
   const data = await result.json();
 
+  return data;
+};
+
+export const getPopularValutes = async (
+  props: GetDirectionsRequest,
+): Promise<GetDirectionsResponse> => {
+  const { exchange_marker, limit } = props;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/popular_directions?exchange_marker=${exchange_marker}&limit=${limit}`;
+  const result = await fetch(url, { method: "GET" });
+  if (!result.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const data = await result.json();
+  return data;
+};
+
+export const getRandomValutes = async (
+  props: GetDirectionsRequest,
+): Promise<GetDirectionsResponse> => {
+  const { exchange_marker, limit } = props;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/random_directions?exchange_marker=${exchange_marker}&limit=${limit}`;
+  const result = await fetch(url, { method: "GET" });
+  if (!result.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  const data = await result.json();
   return data;
 };

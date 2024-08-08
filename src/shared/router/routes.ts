@@ -1,6 +1,13 @@
 export enum routes {
-  main = "/",
+  home = "/",
   about = "/about",
   partners = "/partners",
-  faq = "/faq",
+  help = "/help",
+  blog = "/blog",
+  exchangers = "/crypto-exchangers",
+  questions = "/questions",
+  contacts = "/contacts",
+  exchange = "/exchange",
+  buy = "/buy",
+  sell = "/sell",
 }
