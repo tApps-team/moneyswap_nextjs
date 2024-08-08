@@ -20,7 +20,7 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
   const getCurrency = await getSpecificValute({ codeName: valute_to });
   const location = city ? await getSpecificCity({ codeName: city }) : null;
   const currentDirection = city ? directions.cash : directions.noncash;
-
+  console.log(city);
   // const reqParams =
   //   currentDirection === directions.cash
   //     ? {
