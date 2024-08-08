@@ -18,7 +18,7 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
 
   const giveCurrency = await getSpecificValute({ codeName: valute_from });
   const getCurrency = await getSpecificValute({ codeName: valute_to });
-  const location = await getSpecificCity({ codeName: city });
+  const location = city ? await getSpecificCity({ codeName: city }) : null;
   const currentDirection = city ? directions.cash : directions.noncash;
   const reqParams =
     currentDirection === directions.cash
@@ -44,7 +44,29 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
     <div>
       <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
-      <CurrecnySelectForm />
+      <CurrecnySelectForm
+        urlGetCurrency={{
+          id: getCurrency?.name?.ru,
+          code_name: getCurrency?.code_name,
+          icon_url: getCurrency?.icon_url,
+          name: getCurrency?.name,
+        }}
+        urlGiveCurrency={{
+          id: giveCurrency?.name?.ru,
+          code_name: giveCurrency?.code_name,
+          icon_url: giveCurrency?.icon_url,
+          name: giveCurrency?.name,
+        }}
+        urlDirection={currentDirection}
+        urlLocation={{
+          cityCodeName: location?.code_name!,
+          cityName: location?.name?.ru!,
+          countryIconUrl: location?.country.icon_url!,
+          countryName: location?.country.name.ru!,
+          id: location?.id!,
+        }}
+      />
+      <ExchangersTable columns={columns} data={exchangers} />
       <ExchangersTable columns={columns} data={exchangers} />
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={currentDirection} />

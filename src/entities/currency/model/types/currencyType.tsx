@@ -1,7 +1,7 @@
 import { Name } from "@/shared/types";
 
 export type Currency = {
-  id: number;
+  id: string;
   name: Name;
   code_name: string;
   icon_url: string;

@@ -8,10 +8,10 @@ type CurrencyState = {
   getCashCurrency: Currency | null;
 };
 type CurrecnyActions = {
-  setGiveCurrency: (currency: Currency) => void;
-  setCashGiveCurrency: (currency: Currency) => void;
-  setGetCurrency: (currency: Currency) => void;
-  setCashGetCurrency: (currency: Currency) => void;
+  setGiveCurrency: (currency: Currency | null) => void;
+  setCashGiveCurrency: (currency: Currency | null) => void;
+  setGetCurrency: (currency: Currency | null) => void;
+  setCashGetCurrency: (currency: Currency | null) => void;
   resetCashCurrencies: () => void;
   resetNoCashCurrencies: () => void;
 };

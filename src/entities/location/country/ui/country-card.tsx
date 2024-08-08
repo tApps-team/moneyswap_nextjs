@@ -13,8 +13,8 @@ export const CountryCard = (props: CountryCardProps) => {
     <div
       onClick={onClick}
       className={cx(
-        "flex items-center gap-4 p-2 hover:bg-lime-200 cursor-pointer ",
-        active && "bg-lime-200",
+        "flex  min-h-[60px] items-center gap-4 border text-white hover:text-black border-[#bbbbbb] rounded-full p-2 hover:bg-[#f6ff5f] cursor-pointer ",
+        active && "bg-[#f6ff5f] text-black",
       )}
     >
       <Image
@@ -25,7 +25,7 @@ export const CountryCard = (props: CountryCardProps) => {
         width={32}
         height={32}
       />
-      <p>{country.name.ru}</p>
+      <p className="uppercase truncate">{country.name.ru}</p>
     </div>
   );
 };

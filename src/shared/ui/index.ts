@@ -21,3 +21,4 @@ export * from "./label";
 export * from "./table";
 export * from "./dropdown-menu";
 export * from "./checkbox";
+export * from "./scroll-area";
