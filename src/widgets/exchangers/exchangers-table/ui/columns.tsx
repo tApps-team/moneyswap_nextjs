@@ -1,67 +1,123 @@
 "use client";
 import { type ColumnDef } from "@tanstack/react-table";
-import { SortAsc } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { Exchanger } from "@/entities/exchanger";
-import { Button } from "@/shared/ui";
 
 export type ExchangerTable = Exchanger;
-// export const columns = (): ColumnDef<ExchangerTable>[] => {
-//   return [
-//     {
-//       accessorKey: `${exchanger.name}`,
-//       header: "Обменик",
-//     },
-//     {
-//       accessorKey: exchanger.exchange_marker,
-//       header: "Метки",
-//     },
-//     {
-//       accessorKey: exchanger.valute_from,
-//       header: "Отдаете",
-//     },
-//     {
-//       accessorKey: exchanger.valute_to,
-//       header: "Получаете",
-//     },
-//     {
-//       accessorKey: `${exchanger.in_count}`,
-//       header: "Сумма Обмена",
-//     },
-//     { accessorKey: `${exchanger.review_count.positive}`, header: "Отзывы" },
-//   ];
-// };
+
 export const columns: ColumnDef<ExchangerTable>[] = [
   {
     accessorKey: `name.ru`,
+    id: "name",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
+        <button
+          className="flex items-center uppercase"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Обменник
-          <SortAsc className="ml-2 h-4 w-4" />
-        </Button>
+          {column.getIsSorted() === "asc" ? (
+            <ChevronDown className="ml-2 h-6 w-6" />
+          ) : (
+            <ChevronUp className="ml-2 h-6 w-6" />
+          )}
+        </button>
       );
     },
+    cell: ({ row }) => <p className="font-semibold text-base">{row.original?.name?.ru}</p>,
   },
   {
-    accessorKey: "valute_from",
-    header: "Отдаете",
-    accessorFn: (valute_from) => `${valute_from.in_count} ${valute_from.valute_from}`,
+    accessorFn: (exchanger) => exchanger.in_count,
+    id: "Give",
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ОТДАЕТЕ
+          {column.getIsSorted() === "asc" ? (
+            <ChevronDown className="ml-2 h-6 w-6" />
+          ) : (
+            <ChevronUp className="ml-2 h-6 w-6" />
+          )}
+        </button>
+      );
+    },
+    sortDescFirst: false,
+    sortUndefined: "last",
+    cell: ({ row }) => (
+      <div className="flex gap-2 items-center">
+        <div className="text-[#f6ff5f] text-base">{row.original.in_count}</div>
+        <div className="font-normal">{row.original.valute_from}</div>
+      </div>
+    ),
   },
   {
-    accessorKey: "valute_to",
-    header: "Получаете",
-    accessorFn: (valute_to) => `${valute_to.out_count} ${valute_to.valute_to}`,
+    accessorFn: (exchanger) => exchanger.out_count,
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ПОЛУЧАЕТЕ
+          {column.getIsSorted() === "asc" ? (
+            <ChevronDown className="ml-2 h-6 w-6" />
+          ) : (
+            <ChevronUp className="ml-2 h-6 w-6" />
+          )}
+        </button>
+      );
+    },
+    id: "Get",
+    cell: ({ row }) => (
+      <div className="flex gap-2 items-center">
+        <div className="text-[#f6ff5f] text-base">{row.original.out_count}</div>
+        <div>{row.original.valute_to}</div>
+      </div>
+    ),
   },
   {
     accessorKey: "in_count",
     header: "Сумма Обмена",
+    cell: ({ row }) => (
+      <div className="flex flex-col">
+        <div className="flex gap-1 items-center">
+          <div className="text-xs">ОТ</div>
+          <div>{row.original.min_amount}</div>
+        </div>
+        <div className="flex gap-1 items-center">
+          <div className="text-xs">ДО</div>
+          <div>{row.original.max_amount}</div>
+        </div>
+      </div>
+    ),
   },
   {
-    header: "Отзывы",
-    accessorFn: (review_count) =>
-      `${review_count?.review_count?.positive}/${review_count.review_count.negative}`,
+    accessorFn: (exchanger) => exchanger.review_count.positive,
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex items-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ОТЗЫВЫ
+          {column.getIsSorted() === "asc" ? (
+            <ChevronDown className="ml-2 h-6 w-6" />
+          ) : (
+            <ChevronUp className="ml-2 h-6 w-6" />
+          )}
+        </button>
+      );
+    },
+    id: "Review",
+    cell: ({ row }) => (
+      <div className="flex gap-1">
+        <div className="text-[#f6ff5f]">{row.original.review_count.positive}</div>
+        <span>/</span>
+        <div className="text-red-600">{row.original.review_count.negative}</div>
+      </div>
+    ),
   },
 ];

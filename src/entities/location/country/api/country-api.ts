@@ -22,9 +22,8 @@ export const useGetCountries = () => {
 };
 export const getSpecificCity = async (
   props: GetSpecificCityRequest,
-): Promise<GetSpecificCityResponse | undefined> => {
+): Promise<GetSpecificCityResponse> => {
   const { codeName } = props;
-  if (!codeName) return;
   const url = `api/cash/specific_city?code_name=${codeName}`;
   const response = apiClient.get<GetSpecificCityResponse>(url);
 

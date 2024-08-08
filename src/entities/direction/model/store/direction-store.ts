@@ -15,6 +15,6 @@ type DirectionActions = {
 //   ),
 // );
 export const useDirectionStore = create<DirectionState & DirectionActions>((set) => ({
-  direction: directions.cash,
+  direction: directions.noncash,
   setDirection: (direction) => set(() => ({ direction: direction })),
 }));

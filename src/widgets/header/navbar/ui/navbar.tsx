@@ -6,7 +6,7 @@ export const Navbar = () => {
     <nav className="">
       <ul className="flex gap-10">
         {navbarItems.map((item, index) => (
-          <li key={item.value + index}>
+          <li key={item.value + index} className="text-sm">
             <Link href={item.href}>{item.value}</Link>
           </li>
         ))}

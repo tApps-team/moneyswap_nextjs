@@ -9,18 +9,23 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
   const { currency, onClick } = props;
   return (
     // <DialogClose asChild>
-    <div onClick={onClick} className="flex gap-4 items-center">
-      <Image
-        src={currency.icon_url}
-        width={30}
-        height={30}
-        alt={`${currency.name} (${currency.code_name})`}
-        loading="lazy"
-        decoding="async"
-      />
+    <div
+      onClick={onClick}
+      className="h-full flex gap-4 border-2 rounded-full p-3 text-white border-[#bbbbbb] items-center"
+    >
+      <figure className="w-[42px] h-[42px]">
+        <Image
+          src={currency.icon_url}
+          width={42}
+          height={42}
+          alt={`${currency?.name} (${currency?.code_name})`}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
       <div className="flex flex-col items-start">
-        <p>{currency.name.ru}</p>
-        <span>{currency.code_name}</span>
+        <p className="font-bold uppercase">{currency?.name?.ru}</p>
+        <span>{currency?.code_name}</span>
       </div>
     </div>
     // </DialogClose>

@@ -1,25 +1,30 @@
 "use client";
 import { cx } from "class-variance-authority";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { CurrecnySwitcher, CurrencySelect } from "@/features/currency";
+import { CurrencySwitcher, CurrencySelect } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { useCurrecnyStore, useGetAvailableValutes } from "@/entities/currency";
+import { Currency, useCurrecnyStore, useGetAvailableValutes } from "@/entities/currency";
 import { useDirectionStore } from "@/entities/direction";
-import { useGetCountries, useLocationStore } from "@/entities/location";
+import { Location, useGetCountries, useLocationStore } from "@/entities/location";
 import { cn } from "@/shared/lib";
+import { routes } from "@/shared/router";
 import { directions } from "@/shared/types";
 import { Button } from "@/shared/ui";
 
-type CurrecnySelectFormProps = {
+type CurrencySelectFormProps = {
   url?: string;
+  urlLocation?: Location;
+  urlGetCurrency?: Currency;
+  urlGiveCurrency?: Currency;
+  urlDirection?: directions;
 };
-export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
-  const { url } = props;
-  const router = useRouter();
+export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
+  const { url, urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection } = props;
 
-  const searchParams = useSearchParams();
-  const location = useLocationStore((state) => state.location);
+  const router = useRouter();
+  const { location, setLocation } = useLocationStore((state) => state);
   const {
     getCurrency,
     giveCurrency,
@@ -41,7 +46,39 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
   const currentSetGiveCurrency =
     direction === directions.cash ? setCashGiveCurrency : setGiveCurrency;
   const currentSetGetCurrency = direction === directions.cash ? setCashGetCurrency : setGetCurrency;
-
+  useEffect(() => {
+    if (urlDirection === directions.cash) {
+      setDirection(directions.cash);
+    }
+    if (urlDirection === directions.noncash) {
+      setDirection(directions.noncash);
+    }
+  }, [setDirection, urlDirection]);
+  useEffect(() => {
+    const isSetCurrencies = urlGiveCurrency && urlGetCurrency;
+    console.log(urlLocation, "urlLocation");
+    if (isSetCurrencies && urlLocation && urlDirection === directions.cash) {
+      setLocation(urlLocation);
+      setCashGiveCurrency(urlGiveCurrency);
+      setCashGetCurrency(urlGetCurrency);
+      console.log("isSetCurrencies && urlLocation");
+    }
+    if (isSetCurrencies && urlDirection === directions.noncash) {
+      setGiveCurrency(urlGiveCurrency);
+      setGetCurrency(urlGetCurrency);
+      console.log("isSetCurrencies && !urlLocation");
+    }
+  }, [
+    setCashGetCurrency,
+    setCashGiveCurrency,
+    setGetCurrency,
+    setGiveCurrency,
+    setLocation,
+    urlDirection,
+    urlGetCurrency,
+    urlGiveCurrency,
+    urlLocation,
+  ]);
   const { data: countries } = useGetCountries();
 
   const {
@@ -62,14 +99,14 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
     city: direction === directions.cash ? location?.cityCodeName : undefined,
   });
 
-  useEffect(() => {
-    if (getCurrenciesIsError) {
-      direction === directions.cash ? resetCashCurrencies() : resetNoCashCurrencies();
-    }
-  }, [getCurrenciesIsError, resetCashCurrencies, resetNoCashCurrencies, direction]);
+  // useEffect(() => {
+  //   if (getCurrenciesIsError) {
+  //     direction === directions.cash ? resetCashCurrencies() : resetNoCashCurrencies();
+  //   }
+  // }, [direction, getCurrenciesIsError, resetCashCurrencies, resetNoCashCurrencies]);
   useEffect(() => {
     const valuteNotEmpty = currentGiveCurrency && currentGetCurrency;
-    if (valuteNotEmpty && direction !== directions.cash) {
+    if (valuteNotEmpty && direction === directions.noncash) {
       router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
     }
     if (valuteNotEmpty && direction === directions.cash) {
@@ -77,50 +114,79 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
         `/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
       );
     }
-  }, [currentGetCurrency, currentGiveCurrency, location?.cityCodeName, router, direction]);
+  }, [currentGetCurrency, currentGiveCurrency, direction, location?.cityCodeName, router]);
+
+  // const onClickGetCurrency = (currency: Currency) => {
+  //   currentSetGetCurrency(currency);
+  //   const valuteNotEmpty = currentGiveCurrency && currentGetCurrency;
+
+  //   if (valuteNotEmpty && direction !== directions.cash) {
+  //     router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
+  //   }
+  //   if (valuteNotEmpty && direction === directions.cash) {
+  //     router.push(
+  //       `/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
+  //     );
+  //   }
+  // };
 
   return (
     // <Form {...form}>
-    <form className="text-white h-72 py-4 px-7 bg-[#16192e] rounded-lg">
-      <div className=" flex items-center justify-between">
-        <p>Выберите направление обмена</p>
-        <div className="flex gap-4 bg-[#2d3049] rounded-[4px] p-1">
-          <Button
-            type="button"
-            role="tab"
-            id="changeCash"
-            className={cn(
-              "bg-transparent rounded-[4px] py-2 px-6 hover:brightness-125 ",
-              direction === directions.cash && "bg-[#16192e]",
-            )}
-            onClick={() => setDirection(directions.cash)}
-          >
-            Обмен наличных
-          </Button>
-          <Button
-            type="button"
-            role="tab"
-            id="changeOnline"
-            className={cn(
-              "bg-transparent rounded-[4px] py-2 px-6 hover:brightness-125",
-              direction === directions.noncash && "bg-[#16192e]",
-            )}
-            onClick={() => setDirection(directions.noncash)}
-          >
-            Обмен онлайн
-          </Button>
+    <form className="text-white w-full border-2 border-[#bbbbbb] h-full py-5 px-7 pb-12 bg-[#2d2d2d] rounded-3xl">
+      <div className=" flex items-center justify-between pb-6">
+        <p className="uppercase font-medium text-base">Выберите направление обмена</p>
+        <div className="flex items-center">
+          <Link href={routes.home}>
+            <Button
+              type="button"
+              role="tab"
+              id="changeCash"
+              className={cn(
+                "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
+                direction === directions.cash && "text-[#f6ff5f]",
+              )}
+              onClick={() => setDirection(directions.cash)}
+            >
+              Наличные
+            </Button>
+          </Link>
+          <div className="mx-2">\</div>
+          <Link href={routes.home}>
+            <Button
+              type="button"
+              role="tab"
+              id="changeOnline"
+              className={cn(
+                "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
+                direction === directions.noncash && "text-[#f6ff5f]",
+              )}
+              onClick={() => {
+                setDirection(directions.noncash);
+              }}
+            >
+              Безналичные
+            </Button>
+          </Link>
         </div>
       </div>
       <div>
-        <div className={cx("flex items-center justify-between")}>
+        <div
+          className={cx(
+            "grid grid-cols-[1fr,auto,1fr] grid-rows-1 items-end justify-between gap-4",
+            direction === directions.cash && "grid-flow-col",
+          )}
+        >
           <CurrencySelect
             onClick={currentSetGiveCurrency}
             disabled={(direction === directions.cash && !location) || !giveCurrencies}
             currencyInfo={currentGiveCurrency}
             currencies={giveCurrencies}
-            label="Отдаете"
+            direction={direction}
+            label="отдаю"
           />
-          <CurrecnySwitcher />
+
+          <CurrencySwitcher />
+
           <CurrencySelect
             onClick={currentSetGetCurrency}
             currencyInfo={currentGetCurrency}
@@ -129,7 +195,8 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
               (!currentGetCurrency && !getCurrencies)
             }
             currencies={getCurrencies}
-            label="Получаете"
+            label="получаю"
+            direction={direction}
           />
 
           {direction === directions.cash && <LocationSelect countries={countries || []} />}

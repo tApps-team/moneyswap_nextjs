@@ -1,18 +1,22 @@
-import { CurrecnySelectForm } from "@/widgets/currency-select-form";
+import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
+import { BotBanner } from "@/features/bot-banner";
+import { getSpecificValute } from "@/entities/currency";
 import { getSeoTexts } from "@/shared/api";
-import { pageTypes } from "@/shared/types";
+import { directions, pageTypes } from "@/shared/types";
 
 export const Main = async () => {
   const seoTexts = await getSeoTexts({ page: pageTypes.main });
+  const giveCurrency = await getSpecificValute({ codeName: "BTC" });
+  const getCurrency = await getSpecificValute({ codeName: "SBERRUB" });
   return (
     <section>
       <SeoHeaderText data={seoTexts.data} />
-      <CurrecnySelectForm />
-      <div>main</div>
-      <MainFAQ />
+      <BotBanner />
+      <CurrencySelectForm />
       <SeoFooterText data={seoTexts.data} />
+      <MainFAQ direction={directions.noncash} />
     </section>
   );
 };
