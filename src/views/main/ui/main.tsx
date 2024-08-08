@@ -1,4 +1,4 @@
-import { CurrecnySelectForm } from "@/widgets/currency-select-form";
+import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
 import { BotBanner } from "@/features/bot-banner";
@@ -14,7 +14,7 @@ export const Main = async () => {
     <section>
       <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
-      <CurrecnySelectForm />
+      <CurrencySelectForm />
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={directions.noncash} />
     </section>

@@ -11,19 +11,21 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
     // <DialogClose asChild>
     <div
       onClick={onClick}
-      className="flex gap-4 border rounded-full p-2 text-white border-[#bbbbbb] items-center"
+      className="h-full flex gap-4 border-2 rounded-full p-3 text-white border-[#bbbbbb] items-center"
     >
-      <Image
-        src={currency.icon_url}
-        width={30}
-        height={30}
-        alt={`${currency.name} (${currency.code_name})`}
-        loading="lazy"
-        decoding="async"
-      />
+      <figure className="w-[42px] h-[42px]">
+        <Image
+          src={currency.icon_url}
+          width={42}
+          height={42}
+          alt={`${currency?.name} (${currency?.code_name})`}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
       <div className="flex flex-col items-start">
-        <p className="font-bold uppercase">{currency.name.ru}</p>
-        <span>{currency.code_name}</span>
+        <p className="font-bold uppercase">{currency?.name?.ru}</p>
+        <span>{currency?.code_name}</span>
       </div>
     </div>
     // </DialogClose>

@@ -13,19 +13,21 @@ export const CountryCard = (props: CountryCardProps) => {
     <div
       onClick={onClick}
       className={cx(
-        "flex  min-h-[60px] items-center gap-4 border text-white hover:text-black border-[#bbbbbb] rounded-full p-2 hover:bg-[#f6ff5f] cursor-pointer ",
-        active && "bg-[#f6ff5f] text-black",
+        "flex items-center gap-4 border-2 text-white hover:text-black border-[#bbbbbb] rounded-full p-3 h-[68px] hover:bg-[#f6ff5f] hover:border-[#f6ff5f] cursor-pointer overflow-hidden",
+        active && "bg-[#f6ff5f] text-black border-[#f6ff5f]",
       )}
     >
-      <Image
-        loading="lazy"
-        decoding="async"
-        src={country.icon_url}
-        alt={`country ${country.name.ru}`}
-        width={32}
-        height={32}
-      />
-      <p className="uppercase truncate">{country.name.ru}</p>
+      <figure className="w-[36px] h-[36px]">
+        <Image
+          loading="lazy"
+          decoding="async"
+          src={country.icon_url}
+          alt={`country ${country?.name?.ru}`}
+          width={36}
+          height={36}
+        />
+      </figure>
+      <p className="uppercase truncate font-semibold max-w-[20vw]">{country?.name?.ru}</p>
     </div>
   );
 };

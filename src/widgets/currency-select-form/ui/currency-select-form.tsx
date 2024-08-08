@@ -3,23 +3,24 @@ import { cx } from "class-variance-authority";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { CurrecnySwitcher, CurrencySelect } from "@/features/currency";
+import { CurrencySwitcher, CurrencySelect } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
 import { Currency, useCurrecnyStore, useGetAvailableValutes } from "@/entities/currency";
 import { useDirectionStore } from "@/entities/direction";
 import { Location, useGetCountries, useLocationStore } from "@/entities/location";
 import { cn } from "@/shared/lib";
+import { routes } from "@/shared/router";
 import { directions } from "@/shared/types";
 import { Button } from "@/shared/ui";
 
-type CurrecnySelectFormProps = {
+type CurrencySelectFormProps = {
   url?: string;
   urlLocation?: Location;
   urlGetCurrency?: Currency;
   urlGiveCurrency?: Currency;
   urlDirection?: directions;
 };
-export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
+export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const { url, urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection } = props;
 
   const router = useRouter();
@@ -131,17 +132,17 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
 
   return (
     // <Form {...form}>
-    <form className="text-white w-full border border-[#bbbbbb] h-72 py-4 px-7 bg-[#2d2d2d] rounded-lg">
-      <div className=" flex items-center justify-between">
-        <p className="uppercase">Выберите направление обмена</p>
+    <form className="text-white w-full border-2 border-[#bbbbbb] h-full py-5 px-7 pb-12 bg-[#2d2d2d] rounded-3xl">
+      <div className=" flex items-center justify-between pb-6">
+        <p className="uppercase font-medium text-base">Выберите направление обмена</p>
         <div className="flex items-center">
-          <Link href={"/"}>
+          <Link href={routes.home}>
             <Button
               type="button"
               role="tab"
               id="changeCash"
               className={cn(
-                "bg-transparent rounded-[4px] py-2 px-6  uppercase",
+                "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
                 direction === directions.cash && "text-[#f6ff5f]",
               )}
               onClick={() => setDirection(directions.cash)}
@@ -149,14 +150,14 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
               Наличные
             </Button>
           </Link>
-          <div>\</div>
-          <Link href={"/"}>
+          <div className="mx-2">\</div>
+          <Link href={routes.home}>
             <Button
               type="button"
               role="tab"
               id="changeOnline"
               className={cn(
-                "bg-transparent rounded-[4px] py-2 px-6  uppercase",
+                "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
                 direction === directions.noncash && "text-[#f6ff5f]",
               )}
               onClick={() => {
@@ -171,8 +172,8 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
       <div>
         <div
           className={cx(
-            "grid grid-cols-[1fr,50px,1fr] grid-rows-1 items-end justify-between gap-4",
-            direction === directions.cash && "grid-cols-[1fr,50px,1fr,190px]",
+            "grid grid-cols-[1fr,auto,1fr] grid-rows-1 items-end justify-between gap-4",
+            direction === directions.cash && "grid-flow-col",
           )}
         >
           <CurrencySelect
@@ -180,10 +181,11 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
             disabled={(direction === directions.cash && !location) || !giveCurrencies}
             currencyInfo={currentGiveCurrency}
             currencies={giveCurrencies}
+            direction={direction}
             label="отдаю"
           />
 
-          <CurrecnySwitcher />
+          <CurrencySwitcher />
 
           <CurrencySelect
             onClick={currentSetGetCurrency}
@@ -194,6 +196,7 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
             }
             currencies={getCurrencies}
             label="получаю"
+            direction={direction}
           />
 
           {direction === directions.cash && <LocationSelect countries={countries || []} />}

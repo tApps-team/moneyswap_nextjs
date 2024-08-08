@@ -61,7 +61,7 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
 
   return (
     <div className="flex flex-col mt-10 gap-12 w-full">
-      <div className="rounded-3xl bg-[#2d2d2d] text-white shadow-2xl  shadow-black">
+      <div className="rounded-3xl bg-[#2d2d2d] text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
         <Table className="">
           <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -103,7 +103,7 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
       <Button
         onClick={handleShowMore}
         disabled={table.getRowModel().rows.length >= data.length}
-        className="bg-[#2d2d2d] w-[200px] mx-auto border border-[#bbbbbb] uppercase rounded-full"
+        className="bg-[#2d2d2d] h-14 w-[200px] mx-auto border-2 border-[#bbbbbb] uppercase rounded-full"
       >
         Показать ещё
       </Button>

@@ -12,11 +12,11 @@ export const CityCard = (props: CityCardProps) => {
     <div
       onClick={onClick}
       className={cx(
-        "p-4 border flex rounded-full items-center min-h-[60px]  border-[#bbbbbb]",
+        "p-4 border-2 flex rounded-full items-center h-[68px] border-[#bbbbbb]",
         active && "bg-[#f6ff5f] text-black",
       )}
     >
-      <p className="uppercase">{city.name.ru}</p>
+      <p className="uppercase">{city?.name?.ru}</p>
     </div>
   );
 };

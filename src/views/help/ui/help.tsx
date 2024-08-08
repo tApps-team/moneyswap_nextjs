@@ -45,7 +45,7 @@ export const HelpPage = async () => {
         </div>
         <HelpBlock article={article?.content} userFaqs={userFaqs} partnerFaqs={partnerFaqs} />
       </div>
-      <div className="w-full p-4 pb-6 bg-[#2d2d2d] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-2xl">
+      <div className="w-full p-6 pb-10 bg-[#2d2d2d] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-2xl">
         <TopExchange
           popularNoncashDirections={popularNoncashDirections}
           randomNoncashDirections={randomNoncashDirections}

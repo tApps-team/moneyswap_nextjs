@@ -1,4 +1,4 @@
-import { CurrecnySelectForm } from "@/widgets/currency-select-form";
+import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
@@ -44,7 +44,7 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
     <div>
       <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
-      <CurrecnySelectForm
+      <CurrencySelectForm
         urlGetCurrency={{
           id: getCurrency?.name?.ru,
           code_name: getCurrency?.code_name,
@@ -66,7 +66,6 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
           id: location?.id!,
         }}
       />
-      <ExchangersTable columns={columns} data={exchangers} />
       <ExchangersTable columns={columns} data={exchangers} />
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={currentDirection} />

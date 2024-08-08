@@ -16,7 +16,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
   return (
     <section className="grid grid-rows-2 gap-12">
       <div className="grid grid-flow-row gap-6">
-        <p className="text-base font-medium uppercase">Популярные направления</p>
+        <p className="text-xs text-center font-medium uppercase">Топ популярных направлений</p>
         <div className="grid grid-cols-2 gap-6 items-center">
           {popularNoncashDirections?.map((direction, index) => (
             <Link
@@ -44,7 +44,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
         </div>
       </div>
       <div className="grid grid-flow-row gap-6">
-        <p className="text-base font-medium uppercase">Возможно интересно</p>
+        <p className="text-xs text-center font-medium uppercase">Возможно вам будет интересно</p>
         <div className="grid grid-cols-2 gap-6 justify-between items-center">
           {randomNoncashDirections?.map((direction, index) => (
             <Link

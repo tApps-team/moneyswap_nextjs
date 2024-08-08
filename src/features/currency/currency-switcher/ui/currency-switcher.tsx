@@ -1,9 +1,9 @@
-import { ArrowLeftRight } from "lucide-react";
+import { SwitcherIcon } from "@/shared/assets";
 
-export const CurrecnySwitcher = () => {
+export const CurrencySwitcher = () => {
   return (
-    <div className=" rounded-full bg-[#2d3049] w-10 h-10 flex items-center justify-center  ">
-      <ArrowLeftRight />
+    <div className="mb-[20px] mx-6">
+      <SwitcherIcon width={30} />
     </div>
   );
 };
