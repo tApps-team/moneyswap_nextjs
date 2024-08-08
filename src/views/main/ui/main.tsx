@@ -13,7 +13,7 @@ export const Main = async () => {
     <section>
       {/* <SeoHeaderText data={seoTexts.data} /> */}
       <CurrecnySelectForm />
-      <div>main</div>
+
       <MainFAQ />
       {/* <SeoFooterText data={seoTexts.data} /> */}
     </section>
