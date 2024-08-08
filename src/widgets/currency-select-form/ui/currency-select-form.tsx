@@ -172,7 +172,7 @@ export const CurrecnySelectForm = (props: CurrecnySelectFormProps) => {
         <div
           className={cx(
             "grid grid-cols-[1fr,50px,1fr] grid-rows-1 items-end justify-between gap-4",
-            direction === directions.cash && "grid-cols-[1fr,50px,1fr,200px]",
+            direction === directions.cash && "grid-cols-[1fr,50px,1fr,190px]",
           )}
         >
           <CurrencySelect
