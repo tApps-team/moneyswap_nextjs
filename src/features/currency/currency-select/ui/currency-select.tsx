@@ -66,8 +66,8 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       {label && <p className="uppercase text-sm font-medium">{label}</p>}
       <div
         className={cx(
-          "grid grid-cols-2 justify-between items-center border-2 border-[#bbbbbb] rounded-full bg-gradient-to-l from-[#bbb] from-15% via-[#2d2d2d] via-80% to-[#2d2d2d]",
-          direction === directions.cash && "grid-cols-[minmax(10vw,_1fr)_3fr]",
+          "grid grid-cols-2 justify-between items-center border-2 border-[#bbbbbb] rounded-full bg-gradient-to-l from-[#fff] from-5% via-[#606060] via-40% to-[#2d2d2d]",
+          // direction === directions.cash && "grid-cols-[minmax(10vw,_1fr)_3fr]",
         )}
       >
         <input
