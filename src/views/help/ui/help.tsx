@@ -1,5 +1,5 @@
 import { HelpBlock } from "@/widgets/help";
-import { TopExchange } from "@/widgets/top-exchange-help-page";
+import { TopExchange } from "@/widgets/top-exchange/top-exchange-help-page";
 import { ExchangeType, getPopularValutes, getRandomValutes } from "@/entities/currency";
 import { getFaq, getHelpArticle, getHelpTitle } from "@/shared/api";
 import { faqTypes } from "@/shared/types";
@@ -8,6 +8,7 @@ export const HelpPage = async () => {
   // title and article
   const { data: title } = await getHelpTitle();
   const { data: article } = await getHelpArticle();
+  console.log(article);
 
   // faqs
   const { data: basic } = await getFaq(faqTypes.basic);

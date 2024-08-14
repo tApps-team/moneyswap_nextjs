@@ -36,7 +36,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
               <Link
                 href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
                 key={index}
-                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d]"
+                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.7)] hover:scale-1005 transition-all duration-500"
               >
                 <figure className="w-[45px] h-[45px]">
                   <img
@@ -60,11 +60,11 @@ export const TopExchange: FC<TopExchangeProps> = ({
         <div className="grid grid-flow-row gap-6 mx-10">
           <p className="text-lg font-medium uppercase">Возможно вам будет интересно</p>
           <div className="grid grid-cols-3 gap-x-12 gap-y-6 justify-between items-center">
-            {currentPopularDirections?.map((direction, index) => (
+            {currentRandomDirections?.map((direction, index) => (
               <Link
                 href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
                 key={index}
-                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d]"
+                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.7)] hover:scale-1005 transition-all duration-500"
               >
                 <figure className="w-[45px] h-[45px]">
                   <img
@@ -89,13 +89,13 @@ export const TopExchange: FC<TopExchangeProps> = ({
       <section className="py-[20px] grid grid-cols-2 gap-8">
         <Link
           href={routes.buy}
-          className="border-2 border-[#bbb] rounded-full p-4 uppercase font-medium text-base text-center"
+          className="border-2 border-[#bbb] rounded-full p-4 uppercase font-medium text-base text-center hover:bg-[#f6ff5f] hover:text-black hover:border-[#f6ff5f] transition-all duration-500"
         >
           Купить криптовалюту
         </Link>
         <Link
           href={routes.sell}
-          className="border-2 border-[#bbb] rounded-full p-4 uppercase font-medium text-base text-center"
+          className="border-2 border-[#bbb] rounded-full p-4 uppercase font-medium text-base text-center hover:bg-[#f6ff5f] hover:text-black hover:border-[#f6ff5f] transition-all duration-500"
         >
           Продать криптовалюту
         </Link>

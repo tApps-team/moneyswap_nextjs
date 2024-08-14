@@ -105,6 +105,16 @@ export const getHelpArticle = async () => {
   return res.json();
 };
 
+export const getForPartnersArticle = async () => {
+  const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/for-partner`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
 export const getArticle = async () => {
   const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/article`);
 

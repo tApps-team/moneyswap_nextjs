@@ -118,11 +118,12 @@ body {
     color: rgb(101, 168, 255);
     white-space: nowrap;
     font-weight: 500;
+    transition: all ease 0.5s;
 
     &:hover,
     &:active {
-      text-decoration: none;
-      color: inherit;
+      text-decoration: underline;
+      color: rgb(49, 130, 237);
     }
   }
 
