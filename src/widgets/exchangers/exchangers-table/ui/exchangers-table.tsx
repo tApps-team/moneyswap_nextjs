@@ -105,7 +105,9 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
       </div>
       <Button
         onClick={handleShowMore}
-        disabled={table.getRowModel().rows.length >= data.length}
+        disabled={
+          table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
+        }
         className="bg-[#2d2d2d] h-14 w-[200px] mx-auto border-2 border-[#bbbbbb] uppercase rounded-full"
       >
         Показать ещё
