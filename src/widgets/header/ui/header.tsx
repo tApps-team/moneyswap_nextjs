@@ -13,13 +13,20 @@ export const Header = () => {
         </Link>
         <Navbar />
         <div className="grid grid-flow-col gap-4 items-center text-sm">
-          <a href="https://t.me/moneyswap_robot" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://t.me/moneyswap_robot"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:scale-[1.1] transition-all duration-300"
+          >
             <TelegramIcon width={24} height={24} fill="#27aed6" />
           </a>
-          <a href="tel:+79991112233">
+          <a href="tel:+79991112233" className="hover:scale-[1.1] transition-all duration-300">
             <HeadphonesIcon width={24} height={24} />
           </a>
-          <a href="tel:+79991112233">+7 999 111-22-33</a>
+          <a href="tel:+79991112233" className="hover:scale-[1.05] transition-all duration-300">
+            +7 999 111-22-33
+          </a>
         </div>
       </section>
     </header>

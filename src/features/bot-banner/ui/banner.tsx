@@ -18,7 +18,7 @@ export const BotBanner = () => {
           <p>и удобнее</p>
         </div>
         <a
-          className="bg-[#27aed6] rounded-[50px] grid grid-flow-col gap-2 justify-center items-center h-[70px]"
+          className="bg-[#27aed6] rounded-[50px] grid grid-flow-col gap-2 justify-center items-center h-[70px] hover:scale-[1.01] hover:shadow-[1px_5px_20px_5px_rgba(0,0,0,0.3)] active:scale-[0.995] active:shadow-[1px_5px_20px_5px_rgba(0,0,0,0.4)] transition-all duration-300"
           href="https://t.me/moneyswap_robot"
           target="_blank"
           rel="noopener noreferrer"

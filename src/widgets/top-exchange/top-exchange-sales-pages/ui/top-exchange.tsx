@@ -36,7 +36,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
               <Link
                 href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
                 key={index}
-                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.7)] hover:scale-1005 transition-all duration-500"
+                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300"
               >
                 <figure className="w-[45px] h-[45px]">
                   <img
@@ -64,7 +64,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
               <Link
                 href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
                 key={index}
-                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.7)] hover:scale-1005 transition-all duration-500"
+                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300"
               >
                 <figure className="w-[45px] h-[45px]">
                   <img
