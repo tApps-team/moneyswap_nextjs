@@ -15,6 +15,7 @@ export const getExchangers = async (
         ? ["directions", valute_from, valute_to, city]
         : ["directions", valute_from, valute_to],
     },
+    cache: "no-store",
   });
   const data = await res.json();
 
