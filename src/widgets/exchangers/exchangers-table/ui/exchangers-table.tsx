@@ -12,6 +12,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
+import Link from "next/link";
 import { useState } from "react";
 import { Exchanger } from "@/entities/exchanger";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
@@ -64,7 +65,7 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
       <div className="rounded-3xl bg-[#2d2d2d] text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
         <Table className="">
           <TableHeader className="">
-            {table.getHeaderGroups().map((headerGroup) => (
+            {table?.getHeaderGroups()?.map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <TableHead
@@ -85,7 +86,9 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      <Link href={cell.row.original.partner_link} target="_blank">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Link>
                     </TableCell>
                   ))}
                 </TableRow>
