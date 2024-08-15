@@ -30,12 +30,23 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     giveCurrency,
     getCashCurrency,
     giveCashCurrency,
+
     setCashGetCurrency,
     setCashGiveCurrency,
     setGetCurrency,
     setGiveCurrency,
     resetCashCurrencies,
     resetNoCashCurrencies,
+
+    getCashCurrencyAmount,
+    getCurrencyAmount,
+    giveCashCurrencyAmount,
+    giveCurrencyAmount,
+
+    setGetCashCurrencyAmount,
+    setGetCurrencyAmount,
+    setGiveCashCurrencyAmount,
+    setGiveCurrencyAmount,
   } = useCurrecnyStore((state) => state);
 
   const { direction, setDirection } = useDirectionStore((state) => state);
@@ -46,6 +57,17 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const currentSetGiveCurrency =
     direction === directions.cash ? setCashGiveCurrency : setGiveCurrency;
   const currentSetGetCurrency = direction === directions.cash ? setCashGetCurrency : setGetCurrency;
+
+  const currentSetGiveAmount =
+    direction === directions.cash ? setGiveCashCurrencyAmount : setGiveCurrencyAmount;
+  const currentSetGetAmount =
+    direction === directions.cash ? setGetCashCurrencyAmount : setGetCurrencyAmount;
+
+  const currentGiveAmount =
+    direction === directions.cash ? giveCashCurrencyAmount : giveCurrencyAmount;
+  const currentGetAmount =
+    direction === directions.cash ? getCashCurrencyAmount : getCurrencyAmount;
+
   useEffect(() => {
     if (urlDirection === directions.cash) {
       setDirection(directions.cash);
@@ -56,17 +78,16 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   }, [setDirection, urlDirection]);
   useEffect(() => {
     const isSetCurrencies = urlGiveCurrency && urlGetCurrency;
-    console.log(urlLocation, "urlLocation");
     if (isSetCurrencies && urlLocation && urlDirection === directions.cash) {
       setLocation(urlLocation);
       setCashGiveCurrency(urlGiveCurrency);
       setCashGetCurrency(urlGetCurrency);
-      console.log("isSetCurrencies && urlLocation");
+      console.log(urlGiveCurrency, urlGetCurrency);
     }
     if (isSetCurrencies && urlDirection === directions.noncash) {
       setGiveCurrency(urlGiveCurrency);
       setGetCurrency(urlGetCurrency);
-      console.log("isSetCurrencies && !urlLocation");
+      console.log(urlGiveCurrency, urlGetCurrency);
     }
   }, [
     setCashGetCurrency,
@@ -104,23 +125,9 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   //     direction === directions.cash ? resetCashCurrencies() : resetNoCashCurrencies();
   //   }
   // }, [direction, getCurrenciesIsError, resetCashCurrencies, resetNoCashCurrencies]);
-  useEffect(() => {
-    const valuteNotEmpty = currentGiveCurrency && currentGetCurrency;
-    if (valuteNotEmpty && direction === directions.noncash) {
-      router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
-    }
-    if (valuteNotEmpty && direction === directions.cash) {
-      router.push(
-        `/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
-      );
-    }
-  }, [currentGetCurrency, currentGiveCurrency, direction, location?.cityCodeName, router]);
-
-  // const onClickGetCurrency = (currency: Currency) => {
-  //   currentSetGetCurrency(currency);
+  // useEffect(() => {
   //   const valuteNotEmpty = currentGiveCurrency && currentGetCurrency;
-
-  //   if (valuteNotEmpty && direction !== directions.cash) {
+  //   if (valuteNotEmpty && direction === directions.noncash) {
   //     router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
   //   }
   //   if (valuteNotEmpty && direction === directions.cash) {
@@ -128,79 +135,105 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   //       `/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
   //     );
   //   }
-  // };
+  // }, [currentGetCurrency, currentGiveCurrency, direction, location?.cityCodeName, router]);
 
+  const onClickGetCurrency = (currency: Currency) => {
+    currentSetGetCurrency(currency);
+
+    const valuteNotEmpty = currentGiveCurrency && currency;
+
+    if (valuteNotEmpty && direction === directions.noncash) {
+      router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currency.code_name}`);
+    }
+    if (valuteNotEmpty && direction === directions.cash) {
+      router.push(
+        `/exchange/${currentGiveCurrency.code_name}-to-${currency.code_name}/${location?.cityCodeName}`,
+      );
+    }
+  };
+
+  const handleTabChange = (newDirection: directions) => {
+    setDirection(newDirection);
+    const basePath = `/exchange/${giveCurrency?.code_name}-to-${getCurrency?.code_name}`;
+    const cashPath = `${basePath}/${location?.cityCodeName}`;
+
+    router.push(newDirection === directions.cash ? cashPath : basePath);
+  };
   return (
     // <Form {...form}>
     <form className="text-white w-full border-2 border-[#bbbbbb] h-full py-5 px-7 pb-12 bg-[#2d2d2d] rounded-3xl">
       <div className=" flex items-center justify-between pb-6">
         <p className="uppercase font-medium text-base">Выберите направление обмена</p>
         <div className="flex items-center">
-          <Link href={routes.home}>
-            <Button
-              type="button"
-              role="tab"
-              id="changeCash"
-              className={cn(
-                "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-                direction === directions.cash && "text-[#f6ff5f]",
-              )}
-              onClick={() => setDirection(directions.cash)}
-            >
-              Наличные
-            </Button>
-          </Link>
+          {/* <Link href={routes.home}> */}
+          <Button
+            type="button"
+            role="tab"
+            id="changeCash"
+            className={cn(
+              "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
+              direction === directions.cash && "text-[#f6ff5f]",
+            )}
+            onClick={() => {
+              handleTabChange(directions.cash);
+            }}
+          >
+            Наличные
+          </Button>
+          {/* </Link> */}
           <div className="mx-2">\</div>
-          <Link href={routes.home}>
-            <Button
-              type="button"
-              role="tab"
-              id="changeOnline"
-              className={cn(
-                "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-                direction === directions.noncash && "text-[#f6ff5f]",
-              )}
-              onClick={() => {
-                setDirection(directions.noncash);
-              }}
-            >
-              Безналичные
-            </Button>
-          </Link>
+          {/* <Link href={routes.home}> */}
+          <Button
+            type="button"
+            role="tab"
+            id="changeOnline"
+            className={cn(
+              "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
+              direction === directions.noncash && "text-[#f6ff5f]",
+            )}
+            onClick={() => {
+              handleTabChange(directions.noncash);
+            }}
+          >
+            Безналичные
+          </Button>
+          {/* </Link> */}
         </div>
       </div>
-      <div>
-        <div
-          className={cx(
-            "grid grid-cols-[1fr,auto,1fr] grid-rows-1 items-end justify-between gap-4",
-            direction === directions.cash && "grid-flow-col",
-          )}
-        >
-          <CurrencySelect
-            onClick={currentSetGiveCurrency}
-            disabled={(direction === directions.cash && !location) || !giveCurrencies}
-            currencyInfo={currentGiveCurrency}
-            currencies={giveCurrencies}
-            direction={direction}
-            label="отдаю"
-          />
 
-          <CurrencySwitcher />
+      <div
+        className={cx(
+          "grid grid-cols-[1fr,auto,1fr] grid-rows-1 items-end justify-between gap-4",
+          direction === directions.cash && "grid-flow-col",
+        )}
+      >
+        <CurrencySelect
+          setAmount={currentSetGiveAmount}
+          amount={currentGiveAmount}
+          onClick={currentSetGiveCurrency}
+          disabled={(direction === directions.cash && !location) || !giveCurrencies}
+          currencyInfo={currentGiveCurrency}
+          currencies={giveCurrencies}
+          direction={direction}
+          label="отдаю"
+        />
 
-          <CurrencySelect
-            onClick={currentSetGetCurrency}
-            currencyInfo={currentGetCurrency}
-            disabled={
-              (!currentGetCurrency && !currentGiveCurrency) ||
-              (!currentGetCurrency && !getCurrencies)
-            }
-            currencies={getCurrencies}
-            label="получаю"
-            direction={direction}
-          />
+        <CurrencySwitcher direction={direction} />
 
-          {direction === directions.cash && <LocationSelect countries={countries || []} />}
-        </div>
+        <CurrencySelect
+          amount={currentGetAmount}
+          setAmount={currentSetGetAmount}
+          onClick={onClickGetCurrency}
+          currencyInfo={currentGetCurrency}
+          disabled={
+            (!currentGetCurrency && !currentGiveCurrency) || (!currentGetCurrency && !getCurrencies)
+          }
+          currencies={getCurrencies}
+          label="получаю"
+          direction={direction}
+        />
+
+        {direction === directions.cash && <LocationSelect countries={countries || []} />}
       </div>
     </form>
     // </Form>
