@@ -151,14 +151,35 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
       );
     }
   };
-
-  const handleTabChange = (newDirection: directions) => {
-    setDirection(newDirection);
-    const basePath = `/exchange/${giveCurrency?.code_name}-to-${getCurrency?.code_name}`;
-    const cashPath = `${basePath}/${location?.cityCodeName}`;
-
-    router.push(newDirection === directions.cash ? cashPath : basePath);
+  const onHandleTab = (currentDirection: directions) => {
+    const cashValuteNotEmpty = giveCashCurrency && getCashCurrency;
+    const valuteNotEmpty = giveCurrency && getCurrency;
+    setDirection(currentDirection);
+    if (currentDirection === directions.cash && cashValuteNotEmpty) {
+      router.push(
+        `/exchange/${giveCashCurrency.code_name}-to-${getCashCurrency.code_name}/${location?.cityCodeName}`,
+      );
+    }
+    if (currentDirection === directions.noncash && valuteNotEmpty) {
+      router.push(`/exchange/${giveCurrency.code_name}-to-${getCurrency.code_name}`);
+    }
   };
+  // const handleCashTab = () => {
+  //   const valuteNotEmpty = giveCashCurrency && getCashCurrency;
+
+  //   if (valuteNotEmpty) {
+  //     router.push(
+  //       `/exchange/${giveCashCurrency.code_name}-to-${getCashCurrency.code_name}/${location?.cityCodeName}`,
+  //     );
+  //   }
+  // };
+  // const handleTab = () => {
+  //   const valuteNotEmpty = giveCurrency && getCurrency;
+
+  //   if (valuteNotEmpty && direction) {
+  //     router.push(`/exchange/${giveCurrency.code_name}-to-${getCurrency.code_name}`);
+  //   }
+  // };
   return (
     // <Form {...form}>
     <form className="text-white w-full border-2 border-[#bbbbbb] h-full py-5 px-7 pb-12 bg-[#2d2d2d] rounded-3xl">
@@ -175,7 +196,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               direction === directions.cash && "text-[#f6ff5f]",
             )}
             onClick={() => {
-              handleTabChange(directions.cash);
+              onHandleTab(directions.cash);
             }}
           >
             Наличные
@@ -192,7 +213,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               direction === directions.noncash && "text-[#f6ff5f]",
             )}
             onClick={() => {
-              handleTabChange(directions.noncash);
+              onHandleTab(directions.noncash);
             }}
           >
             Безналичные
