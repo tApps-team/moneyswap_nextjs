@@ -1,5 +1,5 @@
 import { HelpBlock } from "@/widgets/help";
-import { TopExchange } from "@/widgets/top-exchange-help-page";
+import { TopExchange } from "@/widgets/top-exchange/top-exchange-help-page";
 import { ExchangeType, getPopularValutes, getRandomValutes } from "@/entities/currency";
 import { getFaq, getHelpArticle, getHelpTitle } from "@/shared/api";
 import { faqTypes } from "@/shared/types";
@@ -8,6 +8,7 @@ export const HelpPage = async () => {
   // title and article
   const { data: title } = await getHelpTitle();
   const { data: article } = await getHelpArticle();
+  console.log(article);
 
   // faqs
   const { data: basic } = await getFaq(faqTypes.basic);
@@ -45,7 +46,7 @@ export const HelpPage = async () => {
         </div>
         <HelpBlock article={article?.content} userFaqs={userFaqs} partnerFaqs={partnerFaqs} />
       </div>
-      <div className="w-full p-6 pb-10 bg-[#2d2d2d] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-2xl">
+      <div className="w-full p-6 pb-10 bg-[#2d2d2d] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-2xl sticky top-8">
         <TopExchange
           popularNoncashDirections={popularNoncashDirections}
           randomNoncashDirections={randomNoncashDirections}

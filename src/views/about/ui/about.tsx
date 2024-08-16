@@ -5,7 +5,6 @@ export const AboutPage = async () => {
   console.log(data);
   return (
     <section>
-      <h1>ABOUT PAGE</h1>
       <div className="strapi_styles" dangerouslySetInnerHTML={{ __html: data?.content }} />
     </section>
   );

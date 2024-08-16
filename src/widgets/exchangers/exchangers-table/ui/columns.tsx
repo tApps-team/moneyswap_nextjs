@@ -1,7 +1,10 @@
 "use client";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useCurrecnyStore } from "@/entities/currency";
+import { useDirectionStore } from "@/entities/direction";
 import { Exchanger } from "@/entities/exchanger";
+import { GiveCell } from "../columns/ui/giveCell";
 
 export type ExchangerTable = Exchanger;
 
@@ -46,12 +49,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     },
     sortDescFirst: false,
     sortUndefined: "last",
-    cell: ({ row }) => (
-      <div className="flex gap-2 items-center">
-        <div className="text-[#f6ff5f] text-base">{row.original.in_count}</div>
-        <div className="font-normal">{row.original.valute_from}</div>
-      </div>
-    ),
+    cell: GiveCell,
   },
   {
     accessorFn: (exchanger) => exchanger.out_count,
@@ -71,12 +69,18 @@ export const columns: ColumnDef<ExchangerTable>[] = [
       );
     },
     id: "Get",
-    cell: ({ row }) => (
-      <div className="flex gap-2 items-center">
-        <div className="text-[#f6ff5f] text-base">{row.original.out_count}</div>
-        <div>{row.original.valute_to}</div>
-      </div>
-    ),
+    cell: ({ row }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { giveCashCurrencyAmount, giveCurrencyAmount } = useCurrecnyStore((state) => state);
+      return (
+        <div className="flex gap-2 items-end">
+          <div className="text-[#f6ff5f] text-base">
+            {row.original.out_count * (giveCurrencyAmount || 1)}
+          </div>
+          <div className="text-sm">{row.original.valute_to}</div>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "in_count",
@@ -85,11 +89,11 @@ export const columns: ColumnDef<ExchangerTable>[] = [
       <div className="flex flex-col">
         <div className="flex gap-1 items-center">
           <div className="text-xs">ОТ</div>
-          <div>{row.original.min_amount}</div>
+          <div className="font-medium">{row.original.min_amount}</div>
         </div>
         <div className="flex gap-1 items-center">
           <div className="text-xs">ДО</div>
-          <div>{row.original.max_amount}</div>
+          <div className="font-medium">{row.original.max_amount}</div>
         </div>
       </div>
     ),

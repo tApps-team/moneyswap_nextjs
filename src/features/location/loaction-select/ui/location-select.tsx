@@ -38,51 +38,69 @@ export const LocationSelect = (props: LocationSelectProps) => {
     setLocation(location);
     resetCashCurrencies();
   };
+  const filteredCountries = useMemo(
+    () =>
+      countries &&
+      countries
+        .map((country) => {
+          const isCountryMatch = country?.name?.ru
+            ?.toLowerCase()
+            ?.includes(locationSearchValue?.toLowerCase());
+
+          const filteredCountry = {
+            ...country,
+            cities: isCountryMatch
+              ? country.cities
+              : country.cities.filter((city) =>
+                  city?.name?.ru?.toLowerCase()?.includes(locationSearchValue?.toLowerCase()),
+                ),
+          };
+          if (isCountryMatch || filteredCountry?.cities?.length > 0) {
+            return filteredCountry;
+          }
+          return null;
+        })
+        .filter((country): country is Country => country !== null),
+    [countries, locationSearchValue],
+  );
   const cityList = useMemo(() => {
     return selectCountry && countries.find((country) => country.id === selectCountry.id);
   }, [countries, selectCountry]);
 
   const filteredLocation = useMemo(() => {
     const searchValueToLowerCase = debouncedLocationSearchValue.toLowerCase();
-    return countries.flatMap((country) =>
-      country.cities
-        .filter((city) => city.name.ru.toLowerCase().includes(searchValueToLowerCase))
-        .map((location) => {
-          return {
-            ...location,
-            country,
-          };
-        }),
-    );
+    return countries.flatMap((country) => {
+      const cities = country.cities.filter((city) => city.name.ru.includes(searchValueToLowerCase));
+      if (cities.length > 0) return { country, cities };
+    });
   }, [countries, debouncedLocationSearchValue]);
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <div className="bg-[#2d2d2d] h-[60px] rounded-full border-2 gap-2 border-[#bbbbbb] items-center p-3 flex ">
-          {location ? (
-            <figure className="w-[36px] h-[36px]">
-              <Image
-                alt={`${location?.cityCodeName})`}
-                src={location?.countryIconUrl}
-                width={36}
-                height={36}
-              />
-            </figure>
-          ) : (
-            <CircleSlash2 width={36} height={36} stroke="#bbb" strokeWidth={"1.5px"} />
-          )}
-          <input
-            readOnly
-            value={location ? location?.cityName : "Не выбрано..."}
-            className="bg-transparent truncate uppercase"
-          />
+      <DialogTrigger className="" asChild>
+        <div className="bg-[#2d2d2d]  rounded-full h-16 border-2 gap-2 border-[#bbbbbb] items-center p-3 flex justify-between">
+          <div className="flex items-center gap-4">
+            {location ? (
+              <figure className="w-[36px] h-[36px]">
+                <Image
+                  alt={`${location?.cityCodeName})`}
+                  src={location?.countryIconUrl}
+                  width={36}
+                  height={36}
+                />
+              </figure>
+            ) : (
+              <CircleSlash2 width={36} height={36} stroke="#bbb" strokeWidth={"1.5px"} />
+            )}
+
+            <p className=" truncate uppercase">{location ? location?.cityName : "Не выбрано..."}</p>
+          </div>
           <div>
             <ChevronDown color="white" height={32} width={32} />
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-[#2d2d2d] border-none w-[960px] h-[480px] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
+      <DialogContent className="bg-[#2d2d2d]  border-none w-[50svw] h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
         <div className="grid grid-cols-2 grid-rows-1 items-center">
           <DialogTitle className="m-0 uppercase">Выбор города</DialogTitle>
           <div className="relative">
@@ -95,61 +113,44 @@ export const LocationSelect = (props: LocationSelectProps) => {
             />
           </div>
         </div>
-        {debouncedLocationSearchValue ? (
-          <div className="overflow-y-scroll flex flex-col gap-4 border rounded p-4">
-            {filteredLocation?.map((city) => (
-              <div key={city.id} className="flex items-center gap-2 border">
-                <p>{city?.name?.ru}</p>
-                (
-                <Image
-                  src={city?.country?.icon_url}
-                  alt={`${city?.country?.name.ru}`}
-                  width={32}
-                  height={32}
-                />
-                <p>{city?.country?.name?.ru}</p>)
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-[1fr,50px,1fr] grid-rows-1 min-h-full  ">
-            <ScrollArea className="h-full border rounded-3xl p-4">
-              <div className="flex flex-col gap-3">
-                {[...countries, ...countries, ...countries]?.map((country) => (
-                  <CountryCard
-                    active={country.id === location?.id}
-                    key={country.id}
-                    onClick={() => onClickCountry(country)}
-                    country={country}
-                  />
-                ))}
-              </div>
-            </ScrollArea>
 
-            <ChevronRight width={50} className="self-center" />
-            <ScrollArea className="h-full border rounded-3xl p-4">
-              <div className="  flex flex-col gap-3 ">
-                {cityList?.cities.map((city) => (
-                  <DialogClose key={city.id}>
-                    <CityCard
-                      onClick={() =>
-                        onClickCity({
-                          cityCodeName: city?.code_name,
-                          countryIconUrl: cityList?.icon_url,
-                          countryName: cityList?.name?.ru,
-                          cityName: city?.name?.ru,
-                          id: city?.id,
-                        })
-                      }
-                      city={city}
-                      active={location?.cityCodeName === city?.code_name}
-                    />
-                  </DialogClose>
-                ))}
-              </div>
-            </ScrollArea>
-          </div>
-        )}
+        <div className="grid grid-cols-[1fr,50px,1fr] grid-rows-1 min-h-full  ">
+          <ScrollArea className="h-[50svh] border rounded-3xl p-4">
+            <div className="flex flex-col gap-3">
+              {filteredCountries?.map((country) => (
+                <CountryCard
+                  active={country.name.ru === location?.countryName}
+                  key={country.id}
+                  onClick={() => onClickCountry(country)}
+                  country={country}
+                />
+              ))}
+            </div>
+          </ScrollArea>
+
+          <ChevronRight width={50} className="self-center" />
+          <ScrollArea className="h-[50svh] border rounded-3xl p-4">
+            <div className="  flex flex-col gap-3 ">
+              {cityList?.cities.map((city) => (
+                <DialogClose key={city.id}>
+                  <CityCard
+                    onClick={() =>
+                      onClickCity({
+                        cityCodeName: city?.code_name,
+                        countryIconUrl: cityList?.icon_url,
+                        countryName: cityList?.name?.ru,
+                        cityName: city?.name?.ru,
+                        id: city?.id,
+                      })
+                    }
+                    city={city}
+                    active={location?.cityCodeName === city?.code_name}
+                  />
+                </DialogClose>
+              ))}
+            </div>
+          </ScrollArea>
+        </div>
       </DialogContent>
     </Dialog>
   );
