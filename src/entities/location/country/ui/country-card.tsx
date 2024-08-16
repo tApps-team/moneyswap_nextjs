@@ -21,13 +21,13 @@ export const CountryCard = (props: CountryCardProps) => {
         <Image
           loading="lazy"
           decoding="async"
-          src={country.icon_url}
+          src={country?.icon_url}
           alt={`country ${country?.name?.ru}`}
           width={36}
           height={36}
         />
       </figure>
-      <p className="uppercase truncate font-semibold max-w-[20vw]">{country?.name?.ru}</p>
+      <p className="uppercase  font-semibold max-w-[20vw]">{country?.name?.ru}</p>
     </div>
   );
 };
