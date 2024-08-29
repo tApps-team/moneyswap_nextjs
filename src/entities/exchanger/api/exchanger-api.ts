@@ -35,7 +35,6 @@ export const getSimilarDirections = async (
     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/similar_directions?exchange_marker=cash&valute_from=${valuteFrom}&valute_to=${valuteTo}&city=${city}`
     : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/similar_directions?exchange_marker=no_cash&valute_from=${valuteFrom}&valute_to=${valuteTo}`;
 
-  console.log(url);
   const res = await fetch(url, {
     method: "GET",
   });
