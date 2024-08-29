@@ -6,3 +6,4 @@ export * from "./icons/yellowQuestion";
 export * from "./icons/youtube";
 export * from "./icons/popularArrow";
 export * from "./icons/switcher";
+export * from "./icons/noResult";

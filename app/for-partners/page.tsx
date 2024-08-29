@@ -1,3 +1,3 @@
-import { ForPartnersPage } from "@/views/for_partners";
+import { ForPartnersPage } from "@/views/for-partners";
 
 export default ForPartnersPage;

@@ -1,8 +1,8 @@
 "use client";
 
 import { FC, useState } from "react";
-import { AccordionList } from "@/features/faq";
-import { Faq } from "@/shared/types";
+import { AccordionList } from "@/features/strapi";
+import { Faq } from "@/entities/strapi";
 import styles from "./help-faq.module.scss";
 
 export type HelpFaqType = {

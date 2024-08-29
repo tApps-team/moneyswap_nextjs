@@ -1,6 +1,6 @@
-import { BlogSidebar, PopularArticles } from "@/widgets/blog";
-import { CategoriesList } from "@/features/blog";
-import { getAllCategories, getCategoryArticles } from "@/entities/blog";
+import { AllArticles, BlogSidebar } from "@/widgets/blog";
+import { CategoriesList } from "@/features/strapi";
+import { getAllCategories, getCategoryArticles } from "@/entities/strapi";
 
 export const BlogCategoryPage = async ({ params }: { params: { category: string } }) => {
   const category = params.category;
@@ -15,7 +15,7 @@ export const BlogCategoryPage = async ({ params }: { params: { category: string 
       </div>
       <CategoriesList categories={categories?.categories} selectedCategory={category} />
       <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
-        <PopularArticles articles={articles?.articles} />
+        <AllArticles articles={articles?.articles} />
         <BlogSidebar />
       </div>
     </section>

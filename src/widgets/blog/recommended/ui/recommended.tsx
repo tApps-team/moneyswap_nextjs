@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { ArticlePreview, ArticlePreviewCard } from "@/entities/blog";
+import { ArticlePreview, ArticlePreviewCard } from "@/entities/strapi";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext } from "@/shared/ui";
 
 interface RecommendedArticlesProps {
   title: string;
@@ -12,9 +13,21 @@ export const RecommendedArticles: FC<RecommendedArticlesProps> = ({ title, artic
       <h3 className="flex justify-center items-center h-16 w-full bg-[#f6ff5f] rounded-t-[35px] p-8 text-black uppercase text-lg font-semibold text-center">
         {title}
       </h3>
-      <div className="grid grid-cols-3 gap-8 p-8">
-        {articles?.map((art) => <ArticlePreviewCard key={art?.url_name} article={art} />)}
-      </div>
+      <Carousel
+        opts={{
+          align: "start",
+        }}
+        className="w-full"
+      >
+        <CarouselContent>
+          {articles?.map((art, index) => (
+            <CarouselItem key={index} className="basis-1/3 grid">
+              <ArticlePreviewCard key={art?.url_name} article={art} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselNext />
+      </Carousel>
     </section>
   );
 };
