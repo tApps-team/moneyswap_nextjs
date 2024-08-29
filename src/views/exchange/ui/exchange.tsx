@@ -1,5 +1,6 @@
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { ExchangersTable, columns } from "@/widgets/exchangers";
+import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
 import { BotBanner } from "@/features/bot-banner";
@@ -14,12 +15,15 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
   const city = params.slug[1];
 
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
-  const exchangers = await getExchangers({ valute_from, valute_to, city });
+
+  const { exchangers, status } = await getExchangers({ valute_from, valute_to, city });
 
   const giveCurrency = await getSpecificValute({ codeName: valute_from });
   const getCurrency = await getSpecificValute({ codeName: valute_to });
+
   const location = city ? await getSpecificCity({ codeName: city }) : null;
   const currentDirection = city ? directions.cash : directions.noncash;
+  console.log(status);
   const reqParams =
     currentDirection === directions.cash
       ? {
@@ -66,7 +70,16 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
           id: location?.id!,
         }}
       />
-      <ExchangersTable columns={columns} data={exchangers} />
+      {status === 404 ? (
+        <EmptyListExchangers
+          valuteFrom={valute_from}
+          valuteTo={valute_to}
+          city={city ? city : undefined}
+        />
+      ) : (
+        <ExchangersTable columns={columns} data={exchangers} />
+      )}
+
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={currentDirection} />
     </div>
