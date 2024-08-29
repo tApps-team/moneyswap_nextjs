@@ -12,7 +12,7 @@ export const Main = async () => {
   const seoTexts = await getSeoTexts({ page: pageTypes.main });
   const giveCurrency = await getSpecificValute({ codeName: "BTC" });
   const getCurrency = await getSpecificValute({ codeName: "SBERRUB" });
-  const mainExchangers = await getExchangers({
+  const { exchangers } = await getExchangers({
     valute_from: giveCurrency.code_name,
     valute_to: getCurrency.code_name,
   });
@@ -35,7 +35,7 @@ export const Main = async () => {
           name: giveCurrency.name,
         }}
       />
-      <ExchangersTable columns={columns} data={mainExchangers} />
+      <ExchangersTable columns={columns} data={exchangers} />
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={directions.noncash} />
     </section>
