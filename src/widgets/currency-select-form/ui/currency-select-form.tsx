@@ -136,18 +136,29 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   //     );
   //   }
   // }, [currentGetCurrency, currentGiveCurrency, direction, location?.cityCodeName, router]);
-
-  const onClickGetCurrency = (currency: Currency) => {
-    currentSetGetCurrency(currency);
-
-    const valuteNotEmpty = currentGiveCurrency && currency;
-
+  const onClickGiveCurrency = (giveCurrency: Currency) => {
+    currentSetGiveCurrency(giveCurrency);
+    const valuteNotEmpty = currentGetCurrency && giveCurrency;
     if (valuteNotEmpty && direction === directions.noncash) {
-      router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currency.code_name}`);
+      router.push(`/exchange/${giveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
     }
     if (valuteNotEmpty && direction === directions.cash) {
       router.push(
-        `/exchange/${currentGiveCurrency.code_name}-to-${currency.code_name}/${location?.cityCodeName}`,
+        `/exchange/${giveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
+      );
+    }
+  };
+  const onClickGetCurrency = (getCurrency: Currency) => {
+    currentSetGetCurrency(getCurrency);
+
+    const valuteNotEmpty = currentGiveCurrency && getCurrency;
+
+    if (valuteNotEmpty && direction === directions.noncash) {
+      router.push(`/exchange/${currentGiveCurrency.code_name}-to-${getCurrency.code_name}`);
+    }
+    if (valuteNotEmpty && direction === directions.cash) {
+      router.push(
+        `/exchange/${currentGiveCurrency.code_name}-to-${getCurrency.code_name}/${location?.cityCodeName}`,
       );
     }
   };
@@ -203,7 +214,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
           </Button>
           {/* </Link> */}
           <div className="mx-2">\</div>
-          {/* <Link href={routes.home}> */}
+          {/* <Link href={`${}`}> */}
           <Button
             type="button"
             role="tab"
@@ -230,7 +241,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
         <CurrencySelect
           setAmount={currentSetGiveAmount}
           amount={currentGiveAmount}
-          onClick={currentSetGiveCurrency}
+          onClick={onClickGiveCurrency}
           disabled={(direction === directions.cash && !location) || !giveCurrencies}
           currencyInfo={currentGiveCurrency}
           currencies={giveCurrencies}
