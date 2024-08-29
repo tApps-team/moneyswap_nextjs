@@ -8,7 +8,11 @@ export const BotBanner = () => {
           <p>Больше функций доступно</p>
           <p>В нашем телеграм-боте</p>
         </div>
-        <ArrowRightLineIcon width={60} height={60} className="self-center" />
+        <ArrowRightLineIcon
+          width={60}
+          height={60}
+          className="self-center fill-none stroke-[#b9b9b9] stroke-2 "
+        />
       </div>
       <div className="grid grid-cols-2 gap-8 justify-between">
         <div className="uppercase font-medium text-sm leading-5">
