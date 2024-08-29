@@ -1,6 +1,6 @@
 import { ChevronDown, ChevronRight, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useCurrecnyStore } from "@/entities/currency";
 import {
   City,
@@ -10,6 +10,7 @@ import {
   Location,
   useLocationStore,
 } from "@/entities/location";
+import { ArrowRightLineIcon } from "@/shared/assets";
 import { useDebounce } from "@/shared/lib";
 import {
   Dialog,
@@ -20,63 +21,46 @@ import {
   Input,
   ScrollArea,
 } from "@/shared/ui";
+import { filteredCountriesFn } from "../lib/filteredCountries";
+
 type LocationSelectProps = {
   countries: Country[];
 };
+
 export const LocationSelect = (props: LocationSelectProps) => {
   const { countries } = props;
   const { location, setLocation } = useLocationStore((state) => state);
-
   const resetCashCurrencies = useCurrecnyStore((state) => state.resetCashCurrencies);
+  const ref = useRef<HTMLInputElement>(null);
   const [selectCountry, setSelectCountry] = useState<Country | null>(null);
   const [locationSearchValue, setLocationSearchValue] = useState<string>("");
+
   const debouncedLocationSearchValue = useDebounce(locationSearchValue, 500);
+
   const onClickCountry = (country: Country) => {
     setSelectCountry(country);
   };
+
   const onClickCity = (location: Location) => {
     setLocation(location);
     resetCashCurrencies();
   };
-  const filteredCountries = useMemo(
-    () =>
-      countries &&
-      countries
-        .map((country) => {
-          const isCountryMatch = country?.name?.ru
-            ?.toLowerCase()
-            ?.includes(locationSearchValue?.toLowerCase());
 
-          const filteredCountry = {
-            ...country,
-            cities: isCountryMatch
-              ? country.cities
-              : country.cities.filter((city) =>
-                  city?.name?.ru?.toLowerCase()?.includes(locationSearchValue?.toLowerCase()),
-                ),
-          };
-          if (isCountryMatch || filteredCountry?.cities?.length > 0) {
-            return filteredCountry;
-          }
-          return null;
-        })
-        .filter((country): country is Country => country !== null),
-    [countries, locationSearchValue],
-  );
-  const cityList = useMemo(() => {
-    return selectCountry && countries.find((country) => country.id === selectCountry.id);
-  }, [countries, selectCountry]);
-
-  const filteredLocation = useMemo(() => {
-    const searchValueToLowerCase = debouncedLocationSearchValue.toLowerCase();
-    return countries.flatMap((country) => {
-      const cities = country.cities.filter((city) => city.name.ru.includes(searchValueToLowerCase));
-      if (cities.length > 0) return { country, cities };
-    });
+  const filteredCountries = useMemo(() => {
+    return filteredCountriesFn(countries, debouncedLocationSearchValue);
   }, [countries, debouncedLocationSearchValue]);
 
+  const cityList = useMemo(() => {
+    if (selectCountry) {
+      return filteredCountries.find((country) => country.id === selectCountry.id)?.cities || [];
+    }
+    return [];
+  }, [filteredCountries, selectCountry]);
+  useEffect(() => {
+    setSelectCountry(filteredCountries[0]);
+  }, [filteredCountries, ref.current?.onchange]);
   return (
-    <Dialog>
+    <Dialog onOpenChange={() => setLocationSearchValue("")}>
       <DialogTrigger className="" asChild>
         <div className="bg-[#2d2d2d]  rounded-full h-16 border-2 gap-2 border-[#bbbbbb] items-center p-3 flex justify-between">
           <div className="flex items-center gap-4">
@@ -106,6 +90,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           <div className="relative">
             <SearchIcon className="absolute translate-y-2 left-3 " color="#bbbbbb" />
             <Input
+              ref={ref}
               className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-[#bbbbbb] placeholder:font-semibold border-[#bbbbbb]"
               value={locationSearchValue}
               onChange={(e) => setLocationSearchValue(e.target.value)}
@@ -114,7 +99,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-[1fr,50px,1fr] grid-rows-1 min-h-full  ">
+        <div className="grid grid-cols-[1fr,8rem,1fr] grid-rows-1 min-h-full  ">
           <ScrollArea className="h-[50svh] border rounded-3xl p-4">
             <div className="flex flex-col gap-3">
               {filteredCountries?.map((country) => (
@@ -127,27 +112,48 @@ export const LocationSelect = (props: LocationSelectProps) => {
               ))}
             </div>
           </ScrollArea>
-
-          <ChevronRight width={50} className="self-center" />
+          <div className="flex items-center justify-center ">
+            <ArrowRightLineIcon width={22} className=" fill-white " />
+          </div>
           <ScrollArea className="h-[50svh] border rounded-3xl p-4">
-            <div className="  flex flex-col gap-3 ">
-              {cityList?.cities.map((city) => (
-                <DialogClose key={city.id}>
-                  <CityCard
-                    onClick={() =>
-                      onClickCity({
-                        cityCodeName: city?.code_name,
-                        countryIconUrl: cityList?.icon_url,
-                        countryName: cityList?.name?.ru,
-                        cityName: city?.name?.ru,
-                        id: city?.id,
-                      })
-                    }
-                    city={city}
-                    active={location?.cityCodeName === city?.code_name}
-                  />
-                </DialogClose>
-              ))}
+            <div className="  flex  flex-col  gap-3 ">
+              {selectCountry && cityList.length > 0
+                ? cityList.map((city) => (
+                    <DialogClose key={city.id}>
+                      <CityCard
+                        onClick={() =>
+                          onClickCity({
+                            cityCodeName: city?.code_name,
+                            countryIconUrl: selectCountry?.icon_url,
+                            countryName: selectCountry?.name?.ru,
+                            cityName: city?.name?.ru,
+                            id: city?.id,
+                          })
+                        }
+                        city={city}
+                        active={location?.cityCodeName === city?.code_name}
+                      />
+                    </DialogClose>
+                  ))
+                : filteredCountries?.map((country) =>
+                    country.cities.map((city) => (
+                      <DialogClose key={city.id}>
+                        <CityCard
+                          onClick={() =>
+                            onClickCity({
+                              cityCodeName: city?.code_name,
+                              countryIconUrl: country?.icon_url,
+                              countryName: country?.name?.ru,
+                              cityName: city?.name?.ru,
+                              id: city?.id,
+                            })
+                          }
+                          city={city}
+                          active={location?.cityCodeName === city?.code_name}
+                        />
+                      </DialogClose>
+                    )),
+                  )}
             </div>
           </ScrollArea>
         </div>
