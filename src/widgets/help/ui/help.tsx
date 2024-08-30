@@ -14,7 +14,7 @@ interface HelpBlockProps {
 export const HelpBlock: FC<HelpBlockProps> = ({ article, userFaqs, partnerFaqs }) => {
   const [isFaq, setIsFaq] = useState(false);
   return (
-    <div className="mt-10">
+    <div>
       <HelpTabs isFaq={isFaq} setIsFaq={setIsFaq} />
       {isFaq ? (
         <HelpFAQ userFaqs={userFaqs} partnerFaqs={partnerFaqs} />

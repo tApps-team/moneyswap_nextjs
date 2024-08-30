@@ -74,6 +74,9 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       >
         <input
           disabled={disabled}
+          // maxLength={2}
+          // max={999999999}
+          // min={0}
           type="number"
           value={amount || 0}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}

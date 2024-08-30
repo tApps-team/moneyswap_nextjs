@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { AccordionList } from "@/features/faq";
-import { getFaq } from "@/shared/api";
-import { directions, faqTypes } from "@/shared/types";
+import { AccordionList } from "@/features/strapi";
+import { faqTypes, getFaq } from "@/entities/strapi";
+import { directions } from "@/shared/types";
 
 interface MainFAQProps {
   direction: directions;

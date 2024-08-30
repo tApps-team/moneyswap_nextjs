@@ -1,16 +1,22 @@
-import { BlogSidebar, PopularArticles, ReadersChoice, RecommendedArticles } from "@/widgets/blog";
-import { CategoriesList } from "@/features/blog";
-import { getAllCategories, getAllTags, getTopicArticles, topics } from "@/entities/blog";
+import { AllArticles, BlogSidebar, ReadersChoice, RecommendedArticles } from "@/widgets/blog";
+import { CategoriesList } from "@/features/strapi";
+import { getAllArticles, getAllCategories, getTopicArticles, topics } from "@/entities/strapi";
 
-export const BlogPage = async () => {
-  const { data: popular } = await getTopicArticles({ topic: topics.main_topics });
+export const BlogPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+  const page = searchParams.page ? Number(searchParams?.page) : 1;
+  const elements = 4;
+
+  const { data: all, meta } = await getAllArticles({ page, elements });
   const { data: readersChoice } = await getTopicArticles({ topic: topics.readers_choice });
   const { data: recommended } = await getTopicArticles({ topic: topics.platform_recommended });
   const { data: categories } = await getAllCategories();
-  const { data: tags } = await getAllTags();
-  console.log(popular);
-  console.log(readersChoice);
-  console.log(recommended);
+
+  const totalPages = Math.ceil(meta?.pagination?.total / elements);
+
   return (
     <section className="grid grid-flow-row gap-[40px]">
       <div className="flex justify-center items-center">
@@ -20,7 +26,7 @@ export const BlogPage = async () => {
       </div>
       <CategoriesList categories={categories?.categories} />
       <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
-        <PopularArticles articles={popular?.articles} />
+        <AllArticles articles={all} totalPages={totalPages} page={page} />
         <BlogSidebar />
       </div>
       <ReadersChoice title={readersChoice?.name} articles={readersChoice?.articles} />

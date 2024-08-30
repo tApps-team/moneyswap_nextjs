@@ -1,4 +1,5 @@
 import { ArrowRightLineIcon, TelegramIcon } from "@/shared/assets";
+import { products } from "@/shared/router";
 
 export const BotBanner = () => {
   return (
@@ -8,7 +9,11 @@ export const BotBanner = () => {
           <p>Больше функций доступно</p>
           <p>В нашем телеграм-боте</p>
         </div>
-        <ArrowRightLineIcon width={60} height={60} className="self-center" />
+        <ArrowRightLineIcon
+          width={60}
+          height={60}
+          className="self-center fill-none stroke-[#b9b9b9] stroke-2 "
+        />
       </div>
       <div className="grid grid-cols-2 gap-8 justify-between">
         <div className="uppercase font-medium text-sm leading-5">
@@ -19,7 +24,7 @@ export const BotBanner = () => {
         </div>
         <a
           className="bg-[#27aed6] rounded-[50px] grid grid-flow-col gap-2 justify-center items-center h-[70px] hover:scale-[1.01] hover:shadow-[1px_5px_20px_5px_rgba(0,0,0,0.3)] active:scale-[0.995] active:shadow-[1px_5px_20px_5px_rgba(0,0,0,0.4)] transition-all duration-300"
-          href="https://t.me/moneyswap_robot"
+          href={products.telegram_bot}
           target="_blank"
           rel="noopener noreferrer"
         >

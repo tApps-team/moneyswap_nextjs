@@ -25,6 +25,7 @@ export const getSpecificCity = async (
 ): Promise<GetSpecificCityResponse> => {
   const { codeName } = props;
   const url = `api/cash/specific_city?code_name=${codeName}`;
+
   const response = apiClient.get<GetSpecificCityResponse>(url);
 
   return response;
