@@ -7,15 +7,20 @@ import { routes } from "@/shared/router";
 interface CategoriesListProps {
   categories: Category[];
   selectedCategory?: string;
+  selectedTag?: string;
 }
 
-export const CategoriesList: FC<CategoriesListProps> = ({ categories, selectedCategory }) => {
+export const CategoriesList: FC<CategoriesListProps> = ({
+  categories,
+  selectedCategory,
+  selectedTag,
+}) => {
   return (
     <section className="grid grid-flow-col justify-between gap-2 items-center">
       <Link
         scroll={false}
         href={routes.blog}
-        className={`uppercase truncate text-xs font-semibold py-3 px-8 rounded-[35px] border-2 border-transparent transition-all duration-300 ${!selectedCategory ? "bg-[#f6ff5f] text-black border-[#f6ff5f]" : "hover:bg-[#2d2d2d] hover:border-[#ddd]"}`}
+        className={`uppercase truncate text-xs font-semibold py-3 px-8 rounded-[35px] border-2 border-transparent transition-all duration-300 ${!selectedCategory && !selectedTag ? "bg-[#f6ff5f] text-black border-[#f6ff5f]" : "hover:bg-[#2d2d2d] hover:border-[#ddd]"}`}
       >
         Все статьи
       </Link>

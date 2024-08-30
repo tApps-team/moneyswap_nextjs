@@ -15,7 +15,7 @@ export const BlogTagPage = async ({ params }: { params: { tag: string } }) => {
           {articles?.name}
         </h1>
       </div>
-      <CategoriesList categories={categories?.categories} />
+      <CategoriesList categories={categories?.categories} selectedTag={tag} />
       <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
         <AllArticles articles={articles?.articles} />
         <BlogSidebar />
