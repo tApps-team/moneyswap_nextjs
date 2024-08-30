@@ -166,6 +166,10 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     const cashValuteNotEmpty = giveCashCurrency && getCashCurrency;
     const valuteNotEmpty = giveCurrency && getCurrency;
     setDirection(currentDirection);
+    if (currentDirection === directions.cash && !cashValuteNotEmpty) {
+      router.push(`${routes.home}?direction=cash`);
+    }
+
     if (currentDirection === directions.cash && cashValuteNotEmpty) {
       router.push(
         `/exchange/${giveCashCurrency.code_name}-to-${getCashCurrency.code_name}/${location?.cityCodeName}`,
@@ -174,7 +178,11 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     if (currentDirection === directions.noncash && valuteNotEmpty) {
       router.push(`/exchange/${giveCurrency.code_name}-to-${getCurrency.code_name}`);
     }
+    if (currentDirection === directions.noncash && !valuteNotEmpty) {
+      router.push(`${routes.home}`);
+    }
   };
+
   // const handleCashTab = () => {
   //   const valuteNotEmpty = giveCashCurrency && getCashCurrency;
 
