@@ -1,4 +1,4 @@
-import { cx } from "class-variance-authority";
+import { cn } from "@/shared/lib";
 import { City } from "../model/city-types";
 
 type CityCardProps = {
@@ -11,9 +11,9 @@ export const CityCard = (props: CityCardProps) => {
   return (
     <div
       onClick={onClick}
-      className={cx(
-        "p-4 border-2 flex rounded-full items-center h-[68px] border-[#bbbbbb]",
-        active && "bg-[#f6ff5f] text-black",
+      className={cn(
+        "p-4 border-2 flex hover:text-black hover:border-none hover:bg-[#f6ff5f] rounded-full items-center h-[68px] border-[#bbbbbb]",
+        active && "bg-[#f6ff5f] text-black border-none",
       )}
     >
       <p className="uppercase">{city?.name?.ru}</p>

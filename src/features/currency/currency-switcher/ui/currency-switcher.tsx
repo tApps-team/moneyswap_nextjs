@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useCurrecnyStore } from "@/entities/currency";
 import { SwitcherIcon } from "@/shared/assets";
 import { directions } from "@/shared/types";
 import { Button } from "@/shared/ui";
@@ -11,8 +12,21 @@ type CurrencySwitcherProps = {
 export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   const { direction } = props;
   const params = useParams<{ slug: string[] }>();
+  const { getCashCurrency, getCurrency, giveCashCurrency, giveCurrency } = useCurrecnyStore(
+    (state) => state,
+  );
+  const currentGetCurrency = direction === directions.cash ? getCashCurrency : getCurrency;
+  const currentGiveCurrency = direction === directions.cash ? giveCashCurrency : giveCurrency;
 
   const switchUrl = () => {
+    if (
+      !params.slug &&
+      direction === directions.noncash &&
+      currentGetCurrency &&
+      currentGiveCurrency
+    ) {
+      return `/exchange/${currentGetCurrency?.code_name}-to-${currentGiveCurrency?.code_name}`;
+    }
     if (params.slug && params.slug.length > 0) {
       const [valutes, ...rest] = params.slug;
       const [valuteFrom, valuteTo] = valutes.split("-to-");

@@ -6,9 +6,9 @@ export const ArrowRightLineIcon = (props: any) => (
     viewBox="0 0 62.13 77.53"
     {...props}
   >
-    <defs>
+    {/* <defs>
       <style>{".cls-2{fill:none;stroke:#b9b9b9;stroke-miterlimit:10;stroke-width:2px}"}</style>
-    </defs>
+    </defs> */}
     <path
       d="m20.302 65.573 19.311-19.31 10.55 10.55-19.31 19.31zM60.72 31.31h-.04l.03-.04L30.86 1.41 20.31 11.96l19.34 19.35H1v14.92h59.72V31.31z"
       className="cls-2"
