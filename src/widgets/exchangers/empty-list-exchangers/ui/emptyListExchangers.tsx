@@ -30,7 +30,17 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
   };
   return (
     <div>
-      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]  mt-12 flex flex-col w-full rounded-3xl text-white bg-[#2d2d2d]">
+      <div className="uppercase my-6">
+        <h2 className="text-xl">
+          Лучшие курсы {valuteFrom} на {valuteTo}
+        </h2>
+        <p>
+          На данный момент по направлению {valuteFrom} на {valuteTo} отсутствуют обменные пункты в
+          городе {city}. Попробуйте выбрать другое направление обмена в городе {city}. Например,
+          такие направления:
+        </p>
+      </div>
+      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]   flex flex-col w-full rounded-3xl text-white bg-[#2d2d2d]">
         {exchangers.length > 0 ? (
           exchangers?.map((exchanger) => (
             <Link
