@@ -16,7 +16,7 @@ export const CityCard = (props: CityCardProps) => {
         active && "bg-[#f6ff5f] text-black border-none",
       )}
     >
-      <p className="uppercase">{city?.name?.ru}</p>
+      <p className="uppercase line-clamp-1 ">{city?.name?.ru}</p>
     </div>
   );
 };
