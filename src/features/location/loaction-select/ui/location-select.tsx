@@ -56,9 +56,12 @@ export const LocationSelect = (props: LocationSelectProps) => {
     }
     return [];
   }, [filteredCountries, selectCountry]);
+  //fix
   useEffect(() => {
-    setSelectCountry(filteredCountries[0]);
-  }, [filteredCountries, ref.current?.onchange]);
+    if (filteredCountries.length > 0 && !selectCountry) {
+      setSelectCountry(filteredCountries[0]);
+    }
+  }, [filteredCountries, ref.current?.onchange, selectCountry]);
   return (
     <Dialog onOpenChange={() => setLocationSearchValue("")}>
       <DialogTrigger className="" asChild>
