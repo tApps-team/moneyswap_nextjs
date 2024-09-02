@@ -19,9 +19,10 @@ type CurrencySelectFormProps = {
   urlGetCurrency?: Currency;
   urlGiveCurrency?: Currency;
   urlDirection?: directions;
+  actualCourse?: number;
 };
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
-  const { url, urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection } = props;
+  const { url, urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
 
   const router = useRouter();
   const { location, setLocation } = useLocationStore((state) => state);
@@ -82,12 +83,10 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
       setLocation(urlLocation);
       setCashGiveCurrency(urlGiveCurrency);
       setCashGetCurrency(urlGetCurrency);
-      console.log(urlGiveCurrency, urlGetCurrency);
     }
     if (isSetCurrencies && urlDirection === directions.noncash) {
       setGiveCurrency(urlGiveCurrency);
       setGetCurrency(urlGetCurrency);
-      console.log(urlGiveCurrency, urlGetCurrency);
     }
   }, [
     setCashGetCurrency,
@@ -120,22 +119,6 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     city: direction === directions.cash ? location?.cityCodeName : undefined,
   });
 
-  // useEffect(() => {
-  //   if (getCurrenciesIsError) {
-  //     direction === directions.cash ? resetCashCurrencies() : resetNoCashCurrencies();
-  //   }
-  // }, [direction, getCurrenciesIsError, resetCashCurrencies, resetNoCashCurrencies]);
-  // useEffect(() => {
-  //   const valuteNotEmpty = currentGiveCurrency && currentGetCurrency;
-  //   if (valuteNotEmpty && direction === directions.noncash) {
-  //     router.push(`/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
-  //   }
-  //   if (valuteNotEmpty && direction === directions.cash) {
-  //     router.push(
-  //       `/exchange/${currentGiveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
-  //     );
-  //   }
-  // }, [currentGetCurrency, currentGiveCurrency, direction, location?.cityCodeName, router]);
   const onClickGiveCurrency = (giveCurrency: Currency) => {
     currentSetGiveCurrency(giveCurrency);
     const valuteNotEmpty = currentGetCurrency && giveCurrency;
@@ -183,22 +166,6 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     }
   };
 
-  // const handleCashTab = () => {
-  //   const valuteNotEmpty = giveCashCurrency && getCashCurrency;
-
-  //   if (valuteNotEmpty) {
-  //     router.push(
-  //       `/exchange/${giveCashCurrency.code_name}-to-${getCashCurrency.code_name}/${location?.cityCodeName}`,
-  //     );
-  //   }
-  // };
-  // const handleTab = () => {
-  //   const valuteNotEmpty = giveCurrency && getCurrency;
-
-  //   if (valuteNotEmpty && direction) {
-  //     router.push(`/exchange/${giveCurrency.code_name}-to-${getCurrency.code_name}`);
-  //   }
-  // };
   return (
     // <Form {...form}>
     <form className="text-white w-full border-2 border-[#bbbbbb] h-full py-5 px-7 pb-12 bg-[#2d2d2d] rounded-3xl">
