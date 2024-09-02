@@ -72,9 +72,19 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
       />
       {status === 404 ? (
         <EmptyListExchangers
-          valuteFrom={valute_from}
-          valuteTo={valute_to}
-          city={city ? city : undefined}
+          valuteFrom={{
+            code_name: giveCurrency.code_name,
+            icon_url: giveCurrency.icon_url,
+            id: giveCurrency.name.ru,
+            name: giveCurrency.name,
+          }}
+          valuteTo={{
+            code_name: getCurrency.code_name,
+            icon_url: getCurrency.icon_url,
+            id: getCurrency.name.ru,
+            name: getCurrency.name,
+          }}
+          location={location ? location : undefined}
         />
       ) : (
         <ExchangersTable columns={columns} data={exchangers} />
