@@ -19,7 +19,7 @@ type CurrencySelectFormProps = {
   urlGetCurrency?: Currency;
   urlGiveCurrency?: Currency;
   urlDirection?: directions;
-  actualCourse?: number;
+  actualCourse: number | null;
 };
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const { url, urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
@@ -214,6 +214,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
         )}
       >
         <CurrencySelect
+          actualCourse={1}
           setAmount={currentSetGiveAmount}
           amount={currentGiveAmount}
           onClick={onClickGiveCurrency}
@@ -227,6 +228,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
         <CurrencySwitcher direction={direction} />
 
         <CurrencySelect
+          actualCourse={actualCourse}
           amount={currentGetAmount}
           setAmount={currentSetGetAmount}
           onClick={onClickGetCurrency}
