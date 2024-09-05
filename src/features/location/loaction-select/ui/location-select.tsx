@@ -40,7 +40,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const onClickCountry = (country: Country) => {
     setSelectCountry(country);
   };
-
+  // убрать очистку городов и пушить город в url
   const onClickCity = (location: Location) => {
     setLocation(location);
     resetCashCurrencies();
