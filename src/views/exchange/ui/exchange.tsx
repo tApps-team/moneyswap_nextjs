@@ -4,7 +4,7 @@ import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers"
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
 import { BotBanner } from "@/features/bot-banner";
-import { getSpecificValute } from "@/entities/currency";
+import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoMeta, getSeoTexts } from "@/shared/api";
@@ -23,7 +23,10 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
 
   const location = city ? await getSpecificCity({ codeName: city }) : null;
   const currentDirection = city ? directions.cash : directions.noncash;
-  console.log(status);
+  const actualCourse = await getActualCourse({
+    valuteFrom: giveCurrency.code_name,
+    valuteTo: getCurrency.code_name,
+  });
   const reqParams =
     currentDirection === directions.cash
       ? {
@@ -49,6 +52,7 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
       <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
       <CurrencySelectForm
+        actualCourse={actualCourse}
         urlGetCurrency={{
           id: getCurrency?.name?.ru,
           code_name: getCurrency?.code_name,
@@ -87,7 +91,7 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
           location={location ? location : undefined}
         />
       ) : (
-        <ExchangersTable columns={columns} data={exchangers} />
+        <ExchangersTable columns={columns} data={exchangers || []} />
       )}
 
       <SeoFooterText data={seoTexts.data} />
