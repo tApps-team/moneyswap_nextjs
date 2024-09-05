@@ -1,4 +1,4 @@
-import { Name } from "@/shared/types";
+import { Name, Review } from "@/shared/types";
 
 export interface Exchanger {
   id: number;
@@ -15,11 +15,7 @@ export interface Exchanger {
   out_count: number;
   min_amount: string | null;
   max_amount: string | null;
-  review_count: {
-    positive: number;
-    neutral: number;
-    negative: number;
-  };
+  review_count: Review;
   info?: {
     delivery: boolean;
     office: boolean;
