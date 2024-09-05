@@ -27,11 +27,21 @@ type CurrencySelectProps = {
   onClick: (currency: Currency) => void;
   amount?: number | null;
   setAmount?: (amount: number) => void;
+  actualCourse: number | null;
 };
 
 export const CurrencySelect = (props: CurrencySelectProps) => {
-  const { label, disabled, currencies, currencyInfo, direction, onClick, amount, setAmount } =
-    props;
+  const {
+    label,
+    disabled,
+    currencies,
+    currencyInfo,
+    direction,
+    onClick,
+    amount,
+    setAmount,
+    actualCourse,
+  } = props;
   const [searchValue, setSearchValue] = useState<string>("");
 
   const searchDeferredValue = useDeferredValue(searchValue);
@@ -71,9 +81,8 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         )}
       >
         <input
-          disabled={disabled}
-          type="number"
-          value={amount || 0}
+          disabled={true}
+          value={actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
           className="focus-visible:outline-none bg-transparent text-[#f6ff5f] px-6 font-semibold text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
         />
