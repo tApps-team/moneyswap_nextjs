@@ -97,9 +97,15 @@ export const getRandomValutes = async (
 
 export const getActualCourse = async (
   props: GetActualCourseDtoRequset,
-): Promise<GetActualCourseDtoResponse> => {
+): Promise<GetActualCourseDtoResponse | null> => {
   const { valuteFrom, valuteTo } = props;
   const url = `api/actual_course?valute_from=${valuteFrom}&valute_to=${valuteTo}`;
-  const result = await apiClient.get<GetActualCourseDtoResponse>(url);
-  return result;
+
+  try {
+    const result = await apiClient.get<GetActualCourseDtoResponse>(url);
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch the actual course:", error);
+    return null; // Return null or an appropriate fallback value if the request fails
+  }
 };
