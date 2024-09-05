@@ -3,7 +3,7 @@ import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
 import { BotBanner } from "@/features/bot-banner";
-import { getSpecificValute } from "@/entities/currency";
+import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
@@ -15,7 +15,7 @@ export const Main = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const direction = searchParams?.direction ? directions.cash : directions.noncash;
-  console.log(direction);
+
   const seoTexts = await getSeoTexts({ page: pageTypes.main });
   const giveCurrency = await getSpecificValute({
     codeName: direction === directions.cash ? "cashrub" : "BTC",
@@ -23,6 +23,7 @@ export const Main = async ({
   const getCurrency = await getSpecificValute({
     codeName: direction === directions.cash ? "btc" : "SBERRUB",
   });
+  const actualCourse = await getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" });
   const location = await getSpecificCity({ codeName: "msk" });
   const request =
     direction === directions.cash
@@ -35,14 +36,15 @@ export const Main = async ({
           valute_from: giveCurrency?.code_name,
           valute_to: getCurrency?.code_name,
         };
-  console.log(request);
+
   const { exchangers } = await getExchangers(request);
-  console.log(exchangers);
+
   return (
     <section>
       <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
       <CurrencySelectForm
+        actualCourse={actualCourse}
         urlLocation={{
           cityCodeName: location?.code_name,
           cityName: location?.name?.ru,
@@ -64,7 +66,7 @@ export const Main = async ({
           name: giveCurrency.name,
         }}
       />
-      <ExchangersTable columns={columns} data={exchangers} />
+      <ExchangersTable columns={columns} data={exchangers || []} />
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={directions.noncash} />
     </section>
