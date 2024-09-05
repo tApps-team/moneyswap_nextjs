@@ -7,7 +7,7 @@ export class ApiClient {
 
   async handleResponse<TResult>(response: Response): Promise<TResult> {
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status} ${response.url}`);
     }
 
     try {
