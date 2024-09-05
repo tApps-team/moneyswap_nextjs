@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 import { routes } from "@/shared/router";
 
@@ -9,6 +10,8 @@ interface PaginationProps {
 }
 
 export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route }) => {
+  const searchParams = useSearchParams();
+  const searchValue = searchParams.get("search");
   const createPaginationArray = () => {
     const pages = [];
 
@@ -47,7 +50,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route
         typeof page === "number" ? (
           <Link
             key={index}
-            href={`${route}?page=${page}`}
+            href={`${route}?page=${page}${searchValue ? `&search=${searchValue}` : ""}`}
             className={`h-12 w-12 font-medium flex justify-center items-center rounded-full p-2 border-2 border-[#2d2d2d] transition-all duration-300 ${page === currentPage ? "bg-[#f6ff5f] border-[#f6ff5f] text-[#2d2d2d]" : "hover:border-[#ddd] transition-all duration-300"}`}
             scroll={false}
           >

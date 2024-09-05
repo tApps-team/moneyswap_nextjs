@@ -6,6 +6,7 @@ import { ShowMore } from "@/features/strapi";
 import { Article, ArticlePreview, ArticlePreviewCard } from "@/entities/strapi";
 import { NoResultIcon } from "@/shared/assets";
 import { routes } from "@/shared/router";
+import { NoResults } from "@/shared/ui";
 
 interface AllArticlesProps {
   articles: Article[] | ArticlePreview[];
@@ -37,31 +38,30 @@ export const AllArticles: FC<AllArticlesProps> = ({ articles, totalPages, page }
   return (
     <section className="flex justify-center items-center">
       {previewArticles?.length > 0 ? (
-        <section className="p-8 grid grid-flow-row justify-items-center gap-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d]">
-          <div className="grid grid-cols-2 gap-8">
-            {previewArticles.slice(0, visibleCount).map((art) => (
-              <ArticlePreviewCard key={art.url_name} article={art} />
-            ))}
-            {previewArticles?.length % 2 !== 0 && visibleCount >= previewArticles?.length && (
-              <div className="flex flex-col justify-center items-center opacity-50 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] border-2 border-[rgba(0,0,0,0)]">
-                <p className="text-xs text-[#ddd] font-medium uppercase text-center opacity-50">
-                  No results
-                </p>
-                <div className="grayscale flex justify-center items-center w-[70%] h-[70%] pt-[20px]">
-                  <NoResultIcon widht="100%" height="100%" />
-                </div>
-              </div>
-            )}
+        <section className="grid grid-flow-row gap-8">
+          <div className="p-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d]">
+            <div className="grid grid-cols-2 gap-8">
+              {previewArticles.slice(0, visibleCount).map((art) => (
+                <ArticlePreviewCard key={art.url_name} article={art} />
+              ))}
+              {previewArticles?.length % 2 !== 0 && visibleCount >= previewArticles?.length && (
+                <NoResults className="flex flex-col justify-center items-center opacity-50 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] border-2 border-[rgba(0,0,0,0)]" />
+              )}
+            </div>
           </div>
           {!page && !totalPages && visibleCount < previewArticles.length && (
-            <ShowMore onClick={handleShowMore} />
+            <div className="justify-self-center">
+              <ShowMore onClick={handleShowMore} />
+            </div>
           )}
           {page && totalPages && (
-            <Pagination currentPage={page} totalPages={totalPages} route={routes?.blog} />
+            <div className="justify-self-center">
+              <Pagination currentPage={page} totalPages={totalPages} route={routes?.blog} />
+            </div>
           )}
         </section>
       ) : (
-        <div className="grayscale opacity-50 flex justify-center items-center w-[40vw] max-w-[600px] p-[6%] pt-[7vw] ">
+        <div className="grayscale opacity-50 flex justify-center items-center w-[40vw] max-w-[600px] p-[6%] pt-[10vw]">
           <NoResultIcon />
         </div>
       )}

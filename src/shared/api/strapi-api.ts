@@ -22,18 +22,18 @@ export const getSeoTexts = async ({
   if (country) params.append("country", country);
   if (city) params.append("city", city);
 
-  const res = await fetch(
-    `${process.env.STRAPI_BASE_URL}/api/seo-texts-blocks?filters[page][$eq]=${page}&${params.toString()}`,
-    {
-      cache: "no-store",
-    },
-  );
-
-  if (!res.ok) {
+  try {
+    const res = await fetch(
+      `${process.env.STRAPI_BASE_URL}/api/seo-texts-blocks?filters[page][$eq]=${page}&${params.toString()}`,
+      {
+        // cache: "no-store",
+      },
+    );
+    return res.json();
+  } catch (error) {
+    console.error("error:", error);
     throw new Error("Failed to fetch data");
   }
-
-  return res.json();
 };
 
 export const getSeoMeta = async ({
@@ -49,56 +49,56 @@ export const getSeoMeta = async ({
   if (country) params.append("country", country);
   if (city) params.append("city", city);
 
-  const res = await fetch(
-    `${process.env.STRAPI_BASE_URL}/api/seo-meta-blocks?filters[page][$eq]=${page}&${params.toString()}`,
-    {
-      cache: "no-store",
-    },
-  );
-
-  if (!res.ok) {
+  try {
+    const res = await fetch(
+      `${process.env.STRAPI_BASE_URL}/api/seo-meta-blocks?filters[page][$eq]=${page}&${params.toString()}`,
+      {
+        // cache: "no-store",
+      },
+    );
+    return res.json();
+  } catch (error) {
+    console.error("error:", error);
     throw new Error("Failed to fetch data");
   }
-
-  return res.json();
 };
 
 export const getAboutPage = async () => {
-  const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/about-us`);
-
-  if (!res.ok) {
+  try {
+    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/about-us`);
+    return res.json();
+  } catch (error) {
+    console.error("error:", error);
     throw new Error("Failed to fetch data");
   }
-
-  return res.json();
 };
 
 export const getHelpPage = async (): Promise<GetHelpPageResponse> => {
-  const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-article`);
-
-  if (!res.ok) {
+  try {
+    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-article`);
+    return res.json();
+  } catch (error) {
+    console.error("error:", error);
     throw new Error("Failed to fetch data");
   }
-
-  return res.json();
 };
 
 export const getForPartnersPage = async () => {
-  const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/for-partner`);
-
-  if (!res.ok) {
+  try {
+    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/for-partner`);
+    return res.json();
+  } catch (error) {
+    console.error("error:", error);
     throw new Error("Failed to fetch data");
   }
-
-  return res.json();
 };
 
 export const getArticle = async () => {
-  const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/article`);
-
-  if (!res.ok) {
+  try {
+    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/article`);
+    return res.json();
+  } catch (error) {
+    console.error("error:", error);
     throw new Error("Failed to fetch data");
   }
-
-  return res.json();
 };

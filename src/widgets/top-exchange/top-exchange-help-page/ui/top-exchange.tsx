@@ -14,7 +14,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
   randomNoncashDirections,
 }) => {
   return (
-    <section className="grid grid-rows-2 gap-12">
+    <section className="grid grid-rows-2 gap-12 w-full p-6 bg-[#2d2d2d] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-3xl">
       <div className="grid grid-flow-row gap-6">
         <p className="text-xs text-center font-medium uppercase">Топ популярных направлений</p>
         <div className="grid grid-cols-2 gap-6 items-center">

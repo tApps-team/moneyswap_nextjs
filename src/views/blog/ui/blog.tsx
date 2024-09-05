@@ -1,4 +1,4 @@
-import { AllArticles, BlogSidebar, ReadersChoice, RecommendedArticles } from "@/widgets/blog";
+import { AllArticles, BlogSidebar, SliderOfArticles } from "@/widgets/blog";
 import { CategoriesList } from "@/features/strapi";
 import { getAllArticles, getAllCategories, getTopicArticles, topics } from "@/entities/strapi";
 
@@ -8,9 +8,10 @@ export const BlogPage = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const page = searchParams.page ? Number(searchParams?.page) : 1;
+  const searchValue = searchParams.search ? searchParams.search.toString() : null;
   const elements = 4;
 
-  const { data: all, meta } = await getAllArticles({ page, elements });
+  const { data: all, meta } = await getAllArticles({ page, elements, searchValue });
   const { data: readersChoice } = await getTopicArticles({ topic: topics.readers_choice });
   const { data: recommended } = await getTopicArticles({ topic: topics.platform_recommended });
   const { data: categories } = await getAllCategories();
@@ -27,10 +28,12 @@ export const BlogPage = async ({
       <CategoriesList categories={categories?.categories} />
       <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
         <AllArticles articles={all} totalPages={totalPages} page={page} />
-        <BlogSidebar />
+        <BlogSidebar searchValue={searchValue} />
       </div>
-      <ReadersChoice title={readersChoice?.name} articles={readersChoice?.articles} />
-      <RecommendedArticles title={recommended?.name} articles={recommended?.articles} />
+      <div className="pt-8 grid gap-[40px]">
+        <SliderOfArticles title={readersChoice?.name} articles={readersChoice?.articles} />
+        <SliderOfArticles title={recommended?.name} articles={recommended?.articles} />
+      </div>
     </section>
   );
 };
