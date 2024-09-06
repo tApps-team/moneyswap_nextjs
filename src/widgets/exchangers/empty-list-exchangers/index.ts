@@ -1,1 +1,1 @@
-export * from "./ui/emptyListExchangers";
+export * from "./ui/empty-list-exchangers";

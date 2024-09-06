@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/shared/api";
 import {
+  GetActualCourseDtoRequset,
+  GetActualCourseDtoResponse,
   GetAvailableValutesDtoRequest,
   GetAvailableValutesDtoResponse,
   GetDirectionsRequest,
@@ -91,4 +93,19 @@ export const getRandomValutes = async (
   }
   const data = await result.json();
   return data;
+};
+
+export const getActualCourse = async (
+  props: GetActualCourseDtoRequset,
+): Promise<GetActualCourseDtoResponse | null> => {
+  const { valuteFrom, valuteTo } = props;
+  const url = `api/actual_course?valute_from=${valuteFrom}&valute_to=${valuteTo}`;
+
+  try {
+    const result = await apiClient.get<GetActualCourseDtoResponse>(url);
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch the actual course:", error);
+    return null; // Return null or an appropriate fallback value if the request fails
+  }
 };

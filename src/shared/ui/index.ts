@@ -13,3 +13,4 @@ export * from "./checkbox";
 export * from "./scroll-area";
 export * from "./carousel";
 export * from "./no-results";
+export * from "./hover-card";

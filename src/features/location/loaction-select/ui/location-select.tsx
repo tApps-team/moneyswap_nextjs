@@ -40,7 +40,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const onClickCountry = (country: Country) => {
     setSelectCountry(country);
   };
-
+  // убрать очистку городов и пушить город в url
   const onClickCity = (location: Location) => {
     setLocation(location);
     resetCashCurrencies();
@@ -56,9 +56,12 @@ export const LocationSelect = (props: LocationSelectProps) => {
     }
     return [];
   }, [filteredCountries, selectCountry]);
+  //fix
   useEffect(() => {
-    setSelectCountry(filteredCountries[0]);
-  }, [filteredCountries, ref.current?.onchange]);
+    if (filteredCountries.length > 0 && !selectCountry) {
+      setSelectCountry(filteredCountries[0]);
+    }
+  }, [filteredCountries, ref.current?.onchange, selectCountry]);
   return (
     <Dialog onOpenChange={() => setLocationSearchValue("")}>
       <DialogTrigger className="" asChild>

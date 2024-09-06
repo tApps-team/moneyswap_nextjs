@@ -7,24 +7,40 @@ import {
 
 export const getExchangers = async (
   props: GetExchangersDtoRequest,
-): Promise<{ exchangers: GetExchangersDtoResponse; status: number }> => {
+): Promise<{ exchangers: GetExchangersDtoResponse | null; status: number }> => {
   const { valute_from, valute_to, city } = props;
 
   const url = city
     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions?city=${city}&valute_from=${valute_from}&valute_to=${valute_to}`
     : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions?valute_from=${valute_from}&valute_to=${valute_to}`;
-  const res = await fetch(url, {
-    method: "GET",
-    next: {
-      tags: city
-        ? ["directions", valute_from, valute_to, city]
-        : ["directions", valute_from, valute_to],
-    },
-    cache: "no-store",
-  });
-  const data = await res.json();
 
-  return { exchangers: data, status: res.status };
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      next: {
+        tags: city
+          ? ["directions", valute_from, valute_to, city]
+          : ["directions", valute_from, valute_to],
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      // Handle different response statuses accordingly
+      return { exchangers: null, status: res.status };
+    }
+
+    try {
+      const data = await res.json();
+      return { exchangers: data, status: res.status };
+    } catch (jsonError) {
+      console.error("Error parsing JSON response:", jsonError);
+      return { exchangers: null, status: res.status };
+    }
+  } catch (error) {
+    console.error("Network or other error occurred:", error);
+    return { exchangers: null, status: 500 }; // Return a status of 500 or another code indicating a failure
+  }
 };
 
 export const getSimilarDirections = async (

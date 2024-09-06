@@ -1,10 +1,8 @@
 import { cx } from "class-variance-authority";
-import { Bitcoin, ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
+import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useDeferredValue, useEffect, useState } from "react";
-import { Currency, CurrencyCard, CurrencyResponse, useCurrecnyStore } from "@/entities/currency";
-import useLocalStorage from "@/shared/lib/hooks/useLocalStorage";
+import { useDeferredValue, useState } from "react";
+import { Currency, CurrencyCard, CurrencyResponse } from "@/entities/currency";
 import { directions } from "@/shared/types";
 import {
   Dialog,
@@ -29,11 +27,21 @@ type CurrencySelectProps = {
   onClick: (currency: Currency) => void;
   amount?: number | null;
   setAmount?: (amount: number) => void;
+  actualCourse: number | null;
 };
 
 export const CurrencySelect = (props: CurrencySelectProps) => {
-  const { label, disabled, currencies, currencyInfo, direction, onClick, amount, setAmount } =
-    props;
+  const {
+    label,
+    disabled,
+    currencies,
+    currencyInfo,
+    direction,
+    onClick,
+    amount,
+    setAmount,
+    actualCourse,
+  } = props;
   const [searchValue, setSearchValue] = useState<string>("");
 
   const searchDeferredValue = useDeferredValue(searchValue);
@@ -73,17 +81,13 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         )}
       >
         <input
-          disabled={disabled}
-          // maxLength={2}
-          // max={999999999}
-          // min={0}
-          type="number"
-          value={amount || 0}
+          disabled={true}
+          value={actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
           className="focus-visible:outline-none bg-transparent text-[#f6ff5f] px-6 font-semibold text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
         />
         <Dialog>
-          <DialogTrigger disabled={disabled} asChild>
+          <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
             <div className="bg-[#2d2d2d] min-h-14 justify-between select-none rounded-full border-l-2 border-[#bbb] items-center p-2 flex h-full">
               <div className="grid grid-flow-col items-center  gap-2 truncate">
                 {currencyInfo ? (
