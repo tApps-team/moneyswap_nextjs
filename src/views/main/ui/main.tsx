@@ -68,7 +68,7 @@ export const Main = async ({
       />
       <ExchangersTable columns={columns} data={exchangers || []} />
       <SeoFooterText data={seoTexts.data} />
-      <MainFAQ direction={directions.noncash} />
+      <MainFAQ direction={direction} />
     </section>
   );
 };
