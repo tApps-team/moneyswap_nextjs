@@ -29,3 +29,9 @@ export type GetDirectionsResponse = {
   valute_from: SpecificValute;
   valute_to: SpecificValute;
 }[];
+
+export type GetActualCourseDtoResponse = number;
+export type GetActualCourseDtoRequset = {
+  valuteFrom: string;
+  valuteTo: string;
+};

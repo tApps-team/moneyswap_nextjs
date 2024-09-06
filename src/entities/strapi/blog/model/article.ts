@@ -10,6 +10,7 @@ export interface Article {
     image: string;
   };
   article: {
+    table_of_contents: TableOfContents[];
     title: string;
     content: string;
   };
@@ -24,4 +25,9 @@ export interface ArticlePreview {
   description: string;
   image: string;
   publishedAt: string;
+}
+
+export interface TableOfContents {
+  title: string;
+  id: string;
 }

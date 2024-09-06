@@ -12,6 +12,7 @@ import {
 export type GetAllArticlesRequest = {
   page?: number;
   elements?: number;
+  searchValue?: string | null;
 };
 
 export type GetAllArticlesResponse = {

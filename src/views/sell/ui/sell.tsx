@@ -5,7 +5,7 @@ import { directions, pageTypes } from "@/shared/types";
 
 export const SellPage = async () => {
   const seoTexts = await getSeoTexts({
-    page: pageTypes.sell_cash,
+    page: pageTypes.buy_noncash,
     giveCurrency: "Биткоин BTC",
     getCurrency: "TETHER 20TRC",
   });

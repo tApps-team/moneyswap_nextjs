@@ -1,4 +1,4 @@
 export * from "./sidebar";
 export * from "./all";
-export * from "./readersChoice";
-export * from "./recommended";
+export * from "./slider-of-articles";
+export * from "./similar-articles";
