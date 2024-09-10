@@ -7,7 +7,7 @@ export const ExchangerInfo = () => {
       <h2 className="text-xl font-medium ">ОБЩАЯ ИНФОРМАЦИЯ ОБ ОБМЕННИКЕ</h2>
       <hr className="mx-[-1.5rem]" />
       <div className="grid grid-cols-6 grid-rows-2 gap-4">
-        <div className="rounded-full border-2 border-[#ddd] flex items-center bg-black justify-center row-span-2 col-span-2 w-[90%] h-[100%]">
+        <div className="rounded-full border-2 border-[#ddd] flex items-center bg-black justify-center row-span-2 col-span-2 w-[80%] h-[100%]">
           <BitcoinIcon width={72} height={72} />
         </div>
         <Link href={"/"}>
