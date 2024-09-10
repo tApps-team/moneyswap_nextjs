@@ -1,5 +1,8 @@
+"use client";
 import { cx } from "class-variance-authority";
 import { Smile } from "lucide-react";
+import { useState } from "react";
+import { cn } from "@/shared/lib";
 import { Review, ReviewEnum } from "@/shared/types";
 
 type ExchangerReviewCardProps = {
@@ -8,6 +11,7 @@ type ExchangerReviewCardProps = {
 };
 export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   const { replySlot, review } = props;
+  const [isOpenReview, setIsOpenReview] = useState(false);
   const reviewRender = () => {
     if (review === ReviewEnum.positive) {
       return (
@@ -34,6 +38,9 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
       );
     }
   };
+  const onExpand = () => {
+    setIsOpenReview((prev) => !prev);
+  };
   return (
     <div className="border rounded-3xl p-7 grid grid-cols-1 gap-4  bg-[#2d2d2d] relative">
       <div
@@ -54,11 +61,16 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           <p>19:02</p>
         </div>
       </div>
-      <p className="line-clamp-3">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt
-        perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic incidunt
-        debitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.
-      </p>
+      <div>
+        <p className={cn("line-clamp-2", isOpenReview && "line-clamp-none")}>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt
+          perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic incidunt
+          debitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.
+        </p>
+        <button onClick={onExpand} className="text-[#f6ff5f] text-sm">
+          {isOpenReview ? "СВЕРНУТЬ" : "РАЗВЕРНУТЬ"}
+        </button>
+      </div>
       <div>{replySlot}</div>
     </div>
   );
