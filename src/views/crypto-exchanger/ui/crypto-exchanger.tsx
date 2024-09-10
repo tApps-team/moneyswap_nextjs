@@ -1,6 +1,7 @@
 import { CryptoDirection } from "@/widgets/exchanger/crypto-direction";
 import { CryptoExchangerSeoText } from "@/widgets/exchanger/crypto-exchanger-seo-text";
 import { ExchangerInfo } from "@/widgets/exchanger/exchanger-info";
+import { ExchangerReviews } from "@/widgets/exchanger/exchanger-reviews";
 import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
 
 export const CryptoExchangerPage = async ({ params }: { params: { exchanger: string } }) => {
@@ -10,8 +11,9 @@ export const CryptoExchangerPage = async ({ params }: { params: { exchanger: str
       <div className="col-span-2 grid gap-8">
         <CryptoExchangerSeoText />
         <ExchangerInfo />
+        <ExchangerReviews />
       </div>
-      <div className="grid gap-6">
+      <div className="flex flex-col gap-6">
         <CryptoDirection />
         <BotBannerSidebar />
       </div>
