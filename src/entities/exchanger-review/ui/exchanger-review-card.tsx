@@ -1,7 +1,7 @@
 "use client";
 import { cx } from "class-variance-authority";
 import { Smile } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/shared/lib";
 import { Review, ReviewEnum } from "@/shared/types";
 import { ExchangerReview } from "..";
@@ -10,9 +10,20 @@ type ExchangerReviewCardProps = {
   replySlot?: React.ReactNode;
   review?: ExchangerReview;
 };
+const MAX_HEIGHT = 47;
 export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   const { replySlot, review } = props;
   const [isOpenReview, setIsOpenReview] = useState(false);
+  const [isShowExpandButton, setIsShowExpandButton] = useState(false);
+  const ref = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.clientHeight > MAX_HEIGHT
+        ? setIsShowExpandButton(true)
+        : setIsShowExpandButton(false);
+      console.log(ref.current.clientHeight);
+    }
+  }, [ref]);
   const reviewRender = () => {
     if (review?.grade === ReviewEnum.positive) {
       return (
@@ -63,9 +74,11 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
         </div>
       </div>
       <div>
-        <p className={cn("line-clamp-2", isOpenReview && "line-clamp-none")}>{review?.text}</p>
+        <p ref={ref} className={cn("line-clamp-2", isOpenReview && "line-clamp-none")}>
+          {review?.text}
+        </p>
         <button onClick={onExpand} className="text-[#f6ff5f] text-sm">
-          {isOpenReview ? "СВЕРНУТЬ" : "РАЗВЕРНУТЬ"}
+          {isShowExpandButton && (isOpenReview ? "СВЕРНУТЬ" : "РАЗВЕРНУТЬ")}
         </button>
       </div>
       <div>{replySlot}</div>
