@@ -1,4 +1,4 @@
-import { Reply } from "@/features/exchanger/review";
+import { Reply, ReviweFilter } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
 import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
@@ -20,7 +20,7 @@ const mockReviews: ExchangerReview[] = [
     id: 1,
     review_date: "20.12.2002",
     review_time: "22:19",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.",
+    text: "Lorem ipsum dolor sit amet consectetur.",
     username: "Dany",
   },
   {
@@ -53,7 +53,7 @@ export const ExchangerReviews = () => {
       <hr className="" />
       {/* // фича пагинации или тут останется также фильтры */}
       <ExchangerPagination />
-
+      <ReviweFilter />
       {mockReviews.map((review) => (
         <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
       ))}
