@@ -1,10 +1,47 @@
 import { Reply } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
-import { ExchangerReviewCard } from "@/entities/exchanger-review";
+import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
 import { ReviewEnum } from "@/shared/types";
 import { Button, Pagination, PaginationContent, PaginationPrevious } from "@/shared/ui";
-
+const mockReviews: ExchangerReview[] = [
+  {
+    comment_count: 0,
+    grade: ReviewEnum.neutral,
+    id: 0,
+    review_date: "20.12.2002",
+    review_time: "22:19",
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.",
+    username: "Dany",
+  },
+  {
+    comment_count: 0,
+    grade: ReviewEnum.positive,
+    id: 1,
+    review_date: "20.12.2002",
+    review_time: "22:19",
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.",
+    username: "Dany",
+  },
+  {
+    comment_count: 0,
+    grade: ReviewEnum.negative,
+    id: 2,
+    review_date: "20.12.2002",
+    review_time: "22:19",
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.",
+    username: "Dany",
+  },
+  {
+    comment_count: 0,
+    grade: ReviewEnum.negative,
+    id: 3,
+    review_date: "20.12.2002",
+    review_time: "22:19",
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.",
+    username: "Dany",
+  },
+];
 export const ExchangerReviews = () => {
   return (
     <section className="grid items-center gap-4">
@@ -17,9 +54,9 @@ export const ExchangerReviews = () => {
       {/* // фича пагинации или тут останется также фильтры */}
       <ExchangerPagination />
 
-      <ExchangerReviewCard replySlot={<Reply />} review={ReviewEnum.positive} />
-      <ExchangerReviewCard replySlot={<Reply />} review={ReviewEnum.positive} />
-      <ExchangerReviewCard replySlot={<Reply />} review={ReviewEnum.positive} />
+      {mockReviews.map((review) => (
+        <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
+      ))}
     </section>
   );
 };
