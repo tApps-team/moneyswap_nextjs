@@ -4,8 +4,14 @@ import { ExchangerInfo } from "@/widgets/exchanger/exchanger-info";
 import { ExchangerReviews } from "@/widgets/exchanger/exchanger-reviews";
 import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
 
-export const CryptoExchangerPage = async ({ params }: { params: { exchanger: string } }) => {
-  console.log(params.exchanger);
+export const CryptoExchangerPage = async ({
+  params,
+  searchParams,
+}: {
+  params: { exchanger: string };
+  searchParams?: { grade: string; page: number };
+}) => {
+  console.log();
   return (
     <section className="grid grid-cols-3 gap-8">
       <div className="col-span-2 grid gap-8">
@@ -20,9 +26,3 @@ export const CryptoExchangerPage = async ({ params }: { params: { exchanger: str
     </section>
   );
 };
-{
-  /* // seoText
-            //info
-            //sidebar
-            //reviews */
-}
