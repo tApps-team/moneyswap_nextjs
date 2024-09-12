@@ -5,7 +5,7 @@ import { Review } from "@/shared/types";
 import { filterData } from "../model/filter-data";
 
 type ReviweFilterProps = {
-  reviewGrade: Review;
+  reviewGrade?: Review;
 };
 //TODO
 export const ReviweFilter = (props: ReviweFilterProps) => {
