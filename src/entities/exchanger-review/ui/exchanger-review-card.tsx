@@ -10,7 +10,7 @@ type ExchangerReviewCardProps = {
   replySlot?: React.ReactNode;
   review?: ExchangerReview;
 };
-const MAX_HEIGHT = 47;
+const MAX_HEIGHT = 48;
 export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   const { replySlot, review } = props;
   const [isOpenReview, setIsOpenReview] = useState(false);
@@ -23,7 +23,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
         : setIsShowExpandButton(false);
       console.log(ref.current.clientHeight);
     }
-  }, [ref]);
+  }, [ref.current?.clientHeight]);
   const reviewRender = () => {
     if (review?.grade === ReviewEnum.positive) {
       return (
@@ -74,7 +74,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
         </div>
       </div>
       <div>
-        <p ref={ref} className={cn("line-clamp-2", isOpenReview && "line-clamp-none")}>
+        <p ref={ref} className={cn("line-clamp-3", isOpenReview && "line-clamp-none")}>
           {review?.text}
         </p>
         <button onClick={onExpand} className="text-[#f6ff5f] text-sm">
