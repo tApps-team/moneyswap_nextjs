@@ -29,7 +29,7 @@ const mockReviews: ExchangerReview[] = [
     id: 2,
     review_date: "20.12.2002",
     review_time: "22:19",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.",
+    text: "a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a  ",
     username: "Dany",
   },
   {
@@ -42,7 +42,11 @@ const mockReviews: ExchangerReview[] = [
     username: "Dany",
   },
 ];
-export const ExchangerReviews = () => {
+type ExchangerReviewsProps = {
+  reviews: ExchangerReview[];
+};
+export const ExchangerReviews = (props: ExchangerReviewsProps) => {
+  const { reviews } = props;
   return (
     <section className="grid items-center gap-4">
       <div className="flex px-6 justify-between items-center">
@@ -54,7 +58,7 @@ export const ExchangerReviews = () => {
       {/* // фича пагинации или тут останется также фильтры */}
       <ExchangerPagination />
       <ReviweFilter />
-      {mockReviews.map((review) => (
+      {reviews?.map((review) => (
         <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
       ))}
     </section>
