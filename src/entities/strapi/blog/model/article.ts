@@ -22,12 +22,16 @@ export interface Paragraph {
 
 export interface Quote {
   content: string;
-  button?: string;
+  button_name?: string;
+  button_url?: string;
+  target?: string;
   button_type?: CustomButtonType;
 }
 
 export interface CustomButton {
-  button: string;
+  button_name: string;
+  button_url: string;
+  target: string;
   button_type: CustomButtonType;
   button_position: ComponentPosition;
 }

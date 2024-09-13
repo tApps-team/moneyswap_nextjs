@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 import { ComponentPosition, DynamicContentItem, DynamicContentType } from "@/entities/strapi";
 import { SwitcherIcon } from "@/shared/assets";
@@ -37,10 +38,12 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
             >
               <SwitcherIcon width={100} height={"auto"} fill="#2d2d2d" />
               <p dangerouslySetInnerHTML={{ __html: item.quote.content }} />
-              {item.quote.button && (
-                <button>
-                  <span dangerouslySetInnerHTML={{ __html: item.quote.button }} />
-                </button>
+              {item.quote.button_name && (
+                <Link href={item.quote.button_url!} target={item.quote.target}>
+                  <button className="hover:shadow-[1px_3px_10px_1px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300">
+                    {item.quote.button_name}
+                  </button>
+                </Link>
               )}
             </div>
           );
@@ -54,9 +57,11 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
               key={index}
               className={`${item.custom_button.button_position === ComponentPosition.center ? "justify-center" : item.custom_button.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles strapi_fonts text-sm`}
             >
-              <button>
-                <span dangerouslySetInnerHTML={{ __html: item.custom_button.button }} />
-              </button>
+              <Link href={item.custom_button.button_url!} target={item.custom_button.target}>
+                <button className="hover:shadow-[1px_3px_10px_1px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300">
+                  {item.custom_button.button_name}
+                </button>
+              </Link>
             </div>
           );
         }
