@@ -25,39 +25,39 @@ export type CryptoTableColumns = {
 };
 
 export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
-  {
-    id: "info",
-    accessorFn: (info) => info.info,
-    header: () => {
-      return <ChevronDown />;
-    },
-    cell: ({ row }) => (
-      <HoverCard>
-        <HoverCardTrigger asChild>
-          <InfoIcon width={32} height={32} />
-        </HoverCardTrigger>
-        <HoverCardContent
-          align="start"
-          side="right"
-          className="w-52 rounded-2xl bg-[#2d2d2d] text-white uppercase p-3"
-        >
-          <p>{row.original.info.name}</p>
-          <hr className="mx-[-0.75rem]" />
-          <p>Возраст: {row.original.info.age}</p>
-          <p>Сумма резервов: {row.original.info.amountReserves}</p>
-          <div>
-            <p>Страна: {row.original.info.country.name.ru}</p>
-            {/* <Image
-                src={row.original.info.country.icon_url}
-                alt={`country ${row.original.info.country.name.ru}`}
-                width={10}
-                height={10}
-              /> */}
-          </div>
-        </HoverCardContent>
-      </HoverCard>
-    ),
-  },
+  // {
+  //   id: "info",
+  //   accessorFn: (info) => info.info,
+  //   header: () => {
+  //     return <ChevronDown />;
+  //   },
+  //   cell: ({ row }) => (
+  //     <HoverCard>
+  //       <HoverCardTrigger asChild>
+  //         <InfoIcon width={32} height={32} />
+  //       </HoverCardTrigger>
+  //       <HoverCardContent
+  //         align="start"
+  //         side="right"
+  //         className="w-52 rounded-2xl bg-[#2d2d2d] text-white uppercase p-3"
+  //       >
+  //         <p>{row.original.info.name}</p>
+  //         <hr className="mx-[-0.75rem]" />
+  //         <p>Возраст: {row.original.info.age}</p>
+  //         <p>Сумма резервов: {row.original.info.amountReserves}</p>
+  //         <div>
+  //           <p>Страна: {row.original.info.country.name.ru}</p>
+  //           {/* <Image
+  //               src={row.original.info.country.icon_url}
+  //               alt={`country ${row.original.info.country.name.ru}`}
+  //               width={10}
+  //               height={10}
+  //             /> */}
+  //         </div>
+  //       </HoverCardContent>
+  //     </HoverCard>
+  //   ),
+  // },
   {
     accessorKey: "exchangerName",
     header: ({ column }) => {

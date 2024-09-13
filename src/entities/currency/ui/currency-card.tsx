@@ -24,7 +24,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
         />
       </figure>
       <div className="flex flex-col items-start">
-        <p className="font-bold uppercase">{currency?.name?.ru}</p>
+        <p className="font-bold uppercase line-clamp-1">{currency?.name?.ru}</p>
         <span>{currency?.code_name}</span>
       </div>
     </div>
