@@ -18,7 +18,7 @@ export const AllArticles: FC<AllArticlesProps> = ({ articles, totalPages, page }
   const [visibleCount, setVisibleCount] = useState(4);
 
   const isArticleArray = (articles: Article[] | ArticlePreview[]): articles is Article[] => {
-    return (articles as Article[])[0]?.preview !== undefined;
+    return articles?.length > 0 && (articles as Article[])[0]?.preview !== undefined;
   };
 
   const previewArticles: ArticlePreview[] = isArticleArray(articles)

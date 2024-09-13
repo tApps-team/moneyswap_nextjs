@@ -26,7 +26,10 @@ export const getAllArticles = async (
       : "";
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?pagination[page]=${page}&pagination[pageSize]=${elements}&sort=publishedAt:desc&populate=preview_image${searchFilter}`;
 
-    const res = await fetch(url, { method: "GET", cache: "no-store" });
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -37,8 +40,11 @@ export const getAllArticles = async (
 export const getArticle = async (params: GetArticleRequest): Promise<GetArticleResponse> => {
   const { url_name } = params;
   try {
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?filters[url_name][$eq]=${url_name}&populate=categories&populate=preview_image&populate=tags`;
-    const res = await fetch(url, { method: "GET", cache: "no-store" });
+    const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?filters[url_name][$eq]=${url_name}`;
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -52,7 +58,10 @@ export const getSearchArticles = async (
   const { value } = params;
   try {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-articlessd?filters[$or][0][preview_title][$contains]=${value}&filters[$or][1][content][$contains]=${value}&filters[$or][2][preview_description][$contains]=${value}&filters[$or][3][article_title][$contains]=${value}`;
-    const res = await fetch(url, { method: "GET", cache: "no-store" });
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -67,7 +76,10 @@ export const getTopicArticles = async (
   try {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-topics?filters[type][$eq]=${topic}&populate[articles][populate][preview_image]=*
 `;
-    const res = await fetch(url, { method: "GET", cache: "no-store" });
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -78,7 +90,10 @@ export const getTopicArticles = async (
 export const getAllCategories = async (): Promise<GetAllCategoriesResponse> => {
   try {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?&populate[articles][populate][preview_image]=*`;
-    const res = await fetch(url, { method: "GET", cache: "no-store" });
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -89,7 +104,10 @@ export const getAllCategories = async (): Promise<GetAllCategoriesResponse> => {
 export const getAllTags = async (): Promise<GetAllTagsResponse> => {
   try {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?&populate[articles][populate][preview_image]=*`;
-    const res = await fetch(url, { method: "GET", cache: "no-store" });
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -103,7 +121,10 @@ export const getCategoryArticles = async (
   const { category } = params;
   try {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?filters[category][$eq]=${category}&populate[articles][populate][preview_image]=*`;
-    const res = await fetch(url, { method: "GET", cache: "no-store" });
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -118,7 +139,10 @@ export const getTagArticles = async (
   try {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?filters[tag][$eq]=${tag}&populate[articles][populate][preview_image]=*
 `;
-    const res = await fetch(url, { method: "GET", cache: "no-store" });
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);

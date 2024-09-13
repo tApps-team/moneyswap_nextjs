@@ -6,9 +6,6 @@ export const SwitcherIcon = (props: any) => (
     viewBox="0 0 37.18 23.44"
     {...props}
   >
-    <defs>
-      <style>{".cls-1{fill:#f4ff5f;stroke-width:0}"}</style>
-    </defs>
     <path
       d="m14.87 5.64-.01.01v-.02H0v5.03h9.63L0 19.88l3.72 3.55L18.59 9.2l-3.72-3.56z"
       className="cls-1"

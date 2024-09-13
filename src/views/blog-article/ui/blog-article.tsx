@@ -1,4 +1,4 @@
-import { BlogSidebar, SimilarArticles } from "@/widgets/blog";
+import { ArticleContent, BlogSidebar, SimilarArticles } from "@/widgets/blog";
 import { getArticle, getCategoryArticles, getTagArticles } from "@/entities/strapi";
 
 export const BlogArticlePage = async ({ params }: { params: { url_name: string } }) => {
@@ -28,7 +28,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
   return (
     <section className="grid grid-flow-rows gap-6">
       <div className="grid grid-flow-rows gap-6">
-        <h1 className="text-3xl font-medium uppercase max-w-[100%]">{article?.article?.title}</h1>
+        <h1 className="text-3xl font-medium uppercase max-w-[100%]">{article?.preview?.title}</h1>
         <p className="text-[#bbbbbb] font-medium text-sm uppercase">{article?.publishedAt}</p>
       </div>
       <section className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
@@ -40,10 +40,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
               alt={article?.preview?.title}
             />
           </div>
-          <div
-            className="strapi_styles strapi_fonts text-sm"
-            dangerouslySetInnerHTML={{ __html: article?.article?.content || "" }}
-          />
+          <ArticleContent dynamic_content={article?.article?.dynamic_content} />
           <hr className="color-[#ddd]" />
           {allSimilarArticles.length > 0 && (
             <SimilarArticles title="Похожие статьи" articles={allSimilarArticles} />

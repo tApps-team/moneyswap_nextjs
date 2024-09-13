@@ -244,7 +244,7 @@ const mockData = [
         en: "BTC",
       },
     },
-    pointsCount: 50,
+    pointsCount: 150,
   },
 ];
 export const CryptoDirection = async () => {
@@ -270,7 +270,7 @@ export const CryptoDirection = async () => {
                   width: `${(pair.pointsCount / maxPointsCount) * 100}%`,
                 }}
                 className={cn(
-                  `bg-[#606060] min-w-12 max-w-full rounded-full flex items-center justify-end px-3 ml-auto`,
+                  `bg-[#606060] min-w-12 max-w-full rounded-[15px] flex items-center justify-end px-3 ml-auto`,
                 )}
               >
                 <p>{pair.pointsCount}</p>

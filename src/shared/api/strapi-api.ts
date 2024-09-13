@@ -27,6 +27,7 @@ export const getSeoTexts = async ({
       `${process.env.STRAPI_BASE_URL}/api/seo-texts-blocks?filters[page][$eq]=${page}&${params.toString()}`,
       {
         // cache: "no-store",
+        cache: "default",
       },
     );
     return res.json();
@@ -54,6 +55,7 @@ export const getSeoMeta = async ({
       `${process.env.STRAPI_BASE_URL}/api/seo-meta-blocks?filters[page][$eq]=${page}&${params.toString()}`,
       {
         // cache: "no-store",
+        cache: "default",
       },
     );
     return res.json();
@@ -65,7 +67,9 @@ export const getSeoMeta = async ({
 
 export const getAboutPage = async () => {
   try {
-    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/about-us`);
+    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/about-us`, {
+      cache: "default",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -75,7 +79,9 @@ export const getAboutPage = async () => {
 
 export const getHelpPage = async (): Promise<GetHelpPageResponse> => {
   try {
-    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-article`);
+    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-article`, {
+      cache: "default",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
@@ -85,17 +91,9 @@ export const getHelpPage = async (): Promise<GetHelpPageResponse> => {
 
 export const getForPartnersPage = async () => {
   try {
-    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/for-partner`);
-    return res.json();
-  } catch (error) {
-    console.error("error:", error);
-    throw new Error("Failed to fetch data");
-  }
-};
-
-export const getArticle = async () => {
-  try {
-    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/article`);
+    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/for-partner`, {
+      cache: "default",
+    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
