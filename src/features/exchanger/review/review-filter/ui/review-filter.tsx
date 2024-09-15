@@ -6,10 +6,11 @@ import { filterData } from "../model/filter-data";
 
 type ReviweFilterProps = {
   reviewGrade?: Review;
+  exchangerId: number;
 };
 //TODO
 export const ReviweFilter = (props: ReviweFilterProps) => {
-  const { reviewGrade } = props;
+  const { reviewGrade, exchangerId } = props;
   const searchParams = useSearchParams();
   const createUrl = () => {
     const url = `crypto-exchangers/exchnager`;
@@ -18,9 +19,10 @@ export const ReviweFilter = (props: ReviweFilterProps) => {
     <div className="grid grid-cols-4 gap-6">
       {filterData.map((data) => (
         <Link
+          scroll={false}
           key={data.href}
           className="border hover:border-[#f6ff5f] hover:bg-[#f6ff5f] hover:text-black  text-center rounded-full bg-[#2d2d2d] p-4 text-xs font-medium"
-          href={"/"}
+          href={`/crypto-exchangers/exchanger-${exchangerId}/${data.href}`}
         >
           <p>{data.value}</p>
         </Link>
