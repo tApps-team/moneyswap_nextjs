@@ -25,7 +25,7 @@ export class ApiClient {
 
     if (queryParams) {
       Object.entries(queryParams).forEach(([key, value]) => {
-        url.searchParams.append(key, value.toString());
+        typeof value !== "undefined" && url.searchParams.append(key, value.toString());
       });
     }
 
