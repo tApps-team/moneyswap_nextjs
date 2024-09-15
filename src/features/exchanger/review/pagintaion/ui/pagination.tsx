@@ -1,3 +1,4 @@
+import { ReviewsByExchangeDTOResponse } from "@/entities/exchanger-review/api/exchanger-review-api-dto";
 import {
   Pagination,
   PaginationContent,
@@ -8,14 +9,15 @@ import {
   PaginationPrevious,
 } from "@/shared/ui";
 
-export const ExchangerPagination = () => {
+type ExchangerPaginationProps = {};
+export const ExchangerPagination = (props: ExchangerPaginationProps) => {
   return (
     <Pagination>
       <PaginationPrevious href="#" />
       <PaginationContent className="rounded-full border">
         <PaginationItem></PaginationItem>
         <PaginationItem className="">
-          <PaginationLink className="" href="#">
+          <PaginationLink scroll={false} className="" href="#">
             1
           </PaginationLink>
         </PaginationItem>
