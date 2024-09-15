@@ -2,6 +2,7 @@ import { Reply, ReviweFilter } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
 import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
+import { ReviewsByExchangeDTOResponse } from "@/entities/exchanger-review/api/exchanger-review-api-dto";
 import { ReviewEnum } from "@/shared/types";
 import { Button, Pagination, PaginationContent, PaginationPrevious } from "@/shared/ui";
 const mockReviews: ExchangerReview[] = [
@@ -44,9 +45,10 @@ const mockReviews: ExchangerReview[] = [
 ];
 type ExchangerReviewsProps = {
   reviews: ExchangerReview[];
+  exchangerId: number;
 };
 export const ExchangerReviews = (props: ExchangerReviewsProps) => {
-  const { reviews } = props;
+  const { reviews, exchangerId } = props;
   return (
     <section className="grid items-center gap-4">
       <div className="flex px-6 justify-between items-center">
@@ -57,7 +59,7 @@ export const ExchangerReviews = (props: ExchangerReviewsProps) => {
       <hr className="" />
       {/* // фича пагинации или тут останется также фильтры */}
       <ExchangerPagination />
-      <ReviweFilter />
+      <ReviweFilter exchangerId={exchangerId} />
       {reviews?.map((review) => (
         <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
       ))}
