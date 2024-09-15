@@ -3,7 +3,7 @@ import { CryptoExchangerSeoText } from "@/widgets/exchanger/crypto-exchanger-seo
 import { ExchangerInfo } from "@/widgets/exchanger/exchanger-info";
 import { ExchangerReviews } from "@/widgets/exchanger/exchanger-reviews";
 import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
-import { reviewsByExchange } from "@/entities/exchanger-review";
+import { Grade, reviewsByExchange } from "@/entities/exchanger-review";
 import { ExchangerMarker } from "@/entities/exchanger-review/api/exchanger-review-api-dto";
 
 export const CryptoExchangerPage = async ({
@@ -11,15 +11,15 @@ export const CryptoExchangerPage = async ({
   searchParams,
 }: {
   params: { exchanger: number };
-  searchParams?: { grade: string; page: number };
+  searchParams?: { grade: number; page: number };
 }) => {
-  console.log(params.exchanger);
   console.log(searchParams?.grade);
-  console.log(searchParams?.page);
   const reviews = await reviewsByExchange({
     exchange_id: params.exchanger,
     exchange_marker: ExchangerMarker.cash,
-    page: 1,
+    page: searchParams?.page || 1,
+    grade_filter: searchParams?.grade,
+    element_on_page: 3,
   });
 
   return (
@@ -27,7 +27,7 @@ export const CryptoExchangerPage = async ({
       <div className="col-span-2 grid gap-8">
         <CryptoExchangerSeoText />
         <ExchangerInfo />
-        <ExchangerReviews reviews={reviews.content} />
+        <ExchangerReviews exchangerId={params.exchanger} reviews={reviews.content} />
       </div>
       <div className="flex flex-col gap-6">
         <CryptoDirection />
