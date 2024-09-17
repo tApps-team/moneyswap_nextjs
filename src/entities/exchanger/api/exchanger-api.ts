@@ -1,4 +1,6 @@
+import { apiClient } from "@/shared/api";
 import {
+  GetExchangeListDtoResponse,
   GetExchangersDtoRequest,
   GetExchangersDtoResponse,
   GetSimilarDirectionDtoRequset,
@@ -56,4 +58,9 @@ export const getSimilarDirections = async (
   });
   const data = await res.json();
   return data;
+};
+export const getExchangerList = async () => {
+  const url = `/api/exchange_list`;
+  const response = await apiClient.get<GetExchangeListDtoResponse>(url);
+  return response;
 };
