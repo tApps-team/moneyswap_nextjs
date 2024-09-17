@@ -40,3 +40,14 @@ export enum ExchangerMarker {
   no_cash = "no_cash",
   partner = "partner",
 }
+
+export type CryptoExchanger = {
+  id: number;
+  exchangerName: string;
+  exchange_marker: string;
+  workStatus: boolean;
+  reserves: string;
+  courses: string;
+  url: string;
+  reviews: Review;
+};
