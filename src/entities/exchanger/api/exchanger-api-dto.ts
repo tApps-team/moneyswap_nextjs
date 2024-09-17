@@ -1,4 +1,4 @@
-import { Name } from "@/shared/types";
+import { Name, Review } from "@/shared/types";
 import { Exchanger } from "../model/types/exchanger-type";
 
 export type GetExchangersDtoRequest = {
@@ -29,3 +29,15 @@ export type GetSimilarDirectionDtoResponse = {
     type_valute: Name;
   };
 }[];
+
+export type GetExchangeListDtoResponse = {
+  id: number;
+  exchangerName: string;
+  exchange_marker: string;
+  workStatus: boolean;
+  reserves: string;
+  courses: string;
+  url: string;
+  reviews: Review;
+}[];
+export type GetExchangeListDtoRequest = {};
