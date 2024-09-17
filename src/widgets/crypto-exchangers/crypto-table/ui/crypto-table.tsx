@@ -22,10 +22,11 @@ import { mockData } from "../model/mockData";
 
 interface DataTableProps<TValue> {
   //   columns: ColumnDef<CryptoTableColumns, TValue>[];
-  //   data: CryptoTableColumns[];
+  data: CryptoTableColumns[];
 }
 
-export function CryptoTable<TData, TValue>() {
+export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
+  const { data } = props;
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -36,7 +37,7 @@ export function CryptoTable<TData, TValue>() {
   });
 
   const table = useReactTable({
-    data: mockData,
+    data,
     columns: cryptoColumns,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
@@ -89,7 +90,9 @@ export function CryptoTable<TData, TValue>() {
                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      <Link href={cell.row.original.url} target="_blank">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Link>
                     </TableCell>
                   ))}
                 </TableRow>
