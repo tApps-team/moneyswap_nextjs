@@ -11,13 +11,15 @@ export const CryptoExchangerPage = async ({
   searchParams,
 }: {
   params: { exchanger: number };
-  searchParams?: { grade: number; page: number };
+  searchParams?: { grade?: number; page?: number };
 }) => {
+  const currentPage = Number(searchParams?.page) || 1;
+
   console.log(searchParams?.grade);
   const reviews = await reviewsByExchange({
     exchange_id: params.exchanger,
     exchange_marker: ExchangerMarker.cash,
-    page: searchParams?.page || 1,
+    page: currentPage,
     grade_filter: searchParams?.grade,
     element_on_page: 3,
   });
@@ -27,7 +29,11 @@ export const CryptoExchangerPage = async ({
       <div className="col-span-2 grid gap-8">
         <CryptoExchangerSeoText />
         <ExchangerInfo />
-        <ExchangerReviews exchangerId={params.exchanger} reviews={reviews.content} />
+        <ExchangerReviews
+          totalPages={reviews.pages}
+          exchangerId={params.exchanger}
+          reviews={reviews.content}
+        />
       </div>
       <div className="flex flex-col gap-6">
         <CryptoDirection />
