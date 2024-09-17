@@ -3,6 +3,7 @@ import { CryptoTable } from "@/widgets/crypto-exchangers/crypto-table";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { BotBanner } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
+import { getExchangerList } from "@/entities/exchanger";
 import { directions } from "@/shared/types";
 
 export const CryptoExchangersPage = async ({ params }: { params: { exchanger: string[] } }) => {
@@ -13,6 +14,7 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
     codeName: "SBERRUB",
   });
   const actualCourse = await getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" });
+  const cryptoExchangers = await getExchangerList();
   return (
     <div>
       <CryptoSeoText />
@@ -33,7 +35,7 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
           name: giveCurrency.name,
         }}
       />
-      <CryptoTable />
+      <CryptoTable data={cryptoExchangers} />
       <p>footer seo text</p>
     </div>
   );
