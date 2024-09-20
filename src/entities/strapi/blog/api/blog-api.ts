@@ -22,9 +22,9 @@ export const getAllArticles = async (
 
   try {
     const searchFilter = searchValue
-      ? `&filters[$or][0][preview_title][$containsi]=${searchValue}&filters[$or][1][article_title][$containsi]=${searchValue}&filters[$or][2][preview_description][$containsi]=${searchValue}&filters[$or][3][content][$containsi]=${searchValue}`
+      ? `&filters[$or][0][preview_title][$containsi]=${searchValue}&filters[$or][1][preview_description][$containsi]=${searchValue}`
       : "";
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?pagination[page]=${page}&pagination[pageSize]=${elements}&sort=publishedAt:desc&populate=preview_image${searchFilter}`;
+    const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?pagination[page]=${page}&pagination[pageSize]=${elements}&sort=publishedAt:desc${searchFilter}`;
 
     const res = await fetch(url, {
       method: "GET",

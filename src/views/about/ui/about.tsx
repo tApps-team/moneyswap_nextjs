@@ -1,11 +1,7 @@
-import { getAboutPage } from "@/shared/api";
+import { ArticleContent } from "@/widgets/strapi";
+import { getAboutPage } from "@/entities/strapi";
 
 export const AboutPage = async () => {
   const { data } = await getAboutPage();
-  console.log(data);
-  return (
-    <section>
-      <div className="strapi_styles" dangerouslySetInnerHTML={{ __html: data?.content }} />
-    </section>
-  );
+  return <ArticleContent dynamic_content={data?.content} />;
 };

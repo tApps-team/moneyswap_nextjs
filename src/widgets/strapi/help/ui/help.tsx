@@ -1,12 +1,13 @@
 "use client";
 
 import { FC, useState } from "react";
-import { HelpArticle } from "../help-article";
+import { DynamicContentItem } from "@/entities/strapi";
+import { ArticleContent } from "../../blog";
 import { HelpFAQ, HelpFaqType } from "../help-faq";
 import { HelpTabs } from "../help-tabs";
 
 interface HelpBlockProps {
-  article: string;
+  article: DynamicContentItem[];
   userFaqs: HelpFaqType[];
   partnerFaqs: HelpFaqType[];
 }
@@ -19,7 +20,7 @@ export const HelpBlock: FC<HelpBlockProps> = ({ article, userFaqs, partnerFaqs }
       {isFaq ? (
         <HelpFAQ userFaqs={userFaqs} partnerFaqs={partnerFaqs} />
       ) : (
-        <HelpArticle article={article} />
+        <ArticleContent dynamic_content={article} />
       )}
     </div>
   );

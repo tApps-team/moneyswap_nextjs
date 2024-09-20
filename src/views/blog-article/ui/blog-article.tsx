@@ -1,4 +1,4 @@
-import { ArticleContent, BlogSidebar, SimilarArticles } from "@/widgets/blog";
+import { ArticleContent, BlogSidebar, SimilarArticles } from "@/widgets/strapi";
 import { getArticle, getCategoryArticles, getTagArticles } from "@/entities/strapi";
 
 export const BlogArticlePage = async ({ params }: { params: { url_name: string } }) => {
@@ -9,7 +9,6 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
   // Запросы для получения похожих статей по категориям и тегам
   const categoryPromises =
     article?.categories?.map((cat) => getCategoryArticles({ category: cat?.category })) || [];
-
   const tagPromises = article?.tags?.map((tag) => getTagArticles({ tag: tag?.tag })) || [];
 
   // Ожидаем выполнения всех запросов
@@ -24,6 +23,11 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
 
   // Объединяем все похожие статьи в один массив
   const allSimilarArticles = [...similarArticlesFromCategories, ...similarArticlesFromTags];
+
+  // Удаляем дубликаты по ключу url_name
+  const uniqueSimilarArticles = Array.from(
+    new Map(allSimilarArticles.map((article) => [article.url_name, article])).values(),
+  );
 
   return (
     <section className="grid grid-flow-rows gap-6">
@@ -42,8 +46,8 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
           </div>
           <ArticleContent dynamic_content={article?.article?.dynamic_content} />
           <hr className="color-[#ddd]" />
-          {allSimilarArticles.length > 0 && (
-            <SimilarArticles title="Похожие статьи" articles={allSimilarArticles} />
+          {uniqueSimilarArticles.length > 0 && (
+            <SimilarArticles title="Похожие статьи" articles={uniqueSimilarArticles} />
           )}
         </div>
         <BlogSidebar table_of_contents={article?.article?.table_of_contents} />

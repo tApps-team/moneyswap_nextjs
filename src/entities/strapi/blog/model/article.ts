@@ -36,10 +36,17 @@ export interface CustomButton {
   button_position: ComponentPosition;
 }
 
+export interface CustomAccordion {
+  title: string | null;
+  question: string;
+  answer: string;
+}
+
 export enum DynamicContentType {
   paragraph = "paragraph",
   quote = "quote",
   custom_button = "custom_button",
+  custom_accordion = "accordion",
 }
 
 // Общий тип для контента динамической зоны
@@ -48,6 +55,7 @@ export type DynamicContentItem = {
   custom_button?: CustomButton;
   quote?: Quote;
   paragraph?: Paragraph;
+  accordion?: CustomAccordion;
 };
 
 export interface Article {

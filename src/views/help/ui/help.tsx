@@ -1,9 +1,8 @@
-import { HelpBlock } from "@/widgets/help";
+import { HelpBlock } from "@/widgets/strapi";
 import { TopExchange } from "@/widgets/top-exchange/top-exchange-help-page";
 import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
 import { ExchangeType, getPopularValutes, getRandomValutes } from "@/entities/currency";
-import { faqTypes, getFaq } from "@/entities/strapi";
-import { getHelpPage } from "@/shared/api";
+import { faqTypes, getFaq, getHelpPage } from "@/entities/strapi";
 
 export const HelpPage = async () => {
   // title and article

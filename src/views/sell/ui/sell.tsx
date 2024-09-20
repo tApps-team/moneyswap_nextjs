@@ -1,5 +1,5 @@
 import { MainFAQ } from "@/widgets/main-faq";
-import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
+import { SeoFooterText, SeoHeaderText } from "@/widgets/strapi";
 import { getSeoTexts } from "@/shared/api";
 import { directions, pageTypes } from "@/shared/types";
 
