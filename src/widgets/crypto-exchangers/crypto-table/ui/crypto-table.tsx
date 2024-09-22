@@ -88,13 +88,16 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      <Link href={cell.row.original.url} target="_blank">
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <TableCell key={cell.id}>
+                        {/* hydration error */}
+                        {/* <Link href={cell.row.original.url} target="_blank"> */}
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </Link>
-                    </TableCell>
-                  ))}
+                        {/* </Link> */}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             ) : (
@@ -110,7 +113,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
       <Button
         onClick={handleShowMore}
         disabled={
-          table.getRowModel().rows.length >= mockData.length || table.getRowModel().rows.length < 1
+          table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
         }
         className="bg-[#2d2d2d] h-14 w-[200px] mx-auto border-2 border-[#bbbbbb] uppercase rounded-full"
       >
