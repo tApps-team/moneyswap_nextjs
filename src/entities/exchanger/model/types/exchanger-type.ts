@@ -51,3 +51,16 @@ export type CryptoExchanger = {
   url: string;
   reviews: Review;
 };
+
+export type ExchnagerInfo = {
+  name: string;
+  iconUrl: string;
+  workStatus: boolean;
+  reviews: Review;
+  country: string;
+  amountReserves: string;
+  exchangeRates: number;
+  open: string;
+  openOnMoneySwap: string;
+  url: string;
+};
