@@ -1,4 +1,4 @@
-import { Reply, ReviweFilter } from "@/features/exchanger/review";
+import { CommentList, Reply, ReviweFilter } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
 import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
@@ -6,11 +6,11 @@ import { ReviewEnum } from "@/shared/types";
 
 type ExchangerReviewsProps = {
   reviews: ExchangerReview[];
-  exchangerId: number;
+
   totalPages: number;
 };
 export const ExchangerReviews = (props: ExchangerReviewsProps) => {
-  const { reviews, exchangerId, totalPages } = props;
+  const { reviews, totalPages } = props;
   return (
     <section className="grid items-center gap-4">
       <div className="flex px-6 justify-between items-center">
@@ -20,13 +20,21 @@ export const ExchangerReviews = (props: ExchangerReviewsProps) => {
       </div>
       <hr className="" />
       {/* // фича пагинации или тут останется также фильтры */}
-      <ExchangerPagination totalPages={totalPages} />
-      <ReviweFilter exchangerId={exchangerId} />
+      {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}
+      <ReviweFilter />
 
       {reviews.length > 0 ? (
-        reviews?.map((review) => (
-          <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
-        ))
+        <>
+          {reviews?.map((review) => (
+            <ExchangerReviewCard
+              commentListSlot={<CommentList />}
+              key={review.id}
+              review={review}
+              replySlot={<Reply />}
+            />
+          ))}
+          {totalPages > 0 && reviews.length > 5 && <ExchangerPagination totalPages={totalPages} />}
+        </>
       ) : (
         <div className="uppercase flex items-center justify-center border h-16 rounded-3xl ">
           <p>по данному фильтру не найдено отзывов</p>
