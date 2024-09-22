@@ -10,6 +10,7 @@ export const reviewsByExchange = async (
   const response = await apiClient.get<ReviewsByExchangeDTOResponse>(
     "api/reviews/reviews_by_exchange",
     props,
+    "no-store",
   );
 
   return response;
