@@ -1,5 +1,5 @@
 import { Name, Review } from "@/shared/types";
-import { Exchanger } from "../model/types/exchanger-type";
+import { Exchanger, ExchangerMarker, ExchnagerInfo } from "../model/types/exchanger-type";
 
 export type GetExchangersDtoRequest = {
   city?: string;
@@ -41,3 +41,9 @@ export type GetExchangeListDtoResponse = {
   reviews: Review;
 }[];
 export type GetExchangeListDtoRequest = {};
+
+export type GetExchnagerDetailDtoResponse = ExchnagerInfo;
+export type GetExchnagerDetailDtoRequset = {
+  exchange_id: number;
+  exchange_marker: ExchangerMarker;
+};
