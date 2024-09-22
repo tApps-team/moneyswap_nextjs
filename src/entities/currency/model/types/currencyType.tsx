@@ -16,3 +16,9 @@ export enum ExchangeType {
   cash = "cash",
   no_cash = "no_cash",
 }
+
+export type CurrencyPair = {
+  valuteFrom: Currency;
+  valuteTo: Currency;
+  pairCount: number;
+};
