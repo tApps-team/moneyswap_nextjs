@@ -76,10 +76,19 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     ),
   },
   {
+    //TODO refactor as href
     accessorKey: "id",
     header: "",
     cell: ({ row }) => (
-      <Link href={`/crypto-exchangers/exchanger-${row.original.id}`}>
+      <Link
+        // as={{
+        //   pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
+        // }}
+        href={{
+          pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
+          query: { "exchanger-marker": row.original.exchange_marker },
+        }}
+      >
         <button>ПОДРОБНЕЕ</button>
       </Link>
     ),
