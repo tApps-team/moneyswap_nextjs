@@ -1,5 +1,8 @@
+//TODO Исправить импорт
+// eslint-disable-next-line boundaries/element-types
+import { ExchangerMarker } from "@/entities/exchanger";
 import { Name } from "@/shared/types";
-import { CurrencyResponse, ExchangeType } from "../model/types/currencyType";
+import { CurrencyPair, CurrencyResponse, ExchangeType } from "../model/types/currencyType";
 
 export type GetAvailableValutesDtoResponse = CurrencyResponse[];
 export type GetAvailableValutesDtoRequest = {
@@ -35,3 +38,9 @@ export type GetActualCourseDtoRequset = {
   valuteFrom: string;
   valuteTo: string;
 };
+
+export type GetPairValuteDtoRequset = {
+  exchange_id: number;
+  exchange_marker: ExchangerMarker;
+};
+export type GetPairValuteDtoResponse = CurrencyPair[];
