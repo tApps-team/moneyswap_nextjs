@@ -3,7 +3,7 @@ import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { useDeferredValue, useState } from "react";
 import { Currency, CurrencyCard, CurrencyResponse } from "@/entities/currency";
-import { directions } from "@/shared/types";
+import { ExchangerMarker, directions } from "@/shared/types";
 import {
   Dialog,
   DialogClose,
@@ -23,7 +23,7 @@ type CurrencySelectProps = {
   disabled?: boolean;
   currencies?: CurrencyResponse[];
   currencyInfo?: Currency | null;
-  direction?: directions;
+  direction?: ExchangerMarker;
   onClick: (currency: Currency) => void;
   amount?: number | null;
   setAmount?: (amount: number) => void;
