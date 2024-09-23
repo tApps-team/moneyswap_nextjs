@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronRight, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useCurrecnyStore } from "@/entities/currency";
 import {
@@ -29,6 +30,9 @@ type LocationSelectProps = {
 
 export const LocationSelect = (props: LocationSelectProps) => {
   const { countries } = props;
+  const router = useRouter();
+  const pathname = usePathname();
+
   const { location, setLocation } = useLocationStore((state) => state);
   const resetCashCurrencies = useCurrecnyStore((state) => state.resetCashCurrencies);
   const ref = useRef<HTMLInputElement>(null);
