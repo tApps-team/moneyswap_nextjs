@@ -1,4 +1,4 @@
-import { Name } from "@/shared/types";
+import { ExchangerMarker, Name } from "@/shared/types";
 
 export type Currency = {
   id: string;
@@ -21,4 +21,5 @@ export type CurrencyPair = {
   valuteFrom: Currency;
   valuteTo: Currency;
   pairCount: number;
+  direction_type: ExchangerMarker;
 };
