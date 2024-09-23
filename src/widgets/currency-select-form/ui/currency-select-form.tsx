@@ -67,22 +67,11 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   });
   //TODO fix handleTab
   const onHandleTab = (currentDirection: directions) => {
-    const cashValuteNotEmpty = urlLocation?.cityCodeName && urlGiveCurrency && urlGetCurrency;
-    const valuteNotEmpty = urlGiveCurrency && urlGetCurrency;
-
-    if (currentDirection === directions.cash && !cashValuteNotEmpty) {
+    if (currentDirection === directions.cash) {
       router.push(`${routes.home}?direction=cash`);
     }
 
-    if (currentDirection === directions.cash && cashValuteNotEmpty) {
-      router.push(
-        `/exchange/${urlGiveCurrency.code_name}-to-${urlGetCurrency.code_name}/${urlLocation?.cityCodeName}`,
-      );
-    }
-    if (currentDirection === directions.noncash && valuteNotEmpty) {
-      router.push(`/exchange/${urlGiveCurrency.code_name}-to-${urlGetCurrency.code_name}`);
-    }
-    if (currentDirection === directions.noncash && !valuteNotEmpty) {
+    if (currentDirection === directions.noncash) {
       router.push(`${routes.home}`);
     }
   };
