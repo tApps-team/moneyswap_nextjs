@@ -1,6 +1,6 @@
 import { ChevronDown, ChevronRight, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useCurrecnyStore } from "@/entities/currency";
 import {
@@ -9,6 +9,8 @@ import {
   Country,
   CountryCard,
   Location,
+  LocationInfo,
+  getSpecificCity,
   useLocationStore,
 } from "@/entities/location";
 import { ArrowRightLineIcon } from "@/shared/assets";
@@ -31,12 +33,19 @@ type LocationSelectProps = {
 export const LocationSelect = (props: LocationSelectProps) => {
   const { countries } = props;
   const router = useRouter();
+  const searchParams = useSearchParams();
   const pathname = usePathname();
+  const city = searchParams.get("city");
+  const [cityInfo, setCityInfo] = useState<LocationInfo | null>(null);
+  useEffect(() => {
+    if (city) {
+      getSpecificCity({ codeName: city }).then((data) => setCityInfo(data));
+    }
+  }, [city]);
 
-  const { location, setLocation } = useLocationStore((state) => state);
-  const resetCashCurrencies = useCurrecnyStore((state) => state.resetCashCurrencies);
   const ref = useRef<HTMLInputElement>(null);
   const [selectCountry, setSelectCountry] = useState<Country | null>(null);
+  const [selectCity, setSelectCity] = useState<City | null>(null);
   const [locationSearchValue, setLocationSearchValue] = useState<string>("");
 
   const debouncedLocationSearchValue = useDebounce(locationSearchValue, 500);
@@ -45,9 +54,12 @@ export const LocationSelect = (props: LocationSelectProps) => {
     setSelectCountry(country);
   };
   // убрать очистку городов и пушить город в url
-  const onClickCity = (location: Location) => {
-    setLocation(location);
-    resetCashCurrencies();
+  const onClickCity = (city: City) => {
+    setSelectCity(city);
+    const params = new URLSearchParams(searchParams);
+    params.set("city", city.code_name.toString());
+    router.push(pathname + "?" + params);
+    // setLocation(location);
   };
 
   const filteredCountries = useMemo(() => {
@@ -71,11 +83,11 @@ export const LocationSelect = (props: LocationSelectProps) => {
       <DialogTrigger className="" asChild>
         <div className="bg-[#2d2d2d]  rounded-full h-16 border-2 gap-2 border-[#bbbbbb] items-center p-3 flex justify-between">
           <div className="flex items-center gap-4">
-            {location ? (
+            {cityInfo ? (
               <figure className="w-[36px] h-[36px]">
                 <Image
-                  alt={`${location?.cityCodeName})`}
-                  src={location?.countryIconUrl}
+                  alt={`${cityInfo?.code_name})`}
+                  src={cityInfo?.country.icon_url}
                   width={36}
                   height={36}
                 />
@@ -84,7 +96,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
               <CircleSlash2 width={36} height={36} stroke="#bbb" strokeWidth={"1.5px"} />
             )}
 
-            <p className=" truncate uppercase">{location ? location?.cityName : "Не выбрано..."}</p>
+            <p className=" truncate uppercase">{cityInfo ? cityInfo?.name.ru : "Не выбрано..."}</p>
           </div>
           <div>
             <ChevronDown color="white" height={32} width={32} />
@@ -111,7 +123,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
             <div className="flex flex-col gap-3">
               {filteredCountries?.map((country) => (
                 <CountryCard
-                  active={country.name.ru === location?.countryName}
+                  active={country.name.ru === selectCountry?.name.ru}
                   key={country.id}
                   onClick={() => onClickCountry(country)}
                   country={country}
@@ -128,17 +140,9 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 ? cityList.map((city) => (
                     <DialogClose key={city.id}>
                       <CityCard
-                        onClick={() =>
-                          onClickCity({
-                            cityCodeName: city?.code_name,
-                            countryIconUrl: selectCountry?.icon_url,
-                            countryName: selectCountry?.name?.ru,
-                            cityName: city?.name?.ru,
-                            id: city?.id,
-                          })
-                        }
+                        onClick={() => onClickCity(city)}
                         city={city}
-                        active={location?.cityCodeName === city?.code_name}
+                        active={selectCity?.code_name === city?.code_name}
                       />
                     </DialogClose>
                   ))
@@ -146,17 +150,9 @@ export const LocationSelect = (props: LocationSelectProps) => {
                     country.cities.map((city) => (
                       <DialogClose key={city.id}>
                         <CityCard
-                          onClick={() =>
-                            onClickCity({
-                              cityCodeName: city?.code_name,
-                              countryIconUrl: country?.icon_url,
-                              countryName: country?.name?.ru,
-                              cityName: city?.name?.ru,
-                              id: city?.id,
-                            })
-                          }
+                          onClick={() => onClickCity(city)}
                           city={city}
-                          active={location?.cityCodeName === city?.code_name}
+                          active={selectCity?.code_name === city?.code_name}
                         />
                       </DialogClose>
                     )),

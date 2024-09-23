@@ -4,7 +4,7 @@ import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { BotBanner } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangerList } from "@/entities/exchanger";
-import { directions } from "@/shared/types";
+import { ExchangerMarker, directions } from "@/shared/types";
 
 export const CryptoExchangersPage = async ({ params }: { params: { exchanger: string[] } }) => {
   const giveCurrency = await getSpecificValute({
@@ -20,7 +20,7 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
       <CryptoSeoText />
       <BotBanner />
       <CurrencySelectForm
-        urlDirection={directions.noncash}
+        urlDirection={ExchangerMarker.no_cash}
         actualCourse={actualCourse}
         urlGetCurrency={{
           code_name: getCurrency.code_name,

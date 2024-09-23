@@ -1,27 +1,30 @@
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCurrecnyStore } from "@/entities/currency";
 import { SwitcherIcon } from "@/shared/assets";
-import { directions } from "@/shared/types";
+import { ExchangerMarker, directions } from "@/shared/types";
 import { Button } from "@/shared/ui";
 
 type CurrencySwitcherProps = {
-  direction?: directions;
+  direction?: ExchangerMarker;
 };
 
 export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   const { direction } = props;
+  const searchParams = useSearchParams();
+
   const params = useParams<{ slug: string[] }>();
+  console.log(params.slug);
   const { getCashCurrency, getCurrency, giveCashCurrency, giveCurrency } = useCurrecnyStore(
     (state) => state,
   );
-  const currentGetCurrency = direction === directions.cash ? getCashCurrency : getCurrency;
-  const currentGiveCurrency = direction === directions.cash ? giveCashCurrency : giveCurrency;
+  const currentGetCurrency = direction === ExchangerMarker.cash ? getCashCurrency : getCurrency;
+  const currentGiveCurrency = direction === ExchangerMarker.cash ? giveCashCurrency : giveCurrency;
 
   const switchUrl = () => {
     if (
       !params.slug &&
-      direction === directions.noncash &&
+      direction === ExchangerMarker.no_cash &&
       currentGetCurrency &&
       currentGiveCurrency
     ) {
@@ -31,11 +34,11 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
       const [valutes, ...rest] = params.slug;
       const [valuteFrom, valuteTo] = valutes.split("-to-");
 
-      if (direction === directions.cash) {
+      if (direction === ExchangerMarker.cash) {
         return `/exchange/${valuteTo}-to-${valuteFrom}/${rest.join("/")}`;
       }
 
-      if (direction === directions.noncash) {
+      if (direction === ExchangerMarker.no_cash) {
         return `/exchange/${valuteTo}-to-${valuteFrom}`;
       }
     }
