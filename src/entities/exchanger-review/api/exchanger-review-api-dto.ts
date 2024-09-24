@@ -1,4 +1,4 @@
-import { ExchangerReview } from "..";
+import { Comment, ExchangerReview } from "..";
 
 export type ReviewsByExchangeDTOResponse = {
   page: number;
@@ -13,6 +13,13 @@ export type ReviewsByExchangeDTORequest = {
   element_on_page?: number;
   grade_filter?: number;
 };
+
+export type GetCommentsByReviewDtoRequest = {
+  exchangerId: number;
+  exchangerMarker: ExchangerMarker;
+  reviewId: number;
+};
+export type GetCommentsByReviewDtoResponse = Comment[];
 
 export enum ExchangerMarker {
   cash = "cash",
