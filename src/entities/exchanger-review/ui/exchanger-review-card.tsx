@@ -86,15 +86,9 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
             {isShowExpandButton && (isOpenReview ? "СВЕРНУТЬ" : "РАЗВЕРНУТЬ")}
           </button>
         </div>
-        <div className="flex justify-between ">
-          <div>{replySlot}</div>
-          <button onClick={() => setIsOpen((prev) => !prev)} className="uppercase">
-            СМОТРЕТЬ КОММЕНТАРИИ
-          </button>
-        </div>
       </div>
       {/* РЕФАКТОР */}
-      <CommentList isOpen={isOpen} />
+      <div>{commentListSlot}</div>
     </div>
   );
 };
