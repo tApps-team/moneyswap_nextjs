@@ -40,7 +40,7 @@ export const ArticleSearch = ({ currentValue }: { currentValue: string | null })
       setIsLoading(true);
     } else if (e.target.value.trim().length === 0) {
       setIsLoading(false);
-      console.log("push");
+
       router.push(routes.blog);
     }
   };

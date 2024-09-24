@@ -20,6 +20,7 @@ export const ExchangePage = async ({
   const slug = params.slug[0];
   const currentDirection = searchParams?.direction;
   const city = searchParams?.city;
+
   const directionCash = !!city || currentDirection === ExchangerMarker.cash;
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
@@ -32,10 +33,10 @@ export const ExchangePage = async ({
   const location = city ? await getSpecificCity({ codeName: city }) : undefined;
 
   const actualCourse = await getActualCourse({
-    valuteFrom: giveCurrency.code_name,
-    valuteTo: getCurrency.code_name,
+    valuteFrom: giveCurrency?.code_name,
+    valuteTo: getCurrency?.code_name,
   });
-  console.log(direction);
+
   const reqParams =
     direction === ExchangerMarker.cash
       ? {
@@ -91,7 +92,7 @@ export const ExchangePage = async ({
             id: getCurrency.name.ru,
             name: getCurrency.name,
           }}
-          location={location ? location : undefined}
+          location={location}
         />
       ) : (
         <ExchangersTable columns={columns} data={exchangers || []} />

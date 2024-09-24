@@ -16,7 +16,7 @@ export const CryptoExchangerPage = async ({
   searchParams: { grade?: number; page?: number; "exchanger-marker": ExchangerMarker };
 }) => {
   const currentPage = Number(searchParams?.page) || 1;
-  console.log(searchParams?.["exchanger-marker"], "exchnager-marker");
+
   const reviews = await reviewsByExchange({
     exchange_id: params.exchanger,
     exchange_marker: ExchangerMarker.cash,
@@ -32,7 +32,7 @@ export const CryptoExchangerPage = async ({
     exchange_id: currentPage,
     exchange_marker: searchParams["exchanger-marker"],
   });
-  console.log(reviews.pages);
+
   return (
     <section className="grid grid-cols-3 gap-8">
       <div className="col-span-2 grid gap-8">

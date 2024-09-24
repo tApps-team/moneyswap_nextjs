@@ -14,7 +14,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   const searchParams = useSearchParams();
 
   const params = useParams<{ slug: string[] }>();
-  console.log(params.slug);
+
   const { getCashCurrency, getCurrency, giveCashCurrency, giveCurrency } = useCurrecnyStore(
     (state) => state,
   );

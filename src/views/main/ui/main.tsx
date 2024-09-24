@@ -29,7 +29,7 @@ export const Main = async ({
   });
   const actualCourse = await getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" });
   const location = await getSpecificCity({ codeName: city ? city : "msk" });
-  console.log(location);
+
   const request =
     direction === ExchangerMarker.cash
       ? {

@@ -136,7 +136,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
           actualCourse={actualCourse}
           onClick={onClickGetCurrency}
           currencyInfo={urlGetCurrency}
-          disabled={(!urlGetCurrency && !urlGiveCurrency) || (!urlGiveCurrency && !getCurrencies)}
+          disabled={!urlLocation}
           currencies={getCurrencies}
           label="получаю"
           direction={urlDirection}

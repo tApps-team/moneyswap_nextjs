@@ -18,8 +18,6 @@ export const BlogPage = async ({
 
   const totalPages = Math.ceil(meta?.pagination?.total / elements);
 
-  console.log(all);
-
   return (
     <section className="grid grid-flow-row gap-[40px]">
       <div className="flex justify-center items-center">
