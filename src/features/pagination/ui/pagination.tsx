@@ -45,7 +45,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route
   const pages = createPaginationArray();
 
   return (
-    <div className="min-w-[8vw] border-2 border-[#ddd] rounded-[35px] bg-[#2d2d2d] grid grid-flow-col place-content-between gap-0   items-center">
+    <div className="border-2 border-[#ddd] rounded-[35px] bg-[#2d2d2d] grid grid-flow-col place-content-between gap-0   items-center">
       {pages.map((page, index) =>
         typeof page === "number" ? (
           <Link

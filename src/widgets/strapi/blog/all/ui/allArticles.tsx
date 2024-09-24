@@ -36,7 +36,7 @@ export const AllArticles: FC<AllArticlesProps> = ({ articles, totalPages, page }
   };
 
   return (
-    <section className="flex justify-center items-center">
+    <section className="grid h-full w-full">
       {previewArticles?.length > 0 ? (
         <section className="grid grid-flow-row gap-8">
           <div className="p-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-[#2d2d2d]">
@@ -45,7 +45,7 @@ export const AllArticles: FC<AllArticlesProps> = ({ articles, totalPages, page }
                 <ArticlePreviewCard key={art.url_name} article={art} />
               ))}
               {previewArticles?.length % 2 !== 0 && visibleCount >= previewArticles?.length && (
-                <NoResults className="flex flex-col justify-center items-center opacity-50 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] border-2 border-[rgba(0,0,0,0)]" />
+                <NoResults className="w-full flex flex-col justify-center items-center opacity-50 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] border-2 border-[rgba(0,0,0,0)]" />
               )}
             </div>
           </div>
@@ -61,7 +61,7 @@ export const AllArticles: FC<AllArticlesProps> = ({ articles, totalPages, page }
           )}
         </section>
       ) : (
-        <div className="grayscale opacity-50 flex justify-center items-center w-[40vw] max-w-[600px] p-[6%] pt-[10vw]">
+        <div className="justify-self-center grayscale opacity-50 flex justify-center items-center w-[40vw] max-w-[400px] h-full ">
           <NoResultIcon />
         </div>
       )}
