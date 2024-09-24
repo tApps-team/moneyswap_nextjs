@@ -112,7 +112,6 @@ body {
 .strapi_styles {
   text-transform: uppercase;
   line-height: 1.6;
-  margin-bottom: 30px;
 
   a {
     text-decoration: none;
@@ -162,6 +161,7 @@ body {
     height: auto;
     max-height: 1000px;
     overflow: hidden;
+    box-shadow: 1px 3px 10px 3px rgba(0,0,0,0.4);
 
     img {
       width: 100%;

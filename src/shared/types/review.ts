@@ -4,7 +4,7 @@ export type Review = {
   negative: number;
 };
 export enum ReviewEnum {
-  positive = "positive",
-  neutral = "neutral",
-  negative = "negative",
+  positive = 1,
+  neutral = 0,
+  negative = -1,
 }

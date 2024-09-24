@@ -1,4 +1,4 @@
-import { AllArticles, BlogSidebar } from "@/widgets/blog";
+import { AllArticles, BlogSidebar } from "@/widgets/strapi";
 import { CategoriesList } from "@/features/strapi";
 import { getAllCategories, getTagArticles } from "@/entities/strapi";
 import { routes } from "@/shared/router";

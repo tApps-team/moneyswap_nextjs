@@ -1,10 +1,7 @@
-import { getForPartnersPage } from "@/shared/api";
+import { ArticleContent } from "@/widgets/strapi";
+import { getForPartnersPage } from "@/entities/strapi";
 
 export const ForPartnersPage = async () => {
   const { data } = await getForPartnersPage();
-  return (
-    <section>
-      <div className="strapi_styles" dangerouslySetInnerHTML={{ __html: data?.content }} />
-    </section>
-  );
+  return <ArticleContent dynamic_content={data.content} />;
 };

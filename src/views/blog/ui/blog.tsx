@@ -1,4 +1,4 @@
-import { AllArticles, BlogSidebar, SliderOfArticles } from "@/widgets/blog";
+import { AllArticles, BlogSidebar, SliderOfArticles } from "@/widgets/strapi";
 import { CategoriesList } from "@/features/strapi";
 import { getAllArticles, getAllCategories, getTopicArticles, topics } from "@/entities/strapi";
 
@@ -17,8 +17,6 @@ export const BlogPage = async ({
   const { data: categories } = await getAllCategories();
 
   const totalPages = Math.ceil(meta?.pagination?.total / elements);
-
-  console.log(all);
 
   return (
     <section className="grid grid-flow-row gap-[40px]">

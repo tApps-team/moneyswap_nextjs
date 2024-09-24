@@ -2,7 +2,7 @@ import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
-import { SeoFooterText, SeoHeaderText } from "@/widgets/seo-text";
+import { SeoFooterText, SeoHeaderText } from "@/widgets/strapi";
 import { BotBanner } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";

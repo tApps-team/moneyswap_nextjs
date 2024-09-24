@@ -1,5 +1,4 @@
 import { pageTypes } from "../types";
-import { GetHelpPageResponse } from "./strapi-dto";
 
 export interface SeoTextsParams {
   page: pageTypes;
@@ -58,42 +57,6 @@ export const getSeoMeta = async ({
         cache: "default",
       },
     );
-    return res.json();
-  } catch (error) {
-    console.error("error:", error);
-    throw new Error("Failed to fetch data");
-  }
-};
-
-export const getAboutPage = async () => {
-  try {
-    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/about-us`, {
-      cache: "default",
-    });
-    return res.json();
-  } catch (error) {
-    console.error("error:", error);
-    throw new Error("Failed to fetch data");
-  }
-};
-
-export const getHelpPage = async (): Promise<GetHelpPageResponse> => {
-  try {
-    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-article`, {
-      cache: "default",
-    });
-    return res.json();
-  } catch (error) {
-    console.error("error:", error);
-    throw new Error("Failed to fetch data");
-  }
-};
-
-export const getForPartnersPage = async () => {
-  try {
-    const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/for-partner`, {
-      cache: "default",
-    });
     return res.json();
   } catch (error) {
     console.error("error:", error);
