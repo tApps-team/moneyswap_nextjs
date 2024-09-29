@@ -18,7 +18,6 @@ import { Exchanger } from "@/entities/exchanger";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 import { cryptoColumns } from "../model/columns";
 import { CryptoTableColumns } from "../model/columns";
-import { mockData } from "../model/mockData";
 
 interface DataTableProps<TValue> {
   //   columns: ColumnDef<CryptoTableColumns, TValue>[];
