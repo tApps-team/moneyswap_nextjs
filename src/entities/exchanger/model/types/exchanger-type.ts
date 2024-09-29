@@ -1,3 +1,5 @@
+// eslint-disable-next-line boundaries/element-types
+import { LocationInfo } from "@/entities/location";
 import { Name, Review } from "@/shared/types";
 
 export interface Exchanger {
@@ -33,6 +35,7 @@ export interface Exchanger {
   };
   params: string;
   fromfee: number | null;
+  location?: LocationInfo;
 }
 
 export enum ExchangerMarker {
