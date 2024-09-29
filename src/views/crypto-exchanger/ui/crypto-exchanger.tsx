@@ -19,7 +19,7 @@ export const CryptoExchangerPage = async ({
 
   const reviews = await reviewsByExchange({
     exchange_id: params.exchanger,
-    exchange_marker: ExchangerMarker.cash,
+    exchange_marker: searchParams["exchanger-marker"],
     page: currentPage,
     grade_filter: searchParams?.grade,
     element_on_page: 7,
@@ -29,7 +29,7 @@ export const CryptoExchangerPage = async ({
     exchange_marker: searchParams["exchanger-marker"],
   });
   const currencyPair = await getPairValute({
-    exchange_id: currentPage,
+    exchange_id: params.exchanger,
     exchange_marker: searchParams["exchanger-marker"],
   });
 
