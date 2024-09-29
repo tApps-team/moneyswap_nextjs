@@ -1,9 +1,11 @@
 "use client";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useCurrecnyStore } from "@/entities/currency";
 import { useDirectionStore } from "@/entities/direction";
-import { Exchanger } from "@/entities/exchanger";
+import { Exchanger, ExchangerMarker } from "@/entities/exchanger";
 import { GiveCell } from "../columns/ui/giveCell";
 
 export type ExchangerTable = Exchanger;
@@ -27,7 +29,11 @@ export const columns: ColumnDef<ExchangerTable>[] = [
         </button>
       );
     },
-    cell: ({ row }) => <p className="font-semibold text-base">{row.original?.name?.ru}</p>,
+    cell: ({ row }) => (
+      <Link href={row.original.partner_link} target="_blank">
+        <p className="font-semibold text-base">{row.original?.name?.ru}</p>
+      </Link>
+    ),
   },
   {
     accessorFn: (exchanger) => exchanger.in_count,
@@ -49,7 +55,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     },
     sortDescFirst: false,
     sortUndefined: "last",
-    cell: GiveCell,
+    cell: ({ row, cell }) => <GiveCell row={cell.row} />,
   },
   {
     accessorFn: (exchanger) => exchanger.out_count,
@@ -70,13 +76,9 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     },
     id: "Get",
     cell: ({ row }) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { giveCashCurrencyAmount, giveCurrencyAmount } = useCurrecnyStore((state) => state);
       return (
         <div className="flex gap-2 items-end">
-          <div className="text-[#f6ff5f] text-base">
-            {row.original.out_count * (giveCurrencyAmount || 1)}
-          </div>
+          <div className="text-[#f6ff5f] text-base">{row.original.out_count}</div>
           <div className="text-sm">{row.original.valute_to}</div>
         </div>
       );
@@ -117,7 +119,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     },
     id: "Review",
     cell: ({ row }) => (
-      <div className="flex gap-1">
+      <div className="flex gap-1 border rounded-full hover:border-[#f6ff5f] w-20 px-4 py-2">
         <div className="text-[#f6ff5f]">{row.original.review_count.positive}</div>
         <span>/</span>
         <div className="text-red-600">{row.original.review_count.negative}</div>
