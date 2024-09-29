@@ -1,26 +1,34 @@
-import { CellContext, Row } from "@tanstack/react-table";
-import { useCurrecnyStore } from "@/entities/currency";
-import { useDirectionStore } from "@/entities/direction";
+import { Cell, Row } from "@tanstack/react-table";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Exchanger } from "@/entities/exchanger";
-import { directions } from "@/shared/types";
+import { ExchangerMarker } from "@/shared/types";
 type GiveCellProps = {
   row: Row<Exchanger>;
 };
 export const GiveCell = (props: GiveCellProps) => {
   const { row } = props;
-  const { giveCashCurrencyAmount, giveCurrencyAmount, getCashCurrencyAmount, getCurrencyAmount } =
-    useCurrecnyStore((state) => state);
-  const direction = useDirectionStore((state) => state.direction);
-  const currenctGiveAmount =
-    direction === directions.cash ? giveCashCurrencyAmount : giveCurrencyAmount;
-  const currenctGetAmount =
-    direction === directions.cash ? getCashCurrencyAmount : getCurrencyAmount;
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const createUrl = (city: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("city", city);
+    return `${pathname}?${params.toString()}`;
+  };
   return (
     <div className="flex gap-2 items-end">
-      <div className="text-[#f6ff5f] text-base">
-        {currenctGiveAmount ? currenctGiveAmount * (currenctGetAmount || 1) : row.original.in_count}
-      </div>
+      <div className="text-[#f6ff5f] text-base">{row.original.in_count}</div>
       <div className="font-normal text-sm">{row.original.valute_from}</div>
+      {row.original.location && (
+        <Link href={createUrl(row.original.location.code_name)}>
+          <p>
+            {row.original.exchange_marker === ExchangerMarker.cash
+              ? `Наличные в городе ${row.original.location.name.ru}`
+              : `Наличные в городе ${row.original.location.name.ru}`}
+          </p>
+        </Link>
+      )}
     </div>
   );
 };
