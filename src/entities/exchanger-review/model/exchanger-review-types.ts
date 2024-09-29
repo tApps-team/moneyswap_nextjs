@@ -13,7 +13,7 @@ export type Comment = {
   id: number;
   comment_date: string;
   comment_time: string;
-  test: string;
+  text: string;
   role: "admin" | "user";
 };
 export enum Grade {
