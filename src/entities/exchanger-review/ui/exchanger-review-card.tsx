@@ -1,33 +1,45 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
 import { cx } from "class-variance-authority";
 import { Smile } from "lucide-react";
+import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 // eslint-disable-next-line boundaries/element-types
 import { CommentList } from "@/features/exchanger/review";
 import { cn } from "@/shared/lib";
-import { ReviewEnum } from "@/shared/types";
-import { ExchangerReview } from "..";
+import { ExchangerMarker, ReviewEnum } from "@/shared/types";
+import { Comment, ExchangerReview, getCommentsByReview } from "..";
 
 type ExchangerReviewCardProps = {
   replySlot?: React.ReactNode;
-  review?: ExchangerReview;
-  commentListSlot?: React.ReactNode;
+  review: ExchangerReview;
+  // commentListSlot?: React.ReactNode;
 };
 //TODO рефактор, нельзя использовать фичу в сущности
 const MAX_HEIGHT = 40;
 export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
-  const { replySlot, review, commentListSlot } = props;
+  const { replySlot, review } = props;
+  const { exchanger } = useParams();
+
+  const searchParams = useSearchParams();
+  const exchangerMarker = searchParams.get("exchanger-marker") as ExchangerMarker;
+  const [isOpen, setIsOpen] = useState(false);
+  const { data } = useQuery({
+    queryFn: () =>
+      getCommentsByReview({
+        exchangerId: +exchanger,
+        exchangerMarker: exchangerMarker,
+        reviewId: review.id,
+      }),
+    queryKey: ["comments", review.id],
+    enabled: !isOpen || review.comment_count < 1,
+    retry: false,
+    refetchOnMount: false,
+  });
   const [isOpenReview, setIsOpenReview] = useState(false);
   const [isShowExpandButton, setIsShowExpandButton] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.clientHeight > MAX_HEIGHT
-        ? setIsShowExpandButton(true)
-        : setIsShowExpandButton(false);
-    }
-  }, [ref.current?.clientHeight]);
+
   const reviewRender = () => {
     if (review?.grade === ReviewEnum.positive) {
       return (
@@ -86,9 +98,19 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
             {isShowExpandButton && (isOpenReview ? "СВЕРНУТЬ" : "РАЗВЕРНУТЬ")}
           </button>
         </div>
+        <div className="flex justify-between items-center ">
+          <div>{replySlot}</div>
+          <button
+            disabled={review.comment_count < 1}
+            className="text-sm   text-[#f6ff5f]"
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            {isOpen ? "СКРЫТЬ КОММЕНТАРИИ" : "СМОТРЕТЬ КОММЕНТАРИИ"}
+          </button>
+        </div>
       </div>
+      <CommentList isOpen={isOpen} comments={data} />
       {/* РЕФАКТОР */}
-      <div>{commentListSlot}</div>
     </div>
   );
 };
