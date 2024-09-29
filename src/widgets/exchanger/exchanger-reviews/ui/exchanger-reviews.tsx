@@ -6,11 +6,11 @@ import { ReviewEnum } from "@/shared/types";
 
 type ExchangerReviewsProps = {
   reviews: ExchangerReview[];
-
   totalPages: number;
 };
-export const ExchangerReviews = (props: ExchangerReviewsProps) => {
+export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
   const { reviews, totalPages } = props;
+
   return (
     <section className="grid items-center gap-4">
       <div className="flex px-6 justify-between items-center">
@@ -26,12 +26,7 @@ export const ExchangerReviews = (props: ExchangerReviewsProps) => {
       {reviews.length > 0 ? (
         <>
           {reviews?.map((review) => (
-            <ExchangerReviewCard
-              commentListSlot={<CommentList />}
-              key={review.id}
-              review={review}
-              replySlot={<Reply />}
-            />
+            <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
           ))}
           {totalPages > 0 && reviews.length > 5 && <ExchangerPagination totalPages={totalPages} />}
         </>
