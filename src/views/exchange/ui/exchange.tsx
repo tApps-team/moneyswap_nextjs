@@ -8,12 +8,21 @@ import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoMeta, getSeoTexts } from "@/shared/api";
-import { directions, pageTypes } from "@/shared/types";
+import { ExchangerMarker, directions, pageTypes } from "@/shared/types";
 
-export const ExchangePage = async ({ params }: { params: { slug: string[] } }) => {
+export const ExchangePage = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams?: { city?: string; direction: ExchangerMarker };
+}) => {
   const slug = params.slug[0];
-  const city = params.slug[1];
+  const currentDirection = searchParams?.direction;
+  const city = searchParams?.city;
 
+  const directionCash = !!city || currentDirection === ExchangerMarker.cash;
+  const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
 
   const { exchangers, status } = await getExchangers({ valute_from, valute_to, city });
@@ -21,14 +30,15 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
   const giveCurrency = await getSpecificValute({ codeName: valute_from });
   const getCurrency = await getSpecificValute({ codeName: valute_to });
 
-  const location = city ? await getSpecificCity({ codeName: city }) : null;
-  const currentDirection = city ? directions.cash : directions.noncash;
+  const location = city ? await getSpecificCity({ codeName: city }) : undefined;
+
   const actualCourse = await getActualCourse({
-    valuteFrom: giveCurrency.code_name,
-    valuteTo: getCurrency.code_name,
+    valuteFrom: giveCurrency?.code_name,
+    valuteTo: getCurrency?.code_name,
   });
+
   const reqParams =
-    currentDirection === directions.cash
+    direction === ExchangerMarker.cash
       ? {
           page: pageTypes.exchange_cash,
           giveCurrency: `${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`,
@@ -65,14 +75,8 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
           icon_url: giveCurrency?.icon_url,
           name: giveCurrency?.name,
         }}
-        urlDirection={currentDirection}
-        urlLocation={{
-          cityCodeName: location?.code_name!,
-          cityName: location?.name?.ru!,
-          countryIconUrl: location?.country.icon_url!,
-          countryName: location?.country.name.ru!,
-          id: location?.id!,
-        }}
+        urlDirection={direction}
+        urlLocation={location}
       />
       {status === 404 ? (
         <EmptyListExchangers
@@ -88,14 +92,14 @@ export const ExchangePage = async ({ params }: { params: { slug: string[] } }) =
             id: getCurrency.name.ru,
             name: getCurrency.name,
           }}
-          location={location ? location : undefined}
+          location={location}
         />
       ) : (
         <ExchangersTable columns={columns} data={exchangers || []} />
       )}
 
       <SeoFooterText data={seoTexts.data} />
-      <MainFAQ direction={currentDirection} />
+      <MainFAQ direction={direction} />
     </div>
   );
 };

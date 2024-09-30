@@ -3,8 +3,9 @@ import { CryptoTable } from "@/widgets/crypto-exchangers/crypto-table";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { BotBanner } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
+import { getExchangerList } from "@/entities/exchanger";
 import { getCryptoExchangersPage } from "@/entities/strapi";
-import { directions } from "@/shared/types";
+import { ExchangerMarker, directions } from "@/shared/types";
 
 export const CryptoExchangersPage = async ({ params }: { params: { exchanger: string[] } }) => {
   const giveCurrency = await getSpecificValute({
@@ -18,9 +19,9 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
   // strapi texts
   const { data } = await getCryptoExchangersPage();
   const { title, header_description, footer_description } = data;
+  const cryptoExchangers = await getExchangerList();
   return (
     <div>
-      {/* <CryptoSeoText /> */}
       <h1 className="uppercase text-3xl font-medium">{title}</h1>
       <div
         dangerouslySetInnerHTML={{ __html: header_description }}
@@ -28,7 +29,7 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
       />
       <BotBanner />
       <CurrencySelectForm
-        urlDirection={directions.noncash}
+        urlDirection={ExchangerMarker.no_cash}
         actualCourse={actualCourse}
         urlGetCurrency={{
           code_name: getCurrency.code_name,
@@ -43,7 +44,7 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
           name: giveCurrency.name,
         }}
       />
-      <CryptoTable />
+      <CryptoTable data={cryptoExchangers} />
       <div
         dangerouslySetInnerHTML={{ __html: footer_description }}
         className="strapi_styles mt-8"

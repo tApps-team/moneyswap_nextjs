@@ -7,6 +7,8 @@ import {
   GetAvailableValutesDtoResponse,
   GetDirectionsRequest,
   GetDirectionsResponse,
+  GetPairValuteDtoRequset,
+  GetPairValuteDtoResponse,
   GetSpecificValuteRequest,
   GetSpecificValuteResponse,
 } from "./currency-dto";
@@ -62,10 +64,9 @@ export const getSpecificValute = async (
 ): Promise<GetSpecificValuteResponse> => {
   const { codeName } = props;
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/specific_valute?code_name=${codeName}`;
-  const result = await fetch(url, { method: "GET" });
-  const data = await result.json();
+  const result = await apiClient.get<GetSpecificValuteResponse>(url, { method: "GET" });
 
-  return data;
+  return result;
 };
 
 export const getPopularValutes = async (
@@ -108,4 +109,10 @@ export const getActualCourse = async (
     console.error("Failed to fetch the actual course:", error);
     return null; // Return null or an appropriate fallback value if the request fails
   }
+};
+
+export const getPairValute = async (props: GetPairValuteDtoRequset) => {
+  const url = `/api/direction_pair_by_exchange`;
+  const response = await apiClient.get<GetPairValuteDtoResponse>(url, props);
+  return response;
 };

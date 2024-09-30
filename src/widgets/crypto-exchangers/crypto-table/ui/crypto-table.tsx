@@ -18,14 +18,14 @@ import { Exchanger } from "@/entities/exchanger";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 import { cryptoColumns } from "../model/columns";
 import { CryptoTableColumns } from "../model/columns";
-import { mockData } from "../model/mockData";
 
 interface DataTableProps<TValue> {
   //   columns: ColumnDef<CryptoTableColumns, TValue>[];
-  //   data: CryptoTableColumns[];
+  data: CryptoTableColumns[];
 }
 
-export function CryptoTable<TData, TValue>() {
+export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
+  const { data } = props;
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -36,7 +36,7 @@ export function CryptoTable<TData, TValue>() {
   });
 
   const table = useReactTable({
-    data: mockData,
+    data,
     columns: cryptoColumns,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
@@ -87,11 +87,16 @@ export function CryptoTable<TData, TValue>() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <TableCell key={cell.id}>
+                        {/* hydration error */}
+                        {/* <Link href={cell.row.original.url} target="_blank"> */}
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {/* </Link> */}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             ) : (
@@ -107,7 +112,7 @@ export function CryptoTable<TData, TValue>() {
       <Button
         onClick={handleShowMore}
         disabled={
-          table.getRowModel().rows.length >= mockData.length || table.getRowModel().rows.length < 1
+          table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
         }
         className="bg-[#2d2d2d] h-14 w-[200px] mx-auto border-2 border-[#bbbbbb] uppercase rounded-full"
       >

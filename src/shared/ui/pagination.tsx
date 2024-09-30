@@ -55,6 +55,7 @@ const PaginationPrevious = ({
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
+    scroll={false}
     className={cn("gap-1 pl-2.5", className)}
     {...props}
   >

@@ -9,6 +9,13 @@ export type ExchangerReview = {
   text: string;
   comment_count: number;
 };
+export type Comment = {
+  id: number;
+  comment_date: string;
+  comment_time: string;
+  text: string;
+  role: "admin" | "user";
+};
 export enum Grade {
   positive = 1,
   neutral = 0,

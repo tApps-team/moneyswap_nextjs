@@ -86,9 +86,9 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      <Link href={cell.row.original.partner_link} target="_blank">
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </Link>
+                      {/* <Link href={cell.row.original.partner_link} target="_blank"> */}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {/* </Link> */}
                     </TableCell>
                   ))}
                 </TableRow>
