@@ -20,12 +20,13 @@ export class ApiClient {
   public async get<TResult = unknown>(
     endpoint: string,
     queryParams?: Record<string, string | number>,
+    requestCache?: RequestCache,
   ): Promise<TResult> {
     const url = new URL(endpoint, this.baseUrl);
 
     if (queryParams) {
       Object.entries(queryParams).forEach(([key, value]) => {
-        url.searchParams.append(key, value.toString());
+        typeof value !== "undefined" && url.searchParams.append(key, value.toString());
       });
     }
 
@@ -34,6 +35,7 @@ export class ApiClient {
       headers: {
         "Content-Type": "application/json",
       },
+      cache: requestCache || "no-store",
     });
 
     return this.handleResponse<TResult>(response);

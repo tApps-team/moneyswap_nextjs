@@ -35,10 +35,8 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
 
   const createUrl = (valuteFrom: string, valuteTo: string) => {
     if (location) {
-      console.log(`/exchange/${valuteFrom}-to-${valuteTo}/${location?.code_name}`);
-      return `/exchange/${valuteFrom}-to-${valuteTo}/${location?.code_name}`;
+      return `/exchange/${valuteFrom}-to-${valuteTo}?city=${location?.code_name}`;
     } else {
-      console.log(`/exchange/${valuteFrom}-to-${valuteTo}`);
       return `/exchange/${valuteFrom}-to-${valuteTo}`;
     }
   };
@@ -110,7 +108,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
               <Link
                 className="border-b last:border-none"
                 key={city.pk}
-                href={`/exchange/${valuteFrom.code_name}-to-${valuteTo.code_name}/${city.code_name}`}
+                href={`/exchange/${valuteFrom.code_name}-to-${valuteTo.code_name}?city=${city.code_name}`}
               >
                 <div className="flex justify-between items-center px-4 py-4 border-b last:border-none">
                   <div className="flex items-center gap-2">

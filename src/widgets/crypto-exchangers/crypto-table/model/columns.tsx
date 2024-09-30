@@ -4,60 +4,14 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp, InfoIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { CryptoExchanger } from "@/entities/exchanger";
 import { Country } from "@/entities/location";
 import { Review } from "@/shared/types";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/shared/ui";
 
-export type CryptoTableColumns = {
-  info: {
-    name: string;
-    age: string;
-    amountReserves: number;
-    country: Omit<Country, "cities">;
-  };
-  exchangerName: string;
-  workStatus: string;
-  reserves: number;
-  courses: number;
-  reviews: Review;
-  id?: number;
-  url?: string;
-};
+export type CryptoTableColumns = CryptoExchanger;
 
 export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
-  // {
-  //   id: "info",
-  //   accessorFn: (info) => info.info,
-  //   header: () => {
-  //     return <ChevronDown />;
-  //   },
-  //   cell: ({ row }) => (
-  //     <HoverCard>
-  //       <HoverCardTrigger asChild>
-  //         <InfoIcon width={32} height={32} />
-  //       </HoverCardTrigger>
-  //       <HoverCardContent
-  //         align="start"
-  //         side="right"
-  //         className="w-52 rounded-2xl bg-[#2d2d2d] text-white uppercase p-3"
-  //       >
-  //         <p>{row.original.info.name}</p>
-  //         <hr className="mx-[-0.75rem]" />
-  //         <p>Возраст: {row.original.info.age}</p>
-  //         <p>Сумма резервов: {row.original.info.amountReserves}</p>
-  //         <div>
-  //           <p>Страна: {row.original.info.country.name.ru}</p>
-  //           {/* <Image
-  //               src={row.original.info.country.icon_url}
-  //               alt={`country ${row.original.info.country.name.ru}`}
-  //               width={10}
-  //               height={10}
-  //             /> */}
-  //         </div>
-  //       </HoverCardContent>
-  //     </HoverCard>
-  //   ),
-  // },
   {
     accessorKey: "exchangerName",
     header: ({ column }) => {
@@ -80,7 +34,10 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
   {
     accessorKey: "workStatus",
     header: "СТАТУС",
-    cell: ({ row }) => <p className="uppercase">{row.original.workStatus}</p>,
+    cell: ({ row }) => {
+      const workStatus = row.original.workStatus ? "Активен" : "Не активен";
+      return <p className="uppercase">{workStatus}</p>;
+    },
   },
   {
     accessorKey: "reserves",
@@ -119,10 +76,19 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     ),
   },
   {
+    //TODO refactor as href
     accessorKey: "id",
     header: "",
     cell: ({ row }) => (
-      <Link href={`/crypto-exchangers/exchanger-${row.id}`}>
+      <Link
+        // as={{
+        //   pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
+        // }}
+        href={{
+          pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
+          query: { "exchanger-marker": row.original.exchange_marker },
+        }}
+      >
         <button>ПОДРОБНЕЕ</button>
       </Link>
     ),

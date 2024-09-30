@@ -1,3 +1,5 @@
+// eslint-disable-next-line boundaries/element-types
+import { LocationInfo } from "@/entities/location";
 import { Name, Review } from "@/shared/types";
 
 export interface Exchanger {
@@ -33,6 +35,7 @@ export interface Exchanger {
   };
   params: string;
   fromfee: number | null;
+  location?: LocationInfo;
 }
 
 export enum ExchangerMarker {
@@ -40,3 +43,27 @@ export enum ExchangerMarker {
   no_cash = "no_cash",
   partner = "partner",
 }
+
+export type CryptoExchanger = {
+  id: number;
+  exchangerName: string;
+  exchange_marker: string;
+  workStatus: boolean;
+  reserves: string;
+  courses: string;
+  url: string;
+  reviews: Review;
+};
+
+export type ExchnagerInfo = {
+  name: string;
+  iconUrl: string;
+  workStatus: boolean;
+  reviews: Review;
+  country: string;
+  amountReserves: string;
+  exchangeRates: number;
+  open: string;
+  openOnMoneySwap: string;
+  url: string;
+};

@@ -1,104 +1,48 @@
 "use client";
 import { cx } from "class-variance-authority";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-import { CurrencySwitcher, CurrencySelect } from "@/features/currency";
+import { usePathname, useRouter } from "next/navigation";
+import { CurrencySelect, CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { Currency, useCurrecnyStore, useGetAvailableValutes } from "@/entities/currency";
-import { useDirectionStore } from "@/entities/direction";
-import { Location, useGetCountries, useLocationStore } from "@/entities/location";
+import { Currency, useGetAvailableValutes } from "@/entities/currency";
+import { LocationInfo, useGetCountries } from "@/entities/location";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
-import { directions } from "@/shared/types";
+import { ExchangerMarker, directions } from "@/shared/types";
 import { Button } from "@/shared/ui";
 
 type CurrencySelectFormProps = {
   url?: string;
-  urlLocation?: Location;
+  urlLocation?: LocationInfo;
   urlGetCurrency?: Currency;
   urlGiveCurrency?: Currency;
-  urlDirection?: directions;
+  urlDirection?: ExchangerMarker;
   actualCourse: number | null;
 };
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const { url, urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
 
   const router = useRouter();
-  const { location, setLocation } = useLocationStore((state) => state);
-  const {
-    getCurrency,
-    giveCurrency,
-    getCashCurrency,
-    giveCashCurrency,
+  const pathname = usePathname();
 
-    setCashGetCurrency,
-    setCashGiveCurrency,
-    setGetCurrency,
-    setGiveCurrency,
-    resetCashCurrencies,
-    resetNoCashCurrencies,
-
-    getCashCurrencyAmount,
-    getCurrencyAmount,
-    giveCashCurrencyAmount,
-    giveCurrencyAmount,
-
-    setGetCashCurrencyAmount,
-    setGetCurrencyAmount,
-    setGiveCashCurrencyAmount,
-    setGiveCurrencyAmount,
-  } = useCurrecnyStore((state) => state);
-
-  const { direction, setDirection } = useDirectionStore((state) => state);
-
-  const currentGiveCurrency = direction === directions.cash ? giveCashCurrency : giveCurrency;
-  const currentGetCurrency = direction === directions.cash ? getCashCurrency : getCurrency;
-
-  const currentSetGiveCurrency =
-    direction === directions.cash ? setCashGiveCurrency : setGiveCurrency;
-  const currentSetGetCurrency = direction === directions.cash ? setCashGetCurrency : setGetCurrency;
-
-  const currentSetGiveAmount =
-    direction === directions.cash ? setGiveCashCurrencyAmount : setGiveCurrencyAmount;
-  const currentSetGetAmount =
-    direction === directions.cash ? setGetCashCurrencyAmount : setGetCurrencyAmount;
-
-  const currentGiveAmount =
-    direction === directions.cash ? giveCashCurrencyAmount : giveCurrencyAmount;
-  const currentGetAmount =
-    direction === directions.cash ? getCashCurrencyAmount : getCurrencyAmount;
-
-  useEffect(() => {
-    if (urlDirection === directions.cash) {
-      setDirection(directions.cash);
+  const onClickGetCurrency = (getCurrency: Currency) => {
+    if (urlDirection === ExchangerMarker.cash) {
+      router.push(
+        `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${urlLocation?.code_name}`,
+      );
+    } else {
+      router.push(`/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}`);
     }
-    if (urlDirection === directions.noncash) {
-      setDirection(directions.noncash);
+  };
+  const onClickGiveCurrency = (giveCurrency: Currency) => {
+    if (urlDirection === ExchangerMarker.cash) {
+      router.push(
+        `/exchange/${giveCurrency?.code_name}-to-${urlGetCurrency?.code_name}?city=${urlLocation?.code_name}`,
+      );
+    } else {
+      router.push(`/exchange/${giveCurrency?.code_name}-to-${urlGetCurrency?.code_name}`);
     }
-  }, [setDirection, urlDirection]);
-  useEffect(() => {
-    const isSetCurrencies = urlGiveCurrency && urlGetCurrency;
-    if (isSetCurrencies && urlLocation && urlDirection === directions.cash) {
-      setLocation(urlLocation);
-      setCashGiveCurrency(urlGiveCurrency);
-      setCashGetCurrency(urlGetCurrency);
-    }
-    if (isSetCurrencies && urlDirection === directions.noncash) {
-      setGiveCurrency(urlGiveCurrency);
-      setGetCurrency(urlGetCurrency);
-    }
-  }, [
-    setCashGetCurrency,
-    setCashGiveCurrency,
-    setGetCurrency,
-    setGiveCurrency,
-    setLocation,
-    urlDirection,
-    urlGetCurrency,
-    urlGiveCurrency,
-    urlLocation,
-  ]);
+  };
+
   const { data: countries } = useGetCountries();
 
   const {
@@ -107,7 +51,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     isError: giveCurrenciesIsError,
   } = useGetAvailableValutes({
     base: "all",
-    city: direction === directions.cash ? location?.cityCodeName : undefined,
+    city: urlDirection === ExchangerMarker.cash ? urlLocation?.code_name : undefined,
   });
 
   const {
@@ -115,53 +59,16 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     isLoading: getCurrenciesIsLoading,
     isError: getCurrenciesIsError,
   } = useGetAvailableValutes({
-    base: currentGiveCurrency?.code_name,
-    city: direction === directions.cash ? location?.cityCodeName : undefined,
+    base: urlGiveCurrency?.code_name,
+    city: urlDirection === ExchangerMarker.cash ? urlLocation?.code_name : undefined,
   });
-
-  const onClickGiveCurrency = (giveCurrency: Currency) => {
-    currentSetGiveCurrency(giveCurrency);
-    const valuteNotEmpty = currentGetCurrency && giveCurrency;
-    if (valuteNotEmpty && direction === directions.noncash) {
-      router.push(`/exchange/${giveCurrency.code_name}-to-${currentGetCurrency.code_name}`);
-    }
-    if (valuteNotEmpty && direction === directions.cash) {
-      router.push(
-        `/exchange/${giveCurrency.code_name}-to-${currentGetCurrency.code_name}/${location?.cityCodeName}`,
-      );
-    }
-  };
-  const onClickGetCurrency = (getCurrency: Currency) => {
-    currentSetGetCurrency(getCurrency);
-
-    const valuteNotEmpty = currentGiveCurrency && getCurrency;
-
-    if (valuteNotEmpty && direction === directions.noncash) {
-      router.push(`/exchange/${currentGiveCurrency.code_name}-to-${getCurrency.code_name}`);
-    }
-    if (valuteNotEmpty && direction === directions.cash) {
-      router.push(
-        `/exchange/${currentGiveCurrency.code_name}-to-${getCurrency.code_name}/${location?.cityCodeName}`,
-      );
-    }
-  };
-  const onHandleTab = (currentDirection: directions) => {
-    const cashValuteNotEmpty = giveCashCurrency && getCashCurrency;
-    const valuteNotEmpty = giveCurrency && getCurrency;
-    setDirection(currentDirection);
-    if (currentDirection === directions.cash && !cashValuteNotEmpty) {
+  //TODO fix handleTab
+  const onHandleTab = (currentDirection: ExchangerMarker) => {
+    if (currentDirection === ExchangerMarker.cash) {
       router.push(`${routes.home}?direction=cash`);
     }
 
-    if (currentDirection === directions.cash && cashValuteNotEmpty) {
-      router.push(
-        `/exchange/${giveCashCurrency.code_name}-to-${getCashCurrency.code_name}/${location?.cityCodeName}`,
-      );
-    }
-    if (currentDirection === directions.noncash && valuteNotEmpty) {
-      router.push(`/exchange/${giveCurrency.code_name}-to-${getCurrency.code_name}`);
-    }
-    if (currentDirection === directions.noncash && !valuteNotEmpty) {
+    if (currentDirection === ExchangerMarker.no_cash) {
       router.push(`${routes.home}`);
     }
   };
@@ -179,10 +86,10 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             id="changeCash"
             className={cn(
               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-              direction === directions.cash && "text-[#f6ff5f]",
+              urlDirection === ExchangerMarker.cash && "text-[#f6ff5f]",
             )}
             onClick={() => {
-              onHandleTab(directions.cash);
+              onHandleTab(ExchangerMarker.cash);
             }}
           >
             Наличные
@@ -196,10 +103,10 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             id="changeOnline"
             className={cn(
               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-              direction === directions.noncash && "text-[#f6ff5f]",
+              urlDirection === ExchangerMarker.no_cash && "text-[#f6ff5f]",
             )}
             onClick={() => {
-              onHandleTab(directions.noncash);
+              onHandleTab(ExchangerMarker.no_cash);
             }}
           >
             Безналичные
@@ -210,38 +117,32 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
       <div
         className={cx(
           "grid grid-cols-[1fr,auto,1fr] grid-rows-1 items-end justify-between gap-4",
-          direction === directions.cash && "grid-flow-col",
+          urlDirection === ExchangerMarker.cash && "grid-flow-col",
         )}
       >
         <CurrencySelect
           actualCourse={1}
-          setAmount={currentSetGiveAmount}
-          amount={currentGiveAmount}
           onClick={onClickGiveCurrency}
-          disabled={(direction === directions.cash && !location) || !giveCurrencies}
-          currencyInfo={currentGiveCurrency}
+          disabled={(urlDirection === ExchangerMarker.cash && !urlLocation) || !giveCurrencies}
+          currencyInfo={urlGiveCurrency}
           currencies={giveCurrencies}
-          direction={direction}
+          direction={urlDirection}
           label="отдаю"
         />
 
-        <CurrencySwitcher direction={direction} />
+        <CurrencySwitcher direction={urlDirection} />
 
         <CurrencySelect
           actualCourse={actualCourse}
-          amount={currentGetAmount}
-          setAmount={currentSetGetAmount}
           onClick={onClickGetCurrency}
-          currencyInfo={currentGetCurrency}
-          disabled={
-            (!currentGetCurrency && !currentGiveCurrency) || (!currentGetCurrency && !getCurrencies)
-          }
+          currencyInfo={urlGetCurrency}
+          disabled={!urlLocation}
           currencies={getCurrencies}
           label="получаю"
-          direction={direction}
+          direction={urlDirection}
         />
 
-        {direction === directions.cash && <LocationSelect countries={countries || []} />}
+        {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
       </div>
     </form>
     // </Form>

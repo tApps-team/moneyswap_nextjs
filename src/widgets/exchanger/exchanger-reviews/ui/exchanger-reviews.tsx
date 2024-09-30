@@ -1,52 +1,16 @@
-import { Reply, ReviweFilter } from "@/features/exchanger/review";
+import { CommentList, Reply, ReviweFilter } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
 import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
 import { ReviewEnum } from "@/shared/types";
-import { Button, Pagination, PaginationContent, PaginationPrevious } from "@/shared/ui";
-const mockReviews: ExchangerReview[] = [
-  {
-    comment_count: 0,
-    grade: ReviewEnum.neutral,
-    id: 0,
-    review_date: "20.12.2002",
-    review_time: "22:19",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.",
-    username: "Dany",
-  },
-  {
-    comment_count: 0,
-    grade: ReviewEnum.positive,
-    id: 1,
-    review_date: "20.12.2002",
-    review_time: "22:19",
-    text: "Lorem ipsum dolor sit amet consectetur.",
-    username: "Dany",
-  },
-  {
-    comment_count: 0,
-    grade: ReviewEnum.negative,
-    id: 2,
-    review_date: "20.12.2002",
-    review_time: "22:19",
-    text: "a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a  ",
-    username: "Dany",
-  },
-  {
-    comment_count: 0,
-    grade: ReviewEnum.negative,
-    id: 3,
-    review_date: "20.12.2002",
-    review_time: "22:19",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, eligendi deserunt perferendis harum tempore dolor sint asperiores nostrum deleniti reiciendis hic inciduntdebitis eius! Nisi molestiae voluptatibus numquam nostrum. Repudiandae.",
-    username: "Dany",
-  },
-];
+
 type ExchangerReviewsProps = {
   reviews: ExchangerReview[];
+  totalPages: number;
 };
-export const ExchangerReviews = (props: ExchangerReviewsProps) => {
-  const { reviews } = props;
+export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
+  const { reviews, totalPages } = props;
+
   return (
     <section className="grid items-center gap-4">
       <div className="flex px-6 justify-between items-center">
@@ -56,11 +20,21 @@ export const ExchangerReviews = (props: ExchangerReviewsProps) => {
       </div>
       <hr className="" />
       {/* // фича пагинации или тут останется также фильтры */}
-      <ExchangerPagination />
+      {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}
       <ReviweFilter />
-      {reviews?.map((review) => (
-        <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
-      ))}
+
+      {reviews.length > 0 ? (
+        <>
+          {reviews?.map((review) => (
+            <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
+          ))}
+          {totalPages > 0 && reviews.length > 5 && <ExchangerPagination totalPages={totalPages} />}
+        </>
+      ) : (
+        <div className="uppercase flex items-center justify-center border h-16 rounded-3xl ">
+          <p>по данному фильтру не найдено отзывов</p>
+        </div>
+      )}
     </section>
   );
 };

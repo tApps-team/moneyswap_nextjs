@@ -1,25 +1,30 @@
 type FilterData = {
   value: string;
   href: string;
+  grade: number | undefined;
 };
 export const filterData: FilterData[] = [
   {
     value: "ВСЕ",
-    href: "all",
+    href: "",
+    grade: undefined,
   },
 
   {
     value: "ПОЛОЖИТЕЛЬНЫЕ",
-    href: "positive",
+    href: "?grade=1&page=1",
+    grade: 1,
   },
 
   {
     value: "НЕЙТРАЛЬНЫЕ",
-    href: "neutral",
+    href: "?grade=0&page=1",
+    grade: 0,
   },
 
   {
     value: "НЕГАТИВНЫЕ",
-    href: "negative",
+    href: "?grade=-1&page=1",
+    grade: -1,
   },
 ];
