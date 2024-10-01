@@ -6,6 +6,8 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 // eslint-disable-next-line boundaries/element-types
 import { CommentList } from "@/features/exchanger/review";
+import { CommentIcon } from "@/shared/assets/icons/comment-icon";
+import { PositiveSmile } from "@/shared/assets/icons/positive-smile";
 import { cn } from "@/shared/lib";
 import { ExchangerMarker, ReviewEnum } from "@/shared/types";
 import { Comment, ExchangerReview, getCommentsByReview } from "..";
@@ -45,7 +47,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
       return (
         <div className="flex items-center justify-center ">
           <p className="text-black text-sm font-semibold">ПОЛОЖИТЕЛЬНЫЙ </p>
-          <Smile fill="#2d2d2d" width={28} height={28} />
+          <PositiveSmile width={28} height={28} />
         </div>
       );
     }
@@ -102,10 +104,20 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           <div>{replySlot}</div>
           <button
             disabled={review.comment_count < 1}
-            className="text-sm   text-[#f6ff5f]"
+            className={cn(
+              "text-sm flex items-center gap-2  text-[#f6ff5f]",
+              review.comment_count < 1 && "text-[bbbbbb] opacity-50",
+            )}
             onClick={() => setIsOpen((prev) => !prev)}
           >
-            {isOpen ? "СКРЫТЬ КОММЕНТАРИИ" : "СМОТРЕТЬ КОММЕНТАРИИ"}
+            <CommentIcon width={28} height={28} />
+            {isOpen ? (
+              <p>СКРЫТЬ КОММЕНТАРИИ</p>
+            ) : (
+              <p>
+                СМОТРЕТЬ КОММЕНТАРИИ <span>({review.comment_count})</span>
+              </p>
+            )}
           </button>
         </div>
       </div>
