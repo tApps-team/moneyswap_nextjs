@@ -12,7 +12,7 @@ type NavbarItems = {
 export const navbarItems: NavbarItems[] = [
   {
     href: routes.home,
-    value: "Купить криптовалюту",
+    value: "Обмен криптовалюты",
     children: [
       {
         href: `${routes.home}`,
