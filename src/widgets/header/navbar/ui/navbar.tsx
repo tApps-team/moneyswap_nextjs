@@ -30,11 +30,10 @@ export const Navbar = () => {
                       {itemChildren.icon && (
                         <itemChildren.icon className="flex-shrink-0" width={32} height={32} />
                       )}
-                      <div>
-                        <p className="text-sm hover:text-[#f6ff5f] font-medium">
-                          {itemChildren.value}
-                        </p>
-                        <p className="text-[10px]">{itemChildren.description}</p>
+
+                      <div className="[&>p]:hover:text-[#f6ff5f] ">
+                        <p className="text-sm  font-medium">{itemChildren.value}</p>
+                        <p className="text-[8px] ">{itemChildren.description}</p>
                       </div>
                     </div>
                   </NavigationMenuLink>
