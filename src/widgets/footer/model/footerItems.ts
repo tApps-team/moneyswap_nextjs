@@ -1,30 +1,104 @@
+import { HTMLAttributeAnchorTarget } from "react";
+import { routes } from "@/shared/router";
+
 type FooterItems = {
-  href: string;
   value: string;
+
+  children?: (FooterItems & { href: string; target?: HTMLAttributeAnchorTarget })[];
 };
 export const footerItems: FooterItems[] = [
   {
-    href: "/",
-    value: "lorem",
+    value: "Продукты",
+    children: [
+      {
+        href: routes.exchangers,
+        value: "Обменники",
+      },
+    ],
   },
   {
-    href: "/",
-    value: "lorem",
+    value: "Поддержка",
+    children: [
+      {
+        href: routes.about,
+        value: "О проекте",
+      },
+      {
+        href: routes.contacts,
+        value: "Контакты",
+      },
+      {
+        href: routes.questions,
+        value: "FAQ",
+      },
+      {
+        href: routes.help,
+        value: "Помощь",
+      },
+      {
+        href: routes.home, // нужен роут
+        value: "Политика конфиденциальности",
+      },
+      {
+        href: routes.home, // нужен роут
+        value: "Соглашение о  конфиденциальности",
+      },
+      {
+        href: routes.home, // нужен роут
+        value: "Добавить  обменник",
+      },
+    ],
   },
   {
-    href: "/",
-    value: "lorem",
+    value: "Социальные сети",
+    children: [
+      {
+        href: "https://t.me/MoneySwap_robot",
+        value: "Telegram",
+        target: "_blank",
+      },
+      {
+        href: "https://t.me/MoneySwap_robot",
+        value: "ВКонтакте",
+        target: "_blank",
+      },
+      {
+        href: "https://t.me/MoneySwap_robot",
+        value: "YouTube",
+        target: "_blank",
+      },
+      {
+        href: "https://t.me/MoneySwap_robot",
+        value: "WhatsApp",
+        target: "_blank",
+      },
+      {
+        href: "https://t.me/MoneySwap_robot",
+        value: "Дзен",
+        target: "_blank",
+      },
+      {
+        href: "https://t.me/MoneySwap_robot",
+        value: "VC.RU",
+        target: "_blank",
+      },
+    ],
   },
   {
-    href: "/",
-    value: "lorem",
-  },
-  {
-    href: "/",
-    value: "lorem",
-  },
-  {
-    href: "/",
-    value: "lorem",
+    value: "Возможности",
+    children: [
+      {
+        href: routes.blog,
+        value: "Статьи",
+      },
+      {
+        href: routes.home, // нужен роут
+        value: "Новости",
+      },
+      {
+        href: routes.home, // нужен роут
+        value: "Карта сайта",
+      },
+    ],
   },
 ];
