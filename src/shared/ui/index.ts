@@ -17,3 +17,5 @@ export * from "./hover-card";
 export * from "./pagination";
 export * from "./navigation-menu";
 export * from "./telegram-button";
+export * from "./radio-group";
+export * from "./textarea";

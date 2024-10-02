@@ -7,3 +7,5 @@ export * from "./icons/youtube";
 export * from "./icons/popularArrow";
 export * from "./icons/switcher";
 export * from "./icons/noResult";
+export * from "./icons/down-percent";
+export * from "./icons/up-percent";
