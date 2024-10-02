@@ -45,14 +45,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
         return `/exchange/${valuteTo}-to-${valuteFrom}`;
       }
     }
-    // const [valutes, ...rest] = params.slug;
-    // const [valuteFrom, valuteTo] = valutes.split("-to-");
 
-    // if (direction === ExchangerMarker.cash) {
-    //   return `/exchange/${valuteTo}-to-${valuteFrom}?${rest.join("/")}`;
-    // } else {
-    //   return `/exchange/${valuteTo}-to-${valuteFrom}`;
-    // }
     return "/";
   };
 
