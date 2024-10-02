@@ -14,7 +14,7 @@ export const SeoHeaderText: FC<SeoTextsBlock> = ({ data }) => {
               dangerouslySetInnerHTML={{ __html: data[0]?.header_title }}
             />
             <div className="absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
-              <HoverCard>
+              <HoverCard openDelay={0}>
                 <HoverCardTrigger asChild>
                   <YellowQuestionIcon width={36} height={36} className="cursor-pointer" />
                 </HoverCardTrigger>
