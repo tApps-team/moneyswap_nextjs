@@ -38,7 +38,11 @@ export const CryptoExchangerPage = async ({
       <div className="col-span-2 grid gap-8">
         <CryptoExchangerSeoText exchangerInfo={exchangerDetails} />
         <ExchangerInfo exchangerDetails={exchangerDetails} />
-        <ExchangerReviews totalPages={reviews.pages} reviews={reviews.content} />
+        <ExchangerReviews
+          reviewCount={exchangerDetails.reviews}
+          totalPages={reviews.pages}
+          reviews={reviews.content}
+        />
       </div>
       <div className="flex flex-col gap-6">
         <CryptoDirection currencyPair={currencyPair} />

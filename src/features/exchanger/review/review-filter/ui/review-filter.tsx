@@ -1,15 +1,14 @@
 "use client";
-import { cx } from "class-variance-authority";
 import Link from "next/link";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
-import { Grade } from "@/entities/exchanger-review";
+import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/shared/lib";
-import { Review } from "@/shared/types";
+import { Review, ReviewEnum } from "@/shared/types";
 import { filterData } from "../model/filter-data";
 
-type ReviweFilterProps = {};
+type ReviweFilterProps = { reviewCount: Review };
 //TODO
 export const ReviweFilter = (props: ReviweFilterProps) => {
+  const { reviewCount } = props;
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -28,16 +27,22 @@ export const ReviweFilter = (props: ReviweFilterProps) => {
 
     return `${pathname}?${params.toString()}`;
   };
-
+  const allReviewCount = reviewCount?.negative + reviewCount?.neutral + reviewCount?.positive;
+  const currentReviewGradeCount = (data: ReviewEnum) => {
+    if (data === ReviewEnum.all) return allReviewCount;
+    if (data === ReviewEnum.negative) return reviewCount.negative;
+    if (data === ReviewEnum.neutral) return reviewCount.neutral;
+    if (data === ReviewEnum.positive) return reviewCount.positive;
+  };
   return (
     <div className="grid grid-cols-4 gap-6">
-      {filterData.map((data) => {
+      {filterData.map((data, index) => {
         return (
           <Link
             scroll={false}
-            key={data.href}
+            key={data.value}
             className={cn(
-              "border hover:border-[#f6ff5f] hover:bg-[#f6ff5f] hover:text-black  text-center rounded-full bg-[#2d2d2d] p-4 text-xs font-medium",
+              "border hover:border-[#f6ff5f] hover:bg-[#f6ff5f] flex justify-center gap-1 hover:text-black  text-center rounded-full bg-[#2d2d2d] p-4 text-xs font-medium",
               (currentGrade === data.grade?.toString() ||
                 (typeof currentGrade === "undefined" && typeof data.grade === "undefined")) &&
                 "bg-[#f6ff5f] border-[#f6ff5f] text-black ",
@@ -45,6 +50,7 @@ export const ReviweFilter = (props: ReviweFilterProps) => {
             href={createUrl(data.grade)}
           >
             <p>{data.value}</p>
+            <span>({currentReviewGradeCount(data.review)})</span>
           </Link>
         );
       })}

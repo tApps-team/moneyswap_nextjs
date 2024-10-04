@@ -1,7 +1,7 @@
 export enum routes {
   home = "/",
   about = "/about",
-  partners = "/partners",
+  partners = "/for-partners",
   help = "/help",
   blog = "/blog",
   category = "/category",

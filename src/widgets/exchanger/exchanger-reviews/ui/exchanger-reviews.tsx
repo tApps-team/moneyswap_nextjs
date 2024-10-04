@@ -2,14 +2,15 @@ import { CommentList, Reply, ReviweFilter } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
 import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
-import { ReviewEnum } from "@/shared/types";
+import { Review, ReviewEnum } from "@/shared/types";
 
 type ExchangerReviewsProps = {
   reviews: ExchangerReview[];
   totalPages: number;
+  reviewCount: Review;
 };
 export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
-  const { reviews, totalPages } = props;
+  const { reviews, totalPages, reviewCount } = props;
 
   return (
     <section className="grid items-center gap-4">
@@ -21,7 +22,7 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
       <hr className="" />
       {/* // фича пагинации или тут останется также фильтры */}
       {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}
-      <ReviweFilter />
+      <ReviweFilter reviewCount={reviewCount} />
 
       {reviews.length > 0 ? (
         <>

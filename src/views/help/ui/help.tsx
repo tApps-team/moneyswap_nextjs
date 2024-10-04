@@ -1,6 +1,4 @@
 import { HelpBlock } from "@/widgets/strapi";
-import { TopExchange } from "@/widgets/top-exchange/top-exchange-help-page";
-import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
 import { ExchangeType, getPopularValutes, getRandomValutes } from "@/entities/currency";
 import { faqTypes, getFaq, getHelpPage } from "@/entities/strapi";
 
@@ -40,16 +38,13 @@ export const HelpPage = async () => {
         <h1 className="text-3xl text-center uppercase font-semibold">Часто задаваемые вопросы</h1>
         <h2 className="text-sm uppercase font-medium">{title}</h2>
       </div>
-      <div className="grid grid-cols-[1fr_0.4fr] items-start gap-8">
-        <HelpBlock article={article} userFaqs={userFaqs} partnerFaqs={partnerFaqs} />
-        <section className="grid grid-flow-row gap-6">
-          <TopExchange
-            popularNoncashDirections={popularNoncashDirections}
-            randomNoncashDirections={randomNoncashDirections}
-          />
-          <BotBannerSidebar />
-        </section>
-      </div>
+      <HelpBlock
+        article={article}
+        userFaqs={userFaqs}
+        partnerFaqs={partnerFaqs}
+        popularNoncashDirections={popularNoncashDirections}
+        randomNoncashDirections={randomNoncashDirections}
+      />
     </section>
   );
 };

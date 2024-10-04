@@ -1,8 +1,15 @@
-import Link from "next/link";
-import { FC } from "react";
+// "use client";
+
+import { FC, useEffect, useRef, useState } from "react";
 import { Category, CategoryCard } from "@/entities/strapi";
-import { routes } from "@/shared/router";
-// import { Carousel, CarouselContent, CarouselItem, CarouselNext } from "@/shared/ui";
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/shared/ui";
 
 interface CategoriesListProps {
   categories: Category[];
@@ -15,53 +22,54 @@ export const CategoriesList: FC<CategoriesListProps> = ({
   selectedCategory,
   selectedTag,
 }) => {
+  const allTag = {
+    id: 0,
+    name: "Все статьи",
+    category: null,
+  };
+  const categoriesWithAllTab = [allTag, ...categories];
+  // const carouselRef = useRef<HTMLDivElement>(null);
+  // const [api, setApi] = useState<CarouselApi>();
+
+  // const scrollToActiveCategory = async () => {
+  //   if (categoriesWithAllTab.length > 0 && api && selectedCategory) {
+  //     const index = categoriesWithAllTab.findIndex((cat) => cat.category === selectedCategory);
+  //     await new Promise((resolve) => setTimeout(resolve, 0));
+  //     api.scrollTo(index);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   scrollToActiveCategory();
+  // }, [api, selectedCategory, categoriesWithAllTab]);
   return (
-    <section className="grid grid-flow-col justify-between gap-2 items-center">
-      <Link
-        scroll={false}
-        href={routes.blog}
-        className={`uppercase truncate text-xs font-semibold py-3 px-8 rounded-[35px] border-2 border-transparent transition-all duration-300 ${!selectedCategory && !selectedTag ? "bg-[#f6ff5f] text-black border-[#f6ff5f]" : "hover:bg-[#2d2d2d] hover:border-[#ddd]"}`}
+    <section>
+      <Carousel
+        // ref={carouselRef}
+        opts={{
+          align: "start",
+        }}
+        className="grid w-[calc(100%_-_100px)] mx-auto"
+        // setApi={setApi}
       >
-        Все статьи
-      </Link>
-      {categories?.map((cat) => (
-        <CategoryCard
-          key={cat?.id}
-          category={cat}
-          selectedCategory={cat?.category === selectedCategory}
-        />
-      ))}
+        <CarouselContent className="w-full">
+          {categoriesWithAllTab?.map((cat, index) => (
+            <CarouselItem key={index} className="basis-1/6 grid">
+              <CategoryCard
+                key={cat?.id}
+                category={cat && cat}
+                selectedCategory={
+                  cat?.category
+                    ? cat?.category === selectedCategory
+                    : !selectedCategory && !selectedTag && true
+                }
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="-left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-[#2d2d2d] hover:text-[#f6ff5f] hover:scale-110" />
+        <CarouselNext className="-right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-[#2d2d2d] hover:text-[#f6ff5f] hover:scale-110" />
+      </Carousel>
     </section>
   );
 };
-
-{
-  /* <Carousel
-opts={{
-  align: "start",
-}}
-className="w-full"
->
-<CarouselContent>
-  <CarouselItem key={0} className="basis-[15%] grid">
-    <Link
-      scroll={false}
-      href={routes.blog}
-      className={`uppercase truncate text-xs font-medium py-3 px-8 rounded-[35px] border-2 border-[#bbbbbb] bg-[#2d2d2d] transition-all duration-300 ${!selectedCategory ? "bg-[#f6ff5f] text-black border-[#f6ff5f]" : "hover:bg-[#bbbbbb]  hover:text-black"}`}
-    >
-      Все статьи
-    </Link>
-  </CarouselItem>
-  {categories?.map((cat, index) => (
-    <CarouselItem key={index + 1} className="basis-[15%] grid">
-      <CategoryCard
-        key={cat?.id}
-        category={cat}
-        selectedCategory={cat?.category === selectedCategory}
-      />
-    </CarouselItem>
-  ))}
-</CarouselContent>
-<CarouselNext />
-</Carousel> */
-}

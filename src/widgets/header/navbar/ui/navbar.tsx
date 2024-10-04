@@ -1,4 +1,7 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/shared/lib";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,12 +13,18 @@ import {
 import { navbarItems } from "../model/navbarItems";
 
 export const Navbar = () => {
+  const pathname = usePathname();
   return (
     <NavigationMenu orientation="horizontal">
       <NavigationMenuList className="">
         {navbarItems.map((item) => (
           <NavigationMenuItem className="" key={item.href}>
-            <NavigationMenuTrigger className="bg-transparent hover:bg-[#f6ff5f] uppercase rounded-3xl p-6">
+            <NavigationMenuTrigger
+              className={cn(
+                "bg-transparent hover:bg-[#f6ff5f] uppercase rounded-3xl p-6 data-[state=open]:text-black",
+                pathname === item.href && "text-[#f6ff5f] ",
+              )}
+            >
               <Link href={item.href}>{item.value}</Link>
             </NavigationMenuTrigger>
             {item.children && (
@@ -30,11 +39,10 @@ export const Navbar = () => {
                       {itemChildren.icon && (
                         <itemChildren.icon className="flex-shrink-0" width={32} height={32} />
                       )}
-                      <div>
-                        <p className="text-sm hover:text-[#f6ff5f] font-medium">
-                          {itemChildren.value}
-                        </p>
-                        <p className="text-[10px]">{itemChildren.description}</p>
+
+                      <div className="[&>p]:hover:text-[#f6ff5f] ">
+                        <p className="text-sm  font-medium">{itemChildren.value}</p>
+                        <p className="text-[8px] ">{itemChildren.description}</p>
                       </div>
                     </div>
                   </NavigationMenuLink>
