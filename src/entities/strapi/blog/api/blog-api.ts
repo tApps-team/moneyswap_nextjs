@@ -58,6 +58,8 @@ export const getSearchArticles = async (
   const { value } = params;
   try {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-articlessd?filters[$or][0][preview_title][$contains]=${value}&filters[$or][1][content][$contains]=${value}&filters[$or][2][preview_description][$contains]=${value}&filters[$or][3][article_title][$contains]=${value}`;
+
+    // const url = `${process.env.STRAPI_BASE_URL}/api/blog-articlessd?filters[$or][0][preview_title][$contains]=${value}&filters[$or][1][content][$contains]=${value}&filters[$or][2][preview_description][$contains]=${value}&filters[$or][3][article_title][$contains]=${value}&filters[$or][4][dynamic_content][paragraph_content][title][$contains]=${value}&filters[$or][5][dynamic_content][paragraph_content][content][$contains]=${value}`;
     const res = await fetch(url, {
       method: "GET",
       cache: "no-store",

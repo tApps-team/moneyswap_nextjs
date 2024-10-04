@@ -45,13 +45,13 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route
   const pages = createPaginationArray();
 
   return (
-    <div className="border-2 border-[#ddd] rounded-[35px] bg-[#2d2d2d] grid grid-flow-col place-content-between gap-0   items-center">
+    <div className="shadow-[inset_1px_1px_5px_2px_rgba(0,0,0,0.3)] rounded-[35px] bg-[#2d2d2d] grid grid-flow-col place-content-between gap-0   items-center">
       {pages.map((page, index) =>
         typeof page === "number" ? (
           <Link
             key={index}
             href={`${route}?page=${page}${searchValue ? `&search=${searchValue}` : ""}`}
-            className={`h-12 w-12 font-medium flex justify-center items-center rounded-full p-2 border-2 border-[#2d2d2d] transition-all duration-300 ${page === currentPage ? "bg-[#f6ff5f] border-[#f6ff5f] text-[#2d2d2d]" : "hover:border-[#ddd] transition-all duration-300"}`}
+            className={`h-12 w-12 text-xs font-medium flex justify-center items-center rounded-full p-2 border-0 border-[#2d2d2d] transition-all duration-300 ${page === currentPage ? "bg-[#f6ff5f] text-[#2d2d2d]" : "hover:shadow-[inset_1px_1px_5px_2px_rgba(0,0,0,0.5)] transition-all duration-300"}`}
             scroll={false}
           >
             {page}

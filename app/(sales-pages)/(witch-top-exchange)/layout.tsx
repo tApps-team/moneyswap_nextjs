@@ -1,4 +1,4 @@
-import { TopExchange } from "@/widgets/top-exchange/top-exchange-sales-pages";
+import { TopExchange } from "@/features/top-exchange/top-exchange-sales-pages";
 import { ExchangeType, getPopularValutes, getRandomValutes } from "@/entities/currency";
 import { directions } from "@/shared/types";
 

@@ -28,9 +28,9 @@ export const BlogPage = async ({
       <CategoriesList categories={categories?.categories} />
       <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
         <AllArticles articles={all} totalPages={totalPages} page={page} />
-        <BlogSidebar searchValue={searchValue} />
+        <BlogSidebar searchValue={searchValue} isMain />
       </div>
-      <div className="pt-8 grid gap-[40px]">
+      <div className="pt-8 grid gap-[60px]">
         <SliderOfArticles title={readersChoice?.name} articles={readersChoice?.articles} />
         <SliderOfArticles title={recommended?.name} articles={recommended?.articles} />
       </div>
