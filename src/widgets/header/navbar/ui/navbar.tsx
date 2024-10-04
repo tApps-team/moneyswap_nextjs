@@ -22,7 +22,7 @@ export const Navbar = () => {
             <NavigationMenuTrigger
               className={cn(
                 "bg-transparent hover:bg-[#f6ff5f] uppercase rounded-3xl p-6 data-[state=open]:text-black",
-                pathname === item.href && "bg-[#f6ff5f] text-black",
+                pathname === item.href && "text-[#f6ff5f] ",
               )}
             >
               <Link href={item.href}>{item.value}</Link>
