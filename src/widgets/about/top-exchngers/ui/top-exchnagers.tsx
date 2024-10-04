@@ -5,100 +5,16 @@ import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { ExchangerMarker, Review } from "@/shared/types";
 import { ScrollArea } from "@/shared/ui";
+import { getTopExchangers } from "..";
 
-type TopExchanger = {
-  id: number;
-  iconUrl: string;
-  name: string;
-  reviewCount: Review;
-  exchangerMarker: ExchangerMarker;
-};
-const topExchangers: TopExchanger[] = [
-  {
-    id: 1,
-    iconUrl: "https://api.moneyswap.online/media/icons/valute/BTC.svg",
-    name: "1-online",
-    reviewCount: {
-      positive: 18,
-      neutral: 2,
-      negative: 0,
-    },
-    exchangerMarker: ExchangerMarker.cash,
-  },
-  {
-    id: 2,
-    iconUrl: "https://api.moneyswap.online/media/icons/valute/BTC.svg",
-    name: "1-online",
-    reviewCount: {
-      positive: 18,
-      neutral: 2,
-      negative: 0,
-    },
-    exchangerMarker: ExchangerMarker.cash,
-  },
-  {
-    id: 3,
-    iconUrl: "https://api.moneyswap.online/media/icons/valute/BTC.svg",
-    name: "Btchange",
-    reviewCount: {
-      positive: 18,
-      neutral: 2,
-      negative: 0,
-    },
-    exchangerMarker: ExchangerMarker.cash,
-  },
-  {
-    id: 4,
-    iconUrl: "https://api.moneyswap.online/media/icons/valute/BTC.svg",
-    name: "City-exchange",
-    reviewCount: {
-      positive: 20,
-      neutral: 0,
-      negative: 0,
-    },
-    exchangerMarker: ExchangerMarker.cash,
-  },
-  {
-    id: 5,
-    iconUrl: "https://api.moneyswap.online/media/icons/valute/BTC.svg",
-    name: "Goldobmen",
-    reviewCount: {
-      positive: 20,
-      neutral: 0,
-      negative: 0,
-    },
-    exchangerMarker: ExchangerMarker.cash,
-  },
-  {
-    id: 6,
-    iconUrl: "https://api.moneyswap.online/media/icons/valute/BTC.svg",
-    name: "Transfer24",
-    reviewCount: {
-      positive: 19,
-      neutral: 1,
-      negative: 0,
-    },
-    exchangerMarker: ExchangerMarker.cash,
-  },
-  {
-    id: 7,
-    iconUrl: "https://api.moneyswap.online/media/icons/valute/BTC.svg",
-    name: "Transfer24",
-    reviewCount: {
-      positive: 19,
-      neutral: 1,
-      negative: 0,
-    },
-    exchangerMarker: ExchangerMarker.cash,
-  },
-];
-export const TopExchangers = () => {
+export const TopExchangers = async () => {
+  const topExchangers = await getTopExchangers();
   return (
     <aside className="bg-[#2d2d2d]   grid grid-cols-1 grid-flow-row gap-4 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] p-6 rounded-2xl">
       <p className="text-white uppercase">ТОП ОБМЕННИКОВ</p>
       <ScrollArea className="max-h-96 pr-4 ">
         <div className="flex flex-col gap-4 ">
-          {topExchangers.map((topExchanger) => (
+          {topExchangers?.map((topExchanger) => (
             <div key={topExchanger.id} className="flex  justify-between items-center">
               <div className="flex gap-2 items-center">
                 <Image
@@ -123,7 +39,7 @@ export const TopExchangers = () => {
               </div>
               <Link
                 href={{
-                  pathname: `${routes.home}${routes.exchangers}/exchanger-${topExchanger.id}`,
+                  pathname: `/crypto-exchangers/exchanger-${topExchanger.id}`,
                   query: { "exchanger-marker": topExchanger.exchangerMarker },
                 }}
                 className="uppercase text-[#f6ff5f]"
