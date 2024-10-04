@@ -1,30 +1,32 @@
+import { ReviewEnum } from "@/shared/types";
+
 type FilterData = {
   value: string;
-  href: string;
+  review: ReviewEnum;
   grade: number | undefined;
 };
 export const filterData: FilterData[] = [
   {
     value: "ВСЕ",
-    href: "",
+    review: ReviewEnum.all,
     grade: undefined,
   },
 
   {
     value: "ПОЛОЖИТЕЛЬНЫЕ",
-    href: "?grade=1&page=1",
+    review: ReviewEnum.positive,
     grade: 1,
   },
 
   {
     value: "НЕЙТРАЛЬНЫЕ",
-    href: "?grade=0&page=1",
+    review: ReviewEnum.neutral,
     grade: 0,
   },
 
   {
     value: "НЕГАТИВНЫЕ",
-    href: "?grade=-1&page=1",
+    review: ReviewEnum.negative,
     grade: -1,
   },
 ];

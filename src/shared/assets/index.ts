@@ -11,3 +11,5 @@ export * from "./icons/tg_icon";
 export * from "./icons/facebook_icon";
 export * from "./icons/instagram_icon";
 export * from "./icons/articleNavArrow";
+export * from "./icons/down-percent";
+export * from "./icons/up-percent";

@@ -12,7 +12,7 @@ type NavbarItems = {
 export const navbarItems: NavbarItems[] = [
   {
     href: routes.home,
-    value: "Купить криптовалюту",
+    value: "Обмен криптовалюты",
     children: [
       {
         href: `${routes.home}`,
@@ -43,7 +43,7 @@ export const navbarItems: NavbarItems[] = [
         icon: WalletIcon,
       },
       {
-        href: `${routes.questions}`,
+        href: `${routes.help}`,
         value: "FAQ",
         description: "Ответы на главные вопросы о платформе",
         icon: WalletIcon,
@@ -55,7 +55,7 @@ export const navbarItems: NavbarItems[] = [
         icon: WalletIcon,
       },
       {
-        href: `${routes.contacts}`,
+        href: `${routes.partners}`,
         value: "Контакты",
         description: "Связаться с нами или предложить сотрудничество",
         icon: WalletIcon,
