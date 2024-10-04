@@ -24,11 +24,11 @@ export const footerItems: FooterItems[] = [
         value: "О проекте",
       },
       {
-        href: routes.contacts,
+        href: routes.partners,
         value: "Контакты",
       },
       {
-        href: routes.questions,
+        href: routes.help,
         value: "FAQ",
       },
       {
@@ -44,7 +44,7 @@ export const footerItems: FooterItems[] = [
         value: "Соглашение о  конфиденциальности",
       },
       {
-        href: routes.home, // нужен роут
+        href: routes.partners, // нужен роут
         value: "Добавить  обменник",
       },
     ],
@@ -92,7 +92,7 @@ export const footerItems: FooterItems[] = [
         value: "Статьи",
       },
       {
-        href: routes.home, // нужен роут
+        href: routes.blog, // нужен роут
         value: "Новости",
       },
       {
