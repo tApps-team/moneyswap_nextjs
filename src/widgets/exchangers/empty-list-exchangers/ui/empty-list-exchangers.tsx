@@ -60,7 +60,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
         {exchangers.length > 0 ? (
           exchangers?.map((exchanger) => (
             <Link
-              key={exchanger.valute_from.code_name}
+              key={exchanger.valute_from.code_name + exchanger.valute_to.code_name}
               className="border-b last:border-none"
               href={createUrl(exchanger?.valute_from?.code_name, exchanger?.valute_to?.code_name)}
             >
