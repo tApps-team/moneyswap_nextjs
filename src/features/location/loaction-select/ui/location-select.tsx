@@ -1,20 +1,18 @@
-import { ChevronDown, ChevronRight, CircleSlash2, SearchIcon } from "lucide-react";
+import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useCurrecnyStore } from "@/entities/currency";
 import {
   City,
   CityCard,
   Country,
   CountryCard,
-  Location,
   LocationInfo,
   getSpecificCity,
-  useLocationStore,
 } from "@/entities/location";
 import { ArrowRightLineIcon } from "@/shared/assets";
 import { useDebounce } from "@/shared/lib";
+import { routes } from "@/shared/router";
 import {
   Dialog,
   DialogClose,
@@ -35,7 +33,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const city = searchParams.get("city");
+  const city = searchParams.get("city") || "msk";
   const [cityInfo, setCityInfo] = useState<LocationInfo | null>(null);
   useEffect(() => {
     if (city) {
