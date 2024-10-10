@@ -1,12 +1,19 @@
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { CryptoSeoText } from "@/widgets/crypto-exchangers/crypto-seo-text";
-import { CryptoTable } from "@/widgets/crypto-exchangers/crypto-table";
+// import { CryptoTable } from "@/widgets/crypto-exchangers/crypto-table";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { BotBanner } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangerList } from "@/entities/exchanger";
 import { getCryptoExchangersPage } from "@/entities/strapi";
 import { ExchangerMarker, directions } from "@/shared/types";
-
+const CryptoTable = dynamic(
+  () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.default),
+  {
+    suspense: true,
+  },
+);
 export const CryptoExchangersPage = async ({ params }: { params: { exchanger: string[] } }) => {
   const giveCurrency = await getSpecificValute({
     codeName: "BTC",
@@ -44,7 +51,9 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
           name: giveCurrency.name,
         }}
       />
-      <CryptoTable data={cryptoExchangers} />
+      <Suspense fallback={<div>loading</div>}>
+        <CryptoTable data={cryptoExchangers} />
+      </Suspense>
       <div
         dangerouslySetInnerHTML={{ __html: footer_description }}
         className="strapi_styles mt-8"
