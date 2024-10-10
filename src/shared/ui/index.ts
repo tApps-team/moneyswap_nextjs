@@ -19,3 +19,4 @@ export * from "./navigation-menu";
 export * from "./telegram-button";
 export * from "./radio-group";
 export * from "./textarea";
+export * from "./skeleton";
