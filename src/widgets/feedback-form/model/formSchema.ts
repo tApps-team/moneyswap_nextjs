@@ -2,13 +2,17 @@ import z from "zod";
 export const reasons = ["Ошибка", "Проблемма с обменником", "Сотрудничество", "Другое"];
 
 export const feedbackFormSchema = z.object({
-  username: z.string(),
-  email: z.string().email(),
-  //   reasons: z.array(z.string()).refine((value) => value.some((item) => item), {
-  //     message: "Вы должны выбрать причину обращения",
-  //   }),
+  username: z
+    .string({ required_error: "Это поле обязательно", message: "Это поле обязательно" })
+    .min(2, { message: "Это поле обязательно" }),
+  email: z
+    .string({ required_error: "Это поле обязательно" })
+    .email({ message: "Это поле обязательно" })
+    .min(1, { message: "Это поле обязательно" }),
   reasons: z.enum(["Ошибка", "Проблемма с обменником", "Сотрудничество", "Другое"]),
 
-  decription: z.string(),
+  description: z
+    .string({ required_error: "Это поле обязательно", message: "Это поле обязательно" })
+    .min(1, { message: "Это поле обязательно" }),
 });
 export type FeedbackFormType = z.infer<typeof feedbackFormSchema>;
