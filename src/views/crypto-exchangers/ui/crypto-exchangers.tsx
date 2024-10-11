@@ -1,7 +1,9 @@
 import parse, { DOMNode, Element } from "html-react-parser";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import { Suspense } from "react";
 import { CryptoSeoText } from "@/widgets/crypto-exchangers/crypto-seo-text";
-import { CryptoTable } from "@/widgets/crypto-exchangers/crypto-table";
+// import { CryptoTable } from "@/widgets/crypto-exchangers/crypto-table";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { BotBanner } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
@@ -19,6 +21,12 @@ const options = {
   },
 };
 
+const CryptoTable = dynamic(
+  () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.default),
+  {
+    suspense: true,
+  },
+);
 export const CryptoExchangersPage = async ({ params }: { params: { exchanger: string[] } }) => {
   const giveCurrency = await getSpecificValute({
     codeName: "BTC",
@@ -57,11 +65,9 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
           name: giveCurrency.name,
         }}
       />
-      <CryptoTable data={cryptoExchangers} />
-      {/* <div
-        dangerouslySetInnerHTML={{ __html: footer_description }}
-        className="strapi_styles mt-8"
-      /> */}
+      <Suspense fallback={<div>loading</div>}>
+        <CryptoTable data={cryptoExchangers} />
+      </Suspense>
       <div className="strapi_styles mt-8">{parse(footer_description, options)}</div>
     </div>
   );

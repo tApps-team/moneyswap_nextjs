@@ -1,5 +1,7 @@
 "use client";
+
 import { cx } from "class-variance-authority";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { CurrencySelect, CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
@@ -7,7 +9,7 @@ import { Currency, useGetAvailableValutes } from "@/entities/currency";
 import { LocationInfo, useGetCountries } from "@/entities/location";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
-import { ExchangerMarker, directions } from "@/shared/types";
+import { ExchangerMarker } from "@/shared/types";
 import { Button } from "@/shared/ui";
 
 type CurrencySelectFormProps = {
@@ -15,35 +17,33 @@ type CurrencySelectFormProps = {
   urlLocation?: LocationInfo;
   urlGetCurrency?: Currency;
   urlGiveCurrency?: Currency;
-  urlDirection?: ExchangerMarker;
+  urlDirection: ExchangerMarker;
   actualCourse: number | null;
 };
-export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
-  const { url, urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
 
+export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
+  const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
   const router = useRouter();
-  const pathname = usePathname();
 
   const onClickGetCurrency = (getCurrency: Currency) => {
-    if (urlDirection === ExchangerMarker.cash) {
-      router.push(
-        `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${urlLocation?.code_name}`,
-      );
-    } else {
-      router.push(`/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}`);
-    }
-  };
-  const onClickGiveCurrency = (giveCurrency: Currency) => {
-    if (urlDirection === ExchangerMarker.cash) {
-      router.push(
-        `/exchange/${giveCurrency?.code_name}-to-${urlGetCurrency?.code_name}?city=${urlLocation?.code_name}`,
-      );
-    } else {
-      router.push(`/exchange/${giveCurrency?.code_name}-to-${urlGetCurrency?.code_name}`);
-    }
+    const route =
+      urlDirection === ExchangerMarker.cash
+        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${urlLocation?.code_name}`
+        : `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}`;
+
+    router.push(route);
   };
 
-  const { data: countries } = useGetCountries();
+  const onClickGiveCurrency = (giveCurrency: Currency) => {
+    const route =
+      urlDirection === ExchangerMarker.cash
+        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${urlLocation?.code_name}`
+        : `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}`;
+
+    router.push(route);
+  };
+
+  const { data: countries } = useGetCountries(urlDirection);
 
   const {
     data: giveCurrencies,
@@ -58,29 +58,21 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     data: getCurrencies,
     isLoading: getCurrenciesIsLoading,
     isError: getCurrenciesIsError,
+    error: getError,
   } = useGetAvailableValutes({
     base: urlGiveCurrency?.code_name,
     city: urlDirection === ExchangerMarker.cash ? urlLocation?.code_name : undefined,
   });
-  //TODO fix handleTab
-  const onHandleTab = (currentDirection: ExchangerMarker) => {
-    if (currentDirection === ExchangerMarker.cash) {
-      router.push(`${routes.home}?direction=cash`);
-    }
-
-    if (currentDirection === ExchangerMarker.no_cash) {
-      router.push(`${routes.home}`);
-    }
-  };
+  console.log(getCurrenciesIsError);
+  const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
 
   return (
-    // <Form {...form}>
     <form className="text-white w-full border-2 border-[#bbbbbb] h-full py-5 px-7 pb-12 bg-[#2d2d2d] rounded-3xl">
-      <div className=" flex items-center justify-between pb-6">
+      <div className="flex items-center justify-between pb-6">
         <p className="uppercase font-medium text-base">Выберите направление обмена</p>
         <div className="flex items-center">
-          {/* <Link href={routes.home}> */}
-          <Button
+          <Link
+            href={`/?direction=cash`}
             type="button"
             role="tab"
             id="changeCash"
@@ -88,16 +80,12 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
               urlDirection === ExchangerMarker.cash && "text-[#f6ff5f]",
             )}
-            onClick={() => {
-              onHandleTab(ExchangerMarker.cash);
-            }}
           >
             Наличные
-          </Button>
-          {/* </Link> */}
-          <div className="mx-2">\</div>
-          {/* <Link href={`${}`}> */}
-          <Button
+          </Link>
+          <div className="mx-2">/</div>
+          <Link
+            href={"/"}
             type="button"
             role="tab"
             id="changeOnline"
@@ -105,13 +93,9 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
               urlDirection === ExchangerMarker.no_cash && "text-[#f6ff5f]",
             )}
-            onClick={() => {
-              onHandleTab(ExchangerMarker.no_cash);
-            }}
           >
             Безналичные
-          </Button>
-          {/* </Link> */}
+          </Link>
         </div>
       </div>
       <div
@@ -123,7 +107,11 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
         <CurrencySelect
           actualCourse={1}
           onClick={onClickGiveCurrency}
-          disabled={(urlDirection === ExchangerMarker.cash && !urlLocation) || !giveCurrencies}
+          disabled={
+            giveCurrenciesIsLoading ||
+            giveCurrenciesIsError ||
+            (urlDirection === ExchangerMarker.cash && !urlLocation)
+          }
           currencyInfo={urlGiveCurrency}
           currencies={giveCurrencies}
           direction={urlDirection}
@@ -136,7 +124,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
           actualCourse={actualCourse}
           onClick={onClickGetCurrency}
           currencyInfo={urlGetCurrency}
-          disabled={!urlLocation}
+          disabled={isGetCurrencyDisabled}
           currencies={getCurrencies}
           label="получаю"
           direction={urlDirection}
@@ -145,6 +133,5 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
         {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
       </div>
     </form>
-    // </Form>
   );
 };

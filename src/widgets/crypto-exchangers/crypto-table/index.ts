@@ -1,1 +1,3 @@
-export * from "./ui/crypto-table";
+import { CryptoTable } from "./ui/crypto-table";
+
+export default CryptoTable;
