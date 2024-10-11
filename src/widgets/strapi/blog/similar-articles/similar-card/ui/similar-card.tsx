@@ -22,7 +22,7 @@ export const SimilarCard: FC<SimilarCardProps> = ({ article }) => {
       className="rounded-[20px] transition-all duration-500 group mx-2"
       href={`${routes.blog}/${routes.article}/${article?.url_name}`}
     >
-      <div className="w-full max-w-full h-auto max-h-[140px] rounded-[20px] border-[1.5px] border-[#000] overflow-hidden">
+      <div className="w-full max-w-full h-auto max-h-[122px] rounded-[20px] border-[1.5px] border-[#000] overflow-hidden">
         <Image
           className="w-full h-full object-cover group-hover:scale-[1.025] transition-all duration-500"
           src={article?.image}

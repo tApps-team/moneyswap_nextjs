@@ -23,7 +23,7 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
       className={`group mx-2 rounded-[30px] ${isMain && "bg-black"}`}
       href={`${routes.blog}${routes.article}/${article?.url_name}`}
     >
-      <div className="w-full min-h-[12.49vw] max-w-full h-auto max-h-[200px] border-[2px] border-[#000] rounded-[30px] overflow-hidden">
+      <div className="w-full max-w-full h-auto max-h-[174px] border-[2px] border-[#000] rounded-[30px] overflow-hidden">
         <Image
           className="w-full h-full object-cover group-hover:scale-[1.025] transition-all duration-500"
           src={article?.image}
