@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { GetDirectionsResponse } from "@/entities/currency";
@@ -24,19 +25,23 @@ export const TopExchange: FC<TopExchangeProps> = ({
               key={index}
               className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
             >
-              <figure className="w-[40px] h-[40px]">
-                <img
+              <figure className="w-[40px] h-[40px] overflow-hidden rounded-full">
+                <Image
                   className="w-full h-full"
                   src={direction?.valute_from?.icon_url}
                   alt={direction?.valute_from?.code_name}
+                  width={200}
+                  height={200}
                 />
               </figure>
               <PopularArrowIcon width={12} />
-              <figure className="w-[40px] h-[40px]">
-                <img
+              <figure className="w-[40px] h-[40px] overflow-hidden rounded-full">
+                <Image
                   className="w-full h-full"
                   src={direction?.valute_to?.icon_url}
                   alt={direction?.valute_to?.code_name}
+                  width={200}
+                  height={200}
                 />
               </figure>
             </Link>
@@ -52,19 +57,23 @@ export const TopExchange: FC<TopExchangeProps> = ({
               key={index}
               className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
             >
-              <figure className="w-[40px] h-[40px]">
-                <img
+              <figure className="w-[40px] h-[40px] overflow-hidden rounded-full">
+                <Image
                   className="w-full h-full"
                   src={direction?.valute_from?.icon_url}
                   alt={direction?.valute_from?.code_name}
+                  width={200}
+                  height={200}
                 />
               </figure>
               <PopularArrowIcon width={12} />
-              <figure className="w-[40px] h-[40px]">
-                <img
+              <figure className="w-[40px] h-[40px] overflow-hidden rounded-full">
+                <Image
                   className="w-full h-full"
                   src={direction?.valute_to?.icon_url}
                   alt={direction?.valute_to?.code_name}
+                  width={200}
+                  height={200}
                 />
               </figure>
             </Link>

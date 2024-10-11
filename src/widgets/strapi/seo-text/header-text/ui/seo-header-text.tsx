@@ -1,7 +1,19 @@
+import parse, { DOMNode, Element } from "html-react-parser";
+import Image from "next/image";
 import { FC } from "react";
 import { YellowQuestionIcon, YoutubeIcon } from "@/shared/assets";
 import { SeoTextsBlock } from "@/shared/types";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/shared/ui";
+
+const options = {
+  replace: (domNode: DOMNode) => {
+    // Проверяем, является ли узел элементом и его типом является img
+    if (domNode instanceof Element && domNode.name === "img") {
+      const { src, alt } = domNode.attribs;
+      return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
+    }
+  },
+};
 
 export const SeoHeaderText: FC<SeoTextsBlock> = ({ data }) => {
   return (
@@ -9,10 +21,13 @@ export const SeoHeaderText: FC<SeoTextsBlock> = ({ data }) => {
       {data.length > 0 && (
         <div className="grid gap-[20px]">
           <div className="relative">
-            <div
+            {/* <div
               className="text-[28px] strapi_styles max-w-[90%]"
               dangerouslySetInnerHTML={{ __html: data[0]?.header_title }}
-            />
+            /> */}
+            <div className="text-[28px] strapi_styles max-w-[90%]">
+              {parse(data[0]?.header_title, options)}
+            </div>
             <div className="absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
               <HoverCard openDelay={0}>
                 <HoverCardTrigger asChild>
@@ -35,13 +50,14 @@ export const SeoHeaderText: FC<SeoTextsBlock> = ({ data }) => {
                 </HoverCardContent>
               </HoverCard>
               {/* <YoutubeIcon width={36} height={36} /> */}
-              <img src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
+              <Image src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
             </div>
           </div>
-          <div
+          {/* <div
             className="strapi_styles text-sm"
             dangerouslySetInnerHTML={{ __html: data[0]?.header_description }}
-          />
+          /> */}
+          <div className="strapi_styles text-sm">{parse(data[0]?.header_description, options)}</div>
         </div>
       )}
     </>

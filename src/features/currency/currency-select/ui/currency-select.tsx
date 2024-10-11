@@ -49,10 +49,12 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
   const tabList: CurrencyResponse[] = [
     {
       name: { en: "All", ru: "Все" },
-      currencies: currencies?.map((currency) => currency?.currencies).flat() || [],
+      currencies: Array.isArray(currencies)
+        ? currencies.map((currency) => currency?.currencies).flat()
+        : [],
       id: "All",
     },
-    ...(currencies || []),
+    ...(Array.isArray(currencies) ? currencies : []),
   ];
 
   const filteredTabList = tabList
@@ -65,7 +67,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       ),
     }))
     .filter((tab) => tab?.currencies?.length > 0);
-  //ссылки на обменик и locationSelect
+
   return (
     <div
       className={cx(
@@ -77,19 +79,18 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       <div
         className={cx(
           "grid grid-cols-2 h-16 justify-between items-center border-2 border-[#bbbbbb] rounded-full bg-gradient-to-l from-[#bbb] from-15% via-[#2d2d2d] via-80% to-[#2d2d2d]",
-          // direction === directions.cash && "grid-cols-[minmax(10vw,_1fr)_3fr]",
         )}
       >
         <input
           disabled={true}
-          value={actualCourse ? actualCourse : "нет данных"}
+          value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
           className="focus-visible:outline-none bg-transparent text-[#f6ff5f] px-6 font-semibold text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
         />
         <Dialog>
           <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
             <div className="bg-[#2d2d2d] min-h-14 justify-between select-none rounded-full border-l-2 border-[#bbb] items-center p-2 flex h-full">
-              <div className="grid grid-flow-col items-center  gap-2 truncate">
+              <div className="grid grid-flow-col items-center gap-2 truncate">
                 {currencyInfo ? (
                   <figure className="w-[36px] h-[36px]">
                     <Image
@@ -105,7 +106,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
 
                 {currencyInfo ? (
                   <div className="flex truncate flex-col">
-                    <p className="uppercase   font-bold">{currencyInfo?.name.ru}</p>
+                    <p className="uppercase font-bold">{currencyInfo?.name.ru}</p>
                     <span className="font-medium">{currencyInfo?.code_name}</span>
                   </div>
                 ) : (
@@ -115,14 +116,14 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ChevronDown width={28} height={28} />
             </div>
           </DialogTrigger>
-          <DialogContent className="bg-[#2d2d2d] border-none grid rounded-[35px] h-[70svh] w-[30svw] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
-            <div className="grid grid-cols-2 grid-rows-1  items-center">
-              <DialogTitle className=" uppercase text-xl">Выбор валюты</DialogTitle>
+          <DialogContent className="bg-[#2d2d2d] border-none grid rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+            <div className="grid grid-cols-2 grid-rows-1 items-center">
+              <DialogTitle className="uppercase text-xl">Выбор валюты</DialogTitle>
               <div className="relative">
                 <SearchIcon
                   width={22}
                   height={22}
-                  className="absolute translate-y-2 left-3 "
+                  className="absolute translate-y-2 left-3"
                   color="#bbbbbb"
                 />
                 <Input
@@ -134,8 +135,8 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               </div>
             </div>
 
-            <Tabs defaultValue={"Все"} className=" ">
-              <TabsList className=" bg-[#2d2d2d]  grid grid-flow-col grid-rows-1 gap-6 justify-start">
+            <Tabs defaultValue={"Все"} className="">
+              <TabsList className="bg-[#2d2d2d] grid grid-flow-col gap-6 justify-start">
                 {filteredTabList.map((tab) => (
                   <TabsTrigger
                     className="data-[state=active]:bg-[#f6ff5f] data-[state=active]:border-[#f6ff5f] text-[#bbb] uppercase rounded-full text-sm border-[#bbbbbb] border"
@@ -146,11 +147,11 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                   </TabsTrigger>
                 ))}
               </TabsList>
-              {/* cacl */}
-              <ScrollArea className="h-[calc(65svh-10svh)] p-10">
+
+              <ScrollArea className="h-[28rem] p-10">
                 {filteredTabList.map((tab) => (
                   <TabsContent
-                    className=" grid grid-rows-1 grid-cols-1 gap-2"
+                    className="grid grid-rows-1 grid-cols-1 gap-2"
                     value={tab?.name?.ru}
                     key={tab?.id}
                   >

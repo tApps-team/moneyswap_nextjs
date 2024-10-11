@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { routes } from "@/shared/router";
@@ -22,11 +23,13 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
       className={`group mx-2 rounded-[30px] ${isMain && "bg-black"}`}
       href={`${routes.blog}${routes.article}/${article?.url_name}`}
     >
-      <div className="w-full h-[15vw] max-h-[200px] border-[2px] border-[#000] rounded-[30px] overflow-hidden">
-        <img
+      <div className="w-full max-w-full h-auto max-h-[174px] border-[2px] border-[#000] rounded-[30px] overflow-hidden">
+        <Image
           className="w-full h-full object-cover group-hover:scale-[1.025] transition-all duration-500"
           src={article?.image}
           alt={article?.title}
+          width={500}
+          height={500}
         />
       </div>
       <div className={`uppercase grid grid-flow-row gap-1 py-4 ${isMain && "px-4"}`}>

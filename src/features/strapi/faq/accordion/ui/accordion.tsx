@@ -1,6 +1,18 @@
+import parse, { DOMNode, Element } from "html-react-parser";
+import Image from "next/image";
 import React, { FC } from "react";
 import { MainFaqs } from "@/entities/strapi";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui";
+
+const options = {
+  replace: (domNode: DOMNode) => {
+    // Проверяем, является ли узел элементом и его типом является img
+    if (domNode instanceof Element && domNode.name === "img") {
+      const { src, alt } = domNode.attribs;
+      return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
+    }
+  },
+};
 
 export const AccordionList: FC<MainFaqs> = ({ data }) => {
   return (
@@ -15,10 +27,13 @@ export const AccordionList: FC<MainFaqs> = ({ data }) => {
             {faq?.question}
           </AccordionTrigger>
           <AccordionContent className="pb-0">
-            <div
+            {/* <div
               className="mt-6 text-xs font-normal uppercase text-[#fff] strapi_styles"
               dangerouslySetInnerHTML={{ __html: faq?.answer }}
-            />
+            /> */}
+            <div className="mt-6 text-xs font-normal uppercase text-[#fff] strapi_styles">
+              {parse(faq?.answer, options)}
+            </div>
           </AccordionContent>
         </AccordionItem>
       ))}

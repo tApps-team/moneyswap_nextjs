@@ -1,20 +1,18 @@
-import { ChevronDown, ChevronRight, CircleSlash2, SearchIcon } from "lucide-react";
+import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useCurrecnyStore } from "@/entities/currency";
 import {
   City,
   CityCard,
   Country,
   CountryCard,
-  Location,
   LocationInfo,
   getSpecificCity,
-  useLocationStore,
 } from "@/entities/location";
 import { ArrowRightLineIcon } from "@/shared/assets";
 import { useDebounce } from "@/shared/lib";
+import { routes } from "@/shared/router";
 import {
   Dialog,
   DialogClose,
@@ -34,8 +32,9 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const { countries } = props;
   const router = useRouter();
   const searchParams = useSearchParams();
+  const searchParamsCity = searchParams.get("city");
   const pathname = usePathname();
-  const city = searchParams.get("city");
+  const city = searchParamsCity ? searchParamsCity : pathname === routes.home ? "msk" : null;
   const [cityInfo, setCityInfo] = useState<LocationInfo | null>(null);
   useEffect(() => {
     if (city) {
@@ -80,7 +79,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   }, [filteredCountries, ref.current?.onchange, selectCountry]);
   return (
     <Dialog onOpenChange={() => setLocationSearchValue("")}>
-      <DialogTrigger className="" asChild>
+      <DialogTrigger className="cursor-pointer" asChild>
         <div className="bg-[#2d2d2d]  rounded-full h-16 border-2 gap-2 border-[#bbbbbb] items-center p-3 flex justify-between">
           <div className="flex items-center gap-4">
             {cityInfo ? (

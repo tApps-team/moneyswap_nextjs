@@ -187,10 +187,10 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         variant={variant}
         size={size}
         className={cn(
-          "absolute h-14 w-14 rounded-full border-2 border-[#bbb] bg-[#2d2d2d] hover:border-[#f6ff5f] hover:bg-[#f6ff5f] active:scale-[0.925] transition-all duration-300",
+          "absolute h-12 w-12 rounded-full border-2 border-[#bbb] bg-[#2d2d2d] hover:border-[#f6ff5f] hover:bg-[#f6ff5f] active:scale-[0.925] transition-all duration-300",
           orientation === "horizontal"
-            ? "-left-12 top-1/2 -translate-y-1/2"
-            : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+            ? "-left-4 top-1/4 mt-3"
+            : "-bottom-12 right-1/2 -translate-x-1/2 rotate-90",
           className,
         )}
         disabled={!canScrollPrev}

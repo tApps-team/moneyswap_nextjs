@@ -32,12 +32,12 @@ export const Navbar = () => {
                 {item.children.map((itemChildren) => (
                   <NavigationMenuLink
                     className="flex flex-col w-80 "
-                    key={itemChildren.href}
+                    key={`${itemChildren.href}  ${itemChildren.value}`}
                     href={itemChildren.href}
                   >
                     <div className="flex gap-4 justify-start items-center  break-words ">
                       {itemChildren.icon && (
-                        <itemChildren.icon className="flex-shrink-0" width={32} height={32} />
+                        <itemChildren.icon className="flex-shrink-0" width={36} height={36} />
                       )}
 
                       <div className="[&>p]:hover:text-[#f6ff5f] ">

@@ -22,10 +22,10 @@ const MAX_HEIGHT = 40;
 export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   const { replySlot, review } = props;
   const { exchanger } = useParams();
-
+  const [isOpenReview, setIsOpenReview] = useState(false);
   const searchParams = useSearchParams();
   const exchangerMarker = searchParams.get("exchanger-marker") as ExchangerMarker;
-  const [isOpen, setIsOpen] = useState(false);
+
   const { data } = useQuery({
     queryFn: () =>
       getCommentsByReview({
@@ -33,12 +33,12 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
         exchangerMarker: exchangerMarker,
         reviewId: review.id,
       }),
-    queryKey: ["comments", review.id],
-    enabled: !isOpen || review.comment_count < 1,
+    queryKey: ["comment", review.id, exchangerMarker],
+    enabled: isOpenReview && review.comment_count > 0,
     retry: false,
     refetchOnMount: false,
   });
-  const [isOpenReview, setIsOpenReview] = useState(false);
+
   const [isShowExpandButton, setIsShowExpandButton] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
 
@@ -108,10 +108,10 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
               "text-sm flex items-center gap-2  text-[#f6ff5f]",
               review.comment_count < 1 && "text-[bbbbbb] opacity-50",
             )}
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={onExpand}
           >
             <CommentIcon width={28} height={28} />
-            {isOpen ? (
+            {isOpenReview ? (
               <p>СКРЫТЬ КОММЕНТАРИИ</p>
             ) : (
               <p>
@@ -121,7 +121,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           </button>
         </div>
       </div>
-      <CommentList isOpen={isOpen} comments={data} />
+      <CommentList isOpen={isOpenReview} comments={data} />
       {/* РЕФАКТОР */}
     </div>
   );

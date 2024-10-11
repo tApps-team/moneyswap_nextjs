@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/shared/api";
+import { ExchangerMarker } from "@/shared/types";
 import { Country } from "../model/country-types";
 import { GetSpecificCityRequest, GetSpecificCityResponse } from "./country-api-dto";
 //add DTO file for getCountries
@@ -12,12 +13,13 @@ import { GetSpecificCityRequest, GetSpecificCityResponse } from "./country-api-d
 //   const data = await res.json();
 //   return data;
 // };
-export const useGetCountries = () => {
+export const useGetCountries = (direction: ExchangerMarker) => {
   const url = `/api/cash/countries`;
   const fetcher = async () => await apiClient.get<Country[]>(url);
   return useQuery({
     queryKey: ["countries"],
     queryFn: fetcher,
+    enabled: direction === ExchangerMarker.cash,
   });
 };
 export const getSpecificCity = async (

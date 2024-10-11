@@ -1,5 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { TelegramCircleIcon } from "@/shared/assets/icons/telegram-circle-icon";
 import {
@@ -10,11 +11,13 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
   Input,
   RadioGroup,
   RadioGroupItem,
   Textarea,
 } from "@/shared/ui";
+import { postFeedbackForm } from "../api/feedback-form-api";
 import { FeedbackFormType, feedbackFormSchema, reasons } from "../model/formSchema";
 
 export const FeedbackForm = () => {
@@ -22,12 +25,15 @@ export const FeedbackForm = () => {
     resolver: zodResolver(feedbackFormSchema),
     defaultValues: {
       reasons: "Сотрудничество",
-      decription: "",
+      description: "",
       email: "",
       username: "",
     },
   });
-  const onSubmit = (data: FeedbackFormType) => {
+
+  const onSubmit = async (data: FeedbackFormType) => {
+    //clear form data
+    await postFeedbackForm(data);
     console.log(data);
   };
   return (
@@ -44,23 +50,33 @@ export const FeedbackForm = () => {
             control={form.control}
             name="username"
             render={({ field }) => (
-              <Input
-                className="bg-black placeholder:text-white text-white border-none rounded-3xl"
-                placeholder="ИМЯ"
-                {...field}
-              />
+              <FormItem>
+                <FormControl>
+                  <Input
+                    className="bg-black placeholder:text-white text-white border-none rounded-3xl"
+                    placeholder="ИМЯ"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
           />
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <Input
-                type="email"
-                className="bg-black placeholder:text-white text-white border-none rounded-3xl"
-                placeholder="ПОЧТА"
-                {...field}
-              />
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="email"
+                    className="bg-black placeholder:text-white text-white border-none rounded-3xl"
+                    placeholder="ПОЧТА"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
           />
         </div>
@@ -94,20 +110,25 @@ export const FeedbackForm = () => {
         />
         <FormField
           control={form.control}
-          name="decription"
+          name="description"
           render={({ field }) => (
-            <Textarea
-              className="bg-black resize-none h-52 p-4 placeholder:uppercase placeholder:text-white text-white border-none rounded-3xl"
-              placeholder="Напишите текст..."
-              {...field}
-            />
+            <FormItem>
+              <FormControl>
+                <Textarea
+                  className="bg-black resize-none h-52 p-4 placeholder:uppercase placeholder:text-white text-white border-none rounded-3xl"
+                  placeholder="Напишите текст..."
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
         />
         <Button
           className="bg-[#f6ff5f] uppercase rounded-full text-center w-full text-black"
           type="submit"
         >
-          Отправить
+          {form.formState.isSubmitting ? <Loader className="animate-spin" /> : "Отправить"}
         </Button>
         <div>
           <p className="text-center text-xs">НАШИ СОЦИАЛЬНЫЕ СЕТИ</p>

@@ -1,12 +1,188 @@
 @font-face {
     font-family: 'TT Runs Trial';
-    src: url('/fonts/TT Runs Trial Variable Roman.ttf') format('truetype');
+    src: url('/fonts/TT runs/TT Runs Trial Variable Roman.ttf') format('truetype');
 }
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// codec
+@mixin font-face($name, $folder, $formats: "truetype") {
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Regular.ttf") format($formats);
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Bold.ttf") format($formats);
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-BoldItalic.ttf") format($formats);
+        font-weight: 700;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-ExtraBold.ttf") format($formats);
+        font-weight: 800;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-ExtraBoldItalic.ttf") format($formats);
+        font-weight: 800;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-ExtraLight.ttf") format($formats);
+        font-weight: 200;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-ExtraLightItalic.ttf") format($formats);
+        font-weight: 200;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Heavy.ttf") format($formats);
+        font-weight: 900;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-HeavyItalic.ttf") format($formats);
+        font-weight: 900;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Italic.ttf") format($formats);
+        font-weight: 400;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Light.ttf") format($formats);
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-LightItalic.ttf") format($formats);
+        font-weight: 300;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Thin.ttf") format($formats);
+        font-weight: 100;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-ThinItalic.ttf") format($formats);
+        font-weight: 100;
+        font-style: italic;
+    }
+}
+
+@include font-face('CodecCold', '/fonts/codec/CodecCold');
+
+// inter
+@mixin font-face-inter($name, $folder, $formats: "truetype") {
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Regular.ttf") format($formats);
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Bold.ttf") format($formats);
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-ExtraBold.ttf") format($formats);
+        font-weight: 800;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-ExtraLight.ttf") format($formats);
+        font-weight: 200;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Light.ttf") format($formats);
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Medium.ttf") format($formats);
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-SemiBold.ttf") format($formats);
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Thin.ttf") format($formats);
+        font-weight: 100;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: $name;
+        src: url("#{$folder}-Black.ttf") format($formats);
+        font-weight: 900;
+        font-style: normal;
+    }
+}
+
+@include font-face-inter('Inter', '/fonts/inter/Inter');
+
+// echoes
+@font-face {
+    font-family: 'Echoes';
+    src: url('/fonts/echoes/EchoesSans.otf') format('truetype');
+}
 
 
 :root {
-    --font-family-regular: "TT Runs Trial", "Unbounded", "Helvetica", "sans-serif";
+    --font-family-regular: "TT Runs Trial", "Unbounded", "Helvetica", "sans-serif", "CodecCold", "Echoes", "Inter";
 
     //xs
     --font-size-xs: 12px;
