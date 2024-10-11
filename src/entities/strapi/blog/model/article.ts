@@ -61,12 +61,15 @@ export type DynamicContentItem = {
 export interface Article {
   id: number;
   url_name: string;
+  meta: { title: string; description: string };
   preview: {
     title: string;
     description: string;
     image: string;
   };
   article: {
+    title: string;
+    description: string;
     table_of_contents: TableOfContents[];
     dynamic_content: DynamicContentItem[];
   };

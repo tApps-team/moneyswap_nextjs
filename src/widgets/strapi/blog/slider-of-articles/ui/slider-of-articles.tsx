@@ -1,6 +1,12 @@
 import { FC } from "react";
 import { ArticlePreview, ArticlePreviewCard } from "@/entities/strapi";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext } from "@/shared/ui";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/shared/ui";
 
 interface SliderOfArticlesProps {
   title: string;
@@ -27,6 +33,7 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious />
           <CarouselNext />
         </Carousel>
       </div>

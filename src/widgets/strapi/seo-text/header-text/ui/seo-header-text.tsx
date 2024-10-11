@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FC } from "react";
 import { YellowQuestionIcon, YoutubeIcon } from "@/shared/assets";
 import { SeoTextsBlock } from "@/shared/types";
@@ -35,7 +36,7 @@ export const SeoHeaderText: FC<SeoTextsBlock> = ({ data }) => {
                 </HoverCardContent>
               </HoverCard>
               {/* <YoutubeIcon width={36} height={36} /> */}
-              <img src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
+              <Image src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
             </div>
           </div>
           <div
