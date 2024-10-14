@@ -18,6 +18,9 @@ const options = {
       const { src, alt } = domNode.attribs;
       return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
     }
+    if (domNode instanceof Element && domNode.name === "br") {
+      return <hr />;
+    }
   },
 };
 
@@ -43,10 +46,6 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
   return (
     <div>
       <h1 className="uppercase text-3xl font-medium">{title}</h1>
-      {/* <div
-        dangerouslySetInnerHTML={{ __html: header_description }}
-        className="strapi_styles mt-8"
-      /> */}
       <div className="strapi_styles mt-8">{parse(header_description, options)}</div>
       <BotBanner />
       <CurrencySelectForm

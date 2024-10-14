@@ -22,7 +22,7 @@ export const BlogPage = async ({
     <section className="grid grid-flow-row gap-[40px]">
       <div className="flex justify-center items-center">
         <h1 className="uppercase text-3xl font-semibold text-center max-w-[80%]">
-          Блог о финансах, криптовалюте и переводах зарубеж
+          Блог о финансах, криптовалюте и переводах за рубеж
         </h1>
       </div>
       <CategoriesList categories={categories?.categories} />

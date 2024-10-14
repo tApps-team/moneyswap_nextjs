@@ -11,6 +11,9 @@ const options = {
       const { src, alt } = domNode.attribs;
       return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
     }
+    if (domNode instanceof Element && domNode.name === "br") {
+      return <hr />;
+    }
   },
 };
 
@@ -27,10 +30,6 @@ export const AccordionList: FC<MainFaqs> = ({ data }) => {
             {faq?.question}
           </AccordionTrigger>
           <AccordionContent className="pb-0">
-            {/* <div
-              className="mt-6 text-xs font-normal uppercase text-[#fff] strapi_styles"
-              dangerouslySetInnerHTML={{ __html: faq?.answer }}
-            /> */}
             <div className="mt-6 text-xs font-normal uppercase text-[#fff] strapi_styles">
               {parse(faq?.answer, options)}
             </div>

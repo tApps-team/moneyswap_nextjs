@@ -10,6 +10,9 @@ const options = {
       const { src, alt } = domNode.attribs;
       return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
     }
+    if (domNode instanceof Element && domNode.name === "br") {
+      return <hr />;
+    }
   },
 };
 
@@ -18,15 +21,7 @@ export const SeoFooterText: FC<SeoTextsBlock> = ({ data }) => {
     <>
       {data.length > 0 && (
         <div className="grid gap-[20px] py-[50px]">
-          {/* <div
-            className="strapi_styles text-sm"
-            dangerouslySetInnerHTML={{ __html: data[0]?.footer_title }}
-          /> */}
           <div className="strapi_styles text-sm">{parse(data[0]?.footer_title, options)}</div>
-          {/* <div
-            className="strapi_styles text-sm"
-            dangerouslySetInnerHTML={{ __html: data[0]?.footer_description }}
-            /> */}
           <div className="strapi_styles text-sm">{parse(data[0]?.footer_description, options)}</div>
         </div>
       )}

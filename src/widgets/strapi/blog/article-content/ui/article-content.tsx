@@ -8,7 +8,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 interface ArticleContentProps {
   dynamic_content: DynamicContentItem[];
-  url?: string;
 }
 
 const options = {
@@ -18,23 +17,20 @@ const options = {
       const { src, alt } = domNode.attribs;
       return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
     }
+    if (domNode instanceof Element && domNode.name === "br") {
+      return <hr />;
+    }
   },
 };
 
-export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content, url }) => {
-  const font =
-    url === "revolut-zapustit-sobstvennyj-stejblkoin-chto-nuzhno-znat"
-      ? "codec"
-      : url === "kak-vybrat-kriptokoshelek-kakie-oni-byvayut-i-chem-otlichayutsya"
-        ? "inter"
-        : "echoes";
+export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => {
   return (
     <div>
       {dynamic_content?.map((item, index) => {
         // Проверка на paragraph
         if (item.content_type === DynamicContentType.paragraph && item.paragraph) {
           return (
-            <div key={index} className={`mb-[30px] strapi_styles strapi_fonts_${font} text-sm`}>
+            <div key={index} className={`mb-[30px] strapi_styles strapi_fonts_codec text-sm`}>
               {item.paragraph.title && (
                 <h2
                   id={item?.paragraph?.title_id ? item?.paragraph?.title_id : ""}
@@ -43,7 +39,6 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content, url }
                   {item.paragraph.title}
                 </h2>
               )}
-              {/* <div dangerouslySetInnerHTML={{ __html: item.paragraph.content }} /> */}
               <div>{parse(item.paragraph.content, options)}</div>
             </div>
           );
@@ -58,7 +53,6 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content, url }
               className={`mb-[30px] strapi_custom_quote strapi_styles main_font text-sm ${buttonTypeClass}`}
             >
               <SwitcherIcon width={100} height={"auto"} fill="#2d2d2d" />
-              {/* <p dangerouslySetInnerHTML={{ __html: item.quote.content }} /> */}
               <p>{parse(item.quote.content, options)}</p>
               {item.quote.button_name && (
                 <Link href={item.quote.button_url!} target={item.quote.target}>
@@ -107,13 +101,8 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content, url }
                     {item.accordion.question}
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
-                    {/* <div
-                      className={`strapi_fonts_${font} mt-6 mb-[20px] text-sm font-normal text-[#bbb] strapi_styles blog-custom-accordion-answer`}
-                      dangerouslySetInnerHTML={{ __html: item.accordion.answer }}
-
-                    /> */}
                     <div
-                      className={`strapi_fonts_${font} mt-6 mb-[20px] text-sm font-normal text-[#bbb] strapi_styles blog-custom-accordion-answer`}
+                      className={`strapi_fonts_codec mt-6 mb-[20px] text-sm font-normal text-[#bbb] strapi_styles blog-custom-accordion-answer`}
                     >
                       {parse(item.accordion.answer, options)}
                     </div>

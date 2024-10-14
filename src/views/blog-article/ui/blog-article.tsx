@@ -13,6 +13,9 @@ const options = {
       const { src, alt } = domNode.attribs;
       return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
     }
+    if (domNode instanceof Element && domNode.name === "br") {
+      return <hr />;
+    }
   },
 };
 
@@ -85,16 +88,9 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 height={500}
               />
             </div>
-            {/* <div
-              className="text-sm uppercase"
-              dangerouslySetInnerHTML={{ __html: article?.article?.description }}
-            /> */}
             <div className="text-sm uppercase">{parse(article?.article?.description, options)}</div>
           </div>
-          <ArticleContent
-            dynamic_content={article?.article?.dynamic_content}
-            url={article?.url_name}
-          />
+          <ArticleContent dynamic_content={article?.article?.dynamic_content} />
           <hr className="color-[#ddd]" />
           <div className="grid grid-flow-row gap-12 pt-[30px]">
             <div className="flex flex-wrap gap-4">
