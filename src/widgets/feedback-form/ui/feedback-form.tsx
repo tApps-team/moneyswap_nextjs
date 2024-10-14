@@ -96,7 +96,7 @@ export const FeedbackForm = () => {
                     <FormItem className="flex space-y-0 items-center gap-4 " key={reason}>
                       <FormControl>
                         <RadioGroupItem
-                          className="w-6 h-6 checked:bg-[#f6ff5f] border-white border-2"
+                          className="w-6 h-6 checked:bg-yellow-main border-white border-2"
                           value={reason}
                         />
                       </FormControl>
@@ -125,7 +125,7 @@ export const FeedbackForm = () => {
           )}
         />
         <Button
-          className="bg-[#f6ff5f] uppercase rounded-full text-center w-full text-black"
+          className="bg-yellow-main uppercase rounded-full text-center w-full text-black"
           type="submit"
         >
           {form.formState.isSubmitting ? <Loader className="animate-spin" /> : "Отправить"}

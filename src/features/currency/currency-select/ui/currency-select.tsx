@@ -85,7 +85,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
           disabled={true}
           value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="focus-visible:outline-none bg-transparent text-[#f6ff5f] px-6 font-semibold text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
+          className="focus-visible:outline-none bg-transparent text-yellow-main px-6 font-semibold text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
         />
         <Dialog>
           <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
@@ -140,7 +140,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <TabsList className="bg-dark-gray grid grid-flow-col gap-6 justify-start">
                 {filteredTabList.map((tab) => (
                   <TabsTrigger
-                    className="data-[state=active]:bg-[#f6ff5f] data-[state=active]:border-[#f6ff5f] text-[#bbb] uppercase rounded-full text-sm border-light-gray border"
+                    className="data-[state=active]:bg-yellow-main data-[state=active]:border-yellow-main text-[#bbb] uppercase rounded-full text-sm border-light-gray border"
                     key={tab?.id}
                     value={tab?.name?.ru}
                   >

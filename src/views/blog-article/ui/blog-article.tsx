@@ -102,14 +102,14 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 <Link
                   href={`${routes.blog}/${routes.tag}/${tag?.tag}`}
                   key={tag?.id}
-                  className="cursor-pointer uppercase text-[10px] py-4 px-6 bg-dark-gray rounded-full border-2 border-[#ddd] text-[#b9b9b9] hover:text-[#f6ff5f] hover:border-[#f6ff5f] transition-all duration-300"
+                  className="cursor-pointer uppercase text-[10px] py-4 px-6 bg-dark-gray rounded-full border-2 border-[#ddd] text-[#b9b9b9] hover:text-yellow-main hover:border-yellow-main transition-all duration-300"
                 >
                   {tag?.name}
                 </Link>
               ))}
             </div>
             <div className="grid grid-flow-row gap-6">
-              <p className="text-[#f6ff5f] uppercase text-2xl font-semibold">Поделиться</p>
+              <p className="text-yellow-main uppercase text-2xl font-semibold">Поделиться</p>
               <div className="grid grid-flow-col gap-2 justify-start justify-items-start">
                 <div className="w-[30px] h-[30px] &>svg-w-full &>svg-h-full cursor-pointer">
                   <TgIcon />

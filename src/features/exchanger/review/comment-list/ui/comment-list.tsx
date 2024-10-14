@@ -25,7 +25,7 @@ export const CommentList = (props: CommentListProps) => {
         ref={ref}
         style={{ height }}
         className={cn(
-          " w-full relative  -translate-y-[55px] -z-10  text-black  duration-500 ease-in-out overflow-hidden rounded-[25px] bg-[#f6ff5f]",
+          " w-full relative  -translate-y-[55px] -z-10  text-black  duration-500 ease-in-out overflow-hidden rounded-[25px] bg-yellow-main",
         )}
       >
         <div className={cn("p-4 grid first:pt-[50px]")}>

@@ -83,7 +83,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                   <p>{exchanger.valute_to.code_name}</p>
                 </div>
 
-                <button className="border hover:bg-[#f6ff5f] hover:border-[#f6ff5f] hover:text-black hover:font-medium rounded-full px-5 py-3">
+                <button className="border hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full px-5 py-3">
                   ПОКАЗАТЬ ОБМЕННИКИ
                 </button>
               </div>
@@ -116,7 +116,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                     <ChevronRightIcon color="white" height={32} width={32} />
                     <p>{city.exchange_count} ОБМЕННИКОВ</p>
                   </div>
-                  <button className="border hover:bg-[#f6ff5f] hover:border-[#f6ff5f] hover:text-black hover:font-medium rounded-full px-5 py-3">
+                  <button className="border hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full px-5 py-3">
                     ПОКАЗАТЬ ОБМЕННИКИ
                   </button>
                 </div>

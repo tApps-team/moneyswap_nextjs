@@ -78,7 +78,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             id="changeCash"
             className={cn(
               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-              urlDirection === ExchangerMarker.cash && "text-[#f6ff5f]",
+              urlDirection === ExchangerMarker.cash && "text-yellow-main",
             )}
           >
             Наличные
@@ -91,7 +91,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             id="changeOnline"
             className={cn(
               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-              urlDirection === ExchangerMarker.no_cash && "text-[#f6ff5f]",
+              urlDirection === ExchangerMarker.no_cash && "text-yellow-main",
             )}
           >
             Безналичные

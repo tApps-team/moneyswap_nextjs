@@ -42,7 +42,7 @@ export const TopCoins = async () => {
                   ) : (
                     <DownPercent width={9} height={9} />
                   )}
-                  <span className={cn("", topCoin.isIncrease && "text-[#f6ff5f]")}>
+                  <span className={cn("", topCoin.isIncrease && "text-yellow-main")}>
                     {topCoin.percent ? topCoin.percent.toFixed(3) : "0.0"}%
                   </span>
                 </div>

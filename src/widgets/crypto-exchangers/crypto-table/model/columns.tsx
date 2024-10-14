@@ -69,7 +69,7 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     id: "Review",
     cell: ({ row }) => (
       <div className="flex gap-1">
-        <div className="text-[#f6ff5f]">{row.original.reviews.positive}</div>
+        <div className="text-yellow-main">{row.original.reviews.positive}</div>
         <span>/</span>
         <div className="text-red-600">{row.original.reviews.negative}</div>
       </div>

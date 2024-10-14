@@ -179,7 +179,7 @@
 //             id="changeCash"
 //             className={cn(
 //               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-//               direction === directions.cash && "text-[#f6ff5f]",
+//               direction === directions.cash && "text-yellow-main",
 //             )}
 //             onClick={() => {
 //               onHandleTab(directions.cash);
@@ -196,7 +196,7 @@
 //             id="changeOnline"
 //             className={cn(
 //               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-//               direction === directions.noncash && "text-[#f6ff5f]",
+//               direction === directions.noncash && "text-yellow-main",
 //             )}
 //             onClick={() => {
 //               onHandleTab(directions.noncash);

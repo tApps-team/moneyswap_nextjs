@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export const EmptyArticle = () => {
   return (
-    <div className="rounded-[30px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] border-2 border-[rgba(0,0,0,0)] hover:border-[#f6ff5f] transition-all duration-300">
+    <div className="rounded-[30px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] border-2 border-[rgba(0,0,0,0)] hover:border-yellow-main transition-all duration-300">
       <div className="w-full h-[10vw] max-h-[400px] rounded-t-[35px] overflow-hidden">
         <Image
           className="w-full h-full object-cover"

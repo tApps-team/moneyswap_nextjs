@@ -77,7 +77,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
         <div
           className={cx(
             "absolute right-[-1px] flex items-center justify-center top-[-1px]  w-60 h-12 border-r-0 border-t-0  rounded-tr-3xl  rounded-bl-[32px]",
-            review?.grade === ReviewEnum.positive && "bg-[#f6ff5f]",
+            review?.grade === ReviewEnum.positive && "bg-yellow-main",
             review?.grade === ReviewEnum?.negative && "bg-transparent border border-light-gray",
             review?.grade === ReviewEnum?.neutral && "bg-light-gray",
           )}
@@ -96,7 +96,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           <p ref={ref} className={cn("line-clamp-2 ", isOpenReview && "line-clamp-none")}>
             {review?.text}
           </p>
-          <button onClick={onExpand} className="text-[#f6ff5f] text-sm">
+          <button onClick={onExpand} className="text-yellow-main text-sm">
             {isShowExpandButton && (isOpenReview ? "СВЕРНУТЬ" : "РАЗВЕРНУТЬ")}
           </button>
         </div>
@@ -105,7 +105,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           <button
             disabled={review.comment_count < 1}
             className={cn(
-              "text-sm flex items-center gap-2  text-[#f6ff5f]",
+              "text-sm flex items-center gap-2  text-yellow-main",
               review.comment_count < 1 && "text-[bbbbbb] opacity-50",
             )}
             onClick={onExpand}

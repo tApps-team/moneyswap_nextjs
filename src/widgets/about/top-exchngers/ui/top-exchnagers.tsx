@@ -27,7 +27,7 @@ export const TopExchangers = async () => {
                   <p className="text-sm">{topExchanger.name}</p>
                   <div className="flex  gap-1 text-xs uppercase">
                     <p>Отзывы</p>
-                    <span className="text-[#f6ff5f] font-medium">
+                    <span className="text-yellow-main font-medium">
                       {topExchanger.reviewCount.positive}
                     </span>
                     <span>/</span>
@@ -42,7 +42,7 @@ export const TopExchangers = async () => {
                   pathname: `/crypto-exchangers/exchanger-${topExchanger.id}`,
                   query: { "exchanger-marker": topExchanger.exchangerMarker },
                 }}
-                className="uppercase text-[#f6ff5f]"
+                className="uppercase text-yellow-main"
               >
                 Перейти
               </Link>
