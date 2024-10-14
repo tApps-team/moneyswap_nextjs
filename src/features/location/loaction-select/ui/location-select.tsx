@@ -83,7 +83,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
         <div className="bg-[#2d2d2d]  rounded-full h-16 border-2 gap-2 border-[#bbbbbb] items-center p-3 flex justify-between">
           <div className="flex items-center gap-4">
             {cityInfo ? (
-              <figure className="w-[36px] h-[36px]">
+              <figure className="w-[36px]  rounded-full overflow-hidden h-[36px]">
                 <Image
                   alt={`${cityInfo?.code_name})`}
                   src={cityInfo?.country.icon_url}

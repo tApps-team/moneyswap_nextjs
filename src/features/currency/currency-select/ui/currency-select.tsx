@@ -92,8 +92,9 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             <div className="bg-[#2d2d2d] min-h-14 justify-between select-none rounded-full border-l-2 border-[#bbb] items-center p-2 flex h-full">
               <div className="grid grid-flow-col items-center gap-2 truncate">
                 {currencyInfo ? (
-                  <figure className="w-[36px] h-[36px]">
+                  <figure className="w-[36px] rounded-full overflow-hidden  h-[36px]">
                     <Image
+                      className="rounded-full overflow-hidden"
                       alt={`${currencyInfo?.name?.ru} (${currencyInfo?.code_name})`}
                       src={currencyInfo?.icon_url}
                       width={36}
