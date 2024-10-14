@@ -106,7 +106,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
             disabled={review.comment_count < 1}
             className={cn(
               "text-sm flex items-center gap-2  text-yellow-main",
-              review.comment_count < 1 && "text-[bbbbbb] opacity-50",
+              review.comment_count < 1 && "text-light-gray opacity-50",
             )}
             onClick={onExpand}
           >

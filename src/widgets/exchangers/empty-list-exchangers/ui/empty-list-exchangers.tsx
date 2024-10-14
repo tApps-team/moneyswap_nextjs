@@ -67,6 +67,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
               <div className="flex justify-between items-center px-4 py-4 ">
                 <div className="flex items-center gap-2">
                   <Image
+                    className="rounded-full overflow-hidden"
                     src={exchanger.valute_from.icon_url}
                     alt={`valute ${exchanger.valute_from.name.ru}`}
                     width={32}
@@ -75,6 +76,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                   <p>{exchanger.valute_from.code_name}</p>
                   <ChevronRightIcon color="white" height={32} width={32} />
                   <Image
+                    className="rounded-full overflow-hidden"
                     src={exchanger.valute_to.icon_url}
                     alt={`valute ${exchanger.valute_to.name.ru}`}
                     width={32}
