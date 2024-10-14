@@ -72,7 +72,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <TableHead
-                    className="uppercase py-6 px-4 text-[#bbbbbb] font-semibold"
+                    className="uppercase py-6 px-4 text-light-gray font-semibold"
                     key={header.id}
                   >
                     {header.isPlaceholder
@@ -114,7 +114,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
         disabled={
           table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
         }
-        className="bg-[#2d2d2d] h-14 w-[200px] mx-auto border-2 border-[#bbbbbb] uppercase rounded-full"
+        className="bg-[#2d2d2d] h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full"
       >
         Показать ещё
       </Button>

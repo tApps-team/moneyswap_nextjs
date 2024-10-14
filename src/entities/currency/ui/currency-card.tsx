@@ -11,7 +11,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
     // <DialogClose asChild>
     <div
       onClick={onClick}
-      className="h-full flex gap-4 border-2 rounded-full p-3 hover:bg-[#f6ff5f] hover:text-black hover:border-[#f6ff5f]  text-white border-[#bbbbbb] items-center"
+      className="h-full flex gap-4 border-2 rounded-full p-3 hover:bg-[#f6ff5f] hover:text-black hover:border-[#f6ff5f]  text-white border-light-gray items-center"
     >
       <figure className="w-[42px] rounded-full overflow-hidden h-[42px]">
         <Image

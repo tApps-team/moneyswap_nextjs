@@ -13,7 +13,7 @@ export const EmptyArticle = () => {
         />
       </div>
       <div className="uppercase grid grid-flow-row gap-2 p-4">
-        <p className="text-[#bbbbbb] font-medium text-[10px]">date skeleton</p>
+        <p className="text-light-gray font-medium text-[10px]">date skeleton</p>
         <h3 className="text-xs font-medium max-h-[200px] overflow-hidden text-ellipsis leading-4 line-clamp-2">
           title skeleton
         </h3>

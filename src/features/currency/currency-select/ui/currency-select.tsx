@@ -78,7 +78,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       {label && <p className="uppercase text-sm font-medium">{label}</p>}
       <div
         className={cx(
-          "grid grid-cols-2 h-16 justify-between items-center border-2 border-[#bbbbbb] rounded-full bg-gradient-to-l from-[#bbb] from-15% via-[#2d2d2d] via-80% to-[#2d2d2d]",
+          "grid grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-[#bbb] from-15% via-[#2d2d2d] via-80% to-[#2d2d2d]",
         )}
       >
         <input
@@ -128,7 +128,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                   color="#bbbbbb"
                 />
                 <Input
-                  className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-[#bbbbbb] placeholder:font-semibold border-[#bbbbbb]"
+                  className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-semibold border-light-gray"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   placeholder="Поиск валюты"
@@ -140,7 +140,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <TabsList className="bg-[#2d2d2d] grid grid-flow-col gap-6 justify-start">
                 {filteredTabList.map((tab) => (
                   <TabsTrigger
-                    className="data-[state=active]:bg-[#f6ff5f] data-[state=active]:border-[#f6ff5f] text-[#bbb] uppercase rounded-full text-sm border-[#bbbbbb] border"
+                    className="data-[state=active]:bg-[#f6ff5f] data-[state=active]:border-[#f6ff5f] text-[#bbb] uppercase rounded-full text-sm border-light-gray border"
                     key={tab?.id}
                     value={tab?.name?.ru}
                   >

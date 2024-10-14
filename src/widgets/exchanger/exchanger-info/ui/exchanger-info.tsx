@@ -9,7 +9,7 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
   const { exchangerDetails } = props;
 
   return (
-    <section className="rounded-2xl w-full grid gap-4    bg-gradient-to-r from-[#bbbbbb] from-0% to-20% to-[#2d2d2d] p-6 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+    <section className="rounded-2xl w-full grid gap-4    bg-gradient-to-r from-light-gray from-0% to-20% to-[#2d2d2d] p-6 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
       <h2 className="text-xl font-medium ">ОБЩАЯ ИНФОРМАЦИЯ ОБ ОБМЕННИКЕ</h2>
       <hr className="mx-[-1.5rem]" />
       <div className="grid grid-cols-[0.3fr,0.8fr]  gap-4 ">

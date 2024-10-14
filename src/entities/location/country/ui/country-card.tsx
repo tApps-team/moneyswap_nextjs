@@ -14,7 +14,7 @@ export const CountryCard = (props: CountryCardProps) => {
     <div
       onClick={onClick}
       className={cn(
-        "flex items-center   gap-4 border-2 text-white hover:text-black border-[#bbbbbb] rounded-full p-3 h-[68px] hover:bg-[#f6ff5f] hover:border-[#f6ff5f] cursor-pointer overflow-hidden",
+        "flex items-center   gap-4 border-2 text-white hover:text-black border-light-gray rounded-full p-3 h-[68px] hover:bg-[#f6ff5f] hover:border-[#f6ff5f] cursor-pointer overflow-hidden",
         active && "bg-[#f6ff5f] text-black border-[#f6ff5f]",
       )}
     >

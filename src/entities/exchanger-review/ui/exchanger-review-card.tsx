@@ -62,7 +62,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.negative) {
       return (
         <div className="flex items-center justify-center">
-          <p className="text-[#bbbbbb] text-sm font-semibold">ОТРИЦАТЕЛЬНЫЙ</p>
+          <p className="text-light-gray text-sm font-semibold">ОТРИЦАТЕЛЬНЫЙ</p>
           <Smile fill="#2d2d2d" width={28} height={28} />
         </div>
       );
@@ -78,8 +78,8 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           className={cx(
             "absolute right-[-1px] flex items-center justify-center top-[-1px]  w-60 h-12 border-r-0 border-t-0  rounded-tr-3xl  rounded-bl-[32px]",
             review?.grade === ReviewEnum.positive && "bg-[#f6ff5f]",
-            review?.grade === ReviewEnum?.negative && "bg-transparent border border-[#bbbbbb]",
-            review?.grade === ReviewEnum?.neutral && "bg-[#bbbbbb]",
+            review?.grade === ReviewEnum?.negative && "bg-transparent border border-light-gray",
+            review?.grade === ReviewEnum?.neutral && "bg-light-gray",
           )}
         >
           {reviewRender()}
