@@ -23,8 +23,7 @@ export const Header = () => {
             alt="logo"
             width={100}
             height={100}
-            //height bug
-            className="w-[10vw] max-w-[150px] h-[70px] min-w-[70px]"
+            className="w-[10vw] max-w-[150px] h-[31px] min-w-[70px]"
           />
         </Link>
         <Navbar />
