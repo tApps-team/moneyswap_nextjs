@@ -80,7 +80,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   return (
     <Dialog onOpenChange={() => setLocationSearchValue("")}>
       <DialogTrigger className="cursor-pointer" asChild>
-        <div className="bg-[#2d2d2d]  rounded-full h-16 border-2 gap-2 border-light-gray items-center p-3 flex justify-between">
+        <div className="bg-dark-gray  rounded-full h-16 border-2 gap-2 border-light-gray items-center p-3 flex justify-between">
           <div className="flex items-center gap-4">
             {cityInfo ? (
               <figure className="w-[36px]  rounded-full overflow-hidden h-[36px]">
@@ -102,7 +102,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-[#2d2d2d]  border-none w-[50svw] h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
+      <DialogContent className="bg-dark-gray  border-none w-[50svw] h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
         <div className="grid grid-cols-2 grid-rows-1 items-center">
           <DialogTitle className="m-0 uppercase">Выбор города</DialogTitle>
           <div className="relative">

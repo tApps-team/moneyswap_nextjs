@@ -28,7 +28,7 @@ export const Navbar = () => {
               <Link href={item.href}>{item.value}</Link>
             </NavigationMenuTrigger>
             {item.children && (
-              <NavigationMenuContent className="bg-[#2d2d2d] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] border-none rounded-2xl p-4 uppercase grid gap-2 text-white">
+              <NavigationMenuContent className="bg-dark-gray shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] border-none rounded-2xl p-4 uppercase grid gap-2 text-white">
                 {item.children.map((itemChildren) => (
                   <NavigationMenuLink
                     className="flex flex-col w-80 "

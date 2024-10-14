@@ -11,7 +11,7 @@ export const TopCoins = async () => {
   console.log(topCoins);
 
   return (
-    <div className="bg-[#2d2d2d]   grid grid-cols-1 grid-flow-row gap-4 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] p-6 rounded-2xl">
+    <div className="bg-dark-gray   grid grid-cols-1 grid-flow-row gap-4 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] p-6 rounded-2xl">
       <p className="text-white uppercase">ТОП МОНЕТ</p>
       <ScrollArea className="max-h-96 pr-4 ">
         <div className="flex flex-col gap-4 ">

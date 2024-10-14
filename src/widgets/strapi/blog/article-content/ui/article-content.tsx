@@ -100,7 +100,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content, url }
               <Accordion
                 type="single"
                 collapsible
-                className="w-full rounded-[25px] shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] bg-[#2d2d2d] px-8 py-4"
+                className="w-full rounded-[25px] shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] bg-dark-gray px-8 py-4"
               >
                 <AccordionItem value={`Value-${item.accordion.question}`} className="">
                   <AccordionTrigger className="main_font uppercase text-sm font-medium text-start color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-[#fff] [&[data-state=open]>svg]:stroke-[#f6ff5f] hover:text-[#fff] leading-4">

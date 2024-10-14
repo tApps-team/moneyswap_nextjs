@@ -15,7 +15,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
   randomNoncashDirections,
 }) => {
   return (
-    <section className="grid grid-rows-2 gap-12 w-full p-6 bg-[#2d2d2d] shadow-[1px_2px_8px_3px_rgba(0,0,0,0.5)] rounded-3xl">
+    <section className="grid grid-rows-2 gap-12 w-full p-6 bg-dark-gray shadow-[1px_2px_8px_3px_rgba(0,0,0,0.5)] rounded-3xl">
       <div className="grid grid-flow-row gap-6">
         <p className="text-xs text-center font-medium uppercase">Топ популярных направлений</p>
         <div className="grid grid-cols-2 gap-6 items-center">
@@ -23,7 +23,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
             <Link
               href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
               key={index}
-              className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
+              className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-dark-gray hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
             >
               <figure className="w-[40px] h-[40px] overflow-hidden rounded-full">
                 <Image
@@ -55,7 +55,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
             <Link
               href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
               key={index}
-              className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
+              className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-dark-gray hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
             >
               <figure className="w-[40px] h-[40px] overflow-hidden rounded-full">
                 <Image

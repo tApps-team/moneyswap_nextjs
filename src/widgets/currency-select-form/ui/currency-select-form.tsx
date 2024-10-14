@@ -67,7 +67,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
 
   return (
-    <form className="text-white w-full border-2 border-light-gray h-full py-5 px-7 pb-12 bg-[#2d2d2d] rounded-3xl">
+    <form className="text-white w-full border-2 border-light-gray h-full py-5 px-7 pb-12 bg-dark-gray rounded-3xl">
       <div className="flex items-center justify-between pb-6">
         <p className="uppercase font-medium text-base">Выберите направление обмена</p>
         <div className="flex items-center">

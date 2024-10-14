@@ -78,7 +78,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       {label && <p className="uppercase text-sm font-medium">{label}</p>}
       <div
         className={cx(
-          "grid grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-[#bbb] from-15% via-[#2d2d2d] via-80% to-[#2d2d2d]",
+          "grid grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-[#bbb] from-15% via-dark-gray via-80% to-dark-gray",
         )}
       >
         <input
@@ -89,7 +89,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         />
         <Dialog>
           <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
-            <div className="bg-[#2d2d2d] min-h-14 justify-between select-none rounded-full border-l-2 border-[#bbb] items-center p-2 flex h-full">
+            <div className="bg-dark-gray min-h-14 justify-between select-none rounded-full border-l-2 border-[#bbb] items-center p-2 flex h-full">
               <div className="grid grid-flow-col items-center gap-2 truncate">
                 {currencyInfo ? (
                   <figure className="w-[36px] rounded-full overflow-hidden  h-[36px]">
@@ -117,7 +117,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ChevronDown width={28} height={28} />
             </div>
           </DialogTrigger>
-          <DialogContent className="bg-[#2d2d2d] border-none grid rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+          <DialogContent className="bg-dark-gray border-none grid rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
             <div className="grid grid-cols-2 grid-rows-1 items-center">
               <DialogTitle className="uppercase text-xl">Выбор валюты</DialogTitle>
               <div className="relative">
@@ -137,7 +137,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             </div>
 
             <Tabs defaultValue={"Все"} className="">
-              <TabsList className="bg-[#2d2d2d] grid grid-flow-col gap-6 justify-start">
+              <TabsList className="bg-dark-gray grid grid-flow-col gap-6 justify-start">
                 {filteredTabList.map((tab) => (
                   <TabsTrigger
                     className="data-[state=active]:bg-[#f6ff5f] data-[state=active]:border-[#f6ff5f] text-[#bbb] uppercase rounded-full text-sm border-light-gray border"

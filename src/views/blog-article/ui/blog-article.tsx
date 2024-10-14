@@ -75,7 +75,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
       </div>
       <section className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
         <div className="grid grid-flow-rows gap-8">
-          <div className="grid grid-flow-row gap-8 bg-[#2d2d2d] p-10 pb-8 rounded-[35px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.35)]">
+          <div className="grid grid-flow-row gap-8 bg-dark-gray p-10 pb-8 rounded-[35px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.35)]">
             <div className="w-full h-auto max-h-[1000px] rounded-[35px] overflow-hidden border-2 border-[#000]">
               <Image
                 className="w-full h-full object-contain"
@@ -102,7 +102,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 <Link
                   href={`${routes.blog}/${routes.tag}/${tag?.tag}`}
                   key={tag?.id}
-                  className="cursor-pointer uppercase text-[10px] py-4 px-6 bg-[#2d2d2d] rounded-full border-2 border-[#ddd] text-[#b9b9b9] hover:text-[#f6ff5f] hover:border-[#f6ff5f] transition-all duration-300"
+                  className="cursor-pointer uppercase text-[10px] py-4 px-6 bg-dark-gray rounded-full border-2 border-[#ddd] text-[#b9b9b9] hover:text-[#f6ff5f] hover:border-[#f6ff5f] transition-all duration-300"
                 >
                   {tag?.name}
                 </Link>

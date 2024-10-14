@@ -73,7 +73,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   };
   return (
     <div className="relative z-0">
-      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-3xl p-7 grid grid-cols-1 gap-4  bg-[#2d2d2d] relative ">
+      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-3xl p-7 grid grid-cols-1 gap-4  bg-dark-gray relative ">
         <div
           className={cx(
             "absolute right-[-1px] flex items-center justify-center top-[-1px]  w-60 h-12 border-r-0 border-t-0  rounded-tr-3xl  rounded-bl-[32px]",
