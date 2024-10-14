@@ -108,12 +108,12 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content, url }
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
                     {/* <div
-                      className={`strapi_fonts_${font} mt-6 mb-[20px] text-sm font-normal text-[#bbb] strapi_styles blog-custom-accordion-answer`}
+                      className={`strapi_fonts_${font} mt-6 mb-[20px] text-sm font-normal text-light-gray strapi_styles blog-custom-accordion-answer`}
                       dangerouslySetInnerHTML={{ __html: item.accordion.answer }}
 
                     /> */}
                     <div
-                      className={`strapi_fonts_${font} mt-6 mb-[20px] text-sm font-normal text-[#bbb] strapi_styles blog-custom-accordion-answer`}
+                      className={`strapi_fonts_${font} mt-6 mb-[20px] text-sm font-normal text-light-gray strapi_styles blog-custom-accordion-answer`}
                     >
                       {parse(item.accordion.answer, options)}
                     </div>

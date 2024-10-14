@@ -3,7 +3,7 @@ import { products } from "@/shared/router";
 
 export const BotBanner = () => {
   return (
-    <section className="text-[#bbb] grid grid-cols-2 gap-10 items-center justify-center mx-12 py-[50px]">
+    <section className="text-light-gray grid grid-cols-2 gap-10 items-center justify-center mx-12 py-[50px]">
       <div className="grid grid-flow-col gap-20">
         <div className="text-lg uppercase grid grid-flow-row gap-2 content-between font-semibold">
           <p>Больше функций доступно</p>

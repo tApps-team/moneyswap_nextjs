@@ -98,13 +98,13 @@ export const TopExchange: FC<TopExchangeProps> = ({
       <section className="py-[20px] grid grid-cols-2 gap-8">
         <Link
           href={routes.buy}
-          className="border-2 border-[#bbb] rounded-full p-4 uppercase font-medium text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+          className="border-2 border-light-gray rounded-full p-4 uppercase font-medium text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         >
           Купить криптовалюту
         </Link>
         <Link
           href={routes.sell}
-          className="border-2 border-[#bbb] rounded-full p-4 uppercase font-medium text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+          className="border-2 border-light-gray rounded-full p-4 uppercase font-medium text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         >
           Продать криптовалюту
         </Link>

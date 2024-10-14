@@ -78,7 +78,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       {label && <p className="uppercase text-sm font-medium">{label}</p>}
       <div
         className={cx(
-          "grid grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-[#bbb] from-15% via-dark-gray via-80% to-dark-gray",
+          "grid grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-light-gray from-15% via-dark-gray via-80% to-dark-gray",
         )}
       >
         <input
@@ -89,7 +89,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         />
         <Dialog>
           <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
-            <div className="bg-dark-gray min-h-14 justify-between select-none rounded-full border-l-2 border-[#bbb] items-center p-2 flex h-full">
+            <div className="bg-dark-gray min-h-14 justify-between select-none rounded-full border-l-2 border-light-gray items-center p-2 flex h-full">
               <div className="grid grid-flow-col items-center gap-2 truncate">
                 {currencyInfo ? (
                   <figure className="w-[36px] rounded-full overflow-hidden  h-[36px]">
@@ -140,7 +140,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <TabsList className="bg-dark-gray grid grid-flow-col gap-6 justify-start">
                 {filteredTabList.map((tab) => (
                   <TabsTrigger
-                    className="data-[state=active]:bg-yellow-main data-[state=active]:border-yellow-main text-[#bbb] uppercase rounded-full text-sm border-light-gray border"
+                    className="data-[state=active]:bg-yellow-main data-[state=active]:border-yellow-main text-light-gray uppercase rounded-full text-sm border-light-gray border"
                     key={tab?.id}
                     value={tab?.name?.ru}
                   >
