@@ -11,13 +11,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <body className="flex flex-col min-h-screen">
-        <Header />
         <Providers>
+          <Header />
           <main className="flex-grow max-w-[1300px] mx-[auto] w-full py-[40px] pt-[130px]">
             {children}
           </main>
+          <Footer />
         </Providers>
-        <Footer />
       </body>
     </html>
   );
