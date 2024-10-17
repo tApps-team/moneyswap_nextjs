@@ -24,7 +24,7 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
       {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}
       <ReviweFilter reviewCount={reviewCount} />
 
-      {reviews.length > 0 ? (
+      {reviews?.length > 0 ? (
         <>
           {reviews?.map((review) => (
             <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />

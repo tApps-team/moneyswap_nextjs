@@ -12,7 +12,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Exchanger } from "@/entities/exchanger";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
@@ -20,13 +20,32 @@ import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow }
 interface DataTableProps<TValue> {
   columns: ColumnDef<Exchanger, TValue>[];
   data: Exchanger[];
+  // type: "exchange" | "main";
+  // params:
+  //   | {
+  //       valute_from: string;
+  //       valute_to: string;
+  //       city: string;
+  //     }
+  //   | {
+  //       valute_from: string;
+  //       valute_to: string;
+  //       city?: undefined;
+  //     };
 }
 
 export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps<TValue>) {
+  // const { data = [] } = useQuery({
+  //   queryKey: [type, type === "exchange" ?? params],
+  //   refetchOnWindowFocus: false,
+  //   refetchInterval: 3000,
+  //   queryFn: () => getExchangersTest(params),
+  // });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  const router = useRouter();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -38,12 +57,20 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     onColumnFiltersChange: setColumnFilters,
-    manualFiltering: false,
-    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    manualFiltering: true,
+    // getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+    },
     state: {
       sorting,
       columnFilters,
