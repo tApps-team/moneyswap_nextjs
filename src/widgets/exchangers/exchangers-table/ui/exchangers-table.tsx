@@ -12,7 +12,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Exchanger } from "@/entities/exchanger";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
@@ -20,13 +20,32 @@ import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow }
 interface DataTableProps<TValue> {
   columns: ColumnDef<Exchanger, TValue>[];
   data: Exchanger[];
+  // type: "exchange" | "main";
+  // params:
+  //   | {
+  //       valute_from: string;
+  //       valute_to: string;
+  //       city: string;
+  //     }
+  //   | {
+  //       valute_from: string;
+  //       valute_to: string;
+  //       city?: undefined;
+  //     };
 }
 
 export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps<TValue>) {
+  // const { data = [] } = useQuery({
+  //   queryKey: [type, type === "exchange" ?? params],
+  //   refetchOnWindowFocus: false,
+  //   refetchInterval: 3000,
+  //   queryFn: () => getExchangersTest(params),
+  // });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  const router = useRouter();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -38,12 +57,20 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     onColumnFiltersChange: setColumnFilters,
-    manualFiltering: false,
-    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    manualFiltering: true,
+    // getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+    },
     state: {
       sorting,
       columnFilters,
@@ -62,14 +89,14 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
 
   return (
     <div className="flex flex-col mt-10 gap-12 w-full">
-      <div className="rounded-3xl bg-[#2d2d2d] text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+      <div className="rounded-3xl bg-dark-gray text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
         <Table className="">
           <TableHeader className="">
             {table?.getHeaderGroups()?.map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <TableHead
-                    className="uppercase py-6 px-4 text-[#bbbbbb] font-semibold"
+                    className="uppercase py-6 px-4 text-light-gray font-semibold"
                     key={header.id}
                   >
                     {header.isPlaceholder
@@ -108,7 +135,7 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
         disabled={
           table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
         }
-        className="bg-[#2d2d2d] h-14 w-[200px] mx-auto border-2 border-[#bbbbbb] uppercase rounded-full"
+        className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full"
       >
         Показать ещё
       </Button>

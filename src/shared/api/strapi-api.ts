@@ -1,6 +1,25 @@
 import { pageTypes } from "../types";
 
-export interface SeoTextsParams {
+export interface SeoMetaResponse {
+  data: {
+    title: string;
+    description: string;
+    keywords: string;
+  }[];
+}
+
+export interface SeoTextsResponse {
+  data: {
+    id: number;
+    header_title: string;
+    header_description: string;
+    footer_title: string;
+    footer_description: string;
+    page: pageTypes;
+  }[];
+}
+
+export interface SeoParams {
   page: pageTypes;
   giveCurrency?: string;
   getCurrency?: string;
@@ -14,7 +33,7 @@ export const getSeoTexts = async ({
   getCurrency,
   country,
   city,
-}: SeoTextsParams) => {
+}: SeoParams): Promise<SeoTextsResponse> => {
   const params = new URLSearchParams();
   if (giveCurrency) params.append("give_currency", giveCurrency);
   if (getCurrency) params.append("get_currency", getCurrency);
@@ -42,7 +61,7 @@ export const getSeoMeta = async ({
   getCurrency,
   country,
   city,
-}: SeoTextsParams) => {
+}: SeoParams): Promise<SeoMetaResponse> => {
   const params = new URLSearchParams();
   if (giveCurrency) params.append("give_currency", giveCurrency);
   if (getCurrency) params.append("get_currency", getCurrency);

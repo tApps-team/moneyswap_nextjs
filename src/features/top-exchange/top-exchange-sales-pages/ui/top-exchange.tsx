@@ -37,7 +37,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
               <Link
                 href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
                 key={index}
-                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
+                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-dark-gray hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
               >
                 <figure className="w-[45px] h-[45px] rounded-full overflow-hidden">
                   <Image
@@ -69,7 +69,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
               <Link
                 href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
                 key={index}
-                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-[#2d2d2d] hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
+                className="px-[10px] py-[8px] grid grid-flow-col gap-2 justify-between items-center rounded-[35px] shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)] bg-dark-gray hover:shadow-[1px_5px_15px_5px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
               >
                 <figure className="w-[45px] h-[45px] rounded-full overflow-hidden">
                   <Image
@@ -98,13 +98,13 @@ export const TopExchange: FC<TopExchangeProps> = ({
       <section className="py-[20px] grid grid-cols-2 gap-8">
         <Link
           href={routes.buy}
-          className="border-2 border-[#bbb] rounded-full p-4 uppercase font-medium text-base text-center hover:bg-[#f6ff5f] hover:text-black hover:border-[#f6ff5f] transition-all duration-500"
+          className="border-2 border-light-gray rounded-full p-4 uppercase font-medium text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         >
           Купить криптовалюту
         </Link>
         <Link
           href={routes.sell}
-          className="border-2 border-[#bbb] rounded-full p-4 uppercase font-medium text-base text-center hover:bg-[#f6ff5f] hover:text-black hover:border-[#f6ff5f] transition-all duration-500"
+          className="border-2 border-light-gray rounded-full p-4 uppercase font-medium text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         >
           Продать криптовалюту
         </Link>

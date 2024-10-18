@@ -102,7 +102,7 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
               className={`${item?.id === activeId ? "scale-[4.5] transition-all duration-300" : "scale-[1.7]"}`}
             />
             <a
-              className={`${item?.id === activeId ? "text-[#f6ff5f]" : "text-[#ddd]"}`}
+              className={`${item?.id === activeId ? "text-yellow-main" : "text-[#ddd]"}`}
               href={`#${item?.id}`}
               onClick={(e) => {
                 e.preventDefault();

@@ -13,9 +13,9 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
       <p>
         ОБМЕННИК КРИПТОВАЛЮТЫ {exchangerInfo?.name} НАХОДИТСЯ В РЕЙТИНГАХ MONEYSWAP С{" "}
         {exchangerInfo?.openOnMoneySwap || "22.22.22"}. ЗА ЭТО ВРЕМЯ ОН ЗАРЕКОМЕНДОВАЛ СЕБЯ, КАК
-        ПОСТАВЩИК УСЛУГ СО СРЕДНЕЙ ОЦЕНКОЙ. ОБ ОБМЕННИКЕ ЕСТЬ {exchangerInfo.reviews.positive}{" "}
-        ПОЛОЖИТЕЛЬНЫХ И {exchangerInfo.reviews.negative} ОТРИЦАТЕЛЬНЫХ ОТЗЫВОВ.{" "}
-        {exchangerInfo?.name} НА ДАННЫЙ МОМЕНТ УЧАСТВУЕТ В {exchangerInfo.exchangeRates} КУРСАХ
+        ПОСТАВЩИК УСЛУГ СО СРЕДНЕЙ ОЦЕНКОЙ. ОБ ОБМЕННИКЕ ЕСТЬ {exchangerInfo.reviews?.positive}{" "}
+        ПОЛОЖИТЕЛЬНЫХ И {exchangerInfo.reviews?.negative} ОТРИЦАТЕЛЬНЫХ ОТЗЫВОВ.{" "}
+        {exchangerInfo?.name} НА ДАННЫЙ МОМЕНТ УЧАСТВУЕТ В {exchangerInfo?.exchangeRates} КУРСАХ
         ОБМЕНА И ИМЕЕТ ОБЩУЮ СУММУ РЕЗЕРВОВ НА{" "}
         {exchangerInfo?.amountReserves?.replace("$", "") || 0} ДОЛЛАРОВ. ЕСЛИ ВЫ ПОЛЬЗОВАЛИСЬ
         УСЛУГАМИ ОБМЕННИКА ОСТАВЬТЕ ОТЗЫВ О НЕМ В КОММЕНТАРИЯХ - ЭТО ПОМОЖЕТ ДРУГИМ ПОЛЬЗОВАТЕЛЯМ

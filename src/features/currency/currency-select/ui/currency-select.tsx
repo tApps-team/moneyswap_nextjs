@@ -78,22 +78,23 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       {label && <p className="uppercase text-sm font-medium">{label}</p>}
       <div
         className={cx(
-          "grid grid-cols-2 h-16 justify-between items-center border-2 border-[#bbbbbb] rounded-full bg-gradient-to-l from-[#bbb] from-15% via-[#2d2d2d] via-80% to-[#2d2d2d]",
+          "grid grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-light-gray from-15% via-dark-gray via-80% to-dark-gray",
         )}
       >
         <input
           disabled={true}
           value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="focus-visible:outline-none bg-transparent text-[#f6ff5f] px-6 font-semibold text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
+          className="focus-visible:outline-none bg-transparent text-yellow-main px-6 font-semibold text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
         />
         <Dialog>
           <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
-            <div className="bg-[#2d2d2d] min-h-14 justify-between select-none rounded-full border-l-2 border-[#bbb] items-center p-2 flex h-full">
+            <div className="bg-dark-gray min-h-14 justify-between select-none rounded-full border-l-2 border-light-gray items-center p-2 flex h-full">
               <div className="grid grid-flow-col items-center gap-2 truncate">
                 {currencyInfo ? (
-                  <figure className="w-[36px] h-[36px]">
+                  <figure className="w-[36px] rounded-full overflow-hidden  h-[36px]">
                     <Image
+                      className="rounded-full overflow-hidden"
                       alt={`${currencyInfo?.name?.ru} (${currencyInfo?.code_name})`}
                       src={currencyInfo?.icon_url}
                       width={36}
@@ -116,7 +117,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ChevronDown width={28} height={28} />
             </div>
           </DialogTrigger>
-          <DialogContent className="bg-[#2d2d2d] border-none grid rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+          <DialogContent className="bg-dark-gray border-none grid rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
             <div className="grid grid-cols-2 grid-rows-1 items-center">
               <DialogTitle className="uppercase text-xl">Выбор валюты</DialogTitle>
               <div className="relative">
@@ -127,7 +128,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                   color="#bbbbbb"
                 />
                 <Input
-                  className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-[#bbbbbb] placeholder:font-semibold border-[#bbbbbb]"
+                  className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-semibold border-light-gray"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   placeholder="Поиск валюты"
@@ -136,10 +137,10 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             </div>
 
             <Tabs defaultValue={"Все"} className="">
-              <TabsList className="bg-[#2d2d2d] grid grid-flow-col gap-6 justify-start">
+              <TabsList className="bg-dark-gray grid grid-flow-col gap-6 justify-start">
                 {filteredTabList.map((tab) => (
                   <TabsTrigger
-                    className="data-[state=active]:bg-[#f6ff5f] data-[state=active]:border-[#f6ff5f] text-[#bbb] uppercase rounded-full text-sm border-[#bbbbbb] border"
+                    className="data-[state=active]:bg-yellow-main data-[state=active]:border-yellow-main text-light-gray uppercase rounded-full text-sm border-light-gray border"
                     key={tab?.id}
                     value={tab?.name?.ru}
                   >

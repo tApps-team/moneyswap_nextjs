@@ -80,10 +80,10 @@ export const LocationSelect = (props: LocationSelectProps) => {
   return (
     <Dialog onOpenChange={() => setLocationSearchValue("")}>
       <DialogTrigger className="cursor-pointer" asChild>
-        <div className="bg-[#2d2d2d]  rounded-full h-16 border-2 gap-2 border-[#bbbbbb] items-center p-3 flex justify-between">
+        <div className="bg-dark-gray  rounded-full h-16 border-2 gap-2 border-light-gray items-center p-3 flex justify-between">
           <div className="flex items-center gap-4">
             {cityInfo ? (
-              <figure className="w-[36px] h-[36px]">
+              <figure className="w-[36px]  rounded-full overflow-hidden h-[36px]">
                 <Image
                   alt={`${cityInfo?.code_name})`}
                   src={cityInfo?.country.icon_url}
@@ -102,14 +102,14 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-[#2d2d2d]  border-none w-[50svw] h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
+      <DialogContent className="bg-dark-gray  border-none w-[50svw] h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
         <div className="grid grid-cols-2 grid-rows-1 items-center">
           <DialogTitle className="m-0 uppercase">Выбор города</DialogTitle>
           <div className="relative">
             <SearchIcon className="absolute translate-y-2 left-3 " color="#bbbbbb" />
             <Input
               ref={ref}
-              className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-[#bbbbbb] placeholder:font-semibold border-[#bbbbbb]"
+              className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-semibold border-light-gray"
               value={locationSearchValue}
               onChange={(e) => setLocationSearchValue(e.target.value)}
               placeholder="Поиск города и страны"

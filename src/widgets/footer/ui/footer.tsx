@@ -25,7 +25,7 @@ export const Footer = () => {
               <ul key={item.value} className="flex flex-col gap-3">
                 <p className="font-medium uppercase text-sm">{item.value}</p>
                 {item.children?.map((itemChildren) => (
-                  <li key={itemChildren.value} className="hover:text-[#f6ff5f] uppercase text-xs">
+                  <li key={itemChildren.value} className="hover:text-yellow-main uppercase text-xs">
                     <Link target={itemChildren.target} href={itemChildren.href}>
                       {itemChildren.value}
                     </Link>

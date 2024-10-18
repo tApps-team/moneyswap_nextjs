@@ -1,3 +1,4 @@
+type GetProps = {};
 export class ApiClient {
   private baseUrl: string;
 
@@ -34,10 +35,14 @@ export class ApiClient {
 
     const response = await fetch(url.toString(), {
       method: "GET",
+
       headers: {
         "Content-Type": "application/json",
       },
-      cache: requestCache || "no-store",
+      next: {
+        revalidate: 60,
+      },
+      // cache: requestCache || "no-store",
     });
 
     return this.handleResponse<TResult>(response);

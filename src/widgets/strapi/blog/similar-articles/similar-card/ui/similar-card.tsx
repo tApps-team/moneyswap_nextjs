@@ -32,7 +32,7 @@ export const SimilarCard: FC<SimilarCardProps> = ({ article }) => {
         />
       </div>
       <div className="uppercase grid grid-flow-row gap-1 pt-2">
-        <p className="text-[#bbbbbb] font-medium text-[7px]">{formattedDate}</p>
+        <p className="text-light-gray font-medium text-[7px]">{formattedDate}</p>
         <h3 className="text-[8px] font-medium max-h-[200px] overflow-hidden text-ellipsis leading-2 line-clamp-2">
           {article?.title}
         </h3>

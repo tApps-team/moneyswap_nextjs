@@ -56,7 +56,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
           </p>
         </div>
       )}
-      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]   flex flex-col w-full rounded-3xl text-white bg-[#2d2d2d]">
+      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]   flex flex-col w-full rounded-3xl text-white bg-dark-gray">
         {exchangers.length > 0 ? (
           exchangers?.map((exchanger) => (
             <Link
@@ -67,6 +67,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
               <div className="flex justify-between items-center px-4 py-4 ">
                 <div className="flex items-center gap-2">
                   <Image
+                    className="rounded-full overflow-hidden"
                     src={exchanger.valute_from.icon_url}
                     alt={`valute ${exchanger.valute_from.name.ru}`}
                     width={32}
@@ -75,6 +76,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                   <p>{exchanger.valute_from.code_name}</p>
                   <ChevronRightIcon color="white" height={32} width={32} />
                   <Image
+                    className="rounded-full overflow-hidden"
                     src={exchanger.valute_to.icon_url}
                     alt={`valute ${exchanger.valute_to.name.ru}`}
                     width={32}
@@ -83,7 +85,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                   <p>{exchanger.valute_to.code_name}</p>
                 </div>
 
-                <button className="border hover:bg-[#f6ff5f] hover:border-[#f6ff5f] hover:text-black hover:font-medium rounded-full px-5 py-3">
+                <button className="border hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full px-5 py-3">
                   ПОКАЗАТЬ ОБМЕННИКИ
                 </button>
               </div>
@@ -103,7 +105,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
             {valuteTo.name.ru} ({valuteTo.code_name}) в городах:
           </p>
 
-          <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] mt-6 flex flex-col w-full rounded-3xl text-white bg-[#2d2d2d]">
+          <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] mt-6 flex flex-col w-full rounded-3xl text-white bg-dark-gray">
             {similarCities?.map((city) => (
               <Link
                 className="border-b last:border-none"
@@ -116,7 +118,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                     <ChevronRightIcon color="white" height={32} width={32} />
                     <p>{city.exchange_count} ОБМЕННИКОВ</p>
                   </div>
-                  <button className="border hover:bg-[#f6ff5f] hover:border-[#f6ff5f] hover:text-black hover:font-medium rounded-full px-5 py-3">
+                  <button className="border hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full px-5 py-3">
                     ПОКАЗАТЬ ОБМЕННИКИ
                   </button>
                 </div>

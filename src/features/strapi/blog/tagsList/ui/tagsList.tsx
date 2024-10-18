@@ -13,7 +13,7 @@ export const TagsList: FC<TagsListProps> = ({ tags }) => {
     <ScrollArea className="max-h-[35svh] rounded-[20px] bg-[#000] py-4 px-3">
       <div className="grid grid-flow-row gap-3">
         <div className="px-3">
-          <h3 className="uppercase text-[#f6ff5f] font-semibold text-md truncate">
+          <h3 className="uppercase text-yellow-main font-semibold text-md truncate">
             Популярные хэштеги
           </h3>
         </div>
@@ -22,7 +22,7 @@ export const TagsList: FC<TagsListProps> = ({ tags }) => {
             <Link
               scroll={false}
               href={`${routes.blog}/${routes.tag}/${tag?.tag}`}
-              className="mr-2 text-[#ddd] text-xs leading-2 uppercase hover:text-[#f6ff5f] cursor-pointer transition-all hover:transition-all duration-300"
+              className="mr-2 text-[#ddd] text-xs leading-2 uppercase hover:text-yellow-main cursor-pointer transition-all hover:transition-all duration-300"
               key={tag?.id}
             >
               {tag?.name}

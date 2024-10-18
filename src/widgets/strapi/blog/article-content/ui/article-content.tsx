@@ -15,7 +15,16 @@ const options = {
     // Проверяем, является ли узел элементом и его типом является img
     if (domNode instanceof Element && domNode.name === "img") {
       const { src, alt } = domNode.attribs;
-      return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
+      return (
+        <Image
+          src={src}
+          alt={alt || "image"}
+          width={500}
+          height={500}
+          layout="responsive"
+          priority
+        />
+      );
     }
     if (domNode instanceof Element && domNode.name === "br") {
       return <hr />;
@@ -94,10 +103,10 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
               <Accordion
                 type="single"
                 collapsible
-                className="w-full rounded-[25px] shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] bg-[#2d2d2d] px-8 py-4"
+                className="w-full rounded-[25px] shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] bg-dark-gray px-8 py-4"
               >
                 <AccordionItem value={`Value-${item.accordion.question}`} className="">
-                  <AccordionTrigger className="main_font uppercase text-sm font-medium text-start color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-[#fff] [&[data-state=open]>svg]:stroke-[#f6ff5f] hover:text-[#fff] leading-4">
+                  <AccordionTrigger className="main_font uppercase text-sm font-medium text-start color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-[#fff] [&[data-state=open]>svg]:stroke-yellow-main hover:text-[#fff] leading-4">
                     {item.accordion.question}
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">

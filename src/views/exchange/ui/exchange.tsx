@@ -37,20 +37,19 @@ export const ExchangePage = async ({
     valuteTo: getCurrency?.code_name,
   });
 
-  const reqParams =
-    direction === ExchangerMarker.cash
-      ? {
-          page: pageTypes.exchange_cash,
-          giveCurrency: `${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`,
-          getCurrency: `${getCurrency?.name?.ru} (${getCurrency?.code_name})`,
-          city: location?.name?.ru,
-          country: location?.country?.name?.ru,
-        }
-      : {
-          page: pageTypes.exchange_noncash,
-          giveCurrency: `${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`,
-          getCurrency: `${getCurrency?.name?.ru} (${getCurrency?.code_name})`,
-        };
+  const reqParams = location
+    ? {
+        page: pageTypes.exchange_cash,
+        giveCurrency: `${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`,
+        getCurrency: `${getCurrency?.name?.ru} (${getCurrency?.code_name})`,
+        city: location?.name?.ru,
+        country: location?.country?.name?.ru,
+      }
+    : {
+        page: pageTypes.exchange_noncash,
+        giveCurrency: `${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`,
+        getCurrency: `${getCurrency?.name?.ru} (${getCurrency?.code_name})`,
+      };
 
   // запрос на сео текста
   const seoTexts = await getSeoTexts(reqParams);
