@@ -28,7 +28,10 @@ export const getAllArticles = async (
 
     const res = await fetch(url, {
       method: "GET",
-      cache: "no-store",
+      // cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     });
     return res.json();
   } catch (error) {
@@ -43,7 +46,10 @@ export const getArticle = async (params: GetArticleRequest): Promise<GetArticleR
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?filters[url_name][$eq]=${url_name}`;
     const res = await fetch(url, {
       method: "GET",
-      cache: "no-store",
+      // cache: "no-store",
+      next: {
+        revalidate: 10,
+      },
     });
     return res.json();
   } catch (error) {
@@ -59,7 +65,6 @@ export const getSearchArticles = async (
   try {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-articlessd?filters[$or][0][preview_title][$contains]=${value}&filters[$or][1][content][$contains]=${value}&filters[$or][2][preview_description][$contains]=${value}&filters[$or][3][article_title][$contains]=${value}`;
 
-    // const url = `${process.env.STRAPI_BASE_URL}/api/blog-articlessd?filters[$or][0][preview_title][$contains]=${value}&filters[$or][1][content][$contains]=${value}&filters[$or][2][preview_description][$contains]=${value}&filters[$or][3][article_title][$contains]=${value}&filters[$or][4][dynamic_content][paragraph_content][title][$contains]=${value}&filters[$or][5][dynamic_content][paragraph_content][content][$contains]=${value}`;
     const res = await fetch(url, {
       method: "GET",
       cache: "no-store",
@@ -80,7 +85,10 @@ export const getTopicArticles = async (
 `;
     const res = await fetch(url, {
       method: "GET",
-      cache: "no-store",
+      // cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     });
     return res.json();
   } catch (error) {
@@ -94,7 +102,10 @@ export const getAllCategories = async (): Promise<GetAllCategoriesResponse> => {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
-      cache: "no-store",
+      // cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     });
     return res.json();
   } catch (error) {
@@ -108,7 +119,10 @@ export const getAllTags = async (): Promise<GetAllTagsResponse> => {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
-      cache: "no-store",
+      // cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     });
     return res.json();
   } catch (error) {
@@ -125,7 +139,10 @@ export const getCategoryArticles = async (
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?filters[category][$eq]=${category}&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
-      cache: "no-store",
+      // cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     });
     return res.json();
   } catch (error) {
@@ -143,7 +160,10 @@ export const getTagArticles = async (
 `;
     const res = await fetch(url, {
       method: "GET",
-      cache: "no-store",
+      // cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     });
     return res.json();
   } catch (error) {

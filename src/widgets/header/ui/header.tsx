@@ -27,7 +27,7 @@ export const Header = () => {
           />
         </Link>
         <Navbar />
-        <div className="grid grid-flow-col gap-4 items-center text-sm">
+        <div className="grid grid-flow-col gap-4 items-center text-sm justify-center cursor-pointer">
           <TelegramButton />
         </div>
       </section>

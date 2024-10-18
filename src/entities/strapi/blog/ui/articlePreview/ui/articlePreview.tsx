@@ -22,6 +22,7 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
     <Link
       className={`group mx-2 rounded-[30px] ${isMain && "bg-black"}`}
       href={`${routes.blog}${routes.article}/${article?.url_name}`}
+      scroll={true}
     >
       <div className="w-full max-w-full h-auto max-h-[174px] border-[2px] border-[#000] rounded-[30px] overflow-hidden">
         <Image
@@ -30,6 +31,7 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
           alt={article?.title}
           width={500}
           height={500}
+          priority
         />
       </div>
       <div className={`uppercase grid grid-flow-row gap-1 py-4 ${isMain && "px-4"}`}>

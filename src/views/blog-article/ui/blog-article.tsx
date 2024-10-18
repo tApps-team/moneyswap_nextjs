@@ -22,6 +22,10 @@ const options = {
 export const BlogArticlePage = async ({ params }: { params: { url_name: string } }) => {
   const url = params.url_name;
   const { data: articles } = await getArticle({ url_name: url });
+
+  if (articles.length === 0) {
+    return <p>Статья не найдена</p>;
+  }
   const article = articles[0];
 
   // Запросы для получения похожих статей по категориям и тегам
@@ -88,7 +92,9 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 height={500}
               />
             </div>
-            <div className="text-sm uppercase">{parse(article?.article?.description, options)}</div>
+            <div className="text-sm uppercase strapi_styles strapi_fonts_codec">
+              {parse(article?.article?.description, options)}
+            </div>
           </div>
           <ArticleContent dynamic_content={article?.article?.dynamic_content} />
           <hr className="color-[#ddd]" />

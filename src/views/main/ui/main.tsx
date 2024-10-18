@@ -30,17 +30,16 @@ export const Main = async ({
   const actualCourse = await getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" });
   const location = await getSpecificCity({ codeName: city ? city : "msk" });
 
-  const request =
-    direction === ExchangerMarker.cash
-      ? {
-          valute_from: giveCurrency?.code_name,
-          valute_to: getCurrency?.code_name,
-          city: location.code_name,
-        }
-      : {
-          valute_from: giveCurrency?.code_name,
-          valute_to: getCurrency?.code_name,
-        };
+  const request = location
+    ? {
+        valute_from: giveCurrency?.code_name,
+        valute_to: getCurrency?.code_name,
+        city: location.code_name,
+      }
+    : {
+        valute_from: giveCurrency?.code_name,
+        valute_to: getCurrency?.code_name,
+      };
 
   const { exchangers, status } = await getExchangers(request);
 

@@ -30,7 +30,7 @@ export const AccordionList: FC<MainFaqs> = ({ data }) => {
             {faq?.question}
           </AccordionTrigger>
           <AccordionContent className="pb-0">
-            <div className="mt-6 text-xs font-normal uppercase text-[#fff] strapi_styles">
+            <div className="mt-6 text-xs font-normal uppercase text-[#fff] strapi_styles strapi_fonts_codec">
               {parse(faq?.answer, options)}
             </div>
           </AccordionContent>

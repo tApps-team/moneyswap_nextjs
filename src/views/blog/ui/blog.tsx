@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { AllArticles, BlogSidebar, SliderOfArticles } from "@/widgets/strapi";
 import { CategoriesList } from "@/features/strapi";
 import { getAllArticles, getAllCategories, getTopicArticles, topics } from "@/entities/strapi";

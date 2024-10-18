@@ -15,7 +15,16 @@ const options = {
     // Проверяем, является ли узел элементом и его типом является img
     if (domNode instanceof Element && domNode.name === "img") {
       const { src, alt } = domNode.attribs;
-      return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
+      return (
+        <Image
+          src={src}
+          alt={alt || "image"}
+          width={500}
+          height={500}
+          layout="responsive"
+          priority
+        />
+      );
     }
     if (domNode instanceof Element && domNode.name === "br") {
       return <hr />;
