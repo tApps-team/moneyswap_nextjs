@@ -78,7 +78,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-end">
-          <div className="text-[#f6ff5f] text-base">{row.original.out_count}</div>
+          <div className="text-yellow-main text-base">{row.original.out_count}</div>
           <div className="text-sm">{row.original.valute_to}</div>
         </div>
       );
@@ -119,8 +119,8 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     },
     id: "Review",
     cell: ({ row }) => (
-      <div className="flex gap-1 border rounded-full hover:border-[#f6ff5f] w-20 px-4 py-2">
-        <div className="text-[#f6ff5f]">{row.original.review_count.positive}</div>
+      <div className="flex gap-1 border rounded-full hover:border-yellow-main w-20 px-4 py-2">
+        <div className="text-yellow-main">{row.original.review_count.positive}</div>
         <span>/</span>
         <div className="text-red-600">{row.original.review_count.negative}</div>
       </div>

@@ -42,10 +42,10 @@ export const ReviweFilter = (props: ReviweFilterProps) => {
             scroll={false}
             key={data.value}
             className={cn(
-              "border hover:border-[#f6ff5f] hover:bg-[#f6ff5f] flex justify-center gap-1 hover:text-black  text-center rounded-full bg-[#2d2d2d] p-4 text-xs font-medium",
+              "border hover:border-yellow-main hover:bg-yellow-main flex justify-center gap-1 hover:text-black  text-center rounded-full bg-dark-gray p-4 text-xs font-medium",
               (currentGrade === data.grade?.toString() ||
                 (typeof currentGrade === "undefined" && typeof data.grade === "undefined")) &&
-                "bg-[#f6ff5f] border-[#f6ff5f] text-black ",
+                "bg-yellow-main border-yellow-main text-black ",
             )}
             href={createUrl(data.grade)}
           >

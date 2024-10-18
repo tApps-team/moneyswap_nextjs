@@ -67,7 +67,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
 
   return (
-    <form className="text-white w-full border-2 border-[#bbbbbb] h-full py-5 px-7 pb-12 bg-[#2d2d2d] rounded-3xl">
+    <form className="text-white w-full border-2 border-light-gray h-full py-5 px-7 pb-12 bg-dark-gray rounded-3xl">
       <div className="flex items-center justify-between pb-6">
         <p className="uppercase font-medium text-base">Выберите направление обмена</p>
         <div className="flex items-center">
@@ -78,7 +78,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             id="changeCash"
             className={cn(
               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-              urlDirection === ExchangerMarker.cash && "text-[#f6ff5f]",
+              urlDirection === ExchangerMarker.cash && "text-yellow-main",
             )}
           >
             Наличные
@@ -91,7 +91,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             id="changeOnline"
             className={cn(
               "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-              urlDirection === ExchangerMarker.no_cash && "text-[#f6ff5f]",
+              urlDirection === ExchangerMarker.no_cash && "text-yellow-main",
             )}
           >
             Безналичные

@@ -8,7 +8,7 @@ export const UpPercent = (props: SVGProps<SVGSVGElement>) => (
     viewBox="0 0 8.52 8.52"
     {...props}
   >
-    <path d="M6.11 4.11h2.41v4.4H6.11z" className="fill-[#f6ff5f]" />
-    <path d="M6.81 0H0v2.41h4.41L0 6.81l1.71 1.71 6.81-6.81L6.81 0z" className="fill-[#f6ff5f]" />
+    <path d="M6.11 4.11h2.41v4.4H6.11z" className="fill-yellow-main" />
+    <path d="M6.81 0H0v2.41h4.41L0 6.81l1.71 1.71 6.81-6.81L6.81 0z" className="fill-yellow-main" />
   </svg>
 );

@@ -10,7 +10,7 @@ import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangerList } from "@/entities/exchanger";
 import { getCryptoExchangersPage } from "@/entities/strapi";
 import { ExchangerMarker, directions } from "@/shared/types";
-
+export const revalidate = 60;
 const options = {
   replace: (domNode: DOMNode) => {
     // Проверяем, является ли узел элементом и его типом является img

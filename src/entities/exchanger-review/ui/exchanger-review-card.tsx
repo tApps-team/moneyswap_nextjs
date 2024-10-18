@@ -62,7 +62,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.negative) {
       return (
         <div className="flex items-center justify-center">
-          <p className="text-[#bbbbbb] text-sm font-semibold">ОТРИЦАТЕЛЬНЫЙ</p>
+          <p className="text-light-gray text-sm font-semibold">ОТРИЦАТЕЛЬНЫЙ</p>
           <Smile fill="#2d2d2d" width={28} height={28} />
         </div>
       );
@@ -73,13 +73,13 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   };
   return (
     <div className="relative z-0">
-      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-3xl p-7 grid grid-cols-1 gap-4  bg-[#2d2d2d] relative ">
+      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-3xl p-7 grid grid-cols-1 gap-4  bg-dark-gray relative ">
         <div
           className={cx(
             "absolute right-[-1px] flex items-center justify-center top-[-1px]  w-60 h-12 border-r-0 border-t-0  rounded-tr-3xl  rounded-bl-[32px]",
-            review?.grade === ReviewEnum.positive && "bg-[#f6ff5f]",
-            review?.grade === ReviewEnum?.negative && "bg-transparent border border-[#bbbbbb]",
-            review?.grade === ReviewEnum?.neutral && "bg-[#bbbbbb]",
+            review?.grade === ReviewEnum.positive && "bg-yellow-main",
+            review?.grade === ReviewEnum?.negative && "bg-transparent border border-light-gray",
+            review?.grade === ReviewEnum?.neutral && "bg-light-gray",
           )}
         >
           {reviewRender()}
@@ -96,7 +96,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           <p ref={ref} className={cn("line-clamp-2 ", isOpenReview && "line-clamp-none")}>
             {review?.text}
           </p>
-          <button onClick={onExpand} className="text-[#f6ff5f] text-sm">
+          <button onClick={onExpand} className="text-yellow-main text-sm">
             {isShowExpandButton && (isOpenReview ? "СВЕРНУТЬ" : "РАЗВЕРНУТЬ")}
           </button>
         </div>
@@ -105,8 +105,8 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           <button
             disabled={review.comment_count < 1}
             className={cn(
-              "text-sm flex items-center gap-2  text-[#f6ff5f]",
-              review.comment_count < 1 && "text-[bbbbbb] opacity-50",
+              "text-sm flex items-center gap-2  text-yellow-main",
+              review.comment_count < 1 && "text-light-gray opacity-50",
             )}
             onClick={onExpand}
           >

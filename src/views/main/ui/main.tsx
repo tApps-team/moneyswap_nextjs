@@ -1,3 +1,4 @@
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
@@ -8,13 +9,15 @@ import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
-import { ExchangerMarker, directions, pageTypes } from "@/shared/types";
+import { ExchangerMarker, pageTypes } from "@/shared/types";
 
 export const Main = async ({
   searchParams,
 }: {
   searchParams?: { direction?: ExchangerMarker; city?: string };
 }) => {
+  const queryClient = new QueryClient();
+
   const city = searchParams?.city;
   const currentDirection = searchParams?.direction;
 
@@ -41,6 +44,10 @@ export const Main = async ({
         valute_to: getCurrency?.code_name,
       };
 
+  // await queryClient.prefetchQuery({
+  //   queryKey: ["exchangers"],
+  //   queryFn: () => getExchangersTest(request),
+  // });
   const { exchangers, status } = await getExchangers(request);
 
   return (
@@ -81,7 +88,9 @@ export const Main = async ({
           location={location ? location : undefined}
         />
       ) : (
-        <ExchangersTable columns={columns} data={exchangers || []} />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <ExchangersTable columns={columns} data={exchangers || []} />
+        </HydrationBoundary>
       )}
 
       <SeoFooterText data={seoTexts.data} />

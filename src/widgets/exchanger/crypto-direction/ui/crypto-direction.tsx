@@ -12,17 +12,17 @@ export const CryptoDirection = async (props: CryptoDirectionProps) => {
   const sortedCurrencyPair = sortingCurrencyPair(currencyPair);
   const maxPointsCount = Math.max(...currencyPair.map((item) => item.pairCount));
   return (
-    <aside className="grid grid-cols-1 grid-flow-row min-h-[36rem] max-h-[40rem] overflow-hidden  gap-4 items-start rounded-2xl  bg-[#2d2d2d] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] p-5">
+    <aside className="grid grid-cols-1 grid-flow-row min-h-[36rem] max-h-[40rem] overflow-hidden  gap-4 items-start rounded-2xl  bg-dark-gray shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] p-5">
       <div className="grid-cols-2 grid">
         <p className="text-sm uppercase">Направления обменника</p>
         <p className="text-xs uppercase">Количество обменных пунктов по направлению</p>
       </div>
 
       <ScrollArea className="h-full  pr-3">
-        <div className="flex flex-col gap-4  p-1">
+        <div className="flex flex-col  gap-4  p-1">
           {sortedCurrencyPair.map((pair, index) => (
             <div
-              className="grid grid-cols-[0.7fr,1fr]   gap-6 w-full "
+              className="grid grid-cols-[0.7fr,1fr]     gap-6 w-full "
               // key={pair.valute_from.name.en + pair.pointsCount}
               key={index}
             >

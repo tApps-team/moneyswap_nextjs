@@ -17,7 +17,7 @@ export const CommentCard = (props: CommentCardProps) => {
           <p className="truncate uppercase text-[14px] font-semibold">
             {comment?.role === "admin" ? "MONEYSWAP" : "ПОЛЬЗОВАТЕЛЬ"}
           </p>
-          <p className="justify-self-end font-normal uppercase text-[14px]">
+          <p className="justify-self-end font-normal uppercase text-sm">
             {formatDate(comment?.comment_date)} / {comment?.comment_time}
           </p>
         </div>

@@ -102,7 +102,7 @@ export const ExchangerPagination = (props: ExchangerPaginationProps) => {
             <PaginationLink
               className={cx(
                 "rounded-full transition-all  hover:text-white  hover:border hover:bg-transparent ",
-                currentPage === paginationItem && "bg-[#f6ff5f] text-black",
+                currentPage === paginationItem && "bg-yellow-main text-black",
               )}
               scroll={false}
               href={createPageURL(paginationItem)}

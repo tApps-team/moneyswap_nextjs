@@ -67,8 +67,8 @@ export const CategoriesList: FC<CategoriesListProps> = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="-left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-[#2d2d2d] hover:text-[#f6ff5f] hover:scale-110" />
-        <CarouselNext className="-right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-[#2d2d2d] hover:text-[#f6ff5f] hover:scale-110" />
+        <CarouselPrevious className="-left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselNext className="-right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
       </Carousel>
     </section>
   );

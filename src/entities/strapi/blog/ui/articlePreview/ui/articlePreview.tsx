@@ -35,7 +35,7 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
         />
       </div>
       <div className={`uppercase grid grid-flow-row gap-1 py-4 ${isMain && "px-4"}`}>
-        <p className="text-[#bbbbbb] font-medium text-[9px]">{formattedDate}</p>
+        <p className="text-light-gray font-medium text-[9px]">{formattedDate}</p>
         <h3 className="text-[10px] font-medium max-h-[200px] overflow-hidden text-ellipsis leading-4 line-clamp-2">
           {article?.title}
         </h3>
