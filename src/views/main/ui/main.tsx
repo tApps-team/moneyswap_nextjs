@@ -20,7 +20,7 @@ export const Main = async ({
 
   const city = searchParams?.city;
   const currentDirection = searchParams?.direction;
-
+  console.log(currentDirection, "currenctDirection");
   const directionCash = !!city || currentDirection === ExchangerMarker.cash;
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const seoTexts = await getSeoTexts({ page: pageTypes.main });
@@ -33,21 +33,23 @@ export const Main = async ({
   const actualCourse = await getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" });
   const location = await getSpecificCity({ codeName: city ? city : "msk" });
 
-  const request = location
-    ? {
-        valute_from: giveCurrency?.code_name,
-        valute_to: getCurrency?.code_name,
-        city: location.code_name,
-      }
-    : {
-        valute_from: giveCurrency?.code_name,
-        valute_to: getCurrency?.code_name,
-      };
+  const request =
+    direction === ExchangerMarker.cash
+      ? {
+          valute_from: giveCurrency?.code_name,
+          valute_to: getCurrency?.code_name,
+          city: location.code_name,
+        }
+      : {
+          valute_from: giveCurrency?.code_name,
+          valute_to: getCurrency?.code_name,
+        };
 
   // await queryClient.prefetchQuery({
   //   queryKey: ["exchangers"],
   //   queryFn: () => getExchangersTest(request),
   // });
+  console.log(request);
   const { exchangers, status } = await getExchangers(request);
 
   return (
