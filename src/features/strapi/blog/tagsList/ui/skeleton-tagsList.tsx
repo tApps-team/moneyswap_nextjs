@@ -15,7 +15,7 @@ export const TagsListSkeleton = () => {
         <section className="flex flex-wrap gap-1 px-3">
           {tags?.map((tag, index) => (
             <Skeleton
-              className={`bg-[#9d9d9d] text-skeleton-gray mr-2 cursor-pointer text-xs leading-2 uppercase w-[${tag}vw] max-w-[120px] min-w-[50px]`}
+              className={`bg-skeleton-gray text-skeleton-gray mr-2 cursor-pointer text-xs leading-2 uppercase w-[${tag}vw] max-w-[120px] min-w-[50px]`}
               key={index}
             >
               ...

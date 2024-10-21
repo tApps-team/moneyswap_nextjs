@@ -5,7 +5,7 @@ export default function Loading() {
   return (
     <section className="grid grid-flow-row gap-[40px]">
       <div className="flex justify-center items-center">
-        <h1 className="uppercase text-3xl font-semibold text-center w-[20%] bg-[#9d9d9d] text-skeleton-gray mx-auto rounded-xl">
+        <h1 className="uppercase text-3xl font-semibold text-center w-[20%] bg-skeleton-gray text-skeleton-gray mx-auto rounded-xl">
           ...
         </h1>
       </div>

@@ -13,7 +13,7 @@ export const SliderOfArticlesSkeleton = () => {
   return (
     <section className="">
       <div className="grid gap-[30px] rounded-[50px] bg-[#2d2d2d] p-6 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
-        <Skeleton className="mx-auto flex justify-center items-center w-[30%] bg-[#9d9d9d] text-skeleton-gray uppercase text-xl font-semibold text-center">
+        <Skeleton className="mx-auto flex justify-center items-center w-[30%] bg-skeleton-gray text-skeleton-gray uppercase text-xl font-semibold text-center">
           ...
         </Skeleton>
         <Carousel
