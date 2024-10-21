@@ -42,7 +42,7 @@ export const Navbar = () => {
 
                       <div className="[&>p]:hover:text-yellow-main ">
                         <p className="text-sm  font-medium">{itemChildren.value}</p>
-                        <p className="text-[8px] ">{itemChildren.description}</p>
+                        <p className="text-3xs ">{itemChildren.description}</p>
                       </div>
                     </div>
                   </NavigationMenuLink>

@@ -29,7 +29,7 @@ export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
       {faqs?.map((block) => (
         <div className="w-full" key={block.title}>
           <div className="pb-6 pl-8">
-            <h3 className="text-[20px] text-yellow-main font-semibold uppercase truncate">
+            <h3 className="text-xl  text-yellow-main font-semibold uppercase truncate">
               {block.title}
             </h3>
           </div>

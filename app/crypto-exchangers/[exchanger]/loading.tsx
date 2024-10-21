@@ -7,15 +7,15 @@ export default function Loading() {
     <section className="grid grid-cols-3 gap-8">
       <div className="col-span-2 grid gap-8">
         <div className="flex flex-col gap-4">
-          <Skeleton className="h-10 w-5/6 bg-[#9d9d9d] text-[#9d9d9d]" />
+          <Skeleton className="h-10 w-5/6 bg-[#9d9d9d] text-skeleton-gray" />
           <div className="flex flex-col gap-1">
-            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-[#9d9d9d]" />
-            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-[#9d9d9d]" />
-            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-[#9d9d9d]" />
-            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-[#9d9d9d]" />
-            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-[#9d9d9d]" />
-            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-[#9d9d9d]" />
-            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-[#9d9d9d]" />
+            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-skeleton-gray" />
+            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-skeleton-gray" />
+            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-skeleton-gray" />
+            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-skeleton-gray" />
+            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-skeleton-gray" />
+            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-skeleton-gray" />
+            <Skeleton className="h-5 w-full bg-[#9d9d9d] text-skeleton-gray" />
           </div>
         </div>
         <ExchangerInfoSkeleton />

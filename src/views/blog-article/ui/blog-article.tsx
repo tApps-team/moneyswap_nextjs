@@ -62,7 +62,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
 
   return (
     <section className="grid grid-flow-cols gap-6">
-      <div className="grid grid-cols-[repeat(5,_auto)] gap-2 justify-start justify-items-start items-center uppercase text-[#b9b9b9] font-semibold text-sm">
+      <div className="grid grid-cols-[repeat(5,_auto)] gap-2 justify-start justify-items-start items-center uppercase text-[#b9b9b9]   font-semibold text-sm">
         <Link href={routes.home} className="hover:underline cursor-pointer">
           MONEYSWAP
         </Link>
@@ -78,7 +78,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
       </div>
       <div className="grid grid-flow-rows gap-6">
         <h1 className="text-3xl font-medium uppercase max-w-[100%]">{article?.article?.title}</h1>
-        <p className="text-[#fff] font-medium text-sm uppercase tracking-widest">{formattedDate}</p>
+        <p className="text-white font-medium text-sm uppercase tracking-widest">{formattedDate}</p>
       </div>
       <section className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
         <div className="grid grid-flow-rows gap-8">
@@ -104,7 +104,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 <Link
                   href={`${routes.blog}/${routes.tag}/${tag?.tag}`}
                   key={tag?.id}
-                  className="cursor-pointer uppercase text-[10px] py-4 px-6 bg-dark-gray rounded-full border-2 border-[#ddd] text-[#b9b9b9] hover:text-yellow-main hover:border-yellow-main transition-all duration-300"
+                  className="cursor-pointer uppercase text-2xs py-4 px-6 bg-dark-gray rounded-full border-2 border-[#ddd] text-[#b9b9b9] hover:text-yellow-main hover:border-yellow-main transition-all duration-300"
                 >
                   {tag?.name}
                 </Link>
