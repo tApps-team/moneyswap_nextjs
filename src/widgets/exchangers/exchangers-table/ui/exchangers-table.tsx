@@ -36,11 +36,11 @@ interface DataTableProps<TValue> {
 }
 
 export function ExchangersTable<TData, TValue>({ columns, params }: DataTableProps<TValue>) {
-  const { data = [] } = useQuery({
+  const { data: exchangers = [] } = useQuery({
     queryKey: [params],
     refetchOnWindowFocus: false,
     refetchInterval: 60000,
-    queryFn: async () => await getExchangers(params),
+    queryFn: async () => (await getExchangers(params)).exchangers,
   });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -51,7 +51,7 @@ export function ExchangersTable<TData, TValue>({ columns, params }: DataTablePro
     pageIndex: 0,
     pageSize: 10,
   });
-
+  const data = exchangers || [];
   const table = useReactTable({
     data,
     columns,

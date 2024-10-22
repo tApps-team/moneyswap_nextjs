@@ -27,7 +27,7 @@ export const ExchangePage = async ({
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
 
-  // const { exchangers, status } = await getExchangers({ valute_from, valute_to, city });
+  const { status } = await getExchangers({ valute_from, valute_to, city });
 
   const giveCurrency = await getSpecificValute({ codeName: valute_from });
   const getCurrency = await getSpecificValute({ codeName: valute_to });
@@ -59,7 +59,7 @@ export const ExchangePage = async ({
   const seoMeta = await getSeoMeta(reqParams);
   await queryClient.prefetchQuery({
     queryKey: [queryParams],
-    queryFn: async () => await getExchangers(queryParams),
+    queryFn: async () => (await getExchangers(queryParams)).exchangers,
   });
   return (
     <div>
@@ -82,7 +82,7 @@ export const ExchangePage = async ({
         urlDirection={direction}
         urlLocation={location}
       />
-      {/* {status === 404 ? (
+      {status === 404 ? (
         <EmptyListExchangers
           valuteFrom={{
             code_name: giveCurrency.code_name,
@@ -98,11 +98,11 @@ export const ExchangePage = async ({
           }}
           location={location}
         />
-      ) : ( */}
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <ExchangersTable columns={columns} params={queryParams} />
-      </HydrationBoundary>
-      {/* )} */}
+      ) : (
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <ExchangersTable columns={columns} params={queryParams} />
+        </HydrationBoundary>
+      )}
 
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={direction} />

@@ -45,12 +45,13 @@ export const Main = async ({
           valute_to: getCurrency?.code_name,
         };
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: ["exchangers"],
-  //   queryFn: () => getExchangersTest(request),
-  // });
+  await queryClient.prefetchQuery({
+    queryKey: [request],
+    queryFn: async () => (await getExchangers(request)).exchangers,
+  });
+
   console.log(request);
-  const { exchangers, status } = await getExchangers(request);
+  const { status } = await getExchangers(request);
 
   return (
     <section>
@@ -91,7 +92,7 @@ export const Main = async ({
         />
       ) : (
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <ExchangersTable columns={columns} data={exchangers || []} />
+          <ExchangersTable columns={columns} params={request} />
         </HydrationBoundary>
       )}
 

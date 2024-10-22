@@ -11,7 +11,7 @@ import {
 
 export const getExchangers = async (
   props: GetExchangersDtoRequest,
-): Promise<GetExchangersDtoResponse> => {
+): Promise<{ exchangers: GetExchangersDtoResponse | null; status: number }> => {
   const { valute_from, valute_to, city } = props;
 
   const url = city
@@ -31,19 +31,19 @@ export const getExchangers = async (
 
     if (!res.ok) {
       // Handle different response statuses accordingly
-      // return { exchangers: null, status: res.status };
+      return { exchangers: null, status: res.status };
     }
 
     try {
       const data = await res.json();
-      return data;
+      return { exchangers: data, status: res.status };
     } catch (jsonError) {
       console.error("Error parsing JSON response:", jsonError);
-      // return { exchangers: null, status: res.status };
+      return { exchangers: null, status: res.status };
     }
   } catch (error) {
     console.error("Network or other error occurred:", error);
-    // return { exchangers: null, status: 500 }; // Return a status of 500 or another code indicating a failure
+    return { exchangers: null, status: 500 }; // Return a status of 500 or another code indicating a failure
   }
 };
 
