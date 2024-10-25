@@ -117,7 +117,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ChevronDown width={28} height={28} />
             </div>
           </DialogTrigger>
-          <DialogContent className="bg-dark-gray border-none grid rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+          <DialogContent className="bg-dark-gray border-none  grid gap-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
             <div className="grid grid-cols-2 grid-rows-1 items-center">
               <DialogTitle className="uppercase text-xl">Выбор валюты</DialogTitle>
               <div className="relative">
@@ -151,11 +151,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
 
               <ScrollArea className="h-[28rem] p-10">
                 {filteredTabList.map((tab) => (
-                  <TabsContent
-                    className="grid grid-rows-1 grid-cols-1 gap-2"
-                    value={tab?.name?.ru}
-                    key={tab?.id}
-                  >
+                  <TabsContent className="grid  gap-2" value={tab?.name?.ru} key={tab?.id}>
                     {tab.currencies.map((currency) => (
                       <DialogClose key={currency?.id}>
                         <CurrencyCard
