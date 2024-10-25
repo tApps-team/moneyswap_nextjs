@@ -18,7 +18,7 @@ export const TopCoins = async () => {
           {topCoins?.map((topCoin) => (
             <div
               key={topCoin.id + topCoin.code_name}
-              className="flex pb-3 border-b last:border-none justify-between items-center"
+              className="flex  pb-3 border-b last:border-none justify-between items-center"
             >
               <div className="flex gap-2 items-center">
                 <Image
@@ -27,7 +27,7 @@ export const TopCoins = async () => {
                   width={50}
                   height={50}
                 />
-                <div className="flex flex-col gap-0">
+                <div className="flex  flex-col gap-0">
                   <p className="text-sm">{topCoin.code_name}</p>
                   <span className="text-xs uppercase">
                     {topCoin.name} ({topCoin.code_name})
@@ -35,7 +35,7 @@ export const TopCoins = async () => {
                 </div>
               </div>
               <div className="text-end ">
-                <p className="text-sm text-nowrap">{topCoin.course} USD</p>
+                <p className="text-sm  text-nowrap">{topCoin.course?.toFixed(4) || 0} USD</p>
                 <div className="text-xs flex items-center justify-end gap-2">
                   {topCoin.isIncrease ? (
                     <UpPercent color="#f6ff5f" className="" width={9} height={9} />
