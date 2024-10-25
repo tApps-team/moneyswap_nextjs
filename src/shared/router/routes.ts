@@ -13,4 +13,5 @@ export enum routes {
   exchange = "/exchange",
   buy = "/buy",
   sell = "/sell",
+  sitemap = "/sitemap-index.xml",
 }
