@@ -17,7 +17,7 @@ export const metadata = {
     siteName: "MoneySwap",
     images: [
       {
-        url: "/logo.png",
+        url: "/og_logo.svg",
         width: 400,
         height: 200,
         alt: "MoneySwap",

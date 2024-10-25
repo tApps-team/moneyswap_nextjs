@@ -12,8 +12,8 @@ export const EmptyArticle = () => {
           height={500}
         />
       </div>
-      <div className="uppercase grid grid-flow-row gap-2 p-4">
-        <p className="text-light-gray font-medium text-[10px]">date skeleton</p>
+      <div className="uppercase grid grid-flow-row  gap-2 p-4">
+        <p className="text-light-gray font-medium text-2xs">date skeleton</p>
         <h3 className="text-xs font-medium max-h-[200px] overflow-hidden text-ellipsis leading-4 line-clamp-2">
           title skeleton
         </h3>

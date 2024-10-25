@@ -14,7 +14,7 @@ export const CommentCard = (props: CommentCardProps) => {
           {comment?.role === "admin" ? "ОТВЕТ ОТ АДМИНИСТРАЦИИ" : "ОТВЕТ ОТ ПОЛЬЗОВАТЕЛЯ"}
         </p>
         <div className="grid grid-cols-[1fr_auto] justify-between items-center gap-2">
-          <p className="truncate uppercase text-[14px] font-semibold">
+          <p className="truncate uppercase text-sm font-semibold">
             {comment?.role === "admin" ? "MONEYSWAP" : "ПОЛЬЗОВАТЕЛЬ"}
           </p>
           <p className="justify-self-end font-normal uppercase text-sm">
@@ -25,7 +25,7 @@ export const CommentCard = (props: CommentCardProps) => {
       <div className="relative">
         <div className="pl-4">
           <p className="text-black">{comment?.text}</p>
-          <span className="absolute left-0 top-0 w-[4px] rounded-md bg-black h-full"></span>
+          <span className="absolute left-0 top-0 w-1 rounded-md bg-black h-full"></span>
         </div>
       </div>
     </div>
