@@ -1,3 +1,4 @@
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
@@ -17,6 +18,7 @@ export const ExchangePage = async ({
   params: { slug: string };
   searchParams?: { city?: string; direction: ExchangerMarker };
 }) => {
+  const queryClient = new QueryClient();
   const slug = params.slug[0];
   const currentDirection = searchParams?.direction;
   const city = searchParams?.city;
@@ -25,7 +27,7 @@ export const ExchangePage = async ({
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
 
-  const { exchangers, status } = await getExchangers({ valute_from, valute_to, city });
+  const { status } = await getExchangers({ valute_from, valute_to, city });
 
   const giveCurrency = await getSpecificValute({ codeName: valute_from });
   const getCurrency = await getSpecificValute({ codeName: valute_to });
@@ -36,7 +38,7 @@ export const ExchangePage = async ({
     valuteFrom: giveCurrency?.code_name,
     valuteTo: getCurrency?.code_name,
   });
-
+  const queryParams = { valute_from, valute_to, city };
   const reqParams = location
     ? {
         page: pageTypes.exchange_cash,
@@ -55,7 +57,10 @@ export const ExchangePage = async ({
   const seoTexts = await getSeoTexts(reqParams);
   // запрос на мета данные
   const seoMeta = await getSeoMeta(reqParams);
-
+  await queryClient.prefetchQuery({
+    queryKey: [queryParams],
+    queryFn: async () => (await getExchangers(queryParams)).exchangers,
+  });
   return (
     <div>
       <SeoHeaderText data={seoTexts.data} />
@@ -94,7 +99,9 @@ export const ExchangePage = async ({
           location={location}
         />
       ) : (
-        <ExchangersTable columns={columns} data={exchangers || []} />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <ExchangersTable columns={columns} params={queryParams} />
+        </HydrationBoundary>
       )}
 
       <SeoFooterText data={seoTexts.data} />

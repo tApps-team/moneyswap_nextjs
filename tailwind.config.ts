@@ -18,10 +18,15 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        "2xs": "10px",
+        "3xs": "8px",
+      },
       colors: {
         "yellow-main": "#F6FF5F",
         "dark-gray": "#2D2D2D",
         "light-gray": "#BBBBBB",
+        "skeleton-gray": "#9d9d9d",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

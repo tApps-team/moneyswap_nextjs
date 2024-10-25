@@ -1,5 +1,6 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,33 +15,33 @@ import {
 } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Exchanger } from "@/entities/exchanger";
+import { Exchanger, getExchangers } from "@/entities/exchanger";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 
 interface DataTableProps<TValue> {
   columns: ColumnDef<Exchanger, TValue>[];
-  data: Exchanger[];
+  data?: Exchanger[];
   // type: "exchange" | "main";
-  // params:
-  //   | {
-  //       valute_from: string;
-  //       valute_to: string;
-  //       city: string;
-  //     }
-  //   | {
-  //       valute_from: string;
-  //       valute_to: string;
-  //       city?: undefined;
-  //     };
+  params:
+    | {
+        valute_from: string;
+        valute_to: string;
+        city: string;
+      }
+    | {
+        valute_from: string;
+        valute_to: string;
+        city?: undefined;
+      };
 }
 
-export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps<TValue>) {
-  // const { data = [] } = useQuery({
-  //   queryKey: [type, type === "exchange" ?? params],
-  //   refetchOnWindowFocus: false,
-  //   refetchInterval: 3000,
-  //   queryFn: () => getExchangersTest(params),
-  // });
+export function ExchangersTable<TData, TValue>({ columns, params }: DataTableProps<TValue>) {
+  const { data: exchangers = [] } = useQuery({
+    queryKey: [params],
+    refetchOnWindowFocus: false,
+    refetchInterval: 60000,
+    queryFn: async () => (await getExchangers(params)).exchangers,
+  });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -50,7 +51,7 @@ export function ExchangersTable<TData, TValue>({ columns, data }: DataTableProps
     pageIndex: 0,
     pageSize: 10,
   });
-
+  const data = exchangers || [];
   const table = useReactTable({
     data,
     columns,
