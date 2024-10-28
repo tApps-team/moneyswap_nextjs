@@ -1,4 +1,5 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
@@ -27,12 +28,18 @@ export const ExchangePage = async ({
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
 
-  const { status } = await getExchangers({ valute_from, valute_to, city });
-
   const giveCurrency = await getSpecificValute({ codeName: valute_from });
   const getCurrency = await getSpecificValute({ codeName: valute_to });
-
   const location = city ? await getSpecificCity({ codeName: city }) : undefined;
+  console.log(giveCurrency, "giveCurrecny", getCurrency, "Get");
+  if (!giveCurrency.code_name || !getCurrency.code_name) {
+    redirect("/");
+  }
+  const { status } = await getExchangers({
+    valute_from: giveCurrency.code_name,
+    valute_to: getCurrency.code_name,
+    city: location?.code_name,
+  });
 
   const actualCourse = await getActualCourse({
     valuteFrom: giveCurrency?.code_name,
