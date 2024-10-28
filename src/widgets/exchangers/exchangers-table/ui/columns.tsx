@@ -30,7 +30,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
       );
     },
     cell: ({ row }) => (
-      <Link href={row.original.partner_link} target="_blank">
+      <Link href={row.original.partner_link || "/"} target="_blank">
         <p className="font-semibold text-base">{row.original?.name?.ru}</p>
       </Link>
     ),
