@@ -3,7 +3,11 @@ import { baseUrl } from "@/shared/consts";
 
 export async function GET() {
   try {
-    const sitemaps = [`${baseUrl}sitemap.xml`, `${baseUrl}crypto-exchangers/sitemap.xml`];
+    const sitemaps = [
+      `${baseUrl}sitemap.xml`,
+      `${baseUrl}crypto-exchangers/sitemap.xml`,
+      `${baseUrl}exchange/sitemap.xml`,
+    ];
 
     const sitemapIndexXML = await buildSitemapIndex(sitemaps);
     return new NextResponse(sitemapIndexXML, {
