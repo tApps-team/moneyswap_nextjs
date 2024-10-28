@@ -47,3 +47,11 @@ export type GetExchnagerDetailDtoRequset = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
 };
+
+export type GetSitemapDirectionsDtoResponse = {
+  valute_from: string;
+  valute_to: string;
+  exchange_marker: ExchangerMarker;
+  city: string | null;
+}[];
+export type GetSitemapDirectionsDtoRequest = {};
