@@ -42,6 +42,9 @@ export async function generateMetadata(
   // запрос на мета данные
   const seoMeta = await getSeoMeta(reqParams);
 
+  // формируем canonical URL
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}/${slug}${city ? `?city=${city}` : ""}`;
+
   return {
     title: seoMeta.data[0].title,
     description: seoMeta.data[0].description,
@@ -61,6 +64,9 @@ export async function generateMetadata(
       ],
       locale: "ru-RU",
       type: "website",
+    },
+    alternates: {
+      canonical: canonicalUrl,
     },
   };
 }
