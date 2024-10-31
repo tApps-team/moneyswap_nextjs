@@ -69,7 +69,7 @@ export const ExchangePage = async ({
     queryFn: async () => (await getExchangers(queryParams)).exchangers,
   });
   return (
-    <div>
+    <section>
       <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
       <CurrencySelectForm
@@ -113,6 +113,6 @@ export const ExchangePage = async ({
 
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={direction} />
-    </div>
+    </section>
   );
 };

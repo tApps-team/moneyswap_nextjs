@@ -44,7 +44,7 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
   const { title, header_description, footer_description } = data;
   const cryptoExchangers = await getExchangerList();
   return (
-    <div>
+    <section>
       <h1 className="uppercase text-3xl font-medium">{title}</h1>
       <div className="strapi_styles mt-8">{parse(header_description, options)}</div>
       <BotBanner />
@@ -68,6 +68,6 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
         <CryptoTable data={cryptoExchangers} />
       </Suspense>
       <div className="strapi_styles mt-8">{parse(footer_description, options)}</div>
-    </div>
+    </section>
   );
 };

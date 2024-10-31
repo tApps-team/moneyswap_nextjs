@@ -7,7 +7,7 @@ export const AllArticlesSkeleton = () => {
   return (
     <section className="grid h-full w-full">
       <section className="grid grid-flow-row gap-8">
-        <div className="p-8 rounded-[50px] shadow-[1px_2px_10px_3px_rgba(0,0,0,0.5)] bg-[#2d2d2d]">
+        <div className="p-8 rounded-[50px] shadow-[1px_2px_10px_3px_rgba(0,0,0,0.5)] bg-dark-gray">
           <div className="grid grid-cols-2 gap-8">
             {previewArticles.map((art, index) => (
               <ArticlePreviewCardSkeleton key={index} />

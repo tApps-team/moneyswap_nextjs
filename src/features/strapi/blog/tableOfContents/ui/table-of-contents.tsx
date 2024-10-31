@@ -78,7 +78,7 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
   };
 
   return (
-    <section className="grid grid-flow-row gap-3 max-h-[35svh] rounded-[20px] bg-[#000] py-4 px-3">
+    <section className="grid grid-flow-row gap-3 max-h-[35svh] rounded-[20px] bg-black py-4 px-3">
       <div className="px-3">
         <h3 className="uppercase text-white font-semibold text-sm truncate">Оглавление</h3>
       </div>

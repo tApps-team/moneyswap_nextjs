@@ -12,7 +12,7 @@ export const SliderOfArticlesSkeleton = () => {
   const articles = [1, 2, 3, 4, 5];
   return (
     <section className="">
-      <div className="grid gap-[30px] rounded-[50px] bg-[#2d2d2d] p-6 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
+      <div className="grid gap-[30px] rounded-[50px] bg-dark-gray p-6 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
         <Skeleton className="mx-auto flex justify-center items-center w-[30%] bg-skeleton-gray text-skeleton-gray uppercase text-xl font-semibold text-center">
           ...
         </Skeleton>
