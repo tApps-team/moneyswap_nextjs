@@ -26,7 +26,7 @@ export async function generateMetadata({
         {
           url: "/og_logo.svg",
           width: 400,
-          height: 200,
+          height: 283,
           alt: "MoneySwap",
         },
       ],
