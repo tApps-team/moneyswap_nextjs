@@ -90,7 +90,7 @@ export function ExchangersTable<TData, TValue>({ columns, params }: DataTablePro
 
   return (
     <div className="flex flex-col mt-10 gap-12 w-full">
-      <div className="rounded-3xl bg-dark-gray text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+      <div className="rounded-3xl bg-dark-gray text-white shadow-main-shadow">
         <Table className="">
           <TableHeader className="">
             {table?.getHeaderGroups()?.map((headerGroup) => (

@@ -20,7 +20,7 @@ export default function Loading() {
       </div>
       <section className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
         <div className="grid grid-flow-rows gap-8">
-          <div className="grid grid-flow-row gap-8 bg-[#2d2d2d] p-10 pb-8 rounded-[35px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.35)]">
+          <div className="grid grid-flow-row gap-8 bg-dark-gray p-10 pb-8 rounded-[35px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.35)]">
             <div className="w-full h-[30vw] max-h-[800px] rounded-[35px] overflow-hidden">
               <Skeleton className="bg-skeleton-gray text-skeleton-gray w-full h-full object-cover">
                 ...

@@ -96,7 +96,7 @@ export const footerItems: FooterItems[] = [
         value: "Новости",
       },
       {
-        href: routes.sitemap, // нужен роут
+        href: "/sitemap", // нужен роут
         value: "Карта сайта",
       },
     ],
