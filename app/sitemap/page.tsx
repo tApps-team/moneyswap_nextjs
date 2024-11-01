@@ -3,13 +3,15 @@ import { SitemapPage } from "@/views/sitemap";
 export default SitemapPage;
 
 export const metadata: Metadata = {
-  title: "sitemap",
-  description: "sitemap description",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+  title: "Карта сайта | MoneySwap",
+  description:
+    "MoneySwap - удобный помощник для поиска обменников в любой точке мира. На нашей площадке представлены только проверенные обменники с безупречной репутацией. Незаменимый помощник в мире финансов.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
   openGraph: {
-    title: "sitemap og title",
-    description: "sitemap og description",
-    url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
+    title: "Карта сайта | MoneySwap",
+    description:
+      "MoneySwap - удобный помощник для поиска обменников в любой точке мира. На нашей площадке представлены только проверенные обменники с безупречной репутацией. Незаменимый помощник в мире финансов.",
+    url: "/sitemap",
     siteName: "MoneySwap",
     images: [
       {

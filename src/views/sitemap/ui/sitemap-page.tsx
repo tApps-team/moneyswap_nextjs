@@ -1,38 +1,42 @@
 import Link from "next/link";
 import { getSitemapDirections } from "@/entities/exchanger";
+import { getAllArticles, getAllCategories, getAllTags } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 
 export const SitemapPage = async () => {
   const directions = await getSitemapDirections();
+  const articles = await getAllArticles({ page: 1 });
+  const categories = await getAllCategories();
+  const tags = await getAllTags();
   return (
     <section className="flex flex-col gap-6">
-      <h1 className="font-medium text-2xl">Карта сайта</h1>
+      <h1 className="font-medium text-2xl uppercase">Карта сайта</h1>
       <div className="flex flex-col gap-2 text-sm">
-        <h2 className="text-lg">Основные разделы</h2>
-        <Link className="w-fit" href={routes.home}>
+        <h2 className="text-xl font-medium uppercase">Основные разделы</h2>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.home}>
           Обмен криптовалюты
         </Link>
-        <Link className="w-fit" href={routes.exchangers}>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.exchangers}>
           Список обменников
         </Link>
-        <Link className="w-fit" href={routes.partners}>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.partners}>
           Для партнеров
         </Link>
-        <Link className="w-fit" href={routes.help}>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.help}>
           Помощь
         </Link>
-        <Link className="w-fit" href={routes.blog}>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.blog}>
           Блог
         </Link>
-        <Link className="w-fit" href={routes.about}>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.about}>
           О нас
         </Link>
-        <Link className="w-fit" href={routes.help}>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.help}>
           FAQ
         </Link>
       </div>
       <div className="flex flex-col gap-2 text-sm">
-        <h2 className="text-lg">Доступные направления обмена</h2>
+        <h2 className="text-xl font-medium uppercase">Доступные направления обмена</h2>
 
         {directions.map((direction) => (
           <Link
@@ -42,13 +46,58 @@ export const SitemapPage = async () => {
               direction.city +
               direction.exchange_marker
             }
-            className="w-fit"
+            className="w-fit text-[#3498db] uppercase font-medium"
             href={{
               pathname: `/${direction.valute_from}-to-${direction.valute_to}`,
               query: { city: direction.city },
             }}
           >
             Обмен {direction.valute_from} на {direction.valute_to}
+          </Link>
+        ))}
+      </div>
+      <div className="flex flex-col gap-2 text-sm">
+        <h2 className="text-xl font-medium uppercase">Статьи</h2>
+
+        {articles?.data?.map((article) => (
+          <Link
+            key={article?.id}
+            className="w-fit text-[#3498db] uppercase font-medium"
+            href={{
+              pathname: `${routes.blog}${routes.article}/${article?.url_name}`,
+            }}
+          >
+            {article?.preview?.title}
+          </Link>
+        ))}
+      </div>
+      <div className="flex flex-col gap-2 text-sm">
+        <h2 className="text-xl font-medium uppercase">Категории статей</h2>
+
+        {categories?.data?.categories?.map((category) => (
+          <Link
+            key={category?.id}
+            className="w-fit text-[#3498db] uppercase font-medium"
+            href={{
+              pathname: `${routes.blog}${routes.category}/${category?.category}`,
+            }}
+          >
+            {category?.name}
+          </Link>
+        ))}
+      </div>
+      <div className="flex flex-col gap-2 text-sm">
+        <h2 className="text-xl font-medium uppercase">Теги статей</h2>
+
+        {tags?.data?.tags?.map((tag) => (
+          <Link
+            key={tag?.id}
+            className="w-fit text-[#3498db] uppercase font-medium"
+            href={{
+              pathname: `${routes.blog}${routes.tag}/${tag?.tag}`,
+            }}
+          >
+            {tag?.name}
           </Link>
         ))}
       </div>
