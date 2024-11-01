@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { BlogTagPage } from "@/views/blog-tag";
 import { getAllTags, getTagArticles } from "@/entities/strapi";
+import { routes } from "@/shared/router";
 export default BlogTagPage;
 
 export const revalidate = 60;
@@ -12,11 +13,11 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   return {
     title: `${data.name} | MoneySwap`,
     description: `Здесь вы найдете статьи с тегом ${data.name}.`,
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
     openGraph: {
       title: `${data.name} | MoneySwap`,
       description: `Здесь вы найдете статьи с тегом ${data.name}.`,
-      url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
+      url: `${routes.blog}${routes.tag}/${tag}`,
       siteName: "MoneySwap",
       images: [
         {
@@ -28,6 +29,9 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
       ],
       locale: "ru-RU",
       type: "website",
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.tag}/${tag}`,
     },
   };
 }

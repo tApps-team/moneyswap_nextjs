@@ -1,10 +1,12 @@
 import parse, { DOMNode, Element } from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArticleContent, BlogSidebar, SimilarArticles } from "@/widgets/strapi";
 import { getArticle, getCategoryArticles, getTagArticles } from "@/entities/strapi";
 import { ArticleNavArrowIcon, FacebookIcon, TgIcon, YoutubeIcon } from "@/shared/assets";
 import { routes } from "@/shared/router";
+import searchAnimation from "/public/animated/search_spin.gif";
 
 const options = {
   replace: (domNode: DOMNode) => {
@@ -24,8 +26,20 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
   const { data: articles } = await getArticle({ url_name: url });
 
   if (articles.length === 0) {
-    return <p>Статья не найдена</p>;
+    // return (
+    //   <div className="w-full h-[90dvh] flex flex-col justify-center items-center gap-10">
+    //     <Image src={searchAnimation} alt="search spin" className="w-[10vw] h-[10vw]" />
+    //     <p className="uppercase text-2xl font-semibold">Статья не найдена</p>
+    //     <Link href={routes.blog} className="grid justify-center items-center mt-[100px]">
+    //       <button className="uppercase px-10 py-6 rounded-full bg-yellow-main text-dark-gray font-semibold text-xl">
+    //         Вернуться в блог
+    //       </button>
+    //     </Link>
+    //   </div>
+    // );
+    return notFound();
   }
+
   const article = articles[0];
 
   // Запросы для получения похожих статей по категориям и тегам
@@ -50,6 +64,8 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
   const uniqueSimilarArticles = Array.from(
     new Map(allSimilarArticles.map((article) => [article.url_name, article])).values(),
   );
+
+  const similarArticlesWithoutCurrent = uniqueSimilarArticles.filter((art) => art.url_name !== url);
 
   // Настраиваем формат даты
   const formatter = new Intl.DateTimeFormat("ru-RU", {
@@ -124,8 +140,8 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 </div>
               </div>
             </div>
-            {uniqueSimilarArticles.length > 0 && (
-              <SimilarArticles title="Похожие статьи" articles={uniqueSimilarArticles} />
+            {similarArticlesWithoutCurrent.length > 0 && (
+              <SimilarArticles title="Похожие статьи" articles={similarArticlesWithoutCurrent} />
             )}
           </div>
         </div>

@@ -1,7 +1,9 @@
 @font-face {
     font-family: 'TT Runs Trial';
-    src: url('/fonts/TT runs/TT Runs Trial Variable Roman.ttf') format('truetype');
+    src: url('/fonts/TT-Runs/TT Runs Trial Variable Roman.ttf') format('truetype');
 }
+
+
 
 // codec
 @mixin font-face($name, $folder, $formats: "truetype") {

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { FC } from "react";
 import { Tag } from "@/entities/strapi";
 import { routes } from "@/shared/router";
-import { ScrollArea } from "@/shared/ui";
 
 interface TagsListProps {
   tags: Tag[];
@@ -10,14 +9,14 @@ interface TagsListProps {
 
 export const TagsList: FC<TagsListProps> = ({ tags }) => {
   return (
-    <ScrollArea className="max-h-[35svh] rounded-[20px] bg-[#000] py-4 px-3">
+    <section className="rounded-[20px] bg-[#000] py-4 px-3">
       <div className="grid grid-flow-row gap-3">
         <div className="px-3">
           <h3 className="uppercase text-yellow-main font-semibold text-md truncate">
             Популярные хэштеги
           </h3>
         </div>
-        <section className="flex flex-wrap px-3">
+        <section className="flex flex-wrap px-3 overflow-y-auto max-h-[130px] h-[calc(100vw_/_10)]">
           {tags?.map((tag) => (
             <Link
               scroll={false}
@@ -30,6 +29,6 @@ export const TagsList: FC<TagsListProps> = ({ tags }) => {
           ))}
         </section>
       </div>
-    </ScrollArea>
+    </section>
   );
 };

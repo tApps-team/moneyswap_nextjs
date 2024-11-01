@@ -1,15 +1,16 @@
 import { Metadata } from "next";
 import { AboutPage } from "@/views/about";
+import { routes } from "@/shared/router";
 export default AboutPage;
 
 export const metadata: Metadata = {
   title: "about",
   description: "about description",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
   openGraph: {
     title: "about og title",
     description: "about og description",
-    url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
+    url: routes.about,
     siteName: "MoneySwap",
     images: [
       {
