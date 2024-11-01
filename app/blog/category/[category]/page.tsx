@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { BlogCategoryPage } from "@/views/blog-category";
 import { getAllCategories, getCategoryArticles } from "@/entities/strapi";
+import { routes } from "@/shared/router";
 export default BlogCategoryPage;
 
 export const revalidate = 60;
@@ -16,11 +17,11 @@ export async function generateMetadata({
   return {
     title: `${data.name} | MoneySwap`,
     description: `Здесь вы найдете статьи с категорией ${data.name}.`,
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
     openGraph: {
       title: `${data.name} | MoneySwap`,
       description: `Здесь вы найдете статьи с категорией ${data.name}.`,
-      url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
+      url: `${routes.blog}${routes.category}/${category}`,
       siteName: "MoneySwap",
       images: [
         {
@@ -32,6 +33,9 @@ export async function generateMetadata({
       ],
       locale: "ru-RU",
       type: "website",
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.category}/${category}`,
     },
   };
 }

@@ -7,7 +7,7 @@ export const TableOfContentsBlockSkeleton = () => {
   const table_of_contents = [1, 2, 3, 4, 5, 6, 7];
 
   return (
-    <section className="grid grid-flow-row gap-3 max-h-[35svh] rounded-[20px] bg-[#000] py-4 px-3">
+    <section className="grid grid-flow-row gap-3 max-h-[35svh] rounded-[20px] bg-black py-4 px-3">
       <div className="px-3">
         <h3 className="uppercase text-white font-semibold text-sm truncate">Оглавление</h3>
       </div>

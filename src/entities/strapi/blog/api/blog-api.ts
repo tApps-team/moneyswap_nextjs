@@ -24,9 +24,11 @@ export const getAllArticles = async (
     const searchFilter = searchValue
       ? `&filters[$or][0][preview_title][$containsi]=${searchValue}&filters[$or][1][preview_description][$containsi]=${searchValue}`
       : "";
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?pagination[page]=${page}&pagination[pageSize]=${elements}&sort=publishedAt:desc${searchFilter}`;
+    const current_url = elements
+      ? `${process.env.STRAPI_BASE_URL}/api/blog-articles?pagination[page]=${page}&pagination[pageSize]=${elements}&sort=publishedAt:desc${searchFilter}`
+      : `${process.env.STRAPI_BASE_URL}/api/blog-articles?pagination[page]=${page}&sort=publishedAt:desc${searchFilter}`;
 
-    const res = await fetch(url, {
+    const res = await fetch(current_url, {
       method: "GET",
       // cache: "no-store",
       next: {

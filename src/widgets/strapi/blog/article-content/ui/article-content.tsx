@@ -22,7 +22,7 @@ const options = {
           width={500}
           height={500}
           layout="responsive"
-          priority
+          // priority
         />
       );
     }

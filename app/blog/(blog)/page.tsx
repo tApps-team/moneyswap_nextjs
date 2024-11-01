@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { BlogPage } from "@/views/blog";
+import { routes } from "@/shared/router";
 
 export default BlogPage;
 
@@ -14,12 +15,12 @@ export async function generateMetadata({
     title: "Блог о финансах, криптовалюте и переводах за рубеж",
     description:
       "Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.",
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
     openGraph: {
       title: "Блог о финансах, криптовалюте и переводах за рубеж",
       description:
         "Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.",
-      url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
+      url: routes.blog,
       siteName: "MoneySwap",
       images: [
         {

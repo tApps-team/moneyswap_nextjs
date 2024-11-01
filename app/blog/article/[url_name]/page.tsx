@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { BlogArticlePage } from "@/views/blog-article";
 import { getAllArticles, getArticle } from "@/entities/strapi";
+import { routes } from "@/shared/router";
 export default BlogArticlePage;
 
 export const revalidate = 10;
@@ -17,11 +18,11 @@ export async function generateMetadata({
   return {
     title: article?.meta?.title,
     description: article?.meta?.description,
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
     openGraph: {
       title: article?.meta?.title,
       description: article?.meta?.description,
-      url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
+      url: `${routes.blog}${routes.article}/${url}`,
       siteName: "MoneySwap",
       images: [
         {
@@ -33,6 +34,9 @@ export async function generateMetadata({
       ],
       locale: "ru-RU",
       type: "website",
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.article}/${url}`,
     },
   };
 }

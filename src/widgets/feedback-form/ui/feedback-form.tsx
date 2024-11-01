@@ -39,7 +39,7 @@ export const FeedbackForm = () => {
   return (
     <Form {...form}>
       <form
-        className="grid shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] rounded-2xl p-6  items-start gap-6 grid-cols-1 "
+        className="grid shadow-main-shadow rounded-2xl p-6  items-start gap-6 grid-cols-1 "
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <p className="text-white uppercase text-lg font-medium text-center">

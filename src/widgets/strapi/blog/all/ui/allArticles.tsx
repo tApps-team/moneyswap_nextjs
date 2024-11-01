@@ -38,7 +38,7 @@ export const AllArticles: FC<AllArticlesProps> = ({ articles, totalPages, page }
   return (
     <section className="grid h-full w-full">
       {previewArticles?.length > 0 ? (
-        <section className="grid grid-flow-row gap-8">
+        <section className="grid grid-rows-[auto_48px] gap-8">
           <div className="p-8 rounded-[50px] shadow-[1px_2px_10px_3px_rgba(0,0,0,0.5)] bg-dark-gray">
             <div className="grid grid-cols-2 gap-8">
               {previewArticles.slice(0, visibleCount).map((art) => (

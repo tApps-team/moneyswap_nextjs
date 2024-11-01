@@ -56,7 +56,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
           </p>
         </div>
       )}
-      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]   flex flex-col w-full rounded-3xl text-white bg-dark-gray">
+      <div className="shadow-main-shadow   flex flex-col w-full rounded-3xl text-white bg-dark-gray">
         {exchangers.length > 0 ? (
           exchangers?.map((exchanger) => (
             <Link
@@ -105,7 +105,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
             {valuteTo.name.ru} ({valuteTo.code_name}) в городах:
           </p>
 
-          <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] mt-6 flex flex-col w-full rounded-3xl text-white bg-dark-gray">
+          <div className="shadow-main-shadow mt-6 flex flex-col w-full rounded-3xl text-white bg-dark-gray">
             {similarCities?.map((city) => (
               <Link
                 className="border-b last:border-none"

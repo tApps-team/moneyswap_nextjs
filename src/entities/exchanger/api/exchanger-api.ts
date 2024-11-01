@@ -7,6 +7,7 @@ import {
   GetExchnagerDetailDtoResponse,
   GetSimilarDirectionDtoRequset,
   GetSimilarDirectionDtoResponse,
+  GetSitemapDirectionsDtoResponse,
 } from "./exchanger-api-dto";
 
 export const getExchangers = async (
@@ -70,5 +71,11 @@ export const getExchangerList = async () => {
 export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequset) => {
   const url = `/api/exchange_detail`;
   const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props);
+  return response;
+};
+
+export const getSitemapDirections = async () => {
+  const url = "/api/sitemap_directions";
+  const response = await apiClient.get<GetSitemapDirectionsDtoResponse>(url);
   return response;
 };

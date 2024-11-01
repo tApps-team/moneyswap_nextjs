@@ -5,7 +5,7 @@ export const TagsListSkeleton = () => {
     7, 5, 6, 12, 8, 7, 6, 10, 9, 13, 5, 8, 7, 6, 9, 12, 8, 12, 8, 5, 9, 12, 9, 10, 5, 8, 7, 6,
   ];
   return (
-    <ScrollArea className="max-h-[35svh] rounded-[20px] bg-[#000] py-4 px-3">
+    <ScrollArea className="max-h-[35svh] rounded-[20px] bg-black py-4 px-3">
       <div className="grid grid-flow-row gap-3">
         <div className="px-3">
           <h3 className="uppercase text-yellow-main font-semibold text-md truncate">
