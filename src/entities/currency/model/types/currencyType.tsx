@@ -18,8 +18,8 @@ export enum ExchangeType {
 }
 
 export type CurrencyPair = {
-  valuteFrom: Currency;
-  valuteTo: Currency;
+  valuteFrom: Omit<Currency, "id">;
+  valuteTo: Omit<Currency, "id">;
   pairCount: number;
   direction_type: ExchangerMarker;
 };

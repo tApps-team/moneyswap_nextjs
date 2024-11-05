@@ -6,7 +6,7 @@ import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 
 type CurrencyPairProps = {
-  currencyPair: CurrenyPairType;
+  currencyPair: Omit<CurrenyPairType, "pairCount">;
 };
 export const CurrencyPair = (props: CurrencyPairProps) => {
   const { currencyPair } = props;
@@ -18,10 +18,10 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
   return (
     <Link
       href={createUrl()}
-      className="px-2 py-2 grid grid-flow-col grid-rows-1 justify-between items-center rounded-[35px] shadow-[5px_5px_10px_0px_rgba(0,0,0,0.7)] bg-dark-gray hover:shadow-[5px_5px_5px_0px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300"
+      className="px-2 py-2 grid min-w-20 gap-1 grid-flow-col min-h-10 grid-rows-1 justify-between items-center rounded-[35px] shadow-[5px_5px_10px_0px_rgba(0,0,0,0.7)] bg-dark-gray hover:shadow-[5px_5px_5px_0px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300"
     >
       <Image
-        className="rounded-full"
+        className="rounded-full min-h-[1.65rem] min-w-[1.65rem]"
         width={45}
         height={45}
         src={currencyPair.valuteFrom.icon_url}
@@ -31,7 +31,7 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
       <PopularArrowIcon width={12} />
 
       <Image
-        className="rounded-full"
+        className="rounded-full min-h-[1.65rem] min-w-[1.65rem]"
         width={45}
         height={45}
         src={currencyPair.valuteTo.icon_url}

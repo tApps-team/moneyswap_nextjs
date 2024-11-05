@@ -25,7 +25,7 @@ export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
   ];
 
   return (
-    <div className="grid grid-cols-2 py-[50px] gap-[5%] w-full">
+    <div className="grid mobile-xl:grid-cols-2 py-[50px] gap-[5%] w-full">
       {faqs?.map((block) => (
         <div className="w-full" key={block.title}>
           <div className="pb-6 pl-8">

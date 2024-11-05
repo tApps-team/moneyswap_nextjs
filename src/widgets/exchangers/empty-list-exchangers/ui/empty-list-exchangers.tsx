@@ -43,7 +43,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
   return (
     <div className="mt-6">
       {exchangers.length > 0 && (
-        <div className="uppercase my-6 line flex flex-col gap-2">
+        <div className="uppercase  my-6 line flex flex-col gap-2">
           <h2 className="text-xl font-medium">
             Лучшие курсы {valuteFrom.name.ru} ({valuteFrom.code_name}) на {valuteTo.name.ru} (
             {valuteTo.code_name})
@@ -56,7 +56,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
           </p>
         </div>
       )}
-      <div className="shadow-main-shadow   flex flex-col w-full rounded-3xl text-white bg-dark-gray">
+      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]  flex flex-col w-full rounded-3xl text-white bg-dark-gray">
         {exchangers.length > 0 ? (
           exchangers?.map((exchanger) => (
             <Link

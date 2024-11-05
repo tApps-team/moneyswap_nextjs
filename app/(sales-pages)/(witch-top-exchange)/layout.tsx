@@ -1,6 +1,6 @@
 import { TopExchange } from "@/features/top-exchange/top-exchange-sales-pages";
 import { ExchangeType, getPopularValutes, getRandomValutes } from "@/entities/currency";
-import { directions } from "@/shared/types";
+import { ExchangerMarker, directions } from "@/shared/types";
 
 export default async function SellLayout({ children }: { children: React.ReactNode }) {
   const popularCashDirections = await getPopularValutes({
@@ -27,7 +27,7 @@ export default async function SellLayout({ children }: { children: React.ReactNo
         popularNoncashDirections={popularNoncashDirections}
         randomCashDirections={randomCashDirections}
         randomNoncashDirections={randomNoncashDirections}
-        direction={directions.noncash}
+        direction={ExchangerMarker.no_cash}
       />
     </div>
   );

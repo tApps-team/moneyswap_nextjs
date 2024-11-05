@@ -67,41 +67,50 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
 
   return (
-    <form className="text-white w-full border-2 border-light-gray h-full py-5 px-7 pb-12 bg-dark-gray rounded-3xl">
-      <div className="flex items-center justify-between pb-6">
-        <p className="uppercase font-medium text-base">Выберите направление обмена</p>
-        <div className="flex items-center">
-          <Link
-            href={`/?direction=cash`}
-            type="button"
-            role="tab"
-            id="changeCash"
-            className={cn(
-              "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-              urlDirection === ExchangerMarker.cash && "text-yellow-main",
+    <form className="text-white  w-full border-2 border-light-gray h-full py-5 px-7 pb-12 bg-dark-gray rounded-3xl">
+      <div className="mobile-xl:flex mobile-xl:flex-row flex flex-col gap-2 mobile-xl:items-center justify-between pb-6">
+        <p className="uppercase font-medium mobile-xl:text-base text-xs">
+          Выберите направление обмена
+        </p>
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            <Link
+              href={`/?direction=cash`}
+              type="button"
+              role="tab"
+              id="changeCash"
+              className={cn(
+                "bg-transparent p-0 rounded-[4px] mobile-xl:text-base text-2xs uppercase font-medium h-full",
+                urlDirection === ExchangerMarker.cash && "text-yellow-main",
+              )}
+            >
+              Наличные
+            </Link>
+            <div className="mobile-xl:mx-2 mx-1">/</div>
+            <Link
+              href={"/"}
+              type="button"
+              role="tab"
+              id="changeOnline"
+              className={cn(
+                "bg-transparent p-0 rounded-[4px] mobile-xl:text-base text-2xs uppercase font-medium h-full",
+                urlDirection === ExchangerMarker.no_cash && "text-yellow-main",
+              )}
+            >
+              Безналичные
+            </Link>
+          </div>
+          <div className="mobile-xl:hidden block">
+            {urlDirection === ExchangerMarker.cash && (
+              <LocationSelect countries={countries || []} />
             )}
-          >
-            Наличные
-          </Link>
-          <div className="mx-2">/</div>
-          <Link
-            href={"/"}
-            type="button"
-            role="tab"
-            id="changeOnline"
-            className={cn(
-              "bg-transparent p-0 rounded-[4px] uppercase font-medium h-full",
-              urlDirection === ExchangerMarker.no_cash && "text-yellow-main",
-            )}
-          >
-            Безналичные
-          </Link>
+          </div>
         </div>
       </div>
       <div
         className={cx(
-          "grid grid-cols-[1fr,auto,1fr] grid-rows-1 items-end justify-between gap-4",
-          urlDirection === ExchangerMarker.cash && "grid-flow-col",
+          "grid mobile-xl:grid-cols-[1fr,auto,1fr] mobile-xl:grid-rows-1 mobile-xl:items-end items-center justify-between gap-4",
+          urlDirection === ExchangerMarker.cash && "mobile-xl:grid-flow-col",
         )}
       >
         <CurrencySelect
@@ -129,8 +138,9 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
           label="получаю"
           direction={urlDirection}
         />
-
-        {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
+        <div className="mobile-xl:block hidden">
+          {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
+        </div>
       </div>
     </form>
   );
