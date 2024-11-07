@@ -2,6 +2,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { CryptoExchangerPage } from "@/views/crypto-exchanger";
 import { getExchangerDetails } from "@/entities/exchanger";
 import { ExchangerMarker } from "@/shared/types";
+
 export default CryptoExchangerPage;
 
 type Props = {

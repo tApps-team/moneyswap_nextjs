@@ -1,3 +1,4 @@
+import { ExchangerMarker } from "@/shared/types";
 import { Comment, ExchangerReview } from "..";
 
 export type ReviewsByExchangeDTOResponse = {
@@ -20,9 +21,3 @@ export type GetCommentsByReviewDtoRequest = {
   reviewId: number;
 };
 export type GetCommentsByReviewDtoResponse = Comment[];
-
-export enum ExchangerMarker {
-  cash = "cash",
-  no_cash = "no_cash",
-  partner = "partner",
-}
