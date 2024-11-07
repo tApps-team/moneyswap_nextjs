@@ -3,7 +3,14 @@ import Image from "next/image";
 import { FC } from "react";
 import { YellowQuestionIcon, YoutubeIcon } from "@/shared/assets";
 import { SeoTextsBlock } from "@/shared/types";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/shared/ui";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/shared/ui";
 
 const options = {
   replace: (domNode: DOMNode) => {
@@ -22,12 +29,59 @@ export const SeoHeaderText: FC<SeoTextsBlock> = ({ data }) => {
   return (
     <>
       {data.length > 0 && (
-        <div className="grid gap-[20px]">
-          <div className="relative">
-            <div className="text-[28px] strapi_styles max-w-[90%]">
+        <div className="grid gap-5">
+          <div className="relative ">
+            <div className="text-base text-center  mobile-xl:text-[28px] strapi_styles max-w-[90%]">
               {parse(data[0]?.header_title, options)}
             </div>
-            <div className="absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
+            <div className="mobile-xl:hidden mt-6 flex items-center justify-between gap-4">
+              <Dialog>
+                <DialogTrigger className="text-xs h-12 border w-full bg-dark-gray p-2 rounded-full">
+                  Инструкция
+                </DialogTrigger>
+                <DialogContent className="w-[90%] h-[80%] flex flex-col items-center p-9 gap-10 rounded-3xl bg-dark-gray">
+                  <Image src={"/logofull.svg"} alt="logo" width={300} height={300} />
+                  <h2 className="uppercase text-lg font-bold">как совершить обмен?</h2>
+                  <p className="uppercase text-base leading-2 flex flex-col gap-2 overflow-scroll">
+                    <p>
+                      1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.
+                    </p>
+                    <p>2. Выберите город, в котором хотите совершить обмен.</p>
+                    <p>3. Выберите обменник из списка - у первого обменника лучший курс.</p>
+                    <p>4. Перейдите на сайт обменника и создайте заявку на сайте.</p>
+                    <p>5. С вами свяжется менеджер.</p>
+                    <p>
+                      6. Договоритесь по времени и приезжайте в офис или закажите доставку наличных.
+                    </p>
+                    <p>
+                      7. Поделитесь своим опытом с другими пользователями, оставив отзыв на Exnode.
+                    </p>
+                  </p>
+                </DialogContent>
+              </Dialog>
+              <Dialog>
+                <DialogTrigger className="text-xs  h-12 border w-full  bg-dark-gray p-2 rounded-full">
+                  <p>ЧТО ТАКОЕ MONEYSWAP</p>
+                </DialogTrigger>
+                <DialogContent className="w-[90%] h-[80%] flex flex-col items-center p-9 gap-10 rounded-3xl bg-dark-gray">
+                  <Image src={"/logofull.svg"} alt="logo" width={300} height={300} />
+                  <h2 className="uppercase text-lg font-bold">что такое moneyswap?</h2>
+                  <p className="uppercase text-base leading-2 overflow-scroll">
+                    MONEYSWAP - мониторинг обменников криптовалют. На сайте собран список
+                    проверенных обменников криптовалют, с помощью которых вы можете обменять
+                    криптовалюту быстро и безопасно. На MONEYSWAP размещены лучшие криптообменники с
+                    самыми выгодными курсами.
+                  </p>
+                </DialogContent>
+              </Dialog>
+              {/* <Dialog>
+                <DialogTrigger className="text-xs">
+                  
+                </DialogTrigger>
+                <DialogContent className="w-[80%] h-[80%] rounded-3xl">asdfasdf</DialogContent>
+              </Dialog> */}
+            </div>
+            <div className="max-[567px]:sr-only  absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
               <HoverCard openDelay={0}>
                 <HoverCardTrigger asChild>
                   <YellowQuestionIcon width={36} height={36} className="cursor-pointer" />
@@ -51,7 +105,9 @@ export const SeoHeaderText: FC<SeoTextsBlock> = ({ data }) => {
               <Image src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
             </div>
           </div>
-          <div className="strapi_styles text-sm">{parse(data[0]?.header_description, options)}</div>
+          <div className="sr-only mobile-xl:not-sr-only strapi_styles text-sm">
+            {parse(data[0]?.header_description, options)}
+          </div>
         </div>
       )}
     </>

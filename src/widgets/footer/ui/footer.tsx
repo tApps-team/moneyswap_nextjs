@@ -25,7 +25,7 @@ export const Footer = () => {
                 </Link>
               </div>
             </section>
-            <section className="flex gap-20 items-start">
+            <section className="flex  gap-20 items-start">
               {footerItems.map((item, index) => (
                 <ul key={item.value} className="flex flex-col gap-3">
                   <p className="font-medium uppercase text-sm">{item.value}</p>
