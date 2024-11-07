@@ -108,8 +108,9 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
         </div>
       </div>
       <div
-        className={cx(
-          "grid mobile-xl:grid-cols-[1fr,auto,1fr] mobile-xl:grid-rows-1 mobile-xl:items-end items-center justify-between gap-4",
+        className={cn(
+          "grid mobile-xl:grid-cols-[1fr,auto,1fr] mobile-xl:items-end w-full gap-4",
+          "grid-cols-1 items-center justify-between",
           urlDirection === ExchangerMarker.cash && "mobile-xl:grid-flow-col",
         )}
       >

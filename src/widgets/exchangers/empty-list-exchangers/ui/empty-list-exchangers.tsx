@@ -43,12 +43,12 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
   return (
     <div className="mt-6">
       {exchangers.length > 0 && (
-        <div className="uppercase  my-6 line flex flex-col gap-2">
-          <h2 className="text-xl font-medium">
+        <div className="uppercase  my-6  flex flex-col gap-2">
+          <h2 className="mobile-xl:text-xl text-sm font-medium">
             Лучшие курсы {valuteFrom.name.ru} ({valuteFrom.code_name}) на {valuteTo.name.ru} (
             {valuteTo.code_name})
           </h2>
-          <p>
+          <p className="mobile-xl:text-base text-xs">
             На данный момент по направлению {valuteFrom.name.ru} ({valuteFrom.code_name}) на{" "}
             {valuteTo.name.ru} ({valuteTo.code_name}) отсутствуют обменные пункты в городе{" "}
             {location?.name.ru}. Попробуйте выбрать другое направление обмена в городе{" "}
@@ -61,31 +61,35 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
           exchangers?.map((exchanger) => (
             <Link
               key={exchanger.valute_from.code_name + exchanger.valute_to.code_name}
-              className="border-b last:border-none"
+              className="border-b  last:border-none"
               href={createUrl(exchanger?.valute_from?.code_name, exchanger?.valute_to?.code_name)}
             >
-              <div className="flex justify-between items-center px-4 py-4 ">
-                <div className="flex items-center gap-2">
+              <div className="flex mobile-xl:flex-row mobile-xl:gap-0 gap-4  flex-col justify-between mobile-xl:items-center px-4 py-4 ">
+                <div className="flex mx-auto items-center gap-2">
                   <Image
-                    className="rounded-full overflow-hidden"
+                    className="rounded-full mobile-xl:min-h-9 mobile-xl:min-w-9 size-7  overflow-hidden"
                     src={exchanger.valute_from.icon_url}
                     alt={`valute ${exchanger.valute_from.name.ru}`}
                     width={32}
                     height={32}
                   />
-                  <p>{exchanger.valute_from.code_name}</p>
-                  <ChevronRightIcon color="white" height={32} width={32} />
+                  <p className="mobile-xl:text-base text-xs">{exchanger.valute_from.code_name}</p>
+                  <ChevronRightIcon
+                    className="mobile-xl:size-8 size-5"
+                    color="white"
+                    height={32}
+                    width={32}
+                  />
                   <Image
-                    className="rounded-full overflow-hidden"
+                    className="rounded-full  mobile-xl:min-h-9 mobile-xl:min-w-9 size-7 overflow-hidden"
                     src={exchanger.valute_to.icon_url}
                     alt={`valute ${exchanger.valute_to.name.ru}`}
                     width={32}
                     height={32}
                   />
-                  <p>{exchanger.valute_to.code_name}</p>
+                  <p className="mobile-xl:text-base text-xs">{exchanger.valute_to.code_name}</p>
                 </div>
-
-                <button className="border hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full px-5 py-3">
+                <button className="border truncate  mobile-xl:text-base text-sm max-h-12 mobile-xl:h-12 h-9 whitespace-nowrap hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full mobile-xl:px-5 mobile-xl:py-3 py-1 px-4">
                   ПОКАЗАТЬ ОБМЕННИКИ
                 </button>
               </div>

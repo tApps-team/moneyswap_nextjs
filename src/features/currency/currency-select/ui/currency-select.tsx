@@ -83,7 +83,8 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
     .filter((tab) => tab?.currencies?.length > 0);
   const scrollToActiveTab = useCallback(() => {
     if (api) {
-      const scrollIndex = Object.keys(filteredTabList).findIndex((tab) => tab === activeTab);
+      console.log(filteredTabList);
+      const scrollIndex = filteredTabList.findIndex((tab) => tab.name.ru === activeTab);
       console.log(scrollIndex);
       api?.scrollTo(scrollIndex);
     }
@@ -216,7 +217,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       )}
       <div
         className={cx(
-          "grid grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-light-gray from-15% via-dark-gray via-80% to-dark-gray",
+          "grid  mobile-xl:grid-cols-2 grid-cols-[6rem,1fr]  h-16 justify-between mobile-xl:items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-light-gray from-15% via-dark-gray via-80% to-dark-gray",
         )}
       >
         <input
@@ -255,7 +256,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ChevronDown width={28} height={28} />
             </div>
           </DrawerTrigger>
-          <DrawerContent className="min-h-svh p-4 bg-dark-gray border-none">
+          <DrawerContent className="min-h-[90svh] p-4 bg-dark-gray border-none">
             <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
               <div className="relative">
                 <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
@@ -269,7 +270,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
                 <Input
                   placeholder={"ПОИСК ВАЛЮТЫ"}
-                  className="text-[16px] rounded-2xl font-medium pl-12 bg-lightGray border-none placeholder:text-darkGray placeholder:transition-opacity text-darkGray uppercase focus:placeholder:opacity-0"
+                  className="text-[16px] rounded-2xl font-medium pl-12 bg-light-gray border-none placeholder:text-dark-gray placeholder:transition-opacity text-dark-gray uppercase focus:placeholder:opacity-0"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                 />
@@ -298,7 +299,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 </Carousel>
               </TabsList>
 
-              <ScrollArea className="h-[28rem] p-5">
+              <ScrollArea className="h-[28rem] pr-4">
                 {filteredTabList.map((tab) => (
                   <TabsContent className="grid  gap-2" value={tab?.name?.ru} key={tab?.id}>
                     {tab.currencies.map((currency) => (

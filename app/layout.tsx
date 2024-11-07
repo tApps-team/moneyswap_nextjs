@@ -37,11 +37,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </Head>
       <body className="flex flex-col min-h-screen">
         <Providers>
-          {/* <Header /> */}
-          <main className="flex-grow max-w-[1300px] mx-[auto] w-full py-[40px] pt-[130px]">
+          <Header />
+          <main className="flex-grow max-w-[1300px] p-4 mobile-xl:p-0 mx-[auto] w-full py-[40px] pt-[130px]">
             {children}
           </main>
-          {/* <Footer /> */}
+          <Footer />
         </Providers>
       </body>
     </html>
