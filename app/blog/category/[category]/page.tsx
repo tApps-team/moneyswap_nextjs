@@ -4,8 +4,6 @@ import { getAllCategories, getCategoryArticles } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 export default BlogCategoryPage;
 
-export const revalidate = 60;
-
 export async function generateMetadata({
   params,
 }: {

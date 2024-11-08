@@ -26,6 +26,10 @@ const config = {
         "2xs": "10px",
         "3xs": "8px",
       },
+      screens: {
+        mobile: "375px",
+        "mobile-xl": "576px",
+      },
       colors: {
         "yellow-main": "#F6FF5F",
         "dark-gray": "#2D2D2D",

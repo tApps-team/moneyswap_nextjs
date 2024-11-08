@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import { FC, useEffect, useRef, useState } from "react";
 import { Category, CategoryCard } from "@/entities/strapi";
@@ -28,33 +28,33 @@ export const CategoriesList: FC<CategoriesListProps> = ({
     category: null,
   };
   const categoriesWithAllTab = [allTag, ...categories];
-  // const carouselRef = useRef<HTMLDivElement>(null);
-  // const [api, setApi] = useState<CarouselApi>();
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [api, setApi] = useState<CarouselApi>();
 
-  // const scrollToActiveCategory = async () => {
-  //   if (categoriesWithAllTab.length > 0 && api && selectedCategory) {
-  //     const index = categoriesWithAllTab.findIndex((cat) => cat.category === selectedCategory);
-  //     await new Promise((resolve) => setTimeout(resolve, 0));
-  //     api.scrollTo(index);
-  //   }
-  // };
+  const scrollToActiveCategory = async () => {
+    if (categoriesWithAllTab.length > 0 && api && selectedCategory) {
+      const index = categoriesWithAllTab.findIndex((cat) => cat.category === selectedCategory);
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      api.scrollTo(index);
+    }
+  };
 
-  // useEffect(() => {
-  //   scrollToActiveCategory();
-  // }, [api, selectedCategory, categoriesWithAllTab]);
+  useEffect(() => {
+    scrollToActiveCategory();
+  }, [api, selectedCategory, categoriesWithAllTab]);
   return (
     <section>
       <Carousel
-        // ref={carouselRef}
+        ref={carouselRef}
         opts={{
           align: "start",
         }}
-        className="grid w-[calc(100%_-_100px)] mx-auto"
-        // setApi={setApi}
+        className="grid mobile-xl:w-[calc(100%_-_100px)] mobile-xl:mx-auto"
+        setApi={setApi}
       >
         <CarouselContent className="w-full">
           {categoriesWithAllTab?.map((cat, index) => (
-            <CarouselItem key={index} className="basis-1/6 grid">
+            <CarouselItem key={index} className="mobile-xl:basis-1/6 basis-3/11 grid pl-4">
               <CategoryCard
                 key={cat?.id}
                 category={cat && cat}
@@ -67,8 +67,8 @@ export const CategoriesList: FC<CategoriesListProps> = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="-left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
-        <CarouselNext className="-right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselPrevious className="mobile-xl:block hidden -left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselNext className="mobile-xl:block hidden -right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
       </Carousel>
     </section>
   );

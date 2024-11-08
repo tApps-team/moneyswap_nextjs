@@ -15,17 +15,17 @@ export const CategoriesListSkeleton = () => {
         opts={{
           align: "start",
         }}
-        className="grid w-[calc(100%_-_100px)] mx-auto"
+        className="grid mobile-xl:w-[calc(100%_-_100px)] mobile-xl:mx-auto"
       >
         <CarouselContent className="w-full">
           {categoriesWithAllTab?.map((cat, index) => (
-            <CarouselItem key={index} className="basis-1/6 grid">
+            <CarouselItem key={index} className="mobile-xl:basis-1/6 basis-3/11 grid pl-4">
               <CategoryCardSkeleton />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="-left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
-        <CarouselNext className="-right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselPrevious className="mobile-xl:block hidden -left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselNext className="mobile-xl:block hidden -right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
       </Carousel>
     </section>
   );

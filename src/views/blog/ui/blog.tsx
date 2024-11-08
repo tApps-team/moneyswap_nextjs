@@ -1,5 +1,5 @@
-import { AllArticles, BlogSidebar, SliderOfArticles } from "@/widgets/strapi";
-import { CategoriesList } from "@/features/strapi";
+import { AllArticles, BlogSidebar, MobileAllArticles, SliderOfArticles } from "@/widgets/strapi";
+import { CategoriesList, MobileArticleSearch, MobileTagsList } from "@/features/strapi";
 import { getAllArticles, getAllCategories, getTopicArticles, topics } from "@/entities/strapi";
 
 export const BlogPage = async ({
@@ -19,21 +19,26 @@ export const BlogPage = async ({
   const totalPages = Math.ceil(meta?.pagination?.total / elements);
 
   return (
-    <section className="grid grid-flow-row gap-[40px]">
-      <div className="flex justify-center items-center">
-        <h1 className="uppercase text-3xl font-semibold text-center max-w-[80%]">
+    <section className="grid grid-flow-row mobile-xl:gap-[40px] gap-7">
+      <div className="mobile-xl:flex mobile-xl:justify-center mobile-xl:items-center">
+        <h1 className="uppercase mobile-xl:text-3xl mobile-xl:font-semibold mobile-xl:text-center mobile-xl:max-w-[80%] text-lg font-medium text-start">
           Блог о финансах, криптовалюте и переводах за рубеж
         </h1>
       </div>
+      <MobileArticleSearch currentValue={searchValue || null} />
       <CategoriesList categories={categories?.categories} />
-      <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
-        <AllArticles articles={all} totalPages={totalPages} page={page} />
-        <BlogSidebar searchValue={searchValue} isMain />
+      <div className="mobile-xl:block hidden">
+        <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
+          <AllArticles articles={all} totalPages={totalPages} page={page} />
+          <BlogSidebar searchValue={searchValue} isMain />
+        </div>
       </div>
-      <div className="pt-8 grid gap-[60px]">
+      <MobileAllArticles articles={all} totalPages={totalPages} page={page} />
+      <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
         <SliderOfArticles title={readersChoice?.name} articles={readersChoice?.articles} />
         <SliderOfArticles title={recommended?.name} articles={recommended?.articles} />
       </div>
+      <MobileTagsList />
     </section>
   );
 };
