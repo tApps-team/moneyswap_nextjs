@@ -6,7 +6,7 @@ import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
 import { getPairValute } from "@/entities/currency";
 import { getExchangerDetails } from "@/entities/exchanger";
 import { Grade, reviewsByExchange } from "@/entities/exchanger-review";
-import { ExchangerMarker } from "@/entities/exchanger-review/api/exchanger-review-api-dto";
+import { ExchangerMarker } from "@/shared/types";
 
 export const CryptoExchangerPage = async ({
   params,

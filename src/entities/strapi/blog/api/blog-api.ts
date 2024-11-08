@@ -30,10 +30,6 @@ export const getAllArticles = async (
 
     const res = await fetch(current_url, {
       method: "GET",
-      // cache: "no-store",
-      next: {
-        revalidate: 60,
-      },
     });
     return res.json();
   } catch (error) {
@@ -48,10 +44,6 @@ export const getArticle = async (params: GetArticleRequest): Promise<GetArticleR
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?filters[url_name][$eq]=${url_name}`;
     const res = await fetch(url, {
       method: "GET",
-      // cache: "no-store",
-      next: {
-        revalidate: 10,
-      },
     });
     return res.json();
   } catch (error) {
@@ -87,10 +79,6 @@ export const getTopicArticles = async (
 `;
     const res = await fetch(url, {
       method: "GET",
-      // cache: "no-store",
-      next: {
-        revalidate: 60,
-      },
     });
     return res.json();
   } catch (error) {
@@ -104,10 +92,6 @@ export const getAllCategories = async (): Promise<GetAllCategoriesResponse> => {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
-      // cache: "no-store",
-      next: {
-        revalidate: 60,
-      },
     });
     return res.json();
   } catch (error) {
@@ -121,10 +105,6 @@ export const getAllTags = async (): Promise<GetAllTagsResponse> => {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
-      // cache: "no-store",
-      next: {
-        revalidate: 60,
-      },
     });
     return res.json();
   } catch (error) {
@@ -141,10 +121,6 @@ export const getCategoryArticles = async (
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?filters[category][$eq]=${category}&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
-      // cache: "no-store",
-      next: {
-        revalidate: 60,
-      },
     });
     return res.json();
   } catch (error) {
@@ -162,10 +138,6 @@ export const getTagArticles = async (
 `;
     const res = await fetch(url, {
       method: "GET",
-      // cache: "no-store",
-      next: {
-        revalidate: 60,
-      },
     });
     return res.json();
   } catch (error) {

@@ -63,7 +63,7 @@ export const getSimilarDirections = async (
   return data;
 };
 export const getExchangerList = async () => {
-  const url = `/api/exchange_list`;
+  const url = `/api/test/exchange_list`;
   const response = await apiClient.get<GetExchangeListDtoResponse>(url);
   return response;
 };

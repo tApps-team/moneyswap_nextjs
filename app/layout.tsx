@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex flex-col min-h-screen">
         <Providers>
           <Header />
-          <main className="flex-grow max-w-[1300px] mx-[auto] w-full py-[40px] pt-[130px]">
+          <main className="flex-grow max-w-[1300px] mx-[auto] w-full py-[40px] mobile-xl:pt-[130px] pt-[100px] mobile-xl:px-20 px-5">
             {children}
           </main>
           <Footer />

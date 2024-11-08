@@ -4,8 +4,6 @@ import { getAllTags, getTagArticles } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 export default BlogTagPage;
 
-export const revalidate = 60;
-
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
   const tag = params.tag;
   const { data } = await getTagArticles({ tag });

@@ -19,3 +19,4 @@ export * from "./icons/wallet-icon";
 export * from "./icons/moneys-icon";
 export * from "./icons/file-icon";
 export * from "./icons/email-telephone-icon";
+export * from "./icons/header-arrow";
