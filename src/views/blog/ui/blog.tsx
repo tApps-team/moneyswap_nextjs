@@ -38,10 +38,10 @@ export const BlogPage = async ({
         </div>
       </div>
       <MobileAllArticles articles={all} totalPages={totalPages} page={page} />
-      {/* <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
+      <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
         <SliderOfArticles title={readersChoice?.name} articles={readersChoice?.articles} />
         <SliderOfArticles title={recommended?.name} articles={recommended?.articles} />
-      </div> */}
+      </div>
       <MobileTagsList />
     </section>
   );

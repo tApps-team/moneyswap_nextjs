@@ -28,16 +28,13 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
         >
           <CarouselContent>
             {articles?.map((art, index) => (
-              <CarouselItem
-                key={index}
-                className="mobile-xl:basis-1/3 grid mobile-xl:pl-4 mobile-xl:px-0 pl-4"
-              >
+              <CarouselItem key={index} className="mobile-xl:basis-1/3 mobile-xl:pl-4 w-full">
                 <ArticlePreviewCard key={art?.url_name} article={art} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="mobile-xl:block hidden" />
-          <CarouselNext className="mobile-xl:block hidden" />
+          <CarouselPrevious className="mobile-xl:inline-flex hidden" />
+          <CarouselNext className="mobile-xl:inline-flex hidden" />
         </Carousel>
       </div>
     </section>

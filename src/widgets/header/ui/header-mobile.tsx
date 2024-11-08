@@ -20,7 +20,7 @@ export const HeaderMobile = () => {
     <header className="fixed mobile-xl:hidden block top-0 left-0 w-full backdrop-blur-md z-10 p-5">
       <div className="flex items-center justify-between">
         <Link href={routes.home}>
-          <Image src={"/logofull.svg"} alt="logo" width={200} height={300} />
+          <Image src={"/logofull.svg"} alt="logo" width={150} height={250} />
         </Link>
         <Drawer direction="top">
           <DrawerTrigger asChild>
