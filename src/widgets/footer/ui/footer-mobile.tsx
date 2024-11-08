@@ -33,8 +33,8 @@ export const FooterMobile = () => {
         ))}
       </Accordion>
 
-      <section className="flex flex-col  gap-2">
-        <p className="text-xs">МЫ В СОЦСЕТЯХ</p>
+      <section className="flex flex-col gap-2 pt-6">
+        <p className="text-xs uppercase">МЫ В СОЦСЕТЯХ</p>
         <div>
           <TelegramCircleIcon className="size-10" />
         </div>
@@ -42,7 +42,7 @@ export const FooterMobile = () => {
       <hr />
       <section className="flex mobile-xl:text-base text-2xs items-center justify-between">
         <p className="uppercase">© moneyswap – мониторинг обменников. Все права защищены.</p>
-        <p className="uppercase">© 2024 MoneYSWAP.RU</p>
+        <p className="uppercase">© 2024 Moneyswap.online</p>
       </section>
     </footer>
   );
