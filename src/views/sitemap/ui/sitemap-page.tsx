@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getSitemapDirections } from "@/entities/exchanger";
+import { getExchangerList, getSitemapDirections } from "@/entities/exchanger";
 import { getAllArticles, getAllCategories, getAllTags } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 
@@ -8,6 +8,7 @@ export const SitemapPage = async () => {
   const articles = await getAllArticles({ page: 1 });
   const categories = await getAllCategories();
   const tags = await getAllTags();
+  const exchangers = await getExchangerList();
   return (
     <section className="flex flex-col gap-6">
       <h1 className="font-medium text-2xl uppercase">Карта сайта</h1>
@@ -36,6 +37,22 @@ export const SitemapPage = async () => {
         </Link>
       </div>
       <div className="flex flex-col gap-2 text-sm">
+        <h2 className="text-xl font-medium uppercase">Доступные обменные пункты</h2>
+
+        {exchangers.map((exchanger) => (
+          <Link
+            key={exchanger.id + exchanger.exchange_marker}
+            className="w-fit text-[#3498db] uppercase font-medium"
+            href={{
+              pathname: `${routes.exchangers}/exchanger-${exchanger.id}`,
+              query: { "exchanger-marker": exchanger.exchange_marker },
+            }}
+          >
+            Обменный пункт {exchanger.exchangerName}
+          </Link>
+        ))}
+      </div>
+      <div className="flex flex-col gap-2 text-sm">
         <h2 className="text-xl font-medium uppercase">Доступные направления обмена</h2>
 
         {directions.map((direction) => (
@@ -48,7 +65,7 @@ export const SitemapPage = async () => {
             }
             className="w-fit text-[#3498db] uppercase font-medium"
             href={{
-              pathname: `/${direction.valute_from}-to-${direction.valute_to}`,
+              pathname: `${routes.exchange}/${direction.valute_from}-to-${direction.valute_to}`,
               query: { city: direction.city },
             }}
           >
@@ -56,6 +73,7 @@ export const SitemapPage = async () => {
           </Link>
         ))}
       </div>
+
       <div className="flex flex-col gap-2 text-sm">
         <h2 className="text-xl font-medium uppercase">Статьи</h2>
 

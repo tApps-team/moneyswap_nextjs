@@ -27,7 +27,8 @@ const config = {
         "3xs": "8px",
       },
       screens: {
-        mobile: "375px",
+        "mobile-xs": "375px",
+        mobile: "450px",
         "mobile-xl": "576px",
       },
       colors: {

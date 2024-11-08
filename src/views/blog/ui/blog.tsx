@@ -1,4 +1,5 @@
 import { AllArticles, BlogSidebar, MobileAllArticles, SliderOfArticles } from "@/widgets/strapi";
+import { BotBanner } from "@/features/bot-banner";
 import { CategoriesList, MobileArticleSearch, MobileTagsList } from "@/features/strapi";
 import { getAllArticles, getAllCategories, getTopicArticles, topics } from "@/entities/strapi";
 
@@ -26,6 +27,9 @@ export const BlogPage = async ({
         </h1>
       </div>
       <MobileArticleSearch currentValue={searchValue || null} />
+      <div className="-my-7 mobile-xl:hidden block">
+        <BotBanner />
+      </div>
       <CategoriesList categories={categories?.categories} />
       <div className="mobile-xl:block hidden">
         <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
@@ -34,10 +38,10 @@ export const BlogPage = async ({
         </div>
       </div>
       <MobileAllArticles articles={all} totalPages={totalPages} page={page} />
-      <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
+      {/* <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
         <SliderOfArticles title={readersChoice?.name} articles={readersChoice?.articles} />
         <SliderOfArticles title={recommended?.name} articles={recommended?.articles} />
-      </div>
+      </div> */}
       <MobileTagsList />
     </section>
   );

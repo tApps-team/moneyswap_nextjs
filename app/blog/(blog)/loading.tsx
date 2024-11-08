@@ -23,10 +23,10 @@ export default function Loading() {
         </div>
       </div>
       <MobileAllArticlesSkeleton />
-      <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
+      {/* <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
         <SliderOfArticlesSkeleton />
         <SliderOfArticlesSkeleton />
-      </div>
+      </div> */}
     </section>
   );
 }

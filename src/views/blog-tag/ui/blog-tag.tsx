@@ -1,4 +1,5 @@
 import { AllArticles, BlogSidebar, MobileAllArticles } from "@/widgets/strapi";
+import { BotBanner } from "@/features/bot-banner";
 import { CategoriesList, MobileArticleSearch, MobileTagsList } from "@/features/strapi";
 import { getAllCategories, getTagArticles } from "@/entities/strapi";
 
@@ -14,6 +15,9 @@ export const BlogTagPage = async ({ params }: { params: { tag: string } }) => {
         </h1>
       </div>
       <MobileArticleSearch currentValue={null} />
+      <div className="-my-7 mobile-xl:hidden block">
+        <BotBanner />
+      </div>
       <CategoriesList categories={categories?.categories} selectedTag={tag} />
       <div className="mobile-xl:block hidden">
         <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">

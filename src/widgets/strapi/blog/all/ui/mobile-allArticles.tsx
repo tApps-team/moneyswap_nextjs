@@ -43,9 +43,6 @@ export const MobileAllArticles: FC<MobileAllArticlesProps> = ({ articles, totalP
             {previewArticles.slice(0, visibleCount).map((art) => (
               <ArticlePreviewCard key={art.url_name} article={art} isMain />
             ))}
-            {previewArticles?.length % 2 !== 0 && visibleCount >= previewArticles?.length && (
-              <NoResults className="w-full flex flex-col justify-center items-center opacity-50 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] border-2 border-[rgba(0,0,0,0)]" />
-            )}
           </div>
           {!page && !totalPages && visibleCount < previewArticles.length && (
             <div className="justify-self-center">
@@ -59,8 +56,13 @@ export const MobileAllArticles: FC<MobileAllArticlesProps> = ({ articles, totalP
           )}
         </section>
       ) : (
-        <div className="justify-self-center grayscale opacity-50 flex justify-center items-center w-[40vw] max-w-[400px] h-full ">
-          <NoResultIcon />
+        <div className="py-10  grid grid-flow-row gap-8 justify-center items-center">
+          <p className="uppercase text-light-gray font-semibold text-sm text-center">
+            Ничего не найдено...
+          </p>
+          <div className="justify-self-center grayscale opacity-50 w-[60vw] max-w-[400px] h-full">
+            <NoResultIcon />
+          </div>
         </div>
       )}
     </section>
