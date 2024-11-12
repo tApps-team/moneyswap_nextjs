@@ -44,7 +44,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogTrigger className="">
                   <Info className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%] h-[80%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
+                <DialogContent className="w-[90%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[80%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
                   <Image
                     src={"/logofull.svg"}
                     className="mt-10"
@@ -74,7 +74,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogTrigger className="">
                   <YellowQuestionIcon className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%] h-[80%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
+                <DialogContent className="w-[90%] h-[85%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] flex flex-col items-center py-4 gap-10 rounded-3xl bg-dark-gray">
                   <Image
                     className="mt-10"
                     src={"/logofull.svg"}
