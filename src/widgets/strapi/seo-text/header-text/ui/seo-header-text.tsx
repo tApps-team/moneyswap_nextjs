@@ -1,4 +1,5 @@
 import parse, { DOMNode, Element } from "html-react-parser";
+import { Info } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
 import { YellowQuestionIcon, YoutubeIcon } from "@/shared/assets";
@@ -25,28 +26,32 @@ const options = {
   },
 };
 
-interface SeoHeaderText extends SeoTextsBlock {
-  isMain?: boolean;
-}
+interface SeoHeaderText extends SeoTextsBlock {}
 
-export const SeoHeaderText: FC<SeoHeaderText> = ({ data, isMain }) => {
+export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
   return (
     <>
       {data.length > 0 && (
         <div className="grid gap-5">
-          <div className="relative ">
+          <div className="relative flex items-center">
             <div
-              className={`text-base ${isMain ? "text-center" : "mobile-xl:text-center text-start"} mobile-xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
+              className={`text-base mobile-xl:text-center text-start mobile-xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
             >
               {parse(data[0]?.header_title, options)}
             </div>
-            <div className="mobile-xl:hidden mt-6 flex items-center justify-between gap-4">
+            <div className="mobile-xl:hidden mt-6 flex    gap-4">
               <Dialog>
-                <DialogTrigger className="text-xs h-12 border w-full bg-dark-gray p-2 rounded-full">
-                  Инструкция
+                <DialogTrigger className="">
+                  <Info className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%] h-[80%] flex flex-col items-center p-9 gap-10 rounded-3xl bg-dark-gray">
-                  <Image src={"/logofull.svg"} alt="logo" width={300} height={300} />
+                <DialogContent className="w-[90%] h-[80%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
+                  <Image
+                    src={"/logofull.svg"}
+                    className="mt-10"
+                    alt="logo"
+                    width={300}
+                    height={300}
+                  />
                   <h2 className="uppercase text-lg font-bold">как совершить обмен?</h2>
                   <p className="uppercase text-base leading-2 flex flex-col gap-2 overflow-scroll">
                     <p>
@@ -66,11 +71,17 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data, isMain }) => {
                 </DialogContent>
               </Dialog>
               <Dialog>
-                <DialogTrigger className="text-xs  h-12 border w-full  bg-dark-gray p-2 rounded-full">
-                  <p>ЧТО ТАКОЕ MONEYSWAP</p>
+                <DialogTrigger className="">
+                  <YellowQuestionIcon className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%] h-[80%] flex flex-col items-center p-9 gap-10 rounded-3xl bg-dark-gray">
-                  <Image src={"/logofull.svg"} alt="logo" width={300} height={300} />
+                <DialogContent className="w-[90%] h-[80%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
+                  <Image
+                    className="mt-10"
+                    src={"/logofull.svg"}
+                    alt="logo"
+                    width={300}
+                    height={300}
+                  />
                   <h2 className="uppercase text-lg font-bold">что такое moneyswap?</h2>
                   <p className="uppercase text-base leading-2 overflow-scroll">
                     MONEYSWAP - мониторинг обменников криптовалют. На сайте собран список

@@ -109,7 +109,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 />
               )}
 
-              <p className="mobile-xl:text-base text-2xs truncate uppercase">
+              <p className="mobile-xl:text-base text-3xs truncate uppercase">
                 {cityInfo ? cityInfo?.name.ru : "Не выбрано..."}
               </p>
             </div>

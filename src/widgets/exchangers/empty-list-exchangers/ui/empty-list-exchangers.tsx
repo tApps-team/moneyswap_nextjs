@@ -65,7 +65,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
               href={createUrl(exchanger?.valute_from?.code_name, exchanger?.valute_to?.code_name)}
             >
               <div className="flex mobile-xl:flex-row mobile-xl:gap-0 gap-4  flex-col justify-between mobile-xl:items-center px-4 py-4 ">
-                <div className="flex mx-auto items-center gap-2">
+                <div className="flex mx-auto mobile-xl:mx-0 items-center gap-2">
                   <Image
                     className="rounded-full mobile-xl:min-h-9 mobile-xl:min-w-9 size-7  overflow-hidden"
                     src={exchanger.valute_from.icon_url}

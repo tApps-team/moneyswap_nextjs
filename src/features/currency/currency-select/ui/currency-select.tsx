@@ -256,7 +256,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ChevronDown width={28} height={28} />
             </div>
           </DrawerTrigger>
-          <DrawerContent className="min-h-[90svh] p-4 bg-dark-gray border-none">
+          <DrawerContent className="min-h-svh p-4 rounded-3xl bg-dark-gray border-none">
             <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
               <div className="relative">
                 <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
@@ -267,10 +267,13 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 </DrawerClose>
               </div>
               <div className="relative">
-                <SearchIcon className="absolute left-2 translate-y-[6px] size-[30px]" />
+                <SearchIcon
+                  color="#bbbbbb"
+                  className="absolute  left-2 translate-y-[6px] size-[30px]"
+                />
                 <Input
                   placeholder={"ПОИСК ВАЛЮТЫ"}
-                  className="text-[16px] rounded-2xl font-medium pl-12 bg-light-gray border-none placeholder:text-dark-gray placeholder:transition-opacity text-dark-gray uppercase focus:placeholder:opacity-0"
+                  className="text-sm rounded-3xl font-medium pl-12 bg-dark-gray border border-light-gray placeholder:text-light-gray placeholder:transition-opacity text-light-gray uppercase focus:placeholder:opacity-0"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                 />
@@ -279,13 +282,20 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="">
               <TabsList data-vaul-no-drag className="bg-dark-gray  w-full h-full">
-                <Carousel ref={carouselRef} opts={{}} setApi={setApi} className="w-full">
+                <Carousel
+                  ref={carouselRef}
+                  opts={{
+                    dragFree: true,
+                  }}
+                  setApi={setApi}
+                  className="w-full"
+                >
                   <CarouselContent className="m-0 w-full gap-3 py-3">
                     {filteredTabList?.map((filteredCategory) => (
                       <CarouselItem key={filteredCategory.id} className="w-full pl-0 basis-2/5">
                         <TabsTrigger
                           className={
-                            "rounded-2xl w-full uppercase data-[state=active]:text-black data-[state=active]:border-yellow-main text-white  h-11 data-[state=active]:bg-yellow-main shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
+                            "rounded-2xl w-full uppercase data-[state=active]:text-black data-[state=active]:border-yellow-main text-white  h-10 data-[state=active]:bg-yellow-main shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
                           }
                           value={filteredCategory.name.ru}
                         >
@@ -299,7 +309,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 </Carousel>
               </TabsList>
 
-              <ScrollArea className="h-[28rem] pr-4">
+              <ScrollArea className="h-[calc(80svh-3rem)] pr-4">
                 {filteredTabList.map((tab) => (
                   <TabsContent className="grid  gap-2" value={tab?.name?.ru} key={tab?.id}>
                     {tab.currencies.map((currency) => (
