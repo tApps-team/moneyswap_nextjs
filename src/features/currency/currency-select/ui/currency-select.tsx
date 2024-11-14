@@ -76,7 +76,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       ...tab,
       currencies: tab?.currencies?.filter(
         (currency) =>
-          currency.name.en.toLowerCase().includes(searchDeferredValue.toLowerCase()) ||
+          currency.code_name.toLowerCase().includes(searchDeferredValue.toLowerCase()) ||
           currency.name.ru.toLowerCase().includes(searchDeferredValue.toLowerCase()),
       ),
     }))
@@ -94,7 +94,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       scrollToActiveTab();
     }
   }, [api, scrollToActiveTab]);
-  console.log(activeTab);
+
   if (isDesktop) {
     return (
       <div
@@ -256,7 +256,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ChevronDown width={28} height={28} />
             </div>
           </DrawerTrigger>
-          <DrawerContent className="min-h-svh p-4 rounded-3xl bg-dark-gray border-none">
+          <DrawerContent className="min-h-svh p-4 rounded-none bg-dark-gray border-none">
             <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
               <div className="relative">
                 <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
@@ -309,7 +309,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 </Carousel>
               </TabsList>
 
-              <ScrollArea className="h-[calc(80svh-3rem)] pr-4">
+              <ScrollArea className="h-[calc(80svh-3rem)] px-4">
                 {filteredTabList.map((tab) => (
                   <TabsContent className="grid  gap-2" value={tab?.name?.ru} key={tab?.id}>
                     {tab.currencies.map((currency) => (

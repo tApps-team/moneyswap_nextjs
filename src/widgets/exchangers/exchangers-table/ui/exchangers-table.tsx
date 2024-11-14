@@ -43,6 +43,7 @@ export function ExchangersTable<TData, TValue>({ columns, params }: DataTablePro
     refetchInterval: 60000,
     queryFn: async () => (await getExchangers(params)).exchangers,
   });
+
   const isDesktop = useMediaQuery("(min-width: 640px)");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -148,7 +149,7 @@ export function ExchangersTable<TData, TValue>({ columns, params }: DataTablePro
   return (
     <div className="flex flex-col mt-10 gap-4 w-full">
       {data.map((exchanger) => (
-        <ExchangerCard key={exchanger.id} exchanger={exchanger} />
+        <ExchangerCard key={exchanger.id} exchanger={exchanger} city={params?.city} />
       ))}
     </div>
   );

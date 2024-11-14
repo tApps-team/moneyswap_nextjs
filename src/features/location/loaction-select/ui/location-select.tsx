@@ -1,4 +1,4 @@
-import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
+import { ChevronDown, CircleSlash2, SearchIcon, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -15,6 +15,10 @@ import { useDebounce } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { routes } from "@/shared/router";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
   Dialog,
   DialogClose,
   DialogContent,
@@ -23,6 +27,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
   Input,
@@ -41,6 +46,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const isDesktop = useMediaQuery("(min-width: 640px)");
   const searchParamsCity = searchParams.get("city");
   const pathname = usePathname();
+
   const city = searchParamsCity ? searchParamsCity : pathname === routes.home ? "msk" : null;
   const [cityInfo, setCityInfo] = useState<LocationInfo | null>(null);
   useEffect(() => {
@@ -179,6 +185,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
       </Dialog>
     );
   }
+  const accordionActiveItems = filteredCountries.map((location) => String(location.id));
   return (
     <Drawer onOpenChange={() => setLocationSearchValue("")}>
       <DrawerTrigger className="cursor-pointer" asChild>
@@ -212,63 +219,61 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </div>
       </DrawerTrigger>
-      <DrawerContent className="bg-dark-gray min-h-svh ">
-        <div className="grid grid-cols-2 grid-rows-1 items-center">
-          <DrawerTitle className="m-0 uppercase">Выбор города</DrawerTitle>
-          <div className="relative">
-            <SearchIcon className="absolute translate-y-2 left-3 " color="#bbbbbb" />
-            <Input
-              ref={ref}
-              className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-semibold border-light-gray"
-              value={locationSearchValue}
-              onChange={(e) => setLocationSearchValue(e.target.value)}
-              placeholder="Поиск города и страны"
-            />
-          </div>
+      <DrawerContent className="min-h-svh px-4 flex flex-col gap-4 bg-transparent  border-none">
+        <DrawerHeader className="flex p-0 items-center justify-between pt-16">
+          <h2 className="uppercase font-bold">Выбор города</h2>
+          <DrawerClose>
+            <X className="" />
+          </DrawerClose>
+        </DrawerHeader>
+        <div className="relative flex items-center">
+          <SearchIcon color="#BBBBBB" className="absolute  left-2" />
+          <Input
+            value={locationSearchValue}
+            onChange={(e) => setLocationSearchValue(e.target.value)}
+            className="w-full pl-10 bg-dark-gray rounded-full  fill-light-gray placeholder:text-light-gray"
+            placeholder="ПОИСК СТРАНЫ И ГОРОДА"
+            color="#BBBBBB"
+          />
         </div>
-
-        <div className="grid grid-cols-[1fr,8rem,1fr] grid-rows-1 min-h-full  ">
-          <ScrollArea className="h-[50svh] border rounded-3xl p-4">
-            <div className="flex flex-col gap-3">
-              {filteredCountries?.map((country) => (
-                <CountryCard
-                  active={country.name.ru === selectCountry?.name.ru}
-                  key={country.id}
-                  onClick={() => onClickCountry(country)}
-                  country={country}
-                />
-              ))}
-            </div>
-          </ScrollArea>
-          <div className="flex items-center justify-center ">
-            <ArrowRightLineIcon width={22} className=" fill-white " />
-          </div>
-          <ScrollArea className="h-[50svh] border rounded-3xl p-4">
-            <div className="  flex  flex-col  gap-3 ">
-              {selectCountry && cityList.length > 0
-                ? cityList.map((city) => (
-                    <DrawerClose key={city.id}>
-                      <CityCard
-                        onClick={() => onClickCity(city)}
-                        city={city}
-                        active={selectCity?.code_name === city?.code_name}
-                      />
+        <ScrollArea className="h-[80svh] px-4">
+          <Accordion
+            value={debouncedLocationSearchValue.length > 0 ? accordionActiveItems : undefined}
+            type="multiple"
+            className="w-full flex flex-col gap-4"
+          >
+            {filteredCountries.map((country) => (
+              <AccordionItem
+                className="flex flex-col gap-2"
+                key={country.id}
+                value={String(country.id)}
+              >
+                <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-bold text-sm p-4 border-light-gray">
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src={country.icon_url}
+                      alt={`страна ${country.name.ru}`}
+                      width={36}
+                      height={36}
+                    />
+                    <p>{country.name.ru}</p>
+                  </div>
+                </AccordionTrigger>
+                {country.cities.map((city) => (
+                  <AccordionContent
+                    className="rounded-full bg-dark-gray  p-4"
+                    key={city.id}
+                    onClick={() => onClickCity(city)}
+                  >
+                    <DrawerClose asChild>
+                      <p> {city.name.ru}</p>
                     </DrawerClose>
-                  ))
-                : filteredCountries?.map((country) =>
-                    country.cities.map((city) => (
-                      <DrawerClose key={city.id}>
-                        <CityCard
-                          onClick={() => onClickCity(city)}
-                          city={city}
-                          active={selectCity?.code_name === city?.code_name}
-                        />
-                      </DrawerClose>
-                    )),
-                  )}
-            </div>
-          </ScrollArea>
-        </div>
+                  </AccordionContent>
+                ))}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </ScrollArea>
       </DrawerContent>
     </Drawer>
   );
