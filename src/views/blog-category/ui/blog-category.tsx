@@ -13,7 +13,7 @@ export const BlogCategoryPage = async ({ params }: { params: { category: string 
         <h1 className="mobile-xl:block hidden uppercase mobile-xl:text-3xl mobile-xl:font-semibold mobile-xl:text-center mobile-xl:max-w-[80%] text-lg font-medium text-start">
           {articles?.name}
         </h1>
-        <h1 className="mobile-xl:hidden block uppercase mobile-xl:text-3xl mobile-xl:font-semibold mobile-xl:text-center mobile-xl:max-w-[80%] text-lg font-medium text-start">
+        <h1 className="mobile-xl:hidden block uppercase mobile-xl:text-3xl mobile-xl:font-semibold mobile-xl:text-center mobile-xl:max-w-[80%] mobile:text-lg text-sm font-medium text-start">
           Блог о финансах, криптовалюте и переводах за рубеж
         </h1>
       </div>

@@ -4,21 +4,23 @@ import { routes } from "@/shared/router";
 import { Category } from "../../../model";
 
 interface CategoryCardProps {
-  category: Category;
-  selectedCategory: boolean;
+  category?: Category;
+  selectedCategory?: boolean;
+  tag?: string;
 }
 
-export const CategoryCard: FC<CategoryCardProps> = ({ category, selectedCategory }) => {
-  const path = category.category
-    ? `${routes.blog}${routes.category}/${category?.category}`
-    : routes.blog;
+export const CategoryCard: FC<CategoryCardProps> = ({ category, selectedCategory, tag }) => {
+  const path =
+    category && category?.category
+      ? `${routes.blog}${routes.category}/${category?.category}`
+      : routes.blog;
   return (
     <Link
       scroll={false}
       href={path}
-      className={`w-full text-center uppercase text-xs mobile-xl:font-semibold font-medium mobile-xl:py-3 mobile-xl:px-8 py-3 px-6 rounded-full transition-all duration-300 mobile-xl:border-0 border-2 border-[#ddd] ${selectedCategory ? "bg-yellow-main text-black border-yellow-main" : "hover:bg-dark-gray hover:border-[#ddd]"}`}
+      className={`w-full text-center uppercase mobile:text-xs text-2xs mobile-xl:font-semibold font-medium mobile-xl:py-3 mobile-xl:px-8 mobile:py-3 mobile:px-6 py-2.5 px-5 rounded-full transition-all duration-300 mobile-xl:border-0 border-2 border-[#ddd] ${selectedCategory ? "bg-yellow-main text-black border-yellow-main" : "hover:bg-dark-gray hover:border-[#ddd]"} ${tag && "bg-yellow-main text-black border-yellow-main"}`}
     >
-      {category?.name}
+      {category ? category?.name : tag}
     </Link>
   );
 };

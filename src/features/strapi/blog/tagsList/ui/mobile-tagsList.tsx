@@ -13,7 +13,6 @@ export const MobileTagsList = async () => {
         <section className="flex flex-wrap justify-center gap-2 px-8">
           {tags?.tags?.map((tag) => (
             <Link
-              scroll={false}
               href={`${routes.blog}/${routes.tag}/${tag?.tag}`}
               className="text-[#ddd] text-xs leading-2 uppercase hover:text-yellow-main cursor-pointer transition-all hover:transition-all duration-300"
               key={tag?.id}

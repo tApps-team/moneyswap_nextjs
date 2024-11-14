@@ -51,7 +51,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route
           <Link
             key={index}
             href={`${route}?page=${page}${searchValue ? `&search=${searchValue}` : ""}`}
-            className={`h-12 w-12 text-xs font-medium flex justify-center items-center rounded-full p-2 border-0 border-dark-gray transition-all duration-300 ${page === currentPage ? "bg-yellow-main text-dark-gray" : "hover:shadow-[inset_1px_1px_5px_2px_rgba(0,0,0,0.5)] transition-all duration-300"}`}
+            className={`mobile-xl:h-12 mobile-xl:w-12 mobile-xl:text-xs w-10 h-10 text-[10px] font-medium flex justify-center items-center rounded-full p-2 border-0 border-dark-gray transition-all duration-300 ${page === currentPage ? "bg-yellow-main text-dark-gray" : "hover:shadow-[inset_1px_1px_5px_2px_rgba(0,0,0,0.5)] transition-all duration-300"}`}
             scroll={false}
           >
             {page}
