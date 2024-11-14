@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { FC, useEffect, useRef, useState } from "react";
 import { Category, CategoryCard } from "@/entities/strapi";
 import {
@@ -11,7 +10,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/shared/ui";
-import { routes } from "@/shared/router";
 
 interface CategoriesListProps {
   categories: Category[];

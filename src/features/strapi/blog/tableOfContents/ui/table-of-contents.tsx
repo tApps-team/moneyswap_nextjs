@@ -78,13 +78,13 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
   };
 
   return (
-    <section className="grid grid-flow-row gap-3 max-h-[35svh] rounded-[20px] bg-black py-4 px-3">
+    <section className="grid grid-flow-row gap-3 rounded-[20px] bg-black py-4 px-3">
       <div className="px-3">
         <h3 className="uppercase text-white font-semibold text-sm truncate">Оглавление</h3>
       </div>
       <div
         ref={tocContainerRef}
-        className="grid grid-flow-row gap-2 px-3 overflow-y-auto max-h-[35svh]"
+        className="grid grid-flow-row gap-2 px-3 overflow-y-auto mobile-xl:max-h-[35svh] max-h-[17svh]"
       >
         {table_of_contents?.map((item, index) => (
           <li

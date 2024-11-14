@@ -39,11 +39,14 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
         // Проверка на paragraph
         if (item.content_type === DynamicContentType.paragraph && item.paragraph) {
           return (
-            <div key={index} className={`mb-[30px] strapi_styles strapi_fonts_codec text-sm`}>
+            <div
+              key={index}
+              className={`mobile:xl:mb-[30px] mb-[20px] strapi_styles strapi_fonts_codec mobile:text-sm text-xs`}
+            >
               {item.paragraph.title && (
                 <h2
                   id={item?.paragraph?.title_id ? item?.paragraph?.title_id : ""}
-                  className={`main_font ${item.paragraph.title_position === ComponentPosition.center ? "text-center" : item.paragraph.title_position === ComponentPosition.right ? "text-right" : "text-left"}`}
+                  className={`main_font ${item.paragraph.title_position === ComponentPosition.center ? "mobile-xl:text-center text-center" : item.paragraph.title_position === ComponentPosition.right ? "mobile-xl:text-right text-center" : "mobile-xl:text-left text-center"}`}
                 >
                   {item.paragraph.title}
                 </h2>
@@ -59,13 +62,13 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`mb-[30px] strapi_custom_quote strapi_styles main_font text-sm ${buttonTypeClass}`}
+              className={`mobile-xl:[&>svg]:w-[100px] [&>svg]:w-[66px] mobile:xl:mb-[30px] mb-[20px] strapi_custom_quote strapi_styles main_font mobile:text-sm text-xs ${buttonTypeClass}`}
             >
-              <SwitcherIcon width={100} height={"auto"} fill="#2d2d2d" />
+              <SwitcherIcon height={"auto"} fill="#2d2d2d" />
               <p>{parse(item.quote.content, options)}</p>
               {item.quote.button_name && (
                 <Link href={item.quote.button_url!} target={item.quote.target}>
-                  <button className="hover:shadow-[1px_3px_10px_1px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300 truncate">
+                  <button className="hover:shadow-[1px_3px_10px_1px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300">
                     {item.quote.button_name}
                   </button>
                 </Link>
@@ -80,7 +83,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`mb-[30px] ${item.custom_button.button_position === ComponentPosition.center ? "justify-center" : item.custom_button.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles main_font text-sm`}
+              className={`mobile:xl:mb-[30px] mb-[20px] ${item.custom_button.button_position === ComponentPosition.center ? "justify-center" : item.custom_button.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles main_font mobile:text-sm text-xs`}
             >
               <Link href={item.custom_button.button_url!} target={item.custom_button.target}>
                 <button className="hover:shadow-[1px_3px_10px_1px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300">
@@ -94,9 +97,12 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
         // Проверка на custom_accordion
         if (item.content_type === DynamicContentType.custom_accordion && item.accordion) {
           return (
-            <div key={index} className={`mb-[30px] grid grid-flow-row gap-6`}>
+            <div
+              key={index}
+              className={`mobile:xl:mb-[30px] mb-[20px] grid grid-flow-row mobile-xl:gap-6 gap-4`}
+            >
               {item.accordion.title && (
-                <div className="main_font text-xl text-white font-semibold uppercase pl-8">
+                <div className="main_font mobile-xl:text-xl mobile:text-md text-sm text-white mobile-xl:font-semibold font-medium uppercase mobile-xl:pl-8 pl-0 mobile-xl:text-start text-center">
                   {item.accordion.title}
                 </div>
               )}
@@ -106,12 +112,12 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
                 className="w-full rounded-[25px] shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] bg-dark-gray px-8 py-4"
               >
                 <AccordionItem value={`Value-${item.accordion.question}`} className="">
-                  <AccordionTrigger className="main_font uppercase text-sm font-medium text-start color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white leading-4">
+                  <AccordionTrigger className="main_font uppercase text-sm font-medium text-start color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white leading-6">
                     {item.accordion.question}
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
                     <div
-                      className={`strapi_fonts_codec mt-6 mb-[20px] text-sm font-normal text-light-gray strapi_styles blog-custom-accordion-answer`}
+                      className={`strapi_fonts_codec mt-6 mobile-xl:mb-[20px] mb-[10px] text-sm font-normal text-light-gray strapi_styles blog-custom-accordion-answer`}
                     >
                       {parse(item.accordion.answer, options)}
                     </div>

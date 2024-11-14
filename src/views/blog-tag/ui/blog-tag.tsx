@@ -25,7 +25,9 @@ export const BlogTagPage = async ({ params }: { params: { tag: string } }) => {
       <div className="mobile-xl:block hidden">
         <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
           <AllArticles articles={articles?.articles} />
-          <BlogSidebar />
+          <div className="sticky top-[90px] right-0">
+            <BlogSidebar />
+          </div>
         </div>
       </div>
       <MobileAllArticles articles={articles?.articles} />
