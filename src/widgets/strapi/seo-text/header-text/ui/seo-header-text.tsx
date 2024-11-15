@@ -39,7 +39,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
             >
               {parse(data[0]?.header_title, options)}
             </div>
-            <div className="mobile-xl:hidden mt-6 flex    gap-4">
+            <div className="mobile-xl:hidden mobile-xl:mt-6 mt-0 flex gap-4">
               <Dialog>
                 <DialogTrigger className="">
                   <Info className="size-8" />
