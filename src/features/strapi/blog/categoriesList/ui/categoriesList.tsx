@@ -48,13 +48,25 @@ export const CategoriesList: FC<CategoriesListProps> = ({
         ref={carouselRef}
         opts={{
           align: "start",
+          dragFree: true,
         }}
         className="grid mobile-xl:w-[calc(100%_-_100px)] mobile-xl:mx-auto"
         setApi={setApi}
       >
         <CarouselContent className="w-full">
+          {selectedTag && (
+            <CarouselItem
+              key={0}
+              className="mobile-xl:hidden mobile-xl:basis-1/6 basis-3/11 grid pl-4"
+            >
+              <CategoryCard tag={selectedTag} />
+            </CarouselItem>
+          )}
           {categoriesWithAllTab?.map((cat, index) => (
-            <CarouselItem key={index} className="mobile-xl:basis-1/6 basis-3/11 grid pl-4">
+            <CarouselItem
+              key={selectedTag ? index + 1 : index}
+              className="mobile-xl:basis-1/6 basis-3/11 grid pl-4"
+            >
               <CategoryCard
                 key={cat?.id}
                 category={cat && cat}

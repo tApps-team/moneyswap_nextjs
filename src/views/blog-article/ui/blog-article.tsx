@@ -7,6 +7,7 @@ import { getArticle, getCategoryArticles, getTagArticles } from "@/entities/stra
 import { ArticleNavArrowIcon, FacebookIcon, TgIcon, YoutubeIcon } from "@/shared/assets";
 import { routes } from "@/shared/router";
 import searchAnimation from "/public/animated/search_spin.gif";
+import { MobileArticleSearch, TableOfContentsBlock } from "@/features/strapi";
 
 const options = {
   replace: (domNode: DOMNode) => {
@@ -77,28 +78,38 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
   const formattedDate = formatter.format(new Date(article?.publishedAt));
 
   return (
-    <section className="grid grid-flow-cols gap-6">
-      <div className="grid grid-cols-[repeat(5,_auto)] gap-2 justify-start justify-items-start items-center uppercase text-[#b9b9b9]   font-semibold text-sm">
+    <section className="grid grid-flow-cols mobile-xl:gap-6 gap-3">
+      <div className="mobile-xl:grid mobile-xl:grid-cols-[repeat(5,_auto)] flex flex-wrap gap-2 justify-start justify-items-start items-center uppercase text-[#b9b9b9] font-semibold mobile-xl:text-sm mobile:text-xs text-2xs">
         <Link href={routes.home} className="hover:underline cursor-pointer">
           MONEYSWAP
         </Link>
-        <ArticleNavArrowIcon className="w-[14px] h-[14px]" />
+        <ArticleNavArrowIcon className="mobile-xl:w-[14px] mobile-xl:h-[14px] w-[10px] h-[10px]" />
+        <Link href={routes.blog} className="inline mobile-xl:hidden hover:underline cursor-pointer">
+          Статьи
+        </Link>
+        <ArticleNavArrowIcon className="inline mobile-xl:hidden mobile-xl:w-[14px] mobile-xl:h-[14px] w-[10px] h-[10px]" />
         <Link
           href={`${routes.blog}/${routes.tag}/${article?.tags[0]?.tag}`}
           className="hover:underline cursor-pointer"
         >
           {article?.tags[0]?.name}
         </Link>
-        <ArticleNavArrowIcon className="w-[14px] h-[14px]" />
-        <span className="truncate hover:underline cursor-pointer">{article?.preview?.title}</span>
+        <ArticleNavArrowIcon className="hidden mobile-xl:inline mobile-xl:w-[14px] mobile-xl:h-[14px] w-[10px] h-[10px]" />
+        <span className="hidden mobile-xl:inline truncate hover:underline cursor-pointer">
+          {article?.preview?.title}
+        </span>
       </div>
-      <div className="grid grid-flow-rows gap-6">
-        <h1 className="text-3xl font-medium uppercase max-w-[100%]">{article?.article?.title}</h1>
-        <p className="text-white font-medium text-sm uppercase tracking-widest">{formattedDate}</p>
+      <div className="grid grid-flow-rows mobile-xl:gap-6 gap-3">
+        <h1 className="mobile-xl:text-3xl mobile:text-lg text-sm font-medium uppercase max-w-[100%]">
+          {article?.article?.title}
+        </h1>
+        <p className="mobile-xl:text-white text-light-gray font-medium mobile-xl:text-sm mobile:text-xs text-2xs uppercase tracking-widest">
+          {formattedDate}
+        </p>
       </div>
-      <section className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
-        <div className="grid grid-flow-rows gap-8">
-          <div className="grid grid-flow-row gap-8 bg-dark-gray p-10 pb-8 rounded-[35px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.35)]">
+      <section className="grid mobile-xl:grid-cols-[1fr_0.4fr] grid-cols-1 mobile-xl:gap-10 gap-0 items-start">
+        <div className="grid grid-flow-rows mobile-xl:gap-8 gap-4">
+          <div className="grid grid-flow-row mobile-xl:gap-8 gap-0 mobile-xl:bg-dark-gray bg-black mobile-xl:p-10 mobile-xl:pb-8 p-0 pb-6 rounded-[35px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.35)]">
             <div className="w-full h-auto max-h-[1000px] rounded-[35px] overflow-hidden border-2 border-[#000]">
               <Image
                 className="w-full h-full object-contain"
@@ -108,27 +119,33 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 height={500}
               />
             </div>
-            <div className="text-sm uppercase strapi_styles strapi_fonts_codec">
+            <div className="mobile-xl:overflow-visible overflow-y-auto mobile-xl:max-h-full max-h-[20svh] mobile-xl:p-0 px-6 pt-4 text-sm uppercase strapi_styles strapi_fonts_codec">
               {parse(article?.article?.description, options)}
             </div>
           </div>
+          <MobileArticleSearch currentValue={null} />
+          <div className="block mobile-xl:hidden">
+            <TableOfContentsBlock table_of_contents={article?.article?.table_of_contents} />
+          </div>
           <ArticleContent dynamic_content={article?.article?.dynamic_content} />
-          <hr className="color-[#ddd]" />
-          <div className="grid grid-flow-row gap-12 pt-[30px]">
-            <div className="flex flex-wrap gap-4">
+          <hr className="color-light-gray" />
+          <div className="grid grid-flow-row mobile-xl:gap-12 gap-6 mobile-xl:pt-8 pt-4">
+            <div className="flex flex-wrap mobile-xl:gap-4 gap-1.5">
               {article?.tags?.map((tag) => (
                 <Link
                   href={`${routes.blog}/${routes.tag}/${tag?.tag}`}
                   key={tag?.id}
-                  className="cursor-pointer uppercase text-2xs py-4 px-6 bg-dark-gray rounded-full border-2 border-[#ddd] text-[#b9b9b9] hover:text-yellow-main hover:border-yellow-main transition-all duration-300"
+                  className="cursor-pointer uppercase text-2xs mobile-xl:py-4 py-2 mobile-xl:px-6 px-3 bg-dark-gray rounded-full mobile-xl:border-2 border-[1px] border-light-gray text-light-gray hover:text-yellow-main hover:border-yellow-main transition-all duration-300"
                 >
                   {tag?.name}
                 </Link>
               ))}
             </div>
-            <div className="grid grid-flow-row gap-6">
-              <p className="text-yellow-main uppercase text-2xl font-semibold">Поделиться</p>
-              <div className="grid grid-flow-col gap-2 justify-start justify-items-start">
+            <div className="grid grid-flow-row justify-center mobile-xl:justify-start mobile-xl:gap-6 gap-4">
+              <p className="text-yellow-main uppercase mobile-xl:text-2xl text-md mobile-xl:font-semibold font-medium">
+                Поделиться
+              </p>
+              <div className="grid grid-flow-col gap-2 mobile-xl:justify-start justify-center justify-items-start">
                 <div className="w-[30px] h-[30px] &>svg-w-full &>svg-h-full cursor-pointer">
                   <TgIcon />
                 </div>
@@ -145,7 +162,9 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
             )}
           </div>
         </div>
-        <BlogSidebar table_of_contents={article?.article?.table_of_contents} />
+        <div className="mobile-xl:block hidden sticky top-[90px] right-0">
+          <BlogSidebar table_of_contents={article?.article?.table_of_contents} />
+        </div>
       </section>
     </section>
   );

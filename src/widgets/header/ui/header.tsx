@@ -1,17 +1,7 @@
-import { HeadphonesIcon, WalletIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { TelegramIcon } from "@/shared/assets";
 import { routes } from "@/shared/router";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  TelegramButton,
-} from "@/shared/ui";
+import { TelegramButton } from "@/shared/ui";
 import { Navbar } from "../navbar";
 import { HeaderMobile } from "./header-mobile";
 export const Header = () => {

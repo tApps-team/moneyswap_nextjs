@@ -7,7 +7,6 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
@@ -15,12 +14,15 @@ import {
 } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Exchanger, getExchangers } from "@/entities/exchanger";
+import { Exchanger, ExchangerCard, getExchangers } from "@/entities/exchanger";
+import { LocationInfo } from "@/entities/location";
+import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 
 interface DataTableProps<TValue> {
   columns: ColumnDef<Exchanger, TValue>[];
   data?: Exchanger[];
+
   // type: "exchange" | "main";
   params:
     | {
@@ -42,6 +44,8 @@ export function ExchangersTable<TData, TValue>({ columns, params }: DataTablePro
     refetchInterval: 60000,
     queryFn: async () => (await getExchangers(params)).exchangers,
   });
+
+  const isDesktop = useMediaQuery("(min-width: 640px)");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -87,59 +91,67 @@ export function ExchangersTable<TData, TValue>({ columns, params }: DataTablePro
       pageSize: prev.pageSize + 10,
     }));
   };
-
-  return (
-    <div className="flex flex-col mt-10 gap-12 w-full">
-      <div className="rounded-3xl bg-dark-gray  text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
-        <Table className="">
-          <TableHeader className="">
-            {table?.getHeaderGroups()?.map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead
-                    className="uppercase py-6 px-4 text-light-gray font-semibold"
-                    key={header.id}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {/* <Link href={cell.row.original.partner_link} target="_blank"> */}
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      {/* </Link> */}
-                    </TableCell>
+  if (isDesktop) {
+    return (
+      <div className="flex flex-col mt-10 gap-12 w-full">
+        <div className="rounded-3xl bg-dark-gray  text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+          <Table className="">
+            <TableHeader className="">
+              {table?.getHeaderGroups()?.map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead
+                      className="uppercase py-6 px-4 text-light-gray font-semibold"
+                      key={header.id}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {/* <Link href={cell.row.original.partner_link} target="_blank"> */}
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {/* </Link> */}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+        <Button
+          onClick={handleShowMore}
+          disabled={
+            table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
+          }
+          className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full"
+        >
+          Показать ещё
+        </Button>
       </div>
-      <Button
-        onClick={handleShowMore}
-        disabled={
-          table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
-        }
-        className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full"
-      >
-        Показать ещё
-      </Button>
+    );
+  }
+  return (
+    <div className="flex flex-col mt-10 gap-4 w-full">
+      {data.map((exchanger) => (
+        <ExchangerCard key={exchanger.id} exchanger={exchanger} city={params?.city} />
+      ))}
     </div>
   );
 }

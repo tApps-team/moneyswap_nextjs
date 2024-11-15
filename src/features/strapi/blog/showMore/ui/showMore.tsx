@@ -8,7 +8,7 @@ export const ShowMore: FC<ShowMoreProps> = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="uppercase text-sm font-semibold px-6 py-4 rounded-[35px] text-black bg-yellow-main hover:bg-[#ddd] cursor-pointer"
+      className="mobile-xl:sm uppercase text-xs font-semibold px-6 py-4 rounded-[35px] text-black bg-yellow-main hover:bg-[#ddd] cursor-pointer"
     >
       Показать ещё
     </button>

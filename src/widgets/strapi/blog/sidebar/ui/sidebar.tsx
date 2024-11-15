@@ -17,7 +17,7 @@ export const BlogSidebar: FC<BlogSidebarProps> = async ({
   const { data: tags } = await getAllTags();
 
   return (
-    <div className={`sticky top-[90px] right-0 ${isMain && "h-full pb-[84px]"}`}>
+    <div className={`${isMain && "h-full pb-[84px]"}`}>
       <section
         className={`grid grid-flow-rows gap-6 rounded-[35px] shadow-[1px_3px_5px_2px_rgba(0,0,0,0.5)] bg-[rgba(45,45,45,0.6)] backdrop-blur-lg p-6 ${isMain && "h-full"}`}
       >

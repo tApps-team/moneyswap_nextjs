@@ -63,7 +63,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     base: urlGiveCurrency?.code_name,
     city: urlDirection === ExchangerMarker.cash ? urlLocation?.code_name : undefined,
   });
-  console.log(getCurrenciesIsError);
+
   const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
 
   return (

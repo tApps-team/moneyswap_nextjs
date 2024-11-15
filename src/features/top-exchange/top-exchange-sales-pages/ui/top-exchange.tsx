@@ -31,9 +31,11 @@ export const TopExchange: FC<TopExchangeProps> = ({
     currentDirection === ExchangerMarker.cash ? randomCashDirections : randomNoncashDirections;
   return (
     <section>
-      <section className="py-[50px] grid mobile-xl:grid-cols-2 gap-8">
+      <section className="mobile-xl:py-[50px] pb-8 pt-0 grid mobile-xl:grid-cols-2 gap-8">
         <div className="grid grid-flow-row gap-6 mobile-xl:mx-10 mx-3">
-          <p className="text-lg font-medium uppercase">Топ популярных направлений</p>
+          <p className="mobile-xl:text-lg mobile-xs:text-sm text-xs mobile-xl:font-medium font-semibold mobile-xl:text-left text-center uppercase">
+            Топ популярных направлений
+          </p>
           <div className="grid grid-cols-3 mobile-xl:gap-x-12 mobile-xl:gap-y-6 gap-3 items-center">
             {currentPopularDirections?.map((direction, index) => (
               // <Link
@@ -73,7 +75,9 @@ export const TopExchange: FC<TopExchangeProps> = ({
           </div>
         </div>
         <div className="grid grid-flow-row gap-6 mobile-xl:mx-10 mx-3">
-          <p className="text-lg font-medium uppercase">Возможно вам будет интересно</p>
+          <p className="mobile-xl:text-lg mobile-xs:text-sm text-xs mobile-xl:font-medium font-semibold mobile-xl:text-left text-center uppercase">
+            Возможно вам будет интересно
+          </p>
           <div className="grid grid-cols-3 mobile-xl:gap-x-12 mobile-xl:gap-y-6 gap-3 justify-between items-center">
             {currentRandomDirections?.map((direction, index) => (
               // <Link
@@ -113,7 +117,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
           </div>
         </div>
       </section>
-      <section className="py-[20px] grid mobile-xl:grid-cols-2 gap-8">
+      <section className="py-5 grid mobile-xl:grid-cols-2 gap-8">
         <Link
           href={routes.buy}
           className="border-2 border-light-gray max-h-16  rounded-full p-4 uppercase font-medium text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"

@@ -55,7 +55,7 @@ export const Main = async ({
 
   return (
     <section>
-      <SeoHeaderText data={seoTexts.data} isMain />
+      <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
       <CurrencySelectForm
         actualCourse={actualCourse}

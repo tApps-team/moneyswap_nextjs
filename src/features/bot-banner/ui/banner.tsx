@@ -3,11 +3,15 @@ import { products } from "@/shared/router";
 
 export const BotBanner = () => {
   return (
-    <section className="text-light-gray grid mobile-xl:grid-cols-2 grid-cols-[1fr_0.7fr] mobile-xl:gap-10 gap-1 items-center justify-center mobile-xl:mx-12 py-7 mobile-xl:py-[50px]">
+    <section className="text-light-gray grid mobile:grid-cols-2 mobile-xs:grid-cols-[1fr_0.7fr] grid-cols-[1fr_0.5fr] mobile-xl:gap-10 gap-0 items-center justify-center mobile-xl:mx-12 py-7 mobile-xl:py-[50px]">
       <div className="grid grid-flow-col gap-20">
-        <div className="mobile-xl:text-lg mobile:text-2xs mobile-xs:text-[9px] text-[8px] uppercase grid grid-flow-row gap-2 content-between mobile-xl:font-semibold mobile:font-medium font-semibold">
-          <p>Больше функций доступно</p>
-          <p>В нашем телеграм-боте</p>
+        <div className="mobile-xl:text-lg mobile:text-2xs text-[8.5px] uppercase grid grid-flow-row gap-2 content-between mobile-xl:font-semibold mobile:font-medium font-semibold">
+          <p>
+            Больше функций <span className="mobile-xs:inline hidden">доступно</span>
+          </p>
+          <p>
+            В <span className="mobile-xs:inline hidden">нашем</span> телеграм-боте
+          </p>
         </div>
         <ArrowRightLineIcon
           width={60}
@@ -28,7 +32,7 @@ export const BotBanner = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <p className="text-white mobile-xl:text-sm text-[8px] uppercase font-medium">
+          <p className="text-white mobile-xl:text-sm mobile:text-2xs text-[8px] uppercase font-medium">
             moneyswap_robot
           </p>
           <TelegramIcon className="mobile-xl:size-6 size-4" />
