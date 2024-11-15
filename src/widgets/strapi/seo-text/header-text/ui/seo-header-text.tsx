@@ -44,7 +44,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogTrigger className="">
                   <Info className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[80%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
+                <DialogContent className="w-[90%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[70%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
                   <Image
                     src={"/logofull.svg"}
                     className="mt-10"
@@ -52,8 +52,8 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                     width={300}
                     height={300}
                   />
-                  <h2 className="uppercase text-lg font-bold">как совершить обмен?</h2>
-                  <p className="uppercase text-base leading-2 flex flex-col gap-2 overflow-scroll">
+                  <h2 className="uppercase text-sm font-bold">как совершить обмен?</h2>
+                  <p className="uppercase text-xs leading-2 flex flex-col gap-2 overflow-scroll">
                     <p>
                       1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.
                     </p>
@@ -74,7 +74,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogTrigger className="">
                   <YellowQuestionIcon className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%] h-[85%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] flex flex-col items-center py-4 gap-10 rounded-3xl bg-dark-gray">
+                <DialogContent className="w-[90%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[70%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
                   <Image
                     className="mt-10"
                     src={"/logofull.svg"}
@@ -82,8 +82,8 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                     width={300}
                     height={300}
                   />
-                  <h2 className="uppercase text-lg font-bold">что такое moneyswap?</h2>
-                  <p className="uppercase text-base leading-2 overflow-scroll">
+                  <h2 className="uppercase text-sm font-bold">что такое moneyswap?</h2>
+                  <p className="uppercase text-xs leading-2 overflow-scroll">
                     MONEYSWAP - мониторинг обменников криптовалют. На сайте собран список
                     проверенных обменников криптовалют, с помощью которых вы можете обменять
                     криптовалюту быстро и безопасно. На MONEYSWAP размещены лучшие криптообменники с

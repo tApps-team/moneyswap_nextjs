@@ -7,7 +7,6 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
@@ -16,12 +15,14 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Exchanger, ExchangerCard, getExchangers } from "@/entities/exchanger";
+import { LocationInfo } from "@/entities/location";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 
 interface DataTableProps<TValue> {
   columns: ColumnDef<Exchanger, TValue>[];
   data?: Exchanger[];
+
   // type: "exchange" | "main";
   params:
     | {

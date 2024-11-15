@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useDeferredValue, useEffect, useRef, useState } from "react";
 import { object } from "zod";
 import { Currency, CurrencyCard, CurrencyResponse } from "@/entities/currency";
+import { HeaderArrow } from "@/shared/assets";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { ExchangerMarker, directions } from "@/shared/types";
 import {
@@ -258,12 +259,12 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
           </DrawerTrigger>
           <DrawerContent className="min-h-svh p-4 rounded-none bg-dark-gray border-none">
             <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
-              <div className="relative">
+              <div className="flex items-center justify-between">
                 <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
                   {label}
                 </h2>
-                <DrawerClose className="absolute right-0 top-0">
-                  <X width={26} height={26} fill={"#f6ff5f"} />
+                <DrawerClose>
+                  <HeaderArrow className="size-5" />
                 </DrawerClose>
               </div>
               <div className="relative">

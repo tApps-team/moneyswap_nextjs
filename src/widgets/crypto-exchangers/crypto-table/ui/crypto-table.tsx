@@ -133,7 +133,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
             className="p-3 border-b last:border-none border-light-gray flex items-center justify-between"
           >
             <div className="flex flex-col  gap-2">
-              <p className="text-yellow-main">{exchanger.exchangerName}</p>
+              <p className="text-yellow-main uppercase">{exchanger.exchangerName}</p>
               <div className="text-xs">
                 <div className="flex items-center gap-2">
                   <p className="text-light-gray">КУРСОВ:</p>
@@ -162,7 +162,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                   pathname: `/crypto-exchangers/exchanger-${exchanger.id}`,
                   query: { "exchanger-marker": exchanger.exchange_marker },
                 }}
-                className="flex items-center  gap-2 max-w-32  p-3 text-2xs rounded-full bg-dark-gray border border-light-gray"
+                className="flex items-center  gap-1 max-w-28  py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray"
               >
                 <span className="text-light-gray">ОТЗЫВЫ</span>
                 <div className="flex gap-1 items-center">
@@ -176,7 +176,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                   pathname: `/crypto-exchangers/exchanger-${exchanger.id}`,
                   query: { "exchanger-marker": exchanger.exchange_marker },
                 }}
-                className="flex text-light-gray max-w-32 items-center p-3 text-2xs rounded-full bg-dark-gray border border-light-gray"
+                className="flex text-light-gray max-w-28  items-center py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray"
               >
                 ПОДРОБНЕЕ
               </Link>

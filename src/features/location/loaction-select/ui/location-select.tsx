@@ -10,7 +10,7 @@ import {
   LocationInfo,
   getSpecificCity,
 } from "@/entities/location";
-import { ArrowRightLineIcon } from "@/shared/assets";
+import { ArrowRightLineIcon, HeaderArrow } from "@/shared/assets";
 import { useDebounce } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { routes } from "@/shared/router";
@@ -223,7 +223,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
         <DrawerHeader className="flex p-0 items-center justify-between pt-16">
           <h2 className="uppercase font-bold">Выбор города</h2>
           <DrawerClose>
-            <X className="" />
+            <HeaderArrow className="size-5" />
           </DrawerClose>
         </DrawerHeader>
         <div className="relative flex items-center">
@@ -248,7 +248,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 key={country.id}
                 value={String(country.id)}
               >
-                <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-bold text-sm p-4 border-light-gray">
+                <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-medium text-sm p-4 border-light-gray">
                   <div className="flex items-center gap-3">
                     <Image
                       src={country.icon_url}
@@ -266,7 +266,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                     onClick={() => onClickCity(city)}
                   >
                     <DrawerClose asChild>
-                      <p> {city.name.ru}</p>
+                      <p className="uppercase"> {city.name.ru}</p>
                     </DrawerClose>
                   </AccordionContent>
                 ))}
