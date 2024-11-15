@@ -27,7 +27,7 @@ export const AccordionList: FC<MainFaqs> = ({ data }) => {
           key={faq?.id}
           className="grid grid-flow-row mobile-xl:rounded-[25px] rounded-none mobile-xl:shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] shadow-none mobile-xl:bg-dark-gray bg-transparent mobile-xl:px-8 mobile-xl:py-4 p-0 pb-6 mobile-xl:border-none border-b-2 border-light-gray"
         >
-          <AccordionTrigger className="mobile-xl:text-sm text-xs font-semibold tracking-wider text-start uppercase color-[#fff] p-0 border-b-0 mobile-xl:[&>svg]:-mr-5 [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white mobile-xl:leading-6 leading-5 [&>svg]:w-6 [&>svg]:h-6 [&>svg]:stroke-[3px]">
+          <AccordionTrigger className="mobile-xl:text-sm mobile:text-xs text-2xs mobile-xl:font-semibold font-medium [&[data-state=open]]:text-yellow-main tracking-wider text-start uppercase color-[#fff] p-0 border-b-0 mobile-xl:[&>svg]:-mr-5 mobile-xl:[&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white mobile-xl:leading-6 leading-4 [&>svg]:w-6 [&>svg]:h-6 [&>svg]:stroke-[3px]">
             {faq?.question}
             <ChevronDown className="transition-all duration-300 shrink-0" />
           </AccordionTrigger>

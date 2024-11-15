@@ -5,7 +5,7 @@ export const BotBanner = () => {
   return (
     <section className="text-light-gray grid mobile:grid-cols-2 mobile-xs:grid-cols-[1fr_0.7fr] grid-cols-[1fr_0.5fr] mobile-xl:gap-10 gap-0 items-center justify-center mobile-xl:mx-12 py-7 mobile-xl:py-[50px]">
       <div className="grid grid-flow-col gap-20">
-        <div className="mobile-xl:text-lg mobile:text-2xs text-[9px] uppercase grid grid-flow-row gap-2 content-between mobile-xl:font-semibold mobile:font-medium font-semibold">
+        <div className="mobile-xl:text-lg mobile:text-2xs text-[8.5px] uppercase grid grid-flow-row gap-2 content-between mobile-xl:font-semibold mobile:font-medium font-semibold">
           <p>
             Больше функций <span className="mobile-xs:inline hidden">доступно</span>
           </p>

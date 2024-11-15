@@ -39,7 +39,7 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
   }, [table_of_contents]);
 
   useEffect(() => {
-    if (activeId && itemRefs.current[activeId]) {
+    if (activeId && itemRefs.current[activeId] && window.innerWidth > 576) {
       const activeElement = itemRefs.current[activeId];
       const container = tocContainerRef.current;
 
