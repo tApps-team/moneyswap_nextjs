@@ -31,7 +31,7 @@ export const ExchangePage = async ({
   const giveCurrency = await getSpecificValute({ codeName: valute_from });
   const getCurrency = await getSpecificValute({ codeName: valute_to });
   const location = city ? await getSpecificCity({ codeName: city }) : undefined;
-  console.log(giveCurrency, "giveCurrecny", getCurrency, "Get");
+
   if (!giveCurrency.code_name || !getCurrency.code_name) {
     redirect("/");
   }

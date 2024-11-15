@@ -17,8 +17,8 @@ import {
 import { navbarItems } from "../navbar/model/navbarItems";
 export const HeaderMobile = () => {
   return (
-    <header className="fixed mobile-xl:hidden block top-0 left-0 w-full backdrop-blur-md z-10 p-5">
-      <div className="flex items-center justify-between">
+    <header className="fixed  mobile-xl:hidden block top-0 left-0 w-full backdrop-blur-md z-10 p-5">
+      <div className="flex h-10 items-center justify-between">
         <Link href={routes.home}>
           <Image src={"/logofull.svg"} alt="logo" width={150} height={250} />
         </Link>
@@ -51,9 +51,11 @@ export const HeaderMobile = () => {
                         key={itemChildren.value}
                         className="hover:text-yellow-main text-light-gray uppercase text-xs font-medium"
                       >
-                        <Link target={itemChildren.href} href={itemChildren.href}>
-                          {itemChildren.value}
-                        </Link>
+                        <DrawerClose asChild>
+                          <Link target="_self" href={itemChildren.href}>
+                            {itemChildren.value}
+                          </Link>
+                        </DrawerClose>
                       </AccordionContent>
                     ))}
                   </AccordionItem>
