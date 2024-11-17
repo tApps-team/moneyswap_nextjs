@@ -236,11 +236,11 @@ export const LocationSelect = (props: LocationSelectProps) => {
             color="#BBBBBB"
           />
         </div>
-        <ScrollArea className="h-[80svh] px-4">
+        <ScrollArea className="h-[80svh]">
           <Accordion
             value={debouncedLocationSearchValue.length > 0 ? accordionActiveItems : undefined}
             type="multiple"
-            className="w-full flex flex-col gap-4"
+            className="w-full flex  px-4 flex-col gap-4"
           >
             {filteredCountries.map((country) => (
               <AccordionItem
@@ -248,7 +248,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 key={country.id}
                 value={String(country.id)}
               >
-                <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-medium text-sm p-4 border-light-gray">
+                <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-medium text-sm p-4 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)]">
                   <div className="flex items-center gap-3">
                     <Image
                       src={country.icon_url}
@@ -261,7 +261,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 </AccordionTrigger>
                 {country.cities.map((city) => (
                   <AccordionContent
-                    className="rounded-full bg-dark-gray  p-4"
+                    className="rounded-full bg-dark-gray shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)] p-4"
                     key={city.id}
                     onClick={() => onClickCity(city)}
                   >

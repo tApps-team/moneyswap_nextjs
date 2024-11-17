@@ -310,9 +310,13 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 </Carousel>
               </TabsList>
 
-              <ScrollArea className="h-[calc(80svh-3rem)] px-4">
+              <ScrollArea className="h-[calc(80svh-3rem)] ">
                 {filteredTabList.map((tab) => (
-                  <TabsContent className="grid  gap-2" value={tab?.name?.ru} key={tab?.id}>
+                  <TabsContent
+                    className="flex flex-col mt-0  gap-2 px-4"
+                    value={tab?.name?.ru}
+                    key={tab?.id}
+                  >
                     {tab.currencies.map((currency) => (
                       <DrawerClose key={currency?.id}>
                         <CurrencyCard
