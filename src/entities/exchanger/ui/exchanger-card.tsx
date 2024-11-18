@@ -1,4 +1,5 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/shared/lib";
 import { Exchanger, ExchangerMarker } from "..";
 
@@ -8,11 +9,14 @@ type ExchangerCardProps = {
 };
 export const ExchangerCard = (props: ExchangerCardProps) => {
   const { exchanger, city } = props;
-  // const workDays =
 
   return (
     //relative z-10
-    <div className={cn("", exchanger.is_vip ? "pt-10 first:pt-2" : "pt-0")}>
+    <Link
+      href={exchanger.partner_link}
+      target="_blank"
+      className={cn("", exchanger.is_vip ? "pt-10 first:pt-2" : "pt-0")}
+    >
       {exchanger.is_vip && (
         <div className="bg-yellow-main absolute w-full h-16 rounded-3xl   text-black font-bold  -z-10 -translate-y-6 ">
           <p className="text-center "> VIP - ПАРТНЕР</p>
@@ -79,6 +83,6 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

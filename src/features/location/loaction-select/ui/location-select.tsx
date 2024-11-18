@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   City,
   CityCard,
+  CityCardMobile,
   Country,
   CountryCard,
   LocationInfo,
@@ -244,7 +245,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           >
             {filteredCountries.map((country) => (
               <AccordionItem
-                className="flex flex-col gap-2"
+                className="flex flex-col  gap-2"
                 key={country.id}
                 value={String(country.id)}
               >
@@ -259,17 +260,14 @@ export const LocationSelect = (props: LocationSelectProps) => {
                     <p>{country.name.ru}</p>
                   </div>
                 </AccordionTrigger>
-                {country.cities.map((city) => (
-                  <AccordionContent
-                    className="rounded-full bg-dark-gray shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)] p-4"
-                    key={city.id}
-                    onClick={() => onClickCity(city)}
-                  >
-                    <DrawerClose asChild>
-                      <p className="uppercase"> {city.name.ru}</p>
+
+                <AccordionContent className="py-2 grid gap-3">
+                  {country.cities.map((city) => (
+                    <DrawerClose key={city?.id} className="w-full px-2">
+                      <CityCardMobile city={city.name.ru} onClick={() => setSelectCity(city)} />
                     </DrawerClose>
-                  </AccordionContent>
-                ))}
+                  ))}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

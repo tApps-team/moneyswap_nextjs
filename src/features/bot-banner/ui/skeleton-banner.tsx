@@ -5,8 +5,8 @@ export const SkeletonBotBanner = () => {
   return (
     <section className="text-light-gray flex mobile-xl:grid mobile-xl:grid-cols-[1.5fr,0.1fr,1fr,1fr] gap-10 items-center mobile-xl:justify-center  mobile-xl:mx-12 mobile-xl:py-7">
       <div className="flex w-full flex-col gap-2">
-        <Skeleton className="h-7 w-full bg-skeleton-gray text-skeleton-gray" />
-        <Skeleton className="h-7 w-full bg-skeleton-gray text-skeleton-gray" />
+        <Skeleton className="h-5 mobile-xl:h-7 w-full bg-skeleton-gray text-skeleton-gray" />
+        <Skeleton className="h-5 mobile-xl:h-7  w-full bg-skeleton-gray text-skeleton-gray" />
       </div>
 
       <ArrowRightLineIcon
