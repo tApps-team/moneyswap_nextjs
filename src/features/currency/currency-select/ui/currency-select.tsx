@@ -232,7 +232,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             <div className="bg-dark-gray min-h-14 justify-between select-none rounded-full border-l-2 border-light-gray items-center p-2 flex h-full">
               <div className="grid grid-cols-[0.2fr,1fr,0.2fr] items-center gap-2 truncate">
                 {currencyInfo ? (
-                  <figure className="w-[36px] rounded-full overflow-hidden  h-[36px]">
+                  <figure className="size-9 rounded-full overflow-hidden  ">
                     <Image
                       className="rounded-full overflow-hidden"
                       alt={`${currencyInfo?.name?.ru} (${currencyInfo?.code_name})`}
@@ -274,7 +274,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 />
                 <Input
                   placeholder={"ПОИСК ВАЛЮТЫ"}
-                  className="text-sm rounded-3xl font-medium pl-12 bg-dark-gray border border-light-gray placeholder:text-light-gray placeholder:transition-opacity text-light-gray uppercase focus:placeholder:opacity-0"
+                  className="text-sm rounded-3xl font-medium pl-12 bg-dark-gray border placeholder:text-base border-light-gray placeholder:text-light-gray placeholder:transition-opacity text-light-gray uppercase focus:placeholder:opacity-0"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                 />
@@ -313,7 +313,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ScrollArea className="h-[calc(80svh-3rem)] ">
                 {filteredTabList.map((tab) => (
                   <TabsContent
-                    className="flex flex-col mt-0  gap-2 px-4"
+                    className="flex flex-col mt-0 gap-2 px-4"
                     value={tab?.name?.ru}
                     key={tab?.id}
                   >

@@ -133,21 +133,23 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
             className="p-3 border-b last:border-none border-light-gray flex items-center justify-between"
           >
             <div className="flex flex-col  gap-2">
-              <p className="text-yellow-main uppercase">{exchanger.exchangerName}</p>
+              <p className="text-yellow-main text-sm truncate uppercase">
+                {exchanger.exchangerName}
+              </p>
               <div className="text-xs">
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray">КУРСОВ:</p>
-                  <p className="text-sm">{exchanger.courses}</p>
+                  <p className="text-light-gray text-xs">КУРСОВ:</p>
+                  <p className="text-xs">{exchanger.courses || "—"}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray">РЕЗЕРВ:</p>
-                  <p className="text-sm">{exchanger.reserves}</p>
+                  <p className="text-light-gray text-xs">РЕЗЕРВ:</p>
+                  <p className="text-xs">{exchanger.reserves || "—"}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray">СТАТУС:</p>
+                  <p className="text-light-gray text-xs">СТАТУС:</p>
                   <p
                     className={cn(
-                      "text-sm",
+                      "text-xs",
                       exchanger.workStatus ? "text-yellow-main" : "text-red-700",
                     )}
                   >
