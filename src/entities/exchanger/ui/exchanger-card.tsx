@@ -32,17 +32,21 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
         )}
       >
         <div>
-          <h2 className="font-bold">{exchanger.name.ru}</h2>
-          <div className="flex items-center justify-between">
+          <h2 className="font-bold truncate">{exchanger.name.ru}</h2>
+          <div className="flex items-end justify-between">
             <p className="uppercase text-2xs text-yellow-main">
               {exchanger.exchange_marker === ExchangerMarker.cash ? `в г. ${city}` : "Онлайн обмен"}
             </p>
-            <div className="rounded-full border border-light-gray  gap-2 flex justify-between items-center p-1 text-2xs">
-              <p className="text-3xs font-medium">ОТЗЫВЫ</p>
+            <div className="rounded-full border border-light-gray  gap-2 flex justify-between items-center p-1.5 text-2xs">
+              <p className="text-3xs font-medium leading-none">ОТЗЫВЫ</p>
               <div className="flex gap-1 items-center">
-                <p className="text-yellow-main">{exchanger.review_count.positive}</p>
-                <p>|</p>
-                <p className="text-light-gray">{exchanger.review_count.negative}</p>
+                <p className="text-yellow-main text-3xs  leading-none ">
+                  {exchanger.review_count.positive}
+                </p>
+                <div className="text-[6px] leading-none mb-[2px]">|</div>
+                <p className="text-light-gray text-3xs  leading-none">
+                  {exchanger.review_count.negative}
+                </p>
               </div>
             </div>
           </div>

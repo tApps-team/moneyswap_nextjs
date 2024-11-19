@@ -232,7 +232,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           <Input
             value={locationSearchValue}
             onChange={(e) => setLocationSearchValue(e.target.value)}
-            className="w-full pl-10 bg-dark-gray rounded-full  fill-light-gray placeholder:text-light-gray"
+            className="w-full pl-10 placeholder:text-base uppercase bg-dark-gray rounded-full  fill-light-gray placeholder:text-light-gray"
             placeholder="ПОИСК СТРАНЫ И ГОРОДА"
             color="#BBBBBB"
           />
