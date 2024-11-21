@@ -1,6 +1,7 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/shared/lib";
+import { routes } from "@/shared/router";
 import { Exchanger, ExchangerMarker } from "..";
 
 type ExchangerCardProps = {
@@ -12,11 +13,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
 
   return (
     //relative z-10
-    <Link
-      href={exchanger.partner_link}
-      target="_blank"
-      className={cn("", exchanger.is_vip ? "pt-10 first:pt-2" : "pt-0")}
-    >
+    <div className={cn("", exchanger.is_vip ? "pt-10 first:pt-2" : "pt-0")}>
       {exchanger.is_vip && (
         <div className="bg-yellow-main absolute w-full h-16 rounded-3xl   text-black font-bold  -z-10 -translate-y-6 ">
           <p className="text-center "> VIP - ПАРТНЕР</p>
@@ -32,13 +29,20 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
         )}
       >
         <div>
-          <h2 className="font-bold truncate">{exchanger.name.ru}</h2>
+          <Link target="_blank" href={exchanger.partner_link}>
+            <h2 className="font-bold truncate">{exchanger.name.ru} </h2>
+          </Link>
           <div className="flex items-end justify-between">
             <p className="uppercase text-2xs text-yellow-main">
               {exchanger.exchange_marker === ExchangerMarker.cash ? `в г. ${city}` : "Онлайн обмен"}
             </p>
             <div className="rounded-full border border-light-gray  gap-2 flex justify-between items-center p-1.5 text-2xs">
-              <p className="text-3xs font-medium leading-none">ОТЗЫВЫ</p>
+              <Link
+                href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}?exchanger-marker=${exchanger.exchange_marker}`}
+                className="text-3xs font-medium leading-none"
+              >
+                ОТЗЫВЫ
+              </Link>
               <div className="flex gap-1 items-center">
                 <p className="text-yellow-main text-3xs  leading-none ">
                   {exchanger.review_count.positive}
@@ -87,6 +91,6 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
