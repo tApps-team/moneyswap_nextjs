@@ -1,12 +1,12 @@
+"use client";
 import { cx } from "class-variance-authority";
-import { ChevronDown, CircleSlash2, SearchIcon, X } from "lucide-react";
+import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useDeferredValue, useEffect, useRef, useState } from "react";
-import { object } from "zod";
 import { Currency, CurrencyCard, CurrencyResponse } from "@/entities/currency";
 import { HeaderArrow } from "@/shared/assets";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
-import { ExchangerMarker, directions } from "@/shared/types";
+import { ExchangerMarker } from "@/shared/types";
 import {
   Carousel,
   CarouselApi,
@@ -21,7 +21,6 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
   Input,
   ScrollArea,

@@ -1,3 +1,4 @@
+"use client";
 import { ChevronDown, CircleSlash2, SearchIcon, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -190,7 +191,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   return (
     <Drawer onOpenChange={() => setLocationSearchValue("")}>
       <DrawerTrigger className="cursor-pointer" asChild>
-        <div className="mobile-xl:bg-dark-gray  mobile-xl:rounded-full mobile-xl:h-16 mobile-xl:border-2 gap-2 mobile-xl:border-light-gray items-center p-3 flex justify-between">
+        <div className="mobile-xl:bg-dark-gray  mobile-xl:rounded-full mobile-xl:h-16 mobile-xl:border-2 gap-2 mobile-xl:border-light-gray items-center mobile-xl:p-3 flex justify-between">
           <div className="flex items-center gap-4">
             {cityInfo ? (
               <figure className="hidden mobile-xl:w-[36px]  mobile-xl:rounded-full mobile-xl:overflow-hidden mobile-xl:h-[36px]">
@@ -264,7 +265,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 <AccordionContent className="py-2 grid gap-3">
                   {country.cities.map((city) => (
                     <DrawerClose key={city?.id} className="w-full px-2">
-                      <CityCardMobile city={city.name.ru} onClick={() => setSelectCity(city)} />
+                      <CityCardMobile city={city.name.ru} onClick={() => onClickCity(city)} />
                     </DrawerClose>
                   ))}
                 </AccordionContent>

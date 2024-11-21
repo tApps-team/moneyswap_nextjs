@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -132,7 +131,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
             key={exchanger.id + exchanger.exchangerName}
             className="p-3 border-b last:border-none border-light-gray flex items-center justify-between"
           >
-            <div className="flex flex-col  gap-2">
+            <div className="flex flex-col  min-w-0 gap-2">
               <p className="text-yellow-main text-sm truncate uppercase">
                 {exchanger.exchangerName}
               </p>

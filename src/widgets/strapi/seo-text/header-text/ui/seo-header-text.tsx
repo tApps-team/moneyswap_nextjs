@@ -98,7 +98,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogContent className="w-[80%] h-[80%] rounded-3xl">asdfasdf</DialogContent>
               </Dialog> */}
             </div>
-            <div className="max-[567px]:sr-only  absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
+            <div className="max-[575px]:sr-only  absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
               <HoverCard openDelay={0}>
                 <HoverCardTrigger asChild>
                   <YellowQuestionIcon width={36} height={36} className="cursor-pointer" />
