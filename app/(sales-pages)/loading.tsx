@@ -9,7 +9,7 @@ export default function Loading() {
     <section className="grid gap-6">
       <SkeletonSeoHeaderText />
       <SkeletonBotBanner />
-      <div className="text-white w-full border-2 border-light-gray h-full py-5 px-7 pb-12 bg-dark-gray rounded-3xl">
+      <div className="text-white w-full border-2 border-light-gray h-full py-5 px-7 mobile-xl:pb-12 bg-dark-gray rounded-3xl">
         <div className="flex mobile-xl:flex-row  flex-col justify-between mobile-xl:items-center items-start mobile-xl:gap-0 gap-4 uppercase">
           <Skeleton className="h-6 mobile-xl:w-80 w-full bg-skeleton-gray text-skeleton-gray" />
 
