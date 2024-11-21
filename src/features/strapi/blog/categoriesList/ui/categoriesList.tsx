@@ -49,6 +49,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({
         opts={{
           align: "start",
           dragFree: true,
+          duration: 10,
         }}
         className="grid mobile-xl:w-[calc(100%_-_100px)] mobile-xl:mx-auto"
         setApi={setApi}

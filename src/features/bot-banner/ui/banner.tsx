@@ -32,7 +32,7 @@ export const BotBanner = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <p className="text-white mobile-xl:text-sm mobile:text-2xs text-[8px] uppercase font-medium">
+          <p className="text-white mobile-xl:text-sm mobile:text-2xs text-3xs uppercase mobile-xl:font-medium font-semibold">
             moneyswap_robot
           </p>
           <TelegramIcon className="mobile-xl:size-6 size-4" />

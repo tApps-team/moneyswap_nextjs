@@ -33,13 +33,13 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
     <>
       {data.length > 0 && (
         <div className="grid gap-5">
-          <div className="relative flex items-center">
+          <div className="relative flex items-start gap-1">
             <div
-              className={`text-base mobile-xl:text-center text-start mobile-xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
+              className={`mobile-xl:text-center text-start text-xs mobile-xs:text-sm mobile:text-base mobile-xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
             >
               {parse(data[0]?.header_title, options)}
             </div>
-            <div className="mobile-xl:hidden mobile-xl:mt-6 mt-0 flex gap-4">
+            <div className="mobile-xl:hidden mobile-xl:mt-6 mt-0 flex gap-2">
               <Dialog>
                 <DialogTrigger className="">
                   <Info className="size-8" />

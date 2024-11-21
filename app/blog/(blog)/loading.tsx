@@ -4,6 +4,7 @@ import {
   MobileAllArticlesSkeleton,
   SliderOfArticlesSkeleton,
 } from "@/widgets/strapi";
+import { SkeletonBotBanner } from "@/features/bot-banner";
 import { CategoriesListSkeleton, MobileArticleSearch } from "@/features/strapi";
 
 export default function Loading() {
@@ -15,6 +16,9 @@ export default function Loading() {
         </h1>
       </div>
       <MobileArticleSearch currentValue={""} />
+      <div className="block mobile-xl:hidden">
+        <SkeletonBotBanner />
+      </div>
       <CategoriesListSkeleton />
       <div className="mobile-xl:block hidden">
         <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
@@ -23,10 +27,10 @@ export default function Loading() {
         </div>
       </div>
       <MobileAllArticlesSkeleton />
-      {/* <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
+      <div className="hidden mobile-xl:grid pt-8 gap-[60px]">
         <SliderOfArticlesSkeleton />
         <SliderOfArticlesSkeleton />
-      </div> */}
+      </div>
     </section>
   );
 }

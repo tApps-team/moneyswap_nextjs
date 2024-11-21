@@ -3,7 +3,7 @@ import { Skeleton } from "@/shared/ui";
 export const ArticlePreviewCardSkeleton = () => {
   return (
     <div className={`group mx-2 rounded-[30px] h-full`}>
-      <div className="w-full max-w-full h-[calc(100vw_/_3.37)] max-h-[174px] rounded-[30px] overflow-hidden">
+      <div className="w-full max-w-full h-[calc(100vw_/_2.41)] mobile-xl:h-[calc(100vw_/_3.37)] mobile-xl:max-h-[189px] rounded-[30px] overflow-hidden">
         <Skeleton className="bg-skeleton-gray text-skeleton-gray w-full h-full object-cover">
           image
         </Skeleton>

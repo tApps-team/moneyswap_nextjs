@@ -222,10 +222,11 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         )}
       >
         <input
-          disabled={true}
+          // disabled={true}
+          readOnly
           value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="focus-visible:outline-none bg-transparent text-yellow-main mobile-xl:px-6 mobile:px-5 px-4 font-semibold mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
+          className="text-base focus-visible:outline-none bg-transparent text-yellow-main mobile-xl:px-6 mobile:px-5 px-4 font-semibold mobile-xl:text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
         />
         <Drawer>
           <DrawerTrigger className="disabled:opacity-50" disabled={disabled} asChild>

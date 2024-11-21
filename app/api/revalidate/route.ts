@@ -20,12 +20,21 @@ export async function POST(req: Request) {
     switch (model) {
       case StrapiCollectionNames.article:
         path = `${routes.blog}${routes.article}/${entry?.url_name}`;
+        revalidatePath(routes.blog);
+        revalidatePath(routes.category);
+        revalidatePath(routes.tag);
         break;
       case StrapiCollectionNames.category:
         path = `${routes.blog}${routes.category}/${entry?.category}`;
+        revalidatePath(routes.blog);
+        revalidatePath(routes.category);
+        revalidatePath(routes.tag);
         break;
       case StrapiCollectionNames.tag:
         path = `${routes.blog}${routes.tag}/${entry?.tag}`;
+        revalidatePath(routes.blog);
+        revalidatePath(routes.category);
+        revalidatePath(routes.tag);
         break;
       case StrapiCollectionNames.about:
         path = routes.about;

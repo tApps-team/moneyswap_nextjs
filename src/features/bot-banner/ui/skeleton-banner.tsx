@@ -21,7 +21,7 @@ export const SkeletonBotBanner = () => {
         <Skeleton className="h-5  bg-skeleton-gray text-skeleton-gray" />
       </div>
 
-      <Skeleton className="rounded-full h-11 w-full mobile-xl:h-[70px] mobile-xl:max-w-[275px] bg-skeleton-gray text-skeleton-gray" />
+      <Skeleton className="rounded-full h-14 w-full mobile-xl:h-[70px] mobile-xl:max-w-[275px] bg-skeleton-gray text-skeleton-gray" />
     </section>
   );
 };
