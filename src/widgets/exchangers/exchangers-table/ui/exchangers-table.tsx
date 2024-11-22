@@ -22,7 +22,7 @@ import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow }
 interface DataTableProps<TValue> {
   columns: ColumnDef<Exchanger, TValue>[];
   data?: Exchanger[];
-
+  cityName?: string;
   // type: "exchange" | "main";
   params:
     | {
@@ -37,7 +37,11 @@ interface DataTableProps<TValue> {
       };
 }
 
-export function ExchangersTable<TData, TValue>({ columns, params }: DataTableProps<TValue>) {
+export function ExchangersTable<TData, TValue>({
+  columns,
+  params,
+  cityName,
+}: DataTableProps<TValue>) {
   const { data: exchangers = [] } = useQuery({
     queryKey: [params],
     refetchOnWindowFocus: false,
@@ -150,7 +154,7 @@ export function ExchangersTable<TData, TValue>({ columns, params }: DataTablePro
   return (
     <div className="flex flex-col mt-10 gap-4 w-full">
       {data.map((exchanger) => (
-        <ExchangerCard key={exchanger.id} exchanger={exchanger} city={params?.city} />
+        <ExchangerCard key={exchanger.id} exchanger={exchanger} city={cityName} />
       ))}
     </div>
   );

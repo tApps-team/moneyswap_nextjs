@@ -4,7 +4,7 @@ import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/strapi";
-import { BotBanner } from "@/features/bot-banner";
+import { BotBanner, SkeletonBotBanner } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
@@ -32,7 +32,7 @@ export const Main = async ({
   });
   const actualCourse = await getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" });
   const location = await getSpecificCity({ codeName: city ? city : "msk" });
-
+  console.log(location);
   const request =
     direction === ExchangerMarker.cash
       ? {
@@ -92,7 +92,7 @@ export const Main = async ({
         />
       ) : (
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <ExchangersTable columns={columns} params={request} />
+          <ExchangersTable cityName={location.name.ru} columns={columns} params={request} />
         </HydrationBoundary>
       )}
 

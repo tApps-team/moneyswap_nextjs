@@ -32,8 +32,8 @@ export const SliderOfArticlesSkeleton = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="mobile-xl:block hidden" />
-          <CarouselNext className="mobile-xl:block hidden" />
+          <CarouselPrevious className="mobile-xl:inline-flex hidden" />
+          <CarouselNext className="mobile-xl:inline-flex hidden" />
         </Carousel>
       </div>
     </section>

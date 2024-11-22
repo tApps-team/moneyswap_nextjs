@@ -3,7 +3,12 @@
 import { FC, useState } from "react";
 import { Pagination } from "@/features/pagination";
 import { ShowMore } from "@/features/strapi";
-import { Article, ArticlePreview, ArticlePreviewCard } from "@/entities/strapi";
+import {
+  Article,
+  ArticlePreview,
+  ArticlePreviewCard,
+  ArticlePreviewCardSkeleton,
+} from "@/entities/strapi";
 import { NoResultIcon } from "@/shared/assets";
 import { routes } from "@/shared/router";
 import { NoResults } from "@/shared/ui";
@@ -42,6 +47,7 @@ export const MobileAllArticles: FC<MobileAllArticlesProps> = ({ articles, totalP
           <div className="grid grid-flow-row gap-7">
             {previewArticles.slice(0, visibleCount).map((art) => (
               <ArticlePreviewCard key={art.url_name} article={art} isMain />
+              // <ArticlePreviewCardSkeleton key={art.url_name} />
             ))}
           </div>
           {!page && !totalPages && visibleCount < previewArticles.length && (

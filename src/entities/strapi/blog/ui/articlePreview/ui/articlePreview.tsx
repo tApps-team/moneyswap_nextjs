@@ -29,7 +29,7 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
         <Loader className="animate-spin h-20" />
       </div>
       <div>
-        <div className="relative z-1 w-full max-w-full h-auto max-h-[174px] mobile-xl:border-[2px] border-[1px] border-[#000] mobile-xl:rounded-[30px] rounded-[24px] overflow-hidden">
+        <div className="relative z-1 w-full max-w-full h-auto max-h-[calc(100vw_/_2.41)] mobile-xl:max-h-[189px] mobile-xl:border-[2px] border-[1px] border-[#000] mobile-xl:rounded-[30px] rounded-[24px] overflow-hidden">
           <Image
             className="w-full h-full object-cover group-hover:scale-[1.025] transition-all duration-500"
             src={article?.image}

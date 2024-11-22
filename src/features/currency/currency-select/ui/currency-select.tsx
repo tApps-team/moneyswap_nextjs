@@ -1,12 +1,12 @@
+"use client";
 import { cx } from "class-variance-authority";
-import { ChevronDown, CircleSlash2, SearchIcon, X } from "lucide-react";
+import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useDeferredValue, useEffect, useRef, useState } from "react";
-import { object } from "zod";
 import { Currency, CurrencyCard, CurrencyResponse } from "@/entities/currency";
 import { HeaderArrow } from "@/shared/assets";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
-import { ExchangerMarker, directions } from "@/shared/types";
+import { ExchangerMarker } from "@/shared/types";
 import {
   Carousel,
   CarouselApi,
@@ -21,7 +21,6 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
   Input,
   ScrollArea,
@@ -222,17 +221,18 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         )}
       >
         <input
-          disabled={true}
+          // disabled={true}
+          readOnly
           value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="focus-visible:outline-none bg-transparent text-yellow-main mobile-xl:px-6 mobile:px-5 px-4 font-semibold mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
+          className="text-base focus-visible:outline-none bg-transparent text-yellow-main mobile-xl:px-6 mobile:px-5 px-4 font-semibold mobile-xl:text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
         />
         <Drawer>
           <DrawerTrigger className="disabled:opacity-50" disabled={disabled} asChild>
             <div className="bg-dark-gray min-h-14 justify-between select-none rounded-full border-l-2 border-light-gray items-center p-2 flex h-full">
               <div className="grid grid-cols-[0.2fr,1fr,0.2fr] items-center gap-2 truncate">
                 {currencyInfo ? (
-                  <figure className="w-[36px] rounded-full overflow-hidden  h-[36px]">
+                  <figure className="size-9 rounded-full overflow-hidden  ">
                     <Image
                       className="rounded-full overflow-hidden"
                       alt={`${currencyInfo?.name?.ru} (${currencyInfo?.code_name})`}
@@ -274,7 +274,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 />
                 <Input
                   placeholder={"ПОИСК ВАЛЮТЫ"}
-                  className="text-sm rounded-3xl font-medium pl-12 bg-dark-gray border border-light-gray placeholder:text-light-gray placeholder:transition-opacity text-light-gray uppercase focus:placeholder:opacity-0"
+                  className="text-sm rounded-3xl font-medium pl-12 bg-dark-gray border placeholder:text-base border-light-gray placeholder:text-light-gray placeholder:transition-opacity text-light-gray uppercase focus:placeholder:opacity-0"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                 />
@@ -310,9 +310,13 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 </Carousel>
               </TabsList>
 
-              <ScrollArea className="h-[calc(80svh-3rem)] px-4">
+              <ScrollArea className="h-[calc(80svh-3rem)] ">
                 {filteredTabList.map((tab) => (
-                  <TabsContent className="grid  gap-2" value={tab?.name?.ru} key={tab?.id}>
+                  <TabsContent
+                    className="flex flex-col mt-0 gap-2 px-4"
+                    value={tab?.name?.ru}
+                    key={tab?.id}
+                  >
                     {tab.currencies.map((currency) => (
                       <DrawerClose key={currency?.id}>
                         <CurrencyCard
