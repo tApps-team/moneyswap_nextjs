@@ -9,25 +9,25 @@ export default function Loading() {
     <section className="grid gap-6">
       <SkeletonSeoHeaderText />
       <SkeletonBotBanner />
-      <div className="text-white w-full border-2 border-light-gray h-full py-5 px-7 mobile-xl:pb-12 bg-dark-gray rounded-3xl">
+      <div className="text-white w-full border-2 border-light-gray h-full mobile-xl:py-5 py-3 mobile-xl:px-7 px-5 mobile-xl:pb-12 pb-4 bg-dark-gray rounded-3xl">
         <div className="flex mobile-xl:flex-row  flex-col justify-between mobile-xl:items-center items-start mobile-xl:gap-0 gap-4 uppercase">
-          <Skeleton className="h-6 mobile-xl:w-80 w-full bg-skeleton-gray text-skeleton-gray" />
+          <Skeleton className="mobile-xl:h-6 h-5 mobile-xl:w-80 w-[90%] bg-skeleton-gray text-skeleton-gray" />
 
-          <div className="flex w-1/2 mobile-xl:w-1/5 items-center justify-between gap-2 pb-6">
-            <Skeleton className="h-6 w-2/3 mobile-xl:w-36 bg-skeleton-gray text-skeleton-gray" />
+          <div className="flex w-2/3 mobile-xl:w-1/5 items-center justify-between gap-2 pb-6">
+            <Skeleton className="mobile-xl:h-5 h-4 w-full mobile-xl:w-36 bg-skeleton-gray text-skeleton-gray" />
             <span>/</span>
-            <Skeleton className="h-6 w-2/3 mobile-xl:w-36 bg-skeleton-gray text-skeleton-gray" />
+            <Skeleton className="mobile-xl:h-5 h-4 w-full mobile-xl:w-36 bg-skeleton-gray text-skeleton-gray" />
           </div>
         </div>
         <div className="mobile-xl:grid mobile-xl:grid-cols-[1fr,auto,1fr] mobile-xl:grid-rows-1 flex flex-col mobile-xl:items-end items-center mobile-xl:justify-between gap-4 ">
           <div className="flex w-full flex-col gap-2">
-            <Skeleton className="h-6 w-1/3 bg-skeleton-gray text-skeleton-gray" />
-            <Skeleton className="h-16 w-full rounded-full bg-skeleton-gray text-skeleton-gray" />
+            <Skeleton className="mobile-xl:h-6 h-5 w-1/3 bg-skeleton-gray text-skeleton-gray" />
+            <Skeleton className="mobile-xl:h-16 h-14 w-full rounded-full bg-skeleton-gray text-skeleton-gray" />
           </div>
           <SwitcherIcon className="mobile-xl:mb-[20px] mobile-xl:mx-6 " width={30} fill="#f6ff5f" />
           <div className="flex w-full flex-col gap-2">
-            <Skeleton className="h-6 w-1/3 bg-skeleton-gray text-skeleton-gray" />
-            <Skeleton className="h-16 w-full rounded-full bg-skeleton-gray text-skeleton-gray" />
+            <Skeleton className="mobile-xl:h-6 h-5 w-1/3 bg-skeleton-gray text-skeleton-gray" />
+            <Skeleton className="mobile-xl:h-16 h-14 w-full rounded-full bg-skeleton-gray text-skeleton-gray" />
           </div>
         </div>
       </div>
