@@ -1,3 +1,4 @@
+"use client";
 import { ChevronDown, CircleSlash2, SearchIcon, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -5,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   City,
   CityCard,
+  CityCardMobile,
   Country,
   CountryCard,
   LocationInfo,
@@ -189,7 +191,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   return (
     <Drawer onOpenChange={() => setLocationSearchValue("")}>
       <DrawerTrigger className="cursor-pointer" asChild>
-        <div className="mobile-xl:bg-dark-gray  mobile-xl:rounded-full mobile-xl:h-16 mobile-xl:border-2 gap-2 mobile-xl:border-light-gray items-center p-3 flex justify-between">
+        <div className="mobile-xl:bg-dark-gray  mobile-xl:rounded-full mobile-xl:h-16 mobile-xl:border-2 gap-2 mobile-xl:border-light-gray items-center mobile-xl:p-3 flex justify-between">
           <div className="flex items-center gap-4">
             {cityInfo ? (
               <figure className="hidden mobile-xl:w-[36px]  mobile-xl:rounded-full mobile-xl:overflow-hidden mobile-xl:h-[36px]">
@@ -231,24 +233,24 @@ export const LocationSelect = (props: LocationSelectProps) => {
           <Input
             value={locationSearchValue}
             onChange={(e) => setLocationSearchValue(e.target.value)}
-            className="w-full pl-10 bg-dark-gray rounded-full  fill-light-gray placeholder:text-light-gray"
+            className="w-full pl-10 placeholder:text-base uppercase bg-dark-gray rounded-full  fill-light-gray placeholder:text-light-gray"
             placeholder="ПОИСК СТРАНЫ И ГОРОДА"
             color="#BBBBBB"
           />
         </div>
-        <ScrollArea className="h-[80svh] px-4">
+        <ScrollArea className="h-[80svh]">
           <Accordion
             value={debouncedLocationSearchValue.length > 0 ? accordionActiveItems : undefined}
             type="multiple"
-            className="w-full flex flex-col gap-4"
+            className="w-full flex  px-4 flex-col gap-4"
           >
             {filteredCountries.map((country) => (
               <AccordionItem
-                className="flex flex-col gap-2"
+                className="flex flex-col  gap-2"
                 key={country.id}
                 value={String(country.id)}
               >
-                <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-medium text-sm p-4 border-light-gray">
+                <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-medium text-sm p-4 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)]">
                   <div className="flex items-center gap-3">
                     <Image
                       src={country.icon_url}
@@ -259,17 +261,14 @@ export const LocationSelect = (props: LocationSelectProps) => {
                     <p>{country.name.ru}</p>
                   </div>
                 </AccordionTrigger>
-                {country.cities.map((city) => (
-                  <AccordionContent
-                    className="rounded-full bg-dark-gray  p-4"
-                    key={city.id}
-                    onClick={() => onClickCity(city)}
-                  >
-                    <DrawerClose asChild>
-                      <p className="uppercase"> {city.name.ru}</p>
+
+                <AccordionContent className="py-2 grid gap-3">
+                  {country.cities.map((city) => (
+                    <DrawerClose key={city?.id} className="w-full px-2">
+                      <CityCardMobile city={city.name.ru} onClick={() => onClickCity(city)} />
                     </DrawerClose>
-                  </AccordionContent>
-                ))}
+                  ))}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

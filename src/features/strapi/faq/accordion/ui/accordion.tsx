@@ -29,7 +29,7 @@ export const AccordionList: FC<MainFaqs> = ({ data }) => {
         >
           <AccordionTrigger className="mobile-xl:text-sm mobile:text-xs text-2xs mobile-xl:font-semibold font-medium [&[data-state=open]]:text-yellow-main tracking-wider text-start uppercase color-[#fff] p-0 border-b-0 mobile-xl:[&>svg]:-mr-5 mobile-xl:[&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white mobile-xl:leading-6 leading-4 [&>svg]:w-6 [&>svg]:h-6 [&>svg]:stroke-[3px]">
             {faq?.question}
-            <ChevronDown className="transition-all duration-300 shrink-0" />
+            {/* <ChevronDown className="transition-all duration-300 shrink-0" /> */}
           </AccordionTrigger>
           <AccordionContent className="pb-0">
             <div className="mobile-xl:mt-6 mt-6 font-normal uppercase text-white strapi_styles strapi_fonts_codec">

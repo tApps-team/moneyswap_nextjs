@@ -49,8 +49,8 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                     src={"/logofull.svg"}
                     className="mt-10"
                     alt="logo"
-                    width={300}
-                    height={300}
+                    width={250}
+                    height={250}
                   />
                   <h2 className="uppercase text-sm font-bold">как совершить обмен?</h2>
                   <p className="uppercase text-xs leading-2 flex flex-col gap-2 overflow-scroll">
@@ -79,8 +79,8 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                     className="mt-10"
                     src={"/logofull.svg"}
                     alt="logo"
-                    width={300}
-                    height={300}
+                    width={250}
+                    height={250}
                   />
                   <h2 className="uppercase text-sm font-bold">что такое moneyswap?</h2>
                   <p className="uppercase text-xs leading-2 overflow-scroll">
@@ -98,7 +98,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogContent className="w-[80%] h-[80%] rounded-3xl">asdfasdf</DialogContent>
               </Dialog> */}
             </div>
-            <div className="max-[567px]:sr-only  absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
+            <div className="max-[575px]:sr-only  absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
               <HoverCard openDelay={0}>
                 <HoverCardTrigger asChild>
                   <YellowQuestionIcon width={36} height={36} className="cursor-pointer" />

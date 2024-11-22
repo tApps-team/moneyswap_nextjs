@@ -8,10 +8,9 @@ type CurrencyCardProps = {
 export const CurrencyCard = (props: CurrencyCardProps) => {
   const { currency, onClick } = props;
   return (
-    // <DialogClose asChild>
     <div
       onClick={onClick}
-      className="h-full w-full flex gap-4 border-0 shadow-[1px_4px_4px_0px_rgba(0,0,0,0.5)] rounded-full p-3 hover:bg-yellow-main hover:text-black hover:border-yellow-main  text-white border-light-gray items-center"
+      className="h-full w-full flex gap-4 border-0 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)] rounded-full p-3 hover:bg-yellow-main hover:text-black hover:border-yellow-main  text-white border-light-gray items-center"
     >
       <figure className="mobile-xl:w-[42px] size-8 rounded-full overflow-hidden mobile-xl:h-[42px]">
         <Image
@@ -28,6 +27,5 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
         <span>{currency?.code_name}</span>
       </div>
     </div>
-    // </DialogClose>
   );
 };

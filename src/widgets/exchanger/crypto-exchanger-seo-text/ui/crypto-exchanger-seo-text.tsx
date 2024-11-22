@@ -9,8 +9,10 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-4xl font-medium">ОБМЕННЫЙ ПУНКТ {exchangerInfo?.name}</h1>
-      <p>
+      <h1 className="mobile-xl:text-4xl text-base font-medium">
+        ОБМЕННЫЙ ПУНКТ {exchangerInfo?.name}
+      </h1>
+      <p className="text-sm mobile-xl:text-base">
         ОБМЕННИК КРИПТОВАЛЮТЫ {exchangerInfo?.name} НАХОДИТСЯ В РЕЙТИНГАХ MONEYSWAP С{" "}
         {exchangerInfo?.openOnMoneySwap || "22.22.22"}. ЗА ЭТО ВРЕМЯ ОН ЗАРЕКОМЕНДОВАЛ СЕБЯ, КАК
         ПОСТАВЩИК УСЛУГ СО СРЕДНЕЙ ОЦЕНКОЙ. ОБ ОБМЕННИКЕ ЕСТЬ {exchangerInfo.reviews?.positive}{" "}

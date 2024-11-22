@@ -68,11 +68,11 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
 
   return (
     <form className="text-white  w-full border-2 border-light-gray h-full mobile-xl:py-5 py-3 mobile-xl:px-7 px-5 mobile-xl:pb-12 pb-4 bg-dark-gray rounded-3xl">
-      <div className="mobile-xl:flex mobile-xl:flex-row flex flex-col mobile-xl:gap-2 gap-4 mobile-xl:items-center justify-between mobile-xl:pb-6 pb-5">
+      <div className="flex mobile-xl:flex-row  flex-col mobile-xl:gap-2 gap-4 pb-4 mobile-xl:items-center justify-between mobile-xl:pb-6 ">
         <p className="uppercase font-medium mobile-xl:text-base text-[14px]">
           Выберите направление обмена
         </p>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col mobile-xs:flex-row justify-between gap-3 mobile-xs:gap-0 items-start mobile-xs:items-center">
           <div className="flex items-center">
             <Link
               href={`/?direction=cash`}
