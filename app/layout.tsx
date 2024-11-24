@@ -1,6 +1,8 @@
+// eslint-disable-next-line import/order
+import { Viewport } from "next";
 import Head from "next/head";
-import "@/shared/styles/globals.scss";
 import Providers from "@/app/providers/react-query";
+import "@/shared/styles/globals.scss";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 
@@ -27,7 +29,10 @@ export const metadata = {
     type: "website",
   },
 };
-
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: "device-width",
+};
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">

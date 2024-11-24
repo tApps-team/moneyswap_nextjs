@@ -1,4 +1,4 @@
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight, Calendar, Check, Clock, X } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
@@ -10,10 +10,12 @@ type ExchangerCardProps = {
 };
 export const ExchangerCard = (props: ExchangerCardProps) => {
   const { exchanger, city } = props;
-
+  const isAnyTrue = (workingDays: Record<string, boolean>, exchangerName: string): boolean => {
+    return Object.values(workingDays).some((value) => value === true);
+  };
   return (
     //relative z-10
-    <div className={cn("", exchanger.is_vip ? "pt-10 first:pt-2" : "pt-0")}>
+    <div className={cn("relative z-10", exchanger.is_vip ? "pt-5" : "pt-0")}>
       {exchanger.is_vip && (
         <div className="bg-yellow-main absolute w-full h-16 rounded-3xl   text-black font-bold  -z-10 -translate-y-6 ">
           <p className="text-center "> VIP - ПАРТНЕР</p>
@@ -56,17 +58,42 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
           </div>
         </div>
         {exchanger.is_vip ? (
-          <span className=" h-4 flex py-2 bg-yellow-main items-center justify-center -mx-4">
-            <Clock className="size-3 " color="black" />
-            <p className="text-2xs text-black">
-              {exchanger.info?.time_from} - {exchanger.info?.time_to}
-            </p>
-            <Calendar className="size-3" color="black" />
-            <div>
-              {exchanger.info?.working_days &&
-                Object.entries(exchanger.info.working_days).map(
-                  ([day, isWorking]) => !isWorking && <span key={day}>{day}</span>,
-                )}
+          <span className=" h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
+            {exchanger.info?.time_from ||
+              (exchanger.info?.time_to && (
+                <div>
+                  <Clock className="size-3 " color="black" />
+                  <p className="text-3xs text-black">
+                    {exchanger.info?.time_from} - {exchanger.info?.time_to}
+                  </p>
+                </div>
+              ))}
+            {isAnyTrue(exchanger.info?.working_days || {}, exchanger.name.ru) && (
+              <div className="flex items-center gap-1">
+                <Calendar className="size-3" color="black" />
+                <div className="text-black  text-3xs">
+                  {Object.entries(exchanger?.info?.working_days || {}).map(
+                    ([day, isWorking], index) =>
+                      isWorking && (
+                        <span key={day}>
+                          {day}
+                          {index === Object.keys(exchanger?.info?.working_days || {}).length - 1
+                            ? ""
+                            : "/"}
+                        </span>
+                      ),
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center text-3xs text-black">
+              {exchanger.info?.delivery ? <Check className="size-4" /> : <X className="size-4" />}
+              <p>ДОСТАВКА</p>
+            </div>
+            <div className="flex items-center text-3xs text-black">
+              {exchanger.info?.office ? <Check className="size-4" /> : <X className="size-4" />}
+              <p>ОФИС</p>
             </div>
           </span>
         ) : (

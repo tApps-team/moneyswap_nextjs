@@ -221,7 +221,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </div>
       </DrawerTrigger>
-      <DrawerContent className="min-h-svh px-4 flex flex-col gap-4 bg-transparent  border-none">
+      <DrawerContent className="h-svh px-4 flex flex-col gap-4 bg-transparent  border-none">
         <DrawerHeader className="flex p-0 items-center justify-between pt-16">
           <h2 className="uppercase font-bold">Выбор города</h2>
           <DrawerClose>
@@ -242,7 +242,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           <Accordion
             value={debouncedLocationSearchValue.length > 0 ? accordionActiveItems : undefined}
             type="multiple"
-            className="w-full flex  px-4 flex-col gap-4"
+            className="w-full flex  px-4 pb-3 pt-1 flex-col gap-4"
           >
             {filteredCountries.map((country) => (
               <AccordionItem

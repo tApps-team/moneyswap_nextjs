@@ -30,6 +30,12 @@
         "react/prop-types": [2, { "ignore": ["className"] }],
         "react-refresh/only-export-components": "off"
       }
+    },
+    {
+      "files": ["app/layout.tsx"],
+      "rules": {
+        "import/order": "off"
+      }
     }
   ]
 }
