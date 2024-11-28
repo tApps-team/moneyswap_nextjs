@@ -53,7 +53,7 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
   return (
     <section>
       <div className="grid gap-[30px] mobile-xl:rounded-[50px] mobile-xl:bg-dark-gray bg-transparent mobile-xl:p-6 p-0 mobile-xl:shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
-        <h3 className="flex justify-center items-center w-full uppercase mobile-xl:text-xl mobile:text-lg text-md font-semibold text-center">
+        <h3 className="flex justify-center items-center w-full uppercase lg:text-xl mobile:text-lg text-md font-semibold text-center">
           {title}
         </h3>
         <Carousel
@@ -65,7 +65,10 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
         >
           <CarouselContent className="flex">
             {articles?.map((art, index) => (
-              <CarouselItem key={index} className="mobile-xl:basis-1/3 mobile-xl:pl-4 w-full">
+              <CarouselItem
+                key={index}
+                className="lg:basis-1/3 md:basis-2/5 mobile-xl:basis-1/2 mobile-xl:pl-4 w-full"
+              >
                 <ArticlePreviewCard key={art?.url_name} article={art} />
               </CarouselItem>
             ))}

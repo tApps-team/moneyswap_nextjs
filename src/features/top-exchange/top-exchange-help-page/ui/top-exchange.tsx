@@ -15,10 +15,12 @@ export const TopExchange: FC<TopExchangeProps> = ({
   randomNoncashDirections,
 }) => {
   return (
-    <section className="grid grid-rows-2  gap-12 w-full p-6 bg-dark-gray shadow-[1px_2px_8px_3px_rgba(0,0,0,0.5)] rounded-3xl">
+    <section className="mx-auto max-w-full mobile:max-w-[80vw] md:max-w-full grid grid-rows-2 md:grid-rows-none md:grid-cols-2 xl:grid-cols-none lg:gap-x-[12vw] gap-x-12 gap-y-8 py-0 px-0 mobile:px-6 w-full xl:p-6 bg-transparent xl:bg-dark-gray shadow-none xl:shadow-[1px_2px_8px_3px_rgba(0,0,0,0.5)] rounded-3xl">
       <div className="grid grid-flow-row gap-6">
-        <p className="text-xs text-center font-medium uppercase">Топ популярных направлений</p>
-        <div className="grid grid-cols-2 gap-6 items-center">
+        <p className="text-xs mobile-xl:text-md md:text-sm xl:text-xs text-center font-medium uppercase">
+          Топ популярных направлений
+        </p>
+        <div className="grid grid-cols-2 lg:gap-6 mobile-xl:gap-x-[15%] mobile-xl:mx-10 mx-0 md:mx-0 gap-6 justify-between items-center">
           {popularNoncashDirections?.map((direction, index) => (
             <Link
               href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}
@@ -49,8 +51,10 @@ export const TopExchange: FC<TopExchangeProps> = ({
         </div>
       </div>
       <div className="grid grid-flow-row gap-6">
-        <p className="text-xs text-center font-medium uppercase">Возможно вам будет интересно</p>
-        <div className="grid grid-cols-2 gap-6 justify-between items-center">
+        <p className="text-xs mobile-xl:text-md md:text-sm xl:text-xs text-center font-medium uppercase">
+          Возможно вам будет интересно
+        </p>
+        <div className="grid grid-cols-2 lg:gap-6 mobile-xl:gap-x-[15%] mobile-xl:mx-10 mx-0 md:mx-0 gap-6 justify-between items-center">
           {randomNoncashDirections?.map((direction, index) => (
             <Link
               href={`${routes.exchange}/${direction?.valute_from?.code_name}-to-${direction?.valute_to?.code_name}`}

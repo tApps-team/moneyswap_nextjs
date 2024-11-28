@@ -1,4 +1,10 @@
+import { LoaderAnimation } from "@/shared/assets";
+
 const Loading = () => {
-  return <div>Loading Help Page</div>;
+  return (
+    <div className="min-h-[90svh]">
+      <LoaderAnimation />
+    </div>
+  );
 };
 export default Loading;

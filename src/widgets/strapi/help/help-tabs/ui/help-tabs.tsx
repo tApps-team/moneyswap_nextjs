@@ -13,18 +13,21 @@ interface HelpTabsProps {
 
 export const HelpTabs: FC<HelpTabsProps> = ({ isFaq, setIsFaq, faqTab, setFaqTab }) => {
   return (
-    <section className={styles.wrapper}>
+    <section className={`${styles.wrapper} ${isFaq ? "lg:gap-y-0 mobile-xl:gap-y-8 gap-y-6" : ""}`}>
       <div
-        className={`${styles.tab} ${!isFaq ? styles.active : ""}`}
+        className={`${styles.tab} ${styles.item_1} ${!isFaq ? styles.active : ""}`}
         onClick={() => setIsFaq(false)}
       >
         Помощь
       </div>
-      <div className={`${styles.tab} ${isFaq ? styles.active : ""}`} onClick={() => setIsFaq(true)}>
+      <div
+        className={`${styles.tab} ${styles.item_2} ${isFaq ? styles.active : ""}`}
+        onClick={() => setIsFaq(true)}
+      >
         FAQ
       </div>
       {isFaq && (
-        <div className={styles.faq_tabs}>
+        <div className={`${styles.faq_tabs} ${styles.item_3}`}>
           <div
             className={`${styles.faq_tab} ${faqTab === faqTypeTabs.for_user ? styles.active : ""}`}
             onClick={() => setFaqTab(faqTypeTabs.for_user)}

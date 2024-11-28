@@ -19,13 +19,16 @@ export const CategoriesListSkeleton = () => {
       >
         <CarouselContent className="w-full">
           {categoriesWithAllTab?.map((cat, index) => (
-            <CarouselItem key={index} className="mobile-xl:basis-1/6 basis-3/11 grid pl-4">
+            <CarouselItem
+              key={index}
+              className="xl:basis-1/6 lg:basis-1/4 mobile-xl:basis-1/3 basis-3/11 grid pl-4"
+            >
               <CategoryCardSkeleton />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="mobile-xl:block hidden -left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
-        <CarouselNext className="mobile-xl:block hidden -right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselPrevious className="mobile-xl:inline-flex hidden -left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselNext className="mobile-xl:inline-flex hidden -right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
       </Carousel>
     </section>
   );

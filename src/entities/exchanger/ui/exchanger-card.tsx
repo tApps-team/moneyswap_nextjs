@@ -1,5 +1,6 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import Link from "next/link";
+import { ExchangerCardArrow } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { Exchanger, ExchangerMarker } from "..";
@@ -30,7 +31,9 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
       >
         <div>
           <Link target="_blank" href={exchanger.partner_link}>
-            <h2 className="font-bold truncate">{exchanger.name.ru} </h2>
+            <h2 className="mobile-xl:font-bold font-semibold truncate leading-none">
+              {exchanger.name.ru}
+            </h2>
           </Link>
           <div className="flex items-end justify-between">
             <p className="uppercase text-2xs text-yellow-main">
@@ -78,13 +81,13 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               <p className="font-bold">{exchanger.in_count}</p>
               <p>{exchanger.valute_from}</p>
             </div>
-            <ArrowRight className="size-4 min-h-4 min-w-4" />
+            <ExchangerCardArrow className="size-3 min-h-3 min-w-3" fill="#f6ff5f" />
             <div className="flex gap-2  items-center">
               <p className="font-bold">{exchanger.out_count}</p>
               <p>{exchanger.valute_to}</p>
             </div>
           </div>
-          <div>
+          <div className="pt-0.5">
             <p className="text-xs text-yellow-main">
               Обмен от {exchanger.min_amount} до {exchanger.max_amount}
             </p>

@@ -20,3 +20,6 @@ export * from "./icons/moneys-icon";
 export * from "./icons/file-icon";
 export * from "./icons/email-telephone-icon";
 export * from "./icons/header-arrow";
+export * from "./loader/loader";
+export * from "./icons/info-icon";
+export * from "./icons/exchanger-card-arrow";

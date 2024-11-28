@@ -44,11 +44,11 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
     <div className="mt-6">
       {exchangers.length > 0 && (
         <div className="uppercase  my-6  flex flex-col gap-2">
-          <h2 className="mobile-xl:text-xl text-sm font-medium">
+          {/* <h2 className="mobile-xl:text-xl text-sm md:text-start text-center font-medium">
             Лучшие курсы {valuteFrom.name.ru} ({valuteFrom.code_name}) на {valuteTo.name.ru} (
             {valuteTo.code_name})
-          </h2>
-          <p className="mobile-xl:text-base text-xs">
+          </h2> */}
+          <p className="mobile-xl:text-base text-xs font-medium text-start">
             На данный момент по направлению {valuteFrom.name.ru} ({valuteFrom.code_name}) на{" "}
             {valuteTo.name.ru} ({valuteTo.code_name}) отсутствуют обменные пункты в городе{" "}
             {location?.name.ru}. Попробуйте выбрать другое направление обмена в городе{" "}
@@ -56,7 +56,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
           </p>
         </div>
       )}
-      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]  flex flex-col w-full rounded-3xl text-white bg-dark-gray">
+      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] flex flex-col w-full rounded-3xl text-white bg-dark-gray">
         {exchangers.length > 0 ? (
           exchangers?.map((exchanger) => (
             <Link
@@ -103,26 +103,28 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
       </div>
       {similarCities && similarCities?.length > 0 && (
         <div className="mt-6 uppercase">
-          <p>
+          <p className="md:text-base text-xs font-medium">
             Попробуйте отменить фильтрацию по городу и посмотреть полный список доступных городов.
             Например, есть предложения по обмену {valuteFrom.name.ru} ({valuteFrom.code_name}) на{" "}
             {valuteTo.name.ru} ({valuteTo.code_name}) в городах:
           </p>
 
-          <div className="shadow-main-shadow mt-6 flex flex-col w-full rounded-3xl text-white bg-dark-gray">
+          <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] mt-6 flex flex-col w-full rounded-3xl text-white bg-dark-gray">
             {similarCities?.map((city) => (
               <Link
                 className="border-b last:border-none"
                 key={city.pk}
                 href={`/exchange/${valuteFrom.code_name}-to-${valuteTo.code_name}?city=${city.code_name}`}
               >
-                <div className="flex justify-between items-center px-4 py-4 border-b last:border-none">
+                <div className="flex flex-col md:flex-row justify-between items-center px-4 py-4 border-b last:border-none md:gap-0 gap-2">
                   <div className="flex items-center gap-2">
-                    <p>{city.name}</p>
-                    <ChevronRightIcon color="white" height={32} width={32} />
-                    <p>{city.exchange_count} ОБМЕННИКОВ</p>
+                    <p className="md:text-base text-xs font-medium">{city.name}</p>
+                    <ChevronRightIcon color="#f6ff5f" height={32} width={32} />
+                    <p className="md:text-base text-xs font-medium">
+                      {city.exchange_count} ОБМЕННИКОВ
+                    </p>
                   </div>
-                  <button className="border hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full px-5 py-3">
+                  <button className="border hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full md:px-5 px-3 md:py-3 py-2 md:text-base text-xs font-medium">
                     ПОКАЗАТЬ ОБМЕННИКИ
                   </button>
                 </div>
