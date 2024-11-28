@@ -12,11 +12,11 @@ export const CityCard = (props: CityCardProps) => {
     <div
       onClick={onClick}
       className={cn(
-        "p-4 border-2 flex hover:text-black hover:border-none hover:bg-yellow-main rounded-full items-center h-[68px] border-light-gray",
+        "p-4 border-2 flex hover:text-black hover:border-none  hover:bg-yellow-main rounded-full items-center h-[68px] border-light-gray",
         active && "bg-yellow-main text-black border-none",
       )}
     >
-      <p className="uppercase line-clamp-1 text-start">{city?.name?.ru}</p>
+      <p className="uppercase min-w-0   truncate text-start">{city?.name?.ru}</p>
     </div>
   );
 };

@@ -15,6 +15,8 @@ export const CryptoExchangerPage = async ({
   params: { exchanger: number };
   searchParams: { grade?: number; page?: number; "exchanger-marker": ExchangerMarker };
 }) => {
+  // const timeout = new Promise((resolove) => setTimeout(() => resolove(1), 60000));
+  // await timeout;
   const currentPage = Number(searchParams?.page) || 1;
 
   const reviews = await reviewsByExchange({

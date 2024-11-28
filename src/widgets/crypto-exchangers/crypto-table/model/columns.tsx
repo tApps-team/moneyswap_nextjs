@@ -68,22 +68,33 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     },
     id: "Review",
     cell: ({ row }) => (
-      <div className="flex gap-1">
-        <div className="text-yellow-main">{row.original.reviews.positive}</div>
-        <span>/</span>
-        <div className="text-red-600">{row.original.reviews.negative}</div>
+      <div className="flex flex-col gap-1">
+        <div className="flex gap-1">
+          <div className="text-yellow-main">{row.original.reviews.positive}</div>
+          <span>/</span>
+          <div className="text-red-600">{row.original.reviews.negative}</div>
+        </div>
+        <Link
+          className="md:block lg:hidden"
+          href={{
+            pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
+            query: { "exchanger-marker": row.original.exchange_marker },
+          }}
+        >
+          <button>ПОДРОБНЕЕ</button>
+        </Link>
       </div>
     ),
   },
   {
     //TODO refactor as href
     accessorKey: "id",
-    header: "",
+    header: () => {
+      return <p className="hidden lg:block"></p>;
+    },
     cell: ({ row }) => (
       <Link
-        // as={{
-        //   pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
-        // }}
+        className="hidden lg:block"
         href={{
           pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
           query: { "exchanger-marker": row.original.exchange_marker },

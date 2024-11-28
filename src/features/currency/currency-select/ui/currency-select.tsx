@@ -54,7 +54,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
     setAmount,
     actualCourse,
   } = props;
-  const isDesktop = useMediaQuery("(min-width: 640px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const [searchValue, setSearchValue] = useState<string>("");
   const [api, setApi] = useState<CarouselApi>();
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -110,7 +110,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         )}
         <div
           className={cx(
-            "grid grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-light-gray from-15% via-dark-gray via-80% to-dark-gray",
+            "grid lg:grid-cols-[7rem,1fr] xl:grid-cols-2 grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-light-gray from-15% via-dark-gray via-80% to-dark-gray",
           )}
         >
           <input
@@ -149,7 +149,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 <ChevronDown width={28} height={28} />
               </div>
             </DialogTrigger>
-            <DialogContent className="bg-dark-gray border-none  grid gap-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+            <DialogContent className="bg-dark-gray border-none md:w-[80svw]  grid gap-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
               <div className="grid grid-cols-2 grid-rows-1 items-center">
                 <DialogTitle className="uppercase text-xl">Выбор валюты</DialogTitle>
                 <div className="relative">
@@ -181,18 +181,20 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                   ))}
                 </TabsList>
 
-                <ScrollArea className="h-[28rem] p-10">
+                <ScrollArea className="h-[28rem] p-4">
                   {filteredTabList.map((tab) => (
-                    <TabsContent className="grid  gap-2" value={tab?.name?.ru} key={tab?.id}>
-                      {tab.currencies.map((currency) => (
-                        <DialogClose key={currency?.id}>
-                          <CurrencyCard
-                            onClick={() => onClick(currency)}
-                            key={currency?.id}
-                            currency={currency}
-                          />
-                        </DialogClose>
-                      ))}
+                    <TabsContent className="" value={tab?.name?.ru} key={tab?.id}>
+                      <div className="grid  p-2 gap-4">
+                        {tab.currencies.map((currency) => (
+                          <DialogClose key={currency?.id}>
+                            <CurrencyCard
+                              onClick={() => onClick(currency)}
+                              key={currency?.id}
+                              currency={currency}
+                            />
+                          </DialogClose>
+                        ))}
+                      </div>
                     </TabsContent>
                   ))}
                 </ScrollArea>

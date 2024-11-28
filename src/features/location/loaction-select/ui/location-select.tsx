@@ -45,7 +45,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const { countries } = props;
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isDesktop = useMediaQuery("(min-width: 640px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const searchParamsCity = searchParams.get("city");
   const pathname = usePathname();
 
@@ -96,10 +96,10 @@ export const LocationSelect = (props: LocationSelectProps) => {
     return (
       <Dialog onOpenChange={() => setLocationSearchValue("")}>
         <DialogTrigger className="cursor-pointer" asChild>
-          <div className="mobile-xl:bg-dark-gray   mobile-xl:rounded-full mobile-xl:h-16 mobile-xl:border-2 gap-2 mobile-xl:border-light-gray items-center p-3 flex justify-between">
+          <div className="lg:bg-dark-gray   lg:rounded-full lg:h-16 lg:border-2 gap-2 lg:border-light-gray items-center p-3 flex justify-between">
             <div className="flex items-center gap-4">
               {cityInfo ? (
-                <figure className="hidden mobile-xl:w-[36px] mobile-xl:block  mobile-xl:rounded-full mobile-xl:overflow-hidden mobile-xl:h-[36px]">
+                <figure className="hidden lg:w-[36px] lg:block  lg:rounded-full lg:overflow-hidden lg:h-[36px]">
                   <Image
                     alt={`${cityInfo?.code_name})`}
                     src={cityInfo?.country.icon_url}
@@ -109,7 +109,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 </figure>
               ) : (
                 <CircleSlash2
-                  className="mobile-xl:block hidden"
+                  className="lg:block hidden"
                   width={36}
                   height={36}
                   stroke="#bbb"
@@ -117,16 +117,16 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 />
               )}
 
-              <p className="mobile-xl:text-base text-3xs truncate uppercase">
+              <p className="md:text-base text-3xs truncate uppercase">
                 {cityInfo ? cityInfo?.name.ru : "Не выбрано..."}
               </p>
             </div>
             <div>
-              <ChevronDown color="white" className="mobile-xl:size-8" />
+              <ChevronDown color="white" className="lg:size-8" />
             </div>
           </div>
         </DialogTrigger>
-        <DialogContent className="bg-dark-gray  border-none w-[50svw] h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
+        <DialogContent className="bg-dark-gray  border-none md:w-[80svw] xl:w-[50svw] xl:h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
           <div className="grid grid-cols-2 grid-rows-1 items-center">
             <DialogTitle className="m-0 uppercase">Выбор города</DialogTitle>
             <div className="relative">
@@ -141,7 +141,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-[1fr,8rem,1fr] grid-rows-1 min-h-full  ">
+          <div className="grid md:grid-cols-[1fr,3rem,1fr] xl:grid-cols-[1fr,8rem,1fr] grid-rows-1 min-h-full  ">
             <ScrollArea className="h-[50svh] border rounded-3xl p-4">
               <div className="flex flex-col gap-3">
                 {filteredCountries?.map((country) => (
@@ -161,7 +161,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
               <div className="  flex  flex-col  gap-3 ">
                 {selectCountry && cityList.length > 0
                   ? cityList.map((city) => (
-                      <DialogClose key={city.id}>
+                      <DialogClose asChild key={city.id}>
                         <CityCard
                           onClick={() => onClickCity(city)}
                           city={city}
@@ -171,7 +171,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                     ))
                   : filteredCountries?.map((country) =>
                       country.cities.map((city) => (
-                        <DialogClose key={city.id}>
+                        <DialogClose asChild key={city.id}>
                           <CityCard
                             onClick={() => onClickCity(city)}
                             city={city}
@@ -191,10 +191,10 @@ export const LocationSelect = (props: LocationSelectProps) => {
   return (
     <Drawer onOpenChange={() => setLocationSearchValue("")}>
       <DrawerTrigger className="cursor-pointer" asChild>
-        <div className="mobile-xl:bg-dark-gray  mobile-xl:rounded-full mobile-xl:h-16 mobile-xl:border-2 gap-2 mobile-xl:border-light-gray items-center mobile-xl:p-3 flex justify-between">
+        <div className="lg:bg-dark-gray  lg:rounded-full lg:h-16 lg:border-2 gap-2 lg:border-light-gray items-center lg:p-3 flex justify-between">
           <div className="flex items-center gap-4">
             {cityInfo ? (
-              <figure className="hidden mobile-xl:w-[36px]  mobile-xl:rounded-full mobile-xl:overflow-hidden mobile-xl:h-[36px]">
+              <figure className="hidden lg:w-[36px]  lg:rounded-full lg:overflow-hidden lg:h-[36px]">
                 <Image
                   alt={`${cityInfo?.code_name})`}
                   src={cityInfo?.country.icon_url}
@@ -204,7 +204,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
               </figure>
             ) : (
               <CircleSlash2
-                className="mobile-xl:block hidden"
+                className="lg:block hidden"
                 width={36}
                 height={36}
                 stroke="#bbb"
@@ -212,12 +212,12 @@ export const LocationSelect = (props: LocationSelectProps) => {
               />
             )}
 
-            <p className="mobile-xl:text-base text-2xs truncate uppercase">
+            <p className="lg:text-base text-2xs truncate uppercase">
               {cityInfo ? cityInfo?.name.ru : "Не выбрано..."}
             </p>
           </div>
           <div>
-            <ChevronDown color="white" className="mobile-xl:size-8" />
+            <ChevronDown color="white" className="lg:size-8" />
           </div>
         </div>
       </DrawerTrigger>
