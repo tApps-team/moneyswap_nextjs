@@ -112,7 +112,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
                 className="w-full rounded-[25px] shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] bg-dark-gray px-8 py-4"
               >
                 <AccordionItem value={`Value-${item.accordion.question}`} className="">
-                  <AccordionTrigger className="main_font uppercase text-sm font-medium color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white leading-6 flex justify-between mobile-xl:justify-start">
+                  <AccordionTrigger className="main_font uppercase text-sm font-medium color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white leading-6 flex justify-between">
                     {item.accordion.question}
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">

@@ -66,7 +66,7 @@ export const CategoriesList: FC<CategoriesListProps> = ({
           {categoriesWithAllTab?.map((cat, index) => (
             <CarouselItem
               key={selectedTag ? index + 1 : index}
-              className="mobile-xl:basis-1/6 basis-3/11 grid pl-4"
+              className="xl:basis-1/6 lg:basis-1/4 mobile-xl:basis-1/3 basis-3/11 grid pl-4"
             >
               <CategoryCard
                 key={cat?.id}

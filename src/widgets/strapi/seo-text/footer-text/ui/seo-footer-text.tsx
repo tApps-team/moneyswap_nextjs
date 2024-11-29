@@ -25,10 +25,10 @@ export const SeoFooterText: FC<SeoTextsBlock> = ({ data }) => {
     <>
       {data.length > 0 && (
         <div className={`grid gap-5 mobile-xl:py-[50px] pb-0 pt-[50px]`}>
-          <div className="strapi_styles mobile-xl:text-xl text-sm strapi_fonts_codec">
+          <div className="strapi_styles lg:text-xl md:text-lg text-sm strapi_fonts_codec">
             {parse(data[0]?.footer_title, options)}
           </div>
-          <div className="mobile-xl:block hidden strapi_styles mobile-xl:text-xl text-sm strapi_fonts_codec">
+          <div className="mobile-xl:block hidden strapi_styles lg:text-xl md:text-lg text-sm strapi_fonts_codec">
             {parse(data[0]?.footer_description, options)}
           </div>
           <div className="block mobile-xl:hidden">

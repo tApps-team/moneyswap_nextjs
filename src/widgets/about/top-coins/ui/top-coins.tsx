@@ -26,17 +26,20 @@ export const TopCoins = async () => {
                   alt={`coin ${topCoin.code_name}`}
                   width={50}
                   height={50}
+                  className="size-8 md:size-12"
                 />
                 <div className="flex  flex-col gap-0">
-                  <p className="text-sm">{topCoin.code_name}</p>
-                  <span className="text-xs uppercase">
+                  <p className="text-xs md:text-sm">{topCoin.code_name}</p>
+                  <span className="text-2xs md:text-xs uppercase">
                     {topCoin.name} ({topCoin.code_name})
                   </span>
                 </div>
               </div>
               <div className="text-end ">
-                <p className="text-sm  text-nowrap">{topCoin.course?.toFixed(4) || 0} USD</p>
-                <div className="text-xs flex items-center justify-end gap-2">
+                <p className="text-2xs md:text-sm  text-nowrap">
+                  {topCoin.course?.toFixed(4) || 0} USD
+                </p>
+                <div className="text-2xs md:text-xs flex items-center justify-end gap-2">
                   {topCoin.isIncrease ? (
                     <UpPercent color="#f6ff5f" className="" width={9} height={9} />
                   ) : (

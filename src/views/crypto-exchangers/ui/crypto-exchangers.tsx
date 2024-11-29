@@ -45,8 +45,12 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
   const cryptoExchangers = await getExchangerList();
   return (
     <section>
-      <h1 className="uppercase text-3xl font-medium">{title}</h1>
-      <div className="strapi_styles mt-8">{parse(header_description, options)}</div>
+      <h1 className="uppercase xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-base mobile:text-sm md:text-start text-center font-medium">
+        {title}
+      </h1>
+      <div className="strapi_styles xl:text-base lg:text-sm text-xs lg:mt-8 mt-4 mobile-xl:block hidden">
+        {parse(header_description, options)}
+      </div>
       <BotBanner />
       <CurrencySelectForm
         urlDirection={ExchangerMarker.no_cash}
@@ -67,7 +71,9 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
       <Suspense fallback={<div>loading</div>}>
         <CryptoTable data={cryptoExchangers} />
       </Suspense>
-      <div className="strapi_styles mt-8">{parse(footer_description, options)}</div>
+      <div className="lg:text-xl md:text-lg text-sm strapi_styles strapi_fonts_codec mt-8">
+        {parse(footer_description, options)}
+      </div>
     </section>
   );
 };

@@ -1,10 +1,12 @@
-import "@/shared/styles/globals.scss";
 import { ForPartnersSkeleton } from "@/views/for-partners";
+import { LoaderAnimation } from "@/shared/assets";
+import "@/shared/styles/globals.scss";
 
 export default function Loading() {
   return (
-    <section className="">
-      <ForPartnersSkeleton />
-    </section>
+    // <ForPartnersSkeleton />
+    <div className="min-h-[90svh]">
+      <LoaderAnimation />
+    </div>
   );
 }

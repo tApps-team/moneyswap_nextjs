@@ -137,15 +137,15 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
               </p>
               <div className="text-xs">
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs">КУРСОВ:</p>
+                  <p className="text-light-gray text-xs font-medium">КУРСОВ:</p>
                   <p className="text-xs">{exchanger.courses || "—"}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs">РЕЗЕРВ:</p>
+                  <p className="text-light-gray text-xs font-medium">РЕЗЕРВ:</p>
                   <p className="text-xs">{exchanger.reserves || "—"}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs">СТАТУС:</p>
+                  <p className="text-light-gray text-xs font-medium">СТАТУС:</p>
                   <p
                     className={cn(
                       "text-xs",
@@ -163,9 +163,9 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                   pathname: `/crypto-exchangers/exchanger-${exchanger.id}`,
                   query: { "exchanger-marker": exchanger.exchange_marker },
                 }}
-                className="flex items-center  gap-1 max-w-28  py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray"
+                className="flex items-center  gap-1 max-w-30  py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray"
               >
-                <span className="text-light-gray">ОТЗЫВЫ</span>
+                <span className="text-light-gray font-medium">ОТЗЫВЫ</span>
                 <div className="flex gap-1 items-center">
                   <span className="text-yellow-main">{exchanger.reviews.positive}</span>
                   <span>/</span>
@@ -177,7 +177,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                   pathname: `/crypto-exchangers/exchanger-${exchanger.id}`,
                   query: { "exchanger-marker": exchanger.exchange_marker },
                 }}
-                className="flex text-light-gray max-w-28  items-center py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray"
+                className="flex text-light-gray max-w-30  items-center py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray font-medium leading-3"
               >
                 ПОДРОБНЕЕ
               </Link>

@@ -79,6 +79,7 @@ export const getTopicArticles = async (
 `;
     const res = await fetch(url, {
       method: "GET",
+      cache: "no-store",
     });
     return res.json();
   } catch (error) {

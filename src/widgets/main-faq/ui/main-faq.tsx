@@ -22,11 +22,11 @@ export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
   ];
 
   return (
-    <div className="grid mobile-xl:grid-cols-2 mobile-xl:py-[50px] py-8 mobile-xl:gap-[5%] gap-6 w-full">
+    <div className="grid lg:grid-cols-2 lg:py-[50px] mobile-xl:pb-[50px] mobile-xl:pt-[0px] py-8 mobile-xl:gap-[5%] gap-6 w-full">
       {faqs?.map((block) => (
         <div className="w-full" key={block?.title}>
           <div className="mobile-xl:mb-0 mb-6 mobile-xl:pb-6 pb-6 mobile-xl:pl-8 mobile-xl:border-none border-b-2 border-light-gray">
-            <h3 className="mobile-xl:text-xl mobile:text-base text-sm text-yellow-main font-semibold uppercase mobile-xl:truncate">
+            <h3 className="xl:text-xl md:text-lg mobile:text-base text-sm text-yellow-main font-semibold uppercase mobile-xl:truncate">
               {block?.title}
             </h3>
           </div>

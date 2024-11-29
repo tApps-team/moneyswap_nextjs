@@ -38,10 +38,11 @@ export const columns: ColumnDef<ExchangerTable>[] = [
   {
     accessorFn: (exchanger) => exchanger.in_count,
     id: "Give",
+
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center"
+          className="flex  items-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ОТДАЕТЕ
@@ -53,6 +54,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
         </button>
       );
     },
+
     sortDescFirst: false,
     sortUndefined: "last",
     cell: ({ row, cell }) => <GiveCell row={cell.row} />,
@@ -62,7 +64,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center"
+          className="flex  items-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ПОЛУЧАЕТЕ
@@ -75,9 +77,10 @@ export const columns: ColumnDef<ExchangerTable>[] = [
       );
     },
     id: "Get",
+
     cell: ({ row }) => {
       return (
-        <div className="flex gap-2 items-end">
+        <div className="flex gap-2 md:flex-col xl:flex-row justify-start items-center">
           <div className="text-yellow-main text-base">{row.original.out_count}</div>
           <div className="text-sm">{row.original.valute_to}</div>
         </div>
@@ -86,9 +89,10 @@ export const columns: ColumnDef<ExchangerTable>[] = [
   },
   {
     accessorKey: "in_count",
-    header: "Сумма Обмена",
+    header: () => <p className="md:hidden lg:block">сумма обмена</p>,
+    enableHiding: true,
     cell: ({ row }) => (
-      <div className="flex flex-col">
+      <div className="flex md:hidden lg:block flex-col">
         <div className="flex gap-1 items-center">
           <div className="text-xs">ОТ</div>
           <div className="font-medium">{row.original.min_amount}</div>

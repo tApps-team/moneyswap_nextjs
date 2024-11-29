@@ -35,7 +35,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
         <div className="grid gap-5">
           <div className="relative flex items-start justify-between gap-1">
             <div
-              className={`[&>b]:leading-normal text-start text-xs mobile-xs:text-sm mobile:text-base mobile-xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
+              className={`[&>b]:leading-normal text-start text-xs mobile-xs:text-sm mobile:text-base md:text-lg lg:text-2xl xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
             >
               {parse(data[0]?.header_title, options)}
             </div>
@@ -44,15 +44,32 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogTrigger className="">
                   <Info className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[70%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
+                <DialogContent className="w-[90%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[50svh] flex flex-col items-center px-10 py-4 gap-10 rounded-3xl bg-dark-gray">
+                  <Image
+                    className="mt-10"
+                    src={"/logofull.svg"}
+                    alt="logo"
+                    width={180}
+                    height={180}
+                  />
+                  <div className="uppercase text-xs leading-2 overflow-scroll font-normal text-center">
+                    {parse(data[0]?.header_description, options)}
+                  </div>
+                </DialogContent>
+              </Dialog>
+              <Dialog>
+                <DialogTrigger className="">
+                  <YellowQuestionIcon className="size-8" />
+                </DialogTrigger>
+                <DialogContent className="w-[90%] border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[70svh] flex flex-col items-center px-10 py-4 gap-10 rounded-3xl bg-dark-gray">
                   <Image
                     src={"/logofull.svg"}
                     className="mt-10"
                     alt="logo"
-                    width={250}
-                    height={250}
+                    width={180}
+                    height={180}
                   />
-                  <h2 className="uppercase text-sm font-bold">как совершить обмен?</h2>
+                  <h2 className="uppercase text-sm font-semibold">как совершить обмен?</h2>
                   <p className="uppercase text-xs leading-2 flex flex-col gap-2 overflow-scroll">
                     <p>
                       1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.
@@ -70,33 +87,6 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                   </p>
                 </DialogContent>
               </Dialog>
-              <Dialog>
-                <DialogTrigger className="">
-                  <YellowQuestionIcon className="size-8" />
-                </DialogTrigger>
-                <DialogContent className="w-[90%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[70%] flex flex-col items-center p-3 gap-10 rounded-3xl bg-dark-gray">
-                  <Image
-                    className="mt-10"
-                    src={"/logofull.svg"}
-                    alt="logo"
-                    width={250}
-                    height={250}
-                  />
-                  <h2 className="uppercase text-sm font-bold">что такое moneyswap?</h2>
-                  <p className="uppercase text-xs leading-2 overflow-scroll">
-                    MONEYSWAP - мониторинг обменников криптовалют. На сайте собран список
-                    проверенных обменников криптовалют, с помощью которых вы можете обменять
-                    криптовалюту быстро и безопасно. На MONEYSWAP размещены лучшие криптообменники с
-                    самыми выгодными курсами.
-                  </p>
-                </DialogContent>
-              </Dialog>
-              {/* <Dialog>
-                <DialogTrigger className="text-xs">
-                  
-                </DialogTrigger>
-                <DialogContent className="w-[80%] h-[80%] rounded-3xl">asdfasdf</DialogContent>
-              </Dialog> */}
             </div>
             <div className="max-[575px]:sr-only  absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
               <HoverCard openDelay={0}>
@@ -122,7 +112,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
               <Image src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
             </div>
           </div>
-          <div className="sr-only mobile-xl:not-sr-only strapi_styles text-sm">
+          <div className="sr-only mobile-xl:not-sr-only lg:text-sm text-xs strapi_styles">
             {parse(data[0]?.header_description, options)}
           </div>
         </div>

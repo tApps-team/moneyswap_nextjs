@@ -31,12 +31,12 @@ export const TopExchange: FC<TopExchangeProps> = ({
     currentDirection === ExchangerMarker.cash ? randomCashDirections : randomNoncashDirections;
   return (
     <section>
-      <section className="mobile-xl:py-[50px] pb-8 pt-0 grid mobile-xl:grid-cols-2 gap-8">
-        <div className="grid grid-flow-row gap-6 mobile-xl:mx-10 mx-3">
-          <p className="mobile-xl:text-lg mobile-xs:text-sm text-xs mobile-xl:font-medium font-semibold mobile-xl:text-left text-center uppercase">
+      <section className="mobile-xl:py-[50px] pb-8 pt-0 grid md:grid-cols-2 gap-8">
+        <div className="grid grid-flow-row gap-6 lg:mx-10 md:mx-0 mobile-xl:mx-8 mx-0">
+          <p className="xl:text-lg lg:text-base mobile:text-sm text-xs mobile-xl:font-medium font-semibold xl:text-left text-center uppercase">
             Топ популярных направлений
           </p>
-          <div className="grid mobile-xs:grid-cols-3 grid-cols-2 mobile-xl:gap-x-12 mobile-xl:gap-y-6 gap-3 items-center">
+          <div className="grid mobile-xs:grid-cols-3 grid-cols-2 lg:gap-x-12 lg:gap-y-6 gap-3 mobile-xl:gap-x-8 mobile-xl:gap-y-4 items-center">
             {currentPopularDirections?.map((direction, index) => (
               <CurrencyPair
                 key={direction.valute_from.code_name + direction.valute_to.code_name + index}
@@ -49,11 +49,11 @@ export const TopExchange: FC<TopExchangeProps> = ({
             ))}
           </div>
         </div>
-        <div className="grid grid-flow-row gap-6 mobile-xl:mx-10 mx-3">
-          <p className="mobile-xl:text-lg mobile-xs:text-sm text-xs mobile-xl:font-medium font-semibold mobile-xl:text-left text-center uppercase">
+        <div className="grid grid-flow-row gap-6 lg:mx-10 md:mx-0 mobile-xl:mx-8 mx-0">
+          <p className="xl:text-lg lg:text-base mobile:text-sm text-xs mobile-xl:font-medium font-semibold xl:text-left text-center uppercase">
             Возможно вам будет интересно
           </p>
-          <div className="grid mobile-xs:grid-cols-3 grid-cols-2 mobile-xl:gap-x-12 mobile-xl:gap-y-6 gap-3 justify-between items-center">
+          <div className="grid mobile-xs:grid-cols-3 grid-cols-2 lg:gap-x-12 lg:gap-y-6 gap-3 mobile-xl:gap-x-8 mobile-xl:gap-y-4 items-center">
             {currentRandomDirections?.map((direction, index) => (
               <CurrencyPair
                 key={direction.valute_from.code_name + direction.valute_to.code_name + index}
@@ -67,16 +67,16 @@ export const TopExchange: FC<TopExchangeProps> = ({
           </div>
         </div>
       </section>
-      <section className="py-5 grid mobile-xl:grid-cols-2 gap-8">
+      <section className="py-5 grid md:grid-cols-2 gap-8">
         <Link
           href={routes.buy}
-          className="border-2 border-light-gray max-h-16 text-sm  rounded-full p-4 uppercase font-medium mobile-xl:text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+          className="border-2 border-light-gray max-h-16 text-sm  rounded-full p-4 uppercase font-medium md:text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         >
           Купить криптовалюту
         </Link>
         <Link
           href={routes.sell}
-          className="border-2 border-light-gray max-h-16 rounded-full text-sm p-4 uppercase font-medium mobile-xl:text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+          className="border-2 border-light-gray max-h-16 rounded-full text-sm p-4 uppercase font-medium md:text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         >
           Продать криптовалюту
         </Link>

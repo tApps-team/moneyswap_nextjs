@@ -27,17 +27,6 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
   const { data: articles } = await getArticle({ url_name: url });
 
   if (articles.length === 0) {
-    // return (
-    //   <div className="w-full h-[90dvh] flex flex-col justify-center items-center gap-10">
-    //     <Image src={searchAnimation} alt="search spin" className="w-[10vw] h-[10vw]" />
-    //     <p className="uppercase text-2xl font-semibold">Статья не найдена</p>
-    //     <Link href={routes.blog} className="grid justify-center items-center mt-[100px]">
-    //       <button className="uppercase px-10 py-6 rounded-full bg-yellow-main text-dark-gray font-semibold text-xl">
-    //         Вернуться в блог
-    //       </button>
-    //     </Link>
-    //   </div>
-    // );
     return notFound();
   }
 
@@ -110,9 +99,9 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
       <section className="grid mobile-xl:grid-cols-[1fr_0.4fr] grid-cols-1 mobile-xl:gap-10 gap-0 items-start">
         <div className="grid grid-flow-rows mobile-xl:gap-8 gap-4">
           <div className="grid grid-flow-row mobile-xl:gap-8 gap-0 mobile-xl:bg-dark-gray bg-black mobile-xl:p-10 mobile-xl:pb-8 p-0 pb-6 rounded-[35px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.35)]">
-            <div className="w-full h-auto max-h-[1000px] rounded-[35px] overflow-hidden border-2 border-[#000]">
+            <div className="w-full h-auto xl:max-h-[calc(100vw_/_3.86)] max-h-[calc(100vw_/_2.381)] rounded-[35px] overflow-hidden border-2 border-[#000]">
               <Image
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
                 src={article?.preview?.image}
                 alt={article?.preview?.title}
                 width={500}

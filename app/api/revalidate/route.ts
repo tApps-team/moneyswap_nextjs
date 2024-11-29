@@ -1,13 +1,13 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
-import { StrapiCollectionNames } from "@/entities/strapi";
+import { getAllCategories, getAllTags, StrapiCollectionNames } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 
 export async function POST(req: Request) {
   try {
     const request = await req.json();
     const { model, entry, secret } = request;
-    console.log(request);
+    console.log(entry);
 
     // if (secret !== process.env.NEXT_REVALIDATION_SECRET_KEY) {
     //   console.log("Invalid secret:", secret);
@@ -20,21 +20,25 @@ export async function POST(req: Request) {
     switch (model) {
       case StrapiCollectionNames.article:
         path = `${routes.blog}${routes.article}/${entry?.url_name}`;
+        await getAllCategories().then((data) => {
+          data?.data?.categories.map((cat) => {
+            revalidatePath(`${routes.blog}${routes.category}/${cat?.category}`);
+          });
+        });
+        await getAllTags().then((data) => {
+          data?.data?.tags.map((tag) => {
+            revalidatePath(`${routes.blog}${routes.tag}/${tag?.tag}`);
+          });
+        });
         revalidatePath(routes.blog);
-        revalidatePath(routes.category);
-        revalidatePath(routes.tag);
         break;
       case StrapiCollectionNames.category:
         path = `${routes.blog}${routes.category}/${entry?.category}`;
         revalidatePath(routes.blog);
-        revalidatePath(routes.category);
-        revalidatePath(routes.tag);
         break;
       case StrapiCollectionNames.tag:
         path = `${routes.blog}${routes.tag}/${entry?.tag}`;
         revalidatePath(routes.blog);
-        revalidatePath(routes.category);
-        revalidatePath(routes.tag);
         break;
       case StrapiCollectionNames.about:
         path = routes.about;
@@ -44,6 +48,9 @@ export async function POST(req: Request) {
         break;
       case StrapiCollectionNames.help:
         path = routes.help;
+        break;
+      case StrapiCollectionNames.topic:
+        revalidatePath(routes.blog);
         break;
       default:
         console.log("Unknown model:", model);

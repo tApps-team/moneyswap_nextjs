@@ -9,13 +9,13 @@ import { FooterMobile } from "./footer-mobile";
 export const Footer = () => {
   return (
     <>
-      <div className="mobile-xl:hidden">
+      <div className="md:hidden">
         <FooterMobile />
       </div>
-      <footer className="mobile-xl:block hidden p-6 bg-black">
+      <footer className="md:block hidden p-6 bg-black">
         <div className="my-0 max-w-[1300px] mx-auto flex flex-col  gap-6  ">
-          <div className="flex justify-between  gap-12">
-            <section className="flex flex-col gap-2 ">
+          <div className="flex md:flex-col xl:flex-row justify-between  gap-12">
+            <section className="flex md:flex-row xl:flex-col md:justify-between  gap-2 ">
               <Link href={routes.home}>
                 <FooterLogoIcon width={300} height={100} />
               </Link>
@@ -25,9 +25,9 @@ export const Footer = () => {
                 </Link>
               </div>
             </section>
-            <section className="flex  gap-20 items-start">
+            <section className="flex md:justify-between md:gap-6 xl:gap-20 items-start">
               {footerItems.map((item, index) => (
-                <ul key={item.value} className="flex flex-col gap-3">
+                <ul key={item.value} className="flex flex-col md:gap-6 xl:gap-3">
                   <p className="font-medium uppercase text-sm">{item.value}</p>
                   {item.children?.map((itemChildren) => (
                     <li

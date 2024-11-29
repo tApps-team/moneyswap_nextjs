@@ -8,6 +8,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  DialogTitle,
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -17,7 +18,7 @@ import {
 import { navbarItems } from "../navbar/model/navbarItems";
 export const HeaderMobile = () => {
   return (
-    <header className="fixed  mobile-xl:hidden block top-0 left-0 w-full backdrop-blur-md z-10 p-5">
+    <header className="fixed  lg:hidden block top-0 left-0 w-full backdrop-blur-md z-50 p-5">
       <div className="flex h-10 items-center justify-between">
         <Link href={routes.home}>
           <Image src={"/logofull.svg"} alt="logo" width={150} height={250} />
@@ -28,6 +29,7 @@ export const HeaderMobile = () => {
           </DrawerTrigger>
           <DrawerContent className="h-svh bg-transparent border-none backdrop-blur-md">
             <DrawerHeader className="flex items-center justify-between p-6">
+              <DialogTitle className="sr-only">navbar</DialogTitle>
               <Link href={routes.home}>
                 <Image src={"/logofull.svg"} alt="logo" width={150} height={250} />
               </Link>
