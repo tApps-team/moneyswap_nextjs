@@ -3,7 +3,7 @@ import { Skeleton } from "@/shared/ui";
 
 export const ForPartnersSkeleton = () => {
   return (
-    <section className="grid grid-cols-[0.7fr,0.3fr] gap-10">
+    <section className="md:grid md:grid-cols-[0.7fr,0.3fr] flex flex-col gap-10">
       <Skeleton className="h-[383px] w-full bg-skeleton-gray text-skeleton-gray" />
 
       <FeedbackFormSkeleton />

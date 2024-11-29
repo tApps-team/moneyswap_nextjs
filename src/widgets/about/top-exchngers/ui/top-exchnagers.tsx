@@ -22,16 +22,17 @@ export const TopExchangers = async () => {
                   alt={`coin ${topExchanger.name}`}
                   width={50}
                   height={50}
+                  className="size-8 md:size-12"
                 />
-                <div className="flex flex-col gap-0 uppercase">
-                  <p className="text-sm">{topExchanger.name}</p>
-                  <div className="flex  gap-1 text-xs uppercase">
+                <div className="flex flex-col min-w-0 gap-0 uppercase">
+                  <p className="text-xs truncate md:text-sm">{topExchanger.name}</p>
+                  <div className="flex  gap-1 text-2xs md:text-xs uppercase">
                     <p>Отзывы</p>
                     <span className="text-yellow-main font-medium">
                       {topExchanger.reviewCount.positive}
                     </span>
                     <span>/</span>
-                    <span className="text-red-500 font-medium">
+                    <span className="text-red-500  font-medium">
                       {topExchanger.reviewCount.negative}
                     </span>
                   </div>
@@ -42,7 +43,7 @@ export const TopExchangers = async () => {
                   pathname: `/crypto-exchangers/exchanger-${topExchanger.id}`,
                   query: { "exchanger-marker": topExchanger.exchangerMarker },
                 }}
-                className="uppercase text-yellow-main"
+                className="uppercase text-xs md:text-base text-yellow-main"
               >
                 Перейти
               </Link>

@@ -8,7 +8,7 @@ export const Header = () => {
   return (
     <>
       <HeaderMobile />
-      <header className="fixed mobile-xl:block hidden top-0 left-0 w-full backdrop-blur-md z-10 p-4 bg-[rgba(45,45,45,0.8)]">
+      <header className="fixed lg:block hidden top-0 left-0 w-full backdrop-blur-md z-10 p-4 bg-[rgba(45,45,45,0.8)]">
         <section className="max-w-[1300px]   grid  grid-flow-col gap-4 justify-between items-center mx-auto">
           <Link href={routes.home}>
             <Image
