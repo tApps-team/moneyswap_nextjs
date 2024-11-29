@@ -32,7 +32,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
   return (
     <section>
       <section className="mobile-xl:py-[50px] pb-8 pt-0 grid md:grid-cols-2 gap-8">
-        <div className="grid grid-flow-row gap-6 lg:mx-10 mobile-xl:mx-8 md:mx-0 mx-3">
+        <div className="grid grid-flow-row gap-6 lg:mx-10 md:mx-0 mobile-xl:mx-8 mx-0">
           <p className="xl:text-lg lg:text-base mobile:text-sm text-xs mobile-xl:font-medium font-semibold xl:text-left text-center uppercase">
             Топ популярных направлений
           </p>
@@ -49,7 +49,7 @@ export const TopExchange: FC<TopExchangeProps> = ({
             ))}
           </div>
         </div>
-        <div className="grid grid-flow-row gap-6 lg:mx-10 mobile-xl:mx-8 md:mx-0 mx-3">
+        <div className="grid grid-flow-row gap-6 lg:mx-10 md:mx-0 mobile-xl:mx-8 mx-0">
           <p className="xl:text-lg lg:text-base mobile:text-sm text-xs mobile-xl:font-medium font-semibold xl:text-left text-center uppercase">
             Возможно вам будет интересно
           </p>
@@ -67,16 +67,16 @@ export const TopExchange: FC<TopExchangeProps> = ({
           </div>
         </div>
       </section>
-      <section className="py-5 grid mobile-xl:grid-cols-2 gap-8">
+      <section className="py-5 grid md:grid-cols-2 gap-8">
         <Link
           href={routes.buy}
-          className="border-2 border-light-gray max-h-16 text-sm  rounded-full p-4 uppercase font-medium mobile-xl:text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+          className="border-2 border-light-gray max-h-16 text-sm  rounded-full p-4 uppercase font-medium md:text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         >
           Купить криптовалюту
         </Link>
         <Link
           href={routes.sell}
-          className="border-2 border-light-gray max-h-16 rounded-full text-sm p-4 uppercase font-medium mobile-xl:text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+          className="border-2 border-light-gray max-h-16 rounded-full text-sm p-4 uppercase font-medium md:text-base text-center hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         >
           Продать криптовалюту
         </Link>

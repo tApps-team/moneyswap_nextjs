@@ -35,7 +35,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
         <div className="grid gap-5">
           <div className="relative flex items-start justify-between gap-1">
             <div
-              className={`[&>b]:leading-normal text-start text-xs mobile-xs:text-sm mobile:text-base mobile-xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
+              className={`[&>b]:leading-normal text-start text-xs mobile-xs:text-sm mobile:text-base md:text-lg lg:text-2xl xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
             >
               {parse(data[0]?.header_title, options)}
             </div>
@@ -112,7 +112,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
               <Image src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
             </div>
           </div>
-          <div className="sr-only mobile-xl:not-sr-only strapi_styles text-sm">
+          <div className="sr-only mobile-xl:not-sr-only lg:text-sm text-xs strapi_styles">
             {parse(data[0]?.header_description, options)}
           </div>
         </div>

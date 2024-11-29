@@ -19,7 +19,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
     <div className={cn("relative z-10", exchanger.is_vip ? "pt-5" : "pt-0")}>
       {exchanger.is_vip && (
         <div className="bg-yellow-main absolute w-full h-16 rounded-3xl   text-black font-bold  -z-10 -translate-y-6 ">
-          <p className="text-center "> VIP - ПАРТНЕР</p>
+          <p className="text-center uppercase">Лучшее предложение</p>
         </div>
       )}
 
@@ -49,11 +49,11 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
                 ОТЗЫВЫ
               </Link>
               <div className="flex gap-1 items-center">
-                <p className="text-yellow-main text-3xs  leading-none ">
+                <p className="text-yellow-main text-3xs leading-none ">
                   {exchanger.review_count.positive}
                 </p>
-                <div className="text-[6px] leading-none mb-[2px]">|</div>
-                <p className="text-light-gray text-3xs  leading-none">
+                <div className="text-[6px] leading-none mb-[1px]">|</div>
+                <p className="text-light-gray text-3xs leading-none">
                   {exchanger.review_count.negative}
                 </p>
               </div>
