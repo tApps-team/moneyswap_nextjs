@@ -12,6 +12,8 @@ import {
   CarouselApi,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
   Dialog,
   DialogClose,
   DialogContent,
@@ -29,6 +31,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shared/ui";
+import { filterTabList } from "../model/filter-tab";
 
 type CurrencySelectProps = {
   label?: string;
@@ -54,6 +57,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
     setAmount,
     actualCourse,
   } = props;
+
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [searchValue, setSearchValue] = useState<string>("");
   const [api, setApi] = useState<CarouselApi>();
@@ -68,19 +72,14 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         : [],
       id: "All",
     },
+
     ...(Array.isArray(currencies) ? currencies : []),
   ];
 
-  const filteredTabList = tabList
-    ?.map((tab) => ({
-      ...tab,
-      currencies: tab?.currencies?.filter(
-        (currency) =>
-          currency.code_name.toLowerCase().includes(searchDeferredValue.toLowerCase()) ||
-          currency.name.ru.toLowerCase().includes(searchDeferredValue.toLowerCase()),
-      ),
-    }))
-    .filter((tab) => tab?.currencies?.length > 0);
+  const filteredTabList = filterTabList({
+    tabList: tabList,
+    searchValue: searchDeferredValue,
+  });
   const scrollToActiveTab = useCallback(() => {
     if (api) {
       console.log(filteredTabList);
@@ -149,7 +148,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 <ChevronDown width={28} height={28} />
               </div>
             </DialogTrigger>
-            <DialogContent className="bg-dark-gray border-none md:w-[80svw]  grid gap-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+            <DialogContent className="bg-dark-gray border-none md:w-[80svw] lg:w-[60svw] xl:w-[50svw] 2xl:w-[40svw] grid gap-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
               <div className="grid grid-cols-2 grid-rows-1 items-center">
                 <DialogTitle className="uppercase text-xl">Выбор валюты</DialogTitle>
                 <div className="relative">
@@ -168,18 +167,39 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 </div>
               </div>
 
-              <Tabs defaultValue={"Все"} className="">
-                <TabsList className="bg-dark-gray grid grid-flow-col gap-6 justify-start">
-                  {filteredTabList.map((tab) => (
-                    <TabsTrigger
-                      className="data-[state=active]:bg-yellow-main data-[state=active]:border-yellow-main text-light-gray uppercase rounded-full text-sm border-light-gray border"
-                      key={tab?.id}
-                      value={tab?.name?.ru}
-                    >
-                      {tab?.name?.ru}
-                    </TabsTrigger>
-                  ))}
+              <Tabs defaultValue={"Все"} className="w-full ">
+                <TabsList className="w-full">
+                  <Carousel
+                    opts={{
+                      dragFree: true,
+                    }}
+                    className="w-full"
+                  >
+                    <CarouselContent className="gap-2 ml-0">
+                      {filteredTabList.map((tab) => (
+                        <TabsTrigger value={tab?.name?.ru} key={tab.id} asChild>
+                          <CarouselItem className="basis-1/3 border">{tab.name.ru}</CarouselItem>
+                        </TabsTrigger>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
                 </TabsList>
+                {/* <Carousel className="w-full">
+                  <TabsList className="bg-white w-full  ">
+                    <CarouselContent>
+                      {filteredTabList.map((tab) => (
+                        <CarouselItem key={tab?.id} className="basis-10/12 w-full">
+                          <TabsTrigger
+                            className="data-[state=active]:bg-yellow-main flex px-0 py-0  data-[state=active]:border-yellow-main text-light-gray uppercase rounded-full text-sm border-light-gray border"
+                            value={tab?.name?.ru}
+                          >
+                            {tab?.name?.ru}
+                          </TabsTrigger>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </TabsList>
+                </Carousel> */}
 
                 <ScrollArea className="h-[28rem] p-4">
                   {filteredTabList.map((tab) => (

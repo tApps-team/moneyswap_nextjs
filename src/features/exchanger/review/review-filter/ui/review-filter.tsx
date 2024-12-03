@@ -35,7 +35,7 @@ export const ReviewFilter = ({ reviewCount }: ReviewFilterProps) => {
   };
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1 mobile-xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-4 gap-6">
       {filterData.map((data) => {
         const isActive =
           currentGrade === data.grade?.toString() ||
@@ -51,7 +51,7 @@ export const ReviewFilter = ({ reviewCount }: ReviewFilterProps) => {
               isActive && "bg-yellow-main border-yellow-main text-black",
             )}
           >
-            <p>{data.value}</p>
+            <p className="md:text-2xs lg:text-base">{data.value}</p>
             <span>({getReviewCount(data.review)})</span>
           </Link>
         );
