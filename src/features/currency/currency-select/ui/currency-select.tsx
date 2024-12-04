@@ -62,6 +62,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [api, setApi] = useState<CarouselApi>();
   const carouselRef = useRef<HTMLDivElement>(null);
+
   const searchDeferredValue = useDeferredValue(searchValue);
   const [activeTab, setActiveTab] = useState<string>("Все");
   const tabList: CurrencyResponse[] = [
@@ -167,21 +168,32 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 </div>
               </div>
 
-              <Tabs defaultValue={"Все"} className="w-full ">
-                <TabsList className="w-full">
+              <Tabs
+                defaultValue={"Все"}
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="overflow-hidden"
+              >
+                <TabsList className="w-full  bg-dark-gray">
                   <Carousel
+                    ref={carouselRef}
                     opts={{
                       dragFree: true,
                     }}
-                    className="w-full"
+                    setApi={setApi}
+                    className="w-[80%]"
                   >
-                    <CarouselContent className="gap-2 ml-0">
+                    <CarouselPrevious className="border-none -translate-y-4 -translate-x-10 bg-none rounded-sm size-10" />
+                    <CarouselContent className="gap-4 ml-0   py-2">
                       {filteredTabList.map((tab) => (
-                        <TabsTrigger value={tab?.name?.ru} key={tab.id} asChild>
-                          <CarouselItem className="basis-1/3 border">{tab.name.ru}</CarouselItem>
+                        <TabsTrigger className="" value={tab?.name?.ru} key={tab.id} asChild>
+                          <CarouselItem className="basis-1/3  rounded-2xl w-full uppercase data-[state=active]:text-black data-[state=active]:border-yellow-main text-white  h-10 data-[state=active]:bg-yellow-main shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]">
+                            <p className="truncate">{tab.name.ru}</p>
+                          </CarouselItem>
                         </TabsTrigger>
                       ))}
                     </CarouselContent>
+                    <CarouselNext className="border-none -translate-y-4 translate-x-10 bg-none rounded-sm size-10" />
                   </Carousel>
                 </TabsList>
                 {/* <Carousel className="w-full">
