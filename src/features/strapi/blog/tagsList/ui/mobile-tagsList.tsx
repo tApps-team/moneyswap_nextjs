@@ -5,7 +5,7 @@ import { routes } from "@/shared/router";
 export const MobileTagsList = async () => {
   const { data: tags } = await getAllTags();
   return (
-    <section className="rounded-[20px] bg-[#000] py-3 px-3 mobile-xl:hidden block">
+    <section className="rounded-[20px] bg-[#000] py-3 px-3 md:hidden block mx-auto w-full mobile-xl:w-[80%] mt-8">
       <div className="grid grid-flow-row gap-3">
         <h3 className="uppercase text-yellow-main font-medium text-md truncate text-center">
           Популярные хэштеги

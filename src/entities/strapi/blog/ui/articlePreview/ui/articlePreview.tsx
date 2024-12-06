@@ -28,12 +28,12 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
   const formattedDate = formatter.format(new Date(article?.publishedAt));
   return (
     <Link
-      className={`group mobile-xl:mx-2 mx-0 mobile-xl:rounded-[30px] rounded-[24px] ${isMain && "bg-black"} relative`}
+      className={`group xl:rounded-[30px] rounded-[24px] ${isMain ? "bg-black" : ""} relative`}
       href={`${routes.blog}${routes.article}/${article?.url_name}`}
       scroll={true}
     >
       <div>
-        <div className="relative z-1 w-full max-w-full h-auto max-h-[calc(100vw_/_2.41)] mobile-xl:max-h-[189px] mobile-xl:border-[2px] border-[1px] border-[#000] mobile-xl:rounded-[30px] rounded-[24px] overflow-hidden">
+        <div className="relative z-1 w-full max-w-full h-auto max-h-[calc(100vw_/_2.41)] lg:max-h-[189px] mobile-xl:border-[2px] border-[1px] border-[#000] xl:rounded-[30px] rounded-[24px] overflow-hidden">
           {isLoading && (
             <Skeleton className="absolute inset-0 flex items-center justify-center bg-dark-gray text-white">
               <Loader className="animate-spin h-20" />
@@ -51,7 +51,9 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
             onLoad={handleImageLoad}
           />
         </div>
-        <div className={`uppercase grid grid-cols-1 gap-1 py-4 ${isMain && "px-4"}`}>
+        <div
+          className={`uppercase grid grid-cols-1 gap-1 ${isMain ? "px-4 py-4" : "pt-4 pb-4 md:pb-0"}`}
+        >
           <span className="text-light-gray inline font-medium mobile:text-[9px] mobile-xs:text-[8px] text-[7px]">
             {formattedDate}
           </span>

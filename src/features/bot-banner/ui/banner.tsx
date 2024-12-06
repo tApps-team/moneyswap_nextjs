@@ -3,7 +3,7 @@ import { products } from "@/shared/router";
 
 export const BotBanner = () => {
   return (
-    <section className="text-light-gray grid xl:grid-cols-2 md:grid-cols-[0.9fr_1fr] mobile-xl:grid-cols-[1fr_0.3fr] mobile:grid-cols-2 mobile-xs:grid-cols-[1fr_0.7fr] grid-cols-[1fr_0.5fr] md:gap-6 xl:gap-10 gap-0 items-center justify-center xl:mx-12 py-7 mobile-xl:py-[50px]">
+    <section className="text-light-gray grid xl:grid-cols-2 md:grid-cols-[0.9fr_1fr] mobile-xl:grid-cols-[1fr_0.3fr] mobile:grid-cols-2 mobile-xs:grid-cols-[1fr_0.7fr] grid-cols-[1fr_0.5fr] md:gap-6 xl:gap-10 gap-0 items-center justify-center xl:mx-12 py-7 md:py-[50px]">
       <div className="grid grid-flow-col lg:gap-20 md:gap-8 mobile-xl:gap-0 gap-6 mobile-xl:items-center md:items-stretch">
         <div className="xl:text-lg lg:text-sm md:text-xs mobile:text-2xs text-[8.5px] uppercase grid grid-flow-row gap-2 md:content-between content-around mobile-xl:font-semibold mobile:font-medium font-semibold [&>svg]:w-[50px] [&>svg]:h-[50px] md:[&>svg]:w-[60px] md:[&>svg]:h-[60px]">
           <p>

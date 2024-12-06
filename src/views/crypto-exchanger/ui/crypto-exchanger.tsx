@@ -36,8 +36,8 @@ export const CryptoExchangerPage = async ({
   });
 
   return (
-    <section className="grid grid-cols-1 mobile-xl:grid-cols-3 gap-8">
-      <div className="mobile-xl:col-span-2 grid gap-8">
+    <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="lg:col-span-2 grid gap-8">
         <CryptoExchangerSeoText exchangerInfo={exchangerDetails} />
         <ExchangerInfo exchangerDetails={exchangerDetails} />
         <ExchangerReviews

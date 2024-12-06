@@ -26,7 +26,7 @@ export const CryptoDirection = async (props: CryptoDirectionProps) => {
         <div className="flex flex-col   gap-4  p-1">
           {sortedCurrencyPair.map((pair, index) => (
             <div
-              className="grid grid-cols-[0.7fr,1fr]     gap-6 w-full "
+              className="grid grid-cols-[0.7fr,1fr]   md:grid-cols-[0.3fr,1fr] lg:grid-cols-[0.7fr,1fr]     gap-6 w-full "
               // key={pair.valute_from.name.en + pair.pointsCount}
               key={index}
             >

@@ -20,25 +20,25 @@ export const BlogPage = async ({
   const totalPages = Math.ceil(meta?.pagination?.total / elements);
 
   return (
-    <section className="grid grid-flow-row mobile-xl:gap-[40px] gap-7">
-      <div className="mobile-xl:flex mobile-xl:justify-center mobile-xl:items-center">
-        <h1 className="uppercase xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-lg mobile-xl:font-semibold mobile-xl:text-center mobile-xl:max-w-[80%] mobile:text-lg text-sm font-medium text-start">
+    <section className="grid grid-flow-row md:gap-7 mobile-xl:gap-6 gap-5">
+      <div className="mobile-xl:flex mobile-xl:justify-center mobile-xl:items-center mobile-xl:mx-auto mobile-xl:max-w-[80%]">
+        <h1 className="uppercase xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-base mobile-xl:font-semibold mobile-xl:text-center text-sm font-medium text-start">
           Блог о финансах, криптовалюте и переводах за рубеж
         </h1>
       </div>
       <MobileArticleSearch currentValue={searchValue || null} />
-      <div className="-my-7 mobile-xl:hidden block">
+      <div className="-my-7 md:hidden block">
         <BotBanner />
       </div>
       <CategoriesList categories={categories?.categories} />
-      <div className="mobile-xl:block hidden">
-        <div className="grid grid-cols-[1fr_0.4fr] gap-10 items-start">
+      <div className="md:block hidden">
+        <div className="grid md:grid-cols-[1fr_0.4fr] xl:gap-10 lg:gap-8 gap-6 items-start">
           <AllArticles articles={all} totalPages={totalPages} page={page} />
           <BlogSidebar searchValue={searchValue} isMain />
         </div>
       </div>
       <MobileAllArticles articles={all} totalPages={totalPages} page={page} />
-      <div className="mobile-xl:pt-8 pt-0 grid mobile-xl:gap-[60px] gap-7">
+      <div className="lg:pt-8 pt-0 grid mobile-xl:gap-10 gap-7 mobile-xl:w-[80%] md:w-full mx-auto">
         <SliderOfArticles title={readersChoice?.name} articles={readersChoice?.articles} />
         <SliderOfArticles title={recommended?.name} articles={recommended?.articles} />
       </div>

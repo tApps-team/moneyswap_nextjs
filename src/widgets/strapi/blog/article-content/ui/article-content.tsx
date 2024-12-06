@@ -41,12 +41,12 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`mobile:xl:mb-[30px] mb-[15px] strapi_styles strapi_fonts_codec mobile:text-sm text-xs`}
+              className={`md:mb-[30px] mb-[15px] strapi_styles strapi_fonts_codec mobile:text-sm text-xs`}
             >
               {item.paragraph.title && (
                 <h2
                   id={item?.paragraph?.title_id ? item?.paragraph?.title_id : ""}
-                  className={`main_font ${item.paragraph.title_position === ComponentPosition.center ? "mobile-xl:text-center text-center" : item.paragraph.title_position === ComponentPosition.right ? "mobile-xl:text-right text-center" : "mobile-xl:text-left text-center"}`}
+                  className={`main_font ${item.paragraph.title_position === ComponentPosition.center ? "md:text-center text-center" : item.paragraph.title_position === ComponentPosition.right ? "md:text-right text-center" : "md:text-left text-center"}`}
                 >
                   {item.paragraph.title}
                 </h2>
@@ -62,7 +62,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`mobile-xl:[&>svg]:w-[100px] [&>svg]:w-[66px] mobile:xl:mb-[30px] mb-[20px] strapi_custom_quote strapi_styles main_font mobile:text-sm text-xs ${buttonTypeClass}`}
+              className={`md:[&>svg]:w-[100px] [&>svg]:w-[66px] md:mb-[30px] mb-[20px] strapi_custom_quote strapi_styles main_font mobile:text-sm text-xs ${buttonTypeClass}`}
             >
               <SwitcherIcon height={"auto"} fill="#2d2d2d" />
               <p>{parse(item.quote.content, options)}</p>
@@ -99,10 +99,10 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`mobile:xl:mb-[30px] mb-[20px] grid grid-flow-row mobile-xl:gap-6 gap-4`}
+              className={`mobile:xl:mb-[30px] mb-[20px] grid grid-flow-row md:gap-6 gap-4`}
             >
               {item.accordion.title && (
-                <div className="main_font mobile-xl:text-xl mobile:text-md text-sm text-white mobile-xl:font-semibold font-medium uppercase mobile-xl:pl-8 pl-0 mobile-xl:text-start text-center">
+                <div className="main_font lg:text-xl md:text-lg mobile:text-md text-sm text-white md:font-semibold font-medium uppercase md:pl-8 pl-0 md:text-start text-center">
                   {item.accordion.title}
                 </div>
               )}
@@ -117,7 +117,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
                     <div
-                      className={`strapi_fonts_codec mt-6 mobile-xl:mb-[20px] mb-[10px] text-sm font-normal text-light-gray strapi_styles blog-custom-accordion-answer`}
+                      className={`strapi_fonts_codec mt-6 md:mb-[20px] mb-[10px] text-sm font-normal text-light-gray strapi_styles blog-custom-accordion-answer`}
                     >
                       {parse(item.accordion.answer, options)}
                     </div>

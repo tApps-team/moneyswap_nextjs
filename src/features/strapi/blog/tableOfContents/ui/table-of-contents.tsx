@@ -80,17 +80,19 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
   return (
     <section className="grid grid-flow-row gap-3 rounded-[20px] bg-black py-4 px-3">
       <div className="px-3">
-        <h3 className="uppercase text-white font-semibold text-sm truncate">Оглавление</h3>
+        <h3 className="uppercase text-yellow-main font-semibold xl:text-base lg:text-sm text-xs truncate lg:min-w-auto md:min-w-[24vw] min-w-auto">
+          Оглавление
+        </h3>
       </div>
       <div
         ref={tocContainerRef}
-        className="grid grid-flow-row gap-2 px-3 overflow-y-auto mobile-xl:max-h-[35svh] max-h-[17svh]"
+        className="grid grid-flow-row gap-2 px-3 overflow-y-auto lg:max-h-[25svh] max-h-[15svh]"
       >
         {table_of_contents?.map((item, index) => (
           <li
             key={index}
             ref={(el) => (itemRefs.current[item.id] = el)}
-            className={`relative grid grid-flow-col gap-2 justify-start items-center uppercase text-xs font-medium`}
+            className={`relative grid grid-flow-col gap-2 justify-start items-center uppercase lg:text-2xs text-[8px] font-medium`}
           >
             <span
               className={`absolute left-[10px] w-[1px] bg-[#ddd] ${index === 0 ? "top-[50%] bottom-0" : index === table_of_contents?.length - 1 ? "top-0 bottom-[50%]" : "-top-2 -bottom-2"}`}

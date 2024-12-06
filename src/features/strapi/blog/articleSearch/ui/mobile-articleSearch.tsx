@@ -46,7 +46,7 @@ export const MobileArticleSearch = ({ currentValue }: { currentValue: string | n
   };
 
   return (
-    <div className="relative mobile-xl:hidden block">
+    <div className="relative md:hidden block">
       <input
         type="text"
         value={searchValue}

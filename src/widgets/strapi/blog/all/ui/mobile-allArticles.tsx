@@ -3,15 +3,9 @@
 import { FC, useState } from "react";
 import { Pagination } from "@/features/pagination";
 import { ShowMore } from "@/features/strapi";
-import {
-  Article,
-  ArticlePreview,
-  ArticlePreviewCard,
-  ArticlePreviewCardSkeleton,
-} from "@/entities/strapi";
+import { Article, ArticlePreview, ArticlePreviewCard } from "@/entities/strapi";
 import { NoResultIcon } from "@/shared/assets";
 import { routes } from "@/shared/router";
-import { NoResults } from "@/shared/ui";
 
 interface MobileAllArticlesProps {
   articles: Article[] | ArticlePreview[];
@@ -41,13 +35,12 @@ export const MobileAllArticles: FC<MobileAllArticlesProps> = ({ articles, totalP
   };
 
   return (
-    <section className="grid h-full w-full mobile-xl:hidden">
+    <section className="grid justify-items-center h-full w-full md:hidden">
       {previewArticles?.length > 0 ? (
-        <section className="grid grid-flow-row gap-7">
+        <section className="grid grid-flow-row gap-7 mobile-xl:w-[80%] w-full">
           <div className="grid grid-flow-row gap-7">
             {previewArticles.slice(0, visibleCount).map((art) => (
               <ArticlePreviewCard key={art.url_name} article={art} isMain />
-              // <ArticlePreviewCardSkeleton key={art.url_name} />
             ))}
           </div>
           {!page && !totalPages && visibleCount < previewArticles.length && (
