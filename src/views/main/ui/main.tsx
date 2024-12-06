@@ -9,6 +9,7 @@ import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
+import { delay } from "@/shared/lib";
 import { ExchangerMarker, pageTypes } from "@/shared/types";
 
 export const Main = async ({
