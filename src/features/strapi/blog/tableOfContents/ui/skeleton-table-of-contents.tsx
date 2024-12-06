@@ -9,15 +9,17 @@ export const TableOfContentsBlockSkeleton = () => {
   return (
     <section className="grid grid-flow-row gap-3 max-h-[35svh] rounded-[20px] bg-black py-4 px-3">
       <div className="px-3">
-        <h3 className="uppercase text-white font-semibold text-sm truncate">Оглавление</h3>
+        <h3 className="uppercase text-yellow-main font-semibold xl:text-base lg:text-sm text-xs truncate lg:min-w-auto md:min-w-[24vw] min-w-auto">
+          Оглавление
+        </h3>
       </div>
-      <div className="grid grid-flow-row gap-2 px-3 overflow-y-auto max-h-[35svh]">
+      <div className="grid grid-flow-row gap-2 px-3 overflow-y-auto lg:max-h-[25svh] max-h-[15svh]">
         {table_of_contents?.map((item, index) => {
           const randomWidth = `${Math.floor(Math.random() * 61) + 40}%`;
           return (
             <Skeleton
               key={index}
-              className={`bg-[#707070] text-skeleton-gray relative grid grid-flow-col gap-2 justify-start items-center uppercase text-xs font-medium`}
+              className={`bg-[#707070] text-skeleton-gray relative grid grid-flow-col gap-2 justify-start items-center uppercase lg:text-2xs text-[8px] font-medium`}
               style={{ width: randomWidth }}
             >
               <span

@@ -52,7 +52,7 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
 
   return (
     <section>
-      <div className="grid gap-[30px] mobile-xl:rounded-[50px] mobile-xl:bg-dark-gray bg-transparent mobile-xl:p-6 p-0 mobile-xl:shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
+      <div className="grid md:w-full w-auto lg:gap-[30px] gap-6 lg:rounded-[30px] md:rounded-[24px] md:bg-dark-gray bg-transparent md:p-6 p-0 md:shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
         <h3 className="flex justify-center items-center w-full uppercase lg:text-xl mobile:text-lg text-md font-semibold text-center">
           {title}
         </h3>
@@ -61,21 +61,18 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
           opts={{
             align: "start",
           }}
-          className="mobile-xl:w-full mobile-xl:bg-transparent bg-dark-gray mobile-xl:rounded-none rounded-[35px] mobile-xl:p-0 p-6 mobile-xl:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
+          className="md:w-full md:bg-transparent bg-dark-gray md:rounded-none rounded-[35px] md:p-0 p-6 md:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
         >
           <CarouselContent className="flex">
             {articles?.map((art, index) => (
-              <CarouselItem
-                key={index}
-                className="lg:basis-1/3 md:basis-2/5 mobile-xl:basis-1/2 mobile-xl:pl-4 w-full"
-              >
+              <CarouselItem key={index} className="lg:basis-1/3 md:basis-2/5 md:pl-4 w-full">
                 <ArticlePreviewCard key={art?.url_name} article={art} />
               </CarouselItem>
             ))}
           </CarouselContent>
           <div
             ref={progressBarRef}
-            className="mobile-xl:hidden block relative h-[3px] w-full bg-light-gray rounded-full"
+            className="md:hidden block relative h-[3px] w-full bg-light-gray rounded-full"
           >
             <div
               className={`-top-[50%] translate-y-[50%] absolute h-[6px] bg-yellow-main rounded-full transition-transform duration-200`}
@@ -85,8 +82,8 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
               }}
             ></div>
           </div>
-          <CarouselPrevious className="mobile-xl:inline-flex hidden" />
-          <CarouselNext className="mobile-xl:inline-flex hidden" />
+          <CarouselPrevious className="md:inline-flex hidden" />
+          <CarouselNext className="md:inline-flex hidden" />
         </Carousel>
       </div>
     </section>

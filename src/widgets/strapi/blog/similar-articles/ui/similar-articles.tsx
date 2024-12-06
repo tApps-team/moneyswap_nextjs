@@ -44,8 +44,8 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
     };
   }, []);
   return (
-    <section className="grid mobile-xl:gap-8 gap-6">
-      <h3 className="w-full uppercase text-md font-medium text-center mobile-xl:text-white text-yellow-main">
+    <section className="grid md:gap-8 gap-6">
+      <h3 className="w-full uppercase text-md font-medium text-center md:text-white text-yellow-main">
         {title}
       </h3>
       <Carousel
@@ -53,13 +53,13 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
         opts={{
           align: "start",
         }}
-        className="mobile-xl:w-full mobile-xl:grid mobile-xl:bg-transparent bg-dark-gray mobile-xl:rounded-none rounded-[35px] mobile-xl:p-0 p-6 mobile-xl:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
+        className="md:w-full md:grid md:bg-transparent bg-dark-gray md:rounded-none rounded-[35px] md:p-0 p-6 md:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
       >
         <CarouselContent>
           {articles?.map((art, index) => (
             <CarouselItem
               key={index}
-              className="mobile-xl:basis-1/3 mobile-xl:pl-4 pl-4 -mr-4 mobile-xl:mr-0"
+              className="lg:basis-1/3 mobile-xl:basis-7/12 md:pl-4 pl-4 -mr-4 md:mr-0"
             >
               <ArticlePreviewCard key={art?.url_name} article={art} />
             </CarouselItem>
@@ -67,7 +67,7 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
         </CarouselContent>
         <div
           ref={progressBarRef}
-          className="mobile-xl:hidden block relative h-[3px] w-full bg-light-gray rounded-full"
+          className="md:hidden block relative h-[3px] w-full bg-light-gray rounded-full"
         >
           <div
             className={`-top-[50%] translate-y-[50%] absolute h-[6px] bg-yellow-main rounded-full transition-transform duration-200`}
@@ -77,7 +77,7 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
             }}
           ></div>
         </div>
-        <CarouselNext className="mobile-xl:inline-flex hidden" />
+        <CarouselNext className="md:inline-flex hidden" />
       </Carousel>
     </section>
   );
