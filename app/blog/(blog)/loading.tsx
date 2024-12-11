@@ -27,7 +27,7 @@ export default function Loading() {
         </div>
       </div>
       <MobileAllArticlesSkeleton />
-      <div className="lg:pt-8 pt-0 grid mobile-xl:gap-10 gap-7 mobile-xl:w-[80%] md:w-full mx-auto">
+      <div className="w-full mobile:grid hidden lg:pt-8 pt-0 mobile-xl:gap-10 gap-7 mobile-xl:w-[80%] md:w-full mx-auto">
         <SliderOfArticlesSkeleton />
         <SliderOfArticlesSkeleton />
       </div>

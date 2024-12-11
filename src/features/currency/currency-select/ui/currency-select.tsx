@@ -17,12 +17,15 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
   Input,
   ScrollArea,
@@ -117,7 +120,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             disabled={true}
             value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
             onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-            className="focus-visible:outline-none bg-transparent text-yellow-main px-6 font-semibold mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
+            className="focus-visible:outline-none bg-transparent text-yellow-main px-6 font-semibold mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
           />
           <Dialog>
             <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
@@ -150,6 +153,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               </div>
             </DialogTrigger>
             <DialogContent className="bg-dark-gray border-none md:w-[80svw] lg:w-[60svw] xl:w-[50svw] 2xl:w-[40svw] grid gap-8 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+              <DialogDescription className="sr-only"></DialogDescription>
               <div className="grid grid-cols-2 grid-rows-1 items-center">
                 <DialogTitle className="uppercase text-xl">Выбор валюты</DialogTitle>
                 <div className="relative">
@@ -160,7 +164,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                     color="#bbbbbb"
                   />
                   <Input
-                    className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-semibold border-light-gray"
+                    className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-semibold border-light-gray placeholder:transition-opacity focus:placeholder:opacity-0"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                     placeholder="Поиск валюты"
@@ -174,7 +178,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 onValueChange={setActiveTab}
                 className="overflow-hidden"
               >
-                <TabsList className="w-full  bg-dark-gray">
+                <TabsList className="w-full  bg-transparent">
                   <Carousel
                     ref={carouselRef}
                     opts={{
@@ -259,7 +263,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
           readOnly
           value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="text-base focus-visible:outline-none bg-transparent text-yellow-main mobile-xl:px-6 mobile:px-5 px-4 font-semibold mobile-xl:text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
+          className="text-base focus-visible:outline-none bg-transparent text-yellow-main mobile-xl:px-6 mobile:px-5 px-4 font-semibold mobile-xl:text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
         />
         <Drawer>
           <DrawerTrigger className="disabled:opacity-50" disabled={disabled} asChild>
@@ -291,7 +295,9 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
               <ChevronDown width={28} height={28} />
             </div>
           </DrawerTrigger>
-          <DrawerContent className="h-svh  p-4 rounded-none bg-dark-gray border-none">
+          <DrawerContent className="h-dvh p-4 rounded-none bg-transparent border-none">
+            <DrawerTitle className="sr-only"></DrawerTitle>
+            <DrawerDescription className="sr-only"></DrawerDescription>
             <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
@@ -308,7 +314,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 />
                 <Input
                   placeholder={"ПОИСК ВАЛЮТЫ"}
-                  className="  rounded-3xl font-medium pl-12 bg-dark-gray border placeholder:text-base border-light-gray placeholder:text-light-gray placeholder:transition-opacity text-light-gray uppercase focus:placeholder:opacity-0"
+                  className="rounded-3xl font-medium pl-12 bg-dark-gray border text-base placeholder:text-base border-light-gray placeholder:text-light-gray placeholder:transition-opacity text-light-gray uppercase focus:placeholder:opacity-0"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                 />
@@ -316,7 +322,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             </DrawerHeader>
             <div className="w-full">
               <Tabs value={activeTab} onValueChange={setActiveTab} className=" -mx-4">
-                <TabsList data-vaul-no-drag className="bg-dark-gray   w-full  h-full">
+                <TabsList data-vaul-no-drag className="bg-transparent w-full h-full">
                   <Carousel
                     ref={carouselRef}
                     opts={{
@@ -330,7 +336,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                         <CarouselItem key={filteredCategory.id} className="w-full pl-0 basis-2/5">
                           <TabsTrigger
                             className={
-                              "rounded-2xl w-full uppercase data-[state=active]:text-black data-[state=active]:border-yellow-main text-white  h-10 data-[state=active]:bg-yellow-main shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
+                              "rounded-2xl w-full uppercase bg-dark-gray data-[state=active]:text-black data-[state=active]:border-yellow-main text-white  h-10 data-[state=active]:bg-yellow-main shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
                             }
                             value={filteredCategory.name.ru}
                           >
@@ -348,7 +354,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                   <div className="py-3">
                     {filteredTabList.map((tab) => (
                       <TabsContent
-                        className="flex flex-col mt-0 gap-2 px-4"
+                        className="flex flex-col mt-0 gap-4 px-4"
                         value={tab?.name?.ru}
                         key={tab?.id}
                       >

@@ -1,13 +1,10 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ChevronDown, ChevronUp, InfoIcon } from "lucide-react";
-import Image from "next/image";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 import { CryptoExchanger } from "@/entities/exchanger";
-import { Country } from "@/entities/location";
-import { Review } from "@/shared/types";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/shared/ui";
+import { routes } from "@/shared/router";
 
 export type CryptoTableColumns = CryptoExchanger;
 
@@ -29,25 +26,31 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
         </button>
       );
     },
-    cell: ({ row }) => <p className="uppercase">{row.getValue("exchangerName")}</p>,
+    cell: ({ row }) => (
+      <p className="font-semibold text-base truncate max-w-[18vw]">
+        {row.getValue("exchangerName")}
+      </p>
+    ),
   },
   {
     accessorKey: "workStatus",
     header: "СТАТУС",
     cell: ({ row }) => {
       const workStatus = row.original.workStatus ? "Активен" : "Не активен";
-      return <p className="uppercase">{workStatus}</p>;
+      return <p className="uppercase md:text-xs text-2xs truncate">{workStatus}</p>;
     },
   },
   {
     accessorKey: "reserves",
     header: "РЕЗЕРВЫ",
-    cell: ({ row }) => <p className="uppercase">{row.original.reserves}</p>,
+    cell: ({ row }) => (
+      <p className="uppercase md:text-sm text-xs font-medium truncate">{row.original.reserves}</p>
+    ),
   },
   {
     accessorKey: "courses",
     header: "КУРСОВ",
-    cell: ({ row }) => <p className="uppercase">{row.original.courses}</p>,
+    cell: ({ row }) => <p className="uppercase md:text-sm text-xs">{row.original.courses}</p>,
   },
   {
     accessorFn: (review) => review.reviews.positive,
@@ -77,11 +80,11 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
         <Link
           className="md:block lg:hidden"
           href={{
-            pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
+            pathname: `${routes.exchangers}/exchanger-${row.original.id}`,
             query: { "exchanger-marker": row.original.exchange_marker },
           }}
         >
-          <button>ПОДРОБНЕЕ</button>
+          <button className="uppercase text-2xs font-medium text-yellow-main">ПОДРОБНЕЕ</button>
         </Link>
       </div>
     ),
@@ -94,13 +97,13 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     },
     cell: ({ row }) => (
       <Link
-        className="hidden lg:block"
+        className="hidden lg:block rounded-3xl p-2 border-2 border-light-gray cursor-pointer hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         href={{
-          pathname: `/crypto-exchangers/exchanger-${row.original.id}`,
+          pathname: `${routes.exchangers}/exchanger-${row.original.id}`,
           query: { "exchanger-marker": row.original.exchange_marker },
         }}
       >
-        <button>ПОДРОБНЕЕ</button>
+        <button className="uppercase font-semibold text-xs text-center w-full">ПОДРОБНЕЕ</button>
       </Link>
     ),
   },

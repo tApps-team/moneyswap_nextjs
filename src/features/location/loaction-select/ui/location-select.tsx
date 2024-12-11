@@ -24,11 +24,13 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -127,13 +129,14 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </DialogTrigger>
         <DialogContent className="bg-dark-gray  border-none md:w-[80svw] xl:w-[50svw] xl:h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
+          <DialogDescription className="sr-only"></DialogDescription>
           <div className="grid grid-cols-2 grid-rows-1 items-center">
             <DialogTitle className="m-0 uppercase">Выбор города</DialogTitle>
             <div className="relative">
               <SearchIcon className="absolute translate-y-2 left-3 " color="#bbbbbb" />
               <Input
                 ref={ref}
-                className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-semibold border-light-gray"
+                className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-semibold border-light-gray placeholder:transition-opacity focus:placeholder:opacity-0"
                 value={locationSearchValue}
                 onChange={(e) => setLocationSearchValue(e.target.value)}
                 placeholder="Поиск города и страны"
@@ -221,7 +224,9 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </div>
       </DrawerTrigger>
-      <DrawerContent className="h-svh px-4 flex flex-col gap-4 bg-transparent  border-none">
+      <DrawerContent className="h-dvh px-4 flex flex-col gap-4 bg-transparent border-none">
+        <DrawerTitle className="sr-only"></DrawerTitle>
+        <DrawerDescription className="sr-only"></DrawerDescription>
         <DrawerHeader className="flex p-0 items-center justify-between pt-16">
           <h2 className="uppercase font-bold">Выбор города</h2>
           <DrawerClose>
@@ -233,7 +238,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           <Input
             value={locationSearchValue}
             onChange={(e) => setLocationSearchValue(e.target.value)}
-            className="w-full pl-10 placeholder:text-base uppercase bg-dark-gray rounded-full  fill-light-gray placeholder:text-light-gray"
+            className="w-full pl-10 text-base placeholder:text-base uppercase bg-dark-gray rounded-full  fill-light-gray placeholder:text-light-gray placeholder:transition-opacity focus:placeholder:opacity-0"
             placeholder="ПОИСК СТРАНЫ И ГОРОДА"
             color="#BBBBBB"
           />

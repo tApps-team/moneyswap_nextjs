@@ -13,9 +13,9 @@ import {
 } from "@tanstack/react-table";
 import Link from "next/link";
 import { useState } from "react";
-import { Exchanger } from "@/entities/exchanger";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
+import { routes } from "@/shared/router";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 import { cryptoColumns } from "../model/columns";
 import { CryptoTableColumns } from "../model/columns";
@@ -132,7 +132,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
             className="p-3 border-b last:border-none border-light-gray flex items-center justify-between"
           >
             <div className="flex flex-col  min-w-0 gap-2">
-              <p className="text-yellow-main text-sm truncate uppercase">
+              <p className="text-yellow-main text-sm truncate font-medium">
                 {exchanger.exchangerName}
               </p>
               <div className="text-xs">
@@ -149,7 +149,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                   <p
                     className={cn(
                       "text-xs",
-                      exchanger.workStatus ? "text-yellow-main" : "text-red-700",
+                      exchanger.workStatus ? "text-yellow-main" : "text-red-500",
                     )}
                   >
                     {exchanger.workStatus ? "РАБОТАЕТ" : "НЕ РАБОТАЕТ"}
@@ -160,24 +160,24 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
             <div className="flex flex-col gap-2">
               <Link
                 href={{
-                  pathname: `/crypto-exchangers/exchanger-${exchanger.id}`,
+                  pathname: `${routes.exchangers}/exchanger-${exchanger.id}`,
                   query: { "exchanger-marker": exchanger.exchange_marker },
                 }}
-                className="flex items-center  gap-1 max-w-30  py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray"
+                className="flex items-center  gap-1 max-w-30  py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray cursor-pointer hover:bg-yellow-main hover:text-black [&>span]:hover:text-black [&>div>span]:hover:text-black hover:border-yellow-main transition-all duration-500"
               >
                 <span className="text-light-gray font-medium">ОТЗЫВЫ</span>
                 <div className="flex gap-1 items-center">
                   <span className="text-yellow-main">{exchanger.reviews.positive}</span>
                   <span>/</span>
-                  <span className="text-red-700">{exchanger.reviews.negative}</span>
+                  <span className="text-red-500">{exchanger.reviews.negative}</span>
                 </div>
               </Link>
               <Link
                 href={{
-                  pathname: `/crypto-exchangers/exchanger-${exchanger.id}`,
+                  pathname: `${routes.exchangers}/exchanger-${exchanger.id}`,
                   query: { "exchanger-marker": exchanger.exchange_marker },
                 }}
-                className="flex text-light-gray max-w-30  items-center py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray font-medium leading-3"
+                className="flex text-light-gray max-w-30  items-center py-2 px-3 text-2xs rounded-full bg-dark-gray border font-medium border-light-gray cursor-pointer hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
               >
                 ПОДРОБНЕЕ
               </Link>

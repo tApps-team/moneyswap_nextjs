@@ -54,7 +54,7 @@ export const ArticleSearch = ({ currentValue }: { currentValue: string | null })
         className="rounded-[12px] bg-black text-white px-4 py-3 pr-10 w-full placeholder:text-white text-2xs uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1"
         placeholder="Поиск статьи..."
       />
-      <button className="absolute right-3 top-[50%] -translate-y-2/4">
+      <button className="absolute right-3 top-2">
         {isLoading ? <Loader className="animate-spin h-6" /> : <Search width={24} height={24} />}
       </button>
     </div>

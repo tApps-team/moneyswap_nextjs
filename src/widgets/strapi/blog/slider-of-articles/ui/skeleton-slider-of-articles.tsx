@@ -29,8 +29,8 @@ export const SliderOfArticlesSkeleton = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="mobile-xl:inline-flex hidden" />
-          <CarouselNext className="mobile-xl:inline-flex hidden" />
+          <CarouselPrevious className="md:inline-flex hidden" />
+          <CarouselNext className="md:inline-flex hidden" />
         </Carousel>
       </div>
     </section>
