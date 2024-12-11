@@ -6,7 +6,7 @@ import { CurrencyPair, CurrencyResponse, ExchangeType } from "../model/types/cur
 
 export type GetAvailableValutesDtoResponse = CurrencyResponse[];
 export type GetAvailableValutesDtoRequest = {
-  city?: string;
+  city?: string | null;
   base?: string;
 };
 
