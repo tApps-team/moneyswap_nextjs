@@ -1,5 +1,6 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
+import { CurrencySelectFormCollapsed } from "@/widgets/currency-select-form/ui/currency-select-form-collapsed";
 import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
@@ -15,23 +16,28 @@ import { ExchangerMarker, pageTypes } from "@/shared/types";
 export const Main = async ({
   searchParams,
 }: {
-  searchParams?: { direction?: ExchangerMarker; city?: string };
+  searchParams?: Promise<{ direction?: ExchangerMarker; city?: string }>;
 }) => {
   const queryClient = new QueryClient();
 
-  const city = searchParams?.city;
-  const currentDirection = searchParams?.direction;
+  const city = (await searchParams)?.city;
+  const currentDirection = (await searchParams)?.direction;
+
   const directionCash = !!city || currentDirection === ExchangerMarker.cash;
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
+
   const seoTexts = await getSeoTexts({ page: pageTypes.main });
+
   const giveCurrency = await getSpecificValute({
     codeName: direction === ExchangerMarker.cash ? "cashrub" : "btc",
   });
   const getCurrency = await getSpecificValute({
     codeName: direction === ExchangerMarker.cash ? "btc" : "sberrub",
   });
+
   const actualCourse = await getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" });
   const location = await getSpecificCity({ codeName: city ? city : "msk" });
+
   const request =
     direction === ExchangerMarker.cash
       ? {

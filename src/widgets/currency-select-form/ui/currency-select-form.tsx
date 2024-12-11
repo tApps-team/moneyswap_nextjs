@@ -2,7 +2,7 @@
 
 import { cx } from "class-variance-authority";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CurrencySelect, CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
 import { Currency, useGetAvailableValutes } from "@/entities/currency";
@@ -24,11 +24,19 @@ type CurrencySelectFormProps = {
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const city = searchParams.get("city");
 
+  // const onClickCurrency = (currency:Currency) => {
+  //   switch(urlDirection){
+  //     case ExchangerMarker.cash:
+  //       const router =
+  //   }
+  // }
   const onClickGetCurrency = (getCurrency: Currency) => {
     const route =
       urlDirection === ExchangerMarker.cash
-        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${urlLocation?.code_name}`
+        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${city}`
         : `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}`;
 
     router.push(route);
@@ -37,7 +45,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const onClickGiveCurrency = (giveCurrency: Currency) => {
     const route =
       urlDirection === ExchangerMarker.cash
-        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${urlLocation?.code_name}`
+        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${city}`
         : `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}`;
 
     router.push(route);

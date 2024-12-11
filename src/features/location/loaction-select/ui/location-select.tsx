@@ -37,6 +37,7 @@ import {
   Input,
   ScrollArea,
 } from "@/shared/ui";
+import { EmptyList } from "@/shared/ui/empty-list";
 import { filteredCountriesFn } from "../lib/filteredCountries";
 
 type LocationSelectProps = {
@@ -128,7 +129,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
             </div>
           </div>
         </DialogTrigger>
-        <DialogContent className="bg-dark-gray  border-none md:w-[80svw] xl:w-[50svw] xl:h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] grid gap-6">
+        <DialogContent className="bg-dark-gray flex flex-col  border-none md:w-[80svw] xl:w-[50svw] xl:h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]  gap-6">
           <DialogDescription className="sr-only"></DialogDescription>
           <div className="grid grid-cols-2 grid-rows-1 items-center">
             <DialogTitle className="m-0 uppercase">Выбор города</DialogTitle>
@@ -143,37 +144,27 @@ export const LocationSelect = (props: LocationSelectProps) => {
               />
             </div>
           </div>
-
-          <div className="grid md:grid-cols-[1fr,3rem,1fr] xl:grid-cols-[1fr,8rem,1fr] grid-rows-1 min-h-full  ">
-            <ScrollArea className="h-[50svh] border rounded-3xl p-4">
-              <div className="flex flex-col gap-3">
-                {filteredCountries?.map((country) => (
-                  <CountryCard
-                    active={country.name.ru === selectCountry?.name.ru}
-                    key={country.id}
-                    onClick={() => onClickCountry(country)}
-                    country={country}
-                  />
-                ))}
+          {filteredCountries.length > 0 ? (
+            <div className="grid md:grid-cols-[1fr,3rem,1fr] xl:grid-cols-[1fr,8rem,1fr] grid-rows-1 min-h-full  ">
+              <ScrollArea className="h-[50svh] border rounded-3xl p-4">
+                <div className="flex flex-col gap-3">
+                  {filteredCountries?.map((country) => (
+                    <CountryCard
+                      active={country.name.ru === selectCountry?.name.ru}
+                      key={country.id}
+                      onClick={() => onClickCountry(country)}
+                      country={country}
+                    />
+                  ))}
+                </div>
+              </ScrollArea>
+              <div className="flex items-center justify-center ">
+                <ArrowRightLineIcon width={22} className=" fill-white " />
               </div>
-            </ScrollArea>
-            <div className="flex items-center justify-center ">
-              <ArrowRightLineIcon width={22} className=" fill-white " />
-            </div>
-            <ScrollArea className="h-[50svh] border rounded-3xl p-4">
-              <div className="  flex  flex-col  gap-3 ">
-                {selectCountry && cityList.length > 0
-                  ? cityList.map((city) => (
-                      <DialogClose asChild key={city.id}>
-                        <CityCard
-                          onClick={() => onClickCity(city)}
-                          city={city}
-                          active={selectCity?.code_name === city?.code_name}
-                        />
-                      </DialogClose>
-                    ))
-                  : filteredCountries?.map((country) =>
-                      country.cities.map((city) => (
+              <ScrollArea className="h-[50svh] border rounded-3xl p-4">
+                <div className="  flex  flex-col  gap-3 ">
+                  {selectCountry && cityList.length > 0
+                    ? cityList.map((city) => (
                         <DialogClose asChild key={city.id}>
                           <CityCard
                             onClick={() => onClickCity(city)}
@@ -181,11 +172,24 @@ export const LocationSelect = (props: LocationSelectProps) => {
                             active={selectCity?.code_name === city?.code_name}
                           />
                         </DialogClose>
-                      )),
-                    )}
-              </div>
-            </ScrollArea>
-          </div>
+                      ))
+                    : filteredCountries?.map((country) =>
+                        country.cities.map((city) => (
+                          <DialogClose asChild key={city.id}>
+                            <CityCard
+                              onClick={() => onClickCity(city)}
+                              city={city}
+                              active={selectCity?.code_name === city?.code_name}
+                            />
+                          </DialogClose>
+                        )),
+                      )}
+                </div>
+              </ScrollArea>
+            </div>
+          ) : (
+            <EmptyList />
+          )}
         </DialogContent>
       </Dialog>
     );
@@ -243,41 +247,45 @@ export const LocationSelect = (props: LocationSelectProps) => {
             color="#BBBBBB"
           />
         </div>
-        <ScrollArea className="h-[80svh]">
-          <Accordion
-            value={debouncedLocationSearchValue.length > 0 ? accordionActiveItems : undefined}
-            type="multiple"
-            className="w-full flex  px-4 pb-3 pt-1 flex-col gap-4"
-          >
-            {filteredCountries.map((country) => (
-              <AccordionItem
-                className="flex flex-col  gap-2"
-                key={country.id}
-                value={String(country.id)}
-              >
-                <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-medium text-sm p-4 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)]">
-                  <div className="flex items-center gap-3">
-                    <Image
-                      src={country.icon_url}
-                      alt={`страна ${country.name.ru}`}
-                      width={36}
-                      height={36}
-                    />
-                    <p>{country.name.ru}</p>
-                  </div>
-                </AccordionTrigger>
+        {filteredCountries.length > 0 ? (
+          <ScrollArea className="h-[80svh]">
+            <Accordion
+              value={debouncedLocationSearchValue.length > 0 ? accordionActiveItems : undefined}
+              type="multiple"
+              className="w-full flex  px-4 pb-3 pt-1 flex-col gap-4"
+            >
+              {filteredCountries.map((country) => (
+                <AccordionItem
+                  className="flex flex-col  gap-2"
+                  key={country.id}
+                  value={String(country.id)}
+                >
+                  <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center   uppercase font-medium text-sm p-4 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)]">
+                    <div className="flex items-center gap-3">
+                      <Image
+                        src={country.icon_url}
+                        alt={`страна ${country.name.ru}`}
+                        width={36}
+                        height={36}
+                      />
+                      <p>{country.name.ru}</p>
+                    </div>
+                  </AccordionTrigger>
 
-                <AccordionContent className="py-2 grid gap-3">
-                  {country.cities.map((city) => (
-                    <DrawerClose key={city?.id} className="w-full px-2">
-                      <CityCardMobile city={city.name.ru} onClick={() => onClickCity(city)} />
-                    </DrawerClose>
-                  ))}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </ScrollArea>
+                  <AccordionContent className="py-2 grid gap-3">
+                    {country.cities.map((city) => (
+                      <DrawerClose key={city?.id} className="w-full px-2">
+                        <CityCardMobile city={city.name.ru} onClick={() => onClickCity(city)} />
+                      </DrawerClose>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </ScrollArea>
+        ) : (
+          <EmptyList />
+        )}
       </DrawerContent>
     </Drawer>
   );

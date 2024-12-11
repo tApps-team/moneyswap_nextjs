@@ -28,7 +28,7 @@ export const HeaderMobile = () => {
           <DrawerTrigger asChild>
             <HeaderArrow className="size-5" />
           </DrawerTrigger>
-          <DrawerContent className="h-svh bg-transparent border-none backdrop-blur-md">
+          <DrawerContent className="h-svh flex flex-col bg-transparent border-none backdrop-blur-md">
             <DrawerHeader className="flex items-center justify-between p-6">
               <DrawerTitle className="sr-only">navbar</DrawerTitle>
               <Link href={routes.home}>
