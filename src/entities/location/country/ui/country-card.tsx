@@ -14,7 +14,7 @@ export const CountryCard = (props: CountryCardProps) => {
     <div
       onClick={onClick}
       className={cn(
-        "flex items-center   gap-4 border-2 text-white hover:text-black border-light-gray rounded-full p-3 h-[68px] hover:bg-yellow-main hover:border-yellow-main cursor-pointer overflow-hidden",
+        "flex items-center gap-3 border-2 text-white hover:text-black border-light-gray rounded-full p-3 h-[68px] hover:bg-yellow-main hover:border-yellow-main cursor-pointer overflow-hidden",
         active && "bg-yellow-main text-black border-yellow-main",
       )}
     >
@@ -27,7 +27,9 @@ export const CountryCard = (props: CountryCardProps) => {
         height={36}
       />
 
-      <p className="uppercase font-semibold line-clamp-1   max-w-[20vw] ">{country?.name?.ru}</p>
+      <p className="font-medium text-lg truncate xl:max-w-[15vw] max-w-[24vw]">
+        {country?.name?.ru}
+      </p>
     </div>
   );
 };

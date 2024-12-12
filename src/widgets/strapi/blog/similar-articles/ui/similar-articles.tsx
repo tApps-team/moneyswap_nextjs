@@ -53,13 +53,13 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
         opts={{
           align: "start",
         }}
-        className="md:w-full md:grid md:bg-transparent bg-dark-gray md:rounded-none rounded-[35px] md:p-0 p-6 md:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
+        className="md:w-full md:grid md:bg-transparent bg-dark-gray md:rounded-none rounded-[35px] md:p-0 mobile-xs:p-6 p-4 mobile-xs:mx-0 -mx-2 md:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
       >
         <CarouselContent>
           {articles?.map((art, index) => (
             <CarouselItem
               key={index}
-              className="lg:basis-1/3 mobile-xl:basis-7/12 md:pl-4 pl-4 -mr-4 md:mr-0"
+              className="lg:basis-1/3 mobile-xl:basis-7/12 md:pl-4 pl-4 -mr-2 md:mr-0"
             >
               <ArticlePreviewCard key={art?.url_name} article={art} />
             </CarouselItem>

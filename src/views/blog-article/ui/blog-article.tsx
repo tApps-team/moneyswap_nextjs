@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleContent, BlogSidebar, SimilarArticles } from "@/widgets/strapi";
+import { SocialNetworks } from "@/features/social-networks";
 import { ArticleDescription, MobileArticleSearch, TableOfContentsBlock } from "@/features/strapi";
 import { getArticle, getCategoryArticles, getTagArticles } from "@/entities/strapi";
-import { ArticleNavArrowIcon, FacebookIcon, TgIcon, YoutubeIcon } from "@/shared/assets";
+import { ArticleNavArrowIcon } from "@/shared/assets";
 import { routes } from "@/shared/router";
 
 export const BlogArticlePage = async ({ params }: { params: { url_name: string } }) => {
@@ -114,20 +115,10 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
               ))}
             </div>
             <div className="grid grid-flow-row justify-center md:justify-start md:gap-6 gap-4">
-              <p className="text-yellow-main uppercase lg:text-2xl md:text-xl text-base md:font-semibold font-medium">
+              <p className="text-yellow-main uppercase lg:text-2xl md:text-xl text-base md:font-semibold font-medium text-center">
                 Поделиться
               </p>
-              <div className="grid grid-flow-col gap-2 md:justify-start justify-center justify-items-start">
-                <div className="w-[30px] h-[30px] &>svg-w-full &>svg-h-full cursor-pointer">
-                  <TgIcon />
-                </div>
-                <div className="w-[30px] h-[30px] &>svg-w-full &>svg-h-full cursor-pointer">
-                  <FacebookIcon />
-                </div>
-                <div className="w-[30px] h-[30px] &>svg-w-full &>svg-h-full cursor-pointer">
-                  <YoutubeIcon />
-                </div>
-              </div>
+              <SocialNetworks />
             </div>
             {similarArticlesWithoutCurrent.length > 0 && (
               <SimilarArticles title="Похожие статьи" articles={similarArticlesWithoutCurrent} />

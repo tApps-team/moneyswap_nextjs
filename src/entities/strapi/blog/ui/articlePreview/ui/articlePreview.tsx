@@ -28,7 +28,7 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
   const formattedDate = formatter.format(new Date(article?.publishedAt));
   return (
     <Link
-      className={`group xl:rounded-[30px] rounded-[24px] ${isMain ? "bg-black" : ""} relative`}
+      className={`w-full group xl:rounded-[30px] rounded-[24px] ${isMain ? "bg-black" : ""} relative`}
       href={`${routes.blog}${routes.article}/${article?.url_name}`}
       scroll={true}
     >

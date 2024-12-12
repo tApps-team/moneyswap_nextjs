@@ -16,7 +16,7 @@ export const CityCard = (props: CityCardProps) => {
         active && "bg-yellow-main text-black border-none",
       )}
     >
-      <p className="uppercase min-w-0   truncate text-start">{city?.name?.ru}</p>
+      <p className="min-w-0 truncate text-start">{city?.name?.ru}</p>
     </div>
   );
 };

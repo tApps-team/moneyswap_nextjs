@@ -1,18 +1,19 @@
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRightIcon, HeaderArrow } from "@/shared/assets";
+import { HeaderArrow } from "@/shared/assets";
 import { routes } from "@/shared/router";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  DialogTitle,
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from "@/shared/ui";
 import { navbarItems } from "../navbar/model/navbarItems";
@@ -27,9 +28,9 @@ export const HeaderMobile = () => {
           <DrawerTrigger asChild>
             <HeaderArrow className="size-5" />
           </DrawerTrigger>
-          <DrawerContent className="h-svh bg-transparent border-none backdrop-blur-md">
+          <DrawerContent className="h-svh flex flex-col bg-transparent border-0 backdrop-blur-md">
             <DrawerHeader className="flex items-center justify-between p-6">
-              <DialogTitle className="sr-only">navbar</DialogTitle>
+              <DrawerTitle className="sr-only">navbar</DrawerTitle>
               <Link href={routes.home}>
                 <Image src={"/logofull.svg"} alt="logo" width={150} height={250} />
               </Link>
@@ -37,8 +38,9 @@ export const HeaderMobile = () => {
                 <HeaderArrow className="size-5 rotate-90" />
               </DrawerClose>
             </DrawerHeader>
+            <DrawerDescription className="sr-only">description</DrawerDescription>
             <Accordion type="single" collapsible className=" w-full px-6">
-              {navbarItems.map((item, index) =>
+              {navbarItems.map((item) =>
                 item?.children ? (
                   <AccordionItem
                     value={item.value}

@@ -41,7 +41,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`md:mb-[30px] mb-[15px] strapi_styles strapi_fonts_codec mobile:text-sm text-xs`}
+              className={`md:mb-[30px] mb-[15px] strapi_styles strapi_fonts_codec md:text-lg mobile:text-sm text-xs`}
             >
               {item.paragraph.title && (
                 <h2
@@ -62,7 +62,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`md:[&>svg]:w-[100px] [&>svg]:w-[66px] md:mb-[30px] mb-[20px] strapi_custom_quote strapi_styles main_font mobile:text-sm text-xs ${buttonTypeClass}`}
+              className={`md:[&>svg]:w-[100px] [&>svg]:w-[66px] md:mb-[30px] mb-[20px] strapi_custom_quote strapi_styles main_font md:text-lg mobile:text-sm text-xs ${buttonTypeClass}`}
             >
               <SwitcherIcon height={"auto"} fill="#2d2d2d" />
               <p>{parse(item.quote.content, options)}</p>
@@ -83,7 +83,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`mobile:xl:mb-[30px] mb-[20px] ${item.custom_button.button_position === ComponentPosition.center ? "justify-center" : item.custom_button.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles main_font mobile:text-sm text-xs`}
+              className={`mobile:xl:mb-[30px] mb-[20px] ${item.custom_button.button_position === ComponentPosition.center ? "justify-center" : item.custom_button.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles main_font md:text-lg mobile:text-sm text-xs`}
             >
               <Link href={item.custom_button.button_url!} target={item.custom_button.target}>
                 <button className="hover:shadow-[1px_3px_10px_1px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300">
@@ -102,7 +102,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
               className={`mobile:xl:mb-[30px] mb-[20px] grid grid-flow-row md:gap-6 gap-4`}
             >
               {item.accordion.title && (
-                <div className="main_font lg:text-xl md:text-lg mobile:text-md text-sm text-white md:font-semibold font-medium uppercase md:pl-8 pl-0 md:text-start text-center">
+                <div className="main_font md:text-lg mobile:text-sm text-xs text-white md:font-semibold font-medium uppercase md:pl-8 pl-0 md:text-start text-center">
                   {item.accordion.title}
                 </div>
               )}

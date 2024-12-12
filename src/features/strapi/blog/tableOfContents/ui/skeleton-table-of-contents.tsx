@@ -9,7 +9,7 @@ export const TableOfContentsBlockSkeleton = () => {
   return (
     <section className="grid grid-flow-row gap-3 max-h-[35svh] rounded-[20px] bg-black py-4 px-3">
       <div className="px-3">
-        <h3 className="uppercase text-yellow-main font-semibold xl:text-base lg:text-sm text-xs truncate lg:min-w-auto md:min-w-[24vw] min-w-auto">
+        <h3 className="uppercase text-yellow-main font-semibold xl:text-base lg:text-sm text-xs truncate md:min-w-[24vw] lg:min-w-fit min-w-auto">
           Оглавление
         </h3>
       </div>

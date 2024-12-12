@@ -44,7 +44,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogTrigger className="">
                   <Info className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%]  border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[50svh] flex flex-col items-center px-10 py-4 gap-10 rounded-3xl bg-dark-gray">
+                <DialogContent className="w-[90%] border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[50svh] flex flex-col items-center px-10 py-4 gap-10 rounded-3xl bg-dark-gray">
                   <Image
                     className="mt-10"
                     src={"/logofull.svg"}
@@ -52,7 +52,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                     width={180}
                     height={180}
                   />
-                  <div className="uppercase text-xs leading-2 overflow-scroll font-normal text-center">
+                  <div className="uppercase tracking-widest text-2xs leading-2 overflow-scroll font-normal text-start">
                     {parse(data[0]?.header_description, options)}
                   </div>
                 </DialogContent>
@@ -61,16 +61,18 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogTrigger className="">
                   <YellowQuestionIcon className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%] border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[70svh] flex flex-col items-center px-10 py-4 gap-10 rounded-3xl bg-dark-gray">
+                <DialogContent className="w-[90%] border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[70svh] flex flex-col items-center px-6 py-4 gap-8 rounded-3xl bg-dark-gray">
                   <Image
                     src={"/logofull.svg"}
-                    className="mt-10"
+                    className="mt-8"
                     alt="logo"
                     width={180}
                     height={180}
                   />
-                  <h2 className="uppercase text-sm font-semibold">как совершить обмен?</h2>
-                  <p className="uppercase text-xs leading-2 flex flex-col gap-2 overflow-scroll">
+                  <h2 className="uppercase text-sm font-medium tracking-widest">
+                    как совершить обмен?
+                  </h2>
+                  <p className="uppercase text-2xs leading-2 flex flex-col gap-2 overflow-scroll px-4 tracking-widest">
                     <p>
                       1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.
                     </p>
@@ -112,7 +114,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
               <Image src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
             </div>
           </div>
-          <div className="sr-only mobile-xl:not-sr-only lg:text-sm text-xs strapi_styles">
+          <div className="sr-only mobile-xl:not-sr-only lg:text-sm md:text-xs text-2xs strapi_styles">
             {parse(data[0]?.header_description, options)}
           </div>
         </div>

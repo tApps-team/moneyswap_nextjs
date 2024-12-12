@@ -38,13 +38,13 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             </h2>
           </Link>
           <div className="flex items-end justify-between">
-            <p className="uppercase text-2xs text-yellow-main">
+            <p className="text-xs text-yellow-main">
               {exchanger.exchange_marker === ExchangerMarker.cash ? `в г. ${city}` : "Онлайн обмен"}
             </p>
             <div className="rounded-full border border-light-gray  gap-2 flex justify-between items-center p-1.5 text-2xs">
               <Link
                 href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}?exchanger-marker=${exchanger.exchange_marker}`}
-                className="text-3xs font-medium leading-none"
+                className="text-3xs font-medium leading-none uppercase"
               >
                 ОТЗЫВЫ
               </Link>
@@ -52,7 +52,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
                 <p className="text-yellow-main text-3xs leading-none ">
                   {exchanger.review_count.positive}
                 </p>
-                <div className="text-[6px] leading-none mb-[1px]">|</div>
+                <div className="text-[6px] leading-none">|</div>
                 <p className="text-light-gray text-3xs leading-none">
                   {exchanger.review_count.negative}
                 </p>
@@ -103,14 +103,14 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
           <hr className="-mx-4 bg-light-gray" />
         )}
         <div>
-          <div className="flex text-xs items-center gap-2">
+          <div className="flex text-sm items-center gap-2">
             <div className="flex gap-2  items-center">
-              <p className="font-bold">{exchanger.in_count}</p>
+              <p className="font-semibold">{exchanger.in_count}</p>
               <p>{exchanger.valute_from}</p>
             </div>
             <ExchangerCardArrow className="size-3 min-h-3 min-w-3" fill="#f6ff5f" />
-            <div className="flex gap-2  items-center">
-              <p className="font-bold">{exchanger.out_count}</p>
+            <div className="flex gap-2 items-center">
+              <p className="font-semibold">{exchanger.out_count}</p>
               <p>{exchanger.valute_to}</p>
             </div>
           </div>

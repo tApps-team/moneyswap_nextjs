@@ -1,5 +1,5 @@
 import { HTMLAttributeAnchorTarget } from "react";
-import { routes } from "@/shared/router";
+import { products, routes } from "@/shared/router";
 
 type FooterItems = {
   value: string;
@@ -44,7 +44,7 @@ export const footerItems: FooterItems[] = [
         value: "Соглашение о  конфиденциальности",
       },
       {
-        href: routes.partners, // нужен роут
+        href: routes.partners,
         value: "Добавить  обменник",
       },
     ],
@@ -53,32 +53,22 @@ export const footerItems: FooterItems[] = [
     value: "Социальные сети",
     children: [
       {
-        href: "https://t.me/MoneySwap_robot",
+        href: products.telegram_channel,
         value: "Telegram",
         target: "_blank",
       },
       {
-        href: "https://t.me/MoneySwap_robot",
-        value: "ВКонтакте",
-        target: "_blank",
-      },
-      {
-        href: "https://t.me/MoneySwap_robot",
+        href: products.telegram_bot,
         value: "YouTube",
         target: "_blank",
       },
       {
-        href: "https://t.me/MoneySwap_robot",
-        value: "WhatsApp",
-        target: "_blank",
-      },
-      {
-        href: "https://t.me/MoneySwap_robot",
+        href: products.dzen_ru,
         value: "Дзен",
         target: "_blank",
       },
       {
-        href: "https://t.me/MoneySwap_robot",
+        href: products.vc_ru,
         value: "VC.RU",
         target: "_blank",
       },
@@ -96,7 +86,7 @@ export const footerItems: FooterItems[] = [
         value: "Новости",
       },
       {
-        href: "/sitemap", // нужен роут
+        href: routes.sitemap,
         value: "Карта сайта",
       },
     ],

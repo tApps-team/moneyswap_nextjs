@@ -1,11 +1,11 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { TelegramCircleIcon } from "@/shared/assets/icons/telegram-circle-icon";
+import { SocialNetworks } from "@/features/social-networks";
 import {
   Button,
-  Checkbox,
   Form,
   FormControl,
   FormField,
@@ -39,10 +39,10 @@ export const FeedbackForm = () => {
   return (
     <Form {...form}>
       <form
-        className="grid shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] bg-dark-gray rounded-2xl p-6  items-start gap-6 grid-cols-1 "
+        className="grid shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] bg-dark-gray md:rounded-2xl p-6 rounded-3xl items-start gap-6 grid-cols-1"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <p className="text-white uppercase text-lg font-medium text-center">
+        <p className="text-white uppercase md:text-lg text-base font-medium text-center">
           Форма для обратной связи
         </p>
         <div className="flex flex-col gap-3">
@@ -53,7 +53,7 @@ export const FeedbackForm = () => {
               <FormItem>
                 <FormControl>
                   <Input
-                    className="bg-black placeholder:text-white text-white border-none rounded-3xl"
+                    className="text-base bg-black placeholder:text-white text-white border-none rounded-3xl px-4 uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1"
                     placeholder="ИМЯ"
                     {...field}
                   />
@@ -70,7 +70,7 @@ export const FeedbackForm = () => {
                 <FormControl>
                   <Input
                     type="email"
-                    className="bg-black placeholder:text-white text-white border-none rounded-3xl"
+                    className="text-base bg-black placeholder:text-white text-white border-none rounded-3xl px-4 uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1"
                     placeholder="ПОЧТА"
                     {...field}
                   />
@@ -115,7 +115,7 @@ export const FeedbackForm = () => {
             <FormItem>
               <FormControl>
                 <Textarea
-                  className="bg-black resize-none h-52 p-4 placeholder:uppercase placeholder:text-white text-white border-none rounded-3xl"
+                  className="bg-black resize-none h-52 p-4 placeholder:uppercase placeholder:text-white text-white border-none rounded-3xl focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 text-base"
                   placeholder="Напишите текст..."
                   {...field}
                 />
@@ -125,15 +125,13 @@ export const FeedbackForm = () => {
           )}
         />
         <Button
-          className="bg-yellow-main uppercase rounded-full text-center w-full text-black"
+          className="bg-yellow-main uppercase rounded-full text-center w-full text-black h-[54px]"
           type="submit"
         >
           {form.formState.isSubmitting ? <Loader className="animate-spin" /> : "Отправить"}
         </Button>
-        <div>
-          <p className="text-center text-xs">НАШИ СОЦИАЛЬНЫЕ СЕТИ</p>
-          <TelegramCircleIcon className="w-12 h-12" />
-        </div>
+        <p className="text-center text-sm font-medium uppercase">НАШИ СОЦИАЛЬНЫЕ СЕТИ</p>
+        <SocialNetworks />
       </form>
     </Form>
   );

@@ -35,7 +35,7 @@ export const ReviewFilter = ({ reviewCount }: ReviewFilterProps) => {
   };
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-4 gap-6 lg:gap-3 xl:gap-6">
       {filterData.map((data) => {
         const isActive =
           currentGrade === data.grade?.toString() ||
@@ -47,14 +47,12 @@ export const ReviewFilter = ({ reviewCount }: ReviewFilterProps) => {
             scroll={false}
             href={createUrl(data.grade)}
             className={cn(
-              "border  hover:border-yellow-main hover:bg-yellow-main flex justify-center   gap-1 hover:text-black text-center  rounded-full bg-dark-gray mobile-xl:p-4 p-3 mobile-xl:text-xs text-xs  font-medium",
+              "border  hover:border-yellow-main text-2xs hover:bg-yellow-main flex justify-center   gap-1 hover:text-black text-center  rounded-full bg-dark-gray md:p-4 p-3  font-medium",
               isActive && "bg-yellow-main border-yellow-main text-black",
             )}
           >
-            <p className="md:text-2xs lg:text-2xs xl:text-sm">{data.value}</p>
-            <span className="md:text-2xs lg:text-2xs xl:text-sm">
-              ({getReviewCount(data.review)})
-            </span>
+            <p className="">{data.value}</p>
+            <span className="">({getReviewCount(data.review)})</span>
           </Link>
         );
       })}
