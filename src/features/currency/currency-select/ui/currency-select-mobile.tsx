@@ -1,24 +1,16 @@
 "use client";
-import { cx } from "class-variance-authority";
-import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
+
+import { SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useDeferredValue, useEffect, useRef, useState } from "react";
 import { Currency, CurrencyCard, CurrencyResponse } from "@/entities/currency";
 import { HeaderArrow } from "@/shared/assets";
-import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { ExchangerMarker } from "@/shared/types";
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -115,8 +107,8 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
           />
         )}
       </DrawerTrigger>
-      <DrawerContent className="h-svh  p-4 rounded-none bg-dark-gray border-none">
-        <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
+      <DrawerContent className="h-svh  p-4 rounded-none bg-dark-gray border-0">
+        <DrawerHeader className="text-start text-lg p-0 grid gap-4 pt-4">
           <div className="flex items-center justify-between">
             <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">{label}</h2>
             <DrawerClose>

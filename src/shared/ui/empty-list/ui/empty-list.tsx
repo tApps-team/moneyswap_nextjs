@@ -2,15 +2,17 @@ import Image from "next/image";
 
 export const EmptyList = () => {
   return (
-    <div className="grid justify-items-center gap-4 col-span-2 mb-[24px]">
+    <div className="flex flex-col justify-center justify-items-center items-center my-auto gap-4 mb-[24px] h-full">
       <Image
         width={300}
         height={300}
         alt="empty list image"
-        src="/animated/notfound.gif"
+        src="/animated/search_spin.gif"
         className="w-[60px] h-[60px]"
       />
-      <p className="text-center text-white text-l font-light">Ничего не найдено...</p>
+      <p className="text-center text-white text-l font-light uppercase text-xs">
+        Ничего не найдено...
+      </p>
     </div>
   );
 };

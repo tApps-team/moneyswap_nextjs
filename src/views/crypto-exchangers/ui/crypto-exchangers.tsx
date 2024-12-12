@@ -45,7 +45,7 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
   const cryptoExchangers = await getExchangerList();
   return (
     <section>
-      <h1 className="uppercase xl:text-[28px] lg:text-2xl md:text-xl mobile-xl:text-base mobile:text-sm md:text-start text-center font-medium">
+      <h1 className="uppercase xl:text-[28px] lg:text-2xl md:text-xl mobile-xl:text-base text-sm md:text-start text-center font-medium">
         {title}
       </h1>
       <div className="md:text-lg text-sm strapi_styles strapi_fonts_codec lg:mt-6 mt-4 mobile-xl:block hidden">
