@@ -27,3 +27,7 @@ export * from "./icons/telegram-circle-icon";
 export * from "./icons/footer-logo-icon";
 export * from "./icons/dzen_icon";
 export * from "./icons/vc_ru_icon";
+export * from "./icons/positive-smile";
+export * from "./icons/comment-icon";
+export * from "./icons/negative-smile";
+export * from "./icons/neutral-smile";

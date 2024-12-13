@@ -96,7 +96,7 @@ export const ExchangerPagination = (props: ExchangerPaginationProps) => {
         scroll={false}
         href={createPrevPage()}
       />
-      <PaginationContent className="rounded-full border">
+      <PaginationContent className="rounded-full">
         {paginationArray.map((paginationItem) => (
           <PaginationItem key={paginationItem}>
             <PaginationLink

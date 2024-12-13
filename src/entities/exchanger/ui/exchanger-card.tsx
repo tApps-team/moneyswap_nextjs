@@ -16,10 +16,10 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
   };
   return (
     //relative z-10
-    <div className={cn("relative z-10", exchanger.is_vip ? "pt-5" : "pt-0")}>
+    <div className={cn("relative z-10")}>
       {exchanger.is_vip && (
-        <div className="bg-yellow-main absolute w-full h-16 rounded-3xl   text-black font-bold  -z-10 -translate-y-6 ">
-          <p className="text-center uppercase">Лучшее предложение</p>
+        <div className="bg-yellow-main absolute w-full h-20 rounded-3xl text-black font-bold -z-10">
+          <span className="block text-center uppercase text-xs mt-2">Лучшее предложение</span>
         </div>
       )}
 
@@ -27,8 +27,8 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
         className={cn(
           "  grid grid-cols-1 gap-4 p-4 rounded-3xl bg-dark-gray",
           exchanger.is_vip
-            ? "border border-yellow-main"
-            : "shadow-[1px_2px_8px_3px_rgba(0,0,0,0.5)]",
+            ? "border border-yellow-main mt-8"
+            : "shadow-[1px_2px_8px_1px_rgba(0,0,0,0.5)]",
         )}
       >
         <div>
@@ -62,19 +62,18 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
         </div>
         {exchanger.is_vip ? (
           <span className=" h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
-            {exchanger.info?.time_from ||
-              (exchanger.info?.time_to && (
-                <div>
-                  <Clock className="size-3 " color="black" />
-                  <p className="text-3xs text-black">
-                    {exchanger.info?.time_from} - {exchanger.info?.time_to}
-                  </p>
-                </div>
-              ))}
+            {(exchanger.info?.weekdays?.time_from || exchanger.info?.weekdays?.time_to) && (
+              <div className="flex gap-1 items-center">
+                <Clock className="size-3 " color="black" />
+                <p className="text-[7px] font-medium text-black">
+                  {exchanger.info?.weekdays?.time_from} - {exchanger.info?.weekdays?.time_to}
+                </p>
+              </div>
+            )}
             {isAnyTrue(exchanger.info?.working_days || {}, exchanger.name.ru) && (
               <div className="flex items-center gap-1">
                 <Calendar className="size-3" color="black" />
-                <div className="text-black  text-3xs">
+                <div className="text-black text-[7px] font-medium">
                   {Object.entries(exchanger?.info?.working_days || {}).map(
                     ([day, isWorking], index) =>
                       isWorking && (
@@ -90,11 +89,11 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
             )}
 
-            <div className="flex items-center text-3xs text-black">
+            <div className="flex items-center text-[7px] font-medium text-black">
               {exchanger.info?.delivery ? <Check className="size-4" /> : <X className="size-4" />}
               <p>ДОСТАВКА</p>
             </div>
-            <div className="flex items-center text-3xs text-black">
+            <div className="flex items-center text-[7px] font-medium text-black">
               {exchanger.info?.office ? <Check className="size-4" /> : <X className="size-4" />}
               <p>ОФИС</p>
             </div>
