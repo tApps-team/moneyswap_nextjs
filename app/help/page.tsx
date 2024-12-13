@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { HelpPage } from "@/views/help";
+import { routes } from "@/shared/router";
 export default HelpPage;
 
 export const metadata: Metadata = {
@@ -7,6 +8,9 @@ export const metadata: Metadata = {
   description:
     "Ответы на популярные вопросы о работе MoneySwap. Узнайте, как настроить личный кабинет, добавить обменник в агрегатор, автоматизировать курсы и многое другое.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.help}`,
+  },
   openGraph: {
     title: "Часто задаваемые вопросы MoneySwap | Как пользоваться",
     description:

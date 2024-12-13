@@ -108,7 +108,7 @@ export const ExchangePage = async ({
         />
       ) : (
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <ExchangersTable cityName={location?.name.ru} columns={columns} params={queryParams} />
+          <ExchangersTable cityName={location?.name?.ru} columns={columns} params={queryParams} />
         </HydrationBoundary>
       )}
 

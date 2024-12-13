@@ -36,7 +36,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const onClickGetCurrency = (getCurrency: Currency) => {
     const route =
       urlDirection === ExchangerMarker.cash
-        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${city}`
+        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${urlLocation?.code_name}`
         : `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}`;
 
     router.push(route);
@@ -45,7 +45,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const onClickGiveCurrency = (giveCurrency: Currency) => {
     const route =
       urlDirection === ExchangerMarker.cash
-        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${city}`
+        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${urlLocation?.code_name}`
         : `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}`;
 
     router.push(route);

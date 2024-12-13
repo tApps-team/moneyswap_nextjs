@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description:
     "Узнайте больше о MoneySwap — платформе, где собраны лучшие криптообменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.about}`,
+  },
   openGraph: {
     title: "Про MoneySwap: агрегатор криптообменников",
     description:
