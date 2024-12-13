@@ -9,7 +9,7 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="mobile-xl:text-3xl text-base font-medium uppercase">
+      <h1 className="mobile-xl:text-3xl text-base font-normal uppercase">
         Обменный пункт {exchangerInfo?.name}
       </h1>
       <p className="md:text-base text-sm strapi_fonts_codec">

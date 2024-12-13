@@ -80,7 +80,7 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
   return (
     <section className="grid grid-flow-row gap-3 rounded-[20px] bg-black py-4 px-3">
       <div className="px-3">
-        <h3 className="uppercase text-yellow-main font-semibold xl:text-base lg:text-sm text-xs truncate lg:min-w-auto md:min-w-[24vw] lg:min-w-fit min-w-auto">
+        <h3 className="uppercase text-yellow-main font-normal xl:text-base lg:text-sm text-xs truncate lg:min-w-auto md:min-w-[24vw] lg:min-w-fit min-w-auto">
           Оглавление
         </h3>
       </div>
@@ -92,7 +92,7 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
           <li
             key={index}
             ref={(el) => (itemRefs.current[item.id] = el)}
-            className={`relative grid grid-flow-col gap-2 justify-start items-center uppercase lg:text-2xs text-[8px] font-medium`}
+            className={`relative grid grid-flow-col gap-2 justify-start items-center uppercase lg:text-2xs text-[8px] font-normal`}
           >
             <span
               className={`absolute left-[10px] w-[1px] bg-[#ddd] ${index === 0 ? "top-[50%] bottom-0" : index === table_of_contents?.length - 1 ? "top-0 bottom-[50%]" : "-top-2 -bottom-2"}`}

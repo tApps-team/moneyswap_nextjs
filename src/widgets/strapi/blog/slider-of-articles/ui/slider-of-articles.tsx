@@ -53,7 +53,7 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
   return (
     <section>
       <div className="grid md:w-full w-auto lg:gap-[30px] gap-6 lg:rounded-[30px] md:rounded-[24px] md:bg-dark-gray bg-transparent md:p-6 p-0 md:shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
-        <h3 className="flex justify-center items-center w-full uppercase lg:text-xl mobile:text-lg text-md font-semibold text-center">
+        <h3 className="flex justify-center items-center w-full uppercase lg:text-xl mobile:text-lg text-md font-normal text-center">
           {title}
         </h3>
         <Carousel

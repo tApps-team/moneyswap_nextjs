@@ -40,7 +40,7 @@ export const navbarItems: NavbarItems[] = [
     value: "Обменники",
   },
   {
-    href: routes.help,
+    href: routes.help_article,
     value: "Поддержка",
     children: [
       {
@@ -50,13 +50,13 @@ export const navbarItems: NavbarItems[] = [
         icon: PeopleIcon,
       },
       {
-        href: `${routes.help}`,
+        href: `${routes.help_faq}`,
         value: "FAQ",
         description: "Ответы на главные вопросы о платформе",
         icon: QuestionIcon,
       },
       {
-        href: `${routes.help}`,
+        href: `${routes.help_article}`,
         value: "Помощь",
         description: "Подробно о том, как пользоваться платформой",
         icon: FileIcon,

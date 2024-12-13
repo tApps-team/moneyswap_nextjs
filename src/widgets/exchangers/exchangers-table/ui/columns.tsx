@@ -17,7 +17,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center uppercase"
+          className="flex items-center uppercase font-thin"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Обменник
@@ -31,7 +31,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     },
     cell: ({ row }) => (
       <Link href={row.original.partner_link || "/"} target="_blank">
-        <p className="font-semibold text-base">{row.original?.name?.ru}</p>
+        <p className="font-normal text-base">{row.original?.name?.ru}</p>
       </Link>
     ),
   },
@@ -42,7 +42,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex  items-center"
+          className="flex  items-center font-thin"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ОТДАЕТЕ
@@ -64,7 +64,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex  items-center"
+          className="flex  items-center font-thin"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ПОЛУЧАЕТЕ
@@ -82,24 +82,24 @@ export const columns: ColumnDef<ExchangerTable>[] = [
       return (
         <div className="flex gap-2 md:flex-col xl:flex-row justify-start items-center">
           <div className="text-yellow-main text-base">{row.original.out_count}</div>
-          <div className="text-sm">{row.original.valute_to}</div>
+          <div className="text-sm font-light">{row.original.valute_to}</div>
         </div>
       );
     },
   },
   {
     accessorKey: "in_count",
-    header: () => <p className="md:hidden lg:block">сумма обмена</p>,
+    header: () => <p className="md:hidden lg:block font-thin">сумма обмена</p>,
     enableHiding: true,
     cell: ({ row }) => (
       <div className="flex md:hidden lg:block flex-col">
         <div className="flex gap-1 items-center">
-          <div className="text-xs">ОТ</div>
-          <div className="font-medium">{row.original.min_amount}</div>
+          <div className="text-xs font-light">ОТ</div>
+          <div className="">{row.original.min_amount}</div>
         </div>
         <div className="flex gap-1 items-center">
-          <div className="text-xs">ДО</div>
-          <div className="font-medium">{row.original.max_amount}</div>
+          <div className="text-xs font-light">ДО</div>
+          <div className="">{row.original.max_amount}</div>
         </div>
       </div>
     ),
@@ -109,7 +109,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center"
+          className="flex items-center font-thin"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ОТЗЫВЫ

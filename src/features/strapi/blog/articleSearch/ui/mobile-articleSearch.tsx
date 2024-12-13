@@ -51,7 +51,7 @@ export const MobileArticleSearch = ({ currentValue }: { currentValue: string | n
         type="text"
         value={searchValue}
         onChange={handleInputChange}
-        className="rounded-3xl bg-dark-gray text-light-gray px-3 py-2 pl-12 w-full placeholder:text-light-gray uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 border-2 border-light-gray"
+        className="rounded-3xl bg-dark-gray text-light-gray px-3 py-2 pl-12 w-full placeholder:text-light-gray uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 border-2 border-light-gray font-normal"
         placeholder="Поиск статьи..."
       />
       <button className="absolute left-4 top-[50%] -translate-y-2/4">

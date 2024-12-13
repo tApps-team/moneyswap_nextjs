@@ -5,7 +5,7 @@ import { Skeleton } from "@/shared/ui";
 export default function Loading() {
   return (
     <section className="grid grid-flow-cols mobile-xl:gap-6 gap-3">
-      {/* <Skeleton className="bg-skeleton-gray text-skeleton-gray grid grid-cols-[repeat(5,_auto)] gap-2 justify-start justify-items-start items-center uppercase font-semibold text-sm w-[70%]">
+      {/* <Skeleton className="bg-skeleton-gray text-skeleton-gray grid grid-cols-[repeat(5,_auto)] gap-2 justify-start justify-items-start items-center uppercase font-medium text-sm w-[70%]">
         ...
       </Skeleton>
       <div className="grid grid-flow-rows mobile-xl:gap-6 gap-3">

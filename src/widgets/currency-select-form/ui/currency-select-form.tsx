@@ -36,7 +36,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const onClickGetCurrency = (getCurrency: Currency) => {
     const route =
       urlDirection === ExchangerMarker.cash
-        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${city}`
+        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${urlLocation?.code_name}`
         : `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}`;
 
     router.push(route);
@@ -45,7 +45,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const onClickGiveCurrency = (giveCurrency: Currency) => {
     const route =
       urlDirection === ExchangerMarker.cash
-        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${city}`
+        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${urlLocation?.code_name}`
         : `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}`;
 
     router.push(route);
@@ -77,7 +77,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   return (
     <form className="text-white  w-full border-2 border-light-gray h-full lg:py-5 py-3 lg:px-7 px-5 lg:pb-12 pb-4 bg-dark-gray rounded-3xl">
       <div className="flex lg:flex-row  flex-col lg:gap-2 gap-4 pb-4 lg:items-center justify-between lg:pb-6 ">
-        <p className="uppercase font-medium lg:text-base mobile:text-sm text-xs">
+        <p className="uppercase font-normal lg:text-base mobile:text-sm text-xs">
           Выберите направление обмена
         </p>
         <div className="flex flex-col mobile-xs:flex-row justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
@@ -88,7 +88,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               role="tab"
               id="changeCash"
               className={cn(
-                "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-medium h-full text-light-gray",
+                "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-normal h-full text-light-gray",
                 urlDirection === ExchangerMarker.cash && "text-yellow-main",
               )}
             >
@@ -101,7 +101,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               role="tab"
               id="changeOnline"
               className={cn(
-                "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-medium h-full text-light-gray",
+                "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-normal h-full text-light-gray",
                 urlDirection === ExchangerMarker.no_cash && "text-yellow-main",
               )}
             >

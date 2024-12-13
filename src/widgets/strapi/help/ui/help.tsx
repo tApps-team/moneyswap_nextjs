@@ -11,6 +11,7 @@ import { HelpFAQ, HelpFaqType } from "../help-faq";
 import { HelpTabs } from "../help-tabs";
 
 interface HelpBlockProps {
+  isArticle: boolean;
   article: DynamicContentItem[];
   userFaqs: HelpFaqType[];
   partnerFaqs: HelpFaqType[];
@@ -19,13 +20,14 @@ interface HelpBlockProps {
 }
 
 export const HelpBlock: FC<HelpBlockProps> = ({
+  isArticle,
   article,
   userFaqs,
   partnerFaqs,
   popularNoncashDirections,
   randomNoncashDirections,
 }) => {
-  const [isFaq, setIsFaq] = useState(false);
+  const [isFaq, setIsFaq] = useState(isArticle ? false : true);
   const [faqTab, setFaqTab] = useState<faqTypeTabs>(faqTypeTabs.for_user);
   return (
     <div className="">

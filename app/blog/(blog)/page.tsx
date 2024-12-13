@@ -59,5 +59,8 @@ export async function generateMetadata({
 
   const currentMeta = searchValue ? metaWithSearch : metaWithoutSearch;
 
-  return currentMeta;
+  return {
+    alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}` },
+    ...currentMeta,
+  };
 }

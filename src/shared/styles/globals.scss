@@ -130,7 +130,7 @@ body {
   }
 
   b {
-    font-weight: 700;
+    font-weight: 600;
 
     @media (max-width: 767px) {
       font-weight: 500;
@@ -202,11 +202,11 @@ body {
   h2 {
     font-size: 24px;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500;
     color: #f6ff5f;
     margin-bottom: 20px;
     line-height: 1.4;
-    --font-family-regular: "TT Runs Trial";
+    --font-family-regular: "Unbounded";
 
     @media (max-width: 1024px) {
       font-size: 20px;
@@ -224,7 +224,7 @@ body {
 
   h3 {
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.3;
 
     @media (max-width: 1024px) {
@@ -253,7 +253,7 @@ body {
 }
 
 .main_font {
-  --font-family-regular: "TT Runs Trial";
+  --font-family-regular: "Unbounded";
 }
 
 .strapi_fonts_codec {
@@ -305,7 +305,7 @@ body {
   a {
     text-decoration: none;
     color: #fff;
-    font-weight: 600;
+    font-weight: 500;
 
     @media (max-width: 767px) {
       font-weight: 500;
@@ -387,7 +387,7 @@ body {
   padding: 40px 35px;
   text-transform: uppercase;
   color: #2d2d2d;
-  font-weight: 600;
+  font-weight: 500;
   column-gap: 30px;
 
   @media (max-width: 1024px) {
@@ -427,7 +427,7 @@ body {
     text-decoration: none;
     color: #fff;
     white-space: nowrap;
-    font-weight: 600;
+    font-weight: 500;
 
     @media (max-width: 767px) {
       font-weight: 500;

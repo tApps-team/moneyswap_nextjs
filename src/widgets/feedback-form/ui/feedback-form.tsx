@@ -42,7 +42,7 @@ export const FeedbackForm = () => {
         className="grid shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] bg-dark-gray md:rounded-2xl p-6 rounded-3xl items-start gap-6 grid-cols-1"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <p className="text-white uppercase md:text-lg text-base font-medium text-center">
+        <p className="text-white uppercase md:text-lg text-base font-normal text-center">
           Форма для обратной связи
         </p>
         <div className="flex flex-col gap-3">
@@ -53,7 +53,7 @@ export const FeedbackForm = () => {
               <FormItem>
                 <FormControl>
                   <Input
-                    className="text-base bg-black placeholder:text-white text-white border-none rounded-3xl px-4 uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1"
+                    className="text-base bg-black placeholder:text-white text-white border-none rounded-3xl px-4 uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 font-light"
                     placeholder="ИМЯ"
                     {...field}
                   />
@@ -70,7 +70,7 @@ export const FeedbackForm = () => {
                 <FormControl>
                   <Input
                     type="email"
-                    className="text-base bg-black placeholder:text-white text-white border-none rounded-3xl px-4 uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1"
+                    className="text-base bg-black placeholder:text-white text-white border-none rounded-3xl px-4 uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 font-light"
                     placeholder="ПОЧТА"
                     {...field}
                   />
@@ -100,7 +100,7 @@ export const FeedbackForm = () => {
                           value={reason}
                         />
                       </FormControl>
-                      <FormLabel>{reason}</FormLabel>
+                      <FormLabel className="font-light">{reason}</FormLabel>
                     </FormItem>
                   ))}
                 </RadioGroup>
@@ -115,7 +115,7 @@ export const FeedbackForm = () => {
             <FormItem>
               <FormControl>
                 <Textarea
-                  className="bg-black resize-none h-52 p-4 placeholder:uppercase placeholder:text-white text-white border-none rounded-3xl focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 text-base"
+                  className="bg-black resize-none h-52 p-4 placeholder:uppercase placeholder:text-white text-white border-none rounded-3xl focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 text-base font-light"
                   placeholder="Напишите текст..."
                   {...field}
                 />
@@ -125,12 +125,12 @@ export const FeedbackForm = () => {
           )}
         />
         <Button
-          className="bg-yellow-main uppercase rounded-full text-center w-full text-black h-[54px]"
+          className="bg-yellow-main uppercase rounded-full text-center w-full text-black h-[54px] font-normal"
           type="submit"
         >
           {form.formState.isSubmitting ? <Loader className="animate-spin" /> : "Отправить"}
         </Button>
-        <p className="text-center text-sm font-medium uppercase">НАШИ СОЦИАЛЬНЫЕ СЕТИ</p>
+        <p className="text-center text-sm font-normal uppercase">НАШИ СОЦИАЛЬНЫЕ СЕТИ</p>
         <SocialNetworks />
       </form>
     </Form>

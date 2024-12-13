@@ -23,7 +23,7 @@ export const HelpFAQ: FC<HelpFAQProps> = ({ userFaqs, partnerFaqs, faqTab }) => 
         {faqs?.map((type) => (
           <div key={type.title} className="w-full">
             <div className="mobile-xl:mb-0 mb-6 mobile-xl:pb-6 pb-6 md:pl-8 mobile-xl:border-none border-b-2 border-light-gray">
-              <h3 className="text-center md:text-start xl:text-xl md:text-lg mobile-xl:text-base text-sm text-yellow-main font-semibold uppercase mobile-xl:truncate">
+              <h3 className="text-center md:text-start xl:text-xl md:text-lg mobile-xl:text-base text-sm text-yellow-main font-normal uppercase mobile-xl:truncate">
                 {type?.title}
               </h3>
             </div>

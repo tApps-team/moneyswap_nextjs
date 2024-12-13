@@ -54,7 +54,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
 
   return (
     <section className="grid grid-flow-cols md:gap-6 gap-3">
-      <div className="md:grid md:grid-cols-[repeat(5,_auto)] flex flex-wrap gap-2 justify-start justify-items-start items-center uppercase text-[#b9b9b9] font-semibold xl:text-sm mobile:text-xs text-2xs truncate">
+      <div className="md:grid md:grid-cols-[repeat(5,_auto)] flex flex-wrap gap-2 justify-start justify-items-start items-center uppercase text-[#b9b9b9] font-normal xl:text-sm mobile:text-xs text-2xs truncate">
         <Link href={routes.home} className="hover:underline cursor-pointer">
           MONEYSWAP
         </Link>
@@ -75,10 +75,10 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
         </span>
       </div>
       <div className="grid grid-flow-rows md:gap-6 gap-3">
-        <h1 className="uppercase xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-base mobile-xl:font-semibold text-sm font-medium text-start">
+        <h1 className="uppercase xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-base mobile-xl:font-normal text-sm font-normal text-start">
           {article?.article?.title}
         </h1>
-        <p className="mobile-xl:text-white text-light-gray font-medium md:text-sm mobile:text-xs text-2xs uppercase tracking-widest">
+        <p className="mobile-xl:text-white text-light-gray font-normal md:text-sm mobile:text-xs text-2xs uppercase tracking-widest">
           {formattedDate}
         </p>
       </div>
@@ -115,7 +115,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
               ))}
             </div>
             <div className="grid grid-flow-row justify-center md:justify-start md:gap-6 gap-4">
-              <p className="text-yellow-main uppercase lg:text-2xl md:text-xl text-base md:font-semibold font-medium text-center">
+              <p className="text-yellow-main uppercase lg:text-2xl md:text-xl text-base md:font-normal font-normal text-center">
                 Поделиться
               </p>
               <SocialNetworks />

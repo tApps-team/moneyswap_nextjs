@@ -21,7 +21,7 @@ export const Navbar = () => {
           <NavigationMenuItem className="" key={item.href}>
             <NavigationMenuTrigger
               className={cn(
-                "bg-transparent hover:bg-yellow-main uppercase rounded-3xl p-6 data-[state=open]:text-black",
+                "font-normal bg-transparent hover:bg-yellow-main uppercase rounded-3xl p-6 data-[state=open]:text-black",
                 pathname === item.href && "text-yellow-main ",
               )}
             >
@@ -41,8 +41,8 @@ export const Navbar = () => {
                       )}
 
                       <div className="[&>p]:hover:text-yellow-main ">
-                        <p className="text-sm  font-medium">{itemChildren.value}</p>
-                        <p className="text-3xs ">{itemChildren.description}</p>
+                        <p className="text-sm font-normal">{itemChildren.value}</p>
+                        <p className="text-3xs font-light">{itemChildren.description}</p>
                       </div>
                     </div>
                   </NavigationMenuLink>

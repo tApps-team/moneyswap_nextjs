@@ -51,7 +51,7 @@ export const ArticleSearch = ({ currentValue }: { currentValue: string | null })
         type="text"
         value={searchValue}
         onChange={handleInputChange}
-        className="rounded-[12px] bg-black text-white px-4 py-3 pr-10 w-full placeholder:text-white text-2xs uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1"
+        className="rounded-[12px] bg-black text-white px-4 py-3 pr-10 w-full placeholder:text-white text-2xs uppercase focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 font-normal"
         placeholder="Поиск статьи..."
       />
       <button className="absolute right-3 top-2">

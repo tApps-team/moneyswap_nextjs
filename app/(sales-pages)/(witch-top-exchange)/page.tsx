@@ -1,6 +1,7 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { Main } from "@/views/main";
 import { getSeoMeta } from "@/shared/api";
+import { routes } from "@/shared/router";
 import { pageTypes } from "@/shared/types";
 export default Main;
 
@@ -15,6 +16,9 @@ export async function generateMetadata(): Promise<Metadata> {
     title: seoMeta.data[0].title,
     description: seoMeta.data[0].description,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}`,
+    },
     openGraph: {
       title: seoMeta.data[0].title,
       description: seoMeta.data[0].description,

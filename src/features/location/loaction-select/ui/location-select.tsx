@@ -105,7 +105,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 <figure className="hidden lg:w-[36px] lg:block lg:rounded-full lg:overflow-hidden lg:h-[36px]">
                   <Image
                     alt={`${cityInfo?.code_name})`}
-                    src={cityInfo?.country.icon_url}
+                    src={cityInfo?.country?.icon_url}
                     width={36}
                     height={36}
                   />
@@ -121,7 +121,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
               )}
 
               <p className="md:text-base text-2xs truncate max-w-[10vw]">
-                {cityInfo ? cityInfo?.name.ru : "Не выбрано..."}
+                {cityInfo ? cityInfo?.name?.ru : "Не выбрано..."}
               </p>
             </div>
             <div>
@@ -234,7 +234,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
         <DrawerDescription className="sr-only"></DrawerDescription>
         <div className="flex flex-col gap-4">
           <DrawerHeader className="flex p-0 items-center justify-between pt-16">
-            <h2 className="uppercase font-semibold">Выбор города</h2>
+            <h2 className="uppercase font-normal">Выбор города</h2>
             <DrawerClose>
               <HeaderArrow className="size-5" />
             </DrawerClose>
@@ -270,7 +270,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                           width={36}
                           height={36}
                         />
-                        <p>{country.name.ru}</p>
+                        <p className="font-normal">{country.name.ru}</p>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="py-2 grid gap-3">

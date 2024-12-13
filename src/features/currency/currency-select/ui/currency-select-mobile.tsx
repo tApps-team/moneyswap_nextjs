@@ -110,7 +110,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
       <DrawerContent className="h-svh  p-4 rounded-none bg-dark-gray border-0">
         <DrawerHeader className="text-start text-lg p-0 grid gap-4 pt-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">{label}</h2>
+            <h2 className="text-left font-medium text-base uppercase text-[#f6ff5f]">{label}</h2>
             <DrawerClose>
               <HeaderArrow className="size-5" />
             </DrawerClose>

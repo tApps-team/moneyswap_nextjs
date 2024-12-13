@@ -74,7 +74,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <TableHead
-                      className="uppercase py-6 px-4 text-light-gray font-semibold"
+                      className="uppercase py-6 px-4 text-light-gray font-medium"
                       key={header.id}
                     >
                       {header.isPlaceholder
@@ -116,7 +116,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
           disabled={
             table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
           }
-          className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full"
+          className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full font-normal"
         >
           Показать ещё
         </Button>
@@ -132,23 +132,23 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
             className="p-3 border-b last:border-none border-light-gray flex items-center justify-between"
           >
             <div className="flex flex-col  min-w-0 gap-2">
-              <p className="text-yellow-main text-sm truncate font-medium">
+              <p className="text-yellow-main text-sm truncate font-normal">
                 {exchanger.exchangerName}
               </p>
               <div className="text-xs">
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs font-medium">КУРСОВ:</p>
+                  <p className="text-light-gray text-xs font-light">КУРСОВ:</p>
                   <p className="text-xs">{exchanger.courses || "—"}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs font-medium">РЕЗЕРВ:</p>
+                  <p className="text-light-gray text-xs font-light">РЕЗЕРВ:</p>
                   <p className="text-xs">{exchanger.reserves || "—"}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs font-medium">СТАТУС:</p>
+                  <p className="text-light-gray text-xs font-light">СТАТУС:</p>
                   <p
                     className={cn(
-                      "text-xs",
+                      "text-xs ",
                       exchanger.workStatus ? "text-yellow-main" : "text-red-500",
                     )}
                   >
@@ -190,7 +190,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
         disabled={
           table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
         }
-        className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full"
+        className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full font-normal"
       >
         Показать ещё
       </Button>

@@ -23,11 +23,11 @@ export const Footer = () => {
             <section className="flex md:justify-between md:gap-6 xl:gap-14 items-start">
               {footerItems.map((item, index) => (
                 <ul key={item.value} className="flex flex-col md:gap-6 xl:gap-3">
-                  <p className="font-medium uppercase text-base">{item.value}</p>
+                  <p className="font-normal uppercase text-base">{item.value}</p>
                   {item.children?.map((itemChildren) => (
                     <li
                       key={itemChildren.value}
-                      className="hover:text-yellow-main uppercase text-xs"
+                      className="hover:text-yellow-main uppercase text-xs font-light"
                     >
                       <Link target={itemChildren.target} href={itemChildren.href}>
                         {itemChildren.value}
