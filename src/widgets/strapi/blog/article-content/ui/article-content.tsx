@@ -102,7 +102,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
               className={`mobile:xl:mb-[30px] mb-[20px] grid grid-flow-row md:gap-6 gap-4`}
             >
               {item.accordion.title && (
-                <div className="main_font md:text-lg mobile:text-sm text-xs text-white md:font-semibold font-medium uppercase md:pl-8 pl-0 md:text-start text-center">
+                <div className="main_font md:text-lg mobile:text-sm text-xs text-white font-normal uppercase md:pl-8 pl-0 md:text-start text-center">
                   {item.accordion.title}
                 </div>
               )}
@@ -112,12 +112,12 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
                 className="w-full rounded-[25px] shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] bg-dark-gray px-8 py-4"
               >
                 <AccordionItem value={`Value-${item.accordion.question}`} className="">
-                  <AccordionTrigger className="main_font uppercase text-sm font-medium color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white leading-6 flex justify-between">
+                  <AccordionTrigger className="main_font uppercase text-sm font-normal color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white leading-6 flex justify-between">
                     {item.accordion.question}
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
                     <div
-                      className={`strapi_fonts_codec mt-6 md:mb-[20px] mb-[10px] text-sm font-normal text-light-gray strapi_styles blog-custom-accordion-answer`}
+                      className={`strapi_fonts_codec mt-6 md:mb-[20px] mb-[10px] text-sm font-light text-light-gray strapi_styles blog-custom-accordion-answer`}
                     >
                       {parse(item.accordion.answer, options)}
                     </div>

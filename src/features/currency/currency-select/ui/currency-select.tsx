@@ -115,7 +115,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         )}
       >
         {label && (
-          <label htmlFor={label} className="uppercase mobile-xl:text-sm text-xs font-medium">
+          <label htmlFor={label} className="uppercase mobile-xl:text-sm text-xs font-normal">
             {label}
           </label>
         )}
@@ -129,7 +129,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             id={label}
             value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
             onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-            className="focus-visible:outline-none bg-transparent text-yellow-main px-6 font-semibold mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
+            className="focus-visible:outline-none bg-transparent text-yellow-main px-6 font-normal mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
           />
           <Dialog>
             <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
@@ -151,8 +151,8 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
 
                   {currencyInfo ? (
                     <div className="flex truncate mobile-xl:text-base text-xs flex-col">
-                      <p className="uppercase truncate font-bold">{currencyInfo?.name?.ru}</p>
-                      <span className="font-medium truncate">{currencyInfo?.code_name}</span>
+                      <p className="uppercase truncate font-normal">{currencyInfo?.name?.ru}</p>
+                      <span className="font-light truncate">{currencyInfo?.code_name}</span>
                     </div>
                   ) : (
                     <p>Выберите валюту</p>
@@ -166,7 +166,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             <DialogContent className="bg-dark-gray border-none md:w-[80vw] h-[60vh] lg:w-[60vw] xl:w-[50vw] max-w-[700px] flex-col gap-4 flex rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
               <DialogDescription className="sr-only"></DialogDescription>
               <div className="grid grid-cols-2 grid-rows-1 items-center">
-                <DialogTitle className="uppercase text-xl">Выбор валюты</DialogTitle>
+                <DialogTitle className="uppercase text-xl font-normal">Выбор валюты</DialogTitle>
                 <div className="relative">
                   <SearchIcon
                     width={22}
@@ -175,7 +175,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                     color="#bbbbbb"
                   />
                   <Input
-                    className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-medium border-light-gray placeholder:transition-opacity focus:placeholder:opacity-0"
+                    className="rounded-full bg-transparent pl-10 placeholder:uppercase placeholder:text-light-gray placeholder:font-normal border-light-gray placeholder:transition-opacity focus:placeholder:opacity-0"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                     placeholder="Поиск валюты"
@@ -206,7 +206,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                               className="rounded-2xl w-full uppercase data-[state=active]:text-black data-[state=active]:border-yellow-main text-white lg:h-10 h-9 data-[state=active]:bg-yellow-main shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
                               value={tab?.name?.ru}
                             >
-                              <p className="truncate select-none lg:text-sm text-xs">
+                              <p className="truncate select-none lg:text-sm text-xs font-normal">
                                 {tab?.name?.ru}
                               </p>
                             </TabsTrigger>
@@ -253,7 +253,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
       )}
     >
       {label && (
-        <label htmlFor="" className="uppercase mobile-xl:text-sm text-xs font-medium">
+        <label htmlFor="" className="uppercase mobile-xl:text-sm text-xs font-normal">
           {label}
         </label>
       )}
@@ -266,7 +266,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
           readOnly
           value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="text-base focus-visible:outline-none bg-transparent text-yellow-main mobile-xl:px-6 mobile:px-5 px-4 font-semibold mobile-xl:text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
+          className="text-base focus-visible:outline-none bg-transparent text-yellow-main mobile-xl:px-6 mobile:px-5 px-4 font-normal mobile-xl:text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
         />
         <Drawer>
           <DrawerTrigger className="disabled:opacity-50" disabled={disabled} asChild>
@@ -288,8 +288,8 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
 
                 {currencyInfo ? (
                   <div className="flex truncate mobile-xl:text-base text-xs flex-col">
-                    <p className="uppercase truncate font-bold">{currencyInfo?.name.ru}</p>
-                    <span className="font-medium">{currencyInfo?.code_name}</span>
+                    <p className="uppercase truncate font-normal">{currencyInfo?.name.ru}</p>
+                    <span className="font-light">{currencyInfo?.code_name}</span>
                   </div>
                 ) : (
                   <p>Выберите валюту</p>
@@ -303,7 +303,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             <DrawerDescription className="sr-only"></DrawerDescription>
             <DrawerHeader className="text-start text-mainColor text-lg p-0 grid gap-4 pt-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-left font-semibold text-base uppercase text-[#f6ff5f]">
+                <h2 className="text-left font-normal text-base uppercase text-[#f6ff5f]">
                   {label}
                 </h2>
                 <DrawerClose>
@@ -350,7 +350,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                               }
                               value={filteredCategory.name.ru}
                             >
-                              <p className="truncate leading-0 font-medium">
+                              <p className="truncate leading-0 font-normal">
                                 {filteredCategory.name.ru}
                               </p>
                             </TabsTrigger>

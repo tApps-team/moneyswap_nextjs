@@ -7,7 +7,7 @@ export const MobileTagsList = async () => {
   return (
     <section className="rounded-[20px] bg-[#000] py-3 px-3 md:hidden block mx-auto w-full mobile-xl:w-[80%] mt-8">
       <div className="grid grid-flow-row gap-3">
-        <h3 className="uppercase text-yellow-main font-medium text-md truncate text-center">
+        <h3 className="uppercase text-yellow-main font-normal text-md truncate text-center">
           Популярные хэштеги
         </h3>
         <section className="flex flex-wrap justify-center gap-2 px-8">

@@ -15,7 +15,7 @@ export const FooterMobile = () => {
       <Accordion type="single" collapsible className=" w-full  ">
         {footerItems.map((item, index) => (
           <AccordionItem value={item.value} key={item.value} className="flex flex-col gap-1">
-            <AccordionTrigger className="font-medium uppercase mobile-xl:text-sm text-xs">
+            <AccordionTrigger className="font-normal uppercase mobile-xl:text-sm text-xs">
               {item.value}
             </AccordionTrigger>
             {item.children?.map((itemChildren) => (
@@ -33,7 +33,7 @@ export const FooterMobile = () => {
       </Accordion>
 
       <section className="flex flex-col gap-6 py-4">
-        <p className="text-sm font-medium text-center uppercase">МЫ В СОЦСЕТЯХ</p>
+        <p className="text-sm font-normal text-center uppercase">МЫ В СОЦСЕТЯХ</p>
         <SocialNetworks />
       </section>
       <hr />

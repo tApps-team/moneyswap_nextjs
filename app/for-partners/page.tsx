@@ -4,12 +4,14 @@ import { ForPartnersPage } from "@/views/for-partners";
 export default ForPartnersPage;
 
 export const metadata: Metadata = {
-  title: "for-partners",
-  description: "for-partners description",
+  title: "Контакты MoneySwap: как с нами связаться",
+  description:
+    "Свяжитесь с MoneySwap! Наши контакты для вопросов, предложений и партнёрства. Напишите нам на info@moneyswap.ru или позвоните по телефону +7(495) 109-20-08.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
   openGraph: {
-    title: "for-partners og title",
-    description: "for-partners og description",
+    title: "Контакты MoneySwap: как с нами связаться",
+    description:
+      "Свяжитесь с MoneySwap! Наши контакты для вопросов, предложений и партнёрства. Напишите нам на info@moneyswap.ru или позвоните по телефону +7(495) 109-20-08.",
     url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
     siteName: "MoneySwap",
     images: [

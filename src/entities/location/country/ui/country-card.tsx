@@ -27,7 +27,7 @@ export const CountryCard = (props: CountryCardProps) => {
         height={36}
       />
 
-      <p className="font-medium text-lg truncate xl:max-w-[15vw] max-w-[24vw]">
+      <p className="font-normal text-lg truncate xl:max-w-[15vw] max-w-[24vw]">
         {country?.name?.ru}
       </p>
     </div>

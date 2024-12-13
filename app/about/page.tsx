@@ -4,12 +4,14 @@ import { routes } from "@/shared/router";
 export default AboutPage;
 
 export const metadata: Metadata = {
-  title: "about",
-  description: "about description",
+  title: "Про MoneySwap: агрегатор криптообменников",
+  description:
+    "Узнайте больше о MoneySwap — платформе, где собраны лучшие криптообменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
   openGraph: {
-    title: "about og title",
-    description: "about og description",
+    title: "Про MoneySwap: агрегатор криптообменников",
+    description:
+      "Узнайте больше о MoneySwap — платформе, где собраны лучшие криптообменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.",
     url: routes.about,
     siteName: "MoneySwap",
     images: [

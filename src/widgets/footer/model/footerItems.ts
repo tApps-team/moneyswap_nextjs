@@ -28,11 +28,11 @@ export const footerItems: FooterItems[] = [
         value: "Контакты",
       },
       {
-        href: routes.help,
+        href: routes.help_faq,
         value: "FAQ",
       },
       {
-        href: routes.help,
+        href: routes.help_article,
         value: "Помощь",
       },
       {

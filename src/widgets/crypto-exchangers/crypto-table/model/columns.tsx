@@ -27,9 +27,7 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
       );
     },
     cell: ({ row }) => (
-      <p className="font-semibold text-base truncate max-w-[18vw]">
-        {row.getValue("exchangerName")}
-      </p>
+      <p className="font-medium text-base truncate max-w-[18vw]">{row.getValue("exchangerName")}</p>
     ),
   },
   {
@@ -103,7 +101,7 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
           query: { "exchanger-marker": row.original.exchange_marker },
         }}
       >
-        <button className="uppercase font-semibold text-xs text-center w-full">ПОДРОБНЕЕ</button>
+        <button className="uppercase font-medium text-xs text-center w-full">ПОДРОБНЕЕ</button>
       </Link>
     ),
   },

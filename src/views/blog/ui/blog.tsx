@@ -22,7 +22,7 @@ export const BlogPage = async ({
   return (
     <section className="grid grid-flow-row md:gap-7 mobile-xl:gap-6 gap-5">
       <div className="mobile-xl:flex mobile-xl:justify-center mobile-xl:items-center mobile-xl:mx-auto mobile-xl:max-w-[80%]">
-        <h1 className="uppercase xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-base mobile-xl:font-semibold mobile-xl:text-center text-sm font-medium text-start">
+        <h1 className="uppercase xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-base mobile-xl:font-normal mobile-xl:text-center text-sm font-normal text-start">
           Блог о финансах, криптовалюте и переводах за рубеж
         </h1>
       </div>

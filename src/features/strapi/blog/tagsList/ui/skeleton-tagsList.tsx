@@ -8,7 +8,7 @@ export const TagsListSkeleton = () => {
     <div className="rounded-[20px] bg-black lg:py-4 lg:px-3 py-3 px-2">
       <div className="grid grid-flow-row gap-3">
         <div className="px-3">
-          <h3 className="uppercase text-yellow-main font-semibold xl:text-base lg:text-sm text-xs truncate md:min-w-[24vw] lg:min-w-fit min-w-auto">
+          <h3 className="uppercase text-yellow-main font-medium xl:text-base lg:text-sm text-xs truncate md:min-w-[24vw] lg:min-w-fit min-w-auto">
             Популярные хэштеги
           </h3>
         </div>

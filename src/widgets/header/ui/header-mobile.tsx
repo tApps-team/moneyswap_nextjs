@@ -47,13 +47,13 @@ export const HeaderMobile = () => {
                     key={item.value}
                     className="flex flex-col gap-1"
                   >
-                    <AccordionTrigger className="font-medium uppercase text-sm pb-5">
+                    <AccordionTrigger className="font-normal uppercase text-sm pb-5">
                       <p>{item.value}</p>
                     </AccordionTrigger>
                     {item.children?.map((itemChildren) => (
                       <AccordionContent
                         key={itemChildren.value}
-                        className="hover:text-yellow-main text-light-gray uppercase text-xs font-medium"
+                        className="hover:text-yellow-main text-light-gray uppercase text-xs font-normal"
                       >
                         <DrawerClose asChild>
                           <Link target="_self" href={itemChildren.href}>
@@ -65,7 +65,7 @@ export const HeaderMobile = () => {
                   </AccordionItem>
                 ) : (
                   <DrawerClose key={item.value} asChild>
-                    <Link className="font-medium uppercase text-sm" href={item.href}>
+                    <Link className="font-normal uppercase text-sm" href={item.href}>
                       {item.value}
                     </Link>
                   </DrawerClose>

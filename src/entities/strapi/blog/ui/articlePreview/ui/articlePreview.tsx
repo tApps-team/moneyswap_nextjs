@@ -54,10 +54,10 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
         <div
           className={`uppercase grid grid-cols-1 gap-1 ${isMain ? "px-4 py-4" : "pt-4 pb-4 md:pb-0"}`}
         >
-          <span className="text-light-gray inline font-medium mobile:text-[9px] mobile-xs:text-[8px] text-[7px]">
+          <span className="text-light-gray inline font-normal mobile:text-[9px] mobile-xs:text-[8px] text-[7px]">
             {formattedDate}
           </span>
-          <h3 className="mobile-xs:text-2xs text-[9px] font-medium max-h-[200px] overflow-hidden text-ellipsis leading-4 line-clamp-2">
+          <h3 className="mobile-xs:text-2xs text-[9px] font-normal max-h-[200px] overflow-hidden text-ellipsis leading-4 line-clamp-2">
             {article?.title}
           </h3>
         </div>

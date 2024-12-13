@@ -56,7 +56,7 @@ export const MobileAllArticles: FC<MobileAllArticlesProps> = ({ articles, totalP
         </section>
       ) : (
         <div className="py-10  grid grid-flow-row gap-8 justify-center items-center">
-          <p className="uppercase text-light-gray font-semibold text-sm text-center">
+          <p className="uppercase text-light-gray font-normal text-sm text-center">
             Ничего не найдено...
           </p>
           <div className="justify-self-center grayscale opacity-50 w-[60vw] max-w-[400px] h-full">

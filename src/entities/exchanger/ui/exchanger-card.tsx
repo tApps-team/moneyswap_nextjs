@@ -33,12 +33,10 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
       >
         <div>
           <Link target="_blank" href={exchanger.partner_link}>
-            <h2 className="mobile-xl:font-bold font-semibold truncate leading-none">
-              {exchanger.name.ru}
-            </h2>
+            <h2 className="font-normal truncate leading-none">{exchanger.name.ru}</h2>
           </Link>
           <div className="flex items-end justify-between">
-            <p className="text-xs text-yellow-main">
+            <p className="text-xs text-yellow-main font-normal">
               {exchanger.exchange_marker === ExchangerMarker.cash ? `в г. ${city}` : "Онлайн обмен"}
             </p>
             <div className="rounded-full border border-light-gray  gap-2 flex justify-between items-center p-1.5 text-2xs">
@@ -65,7 +63,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             {(exchanger.info?.weekdays?.time_from || exchanger.info?.weekdays?.time_to) && (
               <div className="flex gap-1 items-center">
                 <Clock className="size-3 " color="black" />
-                <p className="text-[7px] font-medium text-black">
+                <p className="text-[7px] font-light text-black">
                   {exchanger.info?.weekdays?.time_from} - {exchanger.info?.weekdays?.time_to}
                 </p>
               </div>
@@ -73,7 +71,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             {isAnyTrue(exchanger.info?.working_days || {}, exchanger.name.ru) && (
               <div className="flex items-center gap-1">
                 <Calendar className="size-3" color="black" />
-                <div className="text-black text-[7px] font-medium">
+                <div className="text-black text-[7px] font-light">
                   {Object.entries(exchanger?.info?.working_days || {}).map(
                     ([day, isWorking], index) =>
                       isWorking && (
@@ -89,11 +87,11 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
             )}
 
-            <div className="flex items-center text-[7px] font-medium text-black">
+            <div className="flex items-center text-[7px] font-light text-black">
               {exchanger.info?.delivery ? <Check className="size-4" /> : <X className="size-4" />}
               <p>ДОСТАВКА</p>
             </div>
-            <div className="flex items-center text-[7px] font-medium text-black">
+            <div className="flex items-center text-[7px] font-light text-black">
               {exchanger.info?.office ? <Check className="size-4" /> : <X className="size-4" />}
               <p>ОФИС</p>
             </div>
@@ -104,17 +102,17 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
         <div>
           <div className="flex text-sm items-center gap-2">
             <div className="flex gap-2  items-center">
-              <p className="font-semibold">{exchanger.in_count}</p>
-              <p>{exchanger.valute_from}</p>
+              <p className="font-normal">{exchanger.in_count}</p>
+              <p className="font-light">{exchanger.valute_from}</p>
             </div>
             <ExchangerCardArrow className="size-3 min-h-3 min-w-3" fill="#f6ff5f" />
             <div className="flex gap-2 items-center">
-              <p className="font-semibold">{exchanger.out_count}</p>
-              <p>{exchanger.valute_to}</p>
+              <p className="font-normal">{exchanger.out_count}</p>
+              <p className="font-light">{exchanger.valute_to}</p>
             </div>
           </div>
           <div className="pt-0.5">
-            <p className="text-xs text-yellow-main">
+            <p className="text-xs text-yellow-main font-light">
               Обмен от {exchanger.min_amount} до {exchanger.max_amount}
             </p>
           </div>

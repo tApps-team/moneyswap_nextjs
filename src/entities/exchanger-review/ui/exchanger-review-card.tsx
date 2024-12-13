@@ -44,7 +44,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.positive) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <p className="text-black  md:text-xs text-2xs font-medium uppercase">Положительный </p>
+          <p className="text-black  md:text-xs text-2xs font-normal uppercase">Положительный </p>
           <PositiveSmile className="md:size-6" />
         </div>
       );
@@ -52,7 +52,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.neutral) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <p className="text-black md:text-xs text-2xs font-medium uppercase">Нейтральный</p>
+          <p className="text-black md:text-xs text-2xs font-normal uppercase">Нейтральный</p>
           <NeutralSmile className="md:size-6" />
         </div>
       );
@@ -60,7 +60,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.negative) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <p className="text-light-gray md:text-xs text-2xs font-medium uppercase">Отрицательный</p>
+          <p className="text-light-gray md:text-xs text-2xs font-normal uppercase">Отрицательный</p>
           <NegativeSmile className="md:size-6" />
         </div>
       );
@@ -83,17 +83,20 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           {reviewRender()}
         </div>
         <div>
-          <p className="font-semibold md:text-sm text-xs uppercase">{review?.username}</p>
+          <p className="font-normal md:text-sm text-xs uppercase">{review?.username}</p>
           <div className="flex gap-1 md:text-xs text-2xs">
-            <p>{review?.review_date}</p>
-            <span>/</span>
-            <p>{review?.review_time}</p>
+            <p className="font-light">{review?.review_date}</p>
+            <span className="font-light">/</span>
+            <p className="font-light">{review?.review_time}</p>
           </div>
         </div>
         <div>
           <p
             ref={ref}
-            className={cn("md:text-sm text-xs  line-clamp-2", isOpenReview && "line-clamp-none")}
+            className={cn(
+              "md:text-sm text-xs font-light line-clamp-2",
+              isOpenReview && "line-clamp-none",
+            )}
           >
             {review?.text}
           </p>
@@ -113,9 +116,9 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           >
             <CommentIcon className="md:size-7 size-5" />
             {isOpenReview ? (
-              <p className="text-2xs md:text-xs font-medium">СКРЫТЬ КОММЕНТАРИИ</p>
+              <p className="text-2xs md:text-xs font-normal">СКРЫТЬ КОММЕНТАРИИ</p>
             ) : (
-              <p className="text-2xs md:text-xs font-medium">
+              <p className="text-2xs md:text-xs font-normal">
                 СМОТРЕТЬ КОММЕНТАРИИ <span>({review.comment_count})</span>
               </p>
             )}

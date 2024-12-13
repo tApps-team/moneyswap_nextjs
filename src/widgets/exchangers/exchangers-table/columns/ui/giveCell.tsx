@@ -19,7 +19,7 @@ export const GiveCell = (props: GiveCellProps) => {
   return (
     <div className="flex md:flex-col xl:flex-row gap-2 justify-start items-center">
       <div className="text-yellow-main text-base">{row.original.in_count}</div>
-      <div className="font-normal text-sm">{row.original.valute_from}</div>
+      <div className="font-light text-sm">{row.original.valute_from}</div>
       {row.original.location && (
         <Link href={createUrl(row.original.location.code_name)}>
           <p>

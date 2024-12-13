@@ -106,7 +106,7 @@ export function ExchangersTable<TData, TValue>({
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <TableHead
-                      className="uppercase py-6 px-4 text-light-gray font-semibold"
+                      className="uppercase py-6 px-4 text-light-gray font-medium"
                       key={header.id}
                     >
                       {header.isPlaceholder
@@ -145,7 +145,7 @@ export function ExchangersTable<TData, TValue>({
           disabled={
             table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
           }
-          className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full"
+          className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full font-normal"
         >
           Показать ещё
         </Button>
