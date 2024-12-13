@@ -3,6 +3,7 @@ import { ExchangePage } from "@/views/exchange";
 import { getSpecificValute } from "@/entities/currency";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoMeta } from "@/shared/api";
+import { routes } from "@/shared/router";
 import { ExchangerMarker, pageTypes } from "@/shared/types";
 export default ExchangePage;
 
@@ -43,7 +44,7 @@ export async function generateMetadata(
   const seoMeta = await getSeoMeta(reqParams);
 
   // формируем canonical URL
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}/${slug}${city ? `?city=${city}` : ""}`;
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchange}/${slug}${city ? `?city=${city}` : ""}`;
 
   return {
     title: seoMeta.data[0].title,
