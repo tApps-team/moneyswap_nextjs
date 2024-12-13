@@ -49,6 +49,9 @@ export async function POST(req: Request) {
       case StrapiCollectionNames.help:
         path = routes.help;
         break;
+      case StrapiCollectionNames.faq:
+        path = routes.help;
+        break;
       case StrapiCollectionNames.topic:
         revalidatePath(routes.blog);
         break;

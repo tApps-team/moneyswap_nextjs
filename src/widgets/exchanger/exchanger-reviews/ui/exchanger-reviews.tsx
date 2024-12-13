@@ -13,14 +13,11 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
   const { reviews, totalPages, reviewCount } = props;
 
   return (
-    <section className="grid items-center gap-4">
-      <div className="flex mobile-xl:flex-row flex-col gap-3   justify-between items-center">
-        <p className="font-semibold mobile-xl:text-base text-sm">ОТЗЫВЫ</p>
-        <hr className="mobile-xl:hidden block w-full" />
+    <section className="grid items-center gap-6">
+      <div className="flex mobile-xl:flex-row flex-col gap-3 justify-between items-center">
+        <p className="font-semibold mobile-xl:block hidden text-sm">ОТЗЫВЫ</p>
         <AddReview />
       </div>
-      <hr className="" />
-
       {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}
       <ReviewFilter reviewCount={reviewCount} />
 

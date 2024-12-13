@@ -13,21 +13,18 @@ export const CryptoDirection = async (props: CryptoDirectionProps) => {
   const maxPointsCount = Math.max(...currencyPair.map((item) => item.pairCount));
   return (
     <aside className="grid h-full grid-cols-1 grid-flow-row min-h-[36rem] max-h-[40rem] overflow-hidden  gap-4 items-start rounded-2xl  bg-dark-gray shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] p-5">
-      <div className="mobile-xl:grid-cols-2 grid-cols-1 grid">
-        <p className="mobile-xl:text-sm text-xs text-center mobile-xl:text-start uppercase">
-          Направления обменника
-        </p>
-        <p className="mobile-xl:text-xs hidden mobile-xl:block text-2xs uppercase">
-          Количество обменных пунктов по направлению
+      <div className="grid grid-cols-[0.7fr,1fr] md:grid-cols-[0.3fr,1fr] lg:grid-cols-[0.7fr,1fr] gap-6 w-full">
+        <p className="md:text-xs mobile-xl:text-2xs text-2xs text-center uppercase">Направления</p>
+        <p className="md:text-xs mobile-xl:text-2xs hidden mobile-xl:block text-2xs uppercase text-center">
+          Обменные пункты
         </p>
       </div>
 
       <ScrollArea className="h-full pr-3">
-        <div className="flex flex-col   gap-4  p-1">
+        <div className="flex flex-col gap-4 p-1 pb-2">
           {sortedCurrencyPair.map((pair, index) => (
             <div
-              className="grid grid-cols-[0.7fr,1fr]   md:grid-cols-[0.3fr,1fr] lg:grid-cols-[0.7fr,1fr]     gap-6 w-full "
-              // key={pair.valute_from.name.en + pair.pointsCount}
+              className="grid grid-cols-[0.7fr,1fr] md:grid-cols-[0.3fr,1fr] lg:grid-cols-[0.7fr,1fr] gap-6 w-full"
               key={index}
             >
               <CurrencyPair currencyPair={pair} />
