@@ -105,7 +105,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 <figure className="hidden lg:w-[36px] lg:block lg:rounded-full lg:overflow-hidden lg:h-[36px]">
                   <Image
                     alt={`${cityInfo?.code_name})`}
-                    src={cityInfo?.country.icon_url}
+                    src={cityInfo?.country?.icon_url}
                     width={36}
                     height={36}
                   />
@@ -121,7 +121,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
               )}
 
               <p className="md:text-base text-2xs truncate max-w-[10vw]">
-                {cityInfo ? cityInfo?.name.ru : "Не выбрано..."}
+                {cityInfo ? cityInfo?.name?.ru : "Не выбрано..."}
               </p>
             </div>
             <div>
