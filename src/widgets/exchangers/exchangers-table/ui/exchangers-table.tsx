@@ -24,7 +24,6 @@ interface DataTableProps<TValue> {
   columns: ColumnDef<Exchanger, TValue>[];
   data?: Exchanger[];
   cityName?: string;
-  // type: "exchange" | "main";
   params:
     | {
         valute_from: string;
@@ -60,6 +59,7 @@ export function ExchangersTable<TData, TValue>({
     pageIndex: 0,
     pageSize: 10,
   });
+
   const data = exchangers || [];
   const table = useReactTable({
     data,
@@ -67,7 +67,6 @@ export function ExchangersTable<TData, TValue>({
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     onColumnFiltersChange: setColumnFilters,
-    // manualPagination: true,
     manualFiltering: true,
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -96,6 +95,7 @@ export function ExchangersTable<TData, TValue>({
       pageSize: prev.pageSize + 10,
     }));
   };
+
   if (isDesktop) {
     return (
       <div className="flex flex-col mt-10 gap-12 w-full">
@@ -123,9 +123,7 @@ export function ExchangersTable<TData, TValue>({
                   <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
-                        {/* <Link href={cell.row.original.partner_link} target="_blank"> */}
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        {/* </Link> */}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -152,11 +150,21 @@ export function ExchangersTable<TData, TValue>({
       </div>
     );
   }
+
+  const mobileExchangers = data.slice(0, pagination.pageSize);
+
   return (
     <div className="flex flex-col mt-10 gap-4 w-full">
-      {data.map((exchanger) => (
+      {mobileExchangers.map((exchanger) => (
         <ExchangerCard key={exchanger.id} exchanger={exchanger} city={cityName} />
       ))}
+      <Button
+        onClick={handleShowMore}
+        disabled={mobileExchangers.length >= data.length}
+        className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full font-normal"
+      >
+        Показать ещё
+      </Button>
     </div>
   );
 }
