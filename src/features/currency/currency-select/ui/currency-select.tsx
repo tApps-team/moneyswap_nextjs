@@ -50,17 +50,7 @@ type CurrencySelectProps = {
 };
 
 export const CurrencySelect = (props: CurrencySelectProps) => {
-  const {
-    label,
-    disabled,
-    currencies,
-    currencyInfo,
-    direction,
-    onClick,
-    amount,
-    setAmount,
-    actualCourse,
-  } = props;
+  const { label, disabled, currencies, currencyInfo, onClick, setAmount, actualCourse } = props;
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
