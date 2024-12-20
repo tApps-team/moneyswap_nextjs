@@ -11,6 +11,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/shared/lib";
@@ -36,6 +37,9 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
     pageIndex: 0,
     pageSize: 10,
   });
+
+  // Mobile-specific pagination state
+  const [currentPage, setCurrentPage] = useState(0);
 
   const table = useReactTable({
     data,
@@ -64,6 +68,26 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
       pageSize: prev.pageSize + 10,
     }));
   };
+
+  // Mobile-specific pagination logic
+  const totalPages = Math.ceil(data.length / pagination.pageSize);
+  const paginatedData = data.slice(
+    currentPage * pagination.pageSize,
+    (currentPage + 1) * pagination.pageSize,
+  );
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
   if (isDesktop) {
     return (
       <div className="flex flex-col mt-10 gap-12 w-full">
@@ -92,10 +116,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                     {row.getVisibleCells().map((cell) => {
                       return (
                         <TableCell key={cell.id}>
-                          {/* hydration error */}
-                          {/* <Link href={cell.row.original.url} target="_blank"> */}
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                          {/* </Link> */}
                         </TableCell>
                       );
                     })}
@@ -123,10 +144,12 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
       </div>
     );
   }
+
+  // Mobile rendering with pagination
   return (
     <div className="flex flex-col mt-10 gap-12 w-full">
       <div className="rounded-3xl bg-dark-gray text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
-        {data.map((exchanger) => (
+        {paginatedData.map((exchanger) => (
           <div
             key={exchanger.id + exchanger.exchangerName}
             className="p-3 border-b last:border-none border-light-gray flex items-center justify-between"
@@ -185,15 +208,23 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
           </div>
         ))}
       </div>
-      <Button
-        onClick={handleShowMore}
-        disabled={
-          table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
-        }
-        className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full font-normal"
-      >
-        Показать ещё
-      </Button>
+      {/* Mobile Pagination Controls */}
+      <div className="flex justify-center gap-4">
+        <Button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 0}
+          className="bg-dark-gray h-10 w-1/2 border-2 border-light-gray uppercase rounded-full font-normal"
+        >
+          <ChevronLeft />
+        </Button>
+        <Button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages - 1}
+          className="bg-dark-gray h-10 w-1/2 border-2 border-light-gray uppercase rounded-full font-normal"
+        >
+          <ChevronRight />
+        </Button>
+      </div>
     </div>
   );
 }

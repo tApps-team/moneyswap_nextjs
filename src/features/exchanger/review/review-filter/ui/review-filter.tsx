@@ -35,7 +35,7 @@ export const ReviewFilter = ({ reviewCount }: ReviewFilterProps) => {
   };
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-4 gap-6 lg:gap-3 xl:gap-6">
+    <section className="grid grid-cols-1 grid-rows-1 md:grid-cols-4 gap-6 lg:gap-3 xl:gap-6">
       {filterData.map((data) => {
         const isActive =
           currentGrade === data.grade?.toString() ||
@@ -56,6 +56,6 @@ export const ReviewFilter = ({ reviewCount }: ReviewFilterProps) => {
           </Link>
         );
       })}
-    </div>
+    </section>
   );
 };

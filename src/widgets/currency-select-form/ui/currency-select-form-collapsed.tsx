@@ -65,7 +65,7 @@ export const CurrencySelectFormCollapsed = (props: CurrencySelectFormProps) => {
   const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
 
   return (
-    <div>
+    <section>
       <form className="text-white flex flex-col gap-4 w-full border-2 border-light-gray h-full lg:py-5 py-3 lg:px-7 px-5 lg:pb-12 pb-4 bg-dark-gray rounded-3xl">
         <div className="flex lg:flex-row  flex-col lg:gap-2 gap-4  lg:items-center justify-between  ">
           <div className="flex flex-col mobile-xs:flex-row justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
@@ -138,6 +138,6 @@ export const CurrencySelectFormCollapsed = (props: CurrencySelectFormProps) => {
       <div className="border flex items-center justify-center rounded-full mx-auto bg-dark-gray -translate-y-4 w-1/4">
         <ChevronDown />
       </div>
-    </div>
+    </section>
   );
 };
