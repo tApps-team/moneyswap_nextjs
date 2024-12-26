@@ -41,7 +41,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
     }
   };
   return (
-    <div className="mt-6">
+    <section className="mt-6">
       {exchangers.length > 0 && (
         <div className="uppercase  my-6  flex flex-col gap-2">
           {/* <h2 className="mobile-xl:text-xl text-sm md:text-start text-center font-medium">
@@ -133,6 +133,6 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };

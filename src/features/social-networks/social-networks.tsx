@@ -4,7 +4,7 @@ import { products } from "@/shared/router";
 
 export const SocialNetworks = () => {
   return (
-    <div className="grid grid-flow-col justify-center items-center justify-items-center gap-4">
+    <section className="grid grid-flow-col justify-center items-center justify-items-center gap-4">
       <Link
         className="relative bg-[#27aed6] rounded-full h-12 w-12 hover:scale-[1.05] active:scale-[0.95] transition-all duration-300"
         href={products.telegram_bot}
@@ -23,6 +23,6 @@ export const SocialNetworks = () => {
       <Link href={products.vc_ru} target="_blank">
         <VCRUIcon className="w-12 h-12" />
       </Link>
-    </div>
+    </section>
   );
 };

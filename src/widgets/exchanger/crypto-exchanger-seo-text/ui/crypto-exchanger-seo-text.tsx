@@ -8,7 +8,7 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
   const { exchangerInfo } = props;
 
   return (
-    <div className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4">
       <h1 className="mobile-xl:text-3xl text-base font-normal uppercase">
         Обменный пункт {exchangerInfo?.name}
       </h1>
@@ -23,6 +23,6 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
         услугами обменника, оставьте отзыв о нём в комментариях - это поможет другим пользователям
         Moneyswap получить достоверную информацию об услугах обменников.
       </p>
-    </div>
+    </section>
   );
 };
