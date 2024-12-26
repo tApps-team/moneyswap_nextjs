@@ -52,30 +52,12 @@ export const getArticle = async (params: GetArticleRequest): Promise<GetArticleR
   }
 };
 
-export const getSearchArticles = async (
-  params: GetSearchArticlesRequest,
-): Promise<GetSearchArticlesResponse> => {
-  const { value } = params;
-  try {
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-articlessd?filters[$or][0][preview_title][$contains]=${value}&filters[$or][1][content][$contains]=${value}&filters[$or][2][preview_description][$contains]=${value}&filters[$or][3][article_title][$contains]=${value}`;
-
-    const res = await fetch(url, {
-      method: "GET",
-      cache: "no-store",
-    });
-    return res.json();
-  } catch (error) {
-    console.error("error:", error);
-    throw new Error("Failed to fetch data");
-  }
-};
-
 export const getTopicArticles = async (
   params: GetTopicArticlesRequest,
 ): Promise<GetTopicArticlesResponse> => {
   const { topic } = params;
   try {
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-topics?filters[type][$eq]=${topic}&populate[articles][populate][preview_image]=*
+    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-topics?pagination[pageSize]=30&filters[type][$eq]=${topic}&populate[articles][populate][preview_image]=*
 `;
     const res = await fetch(url, {
       method: "GET",
@@ -90,7 +72,7 @@ export const getTopicArticles = async (
 
 export const getAllCategories = async (): Promise<GetAllCategoriesResponse> => {
   try {
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?&populate[articles][populate][preview_image]=*`;
+    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?pagination[pageSize]=100&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
     });
@@ -103,7 +85,7 @@ export const getAllCategories = async (): Promise<GetAllCategoriesResponse> => {
 
 export const getAllTags = async (): Promise<GetAllTagsResponse> => {
   try {
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?&populate[articles][populate][preview_image]=*`;
+    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?pagination[pageSize]=100&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
     });
@@ -119,7 +101,7 @@ export const getCategoryArticles = async (
 ): Promise<GetCategoryArticlesResponse> => {
   const { category } = params;
   try {
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?filters[category][$eq]=${category}&populate[articles][populate][preview_image]=*`;
+    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?pagination[pageSize]=100&filters[category][$eq]=${category}&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
     });
@@ -135,7 +117,7 @@ export const getTagArticles = async (
 ): Promise<GetTagArticlesResponse> => {
   const { tag } = params;
   try {
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?filters[tag][$eq]=${tag}&populate[articles][populate][preview_image]=*
+    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?pagination[pageSize]=100&filters[tag][$eq]=${tag}&populate[articles][populate][preview_image]=*
 `;
     const res = await fetch(url, {
       method: "GET",
