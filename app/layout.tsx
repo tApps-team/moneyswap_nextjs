@@ -36,13 +36,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
-      <Head>
-        <link rel="icon" href="/public/favicon/favicon.ico" />
-        <link rel="icon" href="/favicon/favicon.ico" />
+      <head>
         <meta
           name="google-site-verification"
           content="sPwXL6jSpXeyCa3nGMpepemssgj5Fjd4ZRpE9lofLfc"
         />
+      </head>
+      <Head>
+        <link rel="icon" href="/public/favicon/favicon.ico" />
+        <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
       <body className="flex flex-col min-h-screen">
         <Providers>
