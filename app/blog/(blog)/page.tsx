@@ -12,12 +12,12 @@ export async function generateMetadata({
   const searchValue = searchParams.search ? searchParams.search.toString() : null;
 
   const metaWithoutSearch = {
-    title: "Блог о финансах, криптовалюте и переводах за рубеж",
+    title: "Читайте блог о финансах, криптовалюте и переводах за рубеж на MoneySwap!",
     description:
       "Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.",
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
     openGraph: {
-      title: "Блог о финансах, криптовалюте и переводах за рубеж",
+      title: "Читайте блог о финансах, криптовалюте и переводах за рубеж на MoneySwap!",
       description:
         "Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.",
       url: routes.blog,

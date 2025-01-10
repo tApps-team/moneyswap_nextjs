@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}${routes.help_faq}`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.5,
     },
     {
       url: `${baseUrl}${routes.blog}`,
@@ -32,13 +32,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}${routes.about}`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.5,
     },
     {
       url: `${baseUrl}${routes.partners}`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.5,
     },
   ];
 }

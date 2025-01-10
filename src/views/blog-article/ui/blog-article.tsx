@@ -106,7 +106,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
             <div className="flex flex-wrap md:gap-4 gap-1.5">
               {article?.tags?.map((tag) => (
                 <Link
-                  href={`${routes.blog}/${routes.tag}/${tag?.tag}`}
+                  href={`${routes.blog}${routes.tag}/${tag?.tag}`}
                   key={tag?.id}
                   className="cursor-pointer uppercase text-2xs md:py-4 py-2 md:px-6 px-3 bg-dark-gray rounded-full md:border-2 border-[1px] border-light-gray text-light-gray hover:text-yellow-main hover:border-yellow-main transition-all duration-300"
                 >

@@ -39,6 +39,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Head>
         <link rel="icon" href="/public/favicon/favicon.ico" />
         <link rel="icon" href="/favicon/favicon.ico" />
+        <meta
+          name="google-site-verification"
+          content="sPwXL6jSpXeyCa3nGMpepemssgj5Fjd4ZRpE9lofLfc"
+        />
       </Head>
       <body className="flex flex-col min-h-screen">
         <Providers>
