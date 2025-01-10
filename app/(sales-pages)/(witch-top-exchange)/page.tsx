@@ -5,19 +5,25 @@ import { routes } from "@/shared/router";
 import { pageTypes } from "@/shared/types";
 export default Main;
 
-export async function generateMetadata(): Promise<Metadata> {
+type Props = {
+  searchParams?: { direction: "cash" };
+};
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const reqParams = {
     page: pageTypes.main,
   };
 
   const seoMeta = await getSeoMeta(reqParams);
+  const direction = searchParams?.direction;
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}${direction ? `?direction=${direction}` : ""}`;
 
   return {
     title: seoMeta.data[0].title,
     description: seoMeta.data[0].description,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title: seoMeta.data[0].title,

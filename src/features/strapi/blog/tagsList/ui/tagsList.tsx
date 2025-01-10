@@ -20,7 +20,7 @@ export const TagsList: FC<TagsListProps> = ({ tags }) => {
           {tags?.map((tag) => (
             <Link
               scroll={false}
-              href={`${routes.blog}/${routes.tag}/${tag?.tag}`}
+              href={`${routes.blog}${routes.tag}/${tag?.tag}`}
               className="mr-2 text-[#ddd] lg:text-xs text-2xs leading-2 uppercase hover:text-yellow-main cursor-pointer transition-all hover:transition-all duration-300"
               key={tag?.id}
             >

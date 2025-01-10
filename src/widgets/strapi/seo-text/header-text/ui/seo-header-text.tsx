@@ -34,11 +34,11 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
       {data.length > 0 && (
         <div className="grid gap-5">
           <div className="relative flex items-start justify-between gap-1">
-            <div
+            <h1
               className={`[&>b]:leading-normal text-start text-xs mobile-xs:text-sm mobile:text-base md:text-lg lg:text-2xl xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
             >
               {parse(data[0]?.header_title, options)}
-            </div>
+            </h1>
             <div className="mobile-xl:hidden mobile-xl:mt-6 mt-0 flex gap-2">
               <Dialog>
                 <DialogTrigger className="">
@@ -69,9 +69,9 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                     width={180}
                     height={180}
                   />
-                  <h2 className="uppercase text-sm font-medium tracking-widest">
+                  <h3 className="uppercase text-sm font-medium tracking-widest">
                     как совершить обмен?
-                  </h2>
+                  </h3>
                   <p className="uppercase text-2xs leading-2 flex flex-col gap-2 overflow-scroll px-4 tracking-widest">
                     <p>
                       1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.

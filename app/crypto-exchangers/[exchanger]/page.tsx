@@ -1,6 +1,7 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { CryptoExchangerPage } from "@/views/crypto-exchanger";
 import { getExchangerDetails } from "@/entities/exchanger";
+import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 
 export default CryptoExchangerPage;
@@ -38,6 +39,9 @@ export async function generateMetadata(
       ],
       locale: "ru-RU",
       type: "website",
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchangers}/exchanger-${params?.exchanger}`,
     },
   };
 }
