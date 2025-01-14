@@ -40,20 +40,29 @@ export async function generateMetadata(
         getCurrency: `${getCurrency?.name?.ru} (${getCurrency?.code_name})`,
       };
 
-  // запрос на мета данные
+  // Запрос метаданных
   const seoMeta = await getSeoMeta(reqParams);
 
-  // формируем canonical URL
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchange}/${slug}${city ? `?city=${city}` : ""}`;
+  // Генерация текущего URL (включая параметры)
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL || "";
+  const currentUrl = new URL(`${routes.exchange}/${slug}`, baseUrl);
+
+  if (searchParams && searchParams?.direction) {
+    currentUrl.searchParams.append("direction", searchParams.direction);
+  }
+
+  if (searchParams && searchParams?.city) {
+    currentUrl.searchParams.append("city", searchParams.city);
+  }
 
   return {
     title: seoMeta.data[0].title,
     description: seoMeta.data[0].description,
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+    metadataBase: new URL(baseUrl),
     openGraph: {
       title: seoMeta.data[0].title,
       description: seoMeta.data[0].description,
-      url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
+      url: currentUrl.toString(),
       siteName: "MoneySwap",
       images: [
         {
@@ -67,7 +76,7 @@ export async function generateMetadata(
       type: "website",
     },
     alternates: {
-      canonical: canonicalUrl,
+      canonical: currentUrl.toString(),
     },
   };
 }

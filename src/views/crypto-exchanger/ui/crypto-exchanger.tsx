@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { CryptoDirection } from "@/widgets/exchanger/crypto-direction";
 import { CryptoExchangerSeoText } from "@/widgets/exchanger/crypto-exchanger-seo-text";
 import { ExchangerInfo } from "@/widgets/exchanger/exchanger-info";
@@ -5,7 +6,7 @@ import { ExchangerReviews } from "@/widgets/exchanger/exchanger-reviews";
 import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
 import { getPairValute } from "@/entities/currency";
 import { getExchangerDetails } from "@/entities/exchanger";
-import { Grade, reviewsByExchange } from "@/entities/exchanger-review";
+import { reviewsByExchange } from "@/entities/exchanger-review";
 import { ExchangerMarker } from "@/shared/types";
 
 export const CryptoExchangerPage = async ({
@@ -17,6 +18,14 @@ export const CryptoExchangerPage = async ({
 }) => {
   // const timeout = new Promise((resolove) => setTimeout(() => resolove(1), 60000));
   // await timeout;
+  if (!params?.exchanger) {
+    return notFound();
+  }
+
+  if (!searchParams?.["exchanger-marker"]) {
+    return notFound();
+  }
+
   const currentPage = Number(searchParams?.page) || 1;
 
   const reviews = await reviewsByExchange({
