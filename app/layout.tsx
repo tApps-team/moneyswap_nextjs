@@ -41,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           name="google-site-verification"
           content="sPwXL6jSpXeyCa3nGMpepemssgj5Fjd4ZRpE9lofLfc"
         />
+        <meta name="yandex-verification" content="7377d71acbace068" />
       </head>
       <Head>
         <link rel="icon" href="/public/favicon/favicon.ico" />
