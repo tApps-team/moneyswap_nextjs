@@ -5,7 +5,7 @@ import { routes } from "@/shared/router";
 
 export const SitemapPage = async () => {
   const directions = await getSitemapDirections();
-  const articles = await getAllArticles({ page: 1 });
+  const articles = await getAllArticles({ page: 1, elements: 1000 });
   const categories = await getAllCategories();
   const tags = await getAllTags();
   const exchangers = await getExchangerList();
