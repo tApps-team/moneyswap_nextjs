@@ -4,7 +4,7 @@ import { routes } from "@/shared/router";
 export default HelpPage;
 
 export const metadata: Metadata = {
-  title: "Часто задаваемые вопросы MoneySwap | Как пользоваться",
+  title: "Часто задаваемые вопросы. Как совершить обмен | MoneySwap",
   description:
     "Ответы на популярные вопросы о работе MoneySwap. Узнайте, как настроить личный кабинет, добавить обменник в агрегатор, автоматизировать курсы и многое другое.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.help_faq}`,
   },
   openGraph: {
-    title: "Часто задаваемые вопросы MoneySwap | Как пользоваться",
+    title: "Часто задаваемые вопросы. Как совершить обмен | MoneySwap",
     description:
       "Ответы на популярные вопросы о работе MoneySwap. Узнайте, как настроить личный кабинет, добавить обменник в агрегатор, автоматизировать курсы и многое другое.",
     url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
