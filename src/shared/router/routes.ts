@@ -12,7 +12,5 @@ export enum routes {
   questions = "/questions",
   contacts = "/contacts",
   exchange = "/exchange",
-  buy = "/buy",
-  sell = "/sell",
   sitemap = "/sitemap-index.xml",
 }
