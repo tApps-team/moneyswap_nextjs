@@ -17,6 +17,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const seoMeta = await getSeoMeta(reqParams);
   const direction = searchParams?.direction;
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}${direction ? `?direction=${direction}` : ""}`;
+  // const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}`;
 
   return {
     title: seoMeta.data[0].title,
