@@ -53,7 +53,7 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
         opts={{
           align: "start",
         }}
-        className="md:w-full md:grid md:bg-transparent bg-dark-gray md:rounded-none rounded-[35px] md:p-0 mobile-xs:p-6 p-4 mobile-xs:mx-0 -mx-2 md:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
+        className="w-[calc(100vw_-_15px)] mobile-xs:w-[calc(100vw_-_30px)] mobile:w-full md:grid md:bg-transparent bg-dark-gray md:rounded-none rounded-[35px] md:p-0 mobile-xs:p-6 p-4 mobile-xs:mx-0 -mx-2 md:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
       >
         <CarouselContent>
           {articles?.map((art, index) => (

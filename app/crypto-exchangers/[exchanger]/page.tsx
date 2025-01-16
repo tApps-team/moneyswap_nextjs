@@ -33,7 +33,7 @@ export async function generateMetadata(
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchangers}/exchanger-${params.exchanger}?exchanger-marker=${searchParams["exchanger-marker"]}`;
 
   return {
-    title: `Обменный пункт ${exchangerDetails.name} | MoneySwap`,
+    title: `Обменный пункт ${exchangerDetails.name} | Отзывы на MoneySwap`,
     description: `Обменник ${exchangerDetails.name} находится в рейтингах MoneySwap с ${exchangerDetails.openOnMoneySwap} и за это время он зарекомендовал себя, как поставщик услуг со средней оценкой ${exchangerDetails.exchangeRates}. Об обменнике есть ${exchangerDetails.reviews.positive} положительных и ${exchangerDetails.reviews.negative} отрицательных отзывов. ${exchangerDetails.name} на данный момент имеет общую сумму резервов ${exchangerDetails.amountReserves}.`,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
     openGraph: {
