@@ -61,7 +61,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <DialogTrigger className="">
                   <YellowQuestionIcon className="size-8" />
                 </DialogTrigger>
-                <DialogContent className="w-[90%] border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[70svh] flex flex-col items-center px-6 py-4 gap-8 rounded-3xl bg-dark-gray">
+                <DialogContent className="w-[90%] border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-auto max-h-[80svh] flex flex-col items-center px-6 py-4 gap-8 rounded-3xl bg-dark-gray pb-10">
                   <Image
                     src={"/logofull.svg"}
                     className="mt-8"
@@ -72,19 +72,21 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                   <h3 className="uppercase text-sm font-medium tracking-widest">
                     как совершить обмен?
                   </h3>
-                  <p className="uppercase text-2xs leading-2 flex flex-col gap-2 overflow-scroll px-4 tracking-widest">
+                  <p className="text-2xs leading-2 flex flex-col gap-4 overflow-scroll px-4 tracking-widest">
                     <p>
                       1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.
                     </p>
                     <p>2. Выберите город, в котором хотите совершить обмен.</p>
-                    <p>3. Выберите обменник из списка - у первого обменника лучший курс.</p>
-                    <p>4. Перейдите на сайт обменника и создайте заявку на сайте.</p>
-                    <p>5. С вами свяжется менеджер.</p>
                     <p>
-                      6. Договоритесь по времени и приезжайте в офис или закажите доставку наличных.
+                      3. Перейдите на сайт обменника или в чат с менеджером по обмену для создания
+                      заявки
                     </p>
                     <p>
-                      7. Поделитесь своим опытом с другими пользователями, оставив отзыв на Exnode.
+                      4. Договоритесь по времени и приезжайте в офис или закажите доставку наличных.
+                    </p>
+                    <p>
+                      5. Поделитесь своим опытом с другими пользователями, оставив отзыв на
+                      MoneySwap.
                     </p>
                   </p>
                 </DialogContent>
@@ -95,19 +97,20 @@ export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
                 <HoverCardTrigger asChild>
                   <YellowQuestionIcon width={36} height={36} className="cursor-pointer" />
                 </HoverCardTrigger>
-                <HoverCardContent className="rounded-2xl border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] min-w-[500px] p-8 flex flex-col gap-4 text-sm font-medium text-white bg-dark-gray">
+                <HoverCardContent className="rounded-2xl border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] min-w-[500px] p-8 flex flex-col gap-4 text-sm text-white bg-dark-gray">
                   <p>
-                    1. ВЫБЕРИТЕ ВАЛЮТУ, КОТОРУЮ ХОТИТЕ ОТДАТЬ И ВАЛЮТУ, КОТОРУЮ ХОТИТЕ ПОЛУЧИТЬ.
+                    1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.
                   </p>
-                  <p>2. ВЫБЕРИТЕ ГОРОД, В КОТОРОМ ХОТИТЕ СОВЕРШИТЬ ОБМЕН.</p>
-                  <p>3. ВЫБЕРИТЕ ОБМЕННИК ИЗ СПИСКА - У ПЕРВОГО ОБМЕННИКА ЛУЧШИЙ КУРС.</p>
-                  <p>4. ПЕРЕЙДИТЕ НА САЙТ ОБМЕННИКА И СОЗДАЙТЕ ЗАЯВКУ НА САЙТЕ.</p>
-                  <p>5. С ВАМИ СВЯЖЕТСЯ МЕНЕДЖЕР.</p>
+                  <p>2. Выберите город, в котором хотите совершить обмен.</p>
                   <p>
-                    6. ДОГОВОРИТЕСЬ ПО ВРЕМЕНИ И ПРИЕЗЖАЙТЕ В ОФИС ИЛИ ЗАКАЖИТЕ ДОСТАВКУ НАЛИЧНЫХ.
+                    3. Перейдите на сайт обменника или в чат с менеджером по обмену для создания
+                    заявки
                   </p>
                   <p>
-                    7. ПОДЕЛИТЕСЬ СВОИМ ОПЫТОМ С ДРУГИМИ ПОЛЬЗОВАТЕЛЯМИ, ОСТАВИВ ОТЗЫВ НА MONEYSWAP.
+                    4. Договоритесь по времени и приезжайте в офис или закажите доставку наличных.
+                  </p>
+                  <p>
+                    5. Поделитесь своим опытом с другими пользователями, оставив отзыв на MoneySwap.
                   </p>
                 </HoverCardContent>
               </HoverCard>

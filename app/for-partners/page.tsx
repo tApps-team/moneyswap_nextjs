@@ -7,7 +7,7 @@ const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.partners}
 export const metadata: Metadata = {
   title: "Контакты MoneySwap: как с нами связаться",
   description:
-    "Свяжитесь с MoneySwap! Наши контакты для вопросов, предложений и партнёрства. Напишите нам на info@moneyswap.ru или позвоните по телефону +7(495) 109-20-08.",
+    "Свяжитесь с MoneySwap! Наши контакты для вопросов, предложений и партнёрства. Напишите нам на exchange@moneyswap@online или в телеграм https://t.me/moneyswap_admin",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
   alternates: {
     canonical: canonicalUrl,
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Контакты MoneySwap: как с нами связаться",
     description:
-      "Свяжитесь с MoneySwap! Наши контакты для вопросов, предложений и партнёрства. Напишите нам на info@moneyswap.ru или позвоните по телефону +7(495) 109-20-08.",
+      "Свяжитесь с MoneySwap! Наши контакты для вопросов, предложений и партнёрства. Напишите нам на exchange@moneyswap@online или в телеграм https://t.me/moneyswap_admin",
     url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
     siteName: "MoneySwap",
     images: [
