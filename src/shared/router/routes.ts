@@ -12,5 +12,5 @@ export enum routes {
   questions = "/questions",
   contacts = "/contacts",
   exchange = "/exchange",
-  sitemap = "/sitemap-index.xml",
+  sitemap = "/sitemap",
 }

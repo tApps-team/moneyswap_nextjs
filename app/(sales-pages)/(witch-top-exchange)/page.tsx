@@ -17,18 +17,23 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const seoMeta = await getSeoMeta(reqParams);
   const direction = searchParams?.direction;
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}${direction ? `?direction=${direction}` : ""}`;
-  // const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}`;
+  const meta_title = direction
+    ? `${seoMeta?.data[0].title} | Наличный обмен`
+    : seoMeta?.data[0].title;
+  const meta_description = direction
+    ? `${seoMeta?.data[0].description} | Наличный обмен`
+    : seoMeta?.data[0].description;
 
   return {
-    title: seoMeta.data[0].title,
-    description: seoMeta.data[0].description,
+    title: meta_title,
+    description: meta_description,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: seoMeta.data[0].title,
-      description: seoMeta.data[0].description,
+      title: meta_title,
+      description: meta_description,
       url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
       siteName: "MoneySwap",
       images: [
