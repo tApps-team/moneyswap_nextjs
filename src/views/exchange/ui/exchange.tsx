@@ -28,13 +28,16 @@ export const ExchangePage = async ({
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
 
-  const giveCurrency = await getSpecificValute({ codeName: valute_from });
-  const getCurrency = await getSpecificValute({ codeName: valute_to });
-  const location = city ? await getSpecificCity({ codeName: city }) : undefined;
+  const [giveCurrency, getCurrency, location] = await Promise.all([
+    getSpecificValute({ codeName: valute_from }),
+    getSpecificValute({ codeName: valute_to }),
+    city ? getSpecificCity({ codeName: city }) : Promise.resolve(undefined),
+  ]);
 
   if (!giveCurrency.code_name || !getCurrency.code_name) {
     return notFound();
   }
+
   const { status } = await getExchangers({
     valute_from: giveCurrency.code_name,
     valute_to: getCurrency.code_name,
@@ -61,9 +64,8 @@ export const ExchangePage = async ({
       };
 
   // запрос на сео текста
-  const seoTexts = await getSeoTexts(reqParams);
-  // запрос на мета данные
-  const seoMeta = await getSeoMeta(reqParams);
+  const [seoTexts, seoMeta] = await Promise.all([getSeoTexts(reqParams), getSeoMeta(reqParams)]);
+
   await queryClient.prefetchQuery({
     queryKey: [queryParams],
     queryFn: async () => (await getExchangers(queryParams)).exchangers,
@@ -74,37 +76,13 @@ export const ExchangePage = async ({
       <BotBanner />
       <CurrencySelectForm
         actualCourse={actualCourse}
-        urlGetCurrency={{
-          id: getCurrency?.name?.ru,
-          code_name: getCurrency?.code_name,
-          icon_url: getCurrency?.icon_url,
-          name: getCurrency?.name,
-        }}
-        urlGiveCurrency={{
-          id: giveCurrency?.name?.ru,
-          code_name: giveCurrency?.code_name,
-          icon_url: giveCurrency?.icon_url,
-          name: giveCurrency?.name,
-        }}
+        urlGetCurrency={getCurrency}
+        urlGiveCurrency={giveCurrency}
         urlDirection={direction}
         urlLocation={location}
       />
       {status === 404 ? (
-        <EmptyListExchangers
-          valuteFrom={{
-            code_name: giveCurrency.code_name,
-            icon_url: giveCurrency.icon_url,
-            id: giveCurrency.name.ru,
-            name: giveCurrency.name,
-          }}
-          valuteTo={{
-            code_name: getCurrency.code_name,
-            icon_url: getCurrency.icon_url,
-            id: getCurrency.name.ru,
-            name: getCurrency.name,
-          }}
-          location={location}
-        />
+        <EmptyListExchangers valuteFrom={giveCurrency} valuteTo={getCurrency} location={location} />
       ) : (
         <HydrationBoundary state={dehydrate(queryClient)}>
           <ExchangersTable cityName={location?.name?.ru} columns={columns} params={queryParams} />

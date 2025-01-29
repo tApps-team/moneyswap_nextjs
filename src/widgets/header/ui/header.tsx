@@ -4,6 +4,7 @@ import { routes } from "@/shared/router";
 import { TelegramButton } from "@/shared/ui";
 import { Navbar } from "../navbar";
 import { HeaderMobile } from "./header-mobile";
+// TODO refactoring
 export const Header = () => {
   return (
     <>

@@ -1,25 +1,30 @@
 "use client";
 
-import { cx } from "class-variance-authority";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { CurrencySelect, CurrencySelectMobile, CurrencySwitcher } from "@/features/currency";
+import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { Currency, useGetAvailableValutes } from "@/entities/currency";
+import { Currency, SpecificValute, useGetAvailableValutes } from "@/entities/currency";
 import { LocationInfo, useGetCountries } from "@/entities/location";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
-import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
-import { Button } from "@/shared/ui";
+
+const CurrencySelectMobile = dynamic(() =>
+  import("@/features/currency").then((mod) => mod.CurrencySelectMobile),
+);
+const CurrencySelect = dynamic(() =>
+  import("@/features/currency").then((mod) => mod.CurrencySelect),
+);
 
 type CurrencySelectFormProps = {
   url?: string;
   urlLocation?: LocationInfo;
-  urlGetCurrency?: Currency;
-  urlGiveCurrency?: Currency;
+  urlGetCurrency?: SpecificValute;
+  urlGiveCurrency?: SpecificValute;
   urlDirection: ExchangerMarker;
   actualCourse: number | null;
 };

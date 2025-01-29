@@ -1,18 +1,18 @@
 import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Currency, ExchangeType } from "@/entities/currency";
+import { ExchangeType, SpecificValute } from "@/entities/currency";
 import { getSimilarDirections } from "@/entities/exchanger";
-import { Location, getSimilarCities } from "@/entities/location";
+import { getSimilarCities } from "@/entities/location";
 import { GetSpecificCityResponse } from "@/entities/location/country/api/country-api-dto";
 type EmptyListExchangersProps = {
-  valuteFrom: Currency;
-  valuteTo: Currency;
+  valuteFrom: SpecificValute;
+  valuteTo: SpecificValute;
   location?: GetSpecificCityResponse;
   exchangeMarker?: ExchangeType;
   limit?: number;
 };
-// img alt prop
+
 export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
   const { valuteFrom, valuteTo, location, exchangeMarker, limit } = props;
 
@@ -44,10 +44,6 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
     <section className="mt-6">
       {exchangers.length > 0 && (
         <div className="uppercase  my-6  flex flex-col gap-2">
-          {/* <h2 className="mobile-xl:text-xl text-sm md:text-start text-center font-medium">
-            Лучшие курсы {valuteFrom.name.ru} ({valuteFrom.code_name}) на {valuteTo.name.ru} (
-            {valuteTo.code_name})
-          </h2> */}
           <p className="mobile-xl:text-base text-xs font-medium text-start">
             На данный момент по направлению {valuteFrom.name.ru} ({valuteFrom.code_name}) на{" "}
             {valuteTo.name.ru} ({valuteTo.code_name}) отсутствуют обменные пункты в городе{" "}

@@ -16,7 +16,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Exchanger, ExchangerCard, getExchangers } from "@/entities/exchanger";
-import { LocationInfo } from "@/entities/location";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 
@@ -42,13 +41,13 @@ export function ExchangersTable<TData, TValue>({
   params,
   cityName,
 }: DataTableProps<TValue>) {
-  const { data: exchangers = [] } = useQuery({
+  const { data: exchangers = [], error } = useQuery({
     queryKey: [params],
     refetchOnWindowFocus: false,
     refetchInterval: 60000,
     queryFn: async () => (await getExchangers(params)).exchangers,
   });
-
+  console.log(error);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

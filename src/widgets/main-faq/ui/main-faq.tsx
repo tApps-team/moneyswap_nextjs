@@ -8,10 +8,10 @@ interface MainFAQProps {
 }
 
 export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
-  const filteredFaqs = await getFaq(
-    direction === ExchangerMarker.cash ? faqTypes.cash : faqTypes.noncash,
-  );
-  const basicFaqs = await getFaq(faqTypes.basic);
+  const [filteredFaqs, basicFaqs] = await Promise.all([
+    getFaq(direction === ExchangerMarker.cash ? faqTypes.cash : faqTypes.noncash),
+    getFaq(faqTypes.basic),
+  ]);
 
   const faqs = [
     {
