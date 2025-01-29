@@ -3,6 +3,7 @@ import { Info } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
 import { YellowQuestionIcon, YoutubeIcon } from "@/shared/assets";
+import { delay } from "@/shared/lib";
 import { SeoTextsBlock } from "@/shared/types";
 import {
   Dialog,
@@ -28,7 +29,7 @@ const options = {
 
 interface SeoHeaderText extends SeoTextsBlock {}
 
-export const SeoHeaderText: FC<SeoHeaderText> = ({ data }) => {
+export const SeoHeaderText: FC<SeoHeaderText> = async ({ data }) => {
   return (
     <>
       {data.length > 0 && (

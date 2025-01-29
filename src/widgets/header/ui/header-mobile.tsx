@@ -1,4 +1,3 @@
-import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { HeaderArrow } from "@/shared/assets";
@@ -19,7 +18,7 @@ import {
 import { navbarItems } from "../navbar/model/navbarItems";
 export const HeaderMobile = () => {
   return (
-    <header className="fixed  lg:hidden block top-0 left-0 w-full backdrop-blur-md z-50 p-5">
+    <header className="fixed lg:hidden block top-0 left-0 w-full backdrop-blur-md z-50 p-5">
       <div className="flex h-10 items-center justify-between">
         <Link href={routes.home}>
           <Image src={"/logofull.svg"} alt="logo" width={150} height={250} />

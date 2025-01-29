@@ -1,6 +1,6 @@
 import { Skeleton } from "@/shared/ui";
 
-export const SkeletonSeoHeaderText = () => {
+export const SkeletonSeoHeaderText = async () => {
   return (
     <>
       <div className="grid gap-2 mobile-xl:gap-5">

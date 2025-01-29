@@ -24,6 +24,7 @@ export const Navbar = () => {
                 "font-normal bg-transparent hover:bg-yellow-main uppercase rounded-3xl p-6 data-[state=open]:text-black",
                 pathname === item.href && "text-yellow-main ",
               )}
+              asChild
             >
               <Link href={item.href}>{item.value}</Link>
             </NavigationMenuTrigger>

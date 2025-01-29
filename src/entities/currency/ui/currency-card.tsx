@@ -10,7 +10,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
   return (
     <div
       onClick={onClick}
-      className="bg-dark-gray h-full w-full flex gap-3 border-0 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)] rounded-full p-3 hover:bg-yellow-main hover:text-black hover:border-yellow-main  text-white border-light-gray items-center"
+      className="bg-transparent h-full w-full flex gap-3 border-0  p-3 hover:bg-yellow-main hover:text-black hover:border-yellow-main  text-white border-light-gray items-center"
     >
       <figure className="mobile-xl:w-[42px] size-8 rounded-full overflow-hidden mobile-xl:h-[42px]">
         <Image

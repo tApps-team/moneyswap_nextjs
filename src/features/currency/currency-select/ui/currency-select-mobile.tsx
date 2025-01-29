@@ -3,7 +3,7 @@
 import { SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useDeferredValue, useEffect, useRef, useState } from "react";
-import { Currency, CurrencyCard, CurrencyResponse } from "@/entities/currency";
+import { Currency, CurrencyCard, CurrencyResponse, SpecificValute } from "@/entities/currency";
 import { HeaderArrow } from "@/shared/assets";
 import { ExchangerMarker } from "@/shared/types";
 import {
@@ -30,7 +30,7 @@ type CurrencySelectProps = {
   label?: string;
   disabled?: boolean;
   currencies?: CurrencyResponse[];
-  currencyInfo?: Currency | null;
+  currencyInfo?: SpecificValute | null;
   direction?: ExchangerMarker;
   onClick: (currency: Currency) => void;
   amount?: number | null;
@@ -52,40 +52,14 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
   } = props;
 
   const [searchValue, setSearchValue] = useState<string>("");
-  const [api, setApi] = useState<CarouselApi>();
-  const carouselRef = useRef<HTMLDivElement>(null);
 
   const searchDeferredValue = useDeferredValue(searchValue);
   const [activeTab, setActiveTab] = useState<string>("Все");
-  const tabList: CurrencyResponse[] = [
-    {
-      name: { en: "All", ru: "Все" },
-      currencies: Array.isArray(currencies)
-        ? currencies.map((currency) => currency?.currencies).flat()
-        : [],
-      id: "All",
-    },
-
-    ...(Array.isArray(currencies) ? currencies : []),
-  ];
 
   const filteredTabList = filterTabList({
-    tabList: tabList,
+    tabList: currencies,
     searchValue: searchDeferredValue,
   });
-  const scrollToActiveTab = useCallback(() => {
-    if (api) {
-      console.log(filteredTabList);
-      const scrollIndex = filteredTabList.findIndex((tab) => tab.name.ru === activeTab);
-      console.log(scrollIndex);
-      api?.scrollTo(scrollIndex);
-    }
-  }, [activeTab, api, filteredTabList]);
-  useEffect(() => {
-    if (api) {
-      scrollToActiveTab();
-    }
-  }, [api, scrollToActiveTab]);
 
   return (
     <Drawer>
@@ -107,7 +81,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
           />
         )}
       </DrawerTrigger>
-      <DrawerContent className="h-svh  p-4 rounded-none bg-dark-gray border-0">
+      <DrawerContent className="h-svh flex flex-col p-4 rounded-none bg-dark-gray border-0">
         <DrawerHeader className="text-start text-lg p-0 grid gap-4 pt-4">
           <div className="flex items-center justify-between">
             <h2 className="text-left font-medium text-base uppercase text-[#f6ff5f]">{label}</h2>
@@ -128,65 +102,47 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
             />
           </div>
         </DrawerHeader>
-        {filteredTabList?.length > 0 ? (
-          <div className="w-full">
-            <Tabs
-              defaultValue="ВСЕ"
-              value={activeTab}
-              onValueChange={setActiveTab}
-              className=" -mx-4"
-            >
-              <TabsList data-vaul-no-drag className="bg-dark-gray   w-full  h-full">
-                <Carousel
-                  ref={carouselRef}
-                  opts={{
-                    dragFree: true,
-                  }}
-                  setApi={setApi}
-                  className="w-full "
+        {filteredTabList && filteredTabList?.length > 0 ? (
+          <Tabs
+            defaultValue="ВСЕ"
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="flex flex-col flex-grow overflow-hidden"
+          >
+            <TabsList className="flex items-center justify-start flex-wrap h-auto gap-3 bg-dark-gray">
+              {filteredTabList.map((tab) => (
+                <TabsTrigger
+                  key={tab.id}
+                  className="rounded-lg w-fit uppercase data-[state=active]:text-black data-[state=active]:border-yellow-main text-white data-[state=active]:bg-yellow-main "
+                  value={tab?.name?.ru}
                 >
-                  <CarouselContent className="m-0 w-full  gap-3 py-3">
-                    {filteredTabList?.map((filteredCategory) => (
-                      <CarouselItem key={filteredCategory.id} className="w-full pl-0 basis-2/5">
-                        <TabsTrigger
-                          className={
-                            "rounded-2xl w-full uppercase data-[state=active]:text-black data-[state=active]:border-yellow-main text-white  h-10 data-[state=active]:bg-yellow-main shadow-[1px_2px_5px_1px_rgba(0,0,0,0.5)]"
-                          }
-                          value={filteredCategory.name.ru}
-                        >
-                          <p className="truncate leading-0 font-medium">
-                            {filteredCategory.name.ru}
-                          </p>
-                        </TabsTrigger>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-              </TabsList>
+                  <p className="truncate select-none lg:text-sm text-xs font-normal">
+                    {tab?.name?.ru}
+                  </p>
+                </TabsTrigger>
+              ))}
+            </TabsList>
 
-              <ScrollArea className="h-[calc(80svh-3rem)] mx-4 ">
-                <div className="py-3">
-                  {filteredTabList.map((tab) => (
-                    <TabsContent
-                      className="flex flex-col mt-0 gap-2 px-4"
-                      value={tab?.name?.ru}
-                      key={tab?.id}
-                    >
-                      {tab.currencies.map((currency) => (
-                        <DrawerClose key={currency?.id}>
-                          <CurrencyCard
-                            onClick={() => onClick(currency)}
-                            key={currency?.id}
-                            currency={currency}
-                          />
-                        </DrawerClose>
-                      ))}
-                    </TabsContent>
+            <ScrollArea className="flex-grow ">
+              {filteredTabList.map((tab) => (
+                <TabsContent
+                  className="flex flex-col mt-0 gap-2 px-4"
+                  value={tab?.name?.ru}
+                  key={tab?.id}
+                >
+                  {tab.currencies.map((currency) => (
+                    <DrawerClose key={currency?.id}>
+                      <CurrencyCard
+                        onClick={() => onClick(currency)}
+                        key={currency?.id}
+                        currency={currency}
+                      />
+                    </DrawerClose>
                   ))}
-                </div>
-              </ScrollArea>
-            </Tabs>
-          </div>
+                </TabsContent>
+              ))}
+            </ScrollArea>
+          </Tabs>
         ) : (
           <EmptyList />
         )}

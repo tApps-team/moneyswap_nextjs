@@ -1,18 +1,25 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import { CurrencySelectForm } from "@/widgets/currency-select-form";
-import { CurrencySelectFormCollapsed } from "@/widgets/currency-select-form/ui/currency-select-form-collapsed";
-import { ExchangersTable, columns } from "@/widgets/exchangers";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/strapi";
-import { BotBanner, SkeletonBotBanner } from "@/features/bot-banner";
+import { BotBanner } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
-import { delay } from "@/shared/lib";
 import { ExchangerMarker, pageTypes } from "@/shared/types";
 
+const CurrencySelectForm = dynamic(() =>
+  import("@/widgets/currency-select-form").then((mod) => mod.CurrencySelectForm),
+);
+const ExchangersTable = dynamic(() =>
+  import("@/widgets/exchangers/exchangers-table/ui/exchangers-table").then(
+    (mod) => mod.ExchangersTable,
+  ),
+);
 export const Main = async ({
   searchParams,
 }: {
@@ -26,17 +33,17 @@ export const Main = async ({
   const directionCash = !!city || currentDirection === ExchangerMarker.cash;
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
 
-  const seoTexts = await getSeoTexts({ page: pageTypes.main });
-
-  const giveCurrency = await getSpecificValute({
-    codeName: direction === ExchangerMarker.cash ? "cashrub" : "btc",
-  });
-  const getCurrency = await getSpecificValute({
-    codeName: direction === ExchangerMarker.cash ? "btc" : "sberrub",
-  });
-
-  const actualCourse = await getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" });
-  const location = await getSpecificCity({ codeName: city ? city : "msk" });
+  const [seoTexts, giveCurrency, getCurrency, actualCourse, location] = await Promise.all([
+    getSeoTexts({ page: pageTypes.main }),
+    getSpecificValute({
+      codeName: direction === ExchangerMarker.cash ? "cashrub" : "btc",
+    }),
+    getSpecificValute({
+      codeName: direction === ExchangerMarker.cash ? "btc" : "sberrub",
+    }),
+    getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" }),
+    getSpecificCity({ codeName: city ? city : "msk" }),
+  ]);
 
   const request =
     direction === ExchangerMarker.cash
@@ -61,37 +68,19 @@ export const Main = async ({
     <section>
       <SeoHeaderText data={seoTexts.data} />
       <BotBanner />
+
       <CurrencySelectForm
         actualCourse={actualCourse}
         urlLocation={location}
-        urlGetCurrency={{
-          code_name: getCurrency.code_name,
-          icon_url: getCurrency.icon_url,
-          id: getCurrency.name.ru,
-          name: getCurrency.name,
-        }}
+        urlGetCurrency={getCurrency}
+        urlGiveCurrency={giveCurrency}
         urlDirection={direction}
-        urlGiveCurrency={{
-          code_name: giveCurrency.code_name,
-          icon_url: giveCurrency.icon_url,
-          id: giveCurrency.name.ru,
-          name: giveCurrency.name,
-        }}
       />
+
       {status === 404 ? (
         <EmptyListExchangers
-          valuteFrom={{
-            code_name: giveCurrency.code_name,
-            icon_url: giveCurrency.icon_url,
-            id: giveCurrency.name.ru,
-            name: giveCurrency.name,
-          }}
-          valuteTo={{
-            code_name: getCurrency.code_name,
-            icon_url: getCurrency.icon_url,
-            id: getCurrency.name.ru,
-            name: getCurrency.name,
-          }}
+          valuteFrom={giveCurrency}
+          valuteTo={getCurrency}
           location={location ? location : undefined}
         />
       ) : (

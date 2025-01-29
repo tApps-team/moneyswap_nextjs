@@ -3,9 +3,9 @@
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CurrencySelect, CurrencySelectMobile, CurrencySwitcher } from "@/features/currency";
+import { CurrencySelectMobile } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { Currency, useGetAvailableValutes } from "@/entities/currency";
+import { Currency, SpecificValute, useGetAvailableValutes } from "@/entities/currency";
 import { LocationInfo, useGetCountries } from "@/entities/location";
 import { cn } from "@/shared/lib";
 import { ExchangerMarker } from "@/shared/types";
@@ -13,8 +13,8 @@ import { ExchangerMarker } from "@/shared/types";
 type CurrencySelectFormProps = {
   url?: string;
   urlLocation?: LocationInfo;
-  urlGetCurrency?: Currency;
-  urlGiveCurrency?: Currency;
+  urlGetCurrency?: SpecificValute;
+  urlGiveCurrency?: SpecificValute;
   urlDirection: ExchangerMarker;
   actualCourse: number | null;
 };

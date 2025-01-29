@@ -57,18 +57,8 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
       <CurrencySelectForm
         urlDirection={ExchangerMarker.no_cash}
         actualCourse={actualCourse}
-        urlGetCurrency={{
-          code_name: getCurrency.code_name,
-          icon_url: getCurrency.icon_url,
-          id: getCurrency.name.ru,
-          name: getCurrency.name,
-        }}
-        urlGiveCurrency={{
-          code_name: giveCurrency.code_name,
-          icon_url: giveCurrency.icon_url,
-          id: giveCurrency.name.ru,
-          name: giveCurrency.name,
-        }}
+        urlGetCurrency={getCurrency}
+        urlGiveCurrency={giveCurrency}
       />
       <Suspense fallback={<div>loading</div>}>
         <CryptoTable data={cryptoExchangers} />
