@@ -37,6 +37,14 @@ const config = {
         "light-gray": "#BBBBBB",
         "skeleton-gray": "#9d9d9d",
 
+        // new
+        "new-bg": "#191C25",
+        "new-dark-grey": "#252830",
+        "new-grey": "#2F323A",
+        "new-light-grey": "#393C44",
+        "font-dark-grey": "#6F6F6F",
+        "font-light-grey": "#B9B9B9",
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -1,5 +1,5 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
@@ -33,7 +33,7 @@ export const ExchangePage = async ({
   const location = city ? await getSpecificCity({ codeName: city }) : undefined;
 
   if (!giveCurrency.code_name || !getCurrency.code_name) {
-    redirect("/");
+    return notFound();
   }
   const { status } = await getExchangers({
     valute_from: giveCurrency.code_name,

@@ -76,7 +76,7 @@
 
 :root {
   color: #fff;
-  background: #2d2d2d;
+  background: #191C25;
 
   ul,
   ol {
@@ -99,12 +99,13 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-image: url('/main_bg.png');
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: #191C25;
+  // background-image: url('/main_bg.png');
+  // background-size: cover;
+  // background-repeat: no-repeat;
   // background-attachment: fixed;
-  background-position: center;
-  background-position: top;
+  // background-position: center;
+  // background-position: top;
   height: 100%;
 }
 
@@ -206,7 +207,7 @@ body {
     color: #f6ff5f;
     margin-bottom: 20px;
     line-height: 1.4;
-    --font-family-regular: "Unbounded";
+    --font-family-regular: "Montserrat";
 
     @media (max-width: 1024px) {
       font-size: 20px;
@@ -255,7 +256,7 @@ body {
 }
 
 .main_font {
-  --font-family-regular: "Unbounded";
+  --font-family-regular: "Montserrat";
 }
 
 .strapi_fonts_codec {
