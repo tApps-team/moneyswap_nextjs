@@ -32,12 +32,6 @@ const config = {
         "mobile-xl": "576px",
       },
       colors: {
-        "new-dark-grey": "#252830",
-        "new-medium-grey": "#2F323A",
-        "new-light-grey": "#393C44",
-        "new-tabs-grey": "#2F323A",
-        "new-secondary-text": "#6F6F6F",
-
         "yellow-main": "#F6FF5F",
         "dark-gray": "#2D2D2D",
         "light-gray": "#BBBBBB",
