@@ -18,7 +18,7 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
   return (
     <Link
       href={createUrl()}
-      className="px-2 py-2 grid mobile-xl:min-w-24 gap-2 grid-flow-col mobile-xl:min-h-12 grid-rows-1 justify-between items-center rounded-[35px] shadow-[2px_2px_10px_1px_rgba(0,0,0,0.5)] bg-dark-gray hover:shadow-[2px_2px_5px_1px_rgba(0,0,0,0.5)] hover:scale-[1.01] transition-all duration-300"
+      className="px-2 py-2 grid mobile-xl:min-w-24 gap-2 grid-flow-col mobile-xl:min-h-12 grid-rows-1 justify-between items-center rounded-xl  bg-new-grey  hover:scale-[1.01] transition-all duration-300"
     >
       <Image
         className="rounded-full min-h-[1.65rem] min-w-[1.65rem]"
@@ -28,7 +28,7 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
         alt={`valute ${currencyPair.valuteFrom.name.ru}`}
       />
 
-      <PopularArrowIcon width={12} />
+      <PopularArrowIcon width={12} height={21} />
 
       <Image
         className="rounded-full min-h-[1.65rem] min-w-[1.65rem]"

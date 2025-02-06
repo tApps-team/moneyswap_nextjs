@@ -69,21 +69,12 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     },
     id: "Review",
     cell: ({ row }) => (
-      <div className="flex flex-col gap-1">
-        <div className="flex gap-1">
-          <div className="text-yellow-main">{row.original.reviews.positive}</div>
-          <span>/</span>
-          <div className="text-red-600">{row.original.reviews.negative}</div>
-        </div>
-        <Link
-          className="md:block lg:hidden"
-          href={{
-            pathname: `${routes.exchangers}/exchanger-${row.original.id}`,
-            query: { "exchanger-marker": row.original.exchange_marker },
-          }}
-        >
-          <button className="uppercase text-2xs font-medium text-yellow-main">ПОДРОБНЕЕ</button>
-        </Link>
+      <div className="flex gap-1 border rounded-[6px] cursor-pointer hover:border-yellow-main w-20 px-3 py-2">
+        <div className="text-yellow-main">{row.original.reviews.positive}</div>
+        <span>|</span>
+        <div className="text-white">{row.original.reviews.neutral}</div>
+        <span>|</span>
+        <div className="text-[#FF0000]">{row.original.reviews.negative}</div>
       </div>
     ),
   },
@@ -95,13 +86,13 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     },
     cell: ({ row }) => (
       <Link
-        className="hidden lg:block rounded-3xl p-2 border-2 border-light-gray cursor-pointer hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+        className="hidden text-center bg-[#5C5E62] lg:block rounded-[10px] py-3 font-semibold  border-light-gray cursor-pointer hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
         href={{
           pathname: `${routes.exchangers}/exchanger-${row.original.id}`,
           query: { "exchanger-marker": row.original.exchange_marker },
         }}
       >
-        <button className="uppercase font-medium text-xs text-center w-full">ПОДРОБНЕЕ</button>
+        ПОДРОБНЕЕ
       </Link>
     ),
   },

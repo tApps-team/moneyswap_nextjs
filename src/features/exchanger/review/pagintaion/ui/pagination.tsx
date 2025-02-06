@@ -90,9 +90,11 @@ export const ExchangerPagination = (props: ExchangerPaginationProps) => {
     setPaginationArray(paginationArray);
   }, [currentPage, totalPages]);
   return (
-    <Pagination>
+    <Pagination className="flex  gap-6 items-center">
       <PaginationPrevious
-        className={cn("hover:bg-transparent hover:text-white ")}
+        className={cn(
+          "hover:bg-transparent border border-[#6B6E76] rounded-[6px] hover:text-white ",
+        )}
         scroll={false}
         href={createPrevPage()}
       />
@@ -101,7 +103,7 @@ export const ExchangerPagination = (props: ExchangerPaginationProps) => {
           <PaginationItem key={paginationItem}>
             <PaginationLink
               className={cx(
-                "rounded-full transition-all  hover:text-white  hover:border hover:bg-transparent ",
+                "rounded-[5px] font-semibold transition-all  hover:text-white  hover:border hover:bg-transparent ",
                 currentPage === paginationItem && "bg-yellow-main text-black",
               )}
               scroll={false}
@@ -113,7 +115,7 @@ export const ExchangerPagination = (props: ExchangerPaginationProps) => {
         ))}
       </PaginationContent>
       <PaginationNext
-        className="hover:bg-transparent hover:text-white "
+        className="hover:bg-transparent border border-[#6B6E76] rounded-[6px] hover:text-white "
         scroll={false}
         href={createNextPage()}
       />

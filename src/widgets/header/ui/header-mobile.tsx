@@ -27,7 +27,7 @@ export const HeaderMobile = () => {
           <DrawerTrigger asChild>
             <HeaderArrow className="size-5" />
           </DrawerTrigger>
-          <DrawerContent className="h-svh flex flex-col bg-transparent border-0 backdrop-blur-md">
+          <DrawerContent className="h-svh flex  flex-col bg-new-bg border-0 backdrop-blur-md">
             <DrawerHeader className="flex items-center justify-between p-6">
               <DrawerTitle className="sr-only">navbar</DrawerTitle>
               <Link href={routes.home}>
@@ -38,7 +38,7 @@ export const HeaderMobile = () => {
               </DrawerClose>
             </DrawerHeader>
             <DrawerDescription className="sr-only">description</DrawerDescription>
-            <Accordion type="single" collapsible className=" w-full px-6">
+            <Accordion type="single" collapsible className="flex flex-col gap-4 w-full px-6">
               {navbarItems.map((item) =>
                 item?.children ? (
                   <AccordionItem
@@ -46,7 +46,7 @@ export const HeaderMobile = () => {
                     key={item.value}
                     className="flex flex-col gap-1"
                   >
-                    <AccordionTrigger className="font-normal uppercase text-sm pb-5">
+                    <AccordionTrigger className="font-bold bg-new-dark-grey rounded-[20px] py-4 px-12  uppercase text-sm ">
                       <p>{item.value}</p>
                     </AccordionTrigger>
                     {item.children?.map((itemChildren) => (
@@ -56,7 +56,24 @@ export const HeaderMobile = () => {
                       >
                         <DrawerClose asChild>
                           <Link target="_self" href={itemChildren.href}>
-                            {itemChildren.value}
+                            <div className="flex gap-4 justify-start items-start  break-words ">
+                              {itemChildren.icon && (
+                                <div className="bg-new-dark-grey rounded-[6px] p-1.5">
+                                  <itemChildren.icon
+                                    className="flex-shrink-0"
+                                    width={24}
+                                    height={24}
+                                  />
+                                </div>
+                              )}
+
+                              <div className=" flex flex-col gap-2 ">
+                                <p className="text-sm text-white font-bold">{itemChildren.value}</p>
+                                <p className="text-xs text-[#878787] font-normal">
+                                  {itemChildren.description}
+                                </p>
+                              </div>
+                            </div>
                           </Link>
                         </DrawerClose>
                       </AccordionContent>
@@ -64,7 +81,10 @@ export const HeaderMobile = () => {
                   </AccordionItem>
                 ) : (
                   <DrawerClose key={item.value} asChild>
-                    <Link className="font-normal uppercase text-sm" href={item.href}>
+                    <Link
+                      className="font-bold bg-new-dark-grey rounded-[20px] py-4 px-12  uppercase text-sm w-full"
+                      href={item.href}
+                    >
                       {item.value}
                     </Link>
                   </DrawerClose>

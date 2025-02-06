@@ -95,49 +95,32 @@ export const LocationSelect = (props: LocationSelectProps) => {
       setSelectCountry(filteredCountries[0]);
     }
   }, [filteredCountries, ref.current?.onchange, selectCountry]);
+
   if (isDesktop) {
     return (
       <Dialog onOpenChange={() => setLocationSearchValue("")}>
-        <DialogTrigger className="cursor-pointer" asChild>
-          <div className="lg:bg-dark-gray lg:rounded-full lg:h-16 lg:border-2 gap-2 lg:border-light-gray items-center px-2 p-0 flex justify-between">
-            <div className="flex items-center gap-2">
-              {cityInfo ? (
-                <figure className="hidden lg:w-[36px] lg:block lg:rounded-full lg:overflow-hidden lg:h-[36px]">
-                  <Image
-                    alt={`${cityInfo?.code_name})`}
-                    src={cityInfo?.country?.icon_url}
-                    width={36}
-                    height={36}
-                  />
-                </figure>
-              ) : (
-                <CircleSlash2
-                  className="lg:block hidden"
-                  width={36}
-                  height={36}
-                  stroke="#bbb"
-                  strokeWidth={"1.5px"}
-                />
-              )}
-
-              <p className="md:text-base text-2xs truncate max-w-[10vw]">
-                {cityInfo ? cityInfo?.name?.ru : "Не выбрано..."}
-              </p>
-            </div>
-            <div>
-              <ChevronDown color="white" className="lg:size-8" />
-            </div>
-          </div>
+        <DialogTrigger className="bg-new-grey flex items-center justify-between py-3.5 px-12 rounded-[15px]">
+          <p className="uppercase text-font-light-grey font-bold text-xl">Город</p>
+          {cityInfo ? (
+            <Image
+              width={41}
+              height={41}
+              src={cityInfo?.country?.icon_url}
+              alt={`Город ${cityInfo?.name.ru}`}
+            />
+          ) : (
+            <p>Выберите город</p>
+          )}
         </DialogTrigger>
-        <DialogContent className="bg-dark-gray flex flex-col border-none md:w-[80vw] xl:w-[60vw] xl:h-[65svh] rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] gap-6">
+        <DialogContent className="bg-new-dark-grey flex flex-col border-none md:w-[80vw] xl:w-[60vw] xl:h-[65svh] rounded-[20px]  gap-6">
           <DialogDescription className="sr-only"></DialogDescription>
           <div className="grid grid-cols-2 grid-rows-1 items-center">
-            <DialogTitle className="m-0 uppercase">Выбор города</DialogTitle>
+            <DialogTitle className="m-0 uppercase text-yellow-main">Выбор города</DialogTitle>
             <div className="relative">
               <SearchIcon className="absolute translate-y-2 left-3 " color="#bbbbbb" />
               <Input
                 ref={ref}
-                className="rounded-full bg-transparent pl-10 uppercase placeholder:uppercase placeholder:text-light-gray placeholder:font-medium border-light-gray placeholder:transition-opacity focus:placeholder:opacity-0"
+                className="rounded-[10px]  pl-12 bg-new-light-grey border-none placeholder:text-light-gray placeholder:font-normal  placeholder:transition-opacity focus:placeholder:opacity-0"
                 value={locationSearchValue}
                 onChange={(e) => setLocationSearchValue(e.target.value)}
                 placeholder="Поиск города и страны"
@@ -147,7 +130,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
           {filteredCountries.length > 0 ? (
             <div className="grid md:grid-cols-[1fr,3rem,1fr] xl:grid-cols-[1fr,8rem,1fr] grid-rows-1 min-h-full  ">
-              <ScrollArea className="h-[50svh] border rounded-3xl p-4">
+              <ScrollArea className="h-[50svh] bg-new-grey  rounded-xl py-9 px-7">
                 <div className="flex flex-col gap-3">
                   {filteredCountries?.map((country) => (
                     <CountryCard
@@ -162,7 +145,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
               <div className="flex items-center justify-center">
                 <ArrowRightLineIcon width={22} className=" fill-white " />
               </div>
-              <ScrollArea className="h-[50svh] border rounded-3xl p-4">
+              <ScrollArea className="h-[50svh] bg-new-grey  rounded-xl py-9 px-7">
                 <div className="  flex  flex-col  gap-3 ">
                   {selectCountry && cityList.length > 0
                     ? cityList.map((city) => (
@@ -229,7 +212,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
           </div>
         </div>
       </DrawerTrigger>
-      <DrawerContent className="h-dvh px-4 bg-transparent border-0">
+      <DrawerContent className="h-dvh px-4 rounded-none bg-new-dark-grey border-0">
         <DrawerTitle className="sr-only"></DrawerTitle>
         <DrawerDescription className="sr-only"></DrawerDescription>
         <div className="flex flex-col gap-4">
@@ -244,7 +227,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
             <Input
               value={locationSearchValue}
               onChange={(e) => setLocationSearchValue(e.target.value)}
-              className="w-full pl-10 text-base placeholder:text-base uppercase bg-dark-gray rounded-full fill-light-gray placeholder:text-light-gray placeholder:transition-opacity focus:placeholder:opacity-0"
+              className="rounded-[10px]  pl-12 bg-new-light-grey border-none placeholder:text-light-gray placeholder:font-normal  placeholder:transition-opacity focus:placeholder:opacity-0"
               placeholder="ПОИСК СТРАНЫ И ГОРОДА"
               color="#BBBBBB"
             />
@@ -262,16 +245,13 @@ export const LocationSelect = (props: LocationSelectProps) => {
                     key={country.id}
                     value={String(country.id)}
                   >
-                    <AccordionTrigger className="rounded-full bg-dark-gray hover:text-white flex items-center font-medium text-base p-4 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)]">
-                      <div className="flex items-center gap-3">
-                        <Image
-                          src={country.icon_url}
-                          alt={`страна ${country.name.ru}`}
-                          width={36}
-                          height={36}
-                        />
-                        <p className="font-normal">{country.name.ru}</p>
-                      </div>
+                    <AccordionTrigger>
+                      <CountryCard
+                        active={country.name.ru === selectCountry?.name.ru}
+                        key={country.id}
+                        onClick={() => onClickCountry(country)}
+                        country={country}
+                      />
                     </AccordionTrigger>
                     <AccordionContent className="py-2 grid gap-3">
                       {country.cities.map((city) => (

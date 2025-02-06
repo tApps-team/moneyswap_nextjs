@@ -4,7 +4,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
 import { Currency, SpecificValute, useGetAvailableValutes } from "@/entities/currency";
@@ -82,42 +82,45 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
 
   return (
     <section>
-      <form className="text-white  w-full border-2 border-light-gray h-full lg:py-5 py-3 lg:px-7 px-5 lg:pb-12 pb-4 bg-dark-gray rounded-3xl">
+      <form className="text-white  w-full  border-light-gray h-full lg:py-5 py-3 lg:px-7 px-5 lg:pb-12 pb-4 bg-new-dark-grey rounded-[15px]">
         <div className="flex lg:flex-row  flex-col lg:gap-2 gap-4 pb-4 lg:items-center justify-between lg:pb-6 ">
           <p
             className={cn(
-              "uppercase font-medium lg:text-base mobile:text-sm text-xs",
+              "uppercase font-medium lg:text-base mobile:text-sm text-xs md:font-bold",
               !isDesktop && isCollapsed ? "hidden" : "block",
             )}
           >
             Выберите направление обмена
           </p>
           <div className="flex flex-col mobile-xs:flex-row justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
-            <div className="flex items-center">
-              <Link
-                href={`/?direction=cash`}
-                type="button"
-                role="tab"
-                id="changeCash"
-                className={cn(
-                  "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-medium h-full text-light-gray",
-                  urlDirection === ExchangerMarker.cash && "text-yellow-main",
-                )}
-              >
-                Наличные
-              </Link>
-              <div className="lg:mx-2 mx-1">/</div>
+            <div className="flex items-center  md:gap-2">
               <Link
                 href={"/"}
                 type="button"
                 role="tab"
                 id="changeOnline"
                 className={cn(
-                  "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-medium h-full text-light-gray",
-                  urlDirection === ExchangerMarker.no_cash && "text-yellow-main",
+                  "bg-transparent  p-0 rounded-[4px] md:text-base text-2xs  font-medium h-full text-light-gray  md:px-7 md:py-4 md:bg-new-light-grey md:text-white md:font-semibold md:rounded-[10px]",
+                  urlDirection === ExchangerMarker.no_cash &&
+                    "text-yellow-main md:bg-yellow-main md:text-black",
                 )}
               >
                 Безналичные
+              </Link>
+
+              <div className="lg:mx-2 mx-1 md:hidden">/</div>
+              <Link
+                href={`/?direction=cash`}
+                type="button"
+                role="tab"
+                id="changeCash"
+                className={cn(
+                  "bg-transparent p-0 rounded-[4px] md:text-base text-2xs  font-medium h-full text-light-gray md:px-7 md:py-4 md:bg-new-light-grey md:text-white md:font-semibold md:rounded-[10px]",
+                  urlDirection === ExchangerMarker.cash &&
+                    "text-yellow-main md:bg-yellow-main md:text-black",
+                )}
+              >
+                Наличные
               </Link>
             </div>
             <div className="lg:hidden block">

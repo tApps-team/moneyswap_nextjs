@@ -3,18 +3,9 @@ import { apiClient } from "@/shared/api";
 import { ExchangerMarker } from "@/shared/types";
 import { Country } from "../model/country-types";
 import { GetSpecificCityRequest, GetSpecificCityResponse } from "./country-api-dto";
-//add DTO file for getCountries
-// export const getCountries = async (): Promise<Country[]> => {
-//   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/cash/countries`;
 
-//   const res = await fetch(url, {
-//     method: "GET",
-//   });
-//   const data = await res.json();
-//   return data;
-// };
 export const useGetCountries = (direction: ExchangerMarker) => {
-  const url = `/api/cash/countries`;
+  const url = `/api/cash/countries2`;
   const fetcher = async () => await apiClient.get<Country[]>(url);
   return useQuery({
     queryKey: ["countries"],
