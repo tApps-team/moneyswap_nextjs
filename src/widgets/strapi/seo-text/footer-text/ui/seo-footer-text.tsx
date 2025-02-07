@@ -3,7 +3,10 @@
 import parse, { DOMNode, Element } from "html-react-parser";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { FC, useState } from "react";
+import { ArrowRightIcon, HeaderArrow, YellowRightIcon } from "@/shared/assets";
+import { products } from "@/shared/router";
 import { SeoTextsBlock } from "@/shared/types";
 
 const options = {
@@ -19,40 +22,154 @@ const options = {
   },
 };
 
-export const SeoFooterText: FC<SeoTextsBlock> = ({ data }) => {
+interface SeoFooterText extends SeoTextsBlock {
+  isExchange?: true;
+  giveCurrency?: string;
+  getCurrency?: string;
+  location?: string;
+}
+
+export const SeoFooterText: FC<SeoFooterText> = ({
+  data,
+  isExchange,
+  giveCurrency,
+  getCurrency,
+  location,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       {data.length > 0 && (
-        <div className={`grid gap-5 mobile-xl:py-[50px] pb-0 pt-[50px]`}>
-          <div className="strapi_styles md:text-lg text-sm strapi_fonts_codec">
-            {parse(data[0]?.footer_title, options)}
+        <div className={`grid gap-[50px] py-[50px]`}>
+          <div className="bg-new-dark-grey rounded-[25px] md::p-[44px] mobile-xl:p-8 p-6">
+            <div className="strapi_styles md:text-lg text-sm strapi_fonts_codec">
+              {parse(data[0]?.footer_title, options)}
+            </div>
+            <div className="mobile-xl:block hidden strapi_styles md:text-lg text-sm strapi_fonts_codec">
+              {parse(data[0]?.footer_description, options)}
+            </div>
+            <div className="block mobile-xl:hidden">
+              {isOpen ? (
+                <div className="strapi_styles mobile-xl:text-xl text-sm strapi_fonts_codec">
+                  {parse(data[0]?.footer_description, options)}
+                </div>
+              ) : (
+                <div
+                  onClick={() => setIsOpen(true)}
+                  className="cursor-pointer flex justify-end items-center gap-1 text-yellow-main text-2xs uppercase font-medium text-right [&>svg]:w-4 [&>svg]:h-4 [&>svg]:stroke-yellow-main [&>svg]:mb-[2px] leading-none"
+                >
+                  <ChevronDown /> <p>Показать полный текст</p>
+                </div>
+              )}
+              {isOpen && (
+                <div
+                  onClick={() => setIsOpen(false)}
+                  className="cursor-pointer flex justify-end items-center gap-1 text-yellow-main text-2xs uppercase font-medium text-right [&>svg]:w-4 [&>svg]:h-4 [&>svg]:stroke-yellow-main [&>svg]:mb-[2px] leading-none"
+                >
+                  <ChevronUp /> <p>Скрыть полный текст</p>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="mobile-xl:block hidden strapi_styles md:text-lg text-sm strapi_fonts_codec">
-            {parse(data[0]?.footer_description, options)}
-          </div>
-          <div className="block mobile-xl:hidden">
-            {isOpen ? (
-              <div className="strapi_styles mobile-xl:text-xl text-sm strapi_fonts_codec">
-                {parse(data[0]?.footer_description, options)}
+
+          {/* footer steps for exchange pages */}
+          {isExchange && (
+            <section className="grid gap-[30px]">
+              <h3 className="text-yellow-main text-xl lg:font-bold font-medium uppercase">
+                {location
+                  ? `Как обменять ${giveCurrency} на ${getCurrency}:`
+                  : `Как обменять {giveCurrency} на {getCurrency} в городе ${location}:`}
+              </h3>
+              <section className="grid grid-flow-col lg:gap-4 gap-8">
+                <div className="grid lg:grid-flow-col grid-flow-row lg:justify-center justify-start lg:justify-items-center justify-items-start content-start lg:gap-[30px] gap-5 items-start h-full bg-new-dark-grey lg:rounded-[25px] rounded-[15px] lg:p-[10%] p-6">
+                  <h5 className="text-yellow-main text-[50px] font-bold leading-none">1</h5>
+                  <p className="text-base lg:font-semibold font-medium uppercase">
+                    Введите нужные вам валюты в поля{" "}
+                    <span className="text-yellow-main">“Отдаю”</span> и{" "}
+                    <span className="text-yellow-main">“Получаю”</span>.
+                  </p>
+                </div>
+                <div className="lg:flex hidden justify-center items-center">
+                  <YellowRightIcon className="size-5 fill-yellow-main" />
+                </div>
+                <div className="grid lg:grid-flow-col grid-flow-row lg:justify-center justify-start lg:justify-items-center justify-items-start content-start lg:gap-[30px] gap-5 items-start h-full bg-new-dark-grey lg:rounded-[25px] rounded-[15px] lg:p-[10%] p-6">
+                  <h5 className="text-yellow-main text-[50px] font-bold leading-none">2</h5>
+                  <p className="text-base lg:font-semibold font-medium uppercase">
+                    Подберите подходящий под ваши запросы{" "}
+                    <span className="text-yellow-main">обменный пункт</span>.
+                  </p>
+                </div>
+                <div className="lg:flex hidden justify-center items-center">
+                  <YellowRightIcon className="size-5 fill-yellow-main" />
+                </div>
+                <div className="grid lg:grid-flow-col grid-flow-row lg:justify-center justify-start lg:justify-items-center justify-items-start content-start lg:gap-[30px] gap-5 items-start h-full bg-new-dark-grey lg:rounded-[25px] rounded-[15px] lg:p-[10%] p-6">
+                  <h5 className="text-yellow-main text-[50px] font-bold leading-none">3</h5>
+                  <p className="text-base lg:font-semibold font-medium uppercase">
+                    Обменяйте {giveCurrency} на {getCurrency}{" "}
+                    <span className="text-yellow-main">быстро и безопасно</span>.
+                  </p>
+                </div>
+              </section>
+            </section>
+          )}
+
+          {/* footer options */}
+          <section className="grid mobile-xl:gap-[40px] gap-8 bg-new-dark-grey rounded-[25px] mobile-xl:py-[50px] mobile-xl:px-[30px] py-8 px-6">
+            <h3 className="text-yellow-main lg:text-xl md:text-lg text-base lg:font-bold md:font-normal uppercase lg:text-center mobile-xl:text-start text-center">
+              Преимущества мониторинга
+            </h3>
+            <div className="grid lg:gap-4 gap-7 lg:grid-flow-col lg:grid-cols-none mobile-xl:grid-cols-2 grid-cols-1 justify-items-stretch">
+              <div className="bg-new-grey rounded-[25px] grid grid-flow-row gap-7 justify-start items-start content-start justify-items-start lg:py-[36px] lg:px-[28px] py-8 px-6">
+                <h5 className="text-yellow-main lg:text-lg md:text-base text-sm font-semibold uppercase">
+                  Широкий выбор направлений
+                </h5>
+                <p className="text-sm font-light">
+                  В MoneySwap вы сможете обменять, продать или купить наличные, безналичные,
+                  криптовалюты, электронные деньги.
+                </p>
               </div>
-            ) : (
-              <div
-                onClick={() => setIsOpen(true)}
-                className="cursor-pointer flex justify-end items-center gap-1 text-yellow-main text-2xs uppercase font-medium text-right [&>svg]:w-4 [&>svg]:h-4 [&>svg]:stroke-yellow-main [&>svg]:mb-[2px] leading-none"
+              <div className="bg-new-grey rounded-[25px] grid grid-flow-row gap-7 justify-start items-start content-start justify-items-start lg:py-[36px] lg:px-[28px] py-8 px-6">
+                <h5 className="text-yellow-main lg:text-lg md:text-base text-sm font-semibold uppercase max-w-[80%]">
+                  Выгодные курсы
+                </h5>
+                <p className="text-sm font-light">
+                  Здесь вы можете продать и купить активы по выгодным ценам. Информация о стоимости
+                  обновляется в реальном времени.
+                </p>
+              </div>
+              <div className="bg-new-grey rounded-[25px] grid grid-flow-row gap-7 justify-start items-start content-start justify-items-start lg:py-[36px] lg:px-[28px] py-8 px-6">
+                <h5 className="text-yellow-main lg:text-lg md:text-base text-sm font-semibold uppercase">
+                  Подбор надежных обменников
+                </h5>
+                <p className="text-sm font-light">
+                  Вам не нужно самостоятельно искать сайты, проверять их и сравнивать цены. Мы
+                  сделаем это за вас, предоставив список обменников с лучшими курсами. Весь процесс,
+                  включая оформление и подтверждение заявки, занимает всего 5–10 минут.
+                </p>
+              </div>
+              <div className="bg-new-grey rounded-[25px] grid grid-flow-row gap-7 justify-start items-start content-start justify-items-start lg:py-[36px] lg:px-[28px] py-8 px-6">
+                <h5 className="text-yellow-main lg:text-lg md:text-base text-sm font-semibold uppercase">
+                  Удобный Telegram-бот
+                </h5>
+                <p className="text-sm font-light">
+                  Используйте бот MoneySwap, чтобы найти нужный обменник прямо в своем телефоне за
+                  пару минут. Еще удобнее и быстрее, чем искать на сайте.
+                </p>
+              </div>
+            </div>
+            <p className="md:text-base text-sm font-light lg:text-center mobile-xl:text-start text-center">
+              Начните подбирать обменный пункт под ваши цели прямо сейчас,{" "}
+              <Link
+                href={products.telegram_bot}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#41BEFF] underline"
               >
-                <ChevronDown /> <p>Показать полный текст</p>
-              </div>
-            )}
-            {isOpen && (
-              <div
-                onClick={() => setIsOpen(false)}
-                className="cursor-pointer flex justify-end items-center gap-1 text-yellow-main text-2xs uppercase font-medium text-right [&>svg]:w-4 [&>svg]:h-4 [&>svg]:stroke-yellow-main [&>svg]:mb-[2px] leading-none"
-              >
-                <ChevronUp /> <p>Скрыть полный текст</p>
-              </div>
-            )}
-          </div>
+                используя наш Telegram-бот
+              </Link>
+              . Быстро, удобно и безопасно!
+            </p>
+          </section>
         </div>
       )}
     </>

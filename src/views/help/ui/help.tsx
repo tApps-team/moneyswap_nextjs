@@ -35,16 +35,9 @@ export const HelpPage = async ({ searchParams }: { searchParams?: { article?: bo
 
   return (
     <section className="grid grid-flow-row gap-6 lg:gap-8">
-      <div className="grid grid-flow-row gap-4 mobile-xl:gap-6 xl:gap-8">
-        <h1 className="text-start mobile-xl:text-center text-xs mobile-xs:text-sm mobile:text-base mobile-xl:text-lg md:text-xl lg:text-2xl xl:text-3xl uppercase font-normal">
-          Часто задаваемые вопросы
-        </h1>
-        <h2 className="tracking-wider mobile-xl:tracking-normal text-start text-3xs mobile-xl:text-2xs lg:text-xs xl:text-sm uppercase font-normal">
-          {title}
-        </h2>
-      </div>
       <HelpBlock
         isArticle={isArticle}
+        title={title}
         article={article}
         userFaqs={userFaqs}
         partnerFaqs={partnerFaqs}

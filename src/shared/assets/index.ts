@@ -31,3 +31,6 @@ export * from "./icons/positive-smile";
 export * from "./icons/comment-icon";
 export * from "./icons/negative-smile";
 export * from "./icons/neutral-smile";
+export * from "./icons/yellowRightIcon";
+export * from "./icons/exchangeArrowsIcon";
+export * from "./icons/youtubeGreyIcon";

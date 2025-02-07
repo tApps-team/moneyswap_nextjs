@@ -100,12 +100,6 @@ body {
   margin: 0;
   box-sizing: border-box;
   background: #191C25;
-  // background-image: url('/main_bg.png');
-  // background-size: cover;
-  // background-repeat: no-repeat;
-  // background-attachment: fixed;
-  // background-position: center;
-  // background-position: top;
   height: 100%;
 }
 
@@ -117,7 +111,7 @@ body {
 
   a {
     text-decoration: none;
-    color: rgb(101, 168, 255);
+    color: #F6FF5F;
     white-space: nowrap;
     font-weight: 500;
     transition: all ease 0.5s;
