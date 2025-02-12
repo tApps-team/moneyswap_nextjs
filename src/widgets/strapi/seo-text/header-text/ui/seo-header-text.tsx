@@ -1,24 +1,10 @@
 import parse, { DOMNode, Element } from "html-react-parser";
-import { Info } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
-import { BotBannerNew } from "@/features/bot-banner-new";
-import {
-  ExchangeArrowIcon,
-  YellowQuestionIcon,
-  YoutubeGreyIcon,
-  YoutubeIcon,
-} from "@/shared/assets";
-import { delay } from "@/shared/lib";
+import { BotBannerNew } from "@/features/bot-banner";
+import { YoutubeGreyIcon } from "@/shared/assets";
 import { SeoTextsBlock } from "@/shared/types";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/shared/ui";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/shared/ui";
 
 const options = {
   replace: (domNode: DOMNode) => {
@@ -50,119 +36,29 @@ export const SeoHeaderText: FC<SeoHeaderText> = async ({
   return (
     <>
       {data.length > 0 && (
-        // <div className="grid gap-5">
-        //   <div className="relative flex items-start justify-between gap-1">
-        //     <h1
-        //       className={`[&>b]:leading-normal text-start text-xs mobile-xs:text-sm mobile:text-base md:text-lg lg:text-2xl xl:text-[28px] strapi_styles mobile-xl:max-w-[90%] max-w-full`}
-        //     >
-        //       {parse(data[0]?.header_title, options)}
-        //     </h1>
-        //     <div className="mobile-xl:hidden mobile-xl:mt-6 mt-0 flex gap-2">
-        //       <Dialog>
-        //         <DialogTrigger className="">
-        //           <Info className="size-8" />
-        //         </DialogTrigger>
-        //         <DialogContent className="w-[90%] border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-[50svh] flex flex-col items-center px-10 py-4 gap-10 rounded-3xl bg-dark-gray">
-        //           <Image
-        //             className="mt-10"
-        //             src={"/logofull.svg"}
-        //             alt="logo"
-        //             width={180}
-        //             height={180}
-        //           />
-        //           <div className="uppercase tracking-widest text-2xs leading-2 overflow-scroll font-normal text-start">
-        //             {parse(data[0]?.header_description, options)}
-        //           </div>
-        //         </DialogContent>
-        //       </Dialog>
-        //       <Dialog>
-        //         <DialogTrigger className="">
-        //           <YellowQuestionIcon className="size-8" />
-        //         </DialogTrigger>
-        //         <DialogContent className="w-[90%] border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] h-auto max-h-[80svh] flex flex-col items-center px-6 py-4 gap-8 rounded-3xl bg-dark-gray pb-10">
-        //           <Image
-        //             src={"/logofull.svg"}
-        //             className="mt-8"
-        //             alt="logo"
-        //             width={180}
-        //             height={180}
-        //           />
-        //           <h3 className="uppercase text-sm font-medium tracking-widest">
-        //             как совершить обмен?
-        //           </h3>
-        //           <p className="text-2xs leading-2 flex flex-col gap-4 overflow-scroll px-4 tracking-widest">
-        //             <p>
-        //               1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.
-        //             </p>
-        //             <p>2. Выберите город, в котором хотите совершить обмен.</p>
-        //             <p>
-        //               3. Перейдите на сайт обменника или в чат с менеджером по обмену для создания
-        //               заявки
-        //             </p>
-        //             <p>
-        //               4. Договоритесь по времени и приезжайте в офис или закажите доставку наличных.
-        //             </p>
-        //             <p>
-        //               5. Поделитесь своим опытом с другими пользователями, оставив отзыв на
-        //               MoneySwap.
-        //             </p>
-        //           </p>
-        //         </DialogContent>
-        //       </Dialog>
-        //     </div>
-        //     <div className="max-[575px]:sr-only  absolute top-0 right-0 grid grid-flow-col gap-4 justify-center items-center">
-        //       <HoverCard openDelay={0}>
-        //         <HoverCardTrigger asChild>
-        //           <YellowQuestionIcon width={36} height={36} className="cursor-pointer" />
-        //         </HoverCardTrigger>
-        //         <HoverCardContent className="rounded-2xl border-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] min-w-[500px] p-8 flex flex-col gap-4 text-sm text-white bg-dark-gray">
-        //           <p>
-        //             1. Выберите валюту, которую хотите отдать и валюту, которую хотите получить.
-        //           </p>
-        //           <p>2. Выберите город, в котором хотите совершить обмен.</p>
-        //           <p>
-        //             3. Перейдите на сайт обменника или в чат с менеджером по обмену для создания
-        //             заявки
-        //           </p>
-        //           <p>
-        //             4. Договоритесь по времени и приезжайте в офис или закажите доставку наличных.
-        //           </p>
-        //           <p>
-        //             5. Поделитесь своим опытом с другими пользователями, оставив отзыв на MoneySwap.
-        //           </p>
-        //         </HoverCardContent>
-        //       </HoverCard>
-        //       <Image src="/youtube.svg" alt="" width={37} height={37} className="cursor-pointer" />
-        //     </div>
-        //   </div>
-        //   <div className="sr-only mobile-xl:not-sr-only lg:text-sm md:text-xs text-2xs strapi_styles">
-        //     {parse(data[0]?.header_description, options)}
-        //   </div>
-        // </div>
-
-        <section className="grid xl:grid-cols-[1fr_0.7fr] lg:grid-cols-[1fr_0.5fr] grid-cols-1 justify-between ">
-          <div className="grid grid-flow-row lg:gap-10 gap-[30px]">
-            <div className="grid grid-cols-2 gap-5 w-fit uppercase lg:text-sm text-xs font-normal">
-              <div className="flex justify-center items-center lg:px-4 lg:py-3 px-2.5 py-2 border-[1px] rounded-[10px] border-[#7A7C80] text-[#7A7C80] leading-none">
-                как совершить обмен?
+        <section className="grid lg:grid-cols-[1fr_1fr] grid-cols-1 justify-between ">
+          <div className="grid grid-flow-row lg:gap-10 mobile-xl:gap-[30px] gap-3">
+            <div className="grid grid-cols-2 mobile-xl:gap-5 gap-2.5 w-fit uppercase lg:text-sm mobile-xl:text-xs text-2xs font-normal">
+              <div className="flex justify-center items-center lg:px-4 lg:py-3 mobile-xl:px-2.5 mobile-xl:py-2 px-1.5 py-0.5 mobile-xl:border-[1px] border-[0.5px] mobile-xl:rounded-[10px] rounded-[5px] border-[#7A7C80] text-[#7A7C80] leading-none">
+                <p className="truncate">как совершить обмен?</p>
               </div>
-              <div className="lg:px-4 lg:py-3 px-2.5 py-2 flex items-center gap-2 border-[1px] border-[#7A7C80] rounded-[10px] text-[#7A7C80]">
-                <div className="[&>svg]:w-10">
+              <div className="flex justify-center items-center lg:px-4 lg:py-3 mobile-xl:px-2.5 mobile-xl:py-2 px-1.5 py-0.5 mobile-xl:border-[1px] border-[0.5px] mobile-xl:rounded-[10px] rounded-[5px] border-[#7A7C80] text-[#7A7C80] leading-none">
+                <div className="mobile-xl:[&>svg]:w-10 [&>svg]:w-3 mobile-xl:mr-0 mr-1.5">
                   <YoutubeGreyIcon />
                 </div>
-                <p className="leading-none">видеоинструкция</p>
+                <p className="leading-none truncate">видеоинструкция</p>
               </div>
             </div>
-            <h1 className="text-yellow-main uppercase flex flex-col lg:gap-5 gap-1">
-              <span className="xl:text-[44px] lg:text-3xl text-2xl font-bold leading-none">
+            <h1 className="text-yellow-main uppercase flex flex-col lg:gap-5 mobile-xl:gap-1">
+              <span className="xl:text-[44px] lg:text-3xl md:text-2xl mobile-xl:text-xl mobile:text-base mobile-xs:text-sm text-xs mobile-xl:font-bold font-medium leading-none">
                 обмен
               </span>
-              <span className="grid grid-flow-col gap-4 justify-start items-center justify-items-start xl:text-2xl lg:text-xl text-2xl font-medium">
-                <span>{giveCurrency}</span>
-                <span className="text-white lg:text-[38px] md:text-[32px] text-[28px] leading-none mt-0.5">
+              <span className="inline-flex mobile-xl:gap-4 gap-2 items-start justify-items-start xl:text-2xl lg:text-xl md:text-2xl mobile-xl:text-xl mobile:text-base mobile-xs:text-sm text-xs font-medium">
+                <span className="max-w-[43vw] truncate">{giveCurrency}</span>
+                <span className="mobile-xl:text-white text-yellow-main lg:text-[30px] md:text-[26px] mobile-xl:text-[22px] mobile:text-[18px] text-sm leading-none xl:mt-0.5 lg:mt-0 mobile-xl:mt-0.5 mt-0 h-full flex justify-center items-center">
                   ⇄
                 </span>
-                <span>{getCurrency}</span>
+                <span className="max-w-[43vw] truncate">{getCurrency}</span>
               </span>
               {location && (
                 <span className="xl:text-2xl lg:text-xl text-2xl font-medium text-white">
@@ -173,7 +69,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = async ({
             <h3 className="lg:block hidden max-w-[90%] leading-5 font-normal xl:text-sm text-xs text-white">
               {parse(data[0]?.header_description, options)}
             </h3>
-            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-4 gap-0 justify-stretch justify-items-stretch w-fit">
+            <div className="mobile-xl:grid hidden lg:grid-cols-2 grid-cols-1 lg:gap-4 gap-0 justify-stretch justify-items-stretch w-fit">
               <BotBannerNew isExchange={isExchange} />
               <div className="lg:block hidden">
                 <HoverCard openDelay={0}>
@@ -233,7 +129,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = async ({
             </div>
           </div>
           <div className="lg:block hidden relative">
-            <div className="absolute w-full h-full right-0 bg-[url(/redesign/exchange_currencies.png)] bg-contain bg-no-repeat bg-right"></div>
+            <div className="absolute w-full h-full min-w-[340px] right-0 bg-[url(/redesign/exchange_currencies.png)] bg-contain bg-no-repeat bg-right"></div>
           </div>
         </section>
       )}

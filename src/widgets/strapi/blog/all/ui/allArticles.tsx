@@ -38,16 +38,17 @@ export const AllArticles: FC<AllArticlesProps> = ({ articles, totalPages, page }
   return (
     <section className="grid h-full w-full">
       {previewArticles?.length > 0 ? (
-        <section className="grid grid-rows-[auto_48px] gap-10">
-          <div className="xl:p-8 lg:p-5 p-6 lg:rounded-[30px] rounded-[24px] shadow-[1px_2px_10px_3px_rgba(0,0,0,0.5)] bg-dark-gray">
-            <div className="grid lg:grid-cols-2 grid-cols-1 xl:gap-8 gap-5">
-              {previewArticles.slice(0, visibleCount).map((art) => (
-                <ArticlePreviewCard key={art.url_name} article={art} isMain />
-              ))}
-              {previewArticles?.length % 2 !== 0 && visibleCount >= previewArticles?.length && (
-                <NoResults className="w-full flex flex-col justify-center items-center opacity-50 rounded-[35px] shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] border-2 border-[rgba(0,0,0,0)]" />
-              )}
-            </div>
+        <section className="grid grid-rows-[1fr_auto] gap-8 xl:p-8 lg:p-5 p-6 lg:rounded-[15px] rounded-[10px] bg-new-dark-grey">
+          <div className="grid lg:grid-cols-2 grid-cols-1 xl:gap-5 gap-3">
+            {previewArticles.slice(0, visibleCount).map((art) => (
+              <ArticlePreviewCard key={art.url_name} article={art} />
+            ))}
+            {previewArticles?.length % 2 !== 0 && visibleCount >= previewArticles?.length && (
+              <NoResults className="h-fit w-full flex flex-col justify-center items-center opacity-50 rounded-[20px]" />
+            )}
+            {previewArticles?.length % 2 === 0 && previewArticles?.length < 4 && (
+              <NoResults className="h-fit w-full flex flex-col justify-center items-center opacity-50 rounded-[20px]" />
+            )}
           </div>
           {!page && !totalPages && visibleCount < previewArticles.length && (
             <div className="justify-self-center">

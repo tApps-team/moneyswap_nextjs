@@ -3,7 +3,7 @@ import { CryptoDirection } from "@/widgets/exchanger/crypto-direction";
 import { CryptoExchangerSeoText } from "@/widgets/exchanger/crypto-exchanger-seo-text";
 import { ExchangerInfo } from "@/widgets/exchanger/exchanger-info";
 import { ExchangerReviews } from "@/widgets/exchanger/exchanger-reviews";
-import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
+import { BotBannerSidebar } from "@/features/bot-banner";
 import { getPairValute } from "@/entities/currency";
 import { getExchangerDetails } from "@/entities/exchanger";
 import { reviewsByExchange } from "@/entities/exchanger-review";

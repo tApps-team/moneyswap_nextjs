@@ -5,7 +5,7 @@ import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers"
 import { MainFAQ } from "@/widgets/main-faq";
 import { MainTop } from "@/widgets/main-top";
 import { SeoFooterText } from "@/widgets/strapi";
-import { BotBannerNew } from "@/features/bot-banner-new";
+import { BotBannerNew } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
@@ -67,7 +67,7 @@ export const Main = async ({
   return (
     <section>
       <MainTop />
-      <div className="-mt-14">
+      <div className="-mt-14 mobile-xl:block hidden">
         <BotBannerNew />
       </div>
       <CurrencySelectForm

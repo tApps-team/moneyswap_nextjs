@@ -99,7 +99,7 @@ export const ExchangePage = async ({
         isExchange
         giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
         getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
-        location={location && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
+        location={city && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
       />
       <MainFAQ direction={direction} />
     </section>

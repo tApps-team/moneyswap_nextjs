@@ -2,19 +2,19 @@ import Image from "next/image";
 
 export const MainTop = () => {
   return (
-    <section className="relative pt-10 pb-[120px] lg:bg-[url(/redesign/main_currencies.png)] bg-transparent bg-contain bg-no-repeat bg-center">
-      <div className="grid justify-center justify-items-center gap-12">
+    <section className="relative mobile-xl:pt-10 pt-0 mobile-xl:pb-[120px] pb-0 lg:bg-[url(/redesign/main_currencies.png)] bg-transparent bg-contain bg-no-repeat bg-center">
+      <div className="grid mobile-xl:justify-center justify-start mobile-xl:justify-items-center justify-items-start gap-12">
         <p className="lg:block hidden text-base font-light text-white">
           В поисках надежных обменников?
         </p>
-        <h1 className="grid uppercase justify-center justify-items-center">
-          <span className="leading-tight lg:text-[44px] md:text-[30px] text-yellow-main font-bold">
+        <h1 className="grid uppercase mobile-xl:justify-center justify-start mobile-xl:justify-items-center justify-items-start">
+          <span className="md:leading-normal leading-tight lg:text-[44px] md:text-[30px] mobile-xl:text-2xl text-base text-yellow-main font-bold">
             Мониторинг
           </span>
-          <span className="leading-tight lg:text-[44px] md:text-[30px] text-yellow-main font-bold">
+          <span className="md:leading-normal leading-tight lg:text-[44px] md:text-[30px] mobile-xl:text-2xl text-base text-yellow-main font-bold">
             Криптообменников
           </span>
-          <span className="leading-tight lg:text-[36px] md:text-2xl text-white font-medium mt-6">
+          <span className="md:leading-normal leading-tight lg:text-[36px] md:text-2xl mobile-xl:text-xl text-sm  text-white font-medium md:mt-6 mobile-xl:mt-4 mt-2">
             MoneySwap
           </span>
         </h1>
@@ -23,7 +23,7 @@ export const MainTop = () => {
           криптовалют, электронных денег, наличных.
         </p>
       </div>
-      <div className="absolute w-full h-full -top-10 left-0 bg-[url(/redesign/main_ellipse.png)] bg-contain bg-no-repeat bg-center"></div>
+      <div className="mobile-xl:block hidden absolute w-full h-full -top-10 left-0 bg-[url(/redesign/main_ellipse.png)] bg-contain bg-no-repeat bg-center"></div>
     </section>
   );
 };

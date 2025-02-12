@@ -1,5 +1,5 @@
 import { AllArticles, BlogSidebar, MobileAllArticles, SliderOfArticles } from "@/widgets/strapi";
-import { BotBanner } from "@/features/bot-banner";
+import { BotBannerBlog } from "@/features/bot-banner";
 import { CategoriesList, MobileArticleSearch, MobileTagsList } from "@/features/strapi";
 import { getAllArticles, getAllCategories, getTopicArticles, topics } from "@/entities/strapi";
 
@@ -20,16 +20,16 @@ export const BlogPage = async ({
   const totalPages = Math.ceil(meta?.pagination?.total / elements);
 
   return (
-    <section className="grid grid-flow-row md:gap-7 mobile-xl:gap-6 gap-5">
-      <div className="mobile-xl:flex mobile-xl:justify-center mobile-xl:items-center mobile-xl:mx-auto mobile-xl:max-w-[80%]">
-        <h1 className="uppercase xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-base mobile-xl:font-normal mobile-xl:text-center text-sm font-normal text-start">
+    <section className="grid grid-flow-row md:gap-[50px] mobile-xl:gap-10 gap-5">
+      <div className="mobile-xl:flex mobile-xl:justify-center mobile-xl:items-center mobile-xl:mx-auto lg:max-w-[70%] mobile-xl:max-w-full">
+        <h1 className="text-yellow-main uppercase md:text-3xl mobile-xl:text-2xl mobile:text-base text-sm mobile-xl:font-medium mobile-xl:text-center font-normal text-start">
           Блог о финансах, криптовалюте и переводах за рубеж
         </h1>
       </div>
-      <MobileArticleSearch currentValue={searchValue || null} />
-      <div className="-my-7 md:hidden block">
-        <BotBanner />
+      <div className="md:hidden block">
+        <BotBannerBlog />
       </div>
+      <MobileArticleSearch currentValue={searchValue || null} />
       <CategoriesList categories={categories?.categories} />
       <div className="md:block hidden">
         <div className="grid md:grid-cols-[1fr_0.4fr] xl:gap-10 lg:gap-8 gap-6 items-start">
@@ -38,7 +38,7 @@ export const BlogPage = async ({
         </div>
       </div>
       <MobileAllArticles articles={all} totalPages={totalPages} page={page} />
-      <div className="lg:pt-8 pt-0 grid mobile-xl:gap-10 gap-7 mobile-xl:w-[80%] md:w-full mx-auto">
+      <div className="lg:pt-8 pt-0 grid mobile-xl:gap-10 gap-5 w-full">
         <SliderOfArticles title={readersChoice?.name} articles={readersChoice?.articles} />
         <SliderOfArticles title={recommended?.name} articles={recommended?.articles} />
       </div>

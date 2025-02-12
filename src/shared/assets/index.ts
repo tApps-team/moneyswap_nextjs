@@ -34,3 +34,4 @@ export * from "./icons/neutral-smile";
 export * from "./icons/yellowRightIcon";
 export * from "./icons/exchangeArrowsIcon";
 export * from "./icons/youtubeGreyIcon";
+export * from "./icons/shareIcon";

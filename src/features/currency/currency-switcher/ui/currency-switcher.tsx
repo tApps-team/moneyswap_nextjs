@@ -1,10 +1,10 @@
+"use client";
+
 import Link from "next/link";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
-import { useCurrecnyStore } from "@/entities/currency";
+import { useParams, useSearchParams } from "next/navigation";
 import { SwitcherIcon } from "@/shared/assets";
 import { IsEmptyObject } from "@/shared/lib";
-import { ExchangerMarker, directions } from "@/shared/types";
-import { Button } from "@/shared/ui";
+import { ExchangerMarker } from "@/shared/types";
 
 type CurrencySwitcherProps = {
   direction?: ExchangerMarker;
@@ -20,7 +20,6 @@ const defaultNoCashValutes = {
 export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   const { direction } = props;
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const params = useParams<{
     slug: string[];
   }>();
