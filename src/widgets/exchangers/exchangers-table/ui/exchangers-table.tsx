@@ -48,7 +48,7 @@ export function ExchangersTable<TData, TValue>({
     queryFn: async () => (await getExchangers(params)).exchangers,
   });
   console.log(error);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -98,14 +98,14 @@ export function ExchangersTable<TData, TValue>({
   if (isDesktop) {
     return (
       <div className="flex flex-col mt-10 gap-12 w-full">
-        <div className="rounded-3xl bg-dark-gray  text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
-          <Table className="">
+        <div className="rounded-3xl bg-new-dark-grey flex flex-col gap-11  text-white px-10 pb-14">
+          <Table className=" border-separate border-spacing-y-4">
             <TableHeader className="">
               {table?.getHeaderGroups()?.map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
+                <TableRow className="border-none" key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <TableHead
-                      className="uppercase py-6 px-4 text-light-gray font-medium"
+                      className="uppercase  py-6 px-4 border-none text-light-gray font-bold"
                       key={header.id}
                     >
                       {header.isPlaceholder
@@ -116,12 +116,20 @@ export function ExchangersTable<TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody>
+            <TableBody className="">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                  <TableRow
+                    className="border-none   bg-new-grey "
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
+                      <TableCell
+                        rowSpan={1}
+                        className="py-3  first:rounded-l-2xl last:rounded-r-2xl"
+                        key={cell.id}
+                      >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                     ))}
@@ -136,16 +144,19 @@ export function ExchangersTable<TData, TValue>({
               )}
             </TableBody>
           </Table>
+          <div className="flex items-center  justify-center">
+            <Button
+              onClick={handleShowMore}
+              className="rounded-[10px] font-semibold h-[52px]  bg-yellow-main py-4 text-black px-20"
+              disabled={
+                table.getRowModel().rows.length >= data.length ||
+                table.getRowModel().rows.length < 1
+              }
+            >
+              Показать ещё
+            </Button>
+          </div>
         </div>
-        <Button
-          onClick={handleShowMore}
-          disabled={
-            table.getRowModel().rows.length >= data.length || table.getRowModel().rows.length < 1
-          }
-          className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full font-normal"
-        >
-          Показать ещё
-        </Button>
       </div>
     );
   }

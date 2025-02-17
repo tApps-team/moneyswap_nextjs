@@ -17,7 +17,7 @@ export const GiveCell = (props: GiveCellProps) => {
     return `${pathname}?${params.toString()}`;
   };
   return (
-    <div className="flex md:flex-col xl:flex-row gap-2 justify-start items-center">
+    <div className="flex md:flex-col lg:flex-row xl:flex-row gap-2 justify-start items-center">
       <div className="text-yellow-main text-base">{row.original.in_count}</div>
       <div className="font-light text-sm">{row.original.valute_from}</div>
       {row.original.location && (

@@ -7,25 +7,25 @@ type FilterData = {
 };
 export const filterData: FilterData[] = [
   {
-    value: "ВСЕ",
+    value: "Все",
     review: ReviewEnum.all,
     grade: undefined,
   },
 
   {
-    value: "ПОЛОЖИТЕЛЬНЫЕ",
+    value: "Положительные",
     review: ReviewEnum.positive,
     grade: 1,
   },
 
   {
-    value: "НЕЙТРАЛЬНЫЕ",
+    value: "Нейтральные",
     review: ReviewEnum.neutral,
     grade: 0,
   },
 
   {
-    value: "НЕГАТИВНЫЕ",
+    value: "Негативные",
     review: ReviewEnum.negative,
     grade: -1,
   },

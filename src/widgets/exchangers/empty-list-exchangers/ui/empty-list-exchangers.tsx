@@ -52,12 +52,12 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
           </p>
         </div>
       )}
-      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] flex flex-col w-full rounded-3xl text-white bg-dark-gray">
+      <div className=" flex flex-col w-full rounded-[15px] text-white bg-new-dark-grey">
         {exchangers.length > 0 ? (
           exchangers?.map((exchanger) => (
             <Link
               key={exchanger.valute_from.code_name + exchanger.valute_to.code_name}
-              className="border-b  last:border-none"
+              className="border-b border-[#34363A] last:border-none"
               href={createUrl(exchanger?.valute_from?.code_name, exchanger?.valute_to?.code_name)}
             >
               <div className="flex mobile-xl:flex-row mobile-xl:gap-0 gap-4  flex-col justify-between mobile-xl:items-center px-4 py-4 ">
@@ -69,7 +69,9 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                     width={32}
                     height={32}
                   />
-                  <p className="mobile-xl:text-base text-xs">{exchanger.valute_from.code_name}</p>
+                  <p className="mobile-xl:text-base font-semibold text-xs">
+                    {exchanger.valute_from.code_name}
+                  </p>
                   <ChevronRightIcon
                     className="mobile-xl:size-8 size-5"
                     color="white"
@@ -83,9 +85,11 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                     width={32}
                     height={32}
                   />
-                  <p className="mobile-xl:text-base text-xs">{exchanger.valute_to.code_name}</p>
+                  <p className="mobile-xl:text-base text-xs font-semibold">
+                    {exchanger.valute_to.code_name}
+                  </p>
                 </div>
-                <button className="border truncate  mobile-xl:text-base text-sm max-h-12 mobile-xl:h-12 h-9 whitespace-nowrap hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full mobile-xl:px-5 mobile-xl:py-3 py-1 px-4">
+                <button className="border truncate  mobile-xl:text-base text-sm max-h-12 mobile-xl:h-12 h-9 whitespace-nowrap hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-[10px] mobile-xl:px-5 mobile-xl:py-3 py-1 px-4">
                   ПОКАЗАТЬ ОБМЕННИКИ
                 </button>
               </div>
@@ -105,10 +109,10 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
             {valuteTo.name.ru} ({valuteTo.code_name}) в городах:
           </p>
 
-          <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] mt-6 flex flex-col w-full rounded-3xl text-white bg-dark-gray">
+          <div className=" mt-6 flex flex-col w-full rounded-3xl text-white bg-new-dark-grey">
             {similarCities?.map((city) => (
               <Link
-                className="border-b last:border-none"
+                className="border-b border-[#34363A] last:border-none"
                 key={city.pk}
                 href={`/exchange/${valuteFrom.code_name}-to-${valuteTo.code_name}?city=${city.code_name}`}
               >
@@ -120,7 +124,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
                       {city.exchange_count} ОБМЕННИКОВ
                     </p>
                   </div>
-                  <button className="border hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-full md:px-5 px-3 md:py-3 py-2 md:text-base text-xs font-medium">
+                  <button className="border truncate  mobile-xl:text-base text-sm max-h-12 mobile-xl:h-12 h-9 whitespace-nowrap hover:bg-yellow-main hover:border-yellow-main hover:text-black hover:font-medium rounded-[10px] mobile-xl:px-5 mobile-xl:py-3 py-1 px-4">
                     ПОКАЗАТЬ ОБМЕННИКИ
                   </button>
                 </div>
