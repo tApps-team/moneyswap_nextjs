@@ -52,13 +52,13 @@ export const HeaderMobile = () => {
                     {item.children?.map((itemChildren) => (
                       <AccordionContent
                         key={itemChildren.value}
-                        className="hover:text-yellow-main text-light-gray uppercase text-xs font-normal"
+                        className="hover:text-yellow-main pl-[50px]  text-light-gray uppercase text-xs font-normal"
                       >
                         <DrawerClose asChild>
                           <Link target="_self" href={itemChildren.href}>
                             <div className="flex gap-4 justify-start items-start  break-words ">
                               {itemChildren.icon && (
-                                <div className="bg-new-dark-grey rounded-[6px] p-1.5">
+                                <div className="bg-new-dark-grey rounded-[6px]  p-1.5">
                                   <itemChildren.icon
                                     className="flex-shrink-0"
                                     width={24}

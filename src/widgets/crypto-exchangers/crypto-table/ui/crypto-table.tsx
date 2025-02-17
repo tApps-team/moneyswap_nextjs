@@ -31,7 +31,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const isDesktop = useMediaQuery("(min-width: 640px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [rowSelection, setRowSelection] = useState({});
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -158,61 +158,50 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
   // Mobile rendering with pagination
   return (
     <div className="flex flex-col mt-10 gap-12 w-full">
-      <div className="rounded-3xl bg-dark-gray text-white shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)]">
+      <div className=" text-white flex flex-col gap-2.5">
         {paginatedData.map((exchanger) => (
           <div
             key={exchanger.id + exchanger.exchangerName}
-            className="p-3 border-b last:border-none border-light-gray flex items-center justify-between"
+            className="p-5 bg-new-dark-grey rounded-2xl flex flex-col gap-2.5  justify-between"
           >
-            <div className="flex flex-col  min-w-0 gap-2">
-              <p className="text-yellow-main text-sm truncate font-normal">
-                {exchanger.exchangerName}
-              </p>
-              <div className="text-xs">
-                <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs font-light">КУРСОВ:</p>
-                  <p className="text-xs">{exchanger.courses || "—"}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs font-light">РЕЗЕРВ:</p>
-                  <p className="text-xs">{exchanger.reserves || "—"}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <p className="text-light-gray text-xs font-light">СТАТУС:</p>
-                  <p
-                    className={cn(
-                      "text-xs ",
-                      exchanger.workStatus ? "text-yellow-main" : "text-red-500",
-                    )}
-                  >
-                    {exchanger.workStatus ? "РАБОТАЕТ" : "НЕ РАБОТАЕТ"}
-                  </p>
-                </div>
+            <div className="flex w-full items-center justify-between">
+              <div className="flex flex-col items-start">
+                <p className="font-bold">{exchanger.exchangerName}</p>
+                <p className={cn(exchanger.workStatus ? "text-yellow-main" : " text-[#FF6060]")}>
+                  {exchanger.workStatus ? "АКТИВЕН" : "НЕ АКТИВЕН"}
+                </p>
               </div>
-            </div>
-            <div className="flex flex-col gap-2">
               <Link
                 href={{
                   pathname: `${routes.exchangers}/exchanger-${exchanger.id}`,
                   query: { "exchanger-marker": exchanger.exchange_marker },
                 }}
-                className="flex items-center  gap-1 max-w-30  py-2 px-3 text-2xs rounded-full bg-dark-gray border border-light-gray cursor-pointer hover:bg-yellow-main hover:text-black [&>span]:hover:text-black [&>div>span]:hover:text-black hover:border-yellow-main transition-all duration-500"
+                className="flex justify-center items-center  gap-1 w-40  py-1.5 px-3 text-2xs rounded-[6px]  border border-[#575A62] cursor-pointer hover:bg-yellow-main hover:text-black [&>span]:hover:text-black [&>div>span]:hover:text-black hover:border-yellow-main transition-all duration-500"
               >
-                <span className="text-light-gray font-medium">ОТЗЫВЫ</span>
-                <div className="flex gap-1 items-center">
-                  <span className="text-yellow-main">{exchanger.reviews.positive}</span>
-                  <span>/</span>
+                <span className="text-light-gray text-base font-normal">Отзывы</span>
+                <div className="flex gap-1 items-center text-sm">
+                  <span className="text-yellow-main ">{exchanger.reviews.positive}</span>
+                  <span>|</span>
+                  <span className="text-light-gray">{exchanger.reviews.neutral}</span>
+                  <span>|</span>
                   <span className="text-red-500">{exchanger.reviews.negative}</span>
                 </div>
               </Link>
+            </div>
+            <hr className="w-full border-[#575A62]" />
+            <div className="flex w-full justify-between items-center">
+              <div>
+                <p className="uppercase font-semibold">Резервы: {exchanger.reserves}</p>
+                <p className="font-medium">Курсов: {exchanger.courses}</p>
+              </div>
               <Link
                 href={{
                   pathname: `${routes.exchangers}/exchanger-${exchanger.id}`,
                   query: { "exchanger-marker": exchanger.exchange_marker },
                 }}
-                className="flex text-light-gray max-w-30  items-center py-2 px-3 text-2xs rounded-full bg-dark-gray border font-medium border-light-gray cursor-pointer hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+                className=" text-white w-40 text-center text-base  py-1.5 px-7 text-2xs rounded-[6px] bg-[#43464E]  font-normal  cursor-pointer hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
               >
-                ПОДРОБНЕЕ
+                Подробнее
               </Link>
             </div>
           </div>
@@ -223,14 +212,14 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
         <Button
           onClick={handlePreviousPage}
           disabled={currentPage === 0}
-          className="bg-dark-gray h-10 w-1/2 border-2 border-light-gray uppercase rounded-full font-normal"
+          className="bg-new-dark-grey h-10 w-1/2 border-2 border-new-light-grey uppercase rounded-full font-normal"
         >
           <ChevronLeft />
         </Button>
         <Button
           onClick={handleNextPage}
           disabled={currentPage === totalPages - 1}
-          className="bg-dark-gray h-10 w-1/2 border-2 border-light-gray uppercase rounded-full font-normal"
+          className="bg-new-dark-grey h-10 w-1/2 border-2 border-new-light-grey uppercase rounded-full font-normal"
         >
           <ChevronRight />
         </Button>

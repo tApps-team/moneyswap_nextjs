@@ -48,7 +48,7 @@ export function ExchangersTable<TData, TValue>({
     queryFn: async () => (await getExchangers(params)).exchangers,
   });
   console.log(error);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});

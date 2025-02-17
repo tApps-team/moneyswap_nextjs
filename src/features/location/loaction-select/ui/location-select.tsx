@@ -1,5 +1,5 @@
 "use client";
-import { ChevronDown, CircleSlash2, SearchIcon, X } from "lucide-react";
+import { ChevronDown, ChevronRight, CircleSlash2, SearchIcon, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -99,15 +99,22 @@ export const LocationSelect = (props: LocationSelectProps) => {
   if (isDesktop) {
     return (
       <Dialog onOpenChange={() => setLocationSearchValue("")}>
-        <DialogTrigger className="bg-new-grey flex items-center justify-between py-3.5 px-12 rounded-[15px]">
-          <p className="uppercase text-font-light-grey font-bold text-xl">Город</p>
+        <DialogTrigger className="bg-transparent flex items-center justify-between py-3.5 px-12 rounded-[15px]">
           {cityInfo ? (
-            <Image
-              width={41}
-              height={41}
-              src={cityInfo?.country?.icon_url}
-              alt={`Город ${cityInfo?.name.ru}`}
-            />
+            <div className="flex items-center gap-5 uppercase text-font-light-grey">
+              <Image
+                width={41}
+                height={41}
+                src={cityInfo?.country?.icon_url}
+                alt={`Город ${cityInfo?.name.ru}`}
+              />
+              <p>
+                {cityInfo.country.name.ru}, {cityInfo.name.ru}
+              </p>
+              <span className="border border-font-light-grey rounded-[6px]">
+                <ChevronDown />
+              </span>
+            </div>
           ) : (
             <p>Выберите город</p>
           )}
@@ -181,37 +188,27 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const accordionActiveItems = filteredCountries.map((location) => String(location.id));
   return (
     <Drawer onOpenChange={() => setLocationSearchValue("")}>
-      <DrawerTrigger className="cursor-pointer" asChild>
-        <div className="lg:bg-dark-gray lg:rounded-full lg:h-16 lg:border-2 gap-2 lg:border-light-gray items-center lg:p-3 flex justify-between">
-          <div className="flex items-center gap-4">
-            {cityInfo ? (
-              <figure className="hidden lg:w-[36px] lg:rounded-full lg:overflow-hidden lg:h-[36px]">
-                <Image
-                  alt={`${cityInfo?.code_name})`}
-                  src={cityInfo?.country.icon_url}
-                  width={36}
-                  height={36}
-                />
-              </figure>
-            ) : (
-              <CircleSlash2
-                className="lg:block hidden"
-                width={36}
-                height={36}
-                stroke="#bbb"
-                strokeWidth={"1.5px"}
-              />
-            )}
-
-            <p className="lg:text-base text-xs truncate">
-              {cityInfo ? cityInfo?.name.ru : "Не выбрано..."}
+      <DialogTrigger className="bg-transparent flex items-center justify-between py-3.5 px-12 rounded-[15px]">
+        {cityInfo ? (
+          <div className="flex items-center gap-5 uppercase text-font-light-grey">
+            <Image
+              width={41}
+              height={41}
+              className="size-[30px] md:size-[41px]"
+              src={cityInfo?.country?.icon_url}
+              alt={`Город ${cityInfo?.name.ru}`}
+            />
+            <p className="text-white text-xs">
+              {cityInfo.country.name.ru}, {cityInfo.name.ru}
             </p>
+            <span className="border border-font-light-grey rounded-[6px]">
+              <ChevronRight />
+            </span>
           </div>
-          <div>
-            <ChevronDown color="white" className="lg:size-8" />
-          </div>
-        </div>
-      </DrawerTrigger>
+        ) : (
+          <p>Выберите город</p>
+        )}
+      </DialogTrigger>
       <DrawerContent className="h-dvh px-4 rounded-none bg-new-dark-grey border-0">
         <DrawerTitle className="sr-only"></DrawerTitle>
         <DrawerDescription className="sr-only"></DrawerDescription>
@@ -233,19 +230,22 @@ export const LocationSelect = (props: LocationSelectProps) => {
             />
           </div>
           {filteredCountries.length > 0 ? (
-            <ScrollArea className="h-[calc(100dvh_-_160px)]">
+            <ScrollArea className="h-[calc(100dvh_-_160px)] -mx-4 ">
               <Accordion
                 value={debouncedLocationSearchValue.length > 0 ? accordionActiveItems : undefined}
                 type="multiple"
-                className="w-full flex px-4 pb-3 pt-1 flex-col gap-4"
+                className="w-full flex px-4 pb-3 pt-1 flex-col "
               >
                 {filteredCountries.map((country) => (
                   <AccordionItem
-                    className="flex flex-col gap-2"
+                    className="flex flex-col px-0 py-0  gap-2"
                     key={country.id}
                     value={String(country.id)}
                   >
-                    <AccordionTrigger>
+                    <AccordionTrigger
+                      hideChevron={true}
+                      className=" w-full border-0  py-2 group-data-[state=open]:text-black group-data-[state=open]:bg-yellow-main"
+                    >
                       <CountryCard
                         active={country.name.ru === selectCountry?.name.ru}
                         key={country.id}
@@ -253,7 +253,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
                         country={country}
                       />
                     </AccordionTrigger>
-                    <AccordionContent className="py-2 grid gap-3">
+                    <AccordionContent className="flex flex-col gap-1  ">
                       {country.cities.map((city) => (
                         <DrawerClose key={city?.id} className="w-full px-2">
                           <CityCardMobile city={city.name.ru} onClick={() => onClickCity(city)} />

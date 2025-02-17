@@ -17,10 +17,10 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center uppercase font-thin"
+          className="flex items-center  uppercase font-thin"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Обменник
+          <p className="">Обменник</p>
           {column.getIsSorted() === "asc" ? (
             <ChevronDown className="ml-2 h-6 w-6" />
           ) : (
@@ -42,7 +42,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex  items-center font-thin"
+          className="flex items-center font-thin"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ОТДАЕТЕ

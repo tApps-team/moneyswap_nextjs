@@ -50,7 +50,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   };
 
   return (
-    <Link href={switchUrl()} className="lg:mb-[20px] mx-auto">
+    <Link href={switchUrl()} className=" mx-auto">
       <SwitcherIcon width={30} fill="#f6ff5f" color={"#f6ff5f"} />
     </Link>
   );
