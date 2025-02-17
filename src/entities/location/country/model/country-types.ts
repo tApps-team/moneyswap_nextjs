@@ -6,6 +6,7 @@ export type Country = {
   name: Name;
   icon_url: string;
   cities: City[];
+  is_popular: boolean;
 };
 export type LocationInfo = {
   id: number;

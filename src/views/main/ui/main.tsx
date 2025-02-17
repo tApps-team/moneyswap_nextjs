@@ -1,11 +1,11 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
 import { columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
-import { SeoFooterText, SeoHeaderText } from "@/widgets/strapi";
-import { BotBanner } from "@/features/bot-banner";
+import { MainTop } from "@/widgets/main-top";
+import { SeoFooterText } from "@/widgets/strapi";
+import { BotBannerNew } from "@/features/bot-banner";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
@@ -66,9 +66,10 @@ export const Main = async ({
 
   return (
     <section>
-      <SeoHeaderText data={seoTexts.data} />
-      <BotBanner />
-
+      <MainTop />
+      <div className="-mt-14 mobile-xl:block hidden">
+        <BotBannerNew />
+      </div>
       <CurrencySelectForm
         actualCourse={actualCourse}
         urlLocation={location}

@@ -15,20 +15,17 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
     return Object.values(workingDays).some((value) => value === true);
   };
   return (
-    //relative z-10
     <div className={cn("relative z-10")}>
       {exchanger.is_vip && (
-        <div className="bg-yellow-main absolute w-full h-20 rounded-3xl text-black font-bold -z-10">
-          <span className="block text-center uppercase text-xs mt-2">Лучшее предложение</span>
+        <div className="bg-yellow-main absolute top-[22px] right-4 px-4 h-5 py-0.5 rounded-[3px] text-black font-bold ">
+          <span className="block text-center uppercase text-xs ">Лучшее предложение</span>
         </div>
       )}
 
       <div
         className={cn(
-          "  grid grid-cols-1 gap-4 p-4 rounded-3xl bg-dark-gray",
-          exchanger.is_vip
-            ? "border border-yellow-main mt-8"
-            : "shadow-[1px_2px_8px_1px_rgba(0,0,0,0.5)]",
+          "  grid grid-cols-1 gap-4 p-4 rounded-2xl bg-new-dark-grey",
+          exchanger.is_vip && "border border-yellow-main mt-8",
         )}
       >
         <div>
@@ -36,22 +33,28 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             <h2 className="font-normal truncate leading-none">{exchanger.name.ru}</h2>
           </Link>
           <div className="flex items-end justify-between">
-            <p className="text-xs text-yellow-main font-normal">
-              {exchanger.exchange_marker === ExchangerMarker.cash ? `в г. ${city}` : "Онлайн обмен"}
+            <p className="text-xs text-font-light-grey  font-normal">
+              {exchanger.exchange_marker === ExchangerMarker.cash
+                ? city && `в г. ${city}`
+                : "Онлайн-обмен"}
             </p>
-            <div className="rounded-full border border-light-gray  gap-2 flex justify-between items-center p-1.5 text-2xs">
+            <div className="rounded-[6px] border border-[#575A62] gap-2 flex justify-between items-center p-1.5 text-2xs">
               <Link
                 href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}?exchanger-marker=${exchanger.exchange_marker}`}
-                className="text-3xs font-medium leading-none uppercase"
+                className="text-sm font-medium leading-none "
               >
-                ОТЗЫВЫ
+                Отзывы
               </Link>
               <div className="flex gap-1 items-center">
-                <p className="text-yellow-main text-3xs leading-none ">
+                <p className="text-yellow-main text-sm leading-none ">
                   {exchanger.review_count.positive}
                 </p>
-                <div className="text-[6px] leading-none">|</div>
-                <p className="text-light-gray text-3xs leading-none">
+                <div className="text-[14px] text-white leading-none">|</div>
+                <p className="text-light-gray text-sm leading-none">
+                  {exchanger.review_count.neutral}
+                </p>
+                <div className="text-[14px] leading-none">|</div>
+                <p className="text-[#D20000] text-sm leading-none">
                   {exchanger.review_count.negative}
                 </p>
               </div>
@@ -97,7 +100,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             </div>
           </span>
         ) : (
-          <hr className="-mx-4 bg-light-gray" />
+          <hr className="  border-[#575A62]" />
         )}
         <div>
           <div className="flex text-sm items-center gap-2">

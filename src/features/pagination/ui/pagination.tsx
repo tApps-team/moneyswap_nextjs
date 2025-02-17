@@ -45,13 +45,13 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route
   const pages = createPaginationArray();
 
   return (
-    <div className="shadow-[inset_1px_1px_5px_2px_rgba(0,0,0,0.3)] rounded-[35px] bg-dark-gray grid grid-flow-col place-content-between gap-0   items-center">
+    <div className="bg-transparent grid grid-flow-col place-content-between gap-0 items-center">
       {pages.map((page, index) =>
         typeof page === "number" ? (
           <Link
             key={index}
             href={`${route}?page=${page}${searchValue ? `&search=${searchValue}` : ""}`}
-            className={`mobile-xl:h-12 mobile-xl:w-12 mobile-xl:text-xs w-10 h-10 text-[10px] font-normal flex justify-center items-center rounded-full p-2 border-0 border-dark-gray transition-all duration-300 ${page === currentPage ? "bg-yellow-main text-dark-gray" : "hover:shadow-[inset_1px_1px_5px_2px_rgba(0,0,0,0.5)] transition-all duration-300"}`}
+            className={`h-8 w-8 text-xs font-normal flex justify-center items-center rounded-[5px] p-2 transition-all duration-300 ${page === currentPage ? "bg-yellow-main text-black" : "hover:bg-new-grey transition-all duration-300"}`}
             scroll={false}
           >
             {page}
@@ -59,7 +59,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route
         ) : (
           <span
             key={index}
-            className="h-12 w-12 font-normal flex justify-center items-center text-yellow-main"
+            className="h-8 w-8 font-normal flex justify-center items-center text-white"
           >
             {page}
           </span>

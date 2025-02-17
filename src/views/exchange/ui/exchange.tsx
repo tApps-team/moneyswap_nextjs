@@ -72,8 +72,13 @@ export const ExchangePage = async ({
   });
   return (
     <section>
-      <SeoHeaderText data={seoTexts.data} />
-      <BotBanner />
+      <SeoHeaderText
+        data={seoTexts.data}
+        giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
+        getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
+        location={location && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
+        isExchange
+      />
       <CurrencySelectForm
         actualCourse={actualCourse}
         urlGetCurrency={getCurrency}
@@ -89,7 +94,13 @@ export const ExchangePage = async ({
         </HydrationBoundary>
       )}
 
-      <SeoFooterText data={seoTexts.data} />
+      <SeoFooterText
+        data={seoTexts.data}
+        isExchange
+        giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
+        getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
+        location={city && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
+      />
       <MainFAQ direction={direction} />
     </section>
   );

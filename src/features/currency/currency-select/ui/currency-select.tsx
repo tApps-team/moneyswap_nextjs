@@ -6,9 +6,9 @@ import Image from "next/image";
 import { useDeferredValue, useState } from "react";
 import {
   CurrencyCard,
-  type SpecificValute,
   type Currency,
   type CurrencyResponse,
+  type SpecificValute,
 } from "@/entities/currency";
 import type { ExchangerMarker } from "@/shared/types";
 import {
@@ -55,33 +55,34 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
   return (
     <div
       className={cx(
-        "grid grid-flow-row mobile-xl:gap-3 gap-2 cursor-pointer w-full",
+        "lg:flex lg:flex-col grid grid-cols-2  grid-rows-1 lg:bg-new-grey rounded-[15px] lg:py-6 lg:px-12 gap-5",
         disabled && "pointer-events-none ",
       )}
     >
-      {label && (
-        <label htmlFor={label} className="uppercase mobile-xl:text-sm text-xs font-normal">
-          {label}
-        </label>
-      )}
-      <div
-        className={cx(
-          "grid lg:grid-cols-[7rem,1fr] xl:grid-cols-2 grid-cols-2 h-16 justify-between items-center border-2 border-light-gray rounded-full bg-gradient-to-l from-light-gray from-15% via-dark-gray via-80% to-dark-gray",
-        )}
+      <label
+        htmlFor={label}
+        className="uppercase col-span-full bg-transparent    text-base xl:text-lg text-font-light-grey font-bold"
       >
+        {label}
+      </label>
+      <div className="relative col-span-full gap-5  w-full flex flex-row items-center lg:flex-col">
         <input
           disabled={true}
           id={label}
           value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="focus-visible:outline-none bg-transparent text-yellow-main px-6 font-normal mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
+          className="bg-[#43464E] font-semibold h-[65px] w-full focus-visible:outline-none  py-5 pl-8 rounded-xl text-yellow-main px-6  mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
         />
         <Dialog>
-          <DialogTrigger className="disabled:opacity-50" disabled={disabled} asChild>
-            <div className="bg-dark-gray min-h-14 justify-between select-none rounded-full border-l-2 border-light-gray items-center p-2 flex h-full">
-              <div className="grid grid-cols-[36px,1fr] items-center gap-2 truncate">
+          <DialogTrigger
+            className="disabled:opacity-50  absolute  right-2 lg:right-0 w-52 lg:w-full lg:relative bg-[#191C25] lg:bg-transparent hover:bg-new-light-grey"
+            disabled={disabled}
+            asChild
+          >
+            <div className=" min-h-12 h-14   justify-between select-none rounded-[6px]  cursor-pointer  items-center p-2 flex lg:h-full">
+              <div className="flex  truncate items-center gap-4">
                 {currencyInfo ? (
-                  <figure className="w-[36px] rounded-full overflow-hidden h-[36px]">
+                  <figure className="w-[36px] h-[36px] rounded-full overflow-hidden flex-shrink-0">
                     <Image
                       className="rounded-full overflow-hidden"
                       alt={`${currencyInfo?.name?.ru} (${currencyInfo?.code_name})`}
@@ -95,16 +96,20 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 )}
 
                 {currencyInfo ? (
-                  <div className="flex truncate mobile-xl:text-base text-xs flex-col">
-                    <p className="uppercase truncate font-normal">{currencyInfo?.name?.ru}</p>
-                    <span className="font-light truncate">{currencyInfo?.code_name}</span>
+                  <div className="flex  min-w-0  mobile-xl:text-base text-xs flex-col">
+                    <p className="uppercase  truncate   font-semibold text-font-light-grey">
+                      {currencyInfo?.name?.ru}
+                    </p>
+                    <span className="font-bold text-font-dark-grey truncate">
+                      {currencyInfo?.code_name}
+                    </span>
                   </div>
                 ) : (
                   <p>Выберите валюту</p>
                 )}
               </div>
               <div className="w-7 h-7">
-                <ChevronDown width={28} height={28} />
+                <ChevronDown width={20} color="#B9B9B9" height={20} />
               </div>
             </div>
           </DialogTrigger>

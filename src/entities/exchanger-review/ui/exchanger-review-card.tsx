@@ -44,24 +44,24 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.positive) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <p className="text-black  md:text-xs text-2xs font-normal uppercase">Положительный </p>
           <PositiveSmile className="md:size-6" />
+          <p className="text-black  md:text-xs text-2xs font-bold uppercase">Положительный </p>
         </div>
       );
     }
     if (review?.grade === ReviewEnum.neutral) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <p className="text-black md:text-xs text-2xs font-normal uppercase">Нейтральный</p>
           <NeutralSmile className="md:size-6" />
+          <p className="text-black md:text-xs text-2xs font-bold uppercase">Нейтральный</p>
         </div>
       );
     }
     if (review?.grade === ReviewEnum.negative) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <p className="text-light-gray md:text-xs text-2xs font-normal uppercase">Отрицательный</p>
           <NegativeSmile className="md:size-6" />
+          <p className="text-light-gray md:text-xs text-2xs font-bold uppercase">Отрицательный</p>
         </div>
       );
     }
@@ -71,10 +71,10 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   };
   return (
     <div className="relative z-0">
-      <div className="shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] rounded-3xl p-7 grid grid-cols-1 gap-4  bg-dark-gray relative ">
+      <div className="rounded-[10px] p-7 grid grid-cols-1 gap-4  bg-new-dark-grey relative ">
         <div
           className={cx(
-            "absolute right-[-1px] flex items-center justify-center top-[-1px]  md:w-1/3 w-1/2 md:h-12 h-7 border-r-0 border-t-0  rounded-tr-3xl  rounded-bl-[32px]",
+            "absolute right-[-1px] flex items-center justify-center top-[-1px]  md:w-1/3 w-1/2 md:h-12 h-7 border-r-0 border-t-0  rounded-tr-[9px]  rounded-bl-[9px]",
             review?.grade === ReviewEnum.positive && "bg-yellow-main",
             review?.grade === ReviewEnum?.negative && "bg-dark-gray border border-light-gray",
             review?.grade === ReviewEnum?.neutral && "bg-light-gray",
@@ -83,18 +83,18 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           {reviewRender()}
         </div>
         <div>
-          <p className="font-normal md:text-sm text-xs uppercase">{review?.username}</p>
-          <div className="flex gap-1 md:text-xs text-2xs">
-            <p className="font-light">{review?.review_date}</p>
-            <span className="font-light">/</span>
-            <p className="font-light">{review?.review_time}</p>
+          <p className="font-bold md:text-base text-xs  ">{review?.username}</p>
+          <div className="flex gap-1 md:text-base text-2xs text-yellow-main font-bold">
+            <p className="">{review?.review_date}</p>
+            <span className=" ">/</span>
+            <p className="">{review?.review_time}</p>
           </div>
         </div>
         <div>
           <p
             ref={ref}
             className={cn(
-              "md:text-sm text-xs font-light line-clamp-2",
+              "md:text-base text-xs font-medium line-clamp-2",
               isOpenReview && "line-clamp-none",
             )}
           >
@@ -109,16 +109,16 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           <button
             disabled={review.comment_count < 1}
             className={cn(
-              "text-sm flex items-center gap-2 text-yellow-main",
+              "text-sm flex items-center gap-2 text-nowrap text-yellow-main",
               review.comment_count < 1 && "text-light-gray opacity-50",
             )}
             onClick={onExpand}
           >
-            <CommentIcon className="md:size-7 size-5" />
+            <CommentIcon className="md:size-4 size-5" />
             {isOpenReview ? (
-              <p className="text-2xs md:text-xs font-normal">СКРЫТЬ КОММЕНТАРИИ</p>
+              <p className="text-2xs md:text-sm font-bold">СКРЫТЬ КОММЕНТАРИИ</p>
             ) : (
-              <p className="text-2xs md:text-xs font-normal">
+              <p className="text-2xs md:text-sm font-bold">
                 СМОТРЕТЬ КОММЕНТАРИИ <span>({review.comment_count})</span>
               </p>
             )}

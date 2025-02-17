@@ -34,14 +34,14 @@ const options = {
 
 export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => {
   return (
-    <div>
+    <div className="grid grid-flow-row gap md:gap-[30px] gap-[15px]">
       {dynamic_content?.map((item, index) => {
         // Проверка на paragraph
         if (item.content_type === DynamicContentType.paragraph && item.paragraph) {
           return (
             <div
               key={index}
-              className={`md:mb-[30px] mb-[15px] strapi_styles strapi_fonts_codec md:text-lg mobile:text-sm text-xs`}
+              className={`md:px-8 md:py-10 mobile-xl:px-6 mobile-xl:py-6 px-4 py-5 bg-new-dark-grey mobile-xl:rounded-[20px] rounded-[15px] strapi_styles strapi_fonts_codec md:text-lg mobile:text-sm text-xs`}
             >
               {item.paragraph.title && (
                 <h2
@@ -62,13 +62,13 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`md:[&>svg]:w-[100px] [&>svg]:w-[66px] md:mb-[30px] mb-[20px] strapi_custom_quote strapi_styles main_font md:text-base mobile:text-sm text-xs ${buttonTypeClass}`}
+              className={`bg-new-dark-grey mobile-xl:rounded-[20px] rounded-[15px] md:[&>svg]:w-[100px] [&>svg]:w-[66px] strapi_custom_quote strapi_styles main_font md:text-base mobile:text-sm text-xs ${buttonTypeClass}`}
             >
-              <SwitcherIcon height={"auto"} fill="#2d2d2d" />
+              <SwitcherIcon height={"auto"} fill="#B9B9B9" />
               <p>{parse(item.quote.content, options)}</p>
               {item.quote.button_name && (
                 <Link href={item.quote.button_url!} target={item.quote.target}>
-                  <button className="hover:shadow-[1px_3px_10px_1px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300">
+                  <button className="hover:scale-[1.01] transition-all duration-300">
                     {item.quote.button_name}
                   </button>
                 </Link>
@@ -83,10 +83,10 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
           return (
             <div
               key={index}
-              className={`mobile:xl:mb-[30px] mb-[20px] ${item.custom_button.button_position === ComponentPosition.center ? "justify-center" : item.custom_button.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles main_font md:text-base mobile:text-sm text-xs`}
+              className={`${item.custom_button.button_position === ComponentPosition.center ? "justify-center" : item.custom_button.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles main_font md:text-base mobile:text-sm text-xs`}
             >
               <Link href={item.custom_button.button_url!} target={item.custom_button.target}>
-                <button className="hover:shadow-[1px_3px_10px_1px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-all duration-300">
+                <button className="hover:scale-[1.01] transition-all duration-300">
                   {item.custom_button.button_name}
                 </button>
               </Link>
@@ -97,10 +97,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
         // Проверка на custom_accordion
         if (item.content_type === DynamicContentType.custom_accordion && item.accordion) {
           return (
-            <div
-              key={index}
-              className={`mobile:xl:mb-[30px] mb-[20px] grid grid-flow-row md:gap-6 gap-4`}
-            >
+            <div key={index} className={` grid grid-flow-row md:gap-6 gap-4`}>
               {item.accordion.title && (
                 <div className="main_font md:text-lg mobile:text-sm text-xs text-white font-normal uppercase md:pl-8 pl-0 md:text-start text-center">
                   {item.accordion.title}
@@ -109,10 +106,10 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
               <Accordion
                 type="single"
                 collapsible
-                className="w-full rounded-[25px] shadow-[1px_3px_5px_3px_rgba(0,0,0,0.3)] bg-dark-gray px-8 py-4"
+                className="bg-new-dark-grey rounded-[10px] w-full mobile-xl:px-8 mobile-xl:pr-10 mobile-xl:py-4 px-4 pr-8 py-3"
               >
                 <AccordionItem value={`Value-${item.accordion.question}`} className="">
-                  <AccordionTrigger className="main_font uppercase text-sm font-normal color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white leading-6 flex justify-between">
+                  <AccordionTrigger className="main_font text-yellow-main uppercase mobile-xl:text-sm text-xs font-normal color-[#fff] p-0 border-b-0 [&>svg]:-mr-[20px] [&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-white leading-6 flex justify-between [&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-[2px] [&>svg]:stroke-white [&>svg]:border-[1px] [&>svg]:border-white [&>svg]:rounded-[5px]">
                     {item.accordion.question}
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">

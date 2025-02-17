@@ -47,12 +47,11 @@ export const ReviewFilter = ({ reviewCount }: ReviewFilterProps) => {
             scroll={false}
             href={createUrl(data.grade)}
             className={cn(
-              "border  hover:border-yellow-main text-2xs hover:bg-yellow-main flex justify-center   gap-1 hover:text-black text-center  rounded-full bg-dark-gray md:p-4 p-3  font-medium",
+              "  hover:bg-yellow-main flex justify-center   gap-1 hover:text-black text-center  rounded-[10px] bg-new-grey md:p-4 p-3  font-medium",
               isActive && "bg-yellow-main border-yellow-main text-black",
             )}
           >
-            <p className="">{data.value}</p>
-            <span className="">({getReviewCount(data.review)})</span>
+            <p className="text-2xs md:text-base">{data.value}</p>
           </Link>
         );
       })}

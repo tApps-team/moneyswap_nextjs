@@ -23,8 +23,8 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
         />
       </figure>
       <div className="flex flex-col text-xs mobile-xl:text-base items-start">
-        <p className="font-normal uppercase line-clamp-1">{currency?.name?.ru}</p>
-        <span className="font-light">{currency?.code_name}</span>
+        <p className="font-bold uppercase line-clamp-1">{currency?.name?.ru}</p>
+        <span className="font-medium text-font-dark-grey">{currency?.code_name}</span>
       </div>
     </div>
   );

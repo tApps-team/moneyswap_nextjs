@@ -52,19 +52,19 @@ export const CategoriesList: FC<CategoriesListProps> = ({
           dragFree: true,
           duration: 10,
         }}
-        className="grid md:w-[calc(100%_-_100px)] md:mx-auto"
+        className="mobile-xl:grid hidden md:w-[calc(100%_-_60px)] md:mx-auto"
         setApi={setApi}
       >
         <CarouselContent className="w-full">
           {selectedTag && (
-            <CarouselItem key={0} className="md:hidden md:basis-1/6 basis-3/11 grid pl-4">
+            <CarouselItem key={0} className="md:hidden md:basis-1/6 basis-3/11 grid md:pl-6 pl-4">
               <CategoryCard tag={selectedTag} />
             </CarouselItem>
           )}
           {categoriesWithAllTab?.map((cat, index) => (
             <CarouselItem
               key={selectedTag ? index + 1 : index}
-              className="xl:basis-1/6 md:basis-2/9 basis-3/11 grid pl-4"
+              className="xl:basis-1/6 md:basis-2/9 basis-3/11 grid md:pl-6 pl-4"
             >
               <CategoryCard
                 key={cat?.id}
@@ -78,9 +78,23 @@ export const CategoriesList: FC<CategoriesListProps> = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="md:inline-flex hidden -left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
-        <CarouselNext className="md:inline-flex hidden -right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselPrevious className="md:inline-flex hidden -left-10 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 md:w-6 md:h-6 w-4 h-4" />
+        <CarouselNext className="md:inline-flex hidden -right-10 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 md:w-6 md:h-6 w-4 h-4" />
       </Carousel>
+      <div className="mobile-xl:hidden flex flex-wrap gap-2 justify-start">
+        {selectedTag && <CategoryCard tag={selectedTag} />}
+        {categoriesWithAllTab?.map((cat) => (
+          <CategoryCard
+            key={cat?.id}
+            category={cat && cat}
+            selectedCategory={
+              cat?.category
+                ? cat?.category === selectedCategory
+                : !selectedCategory && !selectedTag && true
+            }
+          />
+        ))}
+      </div>
     </section>
   );
 };

@@ -4,7 +4,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
 import { Currency, SpecificValute, useGetAvailableValutes } from "@/entities/currency";
@@ -82,54 +82,58 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
 
   return (
     <section>
-      <form className="text-white  w-full border-2 border-light-gray h-full lg:py-5 py-3 lg:px-7 px-5 lg:pb-12 pb-4 bg-dark-gray rounded-3xl">
-        <div className="flex lg:flex-row  flex-col lg:gap-2 gap-4 pb-4 lg:items-center justify-between lg:pb-6 ">
+      <form className="text-white  w-full  border-light-gray h-full lg:py-5 py-3 lg:px-7 px-5 lg:pb-12 pb-4 bg-new-dark-grey rounded-[15px]">
+        <div className="flex md:flex-row  flex-col lg:gap-2 gap-4 pb-4 md:items-center justify-between lg:pb-6 ">
           <p
             className={cn(
-              "uppercase font-medium lg:text-base mobile:text-sm text-xs",
-              !isDesktop && isCollapsed ? "hidden" : "block",
+              "uppercase font-medium hidden md:block  lg:text-base mobile:text-sm text-xs md:font-bold",
+              isCollapsed && "hidden",
             )}
           >
             Выберите направление обмена
           </p>
-          <div className="flex flex-col mobile-xs:flex-row justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
-            <div className="flex items-center">
-              <Link
-                href={`/?direction=cash`}
-                type="button"
-                role="tab"
-                id="changeCash"
-                className={cn(
-                  "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-medium h-full text-light-gray",
-                  urlDirection === ExchangerMarker.cash && "text-yellow-main",
-                )}
-              >
-                Наличные
-              </Link>
-              <div className="lg:mx-2 mx-1">/</div>
+          <div className="flex flex-col mobile-xs:flex-row justify-center md:justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
+            <div className="grid grid-cols-2 gap-2 items-center w-full   md:gap-2">
               <Link
                 href={"/"}
                 type="button"
                 role="tab"
                 id="changeOnline"
                 className={cn(
-                  "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-medium h-full text-light-gray",
-                  urlDirection === ExchangerMarker.no_cash && "text-yellow-main",
+                  " p-0  text-base   text-center  h-full   px-7 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
+                  urlDirection === ExchangerMarker.no_cash && " bg-yellow-main text-black",
                 )}
               >
                 Безналичные
               </Link>
-            </div>
-            <div className="lg:hidden block">
-              {urlDirection === ExchangerMarker.cash && (
-                <LocationSelect countries={countries || []} />
-              )}
+
+              <Link
+                href={`/?direction=cash`}
+                type="button"
+                role="tab"
+                id="changeCash"
+                className={cn(
+                  " p-0  text-base  text-center  h-full  px-7 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
+                  urlDirection === ExchangerMarker.cash && " bg-yellow-main text-black",
+                )}
+              >
+                Наличные
+              </Link>
             </div>
           </div>
         </div>
-        {!isDesktop && isCollapsed ? (
-          <div className="flex items-center gap-4">
+        <div className="flex items-center justify-center">
+          {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
+        </div>
+        {!isDesktop ? (
+          <div
+            className={cn(
+              "flex items-center  bg-new-grey py-4 px-8 rounded-xl gap-4",
+              !isCollapsed && "flex-col",
+            )}
+          >
             <CurrencySelectMobile
+              isCollapsed={isCollapsed}
               actualCourse={1}
               onClick={onClickGiveCurrency}
               disabled={
@@ -142,7 +146,9 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               direction={urlDirection}
               label="отдаю"
             />
+            {!isCollapsed && <CurrencySwitcher direction={urlDirection} />}
             <CurrencySelectMobile
+              isCollapsed={isCollapsed}
               actualCourse={actualCourse}
               onClick={onClickGetCurrency}
               currencyInfo={urlGetCurrency}
@@ -155,9 +161,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
         ) : (
           <div
             className={cn(
-              "grid lg:grid-cols-[1fr,auto,1fr] lg:items-end w-full gap-4",
-              "grid-cols-1 items-center justify-between",
-              urlDirection === ExchangerMarker.cash && "lg:grid-flow-col",
+              "grid grid-cols-1 items-center justify-between lg:grid-cols-[1fr,auto,1fr]  lg:items-center lg:justify-center w-full gap-4",
             )}
           >
             <CurrencySelect
@@ -185,19 +189,14 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               label="получаю"
               direction={urlDirection}
             />
-            <div className="lg:block hidden">
-              {urlDirection === ExchangerMarker.cash && (
-                <LocationSelect countries={countries || []} />
-              )}
-            </div>
           </div>
         )}
       </form>
       <button
         onClick={onCollapse}
-        className="border md:hidden flex items-center justify-center rounded-full mx-auto bg-dark-gray -translate-y-3 w-1/3"
+        className=" md:hidden flex items-center justify-center rounded-[6px] mx-auto bg-yellow-main -translate-y-3 w-1/4"
       >
-        {isCollapsed ? <ChevronDown /> : <ChevronUp />}
+        {isCollapsed ? <ChevronDown color="black" /> : <ChevronUp color="black" />}
       </button>
     </section>
   );

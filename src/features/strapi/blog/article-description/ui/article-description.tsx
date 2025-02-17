@@ -42,10 +42,8 @@ const options = {
 
 export const ArticleDescription = ({ article }: { article: Article }) => {
   return (
-    <div className="relative">
-      <div
-        className={`overflow-hidden md:p-0 px-6 pt-4 text-sm uppercase strapi_styles strapi_fonts_codec`}
-      >
+    <div className="relative mobile-xl:p-0 px-2 pb-2">
+      <div className={`overflow-hidden text-sm uppercase strapi_styles strapi_fonts_codec`}>
         {parse(article?.article?.description, options)}
       </div>
     </div>

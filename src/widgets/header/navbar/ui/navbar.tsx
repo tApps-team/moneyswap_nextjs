@@ -21,7 +21,7 @@ export const Navbar = () => {
           <NavigationMenuItem className="" key={item.href}>
             <NavigationMenuTrigger
               className={cn(
-                "font-normal bg-transparent hover:bg-yellow-main uppercase rounded-3xl p-6 data-[state=open]:text-black",
+                "bg-transparent hover:bg-yellow-main hover:text-black font-bold uppercase rounded-[10px] p-6 data-[state=open]:text-black",
                 pathname === item.href && "text-yellow-main ",
               )}
               asChild
@@ -29,21 +29,25 @@ export const Navbar = () => {
               <Link href={item.href}>{item.value}</Link>
             </NavigationMenuTrigger>
             {item.children && (
-              <NavigationMenuContent className="bg-dark-gray shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] border-none rounded-2xl p-4 uppercase grid gap-2 text-white">
+              <NavigationMenuContent className="bg-new-dark-grey border-none rounded-[6px] p-4 uppercase grid gap-2 text-white">
                 {item.children.map((itemChildren) => (
                   <NavigationMenuLink
                     className="flex flex-col w-80 "
                     key={`${itemChildren.href}  ${itemChildren.value}`}
                     href={itemChildren.href}
                   >
-                    <div className="flex gap-4 justify-start items-center  break-words ">
+                    <div className="flex gap-4 justify-start items-start  break-words ">
                       {itemChildren.icon && (
-                        <itemChildren.icon className="flex-shrink-0" width={36} height={36} />
+                        <div className="bg-[#43464E] rounded-[6px] p-1.5">
+                          <itemChildren.icon className="flex-shrink-0" width={24} height={24} />
+                        </div>
                       )}
 
-                      <div className="[&>p]:hover:text-yellow-main ">
-                        <p className="text-sm font-normal">{itemChildren.value}</p>
-                        <p className="text-3xs font-light">{itemChildren.description}</p>
+                      <div className="[&>p]:hover:text-yellow-main flex flex-col gap-2 ">
+                        <p className="text-sm  font-bold">{itemChildren.value}</p>
+                        <p className="text-xs text-[#878787] font-normal">
+                          {itemChildren.description}
+                        </p>
                       </div>
                     </div>
                   </NavigationMenuLink>

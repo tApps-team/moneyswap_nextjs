@@ -17,10 +17,10 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center uppercase font-thin"
+          className="flex items-center  uppercase font-thin"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Обменник
+          <p className="">Обменник</p>
           {column.getIsSorted() === "asc" ? (
             <ChevronDown className="ml-2 h-6 w-6" />
           ) : (
@@ -42,7 +42,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex  items-center font-thin"
+          className="flex items-center font-thin"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ОТДАЕТЕ
@@ -123,10 +123,12 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     },
     id: "Review",
     cell: ({ row }) => (
-      <div className="flex gap-1 border rounded-full hover:border-yellow-main w-20 px-4 py-2">
+      <div className="flex gap-1 border rounded-[6px] cursor-pointer hover:border-yellow-main w-20 px-3 py-2">
         <div className="text-yellow-main">{row.original.review_count.positive}</div>
-        <span>/</span>
-        <div className="text-red-600">{row.original.review_count.negative}</div>
+        <span>|</span>
+        <div className="text-white">{row.original.review_count.neutral}</div>
+        <span>|</span>
+        <div className="text-[#FF0000]">{row.original.review_count.negative}</div>
       </div>
     ),
   },
