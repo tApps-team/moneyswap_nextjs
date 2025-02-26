@@ -4,7 +4,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useId, useState } from "react";
+import { useState } from "react";
 import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
 import { Currency, SpecificValute, useGetAvailableValutes } from "@/entities/currency";
@@ -82,25 +82,30 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
 
   return (
     <section>
-      <form className="text-white  w-full  border-light-gray h-full lg:py-5 py-3 lg:px-7 px-5 lg:pb-12 pb-4 bg-new-dark-grey rounded-[15px]">
-        <div className="flex md:flex-row  flex-col lg:gap-2 gap-4 pb-4 md:items-center justify-between lg:pb-6 ">
+      <form
+        className={cn(
+          "grid grid-flow-row text-white w-full border-light-gray h-full lg:pb-10 lg:py-6 lg:px-7 md:p-8 md:py-3 md:px-5 md:pb-4 p-4 mobile-xl:pb-[30px] pb-5 bg-new-dark-grey rounded-[15px]",
+          isCollapsed ? "gap-3" : "md:gap-5 gap-6",
+        )}
+      >
+        <div className="flex md:flex-row flex-col lg:gap-2 gap-4 md:items-center justify-between">
           <p
             className={cn(
-              "uppercase font-medium hidden md:block  lg:text-base mobile:text-sm text-xs md:font-bold",
+              "uppercase hidden md:block lg:text-xl md:text-lg font-semibold",
               isCollapsed && "hidden",
             )}
           >
             Выберите направление обмена
           </p>
           <div className="flex flex-col mobile-xs:flex-row justify-center md:justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
-            <div className="grid grid-cols-2 gap-2 items-center w-full   md:gap-2">
+            <div className="grid grid-cols-2 gap-2 items-center w-full md:gap-2">
               <Link
                 href={"/"}
                 type="button"
                 role="tab"
                 id="changeOnline"
                 className={cn(
-                  " p-0  text-base   text-center  h-full   px-7 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
+                  "p-0 mobile-xl:text-base text-sm text-center h-full mobile-xl:px-7 px-2 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
                   urlDirection === ExchangerMarker.no_cash && " bg-yellow-main text-black",
                 )}
               >
@@ -113,7 +118,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
                 role="tab"
                 id="changeCash"
                 className={cn(
-                  " p-0  text-base  text-center  h-full  px-7 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
+                  " p-0 mobile-xl:text-base text-sm text-center h-full mobile-xl:px-7 px-2 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
                   urlDirection === ExchangerMarker.cash && " bg-yellow-main text-black",
                 )}
               >
@@ -122,14 +127,14 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center">
-          {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
-        </div>
+        {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
         {!isDesktop ? (
           <div
             className={cn(
-              "flex items-center  bg-new-grey py-4 px-8 rounded-xl gap-4",
-              !isCollapsed && "flex-col",
+              "",
+              !isCollapsed
+                ? "flex-col flex items-center gap-4"
+                : "grid grid-cols-2 bg-new-grey py-3 px-4 rounded-[10px] gap-2",
             )}
           >
             <CurrencySelectMobile

@@ -12,7 +12,7 @@ export const CityCard = (props: CityCardProps) => {
     <div
       onClick={onClick}
       className={cn(
-        "p-7  flex hover:text-black hover:border-none  hover:bg-yellow-main rounded-[7px] cursor-pointer items-center h-[68px] border-light-gray",
+        "p-3 lg:px-8 lg:py-5 md:px-5 md:py-3 flex hover:text-black hover:border-none  hover:bg-yellow-main rounded-[7px] cursor-pointer items-center h-[68px] border-light-gray",
         active && "bg-yellow-main text-black border-none",
       )}
     >

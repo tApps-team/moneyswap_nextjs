@@ -36,7 +36,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = async ({
   return (
     <>
       {data.length > 0 && (
-        <section className="grid lg:grid-cols-[1fr_1fr] grid-cols-1 justify-between ">
+        <section className="grid lg:grid-cols-[1fr_1fr] grid-cols-1 justify-between lg:mb-[70px] mobile-xl:mb-10 mb-5">
           <div className="grid grid-flow-row lg:gap-10 mobile-xl:gap-[30px] gap-3">
             <div className="grid grid-cols-2 mobile-xl:gap-5 gap-2.5 w-fit uppercase">
               <HowExchange />
@@ -50,15 +50,18 @@ export const SeoHeaderText: FC<SeoHeaderText> = async ({
               </div>
             </div>
             <h1 className="text-yellow-main uppercase flex flex-col lg:gap-5 mobile-xl:gap-1">
-              <span className="xl:text-[44px] lg:text-3xl md:text-2xl mobile-xl:text-xl mobile:text-base mobile-xs:text-sm text-xs mobile-xl:font-bold font-medium leading-none">
+              <span className="unbounded_font xl:text-[44px] lg:text-3xl md:text-2xl mobile-xl:text-xl mobile:text-base mobile-xs:text-sm text-xs mobile-xl:font-bold font-medium leading-none">
                 обмен
               </span>
-              <span className="inline-flex mobile-xl:gap-4 gap-2 items-start justify-items-start xl:text-2xl lg:text-xl md:text-2xl mobile-xl:text-xl mobile:text-base mobile-xs:text-sm text-xs font-medium">
-                <span className="max-w-[43vw] truncate">{giveCurrency}</span>
+              {/* <span className="unbounded_font inline-flex mobile-xl:gap-4 gap-2 items-start justify-items-start xl:text-2xl lg:text-xl md:text-2xl mobile-xl:text-xl mobile:text-base mobile-xs:text-sm text-xs font-medium">
+                <span className="">{giveCurrency}</span>
                 <span className="mobile-xl:text-white text-yellow-main lg:text-[30px] md:text-[26px] mobile-xl:text-[22px] mobile:text-[18px] text-sm leading-none xl:mt-0.5 lg:mt-0 mobile-xl:mt-0.5 mt-0 h-full flex justify-center items-center">
                   ⇄
                 </span>
-                <span className="max-w-[43vw] truncate">{getCurrency}</span>
+                <span className="">{getCurrency}</span>
+              </span> */}
+              <span className="unbounded_font xl:text-2xl lg:text-xl md:text-2xl mobile-xl:text-xl mobile:text-base mobile-xs:text-sm text-xs font-medium">
+                {giveCurrency} ⇄ {getCurrency}
               </span>
               {location && (
                 <span className="xl:text-2xl lg:text-xl md:text-2xl mobile-xl:text-xl mobile:text-base mobile-xs:text-sm text-xs mobile-xl:font-bold font-medium leading-none text-white">

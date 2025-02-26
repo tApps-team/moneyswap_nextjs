@@ -23,9 +23,9 @@ export const BotBannerBlog = () => {
           href={products.telegram_channel}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-fit relative z-50 cursor-pointer grid grid-flow-col gap-2 justify-center items-center justify-items-center bg-[#039BE5] rounded-[5px] p-2 hover:scale-[1.025] duration-300 active:scale-[0.99]"
+          className="w-fit cursor-pointer grid grid-flow-col gap-2 justify-center items-center justify-items-center bg-[#039BE5] rounded-[5px] p-2 hover:scale-[1.025] duration-300 active:scale-[0.99]"
         >
-          <div className="relative bg-[#039BE5] rounded-full xl:h-11 xl:w-11 mobile-xl:h-10 mobile-xl:w-10 h-6 w-6 hover:scale-[1.05] active:scale-[0.95] transition-all duration-300 grid grid-flow-col gap-4 items-center text-sm justify-center justify-items-center [&>a>svg]:w-[14px]">
+          <div className="bg-[#039BE5] rounded-full xl:h-11 xl:w-11 mobile-xl:h-10 mobile-xl:w-10 h-6 w-6 hover:scale-[1.05] active:scale-[0.95] transition-all duration-300 grid grid-flow-col gap-4 items-center text-sm justify-center justify-items-center [&>a>svg]:w-[14px]">
             <TelegramIcon />
           </div>
           <p className="mobile:text-xs text-2xs font-normal uppercase">moneyswap_robot</p>

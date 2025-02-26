@@ -43,7 +43,7 @@ export const FeedbackForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <p className="text-white uppercase md:text-lg text-base font-normal text-center">
-          <span className="text-yellow-main font-semibold">Форма</span>
+          <span className="text-yellow-main font-bold">Форма</span>
           <br />
           для обратной связи
         </p>
@@ -73,7 +73,7 @@ export const FeedbackForm = () => {
                   <Input
                     type="email"
                     className="text-base bg-[#D9D9D9] placeholder:text-[#373737]  text-black border-none rounded-[9px] px-4  focus:outline-none placeholder:transition-opacity placeholder:duration-400 focus:placeholder:opacity-0 placeholder:opacity-1 font-light"
-                    placeholder="Почта"
+                    placeholder="Телеграм / почта для связи"
                     {...field}
                   />
                 </FormControl>

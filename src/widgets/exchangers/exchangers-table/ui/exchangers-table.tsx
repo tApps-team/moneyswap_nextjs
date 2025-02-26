@@ -98,7 +98,7 @@ export function ExchangersTable<TData, TValue>({
   if (isDesktop) {
     return (
       <div className="flex flex-col mt-10 gap-12 w-full">
-        <div className="rounded-3xl bg-new-dark-grey flex flex-col gap-11  text-white px-10 pb-14">
+        <div className="rounded-[15px] bg-new-dark-grey flex flex-col gap-11  text-white px-10 pb-14">
           <Table className=" border-separate border-spacing-y-4">
             <TableHeader className="">
               {table?.getHeaderGroups()?.map((headerGroup) => (
@@ -120,14 +120,14 @@ export function ExchangersTable<TData, TValue>({
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
-                    className="border-none   bg-new-grey "
+                    className="border-none bg-new-grey"
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         rowSpan={1}
-                        className="py-3  first:rounded-l-2xl last:rounded-r-2xl"
+                        className="py-3 first:rounded-l-[15px] last:rounded-r-[15px]"
                         key={cell.id}
                       >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -144,10 +144,10 @@ export function ExchangersTable<TData, TValue>({
               )}
             </TableBody>
           </Table>
-          <div className="flex items-center  justify-center">
+          <div className="flex items-center justify-center">
             <Button
               onClick={handleShowMore}
-              className="rounded-[10px] font-semibold h-[52px]  bg-yellow-main py-4 text-black px-20"
+              className="lg:mt-0 md:mt-6 mt-4 mx-auto w-fit mobile-xl:sm text-xs px-6 py-4 rounded-[10px] text-black bg-yellow-main hover:bg-new-light-grey hover:text-font-light-grey cursor-pointer font-normal"
               disabled={
                 table.getRowModel().rows.length >= data.length ||
                 table.getRowModel().rows.length < 1
@@ -164,14 +164,14 @@ export function ExchangersTable<TData, TValue>({
   const mobileExchangers = data.slice(0, pagination.pageSize);
 
   return (
-    <div className="flex flex-col mt-10 gap-4 w-full">
+    <div className="flex flex-col lg:mt-10 mt-0 gap-4 w-full">
       {mobileExchangers.map((exchanger) => (
         <ExchangerCard key={exchanger.id} exchanger={exchanger} city={cityName} />
       ))}
       <Button
         onClick={handleShowMore}
         disabled={mobileExchangers.length >= data.length}
-        className="bg-dark-gray h-14 w-[200px] mx-auto border-2 border-light-gray uppercase rounded-full font-normal"
+        className="lg:mt-0 md:mt-6 mt-4 mx-auto w-fit mobile-xl:sm text-xs px-6 py-4 rounded-[10px] text-black bg-yellow-main hover:bg-new-light-grey hover:text-font-light-grey cursor-pointer font-normal"
       >
         Показать ещё
       </Button>

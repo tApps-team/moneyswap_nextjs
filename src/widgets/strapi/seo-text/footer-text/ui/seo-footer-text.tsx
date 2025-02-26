@@ -121,7 +121,7 @@ export const SeoFooterText: FC<SeoFooterText> = ({
 
           {/* footer options */}
           <section className="grid mobile-xl:gap-[40px] gap-6 bg-new-dark-grey lg:rounded-[25px] mobile-xl:rounded-[15px] rounded-[10px] mobile-xl:py-[50px] mobile-xl:px-[30px] py-6 px-5">
-            <h3 className="text-yellow-main lg:text-xl md:text-lg text-[14px] lg:font-bold md:font-normal font-medium uppercase lg:text-center text-start">
+            <h3 className="text-yellow-main lg:text-xl md:text-lg text-[14px] font-bold uppercase lg:text-center text-start">
               Преимущества мониторинга
             </h3>
             <div className="grid lg:gap-4 mobile-xl:gap-7 gap-3 lg:grid-flow-col lg:grid-cols-none mobile-xl:grid-cols-2 grid-cols-1 justify-items-stretch">

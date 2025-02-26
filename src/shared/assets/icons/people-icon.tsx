@@ -1,10 +1,16 @@
 import * as React from "react";
 import { SVGProps } from "react";
 export const PeopleIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={34} height={22} fill="none" {...props}>
+  <svg viewBox="0 0 34 22" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M16.7125 13.3597H11.9928V21.9999H16.7125V13.3597Z" fill="#F6FF5F" />
     <path
+      d="M13.3705 5.29751L13.3598 5.30464V5.2868H0V10.01H8.65445L0.00713475 18.6573L3.3462 21.9964L16.706 8.633L13.3705 5.29751Z"
       fill="#F6FF5F"
-      d="M16.712 13.36h-4.72V22h4.72v-8.64ZM13.37 5.298l-.01.007v-.018H0v4.723h8.654L.007 18.657l3.34 3.34L16.705 8.632l-3.335-3.335ZM21.433 0h-4.72v8.64h4.72V0ZM20.052 16.699l.007-.007v.014h13.364v-4.72h-8.658l8.647-8.647L30.077 0 16.712 13.36l3.34 3.339Z"
+    />
+    <path d="M21.4327 0H16.7131V8.64018H21.4327V0Z" fill="#F6FF5F" />
+    <path
+      d="M20.0521 16.6989L20.0593 16.6917V16.706H33.4227V11.9864H24.7646L33.412 3.33906L30.0765 0L16.7131 13.3598L20.0521 16.6989Z"
+      fill="#F6FF5F"
     />
   </svg>
 );

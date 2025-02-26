@@ -78,16 +78,16 @@ export const ArticleContent: FC<ArticleContentProps> = ({ dynamic_content }) => 
         }
 
         // Проверка на custom_button
-        if (item.content_type === DynamicContentType.custom_button && item.custom_button) {
-          const buttonTypeClass = `strapi_custom_btn--${item.custom_button.button_type || "grey_color"}`;
+        if (item.content_type === DynamicContentType.custom_button && item?.custom_button) {
+          const buttonTypeClass = `strapi_custom_btn--${item?.custom_button?.button_type || "grey_color"}`;
           return (
             <div
               key={index}
-              className={`${item.custom_button.button_position === ComponentPosition.center ? "justify-center" : item.custom_button.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles main_font md:text-base mobile:text-sm text-xs`}
+              className={`${item?.custom_button?.button_position === ComponentPosition.center ? "justify-center" : item?.custom_button?.button_position === ComponentPosition.right ? "justify-end" : ""} ${buttonTypeClass} strapi_custom_btn strapi_styles main_font md:text-base mobile:text-sm text-xs`}
             >
-              <Link href={item.custom_button.button_url!} target={item.custom_button.target}>
+              <Link href={item.custom_button.button_url!} target={item?.custom_button?.target}>
                 <button className="hover:scale-[1.01] transition-all duration-300">
-                  {item.custom_button.button_name}
+                  {item?.custom_button?.button_name}
                 </button>
               </Link>
             </div>

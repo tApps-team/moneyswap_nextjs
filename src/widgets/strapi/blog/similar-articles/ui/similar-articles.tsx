@@ -45,7 +45,7 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
   }, []);
   return (
     <section className="bg-new-dark-grey rounded-[10px] lg:p-9 md:p-6 p-4 grid lg:gap-8 gap-4">
-      <h3 className="w-full uppercase lg:text-2xl md:text-xl mobile-xl:text-base text-sm font-normal text-center text-yellow-main">
+      <h3 className="w-full uppercase lg:text-2xl md:text-xl mobile-xl:text-base text-sm font-bold text-center text-yellow-main">
         {title}
       </h3>
       <Carousel

@@ -14,20 +14,22 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center uppercase"
+          className="leading-none flex items-center uppercase"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Обменник
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-6 w-6" />
+            <ChevronDown className="ml-2 h-5 w-5" />
           ) : (
-            <ChevronUp className="ml-2 h-6 w-6" />
+            <ChevronUp className="ml-2 h-5 w-5" />
           )}
         </button>
       );
     },
     cell: ({ row }) => (
-      <p className="font-medium text-base truncate max-w-[18vw]">{row.getValue("exchangerName")}</p>
+      <p className="leading-none font-semibold xl:text-xl text-base truncate max-w-[18vw]">
+        {row.getValue("exchangerName")}
+      </p>
     ),
   },
   {
@@ -35,46 +37,54 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     header: "СТАТУС",
     cell: ({ row }) => {
       const workStatus = row.original.workStatus ? "Активен" : "Не активен";
-      return <p className="uppercase md:text-xs text-2xs truncate">{workStatus}</p>;
+      return (
+        <p className="leading-none uppercase xl:text-xl text-base text-yellow-main truncate">
+          {workStatus}
+        </p>
+      );
     },
   },
   {
     accessorKey: "reserves",
     header: "РЕЗЕРВЫ",
     cell: ({ row }) => (
-      <p className="uppercase md:text-sm text-xs font-medium truncate">{row.original.reserves}</p>
+      <p className="leading-none uppercase xl:text-xl text-base font-semibold truncate max-w-[10vw]">
+        {row.original.reserves}
+      </p>
     ),
   },
   {
     accessorKey: "courses",
     header: "КУРСОВ",
-    cell: ({ row }) => <p className="uppercase md:text-sm text-xs">{row.original.courses}</p>,
+    cell: ({ row }) => (
+      <p className="leading-none uppercase xl:text-xl text-base semibold">{row.original.courses}</p>
+    ),
   },
   {
     accessorFn: (review) => review.reviews.positive,
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center"
+          className="leading-none flex items-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ОТЗЫВЫ
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-6 w-6" />
+            <ChevronDown className="ml-2 h-5 w-5" />
           ) : (
-            <ChevronUp className="ml-2 h-6 w-6" />
+            <ChevronUp className="ml-2 h-5 w-5" />
           )}
         </button>
       );
     },
     id: "Review",
     cell: ({ row }) => (
-      <div className="flex gap-1 border rounded-[6px] cursor-pointer hover:border-yellow-main w-20 px-3 py-2">
-        <div className="text-yellow-main">{row.original.reviews.positive}</div>
+      <div className="text-sm font-semibold flex items-center justify-center gap-1 rounded-[6px] cursor-pointer hover:border-yellow-main w-20 px-2 py-1 border-[1px] border-font-dark-grey">
+        <div className="leading-none text-yellow-main">{row.original.reviews.positive}</div>
         <span>|</span>
-        <div className="text-white">{row.original.reviews.neutral}</div>
+        <div className="leading-none text-white">{row.original.reviews.neutral}</div>
         <span>|</span>
-        <div className="text-[#FF0000]">{row.original.reviews.negative}</div>
+        <div className="leading-none text-[#FF0000]">{row.original.reviews.negative}</div>
       </div>
     ),
   },
@@ -86,13 +96,13 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     },
     cell: ({ row }) => (
       <Link
-        className="hidden text-center bg-[#5C5E62] lg:block rounded-[10px] py-3 font-semibold  border-light-gray cursor-pointer hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500"
+        className="leading-none text-base hidden text-center bg-[#5C5E62] lg:block rounded-[10px] py-3 font-normal cursor-pointer hover:bg-yellow-main hover:text-black transition-all duration-500"
         href={{
           pathname: `${routes.exchangers}/exchanger-${row.original.id}`,
           query: { "exchanger-marker": row.original.exchange_marker },
         }}
       >
-        ПОДРОБНЕЕ
+        Подробнее
       </Link>
     ),
   },

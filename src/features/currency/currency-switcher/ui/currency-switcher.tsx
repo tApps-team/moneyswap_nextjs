@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
-import { SwitcherIcon } from "@/shared/assets";
+import { SwapIcon, SwitcherIcon } from "@/shared/assets";
 import { IsEmptyObject } from "@/shared/lib";
 import { ExchangerMarker } from "@/shared/types";
 
@@ -49,8 +49,14 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   };
 
   return (
-    <Link href={switchUrl()} className=" mx-auto">
-      <SwitcherIcon width={30} fill="#f6ff5f" color={"#f6ff5f"} />
+    <Link
+      href={switchUrl()}
+      className="relative w-full mx-auto flex justify-center items-center mobile:-mb-4 -mb-2"
+    >
+      <div className="z-10 bg-new-light-grey md:w-[54px] md:h-[54px] w-[40px] h-[40px] flex justify-center items-center rounded-full">
+        <SwapIcon className="md:size-7 size-5" />
+      </div>
+      <div className="md:hidden block -z-0 w-full h-[3px] rounded-[5px] bg-new-light-grey absolute top-[50%] -translate-y-[50%]"></div>
     </Link>
   );
 };
