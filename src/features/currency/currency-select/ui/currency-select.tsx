@@ -55,52 +55,52 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
   return (
     <div
       className={cx(
-        "lg:flex lg:flex-col grid grid-cols-2  grid-rows-1 lg:bg-new-grey rounded-[15px] lg:py-6 lg:px-12 gap-5",
-        disabled && "pointer-events-none ",
+        "lg:flex lg:flex-col grid grid-cols-2 grid-rows-1 lg:bg-new-grey rounded-[15px] lg:py-6 xl:px-12 lg:px-8 gap-5",
+        disabled && "pointer-events-none",
       )}
     >
       <label
         htmlFor={label}
-        className="uppercase col-span-full bg-transparent    text-base xl:text-lg text-font-light-grey font-bold"
+        className="uppercase col-span-full bg-transparent xl:text-xl lg:text-lg text-base lg:text-font-light-grey text-yellow-main font-bold"
       >
         {label}
       </label>
-      <div className="relative col-span-full gap-5  w-full flex flex-row items-center lg:flex-col">
+      <div className="relative col-span-full w-full flex gap-2 flex-row items-center lg:flex-col">
         <input
           disabled={true}
           id={label}
           value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
           onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="bg-[#43464E] font-semibold h-[65px] w-full focus-visible:outline-none  py-5 pl-8 rounded-xl text-yellow-main px-6  mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
+          className="bg-[#43464E] font-semibold h-[65px] w-full focus-visible:outline-none  py-5 pl-8 rounded-xl text-yellow-main px-6 md:text-lg mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
         />
         <Dialog>
           <DialogTrigger
-            className="disabled:opacity-50  absolute  right-2 lg:right-0 w-52 lg:w-full lg:relative bg-[#191C25] lg:bg-transparent hover:bg-new-light-grey"
+            className="disabled:opacity-50 absolute right-2 top-[6px] lg:h-full h-[calc(65px_-_12px)] lg:right-0 lg:top-0 w-[40vw] lg:w-full lg:relative bg-[#191C25] lg:bg-transparent hover:bg-new-light-grey lg:p-3 p-2 px-3"
             disabled={disabled}
             asChild
           >
-            <div className=" min-h-12 h-14   justify-between select-none rounded-[6px]  cursor-pointer  items-center p-2 flex lg:h-full">
-              <div className="flex  truncate items-center gap-4">
+            <div className="justify-between select-none rounded-[9px] cursor-pointer items-center p-2 flex lg:h-full">
+              <div className="grid grid-flow-col gap-4">
                 {currencyInfo ? (
-                  <figure className="w-[36px] h-[36px] rounded-full overflow-hidden flex-shrink-0">
+                  <figure className="lg:w-[40px] lg:h-[40px] w-9 h-9 rounded-full overflow-hidden flex-shrink-0">
                     <Image
                       className="rounded-full overflow-hidden"
                       alt={`${currencyInfo?.name?.ru} (${currencyInfo?.code_name})`}
                       src={currencyInfo?.icon_url || "/placeholder.svg"}
-                      width={36}
-                      height={36}
+                      width={40}
+                      height={40}
                     />
                   </figure>
                 ) : (
-                  <CircleSlash2 width={36} height={36} stroke="#bbb" strokeWidth={"1.5px"} />
+                  <CircleSlash2 width={42} height={42} stroke="#bbb" strokeWidth={"1.5px"} />
                 )}
 
                 {currencyInfo ? (
-                  <div className="flex  min-w-0  mobile-xl:text-base text-xs flex-col">
-                    <p className="uppercase  truncate   font-semibold text-font-light-grey">
+                  <div className="grid grid-flow-row justify-start items-stretch h-full min-w-0 lg:text-lg md:text-base text-xs uppercase">
+                    <p className="leading-none truncate font-semibold text-font-light-grey">
                       {currencyInfo?.name?.ru}
                     </p>
-                    <span className="font-bold text-font-dark-grey truncate">
+                    <span className="leading-none font-bold text-font-dark-grey truncate mt-auto">
                       {currencyInfo?.code_name}
                     </span>
                   </div>
@@ -108,47 +108,47 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                   <p>Выберите валюту</p>
                 )}
               </div>
-              <div className="w-7 h-7">
+              <div className="w-5 h-5">
                 <ChevronDown width={20} color="#B9B9B9" height={20} />
               </div>
             </div>
           </DialogTrigger>
-          <DialogContent className="bg-new-dark-grey border-none md:w-[80vw] h-[60vh] lg:w-[60vw] xl:w-[50vw] max-w-[700px] flex flex-col gap-4 rounded-[35px]  overflow-hidden">
-            <DialogHeader className="grid grid-cols-2 grid-rows-1 items-center">
-              <DialogTitle className="uppercase text-xl font-normal text-yellow-main">
+          <DialogContent className="lg:px-7 lg:pb-5 lg:pt-[30px] shadow-[0px_2px_5px_1px_rgba(0,0,0,0.35)] rounded-[20px] bg-new-dark-grey border-none md:w-[80vw] h-[70dvh] lg:w-[60vw] xl:w-[50vw] max-w-[600px] flex flex-col gap-[30px]">
+            <DialogHeader className="grid grid-cols-1 grid-rows-1 items-center">
+              <DialogTitle className="h-full grid grid-cols-2 justify-between items-center leading-none uppercase text-[22px] font-bold text-yellow-main">
                 Выбор валюты
+                <div className="relative">
+                  <SearchIcon
+                    width={22}
+                    height={22}
+                    className="absolute translate-y-2 left-3"
+                    color="#bbbbbb"
+                  />
+                  <Input
+                    className="rounded-[10px] pl-12 bg-new-light-grey border-none placeholder:text-light-gray placeholder:font-normal placeholder:transition-opacity focus:placeholder:opacity-0"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    placeholder="Поиск валюты"
+                    color="#BBBBBB"
+                  />
+                </div>
               </DialogTitle>
-              <div className="relative">
-                <SearchIcon
-                  width={22}
-                  height={22}
-                  className="absolute translate-y-2 left-3"
-                  color="#bbbbbb"
-                />
-                <Input
-                  className="rounded-[10px]  pl-12 bg-new-light-grey border-none placeholder:text-light-gray placeholder:font-normal  placeholder:transition-opacity focus:placeholder:opacity-0"
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  placeholder="Поиск валюты"
-                  color="#BBBBBB"
-                />
-              </div>
             </DialogHeader>
             {filteredTabList && filteredTabList?.length > 0 ? (
               <Tabs
                 defaultValue={"Все"}
                 value={activeTab}
                 onValueChange={setActiveTab}
-                className="flex flex-col flex-grow overflow-hidden"
+                className="flex flex-col flex-grow overflow-hidden gap-[20px]"
               >
-                <TabsList className="flex items-center justify-start flex-wrap h-auto gap-4 bg-transparent">
+                <TabsList className="p-0 flex items-center justify-start flex-wrap h-auto gap-4 bg-transparent">
                   {filteredTabList.map((tab) => (
                     <TabsTrigger
                       key={tab.id}
-                      className="rounded-[9px] w-fit bg-new-light-grey  data-[state=active]:text-black data-[state=active]:border-yellow-main text-white data-[state=active]:bg-yellow-main "
+                      className="rounded-[7px] w-fit bg-new-light-grey data-[state=active]:text-black data-[state=active]:border-yellow-main text-white data-[state=active]:bg-yellow-main py-[10px] px-[18px]"
                       value={tab?.name?.ru}
                     >
-                      <p className="truncate select-none lg:text-sm text-xs font-normal">
+                      <p className="truncate select-none lg:text-sm text-xs font-medium leading-none">
                         {tab?.name?.ru}
                       </p>
                     </TabsTrigger>
@@ -158,7 +158,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                 <ScrollArea className="flex-grow">
                   {filteredTabList.map((tab) => (
                     <TabsContent
-                      className="flex flex-col mt-0 "
+                      className="flex flex-col mt-[10px] gap-2"
                       value={tab?.name?.ru}
                       key={tab?.id}
                     >

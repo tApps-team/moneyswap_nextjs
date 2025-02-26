@@ -46,7 +46,7 @@ export const navbarItems: NavbarItems[] = [
       {
         href: `${routes.about}`,
         value: "О проекте",
-        description: "узнать о проекте Moneyswap",
+        description: "Узнать о проекте Moneyswap",
         icon: PeopleIcon,
       },
       {

@@ -4,9 +4,9 @@ export const AddReview = () => {
   return (
     <Button
       variant={"ghost"}
-      className="rounded-[10px] font-semibold py-3 bg-yellow-main text-black px-9"
+      className="mobile-xl:text-sm text-xs mobile-xl:w-fit w-full uppercase leading-none rounded-[10px] font-semibold py-3.5 bg-yellow-main text-black px-9"
     >
-      ДОБАВИТЬ ОТЗЫВ ОБ ОБМЕННИКЕ
+      Добавить отзыв об обменнике
     </Button>
   );
 };

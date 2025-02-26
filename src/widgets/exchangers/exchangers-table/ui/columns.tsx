@@ -2,10 +2,7 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useCurrecnyStore } from "@/entities/currency";
-import { useDirectionStore } from "@/entities/direction";
-import { Exchanger, ExchangerMarker } from "@/entities/exchanger";
+import { Exchanger } from "@/entities/exchanger";
 import { GiveCell } from "../columns/ui/giveCell";
 
 export type ExchangerTable = Exchanger;
@@ -17,21 +14,21 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center  uppercase font-thin"
+          className="flex items-center text-lg uppercase font-bold"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          <p className="">Обменник</p>
+          <p className="leading-none">Обменник</p>
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-6 w-6" />
+            <ChevronDown className="ml-2 h-5 w-5" />
           ) : (
-            <ChevronUp className="ml-2 h-6 w-6" />
+            <ChevronUp className="ml-2 h-5 w-5" />
           )}
         </button>
       );
     },
     cell: ({ row }) => (
       <Link href={row.original.partner_link || "/"} target="_blank">
-        <p className="font-normal text-base">{row.original?.name?.ru}</p>
+        <p className="font-bold text-base">{row.original?.name?.ru}</p>
       </Link>
     ),
   },
@@ -42,14 +39,14 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center font-thin"
+          className="flex items-center text-lg font-bold uppercase"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          ОТДАЕТЕ
+          <p className="leading-none">Отдаете</p>
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-6 w-6" />
+            <ChevronDown className="ml-2 h-5 w-5" />
           ) : (
-            <ChevronUp className="ml-2 h-6 w-6" />
+            <ChevronUp className="ml-2 h-5 w-5" />
           )}
         </button>
       );
@@ -64,14 +61,14 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex  items-center font-thin"
+          className="flex items-center text-lg font-bold uppercase"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          ПОЛУЧАЕТЕ
+          <p className="leading-none">Получаете</p>
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-6 w-6" />
+            <ChevronDown className="ml-2 h-5 w-5" />
           ) : (
-            <ChevronUp className="ml-2 h-6 w-6" />
+            <ChevronUp className="ml-2 h-5 w-5" />
           )}
         </button>
       );
@@ -80,26 +77,32 @@ export const columns: ColumnDef<ExchangerTable>[] = [
 
     cell: ({ row }) => {
       return (
-        <div className="flex gap-2 md:flex-col xl:flex-row justify-start items-center">
-          <div className="text-yellow-main text-base">{row.original.out_count}</div>
-          <div className="text-sm font-light">{row.original.valute_to}</div>
+        <div className="grid grid-flow-row justify-start items-start justify-items-start">
+          <div className="text-yellow-main font-bold text-base truncate max-w-[200px]">
+            {row.original.out_count}
+          </div>
+          <div className="text-sm font-semibold truncate max-w-[200px]">
+            {row.original.valute_to}
+          </div>
         </div>
       );
     },
   },
   {
     accessorKey: "in_count",
-    header: () => <p className="md:hidden lg:block font-thin">сумма обмена</p>,
+    header: () => (
+      <p className="md:hidden lg:block text-lg font-bold leading-none uppercase">Сумма обмена</p>
+    ),
     enableHiding: true,
     cell: ({ row }) => (
       <div className="flex md:hidden lg:block flex-col">
         <div className="flex gap-1 items-center">
-          <div className="text-xs font-light">ОТ</div>
-          <div className="">{row.original.min_amount}</div>
+          <div className="text-xs font-light uppercase">от</div>
+          <div className="text-yellow-main font-semibold">{row.original.min_amount}</div>
         </div>
         <div className="flex gap-1 items-center">
-          <div className="text-xs font-light">ДО</div>
-          <div className="">{row.original.max_amount}</div>
+          <div className="text-xs font-light uppercase">до</div>
+          <div className="text-yellow-main font-semibold">{row.original.max_amount}</div>
         </div>
       </div>
     ),
@@ -109,21 +112,21 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     header: ({ column }) => {
       return (
         <button
-          className="flex items-center font-thin"
+          className="flex items-center text-lg font-bold uppercase"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          ОТЗЫВЫ
+          <p className="leading-none uppercase">Отзывы</p>
           {column.getIsSorted() === "asc" ? (
-            <ChevronDown className="ml-2 h-6 w-6" />
+            <ChevronDown className="ml-2 h-5 w-5" />
           ) : (
-            <ChevronUp className="ml-2 h-6 w-6" />
+            <ChevronUp className="ml-2 h-5 w-5" />
           )}
         </button>
       );
     },
     id: "Review",
     cell: ({ row }) => (
-      <div className="flex gap-1 border rounded-[6px] cursor-pointer hover:border-yellow-main w-20 px-3 py-2">
+      <div className="flex gap-1 border-2 border-font-dark-grey rounded-[6px] cursor-pointer hover:border-yellow-main w-20 px-3 py-2">
         <div className="text-yellow-main">{row.original.review_count.positive}</div>
         <span>|</span>
         <div className="text-white">{row.original.review_count.neutral}</div>

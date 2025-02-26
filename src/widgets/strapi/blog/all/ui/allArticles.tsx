@@ -39,7 +39,7 @@ export const AllArticles: FC<AllArticlesProps> = ({ articles, totalPages, page }
     <section className="grid h-full w-full">
       {previewArticles?.length > 0 ? (
         <section className="grid grid-rows-[1fr_auto] gap-8 xl:p-8 lg:p-5 p-6 lg:rounded-[15px] rounded-[10px] bg-new-dark-grey">
-          <div className="grid lg:grid-cols-2 grid-cols-1 xl:gap-5 gap-3">
+          <div className="grid lg:grid-cols-2 lg:grid-rows-2 grid-cols-1 xl:gap-5 gap-3">
             {previewArticles.slice(0, visibleCount).map((art) => (
               <ArticlePreviewCard key={art.url_name} article={art} />
             ))}

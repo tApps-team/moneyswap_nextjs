@@ -6,6 +6,7 @@ import { MainFAQ } from "@/widgets/main-faq";
 import { MainTop } from "@/widgets/main-top";
 import { SeoFooterText } from "@/widgets/strapi";
 import { BotBannerNew } from "@/features/bot-banner";
+import { CurrencyTitle } from "@/features/currency";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
@@ -67,7 +68,7 @@ export const Main = async ({
   return (
     <section>
       <MainTop />
-      <div className="-mt-14 mobile-xl:block hidden">
+      <div className="-mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
         <BotBannerNew />
       </div>
       <CurrencySelectForm
@@ -77,7 +78,7 @@ export const Main = async ({
         urlGiveCurrency={giveCurrency}
         urlDirection={direction}
       />
-
+      <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
       {status === 404 ? (
         <EmptyListExchangers
           valuteFrom={giveCurrency}

@@ -10,9 +10,9 @@ import { getTopExchangers } from "..";
 export const TopExchangers = async () => {
   const topExchangers = await getTopExchangers();
   return (
-    <aside className="bg-new-dark-grey   grid grid-cols-1 grid-flow-row gap-4  p-6 rounded-2xl">
-      <p className="text-white uppercase font-normal text-center text-base">ТОП ОБМЕННИКОВ</p>
-      <ScrollArea className="max-h-96 pr-4 ">
+    <aside className="bg-new-dark-grey grid grid-cols-1 grid-flow-row gap-4 py-6 px-3 rounded-2xl">
+      <p className="text-white uppercase font-bold text-center text-base">ТОП ОБМЕННИКОВ</p>
+      <ScrollArea className="max-h-96 px-3">
         <div className="flex flex-col gap-4  ">
           {topExchangers?.map((topExchanger) => (
             <div
@@ -29,7 +29,7 @@ export const TopExchangers = async () => {
                 />
                 <div className="flex flex-col min-w-0 gap-0 ">
                   <p className="text-sm truncate md:text-base font-bold">{topExchanger?.name}</p>
-                  <div className="flex gap-1 text-[8px] items-center md:text-sm ">
+                  <div className="flex gap-1 items-center md:text-sm text-xs">
                     <p className="text-yellow-main font-semibold ">Отзывы</p>
                     <span className="text-yellow-main">{topExchanger?.reviewCount?.positive}</span>
                     <span>|</span>

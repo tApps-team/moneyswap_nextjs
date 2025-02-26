@@ -27,7 +27,7 @@ export const AccordionList: FC<MainFaqs> = ({ data }) => {
           key={faq?.id}
           className="grid grid-flow-row mobile-xl:rounded-[15px] rounded-[5px] bg-new-grey md:py-6 md:pl-8 md:pr-12 p-4"
         >
-          <AccordionTrigger className="md:text-base mobile:text-xs text-[11px] mobile-xl:font-normal font-light [&[data-state=open]]:text-yellow-main text-start color-[#fff] p-0 border-b-0 md:[&>svg]:-mr-7 mobile-xl:[&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white mobile-xl:leading-6 leading-4 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-[2px] [&>svg]:border-[1px] [&>svg]:border-white [&>svg]:rounded-[5px]">
+          <AccordionTrigger className="md:text-base text-sm font-semibold [&[data-state=open]]:text-yellow-main text-start color-[#fff] p-0 border-b-0 md:[&>svg]:-mr-7 mobile-xl:[&[data-state=open]]:text-white [&[data-state=open]>svg]:stroke-yellow-main hover:text-white mobile-xl:leading-6 leading-4 [&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-[2px] [&>svg]:border-[1px] [&>svg]:border-white [&>svg]:rounded-[5px]">
             {faq?.question}
           </AccordionTrigger>
           <AccordionContent className="pb-0">

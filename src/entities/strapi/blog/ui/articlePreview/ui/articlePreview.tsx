@@ -27,7 +27,7 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article }) => 
   const formattedDate = formatter.format(new Date(article?.publishedAt));
   return (
     <Link
-      className={`h-fit w-full group xl:rounded-[20px] rounded-[15px] bg-new-grey relative`}
+      className={`h-full w-full group xl:rounded-[20px] rounded-[15px] bg-new-grey relative`}
       href={`${routes.blog}${routes.article}/${article?.url_name}`}
       scroll={true}
     >
@@ -51,12 +51,10 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article }) => 
           />
         </div>
         <div className={`uppercase grid grid-cols-1 gap-1 "px-4 py-4`}>
-          <span className="text-font-light-grey inline font-normal mobile:text-[9px] mobile-xs:text-[8px] text-[7px]">
+          <span className="text-font-light-grey inline font-normal mobile:text-2xs text-[9px]">
             {formattedDate}
           </span>
-          <h3 className="mobile-xs:text-2xs text-[9px] font-normal max-h-[200px] overflow-hidden text-ellipsis leading-4 line-clamp-1">
-            {article?.title}
-          </h3>
+          <h3 className="text-[11px] font-normal leading-4 line-clamp-2">{article?.title}</h3>
         </div>
       </div>
     </Link>

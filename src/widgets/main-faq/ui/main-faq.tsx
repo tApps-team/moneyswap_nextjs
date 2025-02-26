@@ -26,7 +26,7 @@ export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
       {faqs?.map((block) => (
         <div className="w-full" key={block?.title}>
           <div className="mobile-xl:mb-0 mobile-xl:pb-10 pb-4 mobile-xl:pl-8">
-            <h3 className="xl:text-xl md:text-lg mobile-xl:text-base text-sm text-yellow-main font-medium uppercase mobile-xl:truncate">
+            <h3 className="xl:text-xl md:text-lg text-base text-yellow-main font-bold uppercase mobile-xl:truncate">
               {block?.title}
             </h3>
           </div>

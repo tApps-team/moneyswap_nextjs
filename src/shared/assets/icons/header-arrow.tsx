@@ -2,11 +2,11 @@ import * as React from "react";
 import { SVGProps } from "react";
 export const HeaderArrow = (props: SVGProps<SVGSVGElement>) => (
   <svg
+    {...props}
     xmlns="http://www.w3.org/2000/svg"
     id="_\u0420\u040E\u0420\xBB\u0420\u0455\u0420\u2116_2"
     data-name="\u0420\u040E\u0420\xBB\u0420\u0455\u0420\u2116 2"
     viewBox="0 0 32.37 32.37"
-    {...props}
   >
     <defs>
       <style>{".cls-1{fill:#fff}"}</style>

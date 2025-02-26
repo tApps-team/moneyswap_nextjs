@@ -17,9 +17,11 @@ export const GiveCell = (props: GiveCellProps) => {
     return `${pathname}?${params.toString()}`;
   };
   return (
-    <div className="flex md:flex-col lg:flex-row xl:flex-row gap-2 justify-start items-center">
-      <div className="text-yellow-main text-base">{row.original.in_count}</div>
-      <div className="font-light text-sm">{row.original.valute_from}</div>
+    <div className="grid grid-flow-row justify-start items-start justify-items-start">
+      <div className="text-yellow-main font-bold text-base truncate max-w-[200px]">
+        {row.original.in_count}
+      </div>
+      <div className="text-sm font-semibold truncate max-w-[200px]">{row.original.valute_from}</div>
       {row.original.location && (
         <Link href={createUrl(row.original.location.code_name)}>
           <p>

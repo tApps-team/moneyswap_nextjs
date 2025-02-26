@@ -11,9 +11,9 @@ export const TopCoins = async () => {
   console.log(topCoins);
 
   return (
-    <section className="bg-new-dark-grey   grid grid-cols-1 grid-flow-row gap-4 p-6 rounded-2xl">
-      <p className="text-white uppercase text-center font-normal text-base">ТОП МОНЕТ</p>
-      <ScrollArea className="max-h-96 pr-4 ">
+    <section className="bg-new-dark-grey   grid grid-cols-1 grid-flow-row gap-4 py-6 px-3 rounded-2xl">
+      <p className="text-white uppercase text-center font-bold text-base">ТОП МОНЕТ</p>
+      <ScrollArea className="max-h-96 px-3">
         <div className="flex flex-col gap-4 ">
           {topCoins?.map((topCoin) => (
             <div
@@ -29,17 +29,17 @@ export const TopCoins = async () => {
                   className="size-8 md:size-10"
                 />
                 <div className="flex  flex-col gap-0">
-                  <p className="text-2xs md:text-sm font-bold">{topCoin?.code_name}</p>
-                  <span className="text-[8px] md:text-sm text-font-dark-grey uppercase font-light">
+                  <p className="md:text-base text-sm font-bold truncate">{topCoin?.code_name}</p>
+                  <span className="md:text-sm text-xs text-font-dark-grey uppercase font-normal truncate">
                     {topCoin?.name}
                   </span>
                 </div>
               </div>
               <div className="text-end ">
-                <p className="text-2xs md:text-sm font-bold text-nowrap">
+                <p className="md:text-sm text-xs font-bold text-nowrap">
                   {topCoin?.course?.toFixed(4) || 0} <span className="font-bold">USD</span>
                 </p>
-                <div className="text-2xs md:text-xs flex items-center justify-end gap-2">
+                <div className="text-xs flex items-center justify-end gap-2">
                   {topCoin?.isIncrease ? (
                     <UpPercent color="#f6ff5f" className="" width={9} height={9} />
                   ) : (

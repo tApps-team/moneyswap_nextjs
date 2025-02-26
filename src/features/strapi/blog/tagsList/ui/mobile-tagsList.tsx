@@ -10,7 +10,7 @@ export const MobileTagsList = async () => {
         <h3 className="text-yellow-main font-normal mobile-xl:text-lg text-base truncate text-center">
           Популярные хэштеги
         </h3>
-        <section className="overflow-auto max-h-[100px] flex flex-wrap mobile-xl:justify-start justify-center gap-2 px-2">
+        <section className="overflow-auto max-h-full flex flex-wrap mobile-xl:justify-start justify-center gap-2 px-2">
           {tags?.tags?.map((tag) => (
             <Link
               href={`${routes.blog}${routes.tag}/${tag?.tag}`}

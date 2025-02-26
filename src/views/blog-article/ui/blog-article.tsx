@@ -75,7 +75,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
         </span>
       </div>
       <div className="grid grid-flow-rows md:gap-2 gap-1 mobile-xl:mt-0 -mt-3">
-        <h1 className="text-yellow-main uppercase xl:text-[28px] lg:text-2xl md:text-xl text-base font-normal text-start">
+        <h1 className="text-yellow-main uppercase xl:text-[28px] lg:text-2xl md:text-xl text-base font-bold text-start">
           {article?.article?.title}
         </h1>
         <p className="mobile-xl:text-font-light-grey text-font-dark-grey font-normal md:text-sm mobile:text-xs text-2xs tracking-wider">
@@ -107,7 +107,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 <Link
                   href={`${routes.blog}${routes.tag}/${tag?.tag}`}
                   key={tag?.id}
-                  className="cursor-pointer md:text-sm text-xs md:py-4 py-2 md:px-6 px-3 bg-new-grey rounded-[10px] text-white hover:bg-new-light-grey transition-all duration-300"
+                  className="cursor-pointer md:text-sm text-xs md:py-4 py-2 md:px-6 px-3 bg-new-grey mobile-xl:rounded-[10px] rounded-[7px] text-white hover:bg-new-light-grey transition-all duration-300"
                 >
                   {tag?.name}
                 </Link>

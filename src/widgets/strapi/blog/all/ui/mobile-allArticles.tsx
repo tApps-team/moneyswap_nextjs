@@ -35,7 +35,7 @@ export const MobileAllArticles: FC<MobileAllArticlesProps> = ({ articles, totalP
   };
 
   return (
-    <section className="bg-new-dark-grey rounded-[15px] mobile-xl:p-5 p-[10px] grid justify-items-center h-full w-full md:hidden">
+    <section className="md:hidden mobile-xl:bg-new-dark-grey bg-transparent mobile-xl:rounded-[15px] mobile-xl:p-5 p-[0px] grid justify-items-center h-full w-full">
       {previewArticles?.length > 0 ? (
         <section className="grid grid-flow-row gap-5 w-full mobile-xl:pb-0 pb-2">
           <div className="grid grid-flow-row mobile-xl:gap-5 gap-3">

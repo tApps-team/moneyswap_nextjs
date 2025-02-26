@@ -1,5 +1,8 @@
+"use client";
+
 import { ArrowRight, Calendar, Check, Clock, X } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ExchangerCardArrow } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
@@ -14,67 +17,72 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
   const isAnyTrue = (workingDays: Record<string, boolean>, exchangerName: string): boolean => {
     return Object.values(workingDays).some((value) => value === true);
   };
+  const router = useRouter();
+
   return (
-    <div className={cn("relative z-10")}>
-      {exchanger.is_vip && (
-        <div className="bg-yellow-main absolute top-[22px] right-4 px-4 h-5 py-0.5 rounded-[3px] text-black font-bold ">
-          <span className="block text-center uppercase text-xs ">Лучшее предложение</span>
+    <Link target="_blank" href={exchanger.partner_link} className={cn("relative z-10")}>
+      {exchanger?.is_vip && (
+        <div className="flex justify-center items-center bg-yellow-main absolute mobile-xl:-top-2 -top-1.5 right-4 px-4 mobile-xl:h-5 h-4 py-0.5 rounded-[3px] text-black font-bold ">
+          <span className="block text-center uppercase mobile-xl:text-xs text-[9px] leading-none">
+            Лучшее предложение
+          </span>
         </div>
       )}
 
       <div
         className={cn(
-          "  grid grid-cols-1 gap-4 p-4 rounded-2xl bg-new-dark-grey",
-          exchanger.is_vip && "border border-yellow-main mt-8",
+          "grid grid-cols-1 grid-rows-[1fr,auto,1fr] gap-4 p-4 mobile-xl:rounded-2xl rounded-[10px] bg-new-dark-grey",
+          exchanger?.is_vip && "border-yellow-main border-2",
         )}
       >
-        <div>
-          <Link target="_blank" href={exchanger.partner_link}>
-            <h2 className="font-normal truncate leading-none">{exchanger.name.ru}</h2>
-          </Link>
-          <div className="flex items-end justify-between">
-            <p className="text-xs text-font-light-grey  font-normal">
-              {exchanger.exchange_marker === ExchangerMarker.cash
-                ? city && `в г. ${city}`
-                : "Онлайн-обмен"}
-            </p>
-            <div className="rounded-[6px] border border-[#575A62] gap-2 flex justify-between items-center p-1.5 text-2xs">
-              <Link
-                href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}?exchanger-marker=${exchanger.exchange_marker}`}
-                className="text-sm font-medium leading-none "
-              >
-                Отзывы
-              </Link>
-              <div className="flex gap-1 items-center">
-                <p className="text-yellow-main text-sm leading-none ">
-                  {exchanger.review_count.positive}
-                </p>
-                <div className="text-[14px] text-white leading-none">|</div>
-                <p className="text-light-gray text-sm leading-none">
-                  {exchanger.review_count.neutral}
-                </p>
-                <div className="text-[14px] leading-none">|</div>
-                <p className="text-[#D20000] text-sm leading-none">
-                  {exchanger.review_count.negative}
-                </p>
-              </div>
+        <div className="grid grid-flow-col justify-between items-start">
+          <div className="grid grid-flow-row items-stretch content-between h-full">
+            <div>
+              <h2 className="md:text-xl text-base font-normal truncate leading-none">
+                {exchanger?.name?.ru}
+              </h2>
+            </div>
+            <div className="flex items-end justify-between">
+              <p className="md:text-base mobile-xl:text-sm text-xs text-yellow-main  font-normal">
+                {city ? `в г. ${city}` : "Онлайн-обмен"}
+              </p>
+            </div>
+          </div>
+          <div className="rounded-[6px] border border-[#575A62] gap-1 grid lg:grid-flow-col grid-flow-row justify-items-center justify-center p-1.5">
+            <span
+              onClick={(e) => {
+                e.preventDefault();
+                router.push(
+                  `${routes.exchangers}/exchanger-${exchanger.exchange_id}?exchanger-marker=${exchanger.exchange_marker}`,
+                );
+              }}
+              className="md:text-base mobile-xl:text-sm text-xs font-medium leading-none "
+            >
+              Отзывы
+            </span>
+            <div className="flex gap-1 items-center md:text-base mobile-xl:text-xs text-2xs">
+              <p className="text-yellow-main leading-none ">{exchanger?.review_count?.positive}</p>
+              <div className="text-2xs text-white leading-none">|</div>
+              <p className="text-light-gray leading-none">{exchanger?.review_count?.neutral}</p>
+              <div className="text-2xs leading-none">|</div>
+              <p className="text-[#D20000] leading-none">{exchanger?.review_count?.negative}</p>
             </div>
           </div>
         </div>
-        {exchanger.is_vip ? (
+        {exchanger?.info ? (
           <span className=" h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
-            {(exchanger.info?.weekdays?.time_from || exchanger.info?.weekdays?.time_to) && (
+            {(exchanger?.info?.weekdays?.time_from || exchanger?.info?.weekdays?.time_to) && (
               <div className="flex gap-1 items-center">
                 <Clock className="size-3 " color="black" />
                 <p className="text-[7px] font-light text-black">
-                  {exchanger.info?.weekdays?.time_from} - {exchanger.info?.weekdays?.time_to}
+                  {exchanger?.info?.weekdays?.time_from} - {exchanger?.info?.weekdays?.time_to}
                 </p>
               </div>
             )}
-            {isAnyTrue(exchanger.info?.working_days || {}, exchanger.name.ru) && (
+            {isAnyTrue(exchanger?.info?.working_days || {}, exchanger?.name?.ru) && (
               <div className="flex items-center gap-1">
                 <Calendar className="size-3" color="black" />
-                <div className="text-black text-[7px] font-light">
+                <div className="text-black text-[7px] font-medium">
                   {Object.entries(exchanger?.info?.working_days || {}).map(
                     ([day, isWorking], index) =>
                       isWorking && (
@@ -100,27 +108,31 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             </div>
           </span>
         ) : (
-          <hr className="  border-[#575A62]" />
+          <hr className=" border-[#575A62]" />
         )}
-        <div>
-          <div className="flex text-sm items-center gap-2">
+        <div className="grid grid-flow-row content-between">
+          <div className="flex md:text-base text-sm items-center gap-2">
             <div className="flex gap-2  items-center">
-              <p className="font-normal">{exchanger.in_count}</p>
-              <p className="font-light">{exchanger.valute_from}</p>
+              <p className="font-normal">{exchanger?.in_count}</p>
+              <p className="font-light truncate mobile-xl:max-w-[35vw] max-w-[18vw]">
+                {exchanger?.valute_from}
+              </p>
             </div>
             <ExchangerCardArrow className="size-3 min-h-3 min-w-3" fill="#f6ff5f" />
             <div className="flex gap-2 items-center">
-              <p className="font-normal">{exchanger.out_count}</p>
-              <p className="font-light">{exchanger.valute_to}</p>
+              <p className="font-normal">{exchanger?.out_count}</p>
+              <p className="font-light truncate mobile-xl:max-w-[35vw] max-w-[18vw]">
+                {exchanger?.valute_to}
+              </p>
             </div>
           </div>
           <div className="pt-0.5">
-            <p className="text-xs text-yellow-main font-light">
-              Обмен от {exchanger.min_amount} до {exchanger.max_amount}
+            <p className="md:text-base mobile-xl:text-sm text-xs text-yellow-main font-light">
+              Обмен от {exchanger?.min_amount} до {exchanger?.max_amount}
             </p>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

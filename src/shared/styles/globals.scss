@@ -103,6 +103,11 @@ body {
   height: 100%;
 }
 
+// unbounded font
+.unbounded_font {
+  --font-family-regular: "Unbounded";
+}
+
 // strapi base styles
 .strapi_styles {
   text-transform: uppercase;
@@ -271,34 +276,6 @@ body {
   }
 }
 
-.strapi_fonts_echoes {
-  text-transform: none;
-  font-size: 16px;
-  // --font-family-regular: "Echoes";
-
-  @media (max-width: 1024px) {
-    font-size: 15px;
-  }
-
-  @media (max-width: 450px) {
-    font-size: 14px;
-  }
-}
-
-.strapi_fonts_inter {
-  text-transform: none;
-  font-size: 16px;
-  --font-family-regular: "Inter";
-
-  @media (max-width: 1024px) {
-    font-size: 15px;
-  }
-
-  @media (max-width: 450px) {
-    font-size: 14px;
-  }
-}
-
 .strapi_custom_btn {
   display: flex;
   align-items: center;
@@ -328,7 +305,7 @@ body {
     color: #fff;
     white-space: normal;
     word-break: break-word;
-    font-weight: 500;
+    font-weight: 700;
 
     @media (max-width: 1024px) {
       font-size: 12px;
@@ -342,7 +319,6 @@ body {
     }
 
     @media (max-width: 450px) {
-      font-size: 10px;
       padding: 8px;
     }
   }

@@ -5,7 +5,7 @@ import { ExchangersTable, columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/strapi";
-import { BotBanner } from "@/features/bot-banner";
+import { CurrencyTitle } from "@/features/currency";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
@@ -86,6 +86,7 @@ export const ExchangePage = async ({
         urlDirection={direction}
         urlLocation={location}
       />
+      <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
       {status === 404 ? (
         <EmptyListExchangers valuteFrom={giveCurrency} valuteTo={getCurrency} location={location} />
       ) : (
