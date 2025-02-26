@@ -70,19 +70,19 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
           </div>
         </div>
         {exchanger?.info ? (
-          <span className=" h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
+          <span className="text-[7px] font-medium h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
             {(exchanger?.info?.weekdays?.time_from || exchanger?.info?.weekdays?.time_to) && (
               <div className="flex gap-1 items-center">
-                <Clock className="size-3 " color="black" />
-                <p className="text-[7px] font-light text-black">
+                <Clock className="size-2.5" color="black" />
+                <p className="text-black">
                   {exchanger?.info?.weekdays?.time_from} - {exchanger?.info?.weekdays?.time_to}
                 </p>
               </div>
             )}
             {isAnyTrue(exchanger?.info?.working_days || {}, exchanger?.name?.ru) && (
               <div className="flex items-center gap-1">
-                <Calendar className="size-3" color="black" />
-                <div className="text-black text-[7px] font-medium">
+                <Calendar className="size-2.5" color="black" />
+                <div className="text-black">
                   {Object.entries(exchanger?.info?.working_days || {}).map(
                     ([day, isWorking], index) =>
                       isWorking && (
@@ -98,12 +98,16 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
             )}
 
-            <div className="flex items-center text-[7px] font-light text-black">
-              {exchanger.info?.delivery ? <Check className="size-4" /> : <X className="size-4" />}
+            <div className="flex items-center text-black">
+              {exchanger.info?.delivery ? (
+                <Check className="size-2.5" />
+              ) : (
+                <X className="size-2.5" />
+              )}
               <p>ДОСТАВКА</p>
             </div>
-            <div className="flex items-center text-[7px] font-light text-black">
-              {exchanger.info?.office ? <Check className="size-4" /> : <X className="size-4" />}
+            <div className="flex items-center text-black">
+              {exchanger.info?.office ? <Check className="size-2.5" /> : <X className="size-2.5" />}
               <p>ОФИС</p>
             </div>
           </span>
@@ -113,15 +117,15 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
         <div className="grid grid-flow-row content-between">
           <div className="flex md:text-base text-sm items-center gap-2">
             <div className="flex gap-2  items-center">
-              <p className="font-normal">{exchanger?.in_count}</p>
-              <p className="font-light truncate mobile-xl:max-w-[35vw] max-w-[18vw]">
+              <p className="font-semibold leading-none">{exchanger?.in_count}</p>
+              <p className="font-light leading-none truncate mobile-xl:max-w-[35vw] max-w-[18vw]">
                 {exchanger?.valute_from}
               </p>
             </div>
             <ExchangerCardArrow className="size-3 min-h-3 min-w-3" fill="#f6ff5f" />
             <div className="flex gap-2 items-center">
-              <p className="font-normal">{exchanger?.out_count}</p>
-              <p className="font-light truncate mobile-xl:max-w-[35vw] max-w-[18vw]">
+              <p className="font-semibold leading-none">{exchanger?.out_count}</p>
+              <p className="font-light leading-none truncate mobile-xl:max-w-[35vw] max-w-[18vw]">
                 {exchanger?.valute_to}
               </p>
             </div>

@@ -7,6 +7,7 @@ import { MainTop } from "@/widgets/main-top";
 import { SeoFooterText } from "@/widgets/strapi";
 import { BotBannerNew } from "@/features/bot-banner";
 import { CurrencyTitle } from "@/features/currency";
+import { TopExchangeSale } from "@/features/top-exchange";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
@@ -93,6 +94,7 @@ export const Main = async ({
 
       <SeoFooterText data={seoTexts.data} />
       <MainFAQ direction={direction} />
+      <TopExchangeSale direction={ExchangerMarker.no_cash} />
     </section>
   );
 };

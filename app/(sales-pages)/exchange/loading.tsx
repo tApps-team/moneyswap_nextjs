@@ -1,5 +1,5 @@
 import { SkeletonCurrencySelectForm } from "@/widgets/currency-select-form";
-import { SkeletonMainTop } from "@/widgets/main-top";
+import { SkeletonSeoHeaderText } from "@/widgets/strapi";
 import { SkeletonBotBannerNew } from "@/features/bot-banner";
 import { Skeleton } from "@/shared/ui";
 import "@/shared/styles/globals.scss";
@@ -7,9 +7,9 @@ import "@/shared/styles/globals.scss";
 export default function Loading() {
   return (
     <section className="">
-      <SkeletonMainTop />
-      <div className="-mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
-        <SkeletonBotBannerNew />
+      <SkeletonSeoHeaderText />
+      <div className="lg:-mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
+        <SkeletonBotBannerNew isExchange />
       </div>
       <div className="grid grid-flow-row gap-10">
         <SkeletonCurrencySelectForm />

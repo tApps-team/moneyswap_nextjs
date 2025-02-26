@@ -80,7 +80,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
               />
             )}
             <div className="text-start h-full grid grid-flow-row justify-start justify-items-start items-stretch content-between min-w-0">
-              <p className="leading-none mobile-xs:max-w-[29vw] max-w-[26vw] text-font-light-grey text-xs truncate md:text-base w-full font-semibold uppercase">
+              <p className="leading-none mobile-xl:w-[32vw] mobile:w-[29vw] w-[24vw] text-font-light-grey text-xs truncate md:text-base font-semibold uppercase">
                 {currencyInfo?.name?.ru}
               </p>
               <p className="leading-none mobile-xs:max-w-[29vw] max-w-[26vw] text-font-dark-grey text-xs truncate md:text-base font-bold">
@@ -130,16 +130,16 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
                   )}
 
                   {currencyInfo ? (
-                    <div className="h-full grid grid-flow-row justify-start justify-items-start items-stretch content-between min-w-0 text-sm">
-                      <p className="leading-none uppercase truncate font-semibold text-font-light-grey">
+                    <div className="h-full grid grid-flow-row justify-start justify-items-start items-stretch content-between min-w-0 text-xs">
+                      <p className="leading-none uppercase truncate font-semibold text-font-light-grey mobile-xl:w-[calc(40vw_-_84px)] mobile:w-[calc(42vw_-_84px)] w-[calc(50vw_-_84px)]">
                         {currencyInfo?.name?.ru}
                       </p>
-                      <span className="leading-none font-bold text-sm text-font-dark-grey truncate">
+                      <span className="leading-none uppercase truncate font-bold text-font-dark-grey mobile-xl:w-[calc(40vw_-_84px)] mobile:w-[calc(42vw_-_84px)] w-[calc(50vw_-_84px)]">
                         {currencyInfo?.code_name}
                       </span>
                     </div>
                   ) : (
-                    <p>Выберите валюту</p>
+                    <p className="text-xs">Выберите валюту</p>
                   )}
                 </div>
                 <div className="w-5 h-5">

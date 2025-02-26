@@ -4,12 +4,12 @@ import { CurrencyPair } from "@/features/currency";
 import { GetDirectionsResponse } from "@/entities/currency";
 import { ExchangerMarker } from "@/shared/types";
 
-interface TopExchangeProps {
+interface TopExchangeHelpProps {
   popularNoncashDirections: GetDirectionsResponse;
   randomNoncashDirections: GetDirectionsResponse;
 }
 
-export const TopExchange: FC<TopExchangeProps> = ({
+export const TopExchangeHelp: FC<TopExchangeHelpProps> = ({
   popularNoncashDirections,
   randomNoncashDirections,
 }) => {

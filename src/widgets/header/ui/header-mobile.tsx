@@ -70,17 +70,17 @@ export const HeaderMobile = () => {
                       <AccordionTrigger className="font-bold bg-new-dark-grey mobile-xl:rounded-[15px] rounded-[10px] mobile-xl:py-7 mobile-xl:px-12 p-5 uppercase mobile-xl:text-xl text-sm">
                         <p className="leading-none">{item.value}</p>
                       </AccordionTrigger>
-                      <AccordionContent className="flex flex-col gap-6 hover:text-yellow-main p-0 pt-4 mobile-xl:pl-[50px] pl-5">
+                      <AccordionContent className="flex flex-col gap-6 hover:text-yellow-main p-0 pt-6 pb-2 mobile-xl:pl-[50px] pl-5">
                         {item.children?.map((itemChildren) => (
                           <DrawerClose asChild key={itemChildren.value}>
                             <Link target="_self" href={itemChildren.href}>
-                              <div className="flex gap-4 justify-start items-start break-words">
+                              <div className="grid grid-cols-[auto,1fr] gap-4 break-words">
                                 {itemChildren.icon && (
-                                  <div className="flex justify-center items-center bg-new-dark-grey rounded-[6px] mobile-xl:w-[48px] mobile-xl:h-[48px] w-8 h-8 mobile-xl:p-1.5 p-1">
+                                  <div className="bg-new-dark-grey rounded-[6px] mobile-xl:size-[48px] size-8 mobile-xl:p-1.5 p-1">
                                     <itemChildren.icon className="w-full h-full" />
                                   </div>
                                 )}
-                                <div className="flex flex-col gap-[2px]">
+                                <div className="grid grid-flow-row gap-[2px] h-full content-between items-stretch">
                                   <p className="leading-none uppercase mobile-xl:text-xl text-sm text-white font-bold">
                                     {itemChildren.value}
                                   </p>

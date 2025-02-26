@@ -15,7 +15,7 @@ export const CategoriesListSkeleton = () => {
         opts={{
           align: "start",
         }}
-        className="grid md:w-[calc(100%_-_100px)] md:mx-auto"
+        className="mobile-xl:grid hidden md:w-[calc(100%_-_100px)] md:mx-auto"
       >
         <CarouselContent className="w-full">
           {categoriesWithAllTab?.map((cat, index) => (
@@ -24,9 +24,12 @@ export const CategoriesListSkeleton = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="md:inline-flex hidden -left-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
-        <CarouselNext className="md:inline-flex hidden -right-14 top-1/2 mt-0 -translate-y-1/2 border-0 hover:bg-dark-gray hover:text-yellow-main hover:scale-110" />
+        <CarouselPrevious className="md:inline-flex hidden -left-10 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 md:w-6 md:h-6 w-4 h-4" />
+        <CarouselNext className="md:inline-flex hidden -right-10 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 md:w-6 md:h-6 w-4 h-4" />
       </Carousel>
+      <div className="mobile-xl:hidden flex flex-wrap gap-2 justify-center items-center">
+        {categoriesWithAllTab?.map((cat, index) => <CategoryCardSkeleton key={index} />)}
+      </div>
     </section>
   );
 };

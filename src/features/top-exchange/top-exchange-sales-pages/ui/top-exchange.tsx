@@ -2,25 +2,32 @@ import Link from "next/link";
 import { FC } from "react";
 // eslint-disable-next-line boundaries/element-types
 import { CurrencyPair } from "@/features/currency";
-import { GetDirectionsResponse } from "@/entities/currency";
+import { ExchangeType, getPopularValutes, getRandomValutes } from "@/entities/currency";
 import { routes } from "@/shared/router";
-import { ExchangerMarker, directions } from "@/shared/types";
+import { ExchangerMarker } from "@/shared/types";
 
-interface TopExchangeProps {
-  popularCashDirections: GetDirectionsResponse;
-  popularNoncashDirections: GetDirectionsResponse;
-  randomCashDirections: GetDirectionsResponse;
-  randomNoncashDirections: GetDirectionsResponse;
+interface TopExchangeSaleProps {
   direction: ExchangerMarker;
 }
 
-export const TopExchange: FC<TopExchangeProps> = ({
-  popularCashDirections,
-  popularNoncashDirections,
-  randomCashDirections,
-  randomNoncashDirections,
-  direction,
-}) => {
+export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) => {
+  const popularCashDirections = await getPopularValutes({
+    exchange_marker: ExchangeType.cash,
+    limit: 6,
+  });
+  const popularNoncashDirections = await getPopularValutes({
+    exchange_marker: ExchangeType.no_cash,
+    limit: 6,
+  });
+  const randomCashDirections = await getRandomValutes({
+    exchange_marker: ExchangeType.cash,
+    limit: 6,
+  });
+  const randomNoncashDirections = await getRandomValutes({
+    exchange_marker: ExchangeType.no_cash,
+    limit: 6,
+  });
+
   // надо знать нал/безнал
   const currentDirection = direction;
   const currentPopularDirections =

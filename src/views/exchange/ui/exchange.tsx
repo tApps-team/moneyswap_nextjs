@@ -6,6 +6,7 @@ import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers"
 import { MainFAQ } from "@/widgets/main-faq";
 import { SeoFooterText, SeoHeaderText } from "@/widgets/strapi";
 import { CurrencyTitle } from "@/features/currency";
+import { TopExchangeSale } from "@/features/top-exchange";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
@@ -103,6 +104,7 @@ export const ExchangePage = async ({
         location={city && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
       />
       <MainFAQ direction={direction} />
+      <TopExchangeSale direction={ExchangerMarker.no_cash} />
     </section>
   );
 };

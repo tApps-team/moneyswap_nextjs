@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import { BotBannerSidebar, BotBannerNew } from "@/features/bot-banner";
-import { TopExchange } from "@/features/top-exchange/top-exchange-help-page";
+import { TopExchangeHelp } from "@/features/top-exchange";
 import { GetDirectionsResponse } from "@/entities/currency";
 import { DynamicContentItem, faqTypeTabs } from "@/entities/strapi";
 import { ArticleContent } from "../../blog";
@@ -62,7 +62,7 @@ export const HelpBlock: FC<HelpBlockProps> = ({
           </p>
           <BotBannerNew />
         </div>
-        <TopExchange
+        <TopExchangeHelp
           popularNoncashDirections={popularNoncashDirections}
           randomNoncashDirections={randomNoncashDirections}
         />
