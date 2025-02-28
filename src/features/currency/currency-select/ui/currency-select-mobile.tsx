@@ -12,6 +12,7 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
   Input,
   Label,
@@ -28,13 +29,15 @@ type CurrencySelectProps = {
   label?: string;
   disabled?: boolean;
   currencies?: CurrencyResponse[];
-  currencyInfo?: SpecificValute | null;
+  currencyInfoGive?: SpecificValute | null;
+  currencyInfoGet?: SpecificValute | null;
   direction?: ExchangerMarker;
-  onClick: (currency: Currency) => void;
   amount?: number | null;
   setAmount?: (amount: number) => void;
   actualCourse: number | null;
   isCollapsed: boolean;
+  type: "give" | "get";
+  location_code_name?: string;
 };
 
 export const CurrencySelectMobile = (props: CurrencySelectProps) => {
@@ -42,12 +45,17 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
     label,
     disabled,
     currencies,
-    currencyInfo,
+    currencyInfoGive,
+    currencyInfoGet,
     isCollapsed,
-    onClick,
     setAmount,
     actualCourse,
+    direction,
+    type,
+    location_code_name,
   } = props;
+
+  const currencyInfo = type === "give" ? currencyInfoGive : currencyInfoGet;
 
   const [searchValue, setSearchValue] = useState<string>("");
 
@@ -80,10 +88,10 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
               />
             )}
             <div className="text-start h-full grid grid-flow-row justify-start justify-items-start items-stretch content-between min-w-0">
-              <p className="leading-none mobile-xl:w-[32vw] mobile:w-[29vw] w-[24vw] text-font-light-grey text-xs truncate md:text-base font-semibold uppercase">
+              <p className="leading-none mobile-xl:w-[32vw] mobile:w-[29vw] w-[24vw] text-font-light-grey mobile-xl:text-sm text-xs truncate md:text-base font-semibold uppercase">
                 {currencyInfo?.name?.ru}
               </p>
-              <p className="leading-none mobile-xs:max-w-[29vw] max-w-[26vw] text-font-dark-grey text-xs truncate md:text-base font-bold">
+              <p className="leading-none mobile-xs:max-w-[29vw] max-w-[26vw] text-font-dark-grey mobile-xl:text-sm text-xs truncate md:text-base font-bold">
                 {currencyInfo?.code_name}
               </p>
             </div>
@@ -130,7 +138,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
                   )}
 
                   {currencyInfo ? (
-                    <div className="h-full grid grid-flow-row justify-start justify-items-start items-stretch content-between min-w-0 text-xs">
+                    <div className="h-full grid grid-flow-row justify-start justify-items-start items-stretch content-between min-w-0 mobile-xl:text-sm text-xs">
                       <p className="leading-none uppercase truncate font-semibold text-font-light-grey mobile-xl:w-[calc(40vw_-_84px)] mobile:w-[calc(42vw_-_84px)] w-[calc(50vw_-_84px)]">
                         {currencyInfo?.name?.ru}
                       </p>
@@ -139,7 +147,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
                       </span>
                     </div>
                   ) : (
-                    <p className="text-xs">Выберите валюту</p>
+                    <p className="mobile-xl:text-sm text-xs">Выберите валюту</p>
                   )}
                 </div>
                 <div className="w-5 h-5">
@@ -152,6 +160,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
       )}
 
       <DrawerContent className="h-dvh flex flex-col gap-4 p-4 pb-0 rounded-none bg-new-dark-grey border-0">
+        <DrawerTitle className="sr-only"></DrawerTitle>
         <DrawerHeader className="text-start text-lg p-0 grid gap-4 pt-4">
           <div className="flex items-center justify-between">
             <h2 className="text-left font-bold text-base uppercase text-[#f6ff5f]">{label}</h2>
@@ -206,9 +215,12 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
                   {tab.currencies.map((currency) => (
                     <DialogClose key={currency?.id}>
                       <CurrencyCard
-                        onClick={() => onClick(currency)}
                         key={currency?.id}
                         currency={currency}
+                        type={type}
+                        currencyInfo={type === "get" ? currencyInfoGive : currencyInfoGet}
+                        direction={direction}
+                        location_code_name={location_code_name}
                       />
                     </DialogClose>
                   ))}

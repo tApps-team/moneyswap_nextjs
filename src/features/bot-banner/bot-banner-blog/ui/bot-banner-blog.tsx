@@ -16,7 +16,7 @@ export const BotBannerBlog = () => {
         <Image src={bot_banner} alt="banner" className="w-full h-auto object-contain" />
       </Link>
       <div className="mobile-xl:hidden grid justify-center justify-items-center gap-2 p-3 bg-new-dark-grey rounded-[8px]">
-        <p className="mobile:text-xs text-2xs text-font-light-grey font-normal text-center">
+        <p className="text-xs text-font-light-grey font-normal text-center">
           Новости, обзоры, комментарии и многое другое в нашем телеграм канале
         </p>
         <Link

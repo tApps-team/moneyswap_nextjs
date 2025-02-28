@@ -32,16 +32,31 @@ type CurrencySelectProps = {
   label?: string;
   disabled?: boolean;
   currencies?: CurrencyResponse[];
-  currencyInfo?: SpecificValute | null;
+  currencyInfoGive?: SpecificValute | null;
+  currencyInfoGet?: SpecificValute | null;
   direction?: ExchangerMarker;
-  onClick: (currency: Currency) => void;
   amount?: number | null;
   setAmount?: (amount: number) => void;
   actualCourse: number | null;
+  type: "give" | "get";
+  location_code_name?: string;
 };
 
 export const CurrencySelect = (props: CurrencySelectProps) => {
-  const { label, disabled, currencies, currencyInfo, onClick, setAmount, actualCourse } = props;
+  const {
+    label,
+    disabled,
+    currencies,
+    currencyInfoGive,
+    currencyInfoGet,
+    setAmount,
+    actualCourse,
+    type,
+    direction,
+    location_code_name,
+  } = props;
+
+  const currencyInfo = type === "give" ? currencyInfoGive : currencyInfoGet;
 
   const [searchValue, setSearchValue] = useState<string>("");
   const [activeTab, setActiveTab] = useState<string>("Все");
@@ -162,12 +177,15 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                       value={tab?.name?.ru}
                       key={tab?.id}
                     >
-                      {tab.currencies.map((currency) => (
+                      {tab?.currencies.map((currency) => (
                         <DialogClose key={currency?.id}>
                           <CurrencyCard
-                            onClick={() => onClick(currency)}
                             key={currency?.id}
                             currency={currency}
+                            type={type}
+                            currencyInfo={type === "get" ? currencyInfoGive : currencyInfoGet}
+                            direction={direction}
+                            location_code_name={location_code_name}
                           />
                         </DialogClose>
                       ))}

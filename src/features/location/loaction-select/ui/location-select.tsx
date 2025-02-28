@@ -1,5 +1,5 @@
 "use client";
-import { ChevronDown, ChevronRight, SearchIcon, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Circle, SearchIcon, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -117,7 +117,13 @@ export const LocationSelect = (props: LocationSelectProps) => {
                 </span>
               </div>
             ) : (
-              <p className="leading-none">Выберите город</p>
+              <div className="flex items-center gap-5 uppercase text-font-light-grey">
+                <Circle width={38} height={38} />
+                <p className="lg:text-lg text-base leading-none">Выберите город</p>
+                <span className="border border-font-light-grey rounded-[6px]">
+                  <ChevronDown />
+                </span>
+              </div>
             )}
           </DialogTrigger>
           <DialogContent className="shadow-[0px_2px_5px_1px_rgba(0,0,0,0.35)] lg:py-[50px] lg:px-[40px] bg-new-dark-grey flex flex-col border-none md:w-[90vw] xl:w-[80vw] h-[65dvh] rounded-[20px] gap-6">
@@ -213,7 +219,15 @@ export const LocationSelect = (props: LocationSelectProps) => {
             </span>
           </div>
         ) : (
-          <p className="leading-none mobile-xl:text-sm text-xs">Выберите город</p>
+          <div className="flex items-center gap-5 uppercase text-font-light-grey">
+            <Circle className="size-[30px]" />
+            <p className="mobile-xl:text-sm text-xs leading-none truncate max-w-[50vw]">
+              Выберите город
+            </p>
+            <span className="border border-font-light-grey rounded-[6px]">
+              <ChevronDown />
+            </span>
+          </div>
         )}
       </DialogTrigger>
       <DrawerContent className="h-dvh px-4 rounded-none bg-new-dark-grey border-0">

@@ -37,9 +37,7 @@ export const HelpBlock: FC<HelpBlockProps> = ({
           <h1 className="text-yellow-main font-medium mobile-xl:text-start text-center mobile-xl:text-2xl md:text-3xl xl:text-3xl uppercase">
             Часто задаваемые вопросы
           </h1>
-          <h2 className="tracking-wider mobile-xl:tracking-normal text-start text-sm xl:text-base font-light">
-            {title}
-          </h2>
+          <h2 className="text-start text-sm xl:text-base font-light">{title}</h2>
         </div>
         <HelpTabs
           isFaq={isFaq}

@@ -27,6 +27,7 @@ export const Main = async ({
 }: {
   searchParams?: Promise<{ direction?: ExchangerMarker; city?: string }>;
 }) => {
+  // await new Promise((resolve) => setTimeout(resolve, 10 * 60 * 1000));
   const queryClient = new QueryClient();
 
   const city = (await searchParams)?.city;

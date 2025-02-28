@@ -3,11 +3,10 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { Currency, SpecificValute, useGetAvailableValutes } from "@/entities/currency";
+import { SpecificValute, useGetAvailableValutes } from "@/entities/currency";
 import { LocationInfo, useGetCountries } from "@/entities/location";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
@@ -31,30 +30,11 @@ type CurrencySelectFormProps = {
 
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
-  const router = useRouter();
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
-  const searchParams = useSearchParams();
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
 
   const onCollapse = () => {
     setIsCollapsed((prev) => !prev);
-  };
-  const onClickGetCurrency = (getCurrency: Currency) => {
-    const route =
-      urlDirection === ExchangerMarker.cash
-        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${urlLocation?.code_name}`
-        : `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}`;
-
-    router.push(route);
-  };
-
-  const onClickGiveCurrency = (giveCurrency: Currency) => {
-    const route =
-      urlDirection === ExchangerMarker.cash
-        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${urlLocation?.code_name}`
-        : `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}`;
-
-    router.push(route);
   };
 
   const { data: countries } = useGetCountries(urlDirection);
@@ -134,33 +114,40 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               "",
               !isCollapsed
                 ? "flex-col flex items-center gap-4"
-                : "grid grid-cols-2 bg-new-grey py-3 px-4 rounded-[10px] gap-2",
+                : "grid grid-cols-[1fr,auto,1fr] bg-new-grey py-3 px-4 rounded-[10px] gap-1",
             )}
           >
             <CurrencySelectMobile
               isCollapsed={isCollapsed}
               actualCourse={1}
-              onClick={onClickGiveCurrency}
               disabled={
                 giveCurrenciesIsLoading ||
                 giveCurrenciesIsError ||
                 (urlDirection === ExchangerMarker.cash && !urlLocation)
               }
-              currencyInfo={urlGiveCurrency}
+              currencyInfoGive={urlGiveCurrency}
+              currencyInfoGet={urlGetCurrency}
               currencies={giveCurrencies}
               direction={urlDirection}
+              location_code_name={urlLocation?.code_name}
               label="отдаю"
+              type="give"
             />
             {!isCollapsed && <CurrencySwitcher direction={urlDirection} />}
+            {isCollapsed && (
+              <span className="w-[1px] h-full rounded-xl bg-[#5F5F5F] my-1 mr-1 ml-0.5"></span>
+            )}
             <CurrencySelectMobile
               isCollapsed={isCollapsed}
               actualCourse={actualCourse}
-              onClick={onClickGetCurrency}
-              currencyInfo={urlGetCurrency}
+              currencyInfoGive={urlGiveCurrency}
+              currencyInfoGet={urlGetCurrency}
               disabled={isGetCurrencyDisabled}
               currencies={getCurrencies}
-              label="получаю"
               direction={urlDirection}
+              location_code_name={urlLocation?.code_name}
+              label="получаю"
+              type="get"
             />
           </div>
         ) : (
@@ -171,28 +158,32 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
           >
             <CurrencySelect
               actualCourse={1}
-              onClick={onClickGiveCurrency}
               disabled={
                 giveCurrenciesIsLoading ||
                 giveCurrenciesIsError ||
                 (urlDirection === ExchangerMarker.cash && !urlLocation)
               }
-              currencyInfo={urlGiveCurrency}
+              currencyInfoGive={urlGiveCurrency}
+              currencyInfoGet={urlGetCurrency}
               currencies={giveCurrencies}
               direction={urlDirection}
+              location_code_name={urlLocation?.code_name}
               label="отдаю"
+              type="give"
             />
 
             <CurrencySwitcher direction={urlDirection} />
 
             <CurrencySelect
               actualCourse={actualCourse}
-              onClick={onClickGetCurrency}
-              currencyInfo={urlGetCurrency}
+              currencyInfoGive={urlGiveCurrency}
+              currencyInfoGet={urlGetCurrency}
               disabled={isGetCurrencyDisabled}
               currencies={getCurrencies}
-              label="получаю"
               direction={urlDirection}
+              location_code_name={urlLocation?.code_name}
+              label="получаю"
+              type="get"
             />
           </div>
         )}

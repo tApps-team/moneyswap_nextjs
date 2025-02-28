@@ -1,16 +1,37 @@
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/shared/lib";
-import { Currency } from "../model/types/currencyType";
+import { ExchangerMarker } from "@/shared/types";
+import { Currency, SpecificValute } from "../model/types/currencyType";
 
 type CurrencyCardProps = {
   currency: Currency;
-  onClick?: () => void;
+  currencyInfo?: SpecificValute | null;
+  type: "give" | "get";
+  direction?: ExchangerMarker;
+  location_code_name?: string;
 };
 export const CurrencyCard = (props: CurrencyCardProps) => {
-  const { currency, onClick } = props;
+  const { currency, currencyInfo, type, direction, location_code_name } = props;
+
+  console.log("info", currencyInfo);
+  // console.log("selected_currency", currency);
+
+  const giveRoute =
+    direction === ExchangerMarker.cash
+      ? `/exchange/${currency?.code_name}-to-${currencyInfo?.code_name}?city=${location_code_name}`
+      : `/exchange/${currency?.code_name}-to-${currencyInfo?.code_name}`;
+
+  const getRoute =
+    direction === ExchangerMarker.cash
+      ? `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}?city=${location_code_name}`
+      : `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}`;
+
+  console.log(giveRoute);
+  console.log(getRoute);
   return (
-    <div
-      onClick={onClick}
+    <Link
+      href={type === "give" ? giveRoute : getRoute}
       className="relative bg-transparent h-full w-full grid grid-flow-col justify-start justify-items-start gap-5 py-2 md:px-3 px-1 text-white rounded-[7px] hover:bg-new-grey"
     >
       {currency?.is_popular && (
@@ -36,6 +57,6 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
         <p className="font-bold uppercase line-clamp-1 leading-none">{currency?.name?.ru}</p>
         <span className="font-medium text-font-dark-grey leading-none">{currency?.code_name}</span>
       </div>
-    </div>
+    </Link>
   );
 };
