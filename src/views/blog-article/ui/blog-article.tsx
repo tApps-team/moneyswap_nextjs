@@ -54,7 +54,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
 
   return (
     <section className="grid grid-flow-cols lg:gap-10 gap-5">
-      <div className="mobile-xl:bg-new-dark-grey bg-transparent w-fit mobile-xl:px-4 mobile-xl:py-3 p-0 mobile-xl:rounded-[10px] md:grid md:grid-cols-[repeat(5,_auto)] flex flex-wrap gap-2 justify-start justify-items-start items-center uppercase mobile-xl:text-font-light-grey text-font-dark-grey font-normal max:text-base xl:text-sm mobile:text-xs text-2xs truncate">
+      <div className="mobile-xl:bg-new-dark-grey bg-transparent w-fit mobile-xl:px-4 mobile-xl:py-3 p-0 mobile-xl:rounded-[10px] md:grid md:grid-cols-[repeat(5,_auto)] flex flex-wrap gap-2 justify-start justify-items-start items-center uppercase mobile-xl:text-font-light-grey text-font-dark-grey font-semibold max:text-base xl:text-sm mobile:text-xs text-2xs truncate">
         <Link href={routes.home} className="hover:underline cursor-pointer">
           MONEYSWAP
         </Link>

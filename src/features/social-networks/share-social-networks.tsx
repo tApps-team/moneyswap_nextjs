@@ -7,9 +7,9 @@ import { products, routes } from "@/shared/router";
 
 export const ShareSocialNetworks = ({ article_url }: { article_url: string }) => {
   const shareLinks = {
-    telegram: `https://t.me/share/url?url=${routes.blog}${routes.article}/${article_url}`,
-    vc: `https://vc.ru/share?url=${routes.blog}${routes.article}/${article_url}`,
-    dzen: `https://dzen.ru/share?url=${routes.blog}${routes.article}/${article_url}`,
+    telegram: `https://t.me/share/url?url=${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.article}/${article_url}`,
+    vc: `https://vc.ru/share?url=${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.article}/${article_url}`,
+    dzen: `https://dzen.ru/share?url=${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.article}/${article_url}`,
   };
 
   return (

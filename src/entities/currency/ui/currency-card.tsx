@@ -10,12 +10,10 @@ type CurrencyCardProps = {
   type: "give" | "get";
   direction?: ExchangerMarker;
   location_code_name?: string;
+  index?: number;
 };
 export const CurrencyCard = (props: CurrencyCardProps) => {
-  const { currency, currencyInfo, type, direction, location_code_name } = props;
-
-  console.log("info", currencyInfo);
-  // console.log("selected_currency", currency);
+  const { currency, currencyInfo, type, direction, location_code_name, index } = props;
 
   const giveRoute =
     direction === ExchangerMarker.cash
@@ -27,17 +25,16 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
       ? `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}?city=${location_code_name}`
       : `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}`;
 
-  console.log(giveRoute);
-  console.log(getRoute);
   return (
     <Link
       href={type === "give" ? giveRoute : getRoute}
-      className="relative bg-transparent h-full w-full grid grid-flow-col justify-start justify-items-start gap-5 py-2 md:px-3 px-1 text-white rounded-[7px] hover:bg-new-grey"
+      className={`${index === 0 ? "py-2 pt-5" : "py-2"} relative bg-transparent h-full w-full grid grid-flow-col justify-start justify-items-start gap-5 md:px-3 px-1 text-white rounded-[7px] hover:bg-new-grey`}
     >
       {currency?.is_popular && (
         <span
           className={cn(
-            "absolute md:right-4 right-3 md:-translate-y-2 -translate-y-2 text-[10px] rounded-[3px] bg-yellow-main text-black text-center py-[2px] px-2 font-medium",
+            "absolute md:right-4 right-3 text-[10px] rounded-[3px] bg-yellow-main text-black text-center py-[2px] px-2 font-medium",
+            index === 0 ? "translate-y-1" : "-translate-y-2",
           )}
         >
           Популярное

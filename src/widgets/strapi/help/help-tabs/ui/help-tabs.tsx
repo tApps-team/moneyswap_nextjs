@@ -32,13 +32,13 @@ export const HelpTabs: FC<HelpTabsProps> = ({ isFaq, setIsFaq, faqTab, setFaqTab
       {isFaq && (
         <div className="lg:mt-[60px] flex flex-row mobile:gap-10 gap-6">
           <div
-            className={`cursor-pointer mobile-xl:text-lg mobile:text-sm text-2xs font-normal mobile-xl:pb-2 pb-1 ${faqTab === faqTypeTabs.for_user ? "text-yellow-main border-b-yellow-main mobile-xl:border-b-[2px] border-b-[1px]" : "text-font-light-grey"}`}
+            className={`cursor-pointer mobile-xl:text-lg mobile:text-sm text-xs font-semibold mobile-xl:pb-2 pb-1 ${faqTab === faqTypeTabs.for_user ? "text-yellow-main border-b-yellow-main mobile-xl:border-b-[2px] border-b-[1px]" : "text-font-light-grey"}`}
             onClick={() => setFaqTab(faqTypeTabs.for_user)}
           >
             {faqTypeTabs.for_user}
           </div>
           <div
-            className={`cursor-pointer mobile-xl:text-lg mobile:text-sm text-2xs font-normal mobile-xl:pb-2 pb-1 ${faqTab === faqTypeTabs.for_partner ? "text-yellow-main border-b-yellow-main mobile-xl:border-b-[2px] border-b-[1px]" : "text-font-light-grey"}`}
+            className={`cursor-pointer mobile-xl:text-lg mobile:text-sm text-xs font-semibold mobile-xl:pb-2 pb-1 ${faqTab === faqTypeTabs.for_partner ? "text-yellow-main border-b-yellow-main mobile-xl:border-b-[2px] border-b-[1px]" : "text-font-light-grey"}`}
             onClick={() => setFaqTab(faqTypeTabs.for_partner)}
           >
             {faqTypeTabs.for_partner}
