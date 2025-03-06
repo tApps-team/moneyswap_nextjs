@@ -159,78 +159,80 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
         </div>
       )}
 
-      <DrawerContent className="h-dvh flex flex-col gap-4 p-4 pb-0 rounded-none bg-new-dark-grey border-0">
+      <DrawerContent className="h-dvh p-0 rounded-none bg-transparent border-0">
         <DrawerTitle className="sr-only"></DrawerTitle>
-        <DrawerHeader className="text-start text-lg p-0 grid gap-4 pt-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-left font-bold text-base uppercase text-[#f6ff5f]">{label}</h2>
-            <DrawerClose>
-              <HeaderArrow className="size-4 -rotate-45" />
-            </DrawerClose>
-          </div>
-          <div className="relative">
-            <SearchIcon
-              width={22}
-              height={22}
-              className="absolute translate-y-2 left-3"
-              color="#bbbbbb"
-            />
-            <Input
-              className="text-base rounded-[10px] pl-12 bg-new-light-grey border-none placeholder:text-light-gray placeholder:font-normal placeholder:transition-opacity focus:placeholder:opacity-0 leading-none"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Поиск валюты"
-              color="#BBBBBB"
-            />
-          </div>
-        </DrawerHeader>
-        {filteredTabList && filteredTabList?.length > 0 ? (
-          <Tabs
-            defaultValue={"Все"}
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className="flex flex-col gap-2 flex-grow overflow-hidden"
-          >
-            <TabsList className="flex items-center justify-start flex-wrap h-auto gap-2 bg-transparent">
-              {filteredTabList.map((tab) => (
-                <TabsTrigger
-                  key={tab.id}
-                  className="rounded-[7px] w-fit bg-new-light-grey  data-[state=active]:text-black data-[state=active]:border-yellow-main text-white data-[state=active]:bg-yellow-main "
-                  value={tab?.name?.ru}
-                >
-                  <p className="truncate select-none lg:text-sm text-xs font-bold">
-                    {tab?.name?.ru}
-                  </p>
-                </TabsTrigger>
-              ))}
-            </TabsList>
+        <div className="h-dvh flex flex-col gap-4 bg-new-dark-grey p-4 pb-0">
+          <DrawerHeader className="text-start text-lg p-0 grid gap-4 pt-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-left font-bold text-base uppercase text-[#f6ff5f]">{label}</h2>
+              <DrawerClose>
+                <HeaderArrow className="size-4 -rotate-45" />
+              </DrawerClose>
+            </div>
+            <div className="relative">
+              <SearchIcon
+                width={22}
+                height={22}
+                className="absolute translate-y-2 left-3"
+                color="#bbbbbb"
+              />
+              <Input
+                className="text-base rounded-[10px] pl-12 bg-new-light-grey border-none placeholder:text-light-gray placeholder:font-normal placeholder:transition-opacity focus:placeholder:opacity-0 leading-none"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Поиск валюты"
+                color="#BBBBBB"
+              />
+            </div>
+          </DrawerHeader>
+          {filteredTabList && filteredTabList?.length > 0 ? (
+            <Tabs
+              defaultValue={"Все"}
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="flex flex-col gap-2 flex-grow overflow-hidden"
+            >
+              <TabsList className="flex items-center justify-start flex-wrap h-auto gap-2 bg-transparent">
+                {filteredTabList.map((tab) => (
+                  <TabsTrigger
+                    key={tab.id}
+                    className="rounded-[7px] w-fit bg-new-light-grey  data-[state=active]:text-black data-[state=active]:border-yellow-main text-white data-[state=active]:bg-yellow-main "
+                    value={tab?.name?.ru}
+                  >
+                    <p className="truncate select-none lg:text-sm text-xs font-bold">
+                      {tab?.name?.ru}
+                    </p>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
 
-            <ScrollArea className="flex-grow">
-              {filteredTabList.map((tab) => (
-                <TabsContent
-                  className="flex flex-col mt-2 gap-4"
-                  value={tab?.name?.ru}
-                  key={tab?.id}
-                >
-                  {tab.currencies.map((currency) => (
-                    <DialogClose key={currency?.id}>
-                      <CurrencyCard
-                        key={currency?.id}
-                        currency={currency}
-                        type={type}
-                        currencyInfo={type === "get" ? currencyInfoGive : currencyInfoGet}
-                        direction={direction}
-                        location_code_name={location_code_name}
-                      />
-                    </DialogClose>
-                  ))}
-                </TabsContent>
-              ))}
-            </ScrollArea>
-          </Tabs>
-        ) : (
-          <EmptyList />
-        )}
+              <ScrollArea className="flex-grow">
+                {filteredTabList.map((tab) => (
+                  <TabsContent
+                    className="flex flex-col mt-2 gap-4"
+                    value={tab?.name?.ru}
+                    key={tab?.id}
+                  >
+                    {tab.currencies.map((currency) => (
+                      <DialogClose key={currency?.id}>
+                        <CurrencyCard
+                          key={currency?.id}
+                          currency={currency}
+                          type={type}
+                          currencyInfo={type === "get" ? currencyInfoGive : currencyInfoGet}
+                          direction={direction}
+                          location_code_name={location_code_name}
+                        />
+                      </DialogClose>
+                    ))}
+                  </TabsContent>
+                ))}
+              </ScrollArea>
+            </Tabs>
+          ) : (
+            <EmptyList />
+          )}
+        </div>
       </DrawerContent>
     </Drawer>
   );

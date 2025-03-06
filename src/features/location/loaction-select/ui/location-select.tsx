@@ -33,6 +33,7 @@ import {
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
+  DrawerTrigger,
   Input,
   ScrollArea,
 } from "@/shared/ui";
@@ -195,7 +196,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const accordionActiveItems = filteredCountries.map((location) => String(location.id));
   return (
     <Drawer onOpenChange={() => setLocationSearchValue("")}>
-      <DialogTrigger
+      <DrawerTrigger
         asChild
         className="cursor-pointer flex items-center justify-center py-0 px-0 rounded-[15px]"
       >
@@ -226,11 +227,11 @@ export const LocationSelect = (props: LocationSelectProps) => {
             </span>
           </div>
         )}
-      </DialogTrigger>
-      <DrawerContent className="h-dvh px-4 rounded-none bg-new-dark-grey border-0">
+      </DrawerTrigger>
+      <DrawerContent className="h-dvh px-4 rounded-none bg-transparent border-0">
         <DrawerTitle className="sr-only"></DrawerTitle>
         <DrawerDescription className="sr-only"></DrawerDescription>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 bg-new-dark-grey -mx-4 px-4">
           <DrawerHeader className="flex p-0 items-center justify-between pt-16">
             <h2 className="uppercase font-bold text-yellow-main">Выбор города</h2>
             <DrawerClose>
