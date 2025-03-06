@@ -326,10 +326,10 @@ body {
   &--main_color {
     button {
       background-color: #f6ff5f;
-      color: #6F6F6F;
+      color: black;
 
       a {
-        color: #6F6F6F;
+        color: black;
       }
     }
   }
@@ -344,7 +344,7 @@ body {
   &--grey_color {
     button {
       background-color: #252830;
-      color: #B9B9B9;
+      color: #fff;
     }
   }
 }

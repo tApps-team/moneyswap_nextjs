@@ -18,10 +18,12 @@ export const GiveCell = (props: GiveCellProps) => {
   };
   return (
     <div className="grid grid-flow-row justify-start items-start justify-items-start">
-      <div className="text-yellow-main font-bold text-base truncate max-w-[200px]">
+      <div className="text-yellow-main font-bold xl:text-lg text-base truncate max-w-[200px]">
         {row.original.in_count}
       </div>
-      <div className="text-sm font-semibold truncate max-w-[200px]">{row.original.valute_from}</div>
+      <div className="xl:text-base text-sm font-semibold truncate max-w-[200px]">
+        {row.original.valute_from}
+      </div>
       {row.original.location && (
         <Link href={createUrl(row.original.location.code_name)}>
           <p>

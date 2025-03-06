@@ -51,10 +51,12 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article }) => 
           />
         </div>
         <div className={`uppercase grid grid-cols-1 gap-1 "px-4 py-4`}>
-          <span className="text-font-light-grey inline font-normal mobile:text-2xs text-[9px]">
+          <span className="text-font-light-grey inline font-medium max:text-xs mobile:text-2xs text-[9px]">
             {formattedDate}
           </span>
-          <h3 className="text-[11px] font-normal leading-4 line-clamp-2">{article?.title}</h3>
+          <h3 className="max:text-sm text-[11px] font-medium leading-4 line-clamp-2">
+            {article?.title}
+          </h3>
         </div>
       </div>
     </Link>

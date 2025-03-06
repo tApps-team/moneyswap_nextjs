@@ -81,13 +81,6 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         {label}
       </label>
       <div className="relative col-span-full w-full flex gap-2 flex-row items-center lg:flex-col">
-        <input
-          disabled={true}
-          id={label}
-          value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
-          onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="bg-[#43464E] font-semibold h-[65px] w-full focus-visible:outline-none  py-5 pl-8 rounded-xl text-yellow-main px-6 md:text-lg mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
-        />
         <Dialog>
           <DialogTrigger
             className="disabled:opacity-50 absolute right-2 top-[6px] lg:h-full h-[calc(65px_-_12px)] lg:right-0 lg:top-0 w-[40vw] lg:w-full lg:relative bg-[#191C25] lg:bg-transparent hover:bg-new-light-grey lg:p-3 p-2 px-3"
@@ -198,6 +191,13 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
             )}
           </DialogContent>
         </Dialog>
+        <input
+          disabled={true}
+          id={label}
+          value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
+          onChange={(e) => setAmount?.(e.target.valueAsNumber)}
+          className="bg-[#43464E] font-semibold h-[65px] w-full focus-visible:outline-none  py-5 pl-8 rounded-xl px-6 md:text-lg mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
+        />
       </div>
     </div>
   );

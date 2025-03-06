@@ -77,7 +77,18 @@ export const HeaderMobile = () => {
                               <div className="grid grid-cols-[auto,1fr] gap-4 break-words">
                                 {itemChildren.icon && (
                                   <div className="bg-new-dark-grey rounded-[6px] mobile-xl:size-[48px] size-8 mobile-xl:p-1.5 p-1">
-                                    <itemChildren.icon className="w-full h-full" />
+                                    {typeof itemChildren.icon === "string" ? (
+                                      <Image
+                                        // src={itemChildren.icon as string}
+                                        src={"/phone-email.png"}
+                                        alt=""
+                                        width={100}
+                                        height={100}
+                                        className="w-full h-full"
+                                      />
+                                    ) : (
+                                      <itemChildren.icon className="w-full h-full" />
+                                    )}
                                   </div>
                                 )}
                                 <div className="grid grid-flow-row gap-[2px] h-full content-between items-stretch">

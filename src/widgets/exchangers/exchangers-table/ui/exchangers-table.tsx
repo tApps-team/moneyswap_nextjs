@@ -147,7 +147,7 @@ export function ExchangersTable<TData, TValue>({
           <div className="flex items-center justify-center">
             <Button
               onClick={handleShowMore}
-              className="lg:mt-0 md:mt-6 mt-4 mx-auto w-fit mobile-xl:sm text-xs px-6 py-4 rounded-[10px] text-black bg-yellow-main hover:bg-new-light-grey hover:text-font-light-grey cursor-pointer font-normal"
+              className="lg:mt-0 md:mt-6 mt-4 mx-auto w-fit xl:text-base mobile-xl:text-sm text-xs px-6 py-4 rounded-[10px] text-black bg-yellow-main hover:bg-new-light-grey hover:text-font-light-grey cursor-pointer font-semibold"
               disabled={
                 table.getRowModel().rows.length >= data.length ||
                 table.getRowModel().rows.length < 1
@@ -171,7 +171,7 @@ export function ExchangersTable<TData, TValue>({
       <Button
         onClick={handleShowMore}
         disabled={mobileExchangers.length >= data.length}
-        className="lg:mt-0 md:mt-6 mt-4 mx-auto w-fit mobile-xl:sm text-xs px-6 py-4 rounded-[10px] text-black bg-yellow-main hover:bg-new-light-grey hover:text-font-light-grey cursor-pointer font-normal"
+        className="lg:mt-0 md:mt-6 mt-4 mx-auto w-fit mobile-xl:sm text-xs px-6 py-4 rounded-[10px] text-black bg-yellow-main hover:bg-new-light-grey hover:text-font-light-grey cursor-pointer font-semibold"
       >
         Показать ещё
       </Button>

@@ -11,7 +11,7 @@ export const CategoriesListSkeleton = () => {
   const categoriesWithAllTab = [1, 2, 3, 4, 5, 6, 7];
   return (
     <section>
-      <Carousel
+      {/* <Carousel
         opts={{
           align: "start",
         }}
@@ -26,8 +26,8 @@ export const CategoriesListSkeleton = () => {
         </CarouselContent>
         <CarouselPrevious className="md:inline-flex hidden -left-10 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 md:w-6 md:h-6 w-4 h-4" />
         <CarouselNext className="md:inline-flex hidden -right-10 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 md:w-6 md:h-6 w-4 h-4" />
-      </Carousel>
-      <div className="mobile-xl:hidden flex flex-wrap gap-2 justify-start items-center">
+      </Carousel> */}
+      <div className="flex flex-wrap gap-2 mobile-xl:justify-center justify-start items-center">
         {categoriesWithAllTab?.map((cat, index) => (
           <CategoryCardSkeleton
             key={index}

@@ -61,11 +61,11 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
           </h2>
         </div>
         <div className="hidden md:grid grid-cols-2 gap-4 items-stretch justify-center mx-auto xl:max-w-[60%] max-w-[80%]">
-          <div className="text-sm font-light text-center xl:px-8 px-5 py-5 rounded-[15px] border-[1px] border-[#F6FF5F]/20">
+          <div className="xl:text-base text-sm font-normal text-center xl:px-8 px-5 py-5 rounded-[15px] border-[1px] border-[#F6FF5F]/20">
             Каждый из обменников прошёл тщательную проверку и соответствует нашим стандартам
             надёжности. 
           </div>
-          <div className="text-sm font-light text-center xl:px-8 px-5 py-5 rounded-[15px] border-[1px] border-[#F6FF5F]/20">
+          <div className="xl:text-base text-sm font-normal text-center xl:px-8 px-5 py-5 rounded-[15px] border-[1px] border-[#F6FF5F]/20">
             Просто выберите, какую валюту хотите отдать, и какую получить — система подберёт
             оптимальные варианты.
           </div>
@@ -94,9 +94,6 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
       <Suspense fallback={<div>loading</div>}>
         <CryptoTable data={cryptoExchangers} />
       </Suspense>
-      {/* <div className="md:text-lg text-sm strapi_styles strapi_fonts_codec">
-        {parse(footer_description, options)}
-      </div> */}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-flow-row gap-5">
         <div className="bg-new-dark-grey rounded-[15px] lg:p-10 md:p-8 p-5 grid mobile-xl:grid-rows-[auto,auto,1fr] grid-rows-[auto,1fr] mobile-xl:gap-[30px] gap-5 justify-start">
           <div className="mobile-xl:block hidden size-[45px]">

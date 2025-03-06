@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleContent, BlogSidebar, SimilarArticles } from "@/widgets/strapi";
-import { SocialNetworks } from "@/features/social-networks";
+import { ShareSocialNetworks } from "@/features/social-networks";
 import { ArticleDescription, MobileArticleSearch, TableOfContentsBlock } from "@/features/strapi";
 import { getArticle, getCategoryArticles, getTagArticles } from "@/entities/strapi";
 import { ArticleNavArrowIcon, ShareIcon } from "@/shared/assets";
@@ -54,7 +54,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
 
   return (
     <section className="grid grid-flow-cols lg:gap-10 gap-5">
-      <div className="mobile-xl:bg-new-dark-grey bg-transparent w-fit mobile-xl:px-4 mobile-xl:py-3 p-0 mobile-xl:rounded-[10px] md:grid md:grid-cols-[repeat(5,_auto)] flex flex-wrap gap-2 justify-start justify-items-start items-center uppercase mobile-xl:text-font-light-grey text-font-dark-grey font-normal xl:text-sm mobile:text-xs text-2xs truncate">
+      <div className="mobile-xl:bg-new-dark-grey bg-transparent w-fit mobile-xl:px-4 mobile-xl:py-3 p-0 mobile-xl:rounded-[10px] md:grid md:grid-cols-[repeat(5,_auto)] flex flex-wrap gap-2 justify-start justify-items-start items-center uppercase mobile-xl:text-font-light-grey text-font-dark-grey font-normal max:text-base xl:text-sm mobile:text-xs text-2xs truncate">
         <Link href={routes.home} className="hover:underline cursor-pointer">
           MONEYSWAP
         </Link>
@@ -78,7 +78,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
         <h1 className="text-yellow-main uppercase xl:text-[28px] lg:text-2xl md:text-xl text-base font-bold text-start">
           {article?.article?.title}
         </h1>
-        <p className="mobile-xl:text-font-light-grey text-font-dark-grey font-normal md:text-sm mobile:text-xs text-2xs tracking-wider">
+        <p className="mobile-xl:text-font-light-grey text-font-dark-grey font-normal max:text-base md:text-sm mobile:text-xs text-2xs tracking-wider">
           {formattedDate}
         </p>
       </div>
@@ -107,7 +107,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                 <Link
                   href={`${routes.blog}${routes.tag}/${tag?.tag}`}
                   key={tag?.id}
-                  className="cursor-pointer md:text-sm text-xs md:py-4 py-2 md:px-6 px-3 bg-new-grey mobile-xl:rounded-[10px] rounded-[7px] text-white hover:bg-new-light-grey transition-all duration-300"
+                  className="cursor-pointer max:text-base md:text-sm text-xs md:py-4 py-2 md:px-6 px-3 bg-new-grey mobile-xl:rounded-[10px] rounded-[7px] text-white hover:bg-new-light-grey transition-all duration-300"
                 >
                   {tag?.name}
                 </Link>
@@ -122,7 +122,7 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
                   Поделиться
                 </p>
               </div>
-              <SocialNetworks />
+              <ShareSocialNetworks article_url={article?.url_name} />
             </div>
             {similarArticlesWithoutCurrent.length > 0 && (
               <SimilarArticles title="Похожие статьи" articles={similarArticlesWithoutCurrent} />

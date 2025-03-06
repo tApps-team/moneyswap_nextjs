@@ -17,8 +17,13 @@ export interface Exchanger {
   out_count: number;
   min_amount: string | null;
   max_amount: string | null;
-  review_count: Review;
+  review_count: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
   info?: {
+    bankomats: Bankomat[] | null;
     delivery: boolean;
     office: boolean;
     working_days: {
@@ -30,18 +35,26 @@ export interface Exchanger {
       Сб: boolean;
       Вс: boolean;
     };
-    weekdays: {
-      time_from: string;
-      time_to: string;
-    };
-    weekends: {
-      time_from: string;
-      time_to: string;
-    };
+    weekdays: { time_from: string; time_to: string };
+    weekends: { time_from: string; time_to: string };
   };
-  params: string;
-  fromfee: number | null;
+  params?: string;
+  fromfee?: number | null;
+  exchange_direction_id: number;
+  direction_marker: DirectionMarker;
   location?: LocationInfo;
+}
+
+export enum DirectionMarker {
+  city = "city",
+  country = "country",
+}
+
+export interface Bankomat {
+  id: number;
+  available: boolean;
+  name: string;
+  icon: string;
 }
 
 export enum ExchangerMarker {

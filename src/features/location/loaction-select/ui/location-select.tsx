@@ -1,7 +1,7 @@
 "use client";
-import { ChevronDown, ChevronRight, Circle, SearchIcon, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Circle, Loader, SearchIcon, X } from "lucide-react";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   City,
@@ -33,7 +33,6 @@ import {
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
   Input,
   ScrollArea,
 } from "@/shared/ui";
@@ -46,7 +45,6 @@ type LocationSelectProps = {
 
 export const LocationSelect = (props: LocationSelectProps) => {
   const { countries } = props;
-  const router = useRouter();
   const searchParams = useSearchParams();
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const searchParamsCity = searchParams.get("city");
@@ -73,10 +71,6 @@ export const LocationSelect = (props: LocationSelectProps) => {
   // убрать очистку городов и пушить город в url
   const onClickCity = (city: City) => {
     setSelectCity(city);
-    const params = new URLSearchParams(searchParams);
-    params.set("city", city.code_name.toString());
-    router.push(pathname + "?" + params);
-    // setLocation(location);
   };
 
   const filteredCountries = useMemo(() => {
@@ -201,7 +195,10 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const accordionActiveItems = filteredCountries.map((location) => String(location.id));
   return (
     <Drawer onOpenChange={() => setLocationSearchValue("")}>
-      <DialogTrigger className="cursor-pointer flex items-center justify-center py-0 px-0 rounded-[15px]">
+      <DialogTrigger
+        asChild
+        className="cursor-pointer flex items-center justify-center py-0 px-0 rounded-[15px]"
+      >
         {cityInfo ? (
           <div className="flex items-center gap-3 uppercase text-font-light-grey">
             <Image
@@ -283,9 +280,9 @@ export const LocationSelect = (props: LocationSelectProps) => {
                       />
                     </AccordionTrigger>
                     <AccordionContent className="py-4 px-5 grid gap-6 text-white group-data-[state=open]:bg-[#393C44]">
-                      {country.cities.map((city) => (
-                        <DrawerClose key={city?.id} className="w-full px-0 pl-[6px]">
-                          <CityCardMobile city={city.name.ru} onClick={() => onClickCity(city)} />
+                      {country?.cities.map((city) => (
+                        <DrawerClose asChild key={city?.id} className="w-full px-0 pl-[6px]">
+                          <CityCardMobile city={city} onClick={() => onClickCity(city)} />
                         </DrawerClose>
                       ))}
                     </AccordionContent>

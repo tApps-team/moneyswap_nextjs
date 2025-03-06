@@ -70,7 +70,7 @@ export const Main = async ({
   return (
     <section>
       <MainTop />
-      <div className="-mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
+      <div className="lg:-mt-8 -mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
         <BotBannerNew />
       </div>
       <CurrencySelectForm

@@ -16,12 +16,12 @@ export const TagsList: FC<TagsListProps> = ({ tags }) => {
             Популярные хэштеги
           </h3>
         </div>
-        <section className="flex flex-wrap px-3 overflow-y-auto max-h-[180px] h-[calc(100vw_/_6)]">
+        <section className="flex flex-wrap px-3 overflow-y-auto max-h-[216px] h-full">
           {tags?.map((tag) => (
             <Link
               scroll={false}
               href={`${routes.blog}${routes.tag}/${tag?.tag}`}
-              className="mr-2 text-[#ddd] lg:text-xs text-2xs leading-2 hover:text-yellow-main cursor-pointer transition-all hover:transition-all duration-300"
+              className="mr-2 text-[#ddd] max:text-base xl:text-sm lg:text-xs text-2xs leading-2 hover:text-yellow-main cursor-pointer transition-all hover:transition-all duration-300"
               key={tag?.id}
             >
               {tag?.name}

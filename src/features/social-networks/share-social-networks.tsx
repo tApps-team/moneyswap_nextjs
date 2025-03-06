@@ -1,14 +1,22 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { TelegramIcon } from "@/shared/assets";
-import { products } from "@/shared/router";
+import { products, routes } from "@/shared/router";
 
-export const SocialNetworks = () => {
+export const ShareSocialNetworks = ({ article_url }: { article_url: string }) => {
+  const shareLinks = {
+    telegram: `https://t.me/share/url?url=${routes.blog}${routes.article}/${article_url}`,
+    vc: `https://vc.ru/share?url=${routes.blog}${routes.article}/${article_url}`,
+    dzen: `https://dzen.ru/share?url=${routes.blog}${routes.article}/${article_url}`,
+  };
+
   return (
     <section className="grid grid-flow-col justify-center items-center justify-items-center gap-4">
       <Link
         className="relative bg-[#27aed6] rounded-[7px] h-10 w-10 hover:scale-[1.05] active:scale-[0.95] transition-all duration-300"
-        href={products.telegram_channel}
+        href={shareLinks.telegram}
         target="_blank"
         rel="noopener noreferrer"
       >

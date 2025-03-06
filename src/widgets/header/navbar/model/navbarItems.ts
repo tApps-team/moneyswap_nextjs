@@ -1,4 +1,4 @@
-import { ReactNode, SVGProps } from "react";
+import { SVGProps } from "react";
 import {
   EmailTelephoneIcon,
   FileIcon,
@@ -12,7 +12,7 @@ import { routes } from "@/shared/router";
 type NavbarItems = {
   href: string;
   value: string;
-  icon?: (props: SVGProps<SVGSVGElement>) => JSX.Element;
+  icon?: ((props: SVGProps<SVGSVGElement>) => JSX.Element) | string;
   children?: (NavbarItems & { description?: string })[];
 };
 
@@ -65,7 +65,7 @@ export const navbarItems: NavbarItems[] = [
         href: `${routes.partners}`,
         value: "Контакты",
         description: "Связаться с нами или предложить сотрудничество",
-        icon: EmailTelephoneIcon,
+        icon: "public import",
       },
     ],
   },

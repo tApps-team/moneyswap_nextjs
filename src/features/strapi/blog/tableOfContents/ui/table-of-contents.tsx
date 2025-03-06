@@ -92,7 +92,7 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
           <li
             key={index}
             ref={(el) => (itemRefs.current[item.id] = el)}
-            className={`relative grid grid-flow-col gap-2 justify-start items-center xl:text-sm text-xs font-normal`}
+            className={`relative grid grid-flow-col gap-2 justify-start items-center max:text-base xl:text-sm text-xs font-normal`}
           >
             <span
               className={`absolute left-[9.5px] w-[1px] bg-[#575A62] ${index === 0 ? "top-[50%] bottom-0" : index === table_of_contents?.length - 1 ? "top-0 bottom-[50%]" : "-top-2 -bottom-2"}`}

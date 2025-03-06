@@ -9,7 +9,7 @@ export const Header = () => {
   return (
     <>
       <HeaderMobile />
-      <header className="fixed lg:block hidden top-0 left-0 w-full backdrop-blur-md z-10 py-4 bg-new-dark-grey px-[25px]">
+      <header className="z-50 fixed lg:block hidden top-0 left-0 w-full backdrop-blur-md py-4 bg-new-dark-grey px-[25px]">
         <section className="max-w-[1400px] grid grid-flow-col gap-4 justify-between items-center mx-auto">
           <Link href={routes.home}>
             <Image

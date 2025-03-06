@@ -8,7 +8,7 @@ export default function Loading() {
   return (
     <section className="">
       <SkeletonSeoHeaderText />
-      <div className="lg:-mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
+      <div className="lg:-mt-8 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
         <SkeletonBotBannerNew isExchange />
       </div>
       <div className="grid grid-flow-row gap-10">

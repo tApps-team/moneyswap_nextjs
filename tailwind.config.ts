@@ -33,6 +33,7 @@ const config = {
         "mobile-xs": "375px",
         mobile: "450px",
         "mobile-xl": "576px",
+        max: "1400px",
       },
       colors: {
         "yellow-main": "#F6FF5F",

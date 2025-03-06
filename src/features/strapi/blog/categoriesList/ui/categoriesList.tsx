@@ -28,24 +28,24 @@ export const CategoriesList: FC<CategoriesListProps> = ({
     category: null,
   };
   const categoriesWithAllTab = [allTag, ...categories];
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [api, setApi] = useState<CarouselApi>();
+  // const carouselRef = useRef<HTMLDivElement>(null);
+  // const [api, setApi] = useState<CarouselApi>();
 
-  const scrollToActiveCategory = async () => {
-    if (categoriesWithAllTab.length > 0 && api && selectedCategory) {
-      const index = categoriesWithAllTab.findIndex((cat) => cat.category === selectedCategory);
-      await new Promise((resolve) => setTimeout(resolve, 0));
-      api.scrollTo(index);
-    }
-  };
+  // const scrollToActiveCategory = async () => {
+  //   if (categoriesWithAllTab.length > 0 && api && selectedCategory) {
+  //     const index = categoriesWithAllTab.findIndex((cat) => cat.category === selectedCategory);
+  //     await new Promise((resolve) => setTimeout(resolve, 0));
+  //     api.scrollTo(index);
+  //   }
+  // };
 
-  useEffect(() => {
-    scrollToActiveCategory();
-  }, [api, selectedCategory, categoriesWithAllTab]);
+  // useEffect(() => {
+  //   scrollToActiveCategory();
+  // }, [api, selectedCategory, categoriesWithAllTab]);
 
   return (
     <section>
-      <Carousel
+      {/* <Carousel
         ref={carouselRef}
         opts={{
           align: "start",
@@ -80,8 +80,8 @@ export const CategoriesList: FC<CategoriesListProps> = ({
         </CarouselContent>
         <CarouselPrevious className="md:inline-flex hidden -left-10 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 md:w-6 md:h-6 w-4 h-4" />
         <CarouselNext className="md:inline-flex hidden -right-10 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 md:w-6 md:h-6 w-4 h-4" />
-      </Carousel>
-      <div className="mobile-xl:hidden flex flex-wrap gap-2 justify-start items-center">
+      </Carousel> */}
+      <div className="flex flex-wrap gap-2 mobile-xl:justify-center justify-start items-center">
         {selectedTag && <CategoryCard tag={selectedTag} />}
         {categoriesWithAllTab?.map((cat) => (
           <CategoryCard

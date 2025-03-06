@@ -141,7 +141,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
           <div className="flex items-center  justify-center">
             <Button
               onClick={handleShowMore}
-              className="rounded-[10px] font-semibold h-[52px]  bg-yellow-main py-4 text-black px-20"
+              className="xl:text-base text-sm rounded-[10px] font-semibold h-[52px]  bg-yellow-main py-4 text-black px-20"
               disabled={
                 table.getRowModel().rows.length >= data.length ||
                 table.getRowModel().rows.length < 1
