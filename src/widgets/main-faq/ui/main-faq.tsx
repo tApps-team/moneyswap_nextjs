@@ -8,10 +8,10 @@ interface MainFAQProps {
 }
 
 export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
-  const filteredFaqs = await getFaq(
-    direction === ExchangerMarker.cash ? faqTypes.cash : faqTypes.noncash,
-  );
-  const basicFaqs = await getFaq(faqTypes.basic);
+  const [filteredFaqs, basicFaqs] = await Promise.all([
+    getFaq(direction === ExchangerMarker.cash ? faqTypes.cash : faqTypes.noncash),
+    getFaq(faqTypes.basic),
+  ]);
 
   const faqs = [
     {
@@ -22,11 +22,11 @@ export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
   ];
 
   return (
-    <div className="grid lg:grid-cols-2 lg:py-[50px] mobile-xl:pb-[50px] mobile-xl:pt-[0px] py-8 mobile-xl:gap-[5%] gap-6 w-full">
+    <div className="bg-new-dark-grey mobile-xl:rounded-[15px] rounded-[10px] grid lg:grid-cols-2 lg:py-[50px] mobile-xl:px-[30px] mobile-xl:py-10 px-5 py-6 mobile-xl:gap-14 gap-10 w-full">
       {faqs?.map((block) => (
         <div className="w-full" key={block?.title}>
-          <div className="mobile-xl:mb-0 mb-6 mobile-xl:pb-6 pb-6 mobile-xl:pl-8 mobile-xl:border-none border-b-2 border-light-gray">
-            <h3 className="xl:text-xl md:text-lg mobile:text-base text-sm text-yellow-main font-normal uppercase mobile-xl:truncate">
+          <div className="mobile-xl:mb-0 mobile-xl:pb-10 pb-4 mobile-xl:pl-8">
+            <h3 className="xl:text-xl md:text-lg text-base text-yellow-main font-bold uppercase mobile-xl:truncate">
               {block?.title}
             </h3>
           </div>

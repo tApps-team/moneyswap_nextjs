@@ -1,18 +1,49 @@
 import Image from "next/image";
-import { Currency } from "../model/types/currencyType";
+import Link from "next/link";
+import { cn } from "@/shared/lib";
+import { ExchangerMarker } from "@/shared/types";
+import { Currency, SpecificValute } from "../model/types/currencyType";
 
 type CurrencyCardProps = {
   currency: Currency;
-  onClick?: () => void;
+  currencyInfo?: SpecificValute | null;
+  type: "give" | "get";
+  direction?: ExchangerMarker;
+  location_code_name?: string;
 };
 export const CurrencyCard = (props: CurrencyCardProps) => {
-  const { currency, onClick } = props;
+  const { currency, currencyInfo, type, direction, location_code_name } = props;
+
+  console.log("info", currencyInfo);
+  // console.log("selected_currency", currency);
+
+  const giveRoute =
+    direction === ExchangerMarker.cash
+      ? `/exchange/${currency?.code_name}-to-${currencyInfo?.code_name}?city=${location_code_name}`
+      : `/exchange/${currency?.code_name}-to-${currencyInfo?.code_name}`;
+
+  const getRoute =
+    direction === ExchangerMarker.cash
+      ? `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}?city=${location_code_name}`
+      : `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}`;
+
+  console.log(giveRoute);
+  console.log(getRoute);
   return (
-    <div
-      onClick={onClick}
-      className="bg-dark-gray h-full w-full flex gap-3 border-0 shadow-[0px_2px_5px_1px_rgba(0,0,0,0.7)] rounded-full p-3 hover:bg-yellow-main hover:text-black hover:border-yellow-main  text-white border-light-gray items-center"
+    <Link
+      href={type === "give" ? giveRoute : getRoute}
+      className="relative bg-transparent h-full w-full grid grid-flow-col justify-start justify-items-start gap-5 py-2 md:px-3 px-1 text-white rounded-[7px] hover:bg-new-grey"
     >
-      <figure className="mobile-xl:w-[42px] size-8 rounded-full overflow-hidden mobile-xl:h-[42px]">
+      {currency?.is_popular && (
+        <span
+          className={cn(
+            "absolute md:right-4 right-3 md:-translate-y-2 -translate-y-2 text-[10px] rounded-[3px] bg-yellow-main text-black text-center py-[2px] px-2 font-medium",
+          )}
+        >
+          Популярное
+        </span>
+      )}
+      <figure className="mobile-xl:w-[42px] mobile-xl:h-[42px] size-9 rounded-full overflow-hidden">
         <Image
           src={currency.icon_url}
           width={42}
@@ -22,10 +53,10 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
           decoding="async"
         />
       </figure>
-      <div className="flex flex-col text-xs mobile-xl:text-base items-start">
-        <p className="font-normal uppercase line-clamp-1">{currency?.name?.ru}</p>
-        <span className="font-light">{currency?.code_name}</span>
+      <div className="h-full grid grid-flow-row justify-start justify-items-start items-stretch content-between mobile-xl:text-base text-sm">
+        <p className="font-bold uppercase line-clamp-1 leading-none">{currency?.name?.ru}</p>
+        <span className="font-medium text-font-dark-grey leading-none">{currency?.code_name}</span>
       </div>
-    </div>
+    </Link>
   );
 };

@@ -52,8 +52,8 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
 
   return (
     <section>
-      <div className="grid md:w-full w-auto lg:gap-[30px] gap-6 lg:rounded-[30px] md:rounded-[24px] md:bg-dark-gray bg-transparent md:p-6 p-0 md:shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
-        <h3 className="flex justify-center items-center w-full uppercase lg:text-xl mobile:text-lg text-md font-normal text-center">
+      <div className="grid md:w-full w-auto lg:gap-[30px] gap-6 rounded-[15px] bg-new-dark-grey lg:p-10 mobile-xl:p-8 p-[10px] py-6">
+        <h3 className="text-yellow-main flex justify-center items-center w-full uppercase lg:text-xl mobile:text-lg text-md font-bold text-center">
           {title}
         </h3>
         <Carousel
@@ -61,7 +61,7 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
           opts={{
             align: "start",
           }}
-          className="md:w-full md:bg-transparent bg-dark-gray md:rounded-none rounded-[35px] md:p-0 p-6 md:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
+          className=""
         >
           <CarouselContent className="flex">
             {articles?.map((art, index) => (
@@ -72,7 +72,7 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
           </CarouselContent>
           <div
             ref={progressBarRef}
-            className="md:hidden block relative h-[3px] w-full bg-light-gray rounded-full"
+            className="md:hidden block relative h-[3px] w-full bg-light-gray rounded-full mt-4 mx-auto max-w-[90%]"
           >
             <div
               className={`-top-[50%] translate-y-[50%] absolute h-[6px] bg-yellow-main rounded-full transition-transform duration-200`}
@@ -82,8 +82,8 @@ export const SliderOfArticles: FC<SliderOfArticlesProps> = ({ title, articles })
               }}
             ></div>
           </div>
-          <CarouselPrevious className="md:inline-flex hidden" />
-          <CarouselNext className="md:inline-flex hidden" />
+          <CarouselPrevious className="md:inline-flex hidden -left-4 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 w-8 h-8 shadow-lg" />
+          <CarouselNext className="md:inline-flex hidden -right-4 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 w-8 h-8 shadow-lg" />
         </Carousel>
       </div>
     </section>

@@ -11,14 +11,14 @@ export const TopCoins = async () => {
   console.log(topCoins);
 
   return (
-    <section className="bg-dark-gray   grid grid-cols-1 grid-flow-row gap-4 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.7)] p-6 rounded-2xl">
-      <p className="text-white uppercase font-normal text-base">ТОП МОНЕТ</p>
-      <ScrollArea className="max-h-96 pr-4 ">
+    <section className="bg-new-dark-grey   grid grid-cols-1 grid-flow-row gap-4 py-6 px-3 rounded-2xl">
+      <p className="text-white uppercase text-center font-bold text-base">ТОП МОНЕТ</p>
+      <ScrollArea className="max-h-96 px-3">
         <div className="flex flex-col gap-4 ">
           {topCoins?.map((topCoin) => (
             <div
               key={topCoin?.id + topCoin?.code_name}
-              className="flex  pb-3 border-b last:border-none justify-between items-center"
+              className="flex  pb-3 border-b border-[#34363A] last:border-none justify-between items-center"
             >
               <div className="flex gap-2 items-center">
                 <Image
@@ -29,23 +29,23 @@ export const TopCoins = async () => {
                   className="size-8 md:size-10"
                 />
                 <div className="flex  flex-col gap-0">
-                  <p className="text-2xs md:text-xs font-normal">{topCoin?.code_name}</p>
-                  <span className="text-[8px] md:text-2xs uppercase font-light">
+                  <p className="md:text-base text-sm font-bold truncate">{topCoin?.code_name}</p>
+                  <span className="md:text-sm text-xs text-font-dark-grey uppercase font-normal truncate">
                     {topCoin?.name}
                   </span>
                 </div>
               </div>
               <div className="text-end ">
-                <p className="text-2xs md:text-sm font-normal text-nowrap">
-                  {topCoin?.course?.toFixed(4) || 0} <span className="font-light">USD</span>
+                <p className="md:text-sm text-xs font-bold text-nowrap">
+                  {topCoin?.course?.toFixed(4) || 0} <span className="font-bold">USD</span>
                 </p>
-                <div className="text-2xs md:text-xs flex items-center justify-end gap-2">
+                <div className="text-xs flex items-center justify-end gap-2">
                   {topCoin?.isIncrease ? (
                     <UpPercent color="#f6ff5f" className="" width={9} height={9} />
                   ) : (
                     <DownPercent width={9} height={9} />
                   )}
-                  <span className={cn("", topCoin.isIncrease && "text-yellow-main")}>
+                  <span className={cn("", topCoin.isIncrease && "font-semibold text-yellow-main")}>
                     {topCoin?.percent ? topCoin?.percent.toFixed(3) : "0.0"}%
                   </span>
                 </div>

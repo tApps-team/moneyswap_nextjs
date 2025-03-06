@@ -1,22 +1,38 @@
 import * as React from "react";
 import { SVGProps } from "react";
+
 export const WalletIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="1em" height="1em" {...props}>
-    <defs>
-      <style>{".cls-2{fill:#2d2d2d}"}</style>
-    </defs>
-    <g id="\u0421\u043B\u043E\u0439_2" data-name="\u0421\u043B\u043E\u0439 2">
-      <g id="\u0421\u043B\u043E\u0439_1-2" data-name="\u0421\u043B\u043E\u0439 1">
-        <path
-          d="M25 0a25 25 0 1 0 25 25.05A25 25 0 0 0 25 0Z"
-          style={{
-            fill: "#f4ff5f",
-          }}
-        />
-        <path d="M35.89 14.66H14.11A4.37 4.37 0 0 0 9.75 19v12a4.36 4.36 0 0 0 4.36 4.36h21.78A4.36 4.36 0 0 0 40.25 31V19a4.37 4.37 0 0 0-4.36-4.34Zm-21.78 1.66h21.78a2.69 2.69 0 0 1 2.65 2.27H11.46a2.69 2.69 0 0 1 2.65-2.27Zm21.78 17.36H14.11a2.7 2.7 0 0 1-2.7-2.7v-8.79h27.18V31a2.7 2.7 0 0 1-2.7 2.68Z" />
-        <path d="M35.12 25H22.51a.9.9 0 0 0 0 1.8h12.61a.9.9 0 1 0 0-1.8ZM35.12 29.24h-4.81a.91.91 0 0 0 0 1.81h4.81a.91.91 0 0 0 0-1.81Z" />
-        <rect width={5.39} height={3.6} x={13.81} y={27.44} rx={0.95} />
-      </g>
-    </g>
+  <svg {...props} viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M2.6857 11.421H29.5428"
+      stroke="#F6FF5F"
+      strokeWidth="1.5"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M8.05713 22.1638H10.7428"
+      stroke="#F6FF5F"
+      strokeWidth="1.5"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M14.1 22.1638H19.4714"
+      stroke="#F6FF5F"
+      strokeWidth="1.5"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M8.64799 4.70667H23.5671C28.3477 4.70667 29.5428 5.88838 29.5428 10.6018V21.6267C29.5428 26.3401 28.3477 27.5218 23.5806 27.5218H8.64799C3.88084 27.5352 2.6857 26.3535 2.6857 21.6401V10.6018C2.6857 5.88838 3.88084 4.70667 8.64799 4.70667Z"
+      stroke="#F6FF5F"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );

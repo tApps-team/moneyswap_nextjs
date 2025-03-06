@@ -1,55 +1,40 @@
 "use client";
 
-import { cx } from "class-variance-authority";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { CurrencySelect, CurrencySelectMobile, CurrencySwitcher } from "@/features/currency";
+import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { Currency, useGetAvailableValutes } from "@/entities/currency";
+import { SpecificValute, useGetAvailableValutes } from "@/entities/currency";
 import { LocationInfo, useGetCountries } from "@/entities/location";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
-import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
-import { Button } from "@/shared/ui";
+
+const CurrencySelectMobile = dynamic(() =>
+  import("@/features/currency").then((mod) => mod.CurrencySelectMobile),
+);
+const CurrencySelect = dynamic(() =>
+  import("@/features/currency").then((mod) => mod.CurrencySelect),
+);
 
 type CurrencySelectFormProps = {
   url?: string;
   urlLocation?: LocationInfo;
-  urlGetCurrency?: Currency;
-  urlGiveCurrency?: Currency;
+  urlGetCurrency?: SpecificValute;
+  urlGiveCurrency?: SpecificValute;
   urlDirection: ExchangerMarker;
   actualCourse: number | null;
 };
 
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
-  const router = useRouter();
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
-  const searchParams = useSearchParams();
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
 
   const onCollapse = () => {
     setIsCollapsed((prev) => !prev);
-  };
-  const onClickGetCurrency = (getCurrency: Currency) => {
-    const route =
-      urlDirection === ExchangerMarker.cash
-        ? `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}?city=${urlLocation?.code_name}`
-        : `/exchange/${urlGiveCurrency?.code_name}-to-${getCurrency.code_name}`;
-
-    router.push(route);
-  };
-
-  const onClickGiveCurrency = (giveCurrency: Currency) => {
-    const route =
-      urlDirection === ExchangerMarker.cash
-        ? `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}?city=${urlLocation?.code_name}`
-        : `/exchange/${giveCurrency.code_name}-to-${urlGetCurrency?.code_name}`;
-
-    router.push(route);
   };
 
   const { data: countries } = useGetCountries(urlDirection);
@@ -77,122 +62,137 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
 
   return (
     <section>
-      <form className="text-white  w-full border-2 border-light-gray h-full lg:py-5 py-3 lg:px-7 px-5 lg:pb-12 pb-4 bg-dark-gray rounded-3xl">
-        <div className="flex lg:flex-row  flex-col lg:gap-2 gap-4 pb-4 lg:items-center justify-between lg:pb-6 ">
+      <form
+        className={cn(
+          "grid grid-flow-row text-white w-full border-light-gray h-full lg:pb-10 lg:py-6 lg:px-7 md:p-8 md:py-3 md:px-5 md:pb-4 p-4 mobile-xl:pb-[30px] pb-5 bg-new-dark-grey rounded-[15px]",
+          isCollapsed ? "gap-3" : "md:gap-5 gap-6",
+        )}
+      >
+        <div className="flex md:flex-row flex-col lg:gap-2 gap-4 md:items-center justify-between">
           <p
             className={cn(
-              "uppercase font-medium lg:text-base mobile:text-sm text-xs",
-              !isDesktop && isCollapsed ? "hidden" : "block",
+              "uppercase hidden md:block lg:text-xl md:text-lg font-semibold",
+              isCollapsed && "hidden",
             )}
           >
             Выберите направление обмена
           </p>
-          <div className="flex flex-col mobile-xs:flex-row justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
-            <div className="flex items-center">
-              <Link
-                href={`/?direction=cash`}
-                type="button"
-                role="tab"
-                id="changeCash"
-                className={cn(
-                  "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-medium h-full text-light-gray",
-                  urlDirection === ExchangerMarker.cash && "text-yellow-main",
-                )}
-              >
-                Наличные
-              </Link>
-              <div className="lg:mx-2 mx-1">/</div>
+          <div className="flex flex-col mobile-xs:flex-row justify-center md:justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
+            <div className="grid grid-cols-2 gap-2 items-center w-full md:gap-2">
               <Link
                 href={"/"}
                 type="button"
                 role="tab"
                 id="changeOnline"
                 className={cn(
-                  "bg-transparent p-0 rounded-[4px] md:text-base text-2xs uppercase font-medium h-full text-light-gray",
-                  urlDirection === ExchangerMarker.no_cash && "text-yellow-main",
+                  "p-0 mobile-xl:text-base text-sm text-center h-full mobile-xl:px-7 px-2 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
+                  urlDirection === ExchangerMarker.no_cash && " bg-yellow-main text-black",
                 )}
               >
                 Безналичные
               </Link>
-            </div>
-            <div className="lg:hidden block">
-              {urlDirection === ExchangerMarker.cash && (
-                <LocationSelect countries={countries || []} />
-              )}
+
+              <Link
+                href={`/?direction=cash`}
+                type="button"
+                role="tab"
+                id="changeCash"
+                className={cn(
+                  " p-0 mobile-xl:text-base text-sm text-center h-full mobile-xl:px-7 px-2 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
+                  urlDirection === ExchangerMarker.cash && " bg-yellow-main text-black",
+                )}
+              >
+                Наличные
+              </Link>
             </div>
           </div>
         </div>
-        {!isDesktop && isCollapsed ? (
-          <div className="flex items-center gap-4">
+        {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
+        {!isDesktop ? (
+          <div
+            className={cn(
+              "",
+              !isCollapsed
+                ? "flex-col flex items-center gap-4"
+                : "grid grid-cols-[1fr,auto,1fr] bg-new-grey py-3 px-4 rounded-[10px] gap-1",
+            )}
+          >
             <CurrencySelectMobile
+              isCollapsed={isCollapsed}
               actualCourse={1}
-              onClick={onClickGiveCurrency}
               disabled={
                 giveCurrenciesIsLoading ||
                 giveCurrenciesIsError ||
                 (urlDirection === ExchangerMarker.cash && !urlLocation)
               }
-              currencyInfo={urlGiveCurrency}
+              currencyInfoGive={urlGiveCurrency}
+              currencyInfoGet={urlGetCurrency}
               currencies={giveCurrencies}
               direction={urlDirection}
+              location_code_name={urlLocation?.code_name}
               label="отдаю"
+              type="give"
             />
+            {!isCollapsed && <CurrencySwitcher direction={urlDirection} />}
+            {isCollapsed && (
+              <span className="w-[1px] h-full rounded-xl bg-[#5F5F5F] my-1 mr-1 ml-0.5"></span>
+            )}
             <CurrencySelectMobile
+              isCollapsed={isCollapsed}
               actualCourse={actualCourse}
-              onClick={onClickGetCurrency}
-              currencyInfo={urlGetCurrency}
+              currencyInfoGive={urlGiveCurrency}
+              currencyInfoGet={urlGetCurrency}
               disabled={isGetCurrencyDisabled}
               currencies={getCurrencies}
-              label="получаю"
               direction={urlDirection}
+              location_code_name={urlLocation?.code_name}
+              label="получаю"
+              type="get"
             />
           </div>
         ) : (
           <div
             className={cn(
-              "grid lg:grid-cols-[1fr,auto,1fr] lg:items-end w-full gap-4",
-              "grid-cols-1 items-center justify-between",
-              urlDirection === ExchangerMarker.cash && "lg:grid-flow-col",
+              "grid grid-cols-1 items-center justify-between lg:grid-cols-[1fr,auto,1fr]  lg:items-center lg:justify-center w-full gap-4",
             )}
           >
             <CurrencySelect
               actualCourse={1}
-              onClick={onClickGiveCurrency}
               disabled={
                 giveCurrenciesIsLoading ||
                 giveCurrenciesIsError ||
                 (urlDirection === ExchangerMarker.cash && !urlLocation)
               }
-              currencyInfo={urlGiveCurrency}
+              currencyInfoGive={urlGiveCurrency}
+              currencyInfoGet={urlGetCurrency}
               currencies={giveCurrencies}
               direction={urlDirection}
+              location_code_name={urlLocation?.code_name}
               label="отдаю"
+              type="give"
             />
 
             <CurrencySwitcher direction={urlDirection} />
 
             <CurrencySelect
               actualCourse={actualCourse}
-              onClick={onClickGetCurrency}
-              currencyInfo={urlGetCurrency}
+              currencyInfoGive={urlGiveCurrency}
+              currencyInfoGet={urlGetCurrency}
               disabled={isGetCurrencyDisabled}
               currencies={getCurrencies}
-              label="получаю"
               direction={urlDirection}
+              location_code_name={urlLocation?.code_name}
+              label="получаю"
+              type="get"
             />
-            <div className="lg:block hidden">
-              {urlDirection === ExchangerMarker.cash && (
-                <LocationSelect countries={countries || []} />
-              )}
-            </div>
           </div>
         )}
       </form>
       <button
         onClick={onCollapse}
-        className="border md:hidden flex items-center justify-center rounded-full mx-auto bg-dark-gray -translate-y-3 w-1/3"
+        className=" md:hidden flex items-center justify-center rounded-[6px] mx-auto bg-yellow-main -translate-y-3 w-1/4"
       >
-        {isCollapsed ? <ChevronDown /> : <ChevronUp />}
+        {isCollapsed ? <ChevronDown color="black" /> : <ChevronUp color="black" />}
       </button>
     </section>
   );

@@ -10,10 +10,9 @@ import { ArticlePreview } from "../../../model";
 
 interface ArticlePreviewCardProps {
   article: ArticlePreview;
-  isMain?: boolean;
 }
 
-export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMain }) => {
+export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article }) => {
   const [isLoading, setIsLoading] = useState(true);
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -28,14 +27,14 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
   const formattedDate = formatter.format(new Date(article?.publishedAt));
   return (
     <Link
-      className={`w-full group xl:rounded-[30px] rounded-[24px] ${isMain ? "bg-black" : ""} relative`}
+      className={`h-full w-full group xl:rounded-[20px] rounded-[15px] bg-new-grey relative`}
       href={`${routes.blog}${routes.article}/${article?.url_name}`}
       scroll={true}
     >
-      <div>
-        <div className="relative z-1 w-full max-w-full h-auto max-h-[calc(100vw_/_2.41)] lg:max-h-[189px] mobile-xl:border-[2px] border-[1px] border-[#000] xl:rounded-[30px] rounded-[24px] overflow-hidden">
+      <div className="p-[10px]">
+        <div className="relative z-1 w-full max-w-full h-auto max-h-[calc(100vw_/_2.41)] lg:max-h-[189px] xl:rounded-[15px] rounded-[10px] overflow-hidden">
           {isLoading && (
-            <Skeleton className="absolute inset-0 flex items-center justify-center bg-dark-gray text-white">
+            <Skeleton className="absolute inset-0 flex items-center justify-center bg-new-light-grey text-white">
               <Loader className="animate-spin h-20" />
             </Skeleton>
           )}
@@ -51,13 +50,11 @@ export const ArticlePreviewCard: FC<ArticlePreviewCardProps> = ({ article, isMai
             onLoad={handleImageLoad}
           />
         </div>
-        <div
-          className={`uppercase grid grid-cols-1 gap-1 ${isMain ? "px-4 py-4" : "pt-4 pb-4 md:pb-0"}`}
-        >
-          <span className="text-light-gray inline font-normal mobile:text-[9px] mobile-xs:text-[8px] text-[7px]">
+        <div className={`uppercase grid grid-cols-1 gap-1 "px-4 py-4`}>
+          <span className="text-font-light-grey inline font-medium max:text-xs mobile:text-2xs text-[9px]">
             {formattedDate}
           </span>
-          <h3 className="mobile-xs:text-2xs text-[9px] font-normal max-h-[200px] overflow-hidden text-ellipsis leading-4 line-clamp-2">
+          <h3 className="max:text-sm text-[11px] font-medium leading-4 line-clamp-2">
             {article?.title}
           </h3>
         </div>

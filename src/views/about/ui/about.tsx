@@ -1,7 +1,7 @@
 import { Loader } from "lucide-react";
 import { Suspense } from "react";
 import { TopCoins } from "@/widgets/about/top-coins";
-import { TopExchangers, getTopExchangers } from "@/widgets/about/top-exchngers";
+import { TopExchangers } from "@/widgets/about/top-exchngers";
 import { ArticleContent } from "@/widgets/strapi";
 import { getAboutPage } from "@/entities/strapi";
 

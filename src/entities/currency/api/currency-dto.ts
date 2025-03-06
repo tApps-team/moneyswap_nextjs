@@ -1,20 +1,17 @@
 //TODO Исправить импорт
 // eslint-disable-next-line boundaries/element-types
 import { ExchangerMarker } from "@/entities/exchanger";
-import { Name } from "@/shared/types";
-import { CurrencyPair, CurrencyResponse, ExchangeType } from "../model/types/currencyType";
+import {
+  CurrencyPair,
+  CurrencyResponse,
+  ExchangeType,
+  SpecificValute,
+} from "../model/types/currencyType";
 
 export type GetAvailableValutesDtoResponse = CurrencyResponse[];
 export type GetAvailableValutesDtoRequest = {
   city?: string | null;
   base?: string;
-};
-
-export type SpecificValute = {
-  name: Name;
-  code_name: string;
-  icon_url: string;
-  type_valute: Name;
 };
 
 export type GetSpecificValuteResponse = SpecificValute;

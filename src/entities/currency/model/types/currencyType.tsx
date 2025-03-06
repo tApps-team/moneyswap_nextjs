@@ -5,6 +5,7 @@ export type Currency = {
   name: Name;
   code_name: string;
   icon_url: string;
+  is_popular: boolean;
 };
 export type CurrencyResponse = {
   id: string;
@@ -22,4 +23,12 @@ export type CurrencyPair = {
   valuteTo: Omit<Currency, "id">;
   pairCount: number;
   direction_type: ExchangerMarker;
+};
+
+export type SpecificValute = {
+  name: Name;
+  code_name: string;
+  icon_url: string;
+  type_valute: Name;
+  is_popular: boolean;
 };

@@ -44,8 +44,8 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
     };
   }, []);
   return (
-    <section className="grid md:gap-8 gap-6">
-      <h3 className="w-full uppercase text-md font-normal text-center md:text-white text-yellow-main">
+    <section className="bg-new-dark-grey rounded-[10px] lg:p-9 md:p-6 p-4 grid lg:gap-8 gap-4">
+      <h3 className="w-full uppercase lg:text-2xl md:text-xl mobile-xl:text-base text-sm font-bold text-center text-yellow-main">
         {title}
       </h3>
       <Carousel
@@ -53,13 +53,13 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
         opts={{
           align: "start",
         }}
-        className="w-[calc(100vw_-_15px)] mobile-xs:w-[calc(100vw_-_30px)] mobile:w-full md:grid md:bg-transparent bg-dark-gray md:rounded-none rounded-[35px] md:p-0 mobile-xs:p-6 p-4 mobile-xs:mx-0 -mx-2 md:shadow-none shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]"
+        className="grid"
       >
         <CarouselContent>
           {articles?.map((art, index) => (
             <CarouselItem
               key={index}
-              className="lg:basis-1/3 mobile-xl:basis-7/12 md:pl-4 pl-4 -mr-2 md:mr-0"
+              className="lg:basis-1/3 md:basis-2/4 mobile-xl:basis-2/4 pl-4"
             >
               <ArticlePreviewCard key={art?.url_name} article={art} />
             </CarouselItem>
@@ -67,7 +67,7 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
         </CarouselContent>
         <div
           ref={progressBarRef}
-          className="md:hidden block relative h-[3px] w-full bg-light-gray rounded-full"
+          className="mobile-xl:hidden block relative h-[3px] w-full bg-light-gray rounded-full mt-4"
         >
           <div
             className={`-top-[50%] translate-y-[50%] absolute h-[6px] bg-yellow-main rounded-full transition-transform duration-200`}
@@ -77,7 +77,7 @@ export const SimilarArticles: FC<SimilarArticlesProps> = ({ title, articles }) =
             }}
           ></div>
         </div>
-        <CarouselNext className="md:inline-flex hidden" />
+        <CarouselNext className="mobile-xl:inline-flex hidden -right-4 top-1/2 mt-0 -translate-y-1/2 rounded-[6px] bg-new-grey hover:bg-new-light-grey hover:text-yellow-main border-0 w-8 h-8 shadow-lg" />
       </Carousel>
     </section>
   );

@@ -21,3 +21,4 @@ export * from "./radio-group";
 export * from "./textarea";
 export * from "./skeleton";
 export * from "./drawer";
+export * from "./alert-dialog";

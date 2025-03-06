@@ -9,6 +9,9 @@ const config = {
     "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     container: {
       center: true,
@@ -30,12 +33,21 @@ const config = {
         "mobile-xs": "375px",
         mobile: "450px",
         "mobile-xl": "576px",
+        max: "1400px",
       },
       colors: {
         "yellow-main": "#F6FF5F",
         "dark-gray": "#2D2D2D",
         "light-gray": "#BBBBBB",
         "skeleton-gray": "#9d9d9d",
+
+        // new
+        "new-bg": "#191C25",
+        "new-dark-grey": "#252830",
+        "new-grey": "#2F323A",
+        "new-light-grey": "#393C44",
+        "font-dark-grey": "#6F6F6F",
+        "font-light-grey": "#B9B9B9",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

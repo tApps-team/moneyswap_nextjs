@@ -9,77 +9,84 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
   const { exchangerDetails } = props;
 
   return (
-    <section className="rounded-2xl w-full grid gap-4 bg-dark-gray p-6 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.5)]">
-      {/* md:bg-gradient-to-r md:from-light-gray md:from-10% md:to-45% md:to-dark-gray */}
-      <h2 className="md:text-xl text-sm text-center font-normal uppercase">
+    <section className="rounded-[15px] w-full grid grid-row-[auto,1fr] xl:gap-[50px] gap-[20px] bg-new-dark-grey xl:p-10 md:p-5 mobile:pb-7 mobile:px-6 mobile:pt-11 pb-5 pt-7 px-3">
+      <h2 className="hidden md:block text-xl text-center md:text-start font-semibold">
         Общая информация об обменнике
       </h2>
-      <hr className="mx-[-1.5rem]" />
-      <div className="grid grid-cols-1 md:grid-cols-[0.3fr,0.8fr]  gap-4 ">
-        <div className="rounded-full  flex items-center   justify-center h-full w-full  ">
-          {exchangerDetails.iconUrl ? (
+      <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-10 justify-start">
+        <div className="flex md:flex-col flex-row items-center md:justify-between justify-start h-full w-full md:gap-0 mobile:gap-6 gap-3">
+          {exchangerDetails.iconUrl && (
             <Image
               width={224}
               height={224}
-              className="md:size-56 size-32 "
+              className="md:size-32 mobile-xl:size-24 size-16"
               src={exchangerDetails.iconUrl}
-              alt={`icon exchnager ${exchangerDetails.name}`}
+              alt={`icon exchnager ${exchangerDetails?.name}`}
             />
-          ) : (
-            <BitcoinIcon className="object-contain" width={72} height={72} />
           )}
+          <div className="grid grid-flow-row gap-3 md:content-normal content-center justify-start">
+            <p className="unbounded_font font-semibold md:text-xl mobile-xl:text-3xl mobile:text-xl text-base md:text-white text-yellow-main truncate md:max-w-[10vw] max-w-full">
+              {exchangerDetails?.name}
+            </p>
+            <h2 className="block md:hidden mobile-xl:text-base mobile:text-sm text-xs font-semibold">
+              Общая информация об обменнике
+            </h2>
+          </div>
         </div>
 
         <div className="grid gap-4 grid-cols-2 grid-rows-4  md:grid-cols-4  md:grid-rows-2">
           <Link
             target="_blank"
-            href={exchangerDetails.url}
-            className="rounded-2xl shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] flex justify-center items-center text-center bg-dark-gray text-yellow-main  p-4"
+            href={exchangerDetails?.url}
+            className="rounded-[12px] flex justify-center items-center text-center bg-new-grey text-yellow-main  p-4"
           >
-            <p className=" md:text-sm text-sm font-normal">ПЕРЕЙТИ НА САЙТ</p>
+            <p className=" md:text-base text-sm font-semibold underline">Перейти на сайт</p>
           </Link>
-          <div className="rounded-2xl shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] bg-dark-gray flex flex-col items-center justify-center p-4">
-            <p className=" md:text-sm text-xs font-normal">СТАТУС</p>
-            <p className="text-yellow-main text-sm md:text-base font-normal text-center">
-              {exchangerDetails.workStatus ? "Активен" : "Не активен"}
+          <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
+            <p className=" md:text-base text-[#84868A] text-xs font-semibold">Статус</p>
+            <p className="text-yellow-main text-sm uppercase md:text-base font-semibold text-center">
+              {exchangerDetails?.workStatus ? "Активен" : "Не активен"}
             </p>
           </div>
-          <div className="rounded-2xl shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] bg-dark-gray flex flex-col items-center justify-center p-4">
-            <p className=" md:text-sm text-xs font-normal">ОТЗЫВЫ</p>
+          <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
+            <p className=" md:text-base text-xs font-semibold text-[#84868A]">Отзывы</p>
             <p className="flex gap-1 md:text-lg text-base">
-              <span className="text-yellow-main font-normal">
-                {exchangerDetails.reviews?.positive}
+              <span className="text-yellow-main font-semibold">
+                {exchangerDetails?.reviews?.positive}
               </span>
               <span>/</span>
-              <span className="text-red-600 font-normal">{exchangerDetails.reviews?.negative}</span>
+              <span className="text-red-600 font-semibold">
+                {exchangerDetails?.reviews?.negative}
+              </span>
             </p>
           </div>
-          <div className="rounded-2xl shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] bg-dark-gray  flex flex-col items-center justify-center p-4">
-            <p className="font-normal text-sm uppercase">СТРАНА</p>
-            <p className="text-yellow-main text-sm md:text-base font-normal">
-              {exchangerDetails.country}
+          <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
+            <p className="font-semibold md:text-base text-sm  text-[#84868A]">Страна</p>
+            <p className="text-yellow-main text-sm md:text-base font-semibold">
+              {exchangerDetails?.country || "-"}
             </p>
           </div>
-          <div className="bg-dark-gray rounded-2xl shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center p-4">
-            <p className=" md:text-sm text-xs text-center font-normal">КУРСОВ ОБМЕНА</p>
-            <p className="text-yellow-main text-sm md:text-base font-normal">
-              {exchangerDetails.exchangeRates}
+          <div className="bg-new-grey rounded-[12px] flex flex-col items-center justify-center p-4">
+            <p className=" md:text-base text-xs text-[#84868A] text-center font-semibold">
+              Курсов обмена
+            </p>
+            <p className="text-yellow-main text-sm md:text-base font-semibold">
+              {exchangerDetails?.exchangeRates || "-"}
             </p>
           </div>
-          <div className="rounded-2xl shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] bg-dark-gray  flex flex-col items-center justify-center p-4">
-            <p className=" md:text-sm text-xs font-normal">ОТКРЫТ</p>
-            <p className="text-yellow-main text-sm md:text-base font-normal text-center">
-              {exchangerDetails.open || "09.08.2022"}
+          <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
+            <p className=" md:text-base text-xs text-[#84868A] font-semibold">Открыт</p>
+            <p className="text-yellow-main text-sm md:text-base font-semibold text-center">
+              {exchangerDetails?.open || "09.08.2022"}
             </p>
           </div>
-          <div className="rounded-2xl col-span-2 shadow-[1px_3px_10px_3px_rgba(0,0,0,0.3)] bg-dark-gray flex flex-col items-center justify-center p-4">
-            <p className="md:text-sm text-xs font-normal">НА MONEYSWAP С</p>
-            <p className="text-yellow-main font-normal">
+          <div className="rounded-[12px] col-span-2 bg-new-grey flex flex-col items-center justify-center p-4">
+            <p className="md:text-base text-xs text-[#84868A] font-semibold">на MONEYSWAP с</p>
+            <p className="text-yellow-main font-semibold">
               {exchangerDetails.openOnMoneySwap || "13.09.2024"}
             </p>
           </div>
         </div>
-        {/* </div> */}
       </div>
     </section>
   );

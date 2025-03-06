@@ -7,11 +7,11 @@ export const TelegramBanner = () => {
     <Link
       href={products.telegram_bot}
       target="_blank"
-      className="w-full h-auto overflow-hidden rounded-[20px] cursor-pointer bg-[rgba(45,45,45,0.6)]"
+      className="w-full h-auto overflow-hidden rounded-[10px] cursor-pointer"
     >
       <Image
         className="w-full h-full object-cover hover:scale-[1.03] transition-all duration-500"
-        src="/telegram_banner.png"
+        src="/telegram_banner_new.png"
         alt="banner"
         width={500}
         height={500}

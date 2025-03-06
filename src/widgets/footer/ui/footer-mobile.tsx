@@ -7,21 +7,21 @@ import { footerItems } from "../model/footerItems";
 
 export const FooterMobile = () => {
   return (
-    <footer className=" p-6 flex flex-col gap-2  bg-black">
+    <footer className="p-6 pt-12 flex flex-col gap-[50px]  bg-black">
       <Link href={routes.home}>
-        <FooterLogoIcon width={200} height={100} />
+        <FooterLogoIcon width={200} height={80} />
       </Link>
 
-      <Accordion type="single" collapsible className=" w-full  ">
+      <Accordion type="single" collapsible className="w-full grid grid-flow-row gap-1">
         {footerItems.map((item, index) => (
           <AccordionItem value={item.value} key={item.value} className="flex flex-col gap-1">
-            <AccordionTrigger className="font-normal uppercase mobile-xl:text-sm text-xs">
+            <AccordionTrigger className="font-normal uppercase mobile-xl:text-sm text-xs py-0 pb-3">
               {item.value}
             </AccordionTrigger>
             {item.children?.map((itemChildren) => (
               <AccordionContent
                 key={itemChildren.value}
-                className="hover:text-yellow-main text-light-gray uppercase mobile-xl:text-xs text-2xs"
+                className="hover:text-yellow-main text-light-gray uppercase mobile-xl:text-xs text-2xs pb-3"
               >
                 <Link target={itemChildren.target} href={itemChildren.href}>
                   {itemChildren.value}
@@ -32,8 +32,8 @@ export const FooterMobile = () => {
         ))}
       </Accordion>
 
-      <section className="flex flex-col gap-6 py-4">
-        <p className="text-sm font-normal text-center uppercase">МЫ В СОЦСЕТЯХ</p>
+      <section className="flex flex-col items-start justify-start gap-6 py-4">
+        <p className="text-sm font-semibold text-center uppercase">МЫ В СОЦСЕТЯХ</p>
         <SocialNetworks />
       </section>
       <hr />

@@ -78,9 +78,9 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
   };
 
   return (
-    <section className="grid grid-flow-row gap-3 rounded-[20px] bg-black py-4 px-3">
+    <section className="grid grid-flow-row gap-3 rounded-[10px] md:bg-new-light-grey bg-new-dark-grey py-4 px-1">
       <div className="px-3">
-        <h3 className="uppercase text-yellow-main font-normal xl:text-base lg:text-sm text-xs truncate lg:min-w-auto md:min-w-[24vw] lg:min-w-fit min-w-auto">
+        <h3 className="text-yellow-main uppercase font-bold xl:text-lg lg:text-base text-sm truncate lg:min-w-auto md:min-w-[24vw] lg:min-w-fit min-w-auto">
           Оглавление
         </h3>
       </div>
@@ -92,19 +92,19 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
           <li
             key={index}
             ref={(el) => (itemRefs.current[item.id] = el)}
-            className={`relative grid grid-flow-col gap-2 justify-start items-center uppercase lg:text-2xs text-[8px] font-normal`}
+            className={`relative grid grid-flow-col gap-2 justify-start items-center max:text-base xl:text-sm text-xs font-normal`}
           >
             <span
-              className={`absolute left-[10px] w-[1px] bg-[#ddd] ${index === 0 ? "top-[50%] bottom-0" : index === table_of_contents?.length - 1 ? "top-0 bottom-[50%]" : "-top-2 -bottom-2"}`}
+              className={`absolute left-[9.5px] w-[1px] bg-[#575A62] ${index === 0 ? "top-[50%] bottom-0" : index === table_of_contents?.length - 1 ? "top-0 bottom-[50%]" : "-top-2 -bottom-2"}`}
             ></span>
             <Dot
               width={20}
               height={20}
-              stroke={item?.id === activeId ? "#f6ff5f" : "#ddd"}
-              className={`${item?.id === activeId ? "scale-[4.5] transition-all duration-300" : "scale-[1.7]"}`}
+              stroke={item?.id === activeId ? "#f6ff5f" : "#575A62"}
+              className={`${item?.id === activeId ? "scale-[4.5] transition-all duration-300" : "scale-[2]"}`}
             />
             <a
-              className={`${item?.id === activeId ? "text-yellow-main" : "text-[#ddd]"}`}
+              className={`${item?.id === activeId ? "text-yellow-main" : "text-white"} line-clamp-2`}
               href={`#${item?.id}`}
               onClick={(e) => {
                 e.preventDefault();

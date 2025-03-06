@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
 import { CryptoDirection } from "@/widgets/exchanger/crypto-direction";
-import { CryptoExchangerSeoText } from "@/widgets/exchanger/crypto-exchanger-seo-text";
+import {
+  CryptoExchangerSeoMainText,
+  CryptoExchangerSeoText,
+} from "@/widgets/exchanger/crypto-exchanger-seo-text";
 import { ExchangerInfo } from "@/widgets/exchanger/exchanger-info";
 import { ExchangerReviews } from "@/widgets/exchanger/exchanger-reviews";
-import { BotBannerSidebar } from "@/features/bot-banner-in-sidebar";
+import { BotBannerSidebar } from "@/features/bot-banner";
 import { getPairValute } from "@/entities/currency";
 import { getExchangerDetails } from "@/entities/exchanger";
 import { reviewsByExchange } from "@/entities/exchanger-review";
@@ -45,20 +48,23 @@ export const CryptoExchangerPage = async ({
   });
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-2 grid gap-8">
-        <CryptoExchangerSeoText exchangerInfo={exchangerDetails} />
-        <ExchangerInfo exchangerDetails={exchangerDetails} />
-        <ExchangerReviews
-          reviewCount={exchangerDetails.reviews}
-          totalPages={reviews.pages}
-          reviews={reviews.content}
-        />
-      </div>
-      <div className="flex flex-col gap-6">
-        <CryptoDirection currencyPair={currencyPair} />
-        <BotBannerSidebar />
-      </div>
+    <section className="grid grid-flow-row mobile:gap-10 gap-6">
+      <CryptoExchangerSeoText exchangerInfo={exchangerDetails} />
+      <section className="grid xl:grid-cols-[1fr,0.4fr] lg:grid-cols-[1fr,0.5fr] grid-cols-1 gap-7">
+        <div className="grid md:gap-[50px] gap-10">
+          <ExchangerInfo exchangerDetails={exchangerDetails} />
+          <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} />
+          <ExchangerReviews
+            reviewCount={exchangerDetails.reviews}
+            totalPages={reviews.pages}
+            reviews={reviews.content}
+          />
+        </div>
+        <div className="flex flex-col gap-6">
+          <CryptoDirection currencyPair={currencyPair} />
+          <BotBannerSidebar />
+        </div>
+      </section>
     </section>
   );
 };
