@@ -18,7 +18,7 @@ export const CategoryCard: FC<CategoryCardProps> = ({ category, selectedCategory
     <Link
       scroll={false}
       href={path}
-      className={`leading-none mobile-xl:rounded-[10px] rounded-[7px] bg-new-grey w-fit text-center max:text-base md:text-sm mobile:text-xs text-2xs font-normal mobile-xl:py-3 mobile-xl:px-8 p-3 transition-all duration-300 ${selectedCategory ? "bg-yellow-main text-black" : "hover:bg-new-light-grey"} ${tag && "bg-yellow-main text-black"}`}
+      className={`leading-none mobile-xl:rounded-[10px] rounded-[7px] bg-new-grey w-fit text-center max:text-base md:text-sm text-xs font-medium mobile-xl:py-3 mobile-xl:px-8 p-3 transition-all duration-300 ${selectedCategory ? "bg-yellow-main text-black" : "hover:bg-new-light-grey"} ${tag && "bg-yellow-main text-black"}`}
     >
       {category ? category?.name : tag}
     </Link>

@@ -209,11 +209,11 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
               <ScrollArea className="flex-grow">
                 {filteredTabList.map((tab) => (
                   <TabsContent
-                    className="flex flex-col mt-2 gap-4"
+                    className="flex flex-col mt-0 gap-4"
                     value={tab?.name?.ru}
                     key={tab?.id}
                   >
-                    {tab.currencies.map((currency) => (
+                    {tab.currencies.map((currency, index) => (
                       <DialogClose key={currency?.id}>
                         <CurrencyCard
                           key={currency?.id}
@@ -222,6 +222,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
                           currencyInfo={type === "get" ? currencyInfoGive : currencyInfoGet}
                           direction={direction}
                           location_code_name={location_code_name}
+                          index={index}
                         />
                       </DialogClose>
                     ))}
