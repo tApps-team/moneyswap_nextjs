@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/shared/lib";
@@ -39,10 +40,20 @@ export const Navbar = () => {
                     <div className="flex gap-2.5 justify-start items-start break-words">
                       {itemChildren.icon && (
                         <div className="bg-[#43464E] rounded-[6px] p-1.5">
-                          <itemChildren.icon className="flex-shrink-0" width={24} height={24} />
+                          {typeof itemChildren.icon === "string" ? (
+                            <Image
+                              // src={itemChildren.icon as string}
+                              src={"/phone-email.png"}
+                              alt=""
+                              width={30}
+                              height={30}
+                              className="w-7 h-auto"
+                            />
+                          ) : (
+                            <itemChildren.icon className="flex-shrink-0" width={24} height={24} />
+                          )}
                         </div>
                       )}
-
                       <div className="[&>p]:hover:text-yellow-main flex flex-col gap-1">
                         <p className="unbounded_font leading-none uppercase text-sm font-normal">
                           {itemChildren.value}
