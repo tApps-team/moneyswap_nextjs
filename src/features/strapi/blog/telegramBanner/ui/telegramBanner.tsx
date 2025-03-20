@@ -5,7 +5,7 @@ import { products } from "@/shared/router";
 export const TelegramBanner = () => {
   return (
     <Link
-      href={products.telegram_bot}
+      href={products.telegram_channel}
       target="_blank"
       className="w-full h-auto overflow-hidden rounded-[10px] cursor-pointer"
     >

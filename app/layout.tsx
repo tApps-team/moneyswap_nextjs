@@ -6,6 +6,7 @@ import Providers from "@/app/providers/react-query";
 import "@/shared/styles/globals.scss";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata = {
   title: "Мониторинг криптообменников онлайн - обмен криптовалюты по лучшим курсам | MoneySwap",
@@ -63,6 +64,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
       <body className="flex flex-col min-h-screen">
+        <NextTopLoader 
+          color="#F6FF5F"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={4}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+        />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
