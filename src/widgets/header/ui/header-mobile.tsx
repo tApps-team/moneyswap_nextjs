@@ -36,7 +36,7 @@ export const HeaderMobile = () => {
           <DrawerTrigger asChild>
             <Menu className="mobile-xl:size-10 size-8 stroke-[1.5px]" />
           </DrawerTrigger>
-          <DrawerContent className="fixed h-screen w-full rounded-none bg-new-bg border-0 backdrop-blur-md mobile-xl:px-[60px] px-5 pb-5">
+          <DrawerContent className="fixed h-svh w-full rounded-none bg-new-bg border-0 backdrop-blur-md mobile-xl:px-[60px] px-5 pb-5">
             <DrawerHeader className="grid justify-end justify-items-end mobile-xl:pt-12 pt-5 pb-[38px] px-0">
               <DrawerTitle className="sr-only">navbar</DrawerTitle>
               <DrawerClose>
