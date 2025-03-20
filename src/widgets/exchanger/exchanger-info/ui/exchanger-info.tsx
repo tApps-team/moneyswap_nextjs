@@ -19,7 +19,7 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
             <Image
               width={224}
               height={224}
-              className="md:size-32 mobile-xl:size-24 size-16"
+              className="md:size-32 mobile-xl:size-24 size-16 rounded-full"
               src={exchangerDetails.iconUrl}
               alt={`icon exchnager ${exchangerDetails?.name}`}
             />

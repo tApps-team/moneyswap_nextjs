@@ -22,3 +22,4 @@ export * from "./textarea";
 export * from "./skeleton";
 export * from "./drawer";
 export * from "./alert-dialog";
+export * from "./progress-bar";

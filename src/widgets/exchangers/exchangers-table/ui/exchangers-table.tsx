@@ -13,9 +13,11 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
+import { Calendar, Check, Clock, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Exchanger, ExchangerCard, getExchangers } from "@/entities/exchanger";
+import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 
@@ -116,11 +118,16 @@ export function ExchangersTable<TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody className="">
+            <TableBody className="[&_tr]:bg-new-grey">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
-                    className="border-none bg-new-grey"
+                    className={cn(
+                      "relative",
+                      row.original.is_vip
+                        ? "bg-new-grey border-2 border-yellow-main rounded-[15px] !shadow-[inset_0px_0px_2px_2px_rgb(246_255_95)]"
+                        : "bg-new-grey"
+                    )}
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
                   >
