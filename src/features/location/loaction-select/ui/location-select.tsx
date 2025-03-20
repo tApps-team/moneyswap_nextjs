@@ -248,7 +248,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
               color="#BBBBBB"
             />
           </div>
-          {filteredCountries.length < 0 ? (
+          {filteredCountries.length > 0 ? (
             <ScrollArea className="h-[calc(100dvh_-_160px)] -mx-4">
               <Accordion
                 value={debouncedLocationSearchValue.length > 0 ? accordionActiveItems : undefined}
