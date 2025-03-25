@@ -3,6 +3,14 @@ import { BotBannerBlog } from "@/features/bot-banner";
 import { CategoriesList, MobileArticleSearch, MobileTagsList } from "@/features/strapi";
 import { getAllArticles, getAllCategories, getTopicArticles, topics } from "@/entities/strapi";
 
+const measureTime = async (name: string, fn: () => Promise<any>) => {
+  const start = performance.now();
+  const result = await fn();
+  const end = performance.now();
+  console.log(`[API Performance] ${name} took ${end - start}ms`);
+  return result;
+};
+
 export const BlogPage = async ({
   searchParams,
 }: {
@@ -12,10 +20,27 @@ export const BlogPage = async ({
   const searchValue = searchParams.search ? searchParams.search.toString() : null;
   const elements = 4;
 
-  const { data: all, meta } = await getAllArticles({ page, elements, searchValue });
-  const { data: readersChoice } = await getTopicArticles({ topic: topics.readers_choice });
-  const { data: recommended } = await getTopicArticles({ topic: topics.platform_recommended });
-  const { data: categories } = await getAllCategories();
+  console.time('Total API Requests');
+  
+  // Выполняем все запросы параллельно
+  const [
+    articlesResponse,
+    readersChoiceResponse,
+    recommendedResponse,
+    categoriesResponse
+  ] = await Promise.all([
+    measureTime("getAllArticles", () => getAllArticles({ page, elements, searchValue })),
+    measureTime("getTopicArticles(readers_choice)", () => getTopicArticles({ topic: topics.readers_choice })),
+    measureTime("getTopicArticles(platform_recommended)", () => getTopicArticles({ topic: topics.platform_recommended })),
+    measureTime("getAllCategories", () => getAllCategories())
+  ]);
+
+  console.timeEnd('Total API Requests');
+
+  const { data: all, meta } = articlesResponse;
+  const { data: readersChoice } = readersChoiceResponse;
+  const { data: recommended } = recommendedResponse;
+  const { data: categories } = categoriesResponse;
 
   const totalPages = Math.ceil(meta?.pagination?.total / elements);
 

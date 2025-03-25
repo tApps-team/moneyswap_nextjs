@@ -10,7 +10,7 @@ import { TopExchangeSale } from "@/features/top-exchange";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
-import { getSeoMeta, getSeoTexts } from "@/shared/api";
+import { getSeoTexts } from "@/shared/api";
 import { ExchangerMarker, pageTypes } from "@/shared/types";
 
 export const ExchangePage = async ({
@@ -29,27 +29,19 @@ export const ExchangePage = async ({
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
 
+  console.time('Первая группа запросов');
+  // Первая группа запросов для получения базовой информации
   const [giveCurrency, getCurrency, location] = await Promise.all([
     getSpecificValute({ codeName: valute_from }),
     getSpecificValute({ codeName: valute_to }),
     city ? getSpecificCity({ codeName: city }) : Promise.resolve(undefined),
   ]);
+  console.timeEnd('Первая группа запросов');
 
   if (!giveCurrency.code_name || !getCurrency.code_name) {
     return notFound();
   }
 
-  const { status } = await getExchangers({
-    valute_from: giveCurrency.code_name,
-    valute_to: getCurrency.code_name,
-    city: location?.code_name,
-  });
-
-  const actualCourse = await getActualCourse({
-    valuteFrom: giveCurrency?.code_name,
-    valuteTo: getCurrency?.code_name,
-  });
-  const queryParams = { valute_from, valute_to, city };
   const reqParams = location
     ? {
         page: pageTypes.exchange_cash,
@@ -64,8 +56,41 @@ export const ExchangePage = async ({
         getCurrency: `${getCurrency?.name?.ru} (${getCurrency?.code_name})`,
       };
 
-  // запрос на сео текста
-  const [seoTexts, seoMeta] = await Promise.all([getSeoTexts(reqParams), getSeoMeta(reqParams)]);
+  // Детальное измерение времени для каждого запроса
+  console.time('Запрос обменников');
+  const exchangersPromise = getExchangers({
+    valute_from: giveCurrency.code_name,
+    valute_to: getCurrency.code_name,
+    city: location?.code_name,
+  });
+
+  console.time('Запрос курса');
+  const actualCoursePromise = getActualCourse({
+    valuteFrom: giveCurrency.code_name,
+    valuteTo: getCurrency.code_name,
+  });
+
+  console.time('Запрос SEO текстов');
+  const seoTextsPromise = getSeoTexts(reqParams);
+
+  // Выполняем все запросы параллельно
+  const [exchangersResponse, actualCourse, seoTexts] = await Promise.all([
+    exchangersPromise.then(result => {
+      console.timeEnd('Запрос обменников');
+      return result;
+    }),
+    actualCoursePromise.then(result => {
+      console.timeEnd('Запрос курса');
+      return result;
+    }),
+    seoTextsPromise.then(result => {
+      console.timeEnd('Запрос SEO текстов');
+      return result;
+    }),
+  ]);
+
+  const { status } = exchangersResponse;
+  const queryParams = { valute_from, valute_to, city };
 
   await queryClient.prefetchQuery({
     queryKey: [queryParams],

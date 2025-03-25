@@ -4,11 +4,14 @@ import { getAllArticles, getAllCategories, getAllTags } from "@/entities/strapi"
 import { routes } from "@/shared/router";
 
 export const SitemapPage = async () => {
-  const directions = await getSitemapDirections();
-  const articles = await getAllArticles({ page: 1, elements: 1000 });
-  const categories = await getAllCategories();
-  const tags = await getAllTags();
-  const exchangers = await getExchangerList();
+  // Выполняем все запросы параллельно
+  const [directions, articles, categories, tags, exchangers] = await Promise.all([
+    getSitemapDirections(),
+    getAllArticles({ page: 1, elements: 1000 }),
+    getAllCategories(),
+    getAllTags(),
+    getExchangerList()
+  ]);
   return (
     <section className="flex flex-col gap-6">
       <h1 className="font-medium text-2xl uppercase">Карта сайта</h1>

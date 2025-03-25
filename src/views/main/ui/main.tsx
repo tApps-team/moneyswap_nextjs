@@ -22,6 +22,7 @@ const ExchangersTable = dynamic(() =>
     (mod) => mod.ExchangersTable,
   ),
 );
+
 export const Main = async ({
   searchParams,
 }: {
@@ -36,6 +37,8 @@ export const Main = async ({
   const directionCash = !!city || currentDirection === ExchangerMarker.cash;
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
 
+  // Первая группа запросов - независимые запросы
+  console.time('Первая группа запросов (независимые)');
   const [seoTexts, giveCurrency, getCurrency, actualCourse, location] = await Promise.all([
     getSeoTexts({ page: pageTypes.main }),
     getSpecificValute({
@@ -47,7 +50,9 @@ export const Main = async ({
     getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" }),
     getSpecificCity({ codeName: city ? city : "msk" }),
   ]);
+  console.timeEnd('Первая группа запросов (независимые)');
 
+  // Формируем параметры запроса обменников на основе полученных данных
   const request =
     direction === ExchangerMarker.cash
       ? {
@@ -60,12 +65,15 @@ export const Main = async ({
           valute_to: getCurrency?.code_name,
         };
 
-  await queryClient.prefetchQuery({
-    queryKey: [request],
-    queryFn: async () => (await getExchangers(request)).exchangers,
-  });
+  // Вторая группа запросов - зависимые запросы
+  console.time('Вторая группа запросов (обменники)');
+  const exchangersResponse = await getExchangers(request);
+  console.timeEnd('Вторая группа запросов (обменники)');
 
-  const { status } = await getExchangers(request);
+  // Сохраняем результат в кэш React Query
+  queryClient.setQueryData([request], exchangersResponse.exchangers);
+
+  const { status } = exchangersResponse;
 
   return (
     <section>
