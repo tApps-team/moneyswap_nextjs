@@ -1,10 +1,14 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import { CurrencySelectForm } from "@/widgets/currency-select-form";
-import { ExchangersTable, columns } from "@/widgets/exchangers";
+import { Suspense } from "react";
+import { cache } from 'react';
+import { SkeletonCurrencySelectForm } from "@/widgets/currency-select-form";
+import { columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
+import { ExchangersTableSkeleton } from "@/widgets/exchangers/exchangers-table/ui/exchangers-table-skeleton";
 import { MainFAQ } from "@/widgets/main-faq";
-import { SeoFooterText, SeoHeaderText } from "@/widgets/strapi";
+import { SeoFooterText, SeoHeaderText, SkeletonSeoHeaderText } from "@/widgets/strapi";
 import { CurrencyTitle } from "@/features/currency";
 import { TopExchangeSale } from "@/features/top-exchange";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
@@ -12,6 +16,28 @@ import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
 import { ExchangerMarker, pageTypes } from "@/shared/types";
+
+// Кэшируем получение начальных данных
+const getExchangeInitialData = cache(async (valute_from: string, valute_to: string, city?: string) => {
+  console.time('Первая группа запросов');
+  const [giveCurrency, getCurrency, location] = await Promise.all([
+    getSpecificValute({ codeName: valute_from }),
+    getSpecificValute({ codeName: valute_to }),
+    city ? getSpecificCity({ codeName: city }) : Promise.resolve(undefined),
+  ]);
+  console.timeEnd('Первая группа запросов');
+
+  return { giveCurrency, getCurrency, location };
+});
+
+const CurrencySelectForm = dynamic(() =>
+  import("@/widgets/currency-select-form").then((mod) => mod.CurrencySelectForm),
+);
+const ExchangersTable = dynamic(() =>
+  import("@/widgets/exchangers/exchangers-table/ui/exchangers-table").then(
+    (mod) => mod.ExchangersTable,
+  ),
+);
 
 export const ExchangePage = async ({
   params,
@@ -29,14 +55,8 @@ export const ExchangePage = async ({
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
 
-  console.time('Первая группа запросов');
-  // Первая группа запросов для получения базовой информации
-  const [giveCurrency, getCurrency, location] = await Promise.all([
-    getSpecificValute({ codeName: valute_from }),
-    getSpecificValute({ codeName: valute_to }),
-    city ? getSpecificCity({ codeName: city }) : Promise.resolve(undefined),
-  ]);
-  console.timeEnd('Первая группа запросов');
+  // Используем кэшированную функцию для получения данных
+  const { giveCurrency, getCurrency, location } = await getExchangeInitialData(valute_from, valute_to, city);
 
   if (!giveCurrency.code_name || !getCurrency.code_name) {
     return notFound();
@@ -56,37 +76,18 @@ export const ExchangePage = async ({
         getCurrency: `${getCurrency?.name?.ru} (${getCurrency?.code_name})`,
       };
 
-  // Детальное измерение времени для каждого запроса
-  console.time('Запрос обменников');
-  const exchangersPromise = getExchangers({
-    valute_from: giveCurrency.code_name,
-    valute_to: getCurrency.code_name,
-    city: location?.code_name,
-  });
-
-  console.time('Запрос курса');
-  const actualCoursePromise = getActualCourse({
-    valuteFrom: giveCurrency.code_name,
-    valuteTo: getCurrency.code_name,
-  });
-
-  console.time('Запрос SEO текстов');
-  const seoTextsPromise = getSeoTexts(reqParams);
-
-  // Выполняем все запросы параллельно
+  // Параллельные запросы для получения обменников и курса
   const [exchangersResponse, actualCourse, seoTexts] = await Promise.all([
-    exchangersPromise.then(result => {
-      console.timeEnd('Запрос обменников');
-      return result;
+    getExchangers({
+      valute_from: giveCurrency.code_name,
+      valute_to: getCurrency.code_name,
+      city: location?.code_name,
     }),
-    actualCoursePromise.then(result => {
-      console.timeEnd('Запрос курса');
-      return result;
+    getActualCourse({
+      valuteFrom: giveCurrency.code_name,
+      valuteTo: getCurrency.code_name,
     }),
-    seoTextsPromise.then(result => {
-      console.timeEnd('Запрос SEO текстов');
-      return result;
-    }),
+    getSeoTexts(reqParams),
   ]);
 
   const { status } = exchangersResponse;
@@ -94,42 +95,55 @@ export const ExchangePage = async ({
 
   await queryClient.prefetchQuery({
     queryKey: [queryParams],
-    queryFn: async () => (await getExchangers(queryParams)).exchangers,
+    queryFn: async () => exchangersResponse.exchangers,
   });
+
   return (
     <section>
-      <SeoHeaderText
-        data={seoTexts.data}
-        giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
-        getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
-        location={location && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
-        isExchange
-      />
-      <CurrencySelectForm
-        actualCourse={actualCourse}
-        urlGetCurrency={getCurrency}
-        urlGiveCurrency={giveCurrency}
-        urlDirection={direction}
-        urlLocation={location}
-      />
+      <Suspense fallback={<SkeletonSeoHeaderText />}>
+        <SeoHeaderText
+          data={seoTexts.data}
+          giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
+          getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
+          location={location && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
+          isExchange
+        />
+      </Suspense>
+      <Suspense fallback={<SkeletonCurrencySelectForm />}>
+        <CurrencySelectForm
+          actualCourse={actualCourse}
+          urlGetCurrency={getCurrency}
+          urlGiveCurrency={giveCurrency}
+          urlDirection={direction}
+          urlLocation={location}
+        />
+      </Suspense>
       <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
-      {status === 404 ? (
-        <EmptyListExchangers valuteFrom={giveCurrency} valuteTo={getCurrency} location={location} />
-      ) : (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <ExchangersTable cityName={location?.name?.ru} columns={columns} params={queryParams} />
-        </HydrationBoundary>
-      )}
+      <Suspense fallback={<ExchangersTableSkeleton />}>
+        {status === 404 ? (
+          <EmptyListExchangers valuteFrom={giveCurrency} valuteTo={getCurrency} location={location} />
+        ) : (
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <ExchangersTable cityName={location?.name?.ru} columns={columns} params={queryParams} />
+          </HydrationBoundary>
+        )}
+      </Suspense>
 
-      <SeoFooterText
-        data={seoTexts.data}
-        isExchange
-        giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
-        getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
-        location={city && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
-      />
-      <MainFAQ direction={direction} />
-      <TopExchangeSale direction={ExchangerMarker.no_cash} />
+      <Suspense>
+        <SeoFooterText
+          data={seoTexts.data}
+          isExchange
+          giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
+          getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
+          location={city && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
+        />
+      </Suspense>
+      <Suspense>
+        <MainFAQ direction={direction} />
+      </Suspense>
+      <Suspense>
+        <TopExchangeSale direction={ExchangerMarker.no_cash} />
+      </Suspense>
     </section>
   );
 };
