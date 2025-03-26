@@ -42,6 +42,7 @@ export const getArticle = async (params: GetArticleRequest): Promise<GetArticleR
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-articles?filters[url_name][$eq]=${url_name}`;
     const res = await fetch(url, {
       method: "GET",
+      cache: 'force-cache'
     });
     return res.json();
   } catch (error) {
@@ -55,11 +56,10 @@ export const getTopicArticles = async (
 ): Promise<GetTopicArticlesResponse> => {
   const { topic } = params;
   try {
-    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-topics?pagination[pageSize]=30&filters[type][$eq]=${topic}&populate[articles][populate][preview_image]=*
-`;
+    const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-topics?pagination[pageSize]=100&filters[type][$eq]=${topic}&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
-      cache: "no-store",
+      cache: 'force-cache'
     });
     return res.json();
   } catch (error) {
@@ -73,6 +73,7 @@ export const getAllCategories = async (): Promise<GetAllCategoriesResponse> => {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?pagination[pageSize]=100&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
+      cache: 'force-cache'
     });
     return res.json();
   } catch (error) {
@@ -86,6 +87,7 @@ export const getAllTags = async (): Promise<GetAllTagsResponse> => {
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?pagination[pageSize]=100&populate[articles][populate][preview_image]=*`;
     const res = await fetch(url, {
       method: "GET",
+      cache: 'force-cache'
     });
     return res.json();
   } catch (error) {
@@ -102,6 +104,7 @@ export const getCategoryArticles = async (
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-categories?pagination[pageSize]=1000&filters[category][$eq]=${category}&populate[articles][populate][preview_image]=*&populate[articles][sort][0]=publishedAt:desc`;
     const res = await fetch(url, {
       method: "GET",
+      cache: 'force-cache'
     });
     return res.json();
   } catch (error) {
@@ -118,6 +121,7 @@ export const getTagArticles = async (
     const url = `${process.env.STRAPI_BASE_URL}/api/blog-article-tags?pagination[pageSize]=1000&filters[tag][$eq]=${tag}&populate[articles][populate][preview_image]=*&populate[articles][sort][0]=publishedAt:desc`;
     const res = await fetch(url, {
       method: "GET",
+      cache: 'force-cache'
     });
     return res.json();
   } catch (error) {

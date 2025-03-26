@@ -31,8 +31,24 @@ export const metadata = {
     type: "website",
   },
   icons: {
-    icon: "/favicon/favicon.ico",
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/favicon/apple-touch-icon.png' },
+    ],
+    shortcut: [{ url: '/favicon.ico' }],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/favicon/safari-pinned-tab.svg',
+        color: '#000000'
+      },
+    ],
   },
+  manifest: '/favicon/site.webmanifest',
 };
 export const viewport: Viewport = {
   initialScale: 1,
@@ -47,6 +63,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           content="sPwXL6jSpXeyCa3nGMpepemssgj5Fjd4ZRpE9lofLfc"
         />
         <meta name="yandex-verification" content="7377d71acbace068" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff" />
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`

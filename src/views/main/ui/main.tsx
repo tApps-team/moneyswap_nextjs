@@ -1,11 +1,15 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { cache } from 'react';
+import { SkeletonCurrencySelectForm } from "@/widgets/currency-select-form";
 import { columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
+import { ExchangersTableSkeleton } from "@/widgets/exchangers/exchangers-table";
 import { MainFAQ } from "@/widgets/main-faq";
 import { MainTop } from "@/widgets/main-top";
-import { SeoFooterText } from "@/widgets/strapi";
-import { BotBannerNew } from "@/features/bot-banner";
+import { SeoFooterText, SkeletonSeoHeaderText } from "@/widgets/strapi";
+import { BotBannerNew, SkeletonBotBannerNew } from "@/features/bot-banner";
 import { CurrencyTitle } from "@/features/currency";
 import { TopExchangeSale } from "@/features/top-exchange";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
@@ -22,12 +26,32 @@ const ExchangersTable = dynamic(() =>
     (mod) => mod.ExchangersTable,
   ),
 );
+
+// Кэшируем получение начальных данных
+const getInitialData = cache(async (direction: ExchangerMarker, city?: string) => {
+  const [seoTexts, giveCurrency, getCurrency, actualCourse, location] = await Promise.all([
+    getSeoTexts({ page: pageTypes.main }),
+    getSpecificValute({
+      codeName: direction === ExchangerMarker.cash ? "cashrub" : "sberrub",
+    }),
+    getSpecificValute({
+      codeName: "btc",
+    }),
+    getActualCourse({ 
+      valuteFrom: direction === ExchangerMarker.cash ? "cashrub" : "sberrub", 
+      valuteTo: "btc" 
+    }),
+    getSpecificCity({ codeName: city ? city : "msk" }),
+  ]);
+
+  return { seoTexts, giveCurrency, getCurrency, actualCourse, location };
+});
+
 export const Main = async ({
   searchParams,
 }: {
   searchParams?: Promise<{ direction?: ExchangerMarker; city?: string }>;
 }) => {
-  // await new Promise((resolve) => setTimeout(resolve, 10 * 60 * 1000));
   const queryClient = new QueryClient();
 
   const city = (await searchParams)?.city;
@@ -36,66 +60,72 @@ export const Main = async ({
   const directionCash = !!city || currentDirection === ExchangerMarker.cash;
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
 
-  const [seoTexts, giveCurrency, getCurrency, actualCourse, location] = await Promise.all([
-    getSeoTexts({ page: pageTypes.main }),
-    getSpecificValute({
-      codeName: direction === ExchangerMarker.cash ? "cashrub" : "btc",
-    }),
-    getSpecificValute({
-      codeName: direction === ExchangerMarker.cash ? "btc" : "sberrub",
-    }),
-    getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" }),
-    getSpecificCity({ codeName: city ? city : "msk" }),
-  ]);
+  // Используем кэшированную функцию для получения начальных данных
+  const { seoTexts, giveCurrency, getCurrency, actualCourse, location } = await getInitialData(direction, city);
 
-  const request =
-    direction === ExchangerMarker.cash
-      ? {
-          valute_from: giveCurrency?.code_name,
-          valute_to: getCurrency?.code_name,
-          city: location.code_name,
-        }
-      : {
-          valute_from: giveCurrency?.code_name,
-          valute_to: getCurrency?.code_name,
-        };
+  // Формируем параметры запроса обменников
+  const request = direction === ExchangerMarker.cash
+    ? {
+        valute_from: giveCurrency?.code_name,
+        valute_to: getCurrency?.code_name,
+        city: location.code_name,
+      }
+    : {
+        valute_from: giveCurrency?.code_name,
+        valute_to: getCurrency?.code_name,
+      };
 
-  await queryClient.prefetchQuery({
-    queryKey: [request],
-    queryFn: async () => (await getExchangers(request)).exchangers,
-  });
-
-  const { status } = await getExchangers(request);
+  // Получаем данные обменников
+  const exchangersResponse = await getExchangers(request);
+  queryClient.setQueryData([request], exchangersResponse.exchangers);
 
   return (
     <section>
-      <MainTop />
+      <Suspense>
+        <MainTop />
+      </Suspense>
       <div className="lg:-mt-8 -mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
-        <BotBannerNew />
+        <Suspense fallback={<SkeletonBotBannerNew />}>
+          <BotBannerNew />
+        </Suspense>
       </div>
-      <CurrencySelectForm
-        actualCourse={actualCourse}
-        urlLocation={location}
-        urlGetCurrency={getCurrency}
-        urlGiveCurrency={giveCurrency}
-        urlDirection={direction}
-      />
-      <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
-      {status === 404 ? (
-        <EmptyListExchangers
-          valuteFrom={giveCurrency}
-          valuteTo={getCurrency}
-          location={location ? location : undefined}
+      <Suspense fallback={<SkeletonCurrencySelectForm />}>
+        <CurrencySelectForm
+          actualCourse={actualCourse}
+          urlLocation={location}
+          urlGetCurrency={getCurrency}
+          urlGiveCurrency={giveCurrency}
+          urlDirection={direction}
         />
-      ) : (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <ExchangersTable cityName={location.name.ru} columns={columns} params={request} />
-        </HydrationBoundary>
-      )}
+      </Suspense>
+      <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
+      <Suspense fallback={<ExchangersTableSkeleton />}>
+        {exchangersResponse.status === 404 ? (
+          <EmptyListExchangers
+            valuteFrom={giveCurrency}
+            valuteTo={getCurrency}
+            location={location ? location : undefined}
+          />
+        ) : (
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <ExchangersTable 
+              cityName={direction === ExchangerMarker.cash ? location.name.ru : undefined} 
+              columns={columns} 
+              params={request} 
+            />
+          </HydrationBoundary>
+        )}
+      </Suspense>
 
-      <SeoFooterText data={seoTexts.data} />
-      <MainFAQ direction={direction} />
-      <TopExchangeSale direction={ExchangerMarker.no_cash} />
+      <Suspense>
+        <SeoFooterText data={seoTexts.data} />
+      </Suspense>
+      <Suspense>
+        <MainFAQ direction={direction} />
+      </Suspense>
+      <Suspense>
+        <TopExchangeSale direction={ExchangerMarker.no_cash} />
+      </Suspense>
     </section>
   );
 };

@@ -8,7 +8,7 @@ import {
 export const getAboutPage = async (): Promise<GetAboutPageResponse> => {
   try {
     const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/about-us`, {
-      cache: "default",
+      cache: "force-cache",
     });
     return res.json();
   } catch (error) {
@@ -20,7 +20,7 @@ export const getAboutPage = async (): Promise<GetAboutPageResponse> => {
 export const getHelpPage = async (): Promise<GetHelpPageResponse> => {
   try {
     const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-article`, {
-      cache: "default",
+      cache: "force-cache",
     });
     return res.json();
   } catch (error) {
@@ -32,7 +32,7 @@ export const getHelpPage = async (): Promise<GetHelpPageResponse> => {
 export const getForPartnersPage = async (): Promise<GetForPartnersPageResponse> => {
   try {
     const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/for-partner`, {
-      cache: "default",
+      cache: "force-cache",
     });
     return res.json();
   } catch (error) {
@@ -44,7 +44,7 @@ export const getForPartnersPage = async (): Promise<GetForPartnersPageResponse> 
 export const getCryptoExchangersPage = async (): Promise<GetCryptoExchangersPageResponse> => {
   try {
     const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/crypto-exchangers-page`, {
-      cache: "default",
+      cache: "force-cache",
     });
     return res.json();
   } catch (error) {

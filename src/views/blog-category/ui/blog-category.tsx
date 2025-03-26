@@ -5,8 +5,16 @@ import { getAllCategories, getCategoryArticles } from "@/entities/strapi";
 
 export const BlogCategoryPage = async ({ params }: { params: { category: string } }) => {
   const category = params.category;
-  const { data: articles } = await getCategoryArticles({ category });
-  const { data: categories } = await getAllCategories();
+  
+  // Выполняем запросы параллельно
+  const [articlesResponse, categoriesResponse] = await Promise.all([
+    getCategoryArticles({ category }),
+    getAllCategories()
+  ]);
+
+  const { data: articles } = articlesResponse;
+  const { data: categories } = categoriesResponse;
+
   return (
     <section className="grid grid-flow-row md:gap-[50px] mobile-xl:gap-10 gap-5">
       <div className="mobile-xl:flex mobile-xl:justify-center mobile-xl:items-center mobile-xl:mx-auto lg:max-w-[70%] mobile-xl:max-w-full">

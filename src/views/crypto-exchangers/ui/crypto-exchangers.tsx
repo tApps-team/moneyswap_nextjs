@@ -31,19 +31,18 @@ const CryptoTable = dynamic(
   },
 );
 export const CryptoExchangersPage = async ({ params }: { params: { exchanger: string[] } }) => {
-  const giveCurrency = await getSpecificValute({
-    codeName: "BTC",
-  });
-  const getCurrency = await getSpecificValute({
-    codeName: "SBERRUB",
-  });
-  const actualCourse = await getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" });
+  // Выполняем все запросы параллельно
+  const [giveCurrency, getCurrency, actualCourse, cryptoExchangers] = await Promise.all([
+    getSpecificValute({ codeName: "BTC" }),
+    getSpecificValute({ codeName: "SBERRUB" }),
+    getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" }),
+    getExchangerList()
+  ]);
 
   // strapi texts
   // const { data } = await getCryptoExchangersPage();
   // const { title, header_description, footer_description } = data;
 
-  const cryptoExchangers = await getExchangerList();
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
       <div className="grid grid-flow-row gap-7">

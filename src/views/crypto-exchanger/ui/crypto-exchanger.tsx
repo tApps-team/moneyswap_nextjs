@@ -31,21 +31,24 @@ export const CryptoExchangerPage = async ({
 
   const currentPage = Number(searchParams?.page) || 1;
 
-  const reviews = await reviewsByExchange({
-    exchange_id: params.exchanger,
-    exchange_marker: searchParams["exchanger-marker"],
-    page: currentPage,
-    grade_filter: searchParams?.grade,
-    element_on_page: 7,
-  });
-  const exchangerDetails = await getExchangerDetails({
-    exchange_id: params.exchanger,
-    exchange_marker: searchParams["exchanger-marker"],
-  });
-  const currencyPair = await getPairValute({
-    exchange_id: params.exchanger,
-    exchange_marker: searchParams["exchanger-marker"],
-  });
+  // Выполняем все запросы параллельно
+  const [reviews, exchangerDetails, currencyPair] = await Promise.all([
+    reviewsByExchange({
+      exchange_id: params.exchanger,
+      exchange_marker: searchParams["exchanger-marker"],
+      page: currentPage,
+      grade_filter: searchParams?.grade,
+      element_on_page: 7,
+    }),
+    getExchangerDetails({
+      exchange_id: params.exchanger,
+      exchange_marker: searchParams["exchanger-marker"],
+    }),
+    getPairValute({
+      exchange_id: params.exchanger,
+      exchange_marker: searchParams["exchanger-marker"],
+    })
+  ]);
 
   return (
     <section className="grid grid-flow-row mobile:gap-10 gap-6">

@@ -10,6 +10,8 @@ import { routes } from "@/shared/router";
 
 export const BlogArticlePage = async ({ params }: { params: { url_name: string } }) => {
   const url = params.url_name;
+  
+  // Получаем статью и ждем результат, так как он нужен для следующих запросов
   const { data: articles } = await getArticle({ url_name: url });
 
   if (articles.length === 0) {
@@ -19,11 +21,14 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
   const article = articles[0];
 
   // Запросы для получения похожих статей по категориям и тегам
-  const categoryPromises =
-    article?.categories?.map((cat) => getCategoryArticles({ category: cat?.category || "" })) || [];
-  const tagPromises = article?.tags?.map((tag) => getTagArticles({ tag: tag?.tag })) || [];
+  const categoryPromises = article?.categories?.map((cat) => 
+    getCategoryArticles({ category: cat?.category || "" })
+  ) || [];
+  const tagPromises = article?.tags?.map((tag) => 
+    getTagArticles({ tag: tag?.tag })
+  ) || [];
 
-  // Ожидаем выполнения всех запросов
+  // Выполняем все запросы параллельно в двух группах
   const [categoryResults, tagResults] = await Promise.all([
     Promise.all(categoryPromises),
     Promise.all(tagPromises),

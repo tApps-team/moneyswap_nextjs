@@ -16,7 +16,7 @@ export const TagsList: FC<TagsListProps> = ({ tags }) => {
             Популярные хэштеги
           </h3>
         </div>
-        <section className="flex flex-wrap px-3 overflow-y-auto max-h-[216px] h-full">
+        <section className="flex flex-wrap px-3 overflow-y-auto max:max-h-[240px] max-h-[216px] h-full">
           {tags?.map((tag) => (
             <Link
               scroll={false}
