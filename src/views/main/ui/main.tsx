@@ -42,12 +42,15 @@ export const Main = async ({
   const [seoTexts, giveCurrency, getCurrency, actualCourse, location] = await Promise.all([
     getSeoTexts({ page: pageTypes.main }),
     getSpecificValute({
-      codeName: direction === ExchangerMarker.cash ? "cashrub" : "btc",
+      codeName: direction === ExchangerMarker.cash ? "cashrub" : "sberrub",
     }),
     getSpecificValute({
-      codeName: direction === ExchangerMarker.cash ? "btc" : "sberrub",
+      codeName: "btc",
     }),
-    getActualCourse({ valuteFrom: "btc", valuteTo: "sberrub" }),
+    getActualCourse({ 
+      valuteFrom: direction === ExchangerMarker.cash ? "cashrub" : "sberrub", 
+      valuteTo: "btc" 
+    }),
     getSpecificCity({ codeName: city ? city : "msk" }),
   ]);
   console.timeEnd('Первая группа запросов (независимые)');
@@ -97,7 +100,7 @@ export const Main = async ({
         />
       ) : (
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <ExchangersTable cityName={location.name.ru} columns={columns} params={request} />
+          <ExchangersTable cityName={direction === ExchangerMarker.cash ? location.name.ru : undefined} columns={columns} params={request} />
         </HydrationBoundary>
       )}
 

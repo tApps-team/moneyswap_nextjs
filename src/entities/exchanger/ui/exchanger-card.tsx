@@ -8,11 +8,13 @@ import { ExchangerCardArrow } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { Exchanger } from "..";
+import { ExchangeRates } from "./components/exchange-rates/ui/exchange-rates";
 
 type ExchangerCardProps = {
   exchanger: Exchanger;
   city?: string;
 };
+
 export const ExchangerCard = (props: ExchangerCardProps) => {
   const { exchanger, city } = props;
   const isAnyTrue = (workingDays: Record<string, boolean>, exchangerName: string): boolean => {
@@ -59,7 +61,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
 
         <div
           className={cn(
-            "grid grid-cols-1 grid-rows-[1fr,auto,1fr] gap-4 p-4 mobile-xl:rounded-2xl rounded-[10px] bg-new-dark-grey",
+            "grid grid-cols-1 grid-rows-[auto,auto,1fr] gap-4 p-4 mobile-xl:rounded-2xl rounded-[10px] bg-new-dark-grey",
             exchanger?.is_vip && "border-yellow-main border-2",
           )}
         >
@@ -145,20 +147,24 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
           )}
           <div className="relative grid grid-flow-row content-between">
             <div className="flex md:text-base text-sm items-center gap-2">
-              <div className="flex gap-2  items-center">
+              <div className="flex gap-1 items-end">
                 <p className="font-semibold leading-none">{exchanger?.in_count}</p>
-                <p className="font-light leading-none truncate mobile-xl:max-w-[35vw] max-w-[18vw]">
+                <div className="mb-[1.2px]">
+                <p className="font-light leading-none truncate mobile-xl:max-w-[35vw] max-w-[18vw] text-2xs">
                   {exchanger?.valute_from}
                 </p>
+                </div>
               </div>
               <ExchangerCardArrow className="size-3 min-h-3 min-w-3" fill="#f6ff5f" />
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-1 items-end">
                 <p className="font-semibold leading-none">{exchanger?.out_count}</p>
-                <p
-                  className={`font-light leading-none truncate mobile-xl:max-w-[35vw] max-w-[18vw] ${isBankomats && "truncate md:max-w-full mobile-xl:max-w-[30vw] max-w-[16vw]"}`}
-                >
-                  {exchanger?.valute_to}
+                <div className="mb-[1.2px]">
+                  <p
+                    className={`font-light text-2xs leading-none truncate mobile-xl:max-w-[35vw] max-w-[18vw] ${isBankomats && "truncate md:max-w-full mobile-xl:max-w-[30vw] max-w-[16vw]"}`}
+                  >
+                    {exchanger?.valute_to}
                 </p>
+                </div>
               </div>
             </div>
             <div className="pt-0.5">
@@ -178,6 +184,13 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
                 ))}
               </div>
             )}
+            {exchanger?.exchange_rates && (
+            <ExchangeRates
+              rates={exchanger?.exchange_rates}
+              valuteFrom={exchanger?.valute_from}
+              valuteTo={exchanger?.valute_to}
+            />
+          )}
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
 import { SpecificValute, useGetAvailableValutes } from "@/entities/currency";
@@ -19,19 +19,63 @@ const CurrencySelect = dynamic(() =>
   import("@/features/currency").then((mod) => mod.CurrencySelect),
 );
 
+type ActualCourse = {
+  valute_from: string;
+  icon_valute_from: string;
+  in_count: number;
+  valute_to: string;
+  icon_valute_to: string;
+  out_count: number;
+};
+
 type CurrencySelectFormProps = {
   url?: string;
   urlLocation?: LocationInfo;
   urlGetCurrency?: SpecificValute;
   urlGiveCurrency?: SpecificValute;
   urlDirection: ExchangerMarker;
-  actualCourse: number | null;
+  actualCourse: ActualCourse | null;
 };
 
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  const [giveAmount, setGiveAmount] = useState<number>(actualCourse?.in_count || 0);
+  const [getAmount, setGetAmount] = useState<number>(actualCourse?.out_count || 0);
+
+  const handleAmountChange = (value: number, type: "give" | "get") => {
+    const newValue = Number(value.toFixed(3));
+    
+    if (type === "give") {
+      setGiveAmount(newValue);
+      if (actualCourse?.in_count && actualCourse?.out_count) {
+        const rate = actualCourse.out_count / actualCourse.in_count;
+        setGetAmount(Number((value * rate).toFixed(3)));
+      }
+      // Отправляем событие что изменился give (in_count)
+      window.dispatchEvent(new CustomEvent('amountChange', { 
+        detail: { value: newValue, type: 'give' }
+      }));
+    } else {
+      setGetAmount(newValue);
+      if (actualCourse?.in_count && actualCourse?.out_count) {
+        const rate = actualCourse.out_count / actualCourse.in_count;
+        setGiveAmount(Number((value / rate).toFixed(3)));
+      }
+      // Отправляем событие что изменился get (out_count)
+      window.dispatchEvent(new CustomEvent('amountChange', { 
+        detail: { value: newValue, type: 'get' }
+      }));
+    }
+  };
+
+  useEffect(() => {
+    if (actualCourse?.in_count && actualCourse?.out_count) {
+      setGiveAmount(actualCourse.in_count);
+      setGetAmount(actualCourse.out_count);
+    }
+  }, [actualCourse]);
 
   const onCollapse = () => {
     setIsCollapsed((prev) => !prev);
@@ -119,7 +163,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
           >
             <CurrencySelectMobile
               isCollapsed={isCollapsed}
-              actualCourse={1}
+              actualCourse={giveAmount}
               disabled={
                 giveCurrenciesIsLoading ||
                 giveCurrenciesIsError ||
@@ -132,6 +176,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               location_code_name={urlLocation?.code_name}
               label="отдаю"
               type="give"
+              onAmountChange={handleAmountChange}
             />
             {!isCollapsed && <CurrencySwitcher direction={urlDirection} />}
             {isCollapsed && (
@@ -139,7 +184,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             )}
             <CurrencySelectMobile
               isCollapsed={isCollapsed}
-              actualCourse={actualCourse}
+              actualCourse={getAmount}
               currencyInfoGive={urlGiveCurrency}
               currencyInfoGet={urlGetCurrency}
               disabled={isGetCurrencyDisabled}
@@ -148,6 +193,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               location_code_name={urlLocation?.code_name}
               label="получаю"
               type="get"
+              onAmountChange={handleAmountChange}
             />
           </div>
         ) : (
@@ -157,7 +203,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             )}
           >
             <CurrencySelect
-              actualCourse={1}
+              actualCourse={giveAmount}
               disabled={
                 giveCurrenciesIsLoading ||
                 giveCurrenciesIsError ||
@@ -170,12 +216,13 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               location_code_name={urlLocation?.code_name}
               label="отдаю"
               type="give"
+              onAmountChange={handleAmountChange}
             />
 
             <CurrencySwitcher direction={urlDirection} />
 
             <CurrencySelect
-              actualCourse={actualCourse}
+              actualCourse={getAmount}
               currencyInfoGive={urlGiveCurrency}
               currencyInfoGet={urlGetCurrency}
               disabled={isGetCurrencyDisabled}
@@ -184,6 +231,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               location_code_name={urlLocation?.code_name}
               label="получаю"
               type="get"
+              onAmountChange={handleAmountChange}
             />
           </div>
         )}

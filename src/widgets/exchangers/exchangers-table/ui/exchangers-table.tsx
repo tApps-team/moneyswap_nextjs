@@ -15,7 +15,7 @@ import {
 } from "@tanstack/react-table";
 import { Calendar, Check, Clock, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Exchanger, ExchangerCard, getExchangers } from "@/entities/exchanger";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
@@ -43,13 +43,59 @@ export function ExchangersTable<TData, TValue>({
   params,
   cityName,
 }: DataTableProps<TValue>) {
-  const { data: exchangers = [], error } = useQuery({
+  const { data: exchangers = [] } = useQuery({
     queryKey: [params],
     refetchOnWindowFocus: false,
     refetchInterval: 60000,
     queryFn: async () => (await getExchangers(params)).exchangers,
   });
-  console.log(error);
+
+  const [userAmount, setUserAmount] = useState<number | null>(null);
+  const [inputType, setInputType] = useState<'give' | 'get'>('give');
+  
+  useEffect(() => {
+    const handleAmountChange = (e: CustomEvent<{ value: number; type: 'give' | 'get' }>) => {
+      setUserAmount(e.detail.value);
+      setInputType(e.detail.type);
+    };
+    
+    window.addEventListener('amountChange', handleAmountChange as EventListener);
+    return () => {
+      window.removeEventListener('amountChange', handleAmountChange as EventListener);
+    };
+  }, []);
+
+  const data = useMemo(() => 
+    exchangers?.map(exchanger => {
+      // Если пользователь еще не менял значения, показываем оригинальные значения обменника
+      if (userAmount === null) {
+        return exchanger;
+      }
+
+      const originalRate = exchanger.out_count / exchanger.in_count;
+
+      if (inputType === 'give') {
+        // Если пользователь изменил in_count (give)
+        const newInCount = userAmount;
+        const newOutCount = Number((newInCount * originalRate).toFixed(3));
+        return {
+          ...exchanger,
+          in_count: newInCount,
+          out_count: newOutCount
+        };
+      } else {
+        // Если пользователь изменил out_count (get)
+        const newOutCount = userAmount;
+        const newInCount = Number((newOutCount / originalRate).toFixed(3));
+        return {
+          ...exchanger,
+          in_count: newInCount,
+          out_count: newOutCount
+        };
+      }
+    }) || []
+  , [exchangers, userAmount, inputType]);
+
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -61,7 +107,6 @@ export function ExchangersTable<TData, TValue>({
     pageSize: 10,
   });
 
-  const data = exchangers || [];
   const table = useReactTable({
     data,
     columns,

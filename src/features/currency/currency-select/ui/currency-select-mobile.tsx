@@ -38,6 +38,7 @@ type CurrencySelectProps = {
   isCollapsed: boolean;
   type: "give" | "get";
   location_code_name?: string;
+  onAmountChange?: (value: number, type: "give" | "get") => void;
 };
 
 export const CurrencySelectMobile = (props: CurrencySelectProps) => {
@@ -53,6 +54,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
     direction,
     type,
     location_code_name,
+    onAmountChange,
   } = props;
 
   const currencyInfo = type === "give" ? currencyInfoGive : currencyInfoGet;
@@ -110,11 +112,17 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
           </label>
           <div className="relative">
             <input
-              disabled={true}
+              disabled={disabled}
               id={label}
-              value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
-              onChange={(e) => setAmount?.(e.target.valueAsNumber)}
+              type="number"
+              value={typeof actualCourse === "number" && actualCourse ? actualCourse : ""}
+              onChange={(e) => {
+                const value = e.target.valueAsNumber || 0;
+                onAmountChange?.(value, type);
+              }}
+              onWheel={(e) => (e.target as HTMLInputElement).blur()}
               className="disabled:opacity-100 mobile-xl:pr-[42vw] mobile:pr-[45vw] pr-[55vw] w-full truncate bg-[#43464E] font-semibold mobile-xl:h-[65px] h-[60px] focus-visible:outline-none py-5 mobile:pl-8 pl-5 rounded-xl text-yellow-main px-6 md:text-lg text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
+              placeholder="Введите сумму"
             />
             <DrawerTrigger
               className="absolute right-2 top-[6px] lg:h-full mobile-xl:h-[calc(65px_-_12px)] h-[calc(60px_-_12px)] lg:right-0 lg:top-0 mobile-xl:w-[40vw] mobile:w-[42vw] w-[50vw] lg:w-full lg:relative bg-[#191C25] lg:bg-transparent hover:bg-new-light-grey lg:p-3 p-2 px-3"

@@ -30,13 +30,20 @@ export type GetDirectionsResponse = {
   valute_to: SpecificValute;
 }[];
 
-export type GetActualCourseDtoResponse = number;
-export type GetActualCourseDtoRequset = {
+export type GetActualCourseDtoResponse = {
+  valute_from: string;
+  icon_valute_from: string;
+  in_count: number;
+  valute_to: string;
+  icon_valute_to: string;
+  out_count: number;
+};
+export type GetActualCourseDtoRequest = {
   valuteFrom: string;
   valuteTo: string;
 };
 
-export type GetPairValuteDtoRequset = {
+export type GetPairValuteDtoRequest = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
 };

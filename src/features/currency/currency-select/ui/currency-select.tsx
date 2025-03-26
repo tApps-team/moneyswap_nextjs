@@ -40,6 +40,7 @@ type CurrencySelectProps = {
   actualCourse: number | null;
   type: "give" | "get";
   location_code_name?: string;
+  onAmountChange?: (value: number, type: "give" | "get") => void;
 };
 
 export const CurrencySelect = (props: CurrencySelectProps) => {
@@ -54,6 +55,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
     type,
     direction,
     location_code_name,
+    onAmountChange,
   } = props;
 
   const currencyInfo = type === "give" ? currencyInfoGive : currencyInfoGet;
@@ -193,11 +195,17 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
           </DialogContent>
         </Dialog>
         <input
-          disabled={true}
+          disabled={disabled}
           id={label}
-          value={typeof actualCourse === "number" && actualCourse ? actualCourse : "нет данных"}
-          onChange={(e) => setAmount?.(e.target.valueAsNumber)}
-          className="bg-[#43464E] font-semibold h-[65px] w-full focus-visible:outline-none  py-5 pl-8 rounded-xl px-6 md:text-lg mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
+          type="number"
+          value={typeof actualCourse === "number" && actualCourse ? actualCourse : ""}
+          onChange={(e) => {
+            const value = e.target.valueAsNumber || 0;
+            onAmountChange?.(value, type);
+          }}
+          onWheel={(e) => (e.target as HTMLInputElement).blur()}
+          className="bg-[#43464E] font-semibold h-[65px] w-full focus-visible:outline-none py-5 pl-8 rounded-xl px-6 md:text-lg mobile-xl:text-sm text-xs [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:transition-opacity focus:placeholder:opacity-0"
+          placeholder="Введите сумму"
         />
       </div>
     </div>

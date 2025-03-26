@@ -41,6 +41,7 @@ export interface Exchanger {
   params?: string;
   fromfee?: number | null;
   exchange_direction_id: number;
+  exchange_rates: ExchangeRate[] | null;
   direction_marker: DirectionMarker;
   location?: LocationInfo;
 }
@@ -86,4 +87,12 @@ export type ExchnagerInfo = {
   open: string;
   openOnMoneySwap: string;
   url: string;
+};
+
+export type ExchangeRate = {
+  min_count: number | null;
+  max_count: number | null;
+  in_count: number;
+  out_count: number;
+  rate_coefficient: number;
 };

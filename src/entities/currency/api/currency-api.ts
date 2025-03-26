@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/shared/api";
 import {
-  GetActualCourseDtoRequset,
   GetActualCourseDtoResponse,
   GetAvailableValutesDtoRequest,
   GetAvailableValutesDtoResponse,
   GetDirectionsRequest,
   GetDirectionsResponse,
-  GetPairValuteDtoRequset,
+  GetActualCourseDtoRequest,
   GetPairValuteDtoResponse,
   GetSpecificValuteRequest,
   GetSpecificValuteResponse,
+  GetPairValuteDtoRequest
 } from "./currency-dto";
 
 export const useGetAvailableValutes = (props: GetAvailableValutesDtoRequest) => {
@@ -79,10 +79,10 @@ export const getRandomValutes = async (
 };
 
 export const getActualCourse = async (
-  props: GetActualCourseDtoRequset,
+  props: GetActualCourseDtoRequest,
 ): Promise<GetActualCourseDtoResponse | null> => {
   const { valuteFrom, valuteTo } = props;
-  const url = `api/actual_course?valute_from=${valuteFrom}&valute_to=${valuteTo}`;
+  const url = `api/test/actual_course?valute_from=${valuteFrom}&valute_to=${valuteTo}`;
 
   try {
     const result = await apiClient.get<GetActualCourseDtoResponse>(url);
@@ -93,7 +93,7 @@ export const getActualCourse = async (
   }
 };
 
-export const getPairValute = async (props: GetPairValuteDtoRequset) => {
+export const getPairValute = async (props: GetPairValuteDtoRequest) => {
   const url = `/api/direction_pair_by_exchange`;
   const response = await apiClient.get<GetPairValuteDtoResponse>(url, props);
   return response;
