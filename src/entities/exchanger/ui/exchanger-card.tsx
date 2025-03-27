@@ -149,22 +149,18 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             <div className="flex md:text-base text-sm items-center gap-2">
               <div className="flex gap-1 items-end">
                 <p className="font-semibold leading-none">{exchanger?.in_count}</p>
-                <div className="mb-[1.2px]">
                 <p className="font-light leading-none truncate mobile-xl:max-w-[35vw] max-w-[18vw] text-2xs">
                   {exchanger?.valute_from}
                 </p>
-                </div>
               </div>
               <ExchangerCardArrow className="size-3 min-h-3 min-w-3" fill="#f6ff5f" />
               <div className="flex gap-1 items-end">
                 <p className="font-semibold leading-none">{exchanger?.out_count}</p>
-                <div className="mb-[1.2px]">
                   <p
                     className={`font-light text-2xs leading-none truncate mobile-xl:max-w-[35vw] max-w-[18vw] ${isBankomats && "truncate md:max-w-full mobile-xl:max-w-[30vw] max-w-[16vw]"}`}
                   >
                     {exchanger?.valute_to}
                 </p>
-                </div>
               </div>
             </div>
             <div className="pt-0.5">
