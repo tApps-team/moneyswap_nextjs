@@ -32,11 +32,11 @@ export const HeaderMobile = () => {
             className="mobile-xl:w-[150px] w-[120px]"
           />
         </Link>
-        <Drawer direction="left" handleOnly>
+        <Drawer direction="top" handleOnly>
           <DrawerTrigger asChild>
             <Menu className="mobile-xl:size-10 size-8 stroke-[1.5px]" />
           </DrawerTrigger>
-          <DrawerContent className="h-svh w-full rounded-none bg-new-bg border-0 backdrop-blur-md mobile-xl:px-[60px] px-5 pb-5">
+          <DrawerContent className="h-dvh w-full rounded-none bg-new-bg border-0 mobile-xl:px-[60px] px-5 pb-5">
             <DrawerHeader className="grid justify-end justify-items-end mobile-xl:pt-12 pt-5 pb-[38px] px-0">
               <DrawerTitle className="sr-only">navbar</DrawerTitle>
               <DrawerClose>
@@ -44,9 +44,10 @@ export const HeaderMobile = () => {
               </DrawerClose>
             </DrawerHeader>
             <DrawerDescription className="sr-only">description</DrawerDescription>
-            <div className="grid justify-between items-center grid-flow-col mobile-xl:mb-[80px] mb-[60px]">
-              <Link href={routes.home} className="mobile-xl:w-[200px] w-[150px]">
-                <Image src={"/logofull.svg"} alt="logo" width={200} height={250} />
+            <div className="grid grid-flow-row w-full mobile-xl:gap-[80px] gap-[60px]">
+            <div className="grid justify-between items-center grid-flow-col">
+              <Link href={routes.home} className="mobile-xl:w-[200px] w-[150px] h-fit">
+                <img src={"/logofull.svg"} alt="logo" width={200} />
               </Link>
               <Link
                 href={products.telegram_bot}
@@ -117,6 +118,7 @@ export const HeaderMobile = () => {
                 )}
               </Accordion>
             </ScrollArea>
+            </div>
           </DrawerContent>
         </Drawer>
       </div>
