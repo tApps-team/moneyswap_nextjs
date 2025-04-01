@@ -8,6 +8,7 @@ import { ExchangerCardArrow } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { Exchanger } from "..";
+import { ExchangerMarker } from "../model/types/exchanger-type";
 import { AMLTooltip } from "./components/aml-tooltip";
 import { ExchangeRates } from "./components/exchange-rates/ui/exchange-rates";
 
@@ -100,7 +101,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
             </Link>
           </div>
-          {exchanger?.info ? (
+          {(exchanger.exchange_marker === ExchangerMarker.partner || exchanger.exchange_marker === ExchangerMarker.both) ? (
             <span className="text-[7px] font-medium h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
               {(exchanger?.info?.weekdays?.time_from || exchanger?.info?.weekdays?.time_to) && (
                 <div className="flex gap-1 items-center">
