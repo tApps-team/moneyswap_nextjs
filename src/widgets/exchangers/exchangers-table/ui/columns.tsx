@@ -2,11 +2,10 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp, Clock, Calendar, Check, X } from "lucide-react";
 import Link from "next/link";
-import { Exchanger } from "@/entities/exchanger";
+import { Exchanger, AMLTooltip, ExchangeRatesDesktop } from "@/entities/exchanger";
 import { defaultUserId, increaseLinkCount, increaseLinkCountPartners } from "@/entities/user";
 import { routes } from "@/shared/router";
 import { GiveCell } from "../columns/ui/giveCell";
-
 export type ExchangerTable = Exchanger;
 
 export const columns: ColumnDef<ExchangerTable>[] = [
@@ -54,7 +53,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
           target="_blank"
           className="flex flex-col gap-0.5"
         >
-          <p className="font-bold xl:text-lg text-base">{row.original?.name?.ru}</p>
+          <p className="font-bold xl:text-lg text-base truncate max-w-[20vw]">{row.original?.name?.ru}</p>
           {row.original?.info && (
             <span className="xl:text-[12px] text-[10px] font-medium inline-flex gap-1 items-center justify-start leading-none">
               {(row.original.info?.weekdays?.time_from || row.original.info?.weekdays?.time_to) && (
@@ -223,16 +222,23 @@ export const columns: ColumnDef<ExchangerTable>[] = [
   {
     accessorKey: "in_count",
     header: () => (
-      <p className="md:hidden lg:block text-lg font-bold leading-none uppercase">Сумма обмена</p>
+      <p className="text-lg font-bold leading-none uppercase">Сумма обмена</p>
     ),
     enableHiding: true,
     cell: ({ row }) => (
-      <div className="flex md:hidden lg:block flex-col">
+      <div className="flex flex-col">
         <div className="flex gap-1 items-center">
           <div className="xl:text-sm text-xs font-light uppercase">от</div>
           <div className="xl:text-base text-sm text-yellow-main font-semibold">
             {row.original.min_amount}
           </div>
+          {row.original.exchange_rates && <div className="ml-4">
+          <ExchangeRatesDesktop
+            rates={row.original.exchange_rates}
+            valuteFrom={row.original.valute_from}
+            valuteTo={row.original.valute_to}
+          />
+          </div>}
         </div>
         <div className="flex gap-1 items-center">
           <div className="xl:text-sm text-xs font-light uppercase">до</div>
@@ -263,7 +269,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     id: "Review",
     cell: ({ row }) => {
       return (
-        <div className="relative">
+        <div className="relative grid grid-flow-col gap-2 items-center justify-between justify-items-start">
           {row.original.is_vip && (
             <div className="absolute xl:-top-6 -top-5 right-0">
               <div className="bg-yellow-main px-4 xl:py-1 py-0.5 rounded-[3px]">
@@ -283,6 +289,9 @@ export const columns: ColumnDef<ExchangerTable>[] = [
             <span>|</span>
             <div className="text-[#FF0000]">{row.original.review_count.negative}</div>
           </Link>
+          {row.original?.info?.high_aml && (
+            <AMLTooltip />
+          )}
         </div>
       );
     },

@@ -41,3 +41,6 @@ export * from "./icons/search-icon";
 export * from "./icons/card-icon";
 export * from "./icons/empty-wallet-icon";
 export * from "./icons/mobile-city-arrow-icon";
+export * from "./icons/aml-desktop-icon";
+export * from "./icons/aml-mobile-icon";
+export * from "./icons/exchange-rates-icon";

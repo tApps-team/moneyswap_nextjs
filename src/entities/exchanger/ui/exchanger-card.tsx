@@ -8,6 +8,7 @@ import { ExchangerCardArrow } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { Exchanger } from "..";
+import { AMLTooltip } from "./components/aml-tooltip";
 import { ExchangeRates } from "./components/exchange-rates/ui/exchange-rates";
 
 type ExchangerCardProps = {
@@ -67,10 +68,13 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
         >
           <div className="grid grid-flow-col justify-between items-start">
             <div className="grid grid-flow-row items-stretch content-between h-full">
-              <div>
-                <h2 className="md:text-xl text-base font-normal truncate leading-none">
+              <div className="flex items-center gap-3">
+                <h2 className="md:text-xl text-base font-normal truncate leading-none mobile-xl:max-w-[30vw] max-w-[50vw]">
                   {exchanger?.name?.ru}
                 </h2>
+                {exchanger?.info?.high_aml && (
+                  <AMLTooltip />
+                )}
               </div>
               <div className="flex items-end justify-between">
                 <p className="md:text-base mobile-xl:text-sm text-xs text-yellow-main  font-normal">

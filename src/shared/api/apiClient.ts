@@ -7,17 +7,16 @@ export class ApiClient {
   }
 
   async handleResponse<TResult>(response: Response): Promise<TResult> {
+    const data = await response.json();
+    
     if (!response.ok) {
-      // throw new Error(`HTTP error! Status: ${response.status} ${response.url}`);
-      console.log("error");
+      return {
+        status: response.status.toString(),
+        details: data.message || "Error occurred"
+      } as TResult;
     }
 
-    try {
-      return await response.json();
-    } catch (error) {
-      throw new Error("Error parsing JSON response");
-      console.log("error");
-    }
+    return data;
   }
 
   public async get<TResult = unknown>(
