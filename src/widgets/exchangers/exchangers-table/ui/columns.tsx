@@ -2,7 +2,7 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp, Clock, Calendar, Check, X } from "lucide-react";
 import Link from "next/link";
-import { Exchanger, AMLTooltip, ExchangeRatesDesktop } from "@/entities/exchanger";
+import { Exchanger, AMLTooltip, ExchangeRatesDesktop, ExchangerMarker } from "@/entities/exchanger";
 import { defaultUserId, increaseLinkCount, increaseLinkCountPartners } from "@/entities/user";
 import { routes } from "@/shared/router";
 import { GiveCell } from "../columns/ui/giveCell";
@@ -54,7 +54,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
           className="flex flex-col gap-0.5"
         >
           <p className="font-bold xl:text-lg text-base truncate max-w-[20vw]">{row.original?.name?.ru}</p>
-          {row.original?.info && (
+          {(row.original.exchange_marker === ExchangerMarker.partner || row.original.exchange_marker === ExchangerMarker.both) && (
             <span className="xl:text-[12px] text-[10px] font-medium inline-flex gap-1 items-center justify-start leading-none">
               {(row.original.info?.weekdays?.time_from || row.original.info?.weekdays?.time_to) && (
                 <div className="flex gap-1 items-center">

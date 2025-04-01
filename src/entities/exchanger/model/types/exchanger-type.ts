@@ -22,11 +22,11 @@ export interface Exchanger {
     neutral: number;
     negative: number;
   };
-  info?: {
-    bankomats: Bankomat[] | null;
-    delivery: boolean;
-    office: boolean;
-    working_days: {
+  info: {
+    bankomats?: Bankomat[] | null;
+    delivery?: boolean;
+    office?: boolean;
+    working_days?: {
       Пн: boolean;
       Вт: boolean;
       Ср: boolean;
@@ -35,8 +35,8 @@ export interface Exchanger {
       Сб: boolean;
       Вс: boolean;
     };
-    weekdays: { time_from: string; time_to: string };
-    weekends: { time_from: string; time_to: string };
+    weekdays?: { time_from: string; time_to: string };
+    weekends?: { time_from: string; time_to: string };
     high_aml?: boolean;
   };
   params?: string;
