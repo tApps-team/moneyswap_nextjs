@@ -16,8 +16,8 @@ export const getExchangers = async (
   const { valute_from, valute_to, city } = props;
 
   const url = city
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions?city=${city}&valute_from=${valute_from}&valute_to=${valute_to}`
-    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions?valute_from=${valute_from}&valute_to=${valute_to}`;
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/test/directions?city=${city}&valute_from=${valute_from}&valute_to=${valute_to}`
+    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/test/directions?valute_from=${valute_from}&valute_to=${valute_to}`;
 
   try {
     const res = await fetch(url, {

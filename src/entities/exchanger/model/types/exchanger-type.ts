@@ -37,6 +37,7 @@ export interface Exchanger {
     };
     weekdays: { time_from: string; time_to: string };
     weekends: { time_from: string; time_to: string };
+    high_aml?: boolean;
   };
   params?: string;
   fromfee?: number | null;
