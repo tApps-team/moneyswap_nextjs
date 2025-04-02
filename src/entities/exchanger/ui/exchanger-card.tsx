@@ -79,7 +79,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
               <div className="flex items-end justify-between">
                 <p className="md:text-base mobile-xl:text-sm text-xs text-yellow-main  font-normal">
-                  {city ? `в г. ${city}` : "Онлайн-обмен"}
+                  {city ? `в г. ${city}` : `в г. ${exchanger?.location?.name?.ru}` ||"Онлайн-обмен"}
                 </p>
               </div>
             </div>

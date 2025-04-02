@@ -63,8 +63,8 @@ export const HeaderMobile = () => {
                 </p>
               </Link>
             </div>
-            <ScrollArea>
-              <Accordion type="single" collapsible className="flex flex-col gap-4 w-full">
+            <ScrollArea className="mobile-xl:max-h-[calc(100svh_-_126px_-_80px_-_60px)] max-h-[calc(100svh_-_90px_-_60px_-_40px)]">
+              <Accordion type="single" collapsible className="flex flex-col gap-4 w-full pb-10">
                 {navbarItems.map((item) =>
                   item?.children ? (
                     <AccordionItem value={item.value} key={item.value} className="">
