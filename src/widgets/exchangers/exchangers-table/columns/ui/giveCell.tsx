@@ -28,8 +28,8 @@ export const GiveCell = (props: GiveCellProps) => {
         <Link href={createUrl(row.original.location.code_name)}>
           <p>
             {row.original.exchange_marker === ExchangerMarker.cash
-              ? `Наличные в городе ${row.original.location.name.ru}`
-              : `Наличные в городе ${row.original.location.name.ru}`}
+              ? `В г. ${row.original.location.name.ru}`
+              : `В г. ${row.original.location.name.ru}`}
           </p>
         </Link>
       )}

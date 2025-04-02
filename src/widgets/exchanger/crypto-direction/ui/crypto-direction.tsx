@@ -12,7 +12,7 @@ export const CryptoDirection = async (props: CryptoDirectionProps) => {
   const sortedCurrencyPair = sortingCurrencyPair(currencyPair);
   const maxPointsCount = Math.max(...currencyPair.map((item) => item.pairCount));
   return (
-    <aside className="grid h-full grid-cols-1 grid-flow-row min-h-[36rem] max-h-[40rem] overflow-hidden gap-4 items-start rounded-[15px] bg-new-dark-grey xl:px-6 mobile:pt-10 mobile:pb-6 mobile:px-4 pt-5 px-3 pb-4">
+    <aside className="grid h-full grid-rows-[auto_1fr] lg:min-h-[36rem] min-h-auto max-h-[40rem] overflow-hidden gap-4 items-start rounded-[15px] bg-new-dark-grey xl:px-6 mobile:pt-10 mobile:pb-6 mobile:px-4 pt-5 px-3 pb-4">
       <div className="grid lg:grid-cols-[0.7fr,1fr] md:grid-cols-[0.3fr,1fr] mobile-xl:grid-cols-[0.7fr,1fr] grid-cols-1 gap-6 w-full">
         <p className="text-sm text-center uppercase">Направления</p>
         <p className="text-sm hidden mobile-xl:block uppercase text-center">Обменные пункты</p>
