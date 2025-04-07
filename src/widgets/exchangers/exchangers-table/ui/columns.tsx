@@ -54,8 +54,9 @@ export const columns: ColumnDef<ExchangerTable>[] = [
           className="flex flex-col gap-0.5"
         >
           <p className="font-bold xl:text-lg text-base truncate max-w-[20vw]">{row.original?.name?.ru}</p>
+          <AMLTooltip isHighRisk={row.original?.info?.high_aml ?? false} />
           {(row.original.exchange_marker === ExchangerMarker.partner || row.original.exchange_marker === ExchangerMarker.both) && (
-            <span className="xl:text-[12px] text-[10px] font-medium inline-flex gap-1 items-center justify-start leading-none">
+            <span className="xl:text-[12px] text-[10px] font-medium inline-flex truncate gap-1 items-center justify-start leading-none">
               {(row.original.info?.weekdays?.time_from || row.original.info?.weekdays?.time_to) && (
                 <div className="flex gap-1 items-center">
                   <Clock className="size-2.5" color="#B9B9B9" />
@@ -222,7 +223,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
   {
     accessorKey: "in_count",
     header: () => (
-      <p className="text-lg font-bold leading-none uppercase">Сумма обмена</p>
+      <p className="text-lg font-bold leading-none uppercase truncate">Сумма обмена</p>
     ),
     enableHiding: true,
     cell: ({ row }) => (
@@ -289,9 +290,6 @@ export const columns: ColumnDef<ExchangerTable>[] = [
             <span>|</span>
             <div className="text-[#FF0000]">{row.original.review_count.negative}</div>
           </Link>
-          {row.original?.info?.high_aml && (
-            <AMLTooltip />
-          )}
         </div>
       );
     },

@@ -67,15 +67,13 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             exchanger?.is_vip && "border-yellow-main border-2",
           )}
         >
-          <div className="grid grid-flow-col justify-between items-start">
+          <div className="grid gap-[10px] grid-cols-[1fr,auto] justify-stretch items-start">
             <div className="grid grid-flow-row items-stretch content-between h-full">
-              <div className="flex items-center gap-3">
-                <h2 className="md:text-xl text-base font-normal truncate leading-none mobile-xl:max-w-[30vw] max-w-[50vw]">
+              <div className="flex items-start gap-3 truncate min-w-0">
+                <h2 className="md:text-xl text-base font-normal leading-none justify-between truncate min-w-0 w-full">
                   {exchanger?.name?.ru}
                 </h2>
-                {exchanger?.info?.high_aml && (
-                  <AMLTooltip />
-                )}
+                <AMLTooltip isHighRisk={exchanger?.info?.high_aml ?? false} />
               </div>
               <div className="flex items-end justify-between">
                 <p className="md:text-base mobile-xl:text-sm text-xs text-yellow-main  font-normal">

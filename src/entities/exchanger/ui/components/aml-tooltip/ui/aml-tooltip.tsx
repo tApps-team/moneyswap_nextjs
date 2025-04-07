@@ -4,24 +4,27 @@ import { useState } from "react";
 import { AMLDesktopIcon, AMLMobileIcon } from "@/shared/assets";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/shared/ui";
 
-export const AMLTooltip = () => {
+interface AMLTooltipProps {
+  isHighRisk: boolean;
+}
+
+export const AMLTooltip = ({ isHighRisk }: AMLTooltipProps) => {
     const [open, setOpen] = useState(false);
     return (
       <TooltipProvider>
       <Tooltip open={open}>
         <TooltipTrigger
           type="button"
-          className="!z-[15]"
+          className="!z-[15] rounded-[3px] bg-new-light-grey py-0.5 px-1 w-fit"
           onClick={(e) => {setOpen(!open); e.preventDefault();}}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
         >
-          <div className="lg:block hidden">
-          <AMLDesktopIcon />
-          </div>
-          <div className="lg:hidden">
-          <AMLMobileIcon />
-          </div>
+          <p className="mobile:text-xs text-[10px] text-mainColor whitespace-nowrap">
+            AML risk: <span className={`${isHighRisk ? 'text-red-500' : 'text-green-500'} font-medium`}>
+              {isHighRisk ? 'HIGH' : 'LOW'}
+            </span>
+          </p>
         </TooltipTrigger>
         <TooltipContent
           side="bottom"

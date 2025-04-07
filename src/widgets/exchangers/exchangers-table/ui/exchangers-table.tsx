@@ -145,7 +145,7 @@ export function ExchangersTable<TData, TValue>({
   if (isDesktop) {
     return (
       <div className="flex flex-col mt-10 gap-12 w-full">
-        <div className="rounded-[15px] bg-new-dark-grey flex flex-col gap-11  text-white px-10 pb-14">
+        <div className="rounded-[15px] bg-new-dark-grey flex flex-col gap-11  text-white xl:px-10 px-6 pb-14">
           <Table className=" border-separate border-spacing-y-4">
             <TableHeader className="">
               {table?.getHeaderGroups()?.map((headerGroup) => (
