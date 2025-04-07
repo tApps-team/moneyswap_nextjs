@@ -28,7 +28,7 @@ export const AMLTooltip = ({ isHighRisk }: AMLTooltipProps) => {
         </TooltipTrigger>
         <TooltipContent
           side="bottom"
-          className="shadow-lg !z-[20] bg-new-light-grey rounded-[8px] lg:px-4 lg:py-3 px-2 py-2 border-none w-[70vw] max-w-[200px]"
+          className="shadow-lg !z-[21] bg-new-light-grey rounded-[8px] lg:px-4 lg:py-3 px-2 py-2 border-none w-[70vw] max-w-[200px]"
         >
           <p className="leading-3 mobile-xl:text-xs text-[10px] text-white text-wrap">{isHighRisk ? 'Этот обменник имеет высокие показатели AML-риска. Рекомендуем проявлять осторожность при обмене' : 'Этот обменник имеет низкие показатели AML-риска'}</p>
         </TooltipContent>
