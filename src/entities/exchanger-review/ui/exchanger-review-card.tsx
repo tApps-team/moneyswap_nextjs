@@ -8,7 +8,7 @@ import { CommentList } from "@/features/exchanger/review";
 import { CommentIcon, NegativeSmile, NeutralSmile, PositiveSmile } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { ExchangerMarker, ReviewEnum } from "@/shared/types";
-import { ExchangerReview, getCommentsByReview } from "..";
+import { ExchangerReview, getCommentsByReview, ReviewFrom } from "..";
 
 type ExchangerReviewCardProps = {
   replySlot?: React.ReactNode;
@@ -55,7 +55,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.positive) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <PositiveSmile className="mobile-xl:size-5 size-3" />
+          <PositiveSmile className="mobile-xl:size-5 size-2.5" />
           <p className="text-black  mobile-xl:text-sm mobile:text-xs text-2xs font-bold uppercase leading-none">
             Положительный{" "}
           </p>
@@ -65,7 +65,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.neutral) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <NeutralSmile className="mobile-xl:size-5 size-3" />
+          <NeutralSmile className="mobile-xl:size-5 size-2.5" />
           <p className="text-black mobile-xl:text-sm mobile:text-xs text-2xs font-bold uppercase leading-none">
             Нейтральный
           </p>
@@ -75,7 +75,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
     if (review?.grade === ReviewEnum.negative) {
       return (
         <div className="flex items-center justify-center gap-2">
-          <NegativeSmile className="mobile-xl:size-5 size-3 stroke-font-light-grey" />
+          <NegativeSmile className="mobile-xl:size-5 size-2.5 stroke-font-light-grey" />
           <p className="text-font-light-grey mobile-xl:text-sm mobile:text-xs text-2xs font-bold uppercase leading-none">
             Отрицательный
           </p>
@@ -107,10 +107,17 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           <p className="font-bold mobile-xl:text-base mobile:text-sm text-xs uppercase max-w-[50%] truncate">
             {review?.username}
           </p>
-          <div className="flex gap-1 mobile-xl:text-base mobile:text-sm text-xs text-yellow-main font-bold">
+          <div className="grid grid-flow-col gap-2 justify-between justify-items-stretch text-yellow-main mobile-xl:text-base mobile:text-sm text-xs md:font-bold font-medium">
+          <div className="flex gap-1">
             <p className="">{review?.review_date}</p>
             <span className=" ">/</span>
             <p className="">{review?.review_time}</p>
+          </div>
+          {review?.review_from === ReviewFrom.bestchange && (
+                <p className="truncate">
+                 отзыв с BestChange
+                </p>
+              )}
           </div>
         </div>
         <div className="grid gap-1">
