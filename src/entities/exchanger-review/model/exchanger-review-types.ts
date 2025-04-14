@@ -5,6 +5,7 @@ export type ExchangerReview = {
   username: string;
   review_date: string;
   review_time: string;
+  review_from: ReviewFrom;
   grade: ReviewEnum;
   text: string;
   comment_count: number;
@@ -21,4 +22,8 @@ export enum Grade {
   neutral = 0,
   negative = -1,
   all = "all",
+}
+export enum ReviewFrom {
+  moneyswap = "moneyswap",
+  bestchange = "bestchange",
 }
