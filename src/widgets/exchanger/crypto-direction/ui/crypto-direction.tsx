@@ -1,8 +1,10 @@
-import { CurrencyPair } from "@/features/currency/currency-pair";
+import Image from "next/image";
+import searchAnimation from "/public/animated/search_spin.gif";
+import { CurrencyPair } from "@/features/currency";
+import { sortingCurrencyPair } from "../lib/sorting-currency-pair";
 import { CurrencyPair as CurrencyPairType } from "@/entities/currency";
 import { cn } from "@/shared/lib";
 import { ScrollArea } from "@/shared/ui";
-import { sortingCurrencyPair } from "../lib/sorting-currency-pair";
 
 type CryptoDirectionProps = {
   currencyPair: CurrencyPairType[];
@@ -20,8 +22,9 @@ export const CryptoDirection = async (props: CryptoDirectionProps) => {
 
       <ScrollArea className="h-full pr-1">
         <div className="flex flex-col gap-4 p-1 pb-2">
-          {sortedCurrencyPair.map((pair, index) => (
-            <div
+          {sortedCurrencyPair?.length > 0 ? (
+            sortedCurrencyPair?.map((pair, index) => (
+              <div
               className="grid grid-cols-[0.7fr,1fr] md:grid-cols-[0.3fr,1fr] lg:grid-cols-[0.7fr,1fr] xl:gap-6 gap-4 w-full"
               key={index}
             >
@@ -37,7 +40,17 @@ export const CryptoDirection = async (props: CryptoDirectionProps) => {
                 <p>{pair?.pairCount}</p>
               </div>
             </div>
-          ))}
+            ))
+          ) : (
+            <div className="flex flex-col gap-8 justify-center items-center mt-10">
+              <Image
+                src={searchAnimation}
+                alt="search spin"
+                className="md:size-[5vw] mobile-xl:size-[7.5vw] size-[20vw]"
+              />
+              <p className="text-sm text-center">Активных направлений нет...</p>
+            </div>
+          )}
         </div>
       </ScrollArea>
     </aside>

@@ -32,13 +32,15 @@ export async function generateMetadata(
   // Формирование фиксированной канонической ссылки
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchangers}/exchanger-${params.exchanger}?exchanger-marker=${searchParams["exchanger-marker"]}`;
 
+  const formattedDate = exchangerDetails.openOnMoneySwap ? new Date(exchangerDetails.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";
+
   return {
     title: `Обменный пункт ${exchangerDetails.name} | Отзывы на MoneySwap`,
-    description: `Обменник ${exchangerDetails.name} находится в рейтингах MoneySwap с ${exchangerDetails.openOnMoneySwap} и за это время он зарекомендовал себя, как поставщик услуг со средней оценкой ${exchangerDetails.exchangeRates}. Об обменнике есть ${exchangerDetails.reviews.positive} положительных и ${exchangerDetails.reviews.negative} отрицательных отзывов. ${exchangerDetails.name} на данный момент имеет общую сумму резервов ${exchangerDetails.amountReserves}.`,
+    description: `${exchangerDetails.name} — проверенный обменник криптовалют, размещён на MoneySwap с ${formattedDate}. За это время он рекомендовал себя, как стабильный обменный сервис. Сейчас ${exchangerDetails.name} активен в ${exchangerDetails.exchangeRates || "___"} направлений обмена.`,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
     openGraph: {
       title: `Обменный пункт ${exchangerDetails.name} | MoneySwap`,
-      description: `Обменник ${exchangerDetails.name} находится в рейтингах MoneySwap с ${exchangerDetails.openOnMoneySwap} и за это время он зарекомендовал себя, как поставщик услуг со средней оценкой ${exchangerDetails.exchangeRates}. Об обменнике есть ${exchangerDetails.reviews.positive} положительных и ${exchangerDetails.reviews.negative} отрицательных отзывов. ${exchangerDetails.name} на данный момент имеет общую сумму резервов ${exchangerDetails.amountReserves}.`,
+      description: `${exchangerDetails.name} — проверенный обменник криптовалют, размещён на MoneySwap с ${formattedDate}. За это время он рекомендовал себя, как стабильный обменный сервис. Сейчас ${exchangerDetails.name} активен в ${exchangerDetails.exchangeRates || "___"} направлений обмена.`,
       url: canonicalUrl,
       siteName: "MoneySwap",
       images: [

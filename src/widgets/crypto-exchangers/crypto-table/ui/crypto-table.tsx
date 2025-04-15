@@ -181,7 +181,9 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
               <Link
                 href={{
                   pathname: `${routes.exchangers}/exchanger-${exchanger?.id}`,
-                  query: { "exchanger-marker": exchanger?.exchange_marker },
+                  query: {
+                    "exchanger-marker": exchanger?.exchange_marker,
+                  },
                 }}
                 className="self-start mobile:h-[38px] h-[32px] flex justify-center items-center gap-1 mobile:w-40 w-fit py-1.5 px-3 text-2xs rounded-[6px] border border-[#575A62] cursor-pointer hover:bg-yellow-main hover:text-black [&>span]:hover:text-black [&>div>span]:hover:text-black hover:border-yellow-main transition-all duration-500"
               >
@@ -206,7 +208,9 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
               <Link
                 href={{
                   pathname: `${routes.exchangers}/exchanger-${exchanger?.id}`,
-                  query: { "exchanger-marker": exchanger?.exchange_marker },
+                  query: {
+                    "exchanger-marker": exchanger?.exchange_marker,
+                  },
                 }}
                 className="mobile-xl:text-base mobile:text-sm text-xs self-end flex justify-center items-center text-white mobile:w-40 w-fit text-center mobile:h-[38px] h-[32px] py-2 px-7 text-2xs rounded-[6px] bg-[#43464E]  font-normal cursor-pointer hover:bg-yellow-main hover:text-black hover:border-yellow-main transition-all duration-500 leading-none"
               >

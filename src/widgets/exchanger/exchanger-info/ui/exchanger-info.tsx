@@ -1,12 +1,13 @@
 import { BitcoinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ExchangerMarker, ExchnagerInfo, getExchangerDetails } from "@/entities/exchanger";
+import { ExchnagerInfo } from "@/entities/exchanger";
 type ExchangerInfoProps = {
   exchangerDetails: ExchnagerInfo;
 };
 export const ExchangerInfo = async (props: ExchangerInfoProps) => {
   const { exchangerDetails } = props;
+  const formattedDate = exchangerDetails.openOnMoneySwap ? new Date(exchangerDetails.openOnMoneySwap).toLocaleDateString('ru-RU') : "---";
 
   return (
     <section className="rounded-[15px] w-full grid grid-row-[auto,1fr] xl:gap-[50px] gap-[20px] bg-new-dark-grey xl:p-10 md:p-5 mobile:pb-7 mobile:px-6 mobile:pt-11 pb-5 pt-7 px-3">
@@ -54,7 +55,11 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
               <span className="text-yellow-main font-semibold">
                 {exchangerDetails?.reviews?.positive}
               </span>
-              <span>/</span>
+              <span className="text-[#84868A]">|</span>
+              <span className="text-[#84868A] font-semibold">
+                {exchangerDetails?.reviews?.neutral}
+              </span>
+              <span className="text-[#84868A]">|</span>
               <span className="text-red-600 font-semibold">
                 {exchangerDetails?.reviews?.negative}
               </span>
@@ -63,7 +68,7 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
           <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
             <p className="font-semibold md:text-base text-sm  text-[#84868A]">Страна</p>
             <p className="text-yellow-main text-sm md:text-base font-semibold">
-              {exchangerDetails?.country || "-"}
+              {exchangerDetails?.country || "---"}
             </p>
           </div>
           <div className="bg-new-grey rounded-[12px] flex flex-col items-center justify-center p-4">
@@ -71,19 +76,19 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
               Курсов обмена
             </p>
             <p className="text-yellow-main text-sm md:text-base font-semibold">
-              {exchangerDetails?.exchangeRates || "-"}
+              {exchangerDetails?.exchangeRates || "---"}
             </p>
           </div>
           <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
             <p className=" md:text-base text-xs text-[#84868A] font-semibold">Открыт</p>
             <p className="text-yellow-main text-sm md:text-base font-semibold text-center">
-              {exchangerDetails?.open || "09.08.2022"}
+              {exchangerDetails?.open || "---"}
             </p>
           </div>
           <div className="rounded-[12px] col-span-2 bg-new-grey flex flex-col items-center justify-center p-4">
             <p className="md:text-base text-xs text-[#84868A] font-semibold">на MONEYSWAP с</p>
             <p className="text-yellow-main font-semibold">
-              {exchangerDetails.openOnMoneySwap || "13.09.2024"}
+              {formattedDate || "---"}
             </p>
           </div>
         </div>

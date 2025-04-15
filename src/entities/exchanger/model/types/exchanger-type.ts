@@ -88,6 +88,7 @@ export type ExchnagerInfo = {
   open: string;
   openOnMoneySwap: string;
   url: string;
+  high_aml: boolean;
 };
 
 export type ExchangeRate = {
