@@ -25,7 +25,7 @@ export const TopExchangers = async () => {
                   alt={`coin ${topExchanger?.name}`}
                   width={100}
                   height={100}
-                  className="size-8 md:size-10"
+                  className="size-8 md:size-10 rounded-full"
                 />
                 <div className="flex flex-col min-w-0 gap-0 ">
                   <p className="text-sm truncate md:text-base font-bold">{topExchanger?.name}</p>
@@ -42,7 +42,9 @@ export const TopExchangers = async () => {
               <Link
                 href={{
                   pathname: `/crypto-exchangers/exchanger-${topExchanger?.id}`,
-                  query: { "exchanger-marker": topExchanger?.exchangerMarker },
+                  query: {
+                    "exchanger-marker": topExchanger?.exchangerMarker,
+                  },
                 }}
                 className=" bg-new-grey hover:bg-yellow-main hover:text-black py-2.5 px-5 rounded-[10px] font-semibold text-xs md:text-sm text-white"
               >

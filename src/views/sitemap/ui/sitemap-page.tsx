@@ -51,7 +51,7 @@ export const SitemapPage = async () => {
               query: { "exchanger-marker": exchanger.exchange_marker },
             }}
           >
-            Обменный пункт {exchanger.exchangerName}
+            Обменный пункт {exchanger?.exchangerName}
           </Link>
         ))}
       </div>
