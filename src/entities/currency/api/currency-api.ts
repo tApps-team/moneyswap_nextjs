@@ -82,7 +82,7 @@ export const getActualCourse = async (
   props: GetActualCourseDtoRequest,
 ): Promise<GetActualCourseDtoResponse | null> => {
   const { valuteFrom, valuteTo } = props;
-  const url = `api/test/actual_course?valute_from=${valuteFrom}&valute_to=${valuteTo}`;
+  const url = `api/actual_course?valute_from=${valuteFrom}&valute_to=${valuteTo}`;
 
   try {
     const result = await apiClient.get<GetActualCourseDtoResponse>(url);
