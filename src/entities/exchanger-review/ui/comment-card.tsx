@@ -1,5 +1,5 @@
 import { formatDate } from "@/shared/lib";
-import { Comment } from "..";
+import { Comment, CommentRole } from "..";
 
 type CommentCardProps = {
   comment: Comment;
@@ -10,14 +10,14 @@ export const CommentCard = (props: CommentCardProps) => {
   return (
     <div className="grid gap-3 bg-transparent pt-5">
       <div className="grid gap-1.5">
-        <p className="text-yellow-main mobile-xl:text-sm text-xs font-light">
-          {comment?.role === "admin" ? "Ответ от администрации" : "Ответ от пользователя"}
+        <p className="text-yellow-main mobile-xl:text-sm text-xs font-medium">
+          {comment?.role === CommentRole.admin ? "Ответ от администрации" : "Ответ от пользователя"}
         </p>
         <div className="grid grid-cols-[1fr_auto] justify-between items-center gap-2">
           <p className="truncate uppercase mobile-xl:text-sm text-xs font-bold text-white">
-            {comment?.role === "admin" ? "MONEYSWAP" : "ПОЛЬЗОВАТЕЛЬ"}
+            {comment?.role === CommentRole.admin ? "MONEYSWAP" : comment?.username}
           </p>
-          <p className="text-yellow-main justify-self-end font-medium uppercase mobile-xl:text-sm text-xs">
+          <p className="text-yellow-main justify-self-end font-medium uppercase mobile-xl:text-base mobile:text-sm text-xs">
             {formatDate(comment?.comment_date)} / {comment?.comment_time}
           </p>
         </div>

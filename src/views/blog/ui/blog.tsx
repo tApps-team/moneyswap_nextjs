@@ -42,7 +42,8 @@ export const BlogPage = async ({
   const { data: recommended } = recommendedResponse;
   const { data: categories } = categoriesResponse;
 
-  const totalPages = Math.ceil(meta?.pagination?.total / elements);
+  const totalPages = meta?.pagination?.pageCount;
+  console.log(totalPages);
 
   return (
     <section className="grid grid-flow-row md:gap-[50px] mobile-xl:gap-10 gap-5">

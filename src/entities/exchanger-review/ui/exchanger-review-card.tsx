@@ -1,6 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { cx } from "class-variance-authority";
+import { Loader } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 // eslint-disable-next-line boundaries/element-types
@@ -38,17 +39,24 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   });
 
   const [isShowExpandButton, setIsShowExpandButton] = useState(false);
-
   const [isOverflowing, setIsOverflowing] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (textRef.current) {
-      const lineHeight = parseFloat(getComputedStyle(textRef.current).lineHeight);
-      const totalHeight = textRef.current.scrollHeight;
-      const lines = Math.floor(totalHeight / lineHeight);
-      setIsOverflowing(lines > 4);
-    }
+    const checkOverflow = () => {
+      if (textRef.current) {
+        const element = textRef.current;
+        setIsOverflowing(element.scrollHeight > element.clientHeight);
+      }
+    };
+
+    // Проверяем при монтировании
+    checkOverflow();
+    
+    // Проверяем при ресайзе окна
+    window.addEventListener('resize', checkOverflow);
+    
+    return () => window.removeEventListener('resize', checkOverflow);
   }, [review?.text]);
 
   const reviewRender = () => {
@@ -108,16 +116,14 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
             {review?.username}
           </p>
           <div className="grid grid-flow-col gap-2 justify-between justify-items-stretch text-yellow-main mobile-xl:text-base mobile:text-sm text-xs md:font-bold font-medium">
-          <div className="flex gap-1">
-            <p className="">{review?.review_date}</p>
-            <span className=" ">/</span>
-            <p className="">{review?.review_time}</p>
-          </div>
-          {review?.review_from === ReviewFrom.bestchange && (
-                <p className="truncate">
-                 отзыв с BestChange
-                </p>
-              )}
+            <div className="flex gap-1">
+              <p className="">{review?.review_date}</p>
+              <span className="">/</span>
+              <p className="">{review?.review_time}</p>
+            </div>
+            {review?.review_from === ReviewFrom.bestchange && (
+              <p className="truncate">отзыв с BestChange</p>
+            )}
           </div>
         </div>
         <div className="grid gap-1">
@@ -126,8 +132,9 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
             <p
               ref={textRef}
               className={cn(
-                "mobile-xl:text-base mobile:text-sm text-xs font-medium line-clamp-2",
-                isShowExpandButton && "line-clamp-none",
+                "mobile-xl:text-base mobile:text-sm text-xs font-medium",
+                !isShowExpandButton && "line-clamp-2",
+                "overflow-hidden"
               )}
             >
               {review?.text}
@@ -143,7 +150,6 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
           )}
         </div>
         <div className="flex md:flex-row flex-col-reverse gap-2 md:gap-0 justify-between items-end">
-          <div className="w-full">{/* {replySlot} */}</div>
           <button
             disabled={review.comment_count < 1}
             className={cn(
@@ -152,15 +158,27 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
             )}
             onClick={onOpenReview}
           >
-            <CommentIcon
-              className={`md:size-6 size-4 ${review?.comment_count < 1 ? "fill-font-light-grey opacity-30" : "fill-yellow-main"}`}
-            />
-            {isOpenReview ? (
-              <p className="mobile-xl:text-sm text-xs font-bold uppercase">скрыть комментарии</p>
+            {(isLoading || isFetching) && !isSuccess ? (
+              <div className="flex justify-center items-center mb-2 size-5">
+                <Loader color="#F6FF5F" className="animate-spin" />
+              </div>
             ) : (
-              <p className="mobile-xl:text-sm text-xs font-bold uppercase">
-                смотреть комментарии <span>({review?.comment_count})</span>
-              </p>
+              <>
+                <CommentIcon
+                  className={`md:size-6 size-4 ${
+                    review?.comment_count < 1 ? "fill-font-light-grey opacity-30" : "fill-yellow-main"
+                  }`}
+                />
+                {isOpenReview ? (
+                  <p className="mobile-xl:text-sm text-xs font-medium uppercase">
+                    скрыть <span>({review?.comment_count})</span>
+                  </p>
+                ) : (
+                  <p className="mobile-xl:text-sm text-xs font-medium uppercase">
+                    смотреть комментарии <span>({review?.comment_count})</span>
+                  </p>
+                )}
+              </>
             )}
           </button>
         </div>

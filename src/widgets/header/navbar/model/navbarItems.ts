@@ -1,6 +1,6 @@
+import { Headset } from "lucide-react";
 import { SVGProps } from "react";
 import {
-  EmailTelephoneIcon,
   FileIcon,
   MoneyesIcon,
   PeopleIcon,
@@ -9,10 +9,13 @@ import {
 } from "@/shared/assets";
 import { routes } from "@/shared/router";
 
+const HeadsetIcon = Headset as ((props: SVGProps<SVGSVGElement>) => JSX.Element);
+
 type NavbarItems = {
   href: string;
   value: string;
-  icon?: ((props: SVGProps<SVGSVGElement>) => JSX.Element) | string;
+  icon?: ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element) | string;
+  className?: string;
   children?: (NavbarItems & { description?: string })[];
 };
 
@@ -62,8 +65,14 @@ export const navbarItems: NavbarItems[] = [
         icon: FileIcon,
       },
       {
-        href: `${routes.partners}`,
+        href: `${routes.contacts}`,
         value: "Контакты",
+        description: "Наши контакты для прямой связи и форма для обратной связи",
+        icon: HeadsetIcon,
+      },
+      {
+        href: `${routes.partners}`,
+        value: "Сотрудничество",
         description: "Связаться с нами или предложить сотрудничество",
         icon: "public import",
       },

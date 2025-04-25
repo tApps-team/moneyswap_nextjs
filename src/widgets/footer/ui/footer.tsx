@@ -43,7 +43,7 @@ export const Footer = () => {
           <hr />
           <section className="flex items-center justify-between">
             <p className="uppercase">© moneyswap – мониторинг обменников. Все права защищены.</p>
-            <p className="uppercase">© 2024 Moneyswap.online</p>
+            <p className="uppercase">© 2025 Moneyswap.online</p>
           </section>
         </div>
       </footer>

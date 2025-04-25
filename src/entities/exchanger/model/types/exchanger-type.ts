@@ -50,6 +50,7 @@ export interface Exchanger {
 export enum DirectionMarker {
   city = "city",
   country = "country",
+  no_cash = "no_cash",
 }
 
 export interface Bankomat {

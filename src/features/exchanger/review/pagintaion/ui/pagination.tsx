@@ -47,57 +47,43 @@ export const ExchangerPagination = (props: ExchangerPaginationProps) => {
   const [paginationArray, setPaginationArray] = useState<(number | string)[]>([]);
 
   useEffect(() => {
-    const paginationArray = [];
-    const maxVisiblePages = 5;
-
-    // Добавляем первую страницу
-    paginationArray.push(1);
-
-    // Если страниц больше, чем maxVisiblePages, начинаем добавлять логику с троеточиями
-    if (totalPages > maxVisiblePages) {
-      if (currentPage <= maxVisiblePages) {
-        // Если текущая страница меньше или равна 5
-        for (let i = 2; i <= maxVisiblePages; i++) {
-          paginationArray.push(i);
-        }
-        paginationArray.push("...");
-        paginationArray.push(totalPages);
-      } else if (currentPage > maxVisiblePages) {
-        // Если текущая страница больше 5
-        paginationArray.push("...");
-
-        // Добавляем страницы вокруг текущей
-        const startPage = Math.max(currentPage - 2, 2); // Страницы до текущей
-        const endPage = Math.min(currentPage + 2, totalPages - 1); // Страницы после текущей
-
-        for (let i = startPage; i <= endPage; i++) {
-          paginationArray.push(i);
-        }
-
-        // Если текущая страница не последняя, добавляем троеточие и последнюю страницу
-        if (currentPage < totalPages - 2) {
-          paginationArray.push("...");
-        }
-        paginationArray.push(totalPages);
+    const pages = [];
+    
+    if (totalPages <= 7) {
+      // Если страниц меньше или равно 7, показываем все страницы
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
       }
     } else {
-      // Если страниц меньше или равно maxVisiblePages, показываем их все
-      for (let i = 2; i <= totalPages; i++) {
-        paginationArray.push(i);
+      // Если страниц больше 7, добавляем логику с многоточиями
+      if (currentPage <= 4) {
+        pages.push(1, 2, 3, 4, 5, "...", totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(
+          1,
+          "...",
+          totalPages - 4,
+          totalPages - 3,
+          totalPages - 2,
+          totalPages - 1,
+          totalPages
+        );
+      } else {
+        pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
       }
     }
 
-    setPaginationArray(paginationArray);
+    setPaginationArray(pages);
   }, [currentPage, totalPages]);
   return (
     <Pagination className="flex  gap-6 items-center">
-      <PaginationPrevious
+      {/* <PaginationPrevious
         className={cn(
-          "hover:bg-transparent border border-[#6B6E76] rounded-[6px] hover:text-white ",
+          "hover:bg-transparent border border-[#6B6E76] rounded-[6px] hover:text-white size-10 p-0",
         )}
         scroll={false}
         href={createPrevPage()}
-      />
+      /> */}
       <PaginationContent className="rounded-full">
         {paginationArray.map((paginationItem) => (
           <PaginationItem key={paginationItem}>
@@ -114,11 +100,11 @@ export const ExchangerPagination = (props: ExchangerPaginationProps) => {
           </PaginationItem>
         ))}
       </PaginationContent>
-      <PaginationNext
-        className="hover:bg-transparent border border-[#6B6E76] rounded-[6px] hover:text-white "
+      {/* <PaginationNext
+        className="hover:bg-transparent border border-[#6B6E76] rounded-[6px] hover:text-white size-10 p-0"
         scroll={false}
         href={createNextPage()}
-      />
+      /> */}
     </Pagination>
   );
 };

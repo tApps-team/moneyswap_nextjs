@@ -21,6 +21,7 @@ export const CryptoExchangerPage = async ({
 }) => {
   // const timeout = new Promise((resolove) => setTimeout(() => resolove(1), 60000));
   // await timeout;
+  const reviews_on_page = 10;
   if (!params?.exchanger) {
     return notFound();
   }
@@ -38,7 +39,7 @@ export const CryptoExchangerPage = async ({
       exchange_marker: searchParams["exchanger-marker"],
       page: currentPage,
       grade_filter: searchParams?.grade,
-      element_on_page: 7,
+      element_on_page: reviews_on_page,
     }),
     getExchangerDetails({
       exchange_id: params.exchanger,
@@ -61,6 +62,7 @@ export const CryptoExchangerPage = async ({
             reviewCount={exchangerDetails.reviews}
             totalPages={reviews.pages}
             reviews={reviews.content}
+            reviews_on_page={reviews_on_page}
           />
         </div>
         <div className="flex flex-col gap-6">

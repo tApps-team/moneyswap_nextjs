@@ -1,7 +1,6 @@
 import { FeedbackForm } from "@/widgets/feedback-form";
 import { ArticleContent } from "@/widgets/strapi";
 import { getForPartnersPage } from "@/entities/strapi";
-import { delay } from "@/shared/lib";
 
 export const ForPartnersPage = async () => {
   const { data } = await getForPartnersPage();
@@ -13,7 +12,7 @@ export const ForPartnersPage = async () => {
       </h1>
       <ArticleContent dynamic_content={data.content} />
       <div className="grow-0">
-        <FeedbackForm />
+        <FeedbackForm type="partner" />
       </div>
     </section>
   );
