@@ -105,14 +105,14 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
 
   return (
-    <section>
+    <section className="h-fit">
       <form
         className={cn(
-          "grid grid-flow-row text-white w-full border-light-gray h-full lg:pb-10 lg:py-6 lg:px-7 md:p-8 md:py-3 md:px-5 md:pb-4 p-4 mobile-xl:pb-[30px] pb-5 bg-new-dark-grey rounded-[15px]",
+          "grid grid-rows-[auto,1fr] text-white w-full border-light-gray h-full lg:pb-10 lg:py-6 lg:px-7 md:p-8 md:py-3 md:px-5 md:pb-4 p-4 mobile-xl:pb-[30px] pb-5 bg-new-dark-grey rounded-[15px]",
           isCollapsed ? "gap-3" : "md:gap-5 gap-6",
         )}
       >
-        <div className="flex md:flex-row flex-col lg:gap-2 gap-4 md:items-center justify-between">
+        <div className="flex md:flex-row flex-col lg:gap-2 md:gap-4 gap-0 md:items-center justify-between">
           <p
             className={cn(
               "uppercase hidden md:block lg:text-xl md:text-lg font-semibold",

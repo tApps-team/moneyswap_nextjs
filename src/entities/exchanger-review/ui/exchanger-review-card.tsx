@@ -25,7 +25,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
   const searchParams = useSearchParams();
   const exchangerMarker = searchParams.get("exchanger-marker") as ExchangerMarker;
 
-  const { data, isLoading, isFetching, isSuccess } = useQuery({
+  const { data, isLoading, isFetching, isSuccess, isError } = useQuery({
     queryFn: () =>
       getCommentsByReview({
         exchangerId: +exchanger,

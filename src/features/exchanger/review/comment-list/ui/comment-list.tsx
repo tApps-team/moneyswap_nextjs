@@ -32,9 +32,9 @@ export const CommentList = (props: CommentListProps) => {
         )}
       >
         <div className={cn("p-4 grid first:pt-[50px]")}>
-          {comments
+          {comments && comments?.length
             ? comments?.map((comment) => <CommentCard key={comment?.id} comment={comment} />)
-            : "Список пуст"}
+            : <span className="text-center text-font-light-grey mt-4">Список пуст...</span>}
         </div>
       </div>
     </div>
