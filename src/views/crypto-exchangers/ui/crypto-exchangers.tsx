@@ -51,9 +51,6 @@ export const CryptoExchangersPage = async ({ params }: { params: { exchanger: st
           <span className="leading-none">Всех обменных пунктов</span>
         </h1>
         <div className="xl:max-w-[60%] max-w-[80%] mx-auto md:block hidden">
-          {/* <h2 className="md:text-lg text-sm strapi_styles strapi_fonts_codec">
-          {parse(header_description, options)}
-        </h2> */}
           <h2 className="text-base text-center font-normal">
             На этой странице представлен список проверенных криптообменников, которые входят в
             рейтинг мониторинга MoneySwap. 
