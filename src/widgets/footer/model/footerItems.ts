@@ -24,7 +24,7 @@ export const footerItems: FooterItems[] = [
         value: "О проекте",
       },
       {
-        href: routes.partners,
+        href: routes.contacts,
         value: "Контакты",
       },
       {

@@ -15,8 +15,10 @@ export type Comment = {
   comment_date: string;
   comment_time: string;
   text: string;
-  role: "admin" | "user";
+  role: CommentRole;
+  username: string;
 };
+
 export enum Grade {
   positive = 1,
   neutral = 0,
@@ -26,4 +28,9 @@ export enum Grade {
 export enum ReviewFrom {
   moneyswap = "moneyswap",
   bestchange = "bestchange",
+}
+export enum CommentRole {
+  admin = "admin",
+  user = "user",
+  exchanger = "exchanger",
 }

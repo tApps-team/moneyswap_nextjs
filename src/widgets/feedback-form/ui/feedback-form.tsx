@@ -21,12 +21,16 @@ import {
 import { postFeedbackForm } from "../api/feedback-form-api";
 import { FeedbackFormType, feedbackFormSchema, reasons } from "../model/formSchema";
 
-export const FeedbackForm = () => {
+type FeedbackFormProps = {
+  type: "partner" | "user";
+};
+
+export const FeedbackForm = ({ type }: FeedbackFormProps) => {
   const { toast } = useToast();
   const form = useForm<FeedbackFormType>({
     resolver: zodResolver(feedbackFormSchema),
     defaultValues: {
-      reasons: "Сотрудничество",
+      reasons: type === "partner" ? "Сотрудничество" : "Ошибка",
       description: "",
       email: "",
       username: "",
@@ -73,7 +77,7 @@ export const FeedbackForm = () => {
         <p className="text-white uppercase md:text-lg text-base font-normal text-center">
           <span className="text-yellow-main font-bold">Форма</span>
           <br />
-          для обратной связи
+          для {type === "user" ? "обратной связи" : "сотрудничества"}
         </p>
         <div className="flex flex-col gap-3">
           <FormField
@@ -111,33 +115,35 @@ export const FeedbackForm = () => {
           />
         </div>
 
-        <FormField
-          control={form.control}
-          name="reasons"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <RadioGroup
-                  defaultValue="Сотрудничество"
-                  className="flex flex-col gap-2 uppercase"
-                  onValueChange={field.onChange}
-                >
-                  {reasons.map((reason) => (
-                    <FormItem className="flex space-y-0 items-center gap-4 " key={reason}>
-                      <FormControl>
-                        <RadioGroupItem
-                          className="w-6 h-6 checked:bg-yellow-main border-white border-2"
-                          value={reason}
-                        />
-                      </FormControl>
-                      <FormLabel className="font-light">{reason}</FormLabel>
-                    </FormItem>
-                  ))}
-                </RadioGroup>
-              </FormControl>
-            </FormItem>
-          )}
-        />
+        {type === "user" && (
+          <FormField
+            control={form.control}
+            name="reasons"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <RadioGroup
+                    defaultValue={"Ошибка"}
+                    className="flex flex-col gap-2 uppercase"
+                    onValueChange={field.onChange}
+                  >
+                    {reasons.map((reason) => (
+                      <FormItem className="flex space-y-0 items-center gap-4 " key={reason}>
+                        <FormControl>
+                          <RadioGroupItem
+                            className="w-6 h-6 checked:bg-yellow-main border-white border-2"
+                            value={reason}
+                          />
+                        </FormControl>
+                        <FormLabel className="font-light">{reason}</FormLabel>
+                      </FormItem>
+                    ))}
+                  </RadioGroup>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        )}
         <FormField
           control={form.control}
           name="description"

@@ -46,16 +46,49 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
   },
   {
     accessorKey: "reserves",
-    header: "РЕЗЕРВЫ",
+    header: ({ column }) => {
+      return (
+        <button
+          className="leading-none flex items-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          РЕЗЕРВЫ
+          {column.getIsSorted() === "asc" ? (
+            <ChevronDown className="ml-2 h-5 w-5" />
+          ) : (
+            <ChevronUp className="ml-2 h-5 w-5" />
+          )}
+        </button>
+      );
+    },
+    sortingFn: (rowA, rowB) => {
+      const a = Number(rowA.original.reserves?.replace(/[^0-9]/g, '')) || 0;
+      const b = Number(rowB.original.reserves?.replace(/[^0-9]/g, '')) || 0;
+      return a < b ? -1 : a > b ? 1 : 0;
+    },
     cell: ({ row }) => (
       <p className="leading-none uppercase xl:text-xl text-base font-semibold truncate max-w-[10vw]">
-        {row.original.reserves}
+        {row.original.reserves || "---"}
       </p>
     ),
   },
   {
     accessorKey: "courses",
-    header: "КУРСОВ",
+    header: ({ column }) => {
+      return (
+        <button
+          className="leading-none flex items-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          КУРСОВ
+          {column.getIsSorted() === "asc" ? (
+            <ChevronDown className="ml-2 h-5 w-5" />
+          ) : (
+            <ChevronUp className="ml-2 h-5 w-5" />
+          )}
+        </button>
+      );
+    },
     cell: ({ row }) => (
       <p className="leading-none uppercase xl:text-xl text-base semibold">{row.original.courses}</p>
     ),

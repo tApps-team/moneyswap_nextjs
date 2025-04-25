@@ -50,7 +50,7 @@ export const Navbar = () => {
                               className="w-7 h-auto"
                             />
                           ) : (
-                            <itemChildren.icon className="flex-shrink-0" width={24} height={24} />
+                            <itemChildren.icon className="flex-shrink-0 text-yellow-main" width={24} height={24} />
                           )}
                         </div>
                       )}

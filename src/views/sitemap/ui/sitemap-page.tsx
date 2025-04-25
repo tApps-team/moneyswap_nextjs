@@ -26,6 +26,9 @@ export const SitemapPage = async () => {
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.partners}>
           Для партнеров
         </Link>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.contacts}>
+          Контакты
+        </Link>
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.help_article}>
           Помощь
         </Link>

@@ -88,7 +88,7 @@ export const HeaderMobile = () => {
                                         className="w-full h-full"
                                       />
                                     ) : (
-                                      <itemChildren.icon className="w-full h-full" />
+                                      <itemChildren.icon className="w-full h-full text-yellow-main" />
                                     )}
                                   </div>
                                 )}

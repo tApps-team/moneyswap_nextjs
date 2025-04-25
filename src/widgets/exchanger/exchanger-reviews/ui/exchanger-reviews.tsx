@@ -10,9 +10,10 @@ type ExchangerReviewsProps = {
   reviews: ExchangerReview[];
   totalPages: number;
   reviewCount: Review;
+  reviews_on_page: number;
 };
 export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
-  const { reviews, totalPages, reviewCount } = props;
+  const { reviews, totalPages, reviewCount, reviews_on_page } = props;
 
   return (
     <section className="grid items-center md:gap-[50px] gap-[30px]">
@@ -34,7 +35,7 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
               <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
             ))}
           </div>
-          {totalPages > 0 && reviews.length > 5 && <ExchangerPagination totalPages={totalPages} />}
+          {totalPages > 0 && reviews.length === reviews_on_page && <ExchangerPagination totalPages={totalPages} />}
         </>
       ) : (
         <div className="w-full flex flex-col justify-center items-center gap-10">
