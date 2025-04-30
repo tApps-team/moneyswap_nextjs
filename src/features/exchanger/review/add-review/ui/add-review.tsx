@@ -1,12 +1,20 @@
+import Link from "next/link";
+import { FC } from "react";
 import { Button } from "@/shared/ui";
 
-export const AddReview = () => {
+type AddReviewProps = {
+  href: string;
+};
+
+export const AddReview:FC<AddReviewProps> = ({href}) => {
+  console.log(href)
   return (
-    <Button
-      variant={"ghost"}
-      className="mobile-xl:text-sm text-xs mobile-xl:w-fit w-full uppercase leading-none rounded-[10px] font-semibold py-3.5 bg-yellow-main text-black px-9"
+    <Link
+      target="_blank"
+      href={href}
+      className="mobile-xl:text-sm text-xs mobile-xl:w-fit w-full uppercase leading-none rounded-[10px] font-semibold py-3.5 bg-yellow-main text-black px-9 text-center"
     >
       Добавить отзыв об обменнике
-    </Button>
+    </Link>
   );
 };

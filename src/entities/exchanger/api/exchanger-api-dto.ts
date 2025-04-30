@@ -1,5 +1,5 @@
-import { Name, Review } from "@/shared/types";
-import { Exchanger, ExchangerMarker, ExchnagerInfo } from "../model/types/exchanger-type";
+import { ExchangerMarker, Name, Review } from "@/shared/types";
+import { Exchanger, ExchnagerInfo } from "../model/types/exchanger-type";
 
 export type GetExchangersDtoRequest = {
   city?: string;

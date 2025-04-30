@@ -2,9 +2,10 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp, Clock, Calendar, Check, X } from "lucide-react";
 import Link from "next/link";
-import { Exchanger, AMLTooltip, ExchangeRatesDesktop, ExchangerMarker } from "@/entities/exchanger";
+import { Exchanger, AMLTooltip, ExchangeRatesDesktop } from "@/entities/exchanger";
 import { defaultUserId, increaseLinkCount, increaseLinkCountPartners } from "@/entities/user";
 import { routes } from "@/shared/router";
+import { ExchangerMarker } from "@/shared/types";
 import { GiveCell } from "../columns/ui/giveCell";
 export type ExchangerTable = Exchanger;
 

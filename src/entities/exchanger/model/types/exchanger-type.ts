@@ -1,6 +1,6 @@
 // eslint-disable-next-line boundaries/element-types
 import { LocationInfo } from "@/entities/location";
-import { Name, Review } from "@/shared/types";
+import { ExchangerMarker, Name, Review } from "@/shared/types";
 
 export interface Exchanger {
   id: number;
@@ -58,13 +58,6 @@ export interface Bankomat {
   available: boolean;
   name: string;
   icon: string;
-}
-
-export enum ExchangerMarker {
-  cash = "cash",
-  no_cash = "no_cash",
-  partner = "partner",
-  both = "both",
 }
 
 export type CryptoExchanger = {
