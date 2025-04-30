@@ -121,9 +121,9 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
               <span className="">/</span>
               <p className="">{review?.review_time}</p>
             </div>
-            {review?.review_from === ReviewFrom.bestchange && (
+            {/* {review?.review_from === ReviewFrom.bestchange && (
               <p className="truncate">отзыв с BestChange</p>
-            )}
+            )} */}
           </div>
         </div>
         <div className="grid gap-1">
