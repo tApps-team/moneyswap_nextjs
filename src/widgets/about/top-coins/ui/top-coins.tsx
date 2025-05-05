@@ -8,7 +8,6 @@ export const TopCoins = async () => {
   // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   const topCoins = await getTopCoins();
-  console.log(topCoins);
 
   return (
     <section className="bg-new-dark-grey   grid grid-cols-1 grid-flow-row gap-4 py-6 px-3 rounded-2xl">
