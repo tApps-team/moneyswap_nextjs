@@ -7,8 +7,6 @@ export async function POST(req: Request) {
   try {
     const request = await req.json();
     const { model, entry, secret } = request;
-    console.log(entry);
-    console.log(model);
 
     // if (secret !== process.env.NEXT_REVALIDATION_SECRET_KEY) {
     //   console.log("Invalid secret:", secret);

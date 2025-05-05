@@ -7,11 +7,10 @@ import { defaultUserId, increaseLinkCount, increaseLinkCountPartners } from "@/e
 import { ExchangerCardArrow } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
+import { ExchangerMarker } from "@/shared/types";
 import { Exchanger } from "..";
-import { ExchangerMarker } from "../model/types/exchanger-type";
 import { AMLTooltip } from "./components/aml-tooltip";
 import { ExchangeRates } from "./components/exchange-rates/ui/exchange-rates";
-
 type ExchangerCardProps = {
   exchanger: Exchanger;
   city?: string;

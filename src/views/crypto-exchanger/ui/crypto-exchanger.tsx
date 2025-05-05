@@ -59,6 +59,8 @@ export const CryptoExchangerPage = async ({
           <ExchangerInfo exchangerDetails={exchangerDetails} />
           <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} />
           <ExchangerReviews
+            exchanger_marker={searchParams["exchanger-marker"]}
+            exchanger_id={params.exchanger}
             reviewCount={exchangerDetails.reviews}
             totalPages={reviews.pages}
             reviews={reviews.content}

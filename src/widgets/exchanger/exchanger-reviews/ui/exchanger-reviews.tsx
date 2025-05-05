@@ -4,24 +4,26 @@ import { Reply, ReviewFilter } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
 import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
-import { Review } from "@/shared/types";
+import { ExchangerMarker, Review } from "@/shared/types";
 
 type ExchangerReviewsProps = {
   reviews: ExchangerReview[];
   totalPages: number;
   reviewCount: Review;
   reviews_on_page: number;
+  exchanger_marker: ExchangerMarker;
+  exchanger_id: number;
 };
 export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
-  const { reviews, totalPages, reviewCount, reviews_on_page } = props;
+  const { reviews, totalPages, reviewCount, reviews_on_page, exchanger_marker, exchanger_id } = props;
 
   return (
     <section className="grid items-center md:gap-[50px] gap-[30px]">
-      <div className="hidden mobile-xl:flex-row flex-col gap-3 justify-between items-center">
+      <div className="flex mobile-xl:flex-row flex-col gap-3 justify-between items-center">
         <p className="mobile-xl:block hidden unbounded_font mobile-xl:text-3xl md:font-semibold font-normal text-yellow-main">
           ОТЗЫВЫ
         </p>
-        {/* <AddReview /> */}
+        <AddReview href={`${process.env.WEBAPP_BASE_URL}?startapp=${exchanger_id}__${exchanger_marker}`}/>
       </div>
       <div className="lg:block hidden">
         {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}

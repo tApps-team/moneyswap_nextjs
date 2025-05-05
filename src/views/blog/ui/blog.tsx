@@ -7,7 +7,7 @@ const measureTime = async (name: string, fn: () => Promise<any>) => {
   const start = performance.now();
   const result = await fn();
   const end = performance.now();
-  console.log(`[API Performance] ${name} took ${end - start}ms`);
+  // console.log(`[API Performance] ${name} took ${end - start}ms`);
   return result;
 };
 
@@ -43,7 +43,6 @@ export const BlogPage = async ({
   const { data: categories } = categoriesResponse;
 
   const totalPages = meta?.pagination?.pageCount;
-  console.log(totalPages);
 
   return (
     <section className="grid grid-flow-row md:gap-[50px] mobile-xl:gap-10 gap-5">

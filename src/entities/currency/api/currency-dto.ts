@@ -1,6 +1,6 @@
 //TODO Исправить импорт
 // eslint-disable-next-line boundaries/element-types
-import { ExchangerMarker } from "@/entities/exchanger";
+import { ExchangerMarker } from "@/shared/types";
 import {
   CurrencyPair,
   CurrencyResponse,

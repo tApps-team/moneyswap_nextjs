@@ -85,7 +85,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
         <div className="flex items-center justify-center gap-2">
           <NegativeSmile className="mobile-xl:size-5 size-2.5 stroke-font-light-grey" />
           <p className="text-font-light-grey mobile-xl:text-sm mobile:text-xs text-2xs font-bold uppercase leading-none">
-            Отрицательный
+            Негативный
           </p>
         </div>
       );
