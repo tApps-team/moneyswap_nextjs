@@ -98,7 +98,8 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
             </Link>
           </div>
-          {(exchanger.exchange_marker === ExchangerMarker.partner || exchanger.exchange_marker === ExchangerMarker.both) ? (
+          {(exchanger?.exchange_marker === ExchangerMarker.partner || exchanger?.exchange_marker === ExchangerMarker.both) && 
+          (exchanger?.info?.office || exchanger?.info?.delivery || exchanger?.info?.weekdays || exchanger?.info?.weekends || exchanger?.info?.working_days) ? (
             <span className="text-[7px] font-medium h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
               {(exchanger?.info?.weekdays?.time_from || exchanger?.info?.weekdays?.time_to) && (
                 <div className="flex gap-1 items-center">

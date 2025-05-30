@@ -10,22 +10,21 @@ import { CommentIcon, NegativeSmile, NeutralSmile, PositiveSmile } from "@/share
 import { cn } from "@/shared/lib";
 import { ExchangerMarker, ReviewEnum } from "@/shared/types";
 import { ExchangerReview, getCommentsByReview, ReviewFrom } from "..";
+// рефактор нельзя фичу в сущности
+import { AddComment } from "./add-comment";
 
 type ExchangerReviewCardProps = {
-  replySlot?: React.ReactNode;
   review: ExchangerReview;
-  // commentListSlot?: React.ReactNode;
 };
-//TODO рефактор, нельзя использовать фичу в сущности
-const MAX_HEIGHT = 40;
+
 export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
-  const { replySlot, review } = props;
+  const { review } = props;
   const { exchanger } = useParams();
   const [isOpenReview, setIsOpenReview] = useState(false);
   const searchParams = useSearchParams();
   const exchangerMarker = searchParams.get("exchanger-marker") as ExchangerMarker;
 
-  const { data, isLoading, isFetching, isSuccess, isError } = useQuery({
+  const { data, isLoading, isFetching, isSuccess } = useQuery({
     queryFn: () =>
       getCommentsByReview({
         exchangerId: +exchanger,
@@ -149,7 +148,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
             </button>
           )}
         </div>
-        <div className="flex md:flex-row flex-col-reverse gap-2 md:gap-0 justify-between items-end">
+        <div className="flex flex-row gap-2 justify-between items-center">
           <button
             disabled={review.comment_count < 1}
             className={cn(
@@ -159,7 +158,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
             onClick={onOpenReview}
           >
             {(isLoading || isFetching) && !isSuccess ? (
-              <div className="flex justify-center items-center mb-2 size-5">
+              <div className="flex justify-center items-center md:size-6 size-4">
                 <Loader color="#F6FF5F" className="animate-spin" />
               </div>
             ) : (
@@ -170,17 +169,18 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
                   }`}
                 />
                 {isOpenReview ? (
-                  <p className="mobile-xl:text-sm text-xs font-medium uppercase">
+                  <p className="mobile-xl:text-sm text-xs font-medium uppercase truncate">
                     скрыть <span>({review?.comment_count})</span>
                   </p>
                 ) : (
-                  <p className="mobile-xl:text-sm text-xs font-medium uppercase">
+                  <p className="mobile-xl:text-sm text-xs font-medium uppercase truncate">
                     смотреть комментарии <span>({review?.comment_count})</span>
                   </p>
                 )}
               </>
             )}
           </button>
+          <AddComment exchanger_marker={exchangerMarker} exchanger_id={+exchanger} review_id={review?.id} />
         </div>
       </div>
       {isSuccess && <CommentList isOpen={isOpenReview} comments={data} />}
