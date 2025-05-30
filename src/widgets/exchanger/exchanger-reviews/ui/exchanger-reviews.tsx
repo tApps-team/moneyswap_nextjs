@@ -1,6 +1,6 @@
 import Image from "next/image";
 import searchAnimation from "/public/animated/search_spin.gif";
-import { Reply, ReviewFilter } from "@/features/exchanger/review";
+import { ReviewFilter } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
 import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
@@ -34,7 +34,7 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
         <>
           <div className="grid grid-flow-row mobile-xl:gap-5 gap-3">
             {reviews?.map((review) => (
-              <ExchangerReviewCard key={review.id} review={review} replySlot={<Reply />} />
+              <ExchangerReviewCard key={review.id} review={review} />
             ))}
           </div>
           {totalPages > 0 && reviews.length === reviews_on_page && <ExchangerPagination totalPages={totalPages} />}
