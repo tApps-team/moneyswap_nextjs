@@ -23,7 +23,7 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
         <p className="mobile-xl:block hidden unbounded_font mobile-xl:text-3xl md:font-semibold font-normal text-yellow-main">
           ОТЗЫВЫ
         </p>
-        <AddReview href={`${process.env.TGBOT_BASE_URL}?start=review__${exchanger_marker}__${exchanger_id}`}/>
+        <AddReview href={`${process.env.NEXT_PUBLIC_TGBOT_BASE_URL}?start=review__${exchanger_marker}__${exchanger_id}`}/>
       </div>
       <div className="lg:block hidden">
         {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}
