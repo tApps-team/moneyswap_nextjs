@@ -56,7 +56,8 @@ export const columns: ColumnDef<ExchangerTable>[] = [
         >
           <p className="font-bold xl:text-lg text-base truncate max-w-[20vw]">{row.original?.name?.ru}</p>
           <AMLTooltip isHighRisk={row.original?.info?.high_aml ?? false} />
-          {(row.original.exchange_marker === ExchangerMarker.partner || row.original.exchange_marker === ExchangerMarker.both) && (
+          {(row.original?.exchange_marker === ExchangerMarker.partner || row.original?.exchange_marker === ExchangerMarker.both) && 
+          (row.original?.info?.office || row.original?.info?.delivery || row.original?.info?.weekdays || row.original?.info?.weekends || row.original?.info?.working_days) && (
             <span className="xl:text-[12px] text-[10px] font-medium inline-flex truncate gap-1 items-center justify-start leading-none">
               {(row.original.info?.weekdays?.time_from || row.original.info?.weekdays?.time_to) && (
                 <div className="flex gap-1 items-center">
