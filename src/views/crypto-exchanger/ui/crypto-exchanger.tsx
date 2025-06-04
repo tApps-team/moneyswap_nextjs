@@ -32,23 +32,22 @@ export const CryptoExchangerPage = async ({
 
   const currentPage = Number(searchParams?.page) || 1;
 
-  // Выполняем все запросы параллельно
-  const [reviews, exchangerDetails, currencyPair] = await Promise.all([
-    reviewsByExchange({
+  const exchangerDetails = await getExchangerDetails({
+    exchange_id: params.exchanger,
+    exchange_marker: searchParams["exchanger-marker"],
+  });
+
+  const [currencyPair, reviews] = await Promise.all([
+    getPairValute({
       exchange_id: params.exchanger,
       exchange_marker: searchParams["exchanger-marker"],
+    }),
+    reviewsByExchange({
+      exchange_name: exchangerDetails?.name,
       page: currentPage,
       grade_filter: searchParams?.grade,
       element_on_page: reviews_on_page,
     }),
-    getExchangerDetails({
-      exchange_id: params.exchanger,
-      exchange_marker: searchParams["exchanger-marker"],
-    }),
-    getPairValute({
-      exchange_id: params.exchanger,
-      exchange_marker: searchParams["exchanger-marker"],
-    })
   ]);
 
   return (
@@ -59,8 +58,7 @@ export const CryptoExchangerPage = async ({
           <ExchangerInfo exchangerDetails={exchangerDetails} />
           <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} />
           <ExchangerReviews
-            exchanger_marker={searchParams["exchanger-marker"]}
-            exchanger_id={params.exchanger}
+            exchanger_name={exchangerDetails?.name}
             reviewCount={exchangerDetails.reviews}
             totalPages={reviews.pages}
             reviews={reviews.content}

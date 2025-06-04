@@ -7,6 +7,7 @@ type AddReviewProps = {
 };
 
 export const AddReview:FC<AddReviewProps> = ({href}) => {
+  console.log(href)
   return (
     <Link
       target="_blank"

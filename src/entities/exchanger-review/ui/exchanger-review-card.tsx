@@ -2,36 +2,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { cx } from "class-variance-authority";
 import { Loader } from "lucide-react";
-import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 // eslint-disable-next-line boundaries/element-types
 import { CommentList } from "@/features/exchanger/review";
 import { CommentIcon, NegativeSmile, NeutralSmile, PositiveSmile } from "@/shared/assets";
 import { cn } from "@/shared/lib";
-import { ExchangerMarker, ReviewEnum } from "@/shared/types";
-import { ExchangerReview, getCommentsByReview, ReviewFrom } from "..";
+import { ReviewEnum } from "@/shared/types";
+import { ExchangerReview, getCommentsByReview } from "..";
 // рефактор нельзя фичу в сущности
 import { AddComment } from "./add-comment";
 
 type ExchangerReviewCardProps = {
   review: ExchangerReview;
+  exchanger_name: string;
 };
 
 export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
-  const { review } = props;
-  const { exchanger } = useParams();
+  const { review, exchanger_name } = props;
   const [isOpenReview, setIsOpenReview] = useState(false);
-  const searchParams = useSearchParams();
-  const exchangerMarker = searchParams.get("exchanger-marker") as ExchangerMarker;
 
   const { data, isLoading, isFetching, isSuccess } = useQuery({
     queryFn: () =>
       getCommentsByReview({
-        exchangerId: +exchanger,
-        exchangerMarker: exchangerMarker,
         reviewId: review.id,
       }),
-    queryKey: ["comment", review.id, exchangerMarker],
+    queryKey: ["comment", review.id],
     enabled: isOpenReview && review.comment_count > 0,
     retry: false,
     refetchOnMount: false,
@@ -120,9 +115,6 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
               <span className="">/</span>
               <p className="">{review?.review_time}</p>
             </div>
-            {/* {review?.review_from === ReviewFrom.bestchange && (
-              <p className="truncate">отзыв с BestChange</p>
-            )} */}
           </div>
         </div>
         <div className="grid gap-1">
@@ -180,7 +172,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
               </>
             )}
           </button>
-          <AddComment exchanger_marker={exchangerMarker} exchanger_id={+exchanger} review_id={review?.id} />
+          <AddComment exchanger_name={exchanger_name} review_id={review?.id} />
         </div>
       </div>
       {isSuccess && <CommentList isOpen={isOpenReview} comments={data} />}
