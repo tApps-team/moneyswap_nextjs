@@ -19,9 +19,9 @@ export const reviewsByExchange = async (
 };
 
 export const getCommentsByReview = async (props: GetCommentsByReviewDtoRequest) => {
-  const { exchangerId, exchangerMarker, reviewId } = props;
+  const { reviewId } = props;
   const response = await apiClient.get<GetCommentsByReviewDtoResponse>(
-    `api/reviews/get_comments_by_review?exchange_id=${exchangerId}&exchange_marker=${exchangerMarker}&review_id=${reviewId}`,
+    `api/reviews/get_comments_by_review?review_id=${reviewId}`,
   );
   return response;
 };

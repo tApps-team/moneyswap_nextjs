@@ -8,16 +8,13 @@ export type ReviewsByExchangeDTOResponse = {
   pages: number;
 };
 export type ReviewsByExchangeDTORequest = {
-  exchange_id: number;
-  exchange_marker: ExchangerMarker;
+  exchange_name: string;
   page: number;
   element_on_page?: number;
   grade_filter?: number;
 };
 
 export type GetCommentsByReviewDtoRequest = {
-  exchangerId: number;
-  exchangerMarker: ExchangerMarker;
   reviewId: number;
 };
 export type GetCommentsByReviewDtoResponse = Comment[];

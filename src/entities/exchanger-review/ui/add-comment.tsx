@@ -1,16 +1,14 @@
 import { Send } from "lucide-react";
 import Link from "next/link"
 import { FC } from "react"
-import { ExchangerMarker } from "@/shared/types"
 
 interface AddCommentProps {
-    exchanger_marker: ExchangerMarker;
-    exchanger_id: number;
+    exchanger_name: string;
     review_id: number;
 }
 
-export const AddComment: FC<AddCommentProps> = ({ exchanger_marker, exchanger_id, review_id }) => {
-    const url = `${process.env.NEXT_PUBLIC_TGBOT_BASE_URL}?start=comment__${exchanger_marker}__${exchanger_id}__${review_id}`;
+export const AddComment: FC<AddCommentProps> = ({ exchanger_name, review_id }) => {
+    const url = `${process.env.NEXT_PUBLIC_TGBOT_BASE_URL}?start=comment__${exchanger_name}__${review_id}`;
     return (
         <Link 
             target="_blank" 
