@@ -10,6 +10,7 @@ export async function generateMetadata({
   searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<Metadata> {
   const searchValue = searchParams.search ? searchParams.search.toString() : null;
+  const page = searchParams.page ? Number(searchParams?.page) : null;
 
   const metaWithoutSearch = {
     title: "Читайте блог о финансах, криптовалюте и переводах за рубеж на MoneySwap!",
@@ -58,9 +59,10 @@ export async function generateMetadata({
   };
 
   const currentMeta = searchValue ? metaWithSearch : metaWithoutSearch;
+  const pagePath = page ? "?page=" + page : "";
 
   return {
-    alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}` },
+    alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${pagePath}` },
     ...currentMeta,
   };
 }
