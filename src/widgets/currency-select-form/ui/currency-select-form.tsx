@@ -173,7 +173,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               currencyInfoGet={urlGetCurrency}
               currencies={giveCurrencies}
               direction={urlDirection}
-              location_code_name={urlLocation?.code_name}
+              location_code_name={urlLocation?.code_name || undefined}
               label="отдаю"
               type="give"
               onAmountChange={handleAmountChange}
@@ -190,7 +190,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               disabled={isGetCurrencyDisabled}
               currencies={getCurrencies}
               direction={urlDirection}
-              location_code_name={urlLocation?.code_name}
+              location_code_name={urlLocation?.code_name || undefined}
               label="получаю"
               type="get"
               onAmountChange={handleAmountChange}
@@ -213,7 +213,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               currencyInfoGet={urlGetCurrency}
               currencies={giveCurrencies}
               direction={urlDirection}
-              location_code_name={urlLocation?.code_name}
+              location_code_name={urlLocation?.code_name || undefined}
               label="отдаю"
               type="give"
               onAmountChange={handleAmountChange}
@@ -228,7 +228,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               disabled={isGetCurrencyDisabled}
               currencies={getCurrencies}
               direction={urlDirection}
-              location_code_name={urlLocation?.code_name}
+              location_code_name={urlLocation?.code_name || undefined}
               label="получаю"
               type="get"
               onAmountChange={handleAmountChange}
