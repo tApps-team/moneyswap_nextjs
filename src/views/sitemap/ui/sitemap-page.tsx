@@ -61,7 +61,7 @@ export const SitemapPage = async () => {
       <div className="flex flex-col gap-2 text-sm">
         <h2 className="text-xl font-medium uppercase">Доступные направления обмена</h2>
 
-        {directions.map((direction) => (
+        {directions?.map((direction) => (
           <Link
             key={
               direction.valute_to +
@@ -72,7 +72,7 @@ export const SitemapPage = async () => {
             className="w-fit text-[#3498db] uppercase font-medium"
             href={{
               pathname: `${routes.exchange}/${direction.valute_from}-to-${direction.valute_to}`,
-              query: { city: direction.city },
+              query: direction.city ? { city: direction.city } : {},
             }}
           >
             Обмен {direction.valute_from} на {direction.valute_to}

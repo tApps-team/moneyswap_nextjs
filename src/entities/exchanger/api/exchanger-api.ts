@@ -68,14 +68,38 @@ export const getExchangerList = async () => {
   return response;
 };
 
+// export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequset) => {
+//   const url = `/api/exchange_detail`;
+//   const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props);
+//   return response;
+// };
+
 export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequset) => {
   const url = `/api/exchange_detail`;
-  const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props);
-  return response;
+  try {
+    const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props);
+    // Если твой apiClient.get возвращает объект с полем status
+    if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
+      return null;
+    }
+    return response;
+  } catch (error) {
+    console.error("getExchangerDetails error:", error);
+    return null;
+  }
 };
 
 export const getSitemapDirections = async () => {
-  const url = "/api/sitemap_directions";
-  const response = await apiClient.get<GetSitemapDirectionsDtoResponse>(url);
-  return response;
+  const url = `/api/sitemap_directions`;
+  try {
+    const response = await apiClient.get<GetSitemapDirectionsDtoResponse>(url);
+    // Если твой apiClient.get возвращает объект с полем status
+    if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
+      return null;
+    }
+    return response;
+  } catch (error) {
+    console.error("getExchangerDetails error:", error);
+    return null;
+  }
 };
