@@ -1,4 +1,5 @@
 User-Agent: *
 Disallow:
+Disallow: /crypto-exchangers/*page=
 
 Sitemap: https://moneyswap.online/sitemap-index.xml

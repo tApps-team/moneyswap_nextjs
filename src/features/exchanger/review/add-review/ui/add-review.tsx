@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { FC } from "react";
-import { Button } from "@/shared/ui";
 
 type AddReviewProps = {
   href: string;
 };
 
 export const AddReview:FC<AddReviewProps> = ({href}) => {
-  console.log(href)
   return (
     <Link
       target="_blank"

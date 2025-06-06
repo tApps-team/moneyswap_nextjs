@@ -32,44 +32,53 @@ export const CryptoExchangerPage = async ({
 
   const currentPage = Number(searchParams?.page) || 1;
 
-  const exchangerDetails = await getExchangerDetails({
-    exchange_id: params.exchanger,
-    exchange_marker: searchParams["exchanger-marker"],
-  });
-
-  const [currencyPair, reviews] = await Promise.all([
-    getPairValute({
+  try {
+    const exchangerDetails = await getExchangerDetails({
       exchange_id: params.exchanger,
       exchange_marker: searchParams["exchanger-marker"],
-    }),
-    reviewsByExchange({
-      exchange_name: exchangerDetails?.name,
-      page: currentPage,
-      grade_filter: searchParams?.grade,
-      element_on_page: reviews_on_page,
-    }),
-  ]);
+    });
 
-  return (
-    <section className="grid grid-flow-row mobile:gap-10 gap-6">
-      <CryptoExchangerSeoText exchangerInfo={exchangerDetails} />
-      <section className="grid xl:grid-cols-[1fr,0.4fr] lg:grid-cols-[1fr,0.5fr] grid-cols-1 gap-7">
-        <div className="grid md:gap-[50px] gap-10">
-          <ExchangerInfo exchangerDetails={exchangerDetails} />
-          <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} />
-          <ExchangerReviews
-            exchanger_name={exchangerDetails?.name}
-            reviewCount={exchangerDetails.reviews}
-            totalPages={reviews.pages}
-            reviews={reviews.content}
-            reviews_on_page={reviews_on_page}
-          />
-        </div>
-        <div className="flex flex-col gap-6">
-          <CryptoDirection currencyPair={currencyPair} />
-          <BotBannerSidebar />
-        </div>
+    if (!exchangerDetails) {
+      return notFound();
+    }
+
+    const [currencyPair, reviews] = await Promise.all([
+      getPairValute({
+        exchange_id: params.exchanger,
+        exchange_marker: searchParams["exchanger-marker"],
+      }),
+      reviewsByExchange({
+        exchange_name: exchangerDetails?.name,
+        page: currentPage,
+        grade_filter: searchParams?.grade,
+        element_on_page: reviews_on_page,
+      }),
+    ]);
+
+    return (
+      <section className="grid grid-flow-row mobile:gap-10 gap-6">
+        <CryptoExchangerSeoText exchangerInfo={exchangerDetails} />
+        <section className="grid xl:grid-cols-[1fr,0.4fr] lg:grid-cols-[1fr,0.5fr] grid-cols-1 gap-7">
+          <div className="grid md:gap-[50px] gap-10">
+            <ExchangerInfo exchangerDetails={exchangerDetails} />
+            <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} />
+            <ExchangerReviews
+              exchanger_name={exchangerDetails?.name}
+              reviewCount={exchangerDetails.reviews}
+              totalPages={reviews.pages}
+              reviews={reviews.content}
+              reviews_on_page={reviews_on_page}
+            />
+          </div>
+          <div className="flex flex-col gap-6">
+            <CryptoDirection currencyPair={currencyPair} />
+            <BotBannerSidebar />
+          </div>
+        </section>
       </section>
-    </section>
-  );
+    );
+  } catch (error) {
+    console.error('Error in CryptoExchangerPage:', error);
+    return notFound();
+  }
 };
