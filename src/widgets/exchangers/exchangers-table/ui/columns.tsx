@@ -1,4 +1,5 @@
 "use client";
+
 import { type ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp, Clock, Calendar, Check, X } from "lucide-react";
 import Link from "next/link";
@@ -283,7 +284,7 @@ export const columns: ColumnDef<ExchangerTable>[] = [
             </div>
           )}
           <Link
-            href={`${routes.exchangers}/exchanger-${row?.original?.exchange_id}?exchanger-marker=${row?.original?.exchange_marker}`}
+            href={`${routes.exchangers}/exchanger-${row?.original?.exchange_id}__${row?.original?.exchange_marker}`}
             className="w-fit xl:text-base text-sm flex gap-1 border-2 border-font-dark-grey rounded-[6px] cursor-pointer hover:border-yellow-main px-3 py-2"
           >
             <div className="text-yellow-main">{row.original.review_count.positive}</div>

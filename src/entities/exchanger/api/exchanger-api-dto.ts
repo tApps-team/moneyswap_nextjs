@@ -49,9 +49,17 @@ export type GetExchnagerDetailDtoRequset = {
 };
 
 export type GetSitemapDirectionsDtoResponse = {
-  valute_from: string;
-  valute_to: string;
-  exchange_marker: ExchangerMarker;
-  city: string | null;
-}[];
-export type GetSitemapDirectionsDtoRequest = {};
+  page: number;
+  pages: number;
+  element_on_page: number;
+  directions: {
+    valute_from: string;
+    valute_to: string;
+    exchange_marker: ExchangerMarker;
+    city: string | null;
+  }[];
+};
+export type GetSitemapDirectionsDtoRequest = {
+  page: number;
+  element_on_page?: number;
+};

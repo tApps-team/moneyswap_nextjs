@@ -131,8 +131,7 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
       <Link
         className="leading-none text-base hidden text-center bg-[#5C5E62] lg:block rounded-[10px] py-3 font-normal cursor-pointer hover:bg-yellow-main hover:text-black transition-all duration-500"
         href={{
-          pathname: `${routes.exchangers}/exchanger-${row.original.id}`,
-          query: { "exchanger-marker": row.original.exchange_marker },
+          pathname: `${routes.exchangers}/exchanger-${row.original.id}__${row.original.exchange_marker}`,
         }}
       >
         Подробнее

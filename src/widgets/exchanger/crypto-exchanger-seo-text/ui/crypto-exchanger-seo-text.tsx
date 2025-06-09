@@ -1,11 +1,20 @@
 import { ExchnagerInfo } from "@/entities/exchanger";
+import { ExchangerMarker } from "@/shared/types";
 
 type CryptoExchangerSeoTextProps = {
   exchangerInfo: ExchnagerInfo;
+  marker: ExchangerMarker;
 };
 
 export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
-  const { exchangerInfo } = props;
+  const { exchangerInfo, marker } = props;
+  const markerText = marker === ExchangerMarker.cash 
+  ? "обмен наличных направлений" 
+  : marker === ExchangerMarker.no_cash 
+    ? "обмен безналичных направлений" 
+    : marker === ExchangerMarker.both 
+      ? "обмен наличных и безналичных направлений" 
+      : "";
 
   return (
     <section className="flex flex-col gap-2">
@@ -13,13 +22,20 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
         Обменный пункт 
       </p>
       <h1 className="unbounded_font mobile-xl:text-3xl text-yellow-main text-base font-semibold uppercase">
-        {exchangerInfo?.name}
+        {`${exchangerInfo?.name} ${markerText ? `— ${markerText}` : ""}`}
       </h1>
     </section>
   );
 };
 export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) => {
-  const { exchangerInfo } = props;
+  const { exchangerInfo, marker } = props;
+  const markerText = marker === ExchangerMarker.cash 
+  ? "обмен наличных направлений" 
+  : marker === ExchangerMarker.no_cash 
+    ? "обмен безналичных направлений" 
+    : marker === ExchangerMarker.both 
+      ? "обмен наличных и безналичных направлений" 
+      : "";
   const formattedDate = exchangerInfo.openOnMoneySwap ? new Date(exchangerInfo.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
   const isAmlActive = false
@@ -28,7 +44,7 @@ export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) =
     <section className="flex flex-col gap-10">
       <div className="grid grid-flow-row gap-4 lg:text-lg md:text-base text-white text-sm font-normal">
         <p>
-        {exchangerInfo.name} — проверенный обменник криптовалют, размещён на MoneySwap с {formattedDate}. За это время он рекомендовал себя, как стабильный обменный сервис. Сейчас {exchangerInfo.name} активен в {exchangerInfo.exchangeRates || "___"} направлений обмена.
+        {exchangerInfo.name} — проверенный обменник криптовалют{markerText ? `, совершает ${markerText}` : ""}, размещён на MoneySwap с {formattedDate}. За это время он рекомендовал себя, как стабильный обменный сервис. Сейчас {exchangerInfo.name} активен в {exchangerInfo.exchangeRates || "___"} направлений обмена.
         </p>
         {isAmlActive && (
           <div className="grid grid-flow-row gap-4">

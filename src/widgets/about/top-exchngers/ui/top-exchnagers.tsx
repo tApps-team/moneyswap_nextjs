@@ -41,10 +41,7 @@ export const TopExchangers = async () => {
               </div>
               <Link
                 href={{
-                  pathname: `/crypto-exchangers/exchanger-${topExchanger?.id}`,
-                  query: {
-                    "exchanger-marker": topExchanger?.exchangerMarker,
-                  },
+                  pathname: `/crypto-exchangers/exchanger-${topExchanger?.id}__${topExchanger?.exchangerMarker}`,
                 }}
                 className=" bg-new-grey hover:bg-yellow-main hover:text-black py-2.5 px-5 rounded-[10px] font-semibold text-xs md:text-sm text-white"
               >

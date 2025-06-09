@@ -16,8 +16,8 @@ export const CryptoExchangerPage = async ({
   params,
   searchParams,
 }: {
-  params: { exchanger: number };
-  searchParams: { grade?: number; page?: number; "exchanger-marker": ExchangerMarker };
+  params: { exchanger: string };
+  searchParams: { grade?: number; page?: number; };
 }) => {
   // const timeout = new Promise((resolove) => setTimeout(() => resolove(1), 60000));
   // await timeout;
@@ -26,7 +26,9 @@ export const CryptoExchangerPage = async ({
     return notFound();
   }
 
-  if (!searchParams?.["exchanger-marker"]) {
+  const [exchangerId, marker] = params.exchanger.split('__');
+
+  if (!exchangerId || !marker) {
     return notFound();
   }
 
@@ -34,8 +36,8 @@ export const CryptoExchangerPage = async ({
 
   try {
     const exchangerDetails = await getExchangerDetails({
-      exchange_id: params.exchanger,
-      exchange_marker: searchParams["exchanger-marker"],
+      exchange_id: Number(exchangerId),
+      exchange_marker: marker as ExchangerMarker,
     });
 
     if (!exchangerDetails) {
@@ -44,8 +46,8 @@ export const CryptoExchangerPage = async ({
 
     const [currencyPair, reviews] = await Promise.all([
       getPairValute({
-        exchange_id: params.exchanger,
-        exchange_marker: searchParams["exchanger-marker"],
+        exchange_id: Number(exchangerId),
+        exchange_marker: marker as ExchangerMarker,
       }),
       reviewsByExchange({
         exchange_name: exchangerDetails?.name,
@@ -57,11 +59,11 @@ export const CryptoExchangerPage = async ({
 
     return (
       <section className="grid grid-flow-row mobile:gap-10 gap-6">
-        <CryptoExchangerSeoText exchangerInfo={exchangerDetails} />
+        <CryptoExchangerSeoText exchangerInfo={exchangerDetails} marker={marker as ExchangerMarker} />
         <section className="grid xl:grid-cols-[1fr,0.4fr] lg:grid-cols-[1fr,0.5fr] grid-cols-1 gap-7">
           <div className="grid md:gap-[50px] gap-10">
             <ExchangerInfo exchangerDetails={exchangerDetails} />
-            <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} />
+            <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} marker={marker as ExchangerMarker} />
             <ExchangerReviews
               exchanger_name={exchangerDetails?.name}
               reviewCount={exchangerDetails.reviews}
