@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { getExchangerList, getSitemapDirections } from "@/entities/exchanger";
 import { getAllArticles, getAllCategories, getAllTags } from "@/entities/strapi";
@@ -6,7 +7,7 @@ import { routes } from "@/shared/router";
 export const SitemapPage = async () => {
   // Выполняем все запросы параллельно
   const [directions, articles, categories, tags, exchangers] = await Promise.all([
-    getSitemapDirections(),
+    getSitemapDirections({ page: 1, element_on_page: 10 }),
     getAllArticles({ page: 1, elements: 1000 }),
     getAllCategories(),
     getAllTags(),
@@ -50,8 +51,7 @@ export const SitemapPage = async () => {
             key={exchanger.id + exchanger.exchange_marker}
             className="w-fit text-[#3498db] uppercase font-medium"
             href={{
-              pathname: `${routes.exchangers}/exchanger-${exchanger.id}`,
-              query: { "exchanger-marker": exchanger.exchange_marker },
+              pathname: `${routes.exchangers}/exchanger-${exchanger.id}__${exchanger.exchange_marker}`,
             }}
           >
             Обменный пункт {exchanger?.exchangerName}
@@ -61,7 +61,7 @@ export const SitemapPage = async () => {
       <div className="flex flex-col gap-2 text-sm">
         <h2 className="text-xl font-medium uppercase">Доступные направления обмена</h2>
 
-        {directions?.map((direction) => (
+        {directions?.directions?.map((direction) => (
           <Link
             key={
               direction.valute_to +
@@ -78,6 +78,12 @@ export const SitemapPage = async () => {
             Обмен {direction.valute_from} на {direction.valute_to}
           </Link>
         ))}
+        <Link
+          className="w-fit text-yellow-main uppercase font-medium flex items-center gap-2"
+          href={routes.directions}
+        >
+          Все направления обмена <ArrowUpRight className="size-4" />
+        </Link>
       </div>
 
       <div className="flex flex-col gap-2 text-sm">

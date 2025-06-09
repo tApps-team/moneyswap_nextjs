@@ -7,6 +7,7 @@ import {
   GetExchnagerDetailDtoResponse,
   GetSimilarDirectionDtoRequset,
   GetSimilarDirectionDtoResponse,
+  GetSitemapDirectionsDtoRequest,
   GetSitemapDirectionsDtoResponse,
 } from "./exchanger-api-dto";
 
@@ -89,17 +90,17 @@ export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequset) =
   }
 };
 
-export const getSitemapDirections = async () => {
+export const getSitemapDirections = async (props: GetSitemapDirectionsDtoRequest) => {
   const url = `/api/sitemap_directions`;
   try {
-    const response = await apiClient.get<GetSitemapDirectionsDtoResponse>(url);
+    const response = await apiClient.get<GetSitemapDirectionsDtoResponse>(url, props);
     // Если твой apiClient.get возвращает объект с полем status
     if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
       return null;
     }
     return response;
   } catch (error) {
-    console.error("getExchangerDetails error:", error);
+    console.error("getSitemapDirections error:", error);
     return null;
   }
 };

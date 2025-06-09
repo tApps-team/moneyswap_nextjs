@@ -81,7 +81,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
             </div>
             <Link
-              href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}?exchanger-marker=${exchanger.exchange_marker}`}
+              href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}__${exchanger.exchange_marker}`}
               className="relative z-20 rounded-[6px] border border-[#575A62] gap-1 grid lg:grid-flow-col grid-flow-row justify-items-center justify-center p-1.5"
             >
               <span className="md:text-base mobile-xl:text-sm text-xs font-medium leading-none ">
