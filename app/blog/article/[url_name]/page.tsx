@@ -2,7 +2,50 @@ import { Metadata } from "next";
 import { BlogArticlePage } from "@/views/blog-article";
 import { getAllArticles, getArticle } from "@/entities/strapi";
 import { routes } from "@/shared/router";
-export default BlogArticlePage;
+
+export default async function Page({ params }: { params: { url_name: string } }) {
+  const url = params.url_name;
+  const { data } = await getArticle({ url_name: url });
+  const article = data[0];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": article?.preview?.title,
+    "description": article?.preview?.description,
+    "image": article?.preview?.image,
+    "datePublished": article?.publishedAt,
+    "dateModified": article?.publishedAt,
+    "author": {
+      "@type": "Organization",
+      "name": "MoneySwap"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MoneySwap",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}/og_logo.svg`
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.article}/${url}`
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <BlogArticlePage params={params} />
+    </>
+  );
+}
 
 export async function generateMetadata({
   params,

@@ -7,7 +7,7 @@ import "@/shared/styles/globals.scss";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 import NextTopLoader from 'nextjs-toploader';
-import { Toaster } from "@/shared/ui";
+import { Toaster, Breadcrumbs } from "@/shared/ui";
 
 export const metadata = {
   title: "Мониторинг криптообменников онлайн - обмен криптовалюты по лучшим курсам | MoneySwap",
@@ -76,6 +76,40 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
         {/* Google Tag Manager */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "MoneySwap",
+              "url": process.env.NEXT_PUBLIC_SITE_BASE_URL,
+              "logo": "/og_logo.svg",
+              "description": "MoneySwap - удобный помощник для поиска обменников в любой точке мира",
+              "sameAs": [
+                "https://t.me/moneyswap",
+                "https://t.me/moneyswap_robot",
+                "https://vc.ru/u/3979537-moneyswap",
+                "https://dzen.ru/moneyswap",
+              ],
+              "contactPoint": [
+                {
+                  "@type": "ContactPoint",
+                  "contactType": "customer service",
+                  "url": "https://t.me/moneyswap_support",
+                  "availableLanguage": ["Russian", "English"]
+                },
+                {
+                  "@type": "ContactPoint",
+                  "contactType": "partnership",
+                  "email": "exchange@moneyswap.online",
+                  "availableLanguage": ["Russian", "English"]
+                }
+              ],
+              "foundingDate": "2024",
+            }).replace(/</g, '\\u003c')
+          }}
+        />
       </head>
       <Head>
         <link rel="icon" href="/public/favicon/favicon.ico" />
@@ -107,6 +141,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <Header />
           <main className="flex-grow max-w-[1400px] mx-[auto] w-full py-[40px] lg:pt-[130px] pt-[90px] mobile-xl:px-[25px] px-[15px]">
+          {/* <Breadcrumbs /> */}
             {children}
           </main>
           <Footer />

@@ -30,7 +30,7 @@ const CryptoTable = dynamic(
     suspense: true,
   },
 );
-export const CryptoExchangersPage = async ({ params }: { params: { exchanger: string[] } }) => {
+export const CryptoExchangersPage = async () => {
   // Выполняем все запросы параллельно
   const [giveCurrency, getCurrency, actualCourse, cryptoExchangers] = await Promise.all([
     getSpecificValute({ codeName: "BTC" }),

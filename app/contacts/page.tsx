@@ -1,7 +1,46 @@
 import { Metadata } from "next";
 import { ContactsPage } from "@/views/contacts";
 import { routes } from "@/shared/router";
-export default ContactsPage;
+
+export default function Page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Связь с командой MoneySwap",
+    "description": "У вас есть вопросы по работе сервиса, не нашли нужный обменник в вашем городе, необходимую валюту или направление обмена? Мы всегда на связи и готовы помочь!",
+    "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.contacts}`,
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "MoneySwap",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "url": "https://t.me/moneyswap_support",
+          "availableLanguage": ["Russian", "English"]
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "partnership",
+          "email": "exchange@moneyswap.online",
+          "availableLanguage": ["Russian", "English"]
+        }
+      ]
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <ContactsPage />
+    </>
+  );
+}
 
 export const metadata: Metadata = {
   title: "Связь с командой MoneySwap",

@@ -3,11 +3,33 @@ import { Main } from "@/views/main";
 import { getSeoMeta } from "@/shared/api";
 import { routes } from "@/shared/router";
 import { pageTypes } from "@/shared/types";
-export default Main;
 
-type Props = {
+// Типы для props
+export type Props = {
   searchParams?: { direction: "cash" };
 };
+
+export default function Page({ searchParams }: Props) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "MoneySwap",
+    "url": process.env.NEXT_PUBLIC_SITE_BASE_URL,
+    "description": "MoneySwap — агрегатор обменников криптовалют. Лучшие курсы, проверенные обменники, быстрый поиск.",
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\u003c'),
+        }}
+      />
+      <Main />
+    </>
+  );
+}
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const reqParams = {
