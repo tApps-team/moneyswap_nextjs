@@ -2,7 +2,44 @@ import { Metadata } from "next";
 import { BlogTagPage } from "@/views/blog-tag";
 import { getAllTags, getTagArticles } from "@/entities/strapi";
 import { routes } from "@/shared/router";
-export default BlogTagPage;
+
+export default async function Page({ params }: { params: { tag: string } }) {
+  const tag = params.tag;
+  const { data } = await getTagArticles({ tag });
+
+  // Массив статей для hasPart
+  const blogPosts = (data.articles || []).map((article: any) => ({
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}/article/${article.url_name}`,
+    "datePublished": article.publishedAt,
+    "author": {
+      "@type": "Organization",
+      "name": "MoneySwap"
+    }
+  }));
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": `Статьи с тегом ${data.name}`,
+    "description": `Подборка статей с тегом: ${data.name}`,
+    "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.tag}/${tag}`,
+    "hasPart": blogPosts
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <BlogTagPage params={params} />
+    </>
+  );
+}
 
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
   const tag = params.tag;

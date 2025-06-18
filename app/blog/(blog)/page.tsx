@@ -2,7 +2,35 @@ import { Metadata } from "next";
 import { BlogPage } from "@/views/blog";
 import { routes } from "@/shared/router";
 
-export default BlogPage;
+export default function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Блог MoneySwap",
+    "description": "Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.",
+    "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}`,
+    "publisher": {
+      "@type": "Organization",
+      "name": "MoneySwap",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}/og_logo.svg`
+      }
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\u003c'),
+        }}
+      />
+      <BlogPage searchParams={searchParams} />
+    </>
+  );
+}
 
 export async function generateMetadata({
   searchParams,

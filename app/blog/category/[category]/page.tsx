@@ -1,8 +1,45 @@
 import { Metadata } from "next";
 import { BlogCategoryPage } from "@/views/blog-category";
-import { getAllCategories, getCategoryArticles } from "@/entities/strapi";
+import { ArticlePreview, getAllCategories, getCategoryArticles } from "@/entities/strapi";
 import { routes } from "@/shared/router";
-export default BlogCategoryPage;
+
+export default async function Page({ params }: { params: { category: string } }) {
+  const category = params.category;
+  const { data } = await getCategoryArticles({ category });
+
+  // Массив статей для blogPost (если хочешь)
+  const blogPosts = (data.articles || []).map((article: ArticlePreview) => ({
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}/article/${article.url_name}`,
+    "datePublished": article.publishedAt,
+    "author": {
+      "@type": "Organization",
+      "name": "MoneySwap"
+    }
+  }));
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": `Категория - ${data.name}`,
+    "description": `Подборка статей по теме: ${data.name}`,
+    "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.category}/${category}`,
+    "hasPart": blogPosts
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <BlogCategoryPage params={params} />
+    </>
+  );
+}
 
 export async function generateMetadata({
   params,

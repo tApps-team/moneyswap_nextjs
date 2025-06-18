@@ -1,11 +1,11 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { ExchangePage } from "@/views/exchange";
 import { getSpecificValute } from "@/entities/currency";
+import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoMeta } from "@/shared/api";
 import { routes } from "@/shared/router";
 import { ExchangerMarker, pageTypes } from "@/shared/types";
-export default ExchangePage;
 
 type Props = {
   params: { slug: string };
@@ -79,4 +79,91 @@ export async function generateMetadata(
       canonical: currentUrl.toString(),
     },
   };
+}
+
+export default async function Page({ params, searchParams }: Props) {
+  const slug = params.slug[0];
+  const city = searchParams?.city;
+  const direction = searchParams?.direction;
+
+  const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
+  // Получаем данные валют и города
+  const giveCurrency = await getSpecificValute({ codeName: valute_from });
+  const getCurrency = await getSpecificValute({ codeName: valute_to });
+  const location = city ? await getSpecificCity({ codeName: city }) : undefined;
+
+  // Формируем URL с query-параметрами
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL || "";
+  const currentUrl = new URL(`${routes.exchange}/${slug}`, baseUrl);
+  if (direction) currentUrl.searchParams.append("direction", direction);
+  if (city) currentUrl.searchParams.append("city", city);
+
+  const exchangers = await getExchangers({
+    valute_from: giveCurrency.code_name,
+    valute_to: getCurrency.code_name,
+    city: location?.code_name,
+  });
+
+  // Формируем JSON-LD
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": `Обмен ${giveCurrency?.name?.ru} на ${getCurrency?.name?.ru}${location ? " в " + location?.name?.ru : ""}`,
+    "description": `Обменяйте ${giveCurrency?.name?.ru} (${giveCurrency?.code_name}) на ${getCurrency?.name?.ru} (${getCurrency?.code_name})${location ? " в городе " + location?.name?.ru : ""} через MoneySwap — агрегатор лучших обменников.`,
+    "url": currentUrl.toString(),
+    "mainEntity": {
+      "@type": "Service",
+      "serviceType": "Обмен валют",
+      "areaServed": location ? location?.name?.ru : "Россия",
+      "provider": {
+        "@type": "Organization",
+        "name": "MoneySwap"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "offerCount": exchangers.exchangers?.length,
+        "offers": exchangers.exchangers?.map(exchanger => ({
+          "@type": "Offer",
+          "name": exchanger.name.ru,
+          "price": exchanger.in_count,
+          "priceCurrency": getCurrency?.code_name?.toUpperCase(),
+          "url": exchanger.partner_link,
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": exchanger.in_count,
+            "priceCurrency": getCurrency?.code_name?.toUpperCase(),
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": exchanger.out_count,
+              "unitCode": getCurrency?.code_name?.toUpperCase()
+            }
+          },
+          "additionalProperty": [
+            {
+              "@type": "PropertyValue",
+              "name": "in_count",
+              "value": exchanger.in_count
+            },
+            {
+              "@type": "PropertyValue",
+              "name": "out_count",
+              "value": exchanger.out_count
+            }
+          ]
+        }))
+      }
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <ExchangePage params={params} searchParams={searchParams} />
+    </>
+  );
 }

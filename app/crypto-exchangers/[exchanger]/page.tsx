@@ -5,7 +5,61 @@ import { getExchangerDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 
-export default CryptoExchangerPage;
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { exchanger: string };
+  searchParams: { grade?: number; page?: number; };
+}) {
+  if (!params?.exchanger) return notFound();
+  const [exchangerId, marker] = params.exchanger.split('__');
+  if (!exchangerId || !marker) return notFound();
+
+  const exchangerDetails = await getExchangerDetails({
+    exchange_id: Number(exchangerId),
+    exchange_marker: marker as ExchangerMarker,
+  });
+
+  if (!exchangerDetails) return notFound();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": `${exchangerDetails.name} - ${marker === ExchangerMarker.cash 
+    ? "обмен наличных направлений" 
+    : marker === ExchangerMarker.no_cash 
+      ? "обмен безналичных направлений" 
+      : marker === ExchangerMarker.both 
+        ? "обмен наличных и безналичных направлений" 
+        : ""}`,
+    "url": exchangerDetails?.url,
+    "logo": exchangerDetails?.iconUrl,
+    "foundingDate": exchangerDetails?.open,
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "reviewCount": exchangerDetails.reviews.positive + exchangerDetails.reviews.neutral + exchangerDetails.reviews.negative,
+    },
+    "additionalProperty": [
+      { "@type": "PropertyValue", "name": "positiveReviews", "value": exchangerDetails.reviews.positive },
+      { "@type": "PropertyValue", "name": "neutralReviews", "value": exchangerDetails.reviews.neutral },
+      { "@type": "PropertyValue", "name": "negativeReviews", "value": exchangerDetails.reviews.negative },
+      { "@type": "PropertyValue", "name": "directionsCount", "value": exchangerDetails.exchangeRates }
+    ]
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <CryptoExchangerPage params={params} searchParams={searchParams} />
+    </>
+  );
+}
 
 type Props = {
   params: { exchanger: string };
