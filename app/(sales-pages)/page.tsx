@@ -2,11 +2,11 @@ import { Metadata, ResolvingMetadata } from "next";
 import { Main } from "@/views/main";
 import { getSeoMeta } from "@/shared/api";
 import { routes } from "@/shared/router";
-import { pageTypes } from "@/shared/types";
+import { pageTypes, ExchangerMarker } from "@/shared/types";
 
 // Типы для props
 export type Props = {
-  searchParams?: { direction: "cash" };
+  searchParams?: { direction?: string; city?: string };
 };
 
 export default function Page({ searchParams }: Props) {
@@ -26,7 +26,7 @@ export default function Page({ searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, '\u003c'),
         }}
       />
-      <Main />
+      <Main searchParams={searchParams} />
     </>
   );
 }
@@ -39,10 +39,10 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const seoMeta = await getSeoMeta(reqParams);
   const direction = searchParams?.direction;
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}${direction ? `?direction=${direction}` : ""}`;
-  const meta_title = direction
+  const meta_title = direction === "cash"
     ? `${seoMeta?.data[0].title} | Наличный обмен`
     : seoMeta?.data[0].title;
-  const meta_description = direction
+  const meta_description = direction === "cash"
     ? `${seoMeta?.data[0].description} | Наличный обмен`
     : seoMeta?.data[0].description;
 
