@@ -50,12 +50,12 @@ const getInitialData = cache(async (direction: ExchangerMarker, city?: string) =
 export const Main = async ({
   searchParams,
 }: {
-  searchParams?: Promise<{ direction?: ExchangerMarker; city?: string }>;
+  searchParams?: { direction?: string; city?: string };
 }) => {
   const queryClient = new QueryClient();
 
-  const city = (await searchParams)?.city;
-  const currentDirection = (await searchParams)?.direction;
+  const city = searchParams?.city;
+  const currentDirection = searchParams?.direction === "cash" ? ExchangerMarker.cash : ExchangerMarker.no_cash;
 
   const directionCash = !!city || currentDirection === ExchangerMarker.cash;
   const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;

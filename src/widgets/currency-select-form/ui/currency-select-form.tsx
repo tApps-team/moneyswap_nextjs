@@ -44,6 +44,8 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const [giveAmount, setGiveAmount] = useState<number>(actualCourse?.in_count || 0);
   const [getAmount, setGetAmount] = useState<number>(actualCourse?.out_count || 0);
 
+  console.log("urlDirection", urlDirection);
+
   const handleAmountChange = (value: number, type: "give" | "get") => {
     const newValue = Number(value.toFixed(3));
     

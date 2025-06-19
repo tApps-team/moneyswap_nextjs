@@ -44,11 +44,11 @@ export const ExchangePage = async ({
   searchParams,
 }: {
   params: { slug: string };
-  searchParams?: { city?: string; direction: ExchangerMarker };
+  searchParams?: { city?: string; direction?: string };
 }) => {
   const queryClient = new QueryClient();
   const slug = params.slug[0];
-  const currentDirection = searchParams?.direction;
+  const currentDirection = searchParams?.direction === "cash" ? ExchangerMarker.cash : ExchangerMarker.no_cash;
   const city = searchParams?.city;
 
   const directionCash = !!city || currentDirection === ExchangerMarker.cash;
