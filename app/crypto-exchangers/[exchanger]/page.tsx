@@ -4,6 +4,7 @@ import { CryptoExchangerPage } from "@/views/crypto-exchanger";
 import { getExchangerDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
+import { Breadcrumbs } from "@/shared/ui";
 
 export default async function Page({
   params,
@@ -56,6 +57,7 @@ export default async function Page({
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
+      <Breadcrumbs exchangerName={exchangerDetails?.name} />
       <CryptoExchangerPage params={params} searchParams={searchParams} />
     </>
   );

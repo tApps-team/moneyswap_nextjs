@@ -2,12 +2,12 @@ import { Metadata } from "next";
 import { BlogCategoryPage } from "@/views/blog-category";
 import { ArticlePreview, getAllCategories, getCategoryArticles } from "@/entities/strapi";
 import { routes } from "@/shared/router";
+import { Breadcrumbs } from "@/shared/ui";
 
 export default async function Page({ params }: { params: { category: string } }) {
   const category = params.category;
   const { data } = await getCategoryArticles({ category });
 
-  // Массив статей для blogPost (если хочешь)
   const blogPosts = (data.articles || []).map((article: ArticlePreview) => ({
     "@type": "BlogPosting",
     "headline": article.title,
@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { category: string } })
     "name": `Категория - ${data.name}`,
     "description": `Подборка статей по теме: ${data.name}`,
     "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blog}${routes.category}/${category}`,
-    "hasPart": blogPosts
+    "hasPart": blogPosts,
   };
 
   return (
@@ -33,9 +33,10 @@ export default async function Page({ params }: { params: { category: string } })
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          __html: JSON.stringify(jsonLd).replace(/</g, '\u003c'),
         }}
       />
+      <Breadcrumbs categoryName={data.name} pathname={`${routes.blog}${routes.category}/${category}`} />
       <BlogCategoryPage params={params} />
     </>
   );

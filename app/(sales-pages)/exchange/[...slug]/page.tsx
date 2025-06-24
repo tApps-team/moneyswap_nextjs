@@ -6,6 +6,7 @@ import { getSpecificCity } from "@/entities/location";
 import { getSeoMeta } from "@/shared/api";
 import { routes } from "@/shared/router";
 import { ExchangerMarker, pageTypes } from "@/shared/types";
+import { Breadcrumbs } from "@/shared/ui";
 
 type Props = {
   params: { slug: string };
@@ -163,6 +164,7 @@ export default async function Page({ params, searchParams }: Props) {
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
+      <Breadcrumbs exchange={"Обмен " + giveCurrency?.name?.ru + " на " + getCurrency?.name?.ru} />
       <ExchangePage params={params} searchParams={searchParams} />
     </>
   );

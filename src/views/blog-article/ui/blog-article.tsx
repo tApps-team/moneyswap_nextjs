@@ -59,26 +59,6 @@ export const BlogArticlePage = async ({ params }: { params: { url_name: string }
 
   return (
     <section className="grid grid-flow-cols lg:gap-10 gap-5">
-      <div className="mobile-xl:bg-new-dark-grey bg-transparent w-fit mobile-xl:px-4 mobile-xl:py-3 p-0 mobile-xl:rounded-[10px] md:grid md:grid-cols-[repeat(5,_auto)] flex flex-wrap gap-2 justify-start justify-items-start items-center uppercase mobile-xl:text-font-light-grey text-font-dark-grey font-semibold max:text-base xl:text-sm mobile:text-xs text-2xs truncate">
-        <Link href={routes.home} className="hover:underline cursor-pointer">
-          MONEYSWAP
-        </Link>
-        <ArticleNavArrowIcon className="mobile-xl:w-[10px] md:h-[10px] w-[6px] h-[6px]" />
-        <Link href={routes.blog} className="inline lg:hidden hover:underline cursor-pointer">
-          Статьи
-        </Link>
-        <ArticleNavArrowIcon className="inline lg:hidden md:w-[10px] md:h-[10px] w-[6px] h-[6px]" />
-        <Link
-          href={`${routes.blog}/${routes.tag}/${article?.tags[0]?.tag}`}
-          className="hover:underline cursor-pointer"
-        >
-          {article?.tags[0]?.name}
-        </Link>
-        <ArticleNavArrowIcon className="hidden lg:inline mobile-xl:w-[10px] mobile-xl:h-[10px] w-[6px] h-[6px]" />
-        <span className="hidden lg:inline truncate hover:underline cursor-pointer normal-case">
-          {article?.preview?.title}
-        </span>
-      </div>
       <div className="grid grid-flow-rows md:gap-2 gap-1 mobile-xl:mt-0 -mt-3">
         <h1 className="text-yellow-main uppercase xl:text-[28px] lg:text-2xl md:text-xl text-base font-bold text-start">
           {article?.article?.title}

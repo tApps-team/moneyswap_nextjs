@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { CryptoExchangersPage } from "@/views/crypto-exchangers";
 import { getExchangerList } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
+import { Breadcrumbs } from "@/shared/ui";
 
 export default async function Page() {
   const exchangers = await getExchangerList();
@@ -42,6 +43,7 @@ export default async function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
+      <Breadcrumbs />
       <CryptoExchangersPage />
     </>
   );
