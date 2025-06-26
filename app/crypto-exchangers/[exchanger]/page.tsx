@@ -23,6 +23,8 @@ export default async function Page({
   });
 
   if (!exchangerDetails) return notFound();
+  
+  const ratingValue = ((exchangerDetails.reviews.positive * 5) + (exchangerDetails.reviews.neutral * 3) + (exchangerDetails.reviews.negative * 1)) / (exchangerDetails.reviews.positive + exchangerDetails.reviews.neutral + exchangerDetails.reviews.negative);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -40,6 +42,7 @@ export default async function Page({
     "aggregateRating": {
       "@type": "AggregateRating",
       "reviewCount": exchangerDetails.reviews.positive + exchangerDetails.reviews.neutral + exchangerDetails.reviews.negative,
+      "ratingValue": ratingValue
     },
     "additionalProperty": [
       { "@type": "PropertyValue", "name": "positiveReviews", "value": exchangerDetails.reviews.positive },

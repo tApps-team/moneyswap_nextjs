@@ -22,6 +22,7 @@ export default async function Page() {
         "aggregateRating": {
           "@type": "AggregateRating",
           "reviewCount": exchanger.reviews.negative + exchanger.reviews.neutral + exchanger.reviews.positive,
+          "ratingValue": ((exchanger.reviews.positive * 5) + (exchanger.reviews.neutral * 3) + (exchanger.reviews.negative * 1)) / (exchanger.reviews.positive + exchanger.reviews.neutral + exchanger.reviews.negative)
         },
         "additionalProperty": [
           { "@type": "PropertyValue", "name": "positiveReviews", "value": exchanger.reviews.positive },
