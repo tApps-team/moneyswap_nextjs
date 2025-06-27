@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 import { BlogPage } from "@/views/blog";
 import { routes } from "@/shared/router";
+import { Breadcrumbs } from "@/shared/ui";
 
 export default function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -16,7 +18,7 @@ export default function Page({ searchParams }: { searchParams: { [key: string]: 
         "@type": "ImageObject",
         "url": `${process.env.NEXT_PUBLIC_SITE_BASE_URL}/og_logo.svg`
       }
-    }
+    },
   };
 
   return (
@@ -27,6 +29,7 @@ export default function Page({ searchParams }: { searchParams: { [key: string]: 
           __html: JSON.stringify(jsonLd).replace(/</g, '\u003c'),
         }}
       />
+      <Breadcrumbs  pathname={`${routes.blog}`} />
       <BlogPage searchParams={searchParams} />
     </>
   );
@@ -41,14 +44,14 @@ export async function generateMetadata({
   const page = searchParams.page ? Number(searchParams?.page) : null;
 
   const metaWithoutSearch = {
-    title: "Читайте блог о финансах, криптовалюте и переводах за рубеж на MoneySwap!",
+    title: `Читайте блог о финансах, криптовалюте и переводах за рубеж на MoneySwap!${page ? " | Страница " + page : ""}`,
     description:
-      "Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.",
+      `Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.${page ? " | Страница " + page : ""}`,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
     openGraph: {
-      title: "Читайте блог о финансах, криптовалюте и переводах за рубеж на MoneySwap!",
+      title: `Читайте блог о финансах, криптовалюте и переводах за рубеж на MoneySwap!${page ? " | Страница " + page : ""}`,
       description:
-        "Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.",
+        `Читайте статьи о финансах, криптовалютах, обменных пунктах, истории криптовалют и многом другом. Узнайте всё о криптокошельках, обмене криптовалют и переводах за рубеж.${page ? " | Страница " + page : ""}`,
       url: routes.blog,
       siteName: "MoneySwap",
       images: [

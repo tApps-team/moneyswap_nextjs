@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { BlogArticlePage } from "@/views/blog-article";
 import { getAllArticles, getArticle } from "@/entities/strapi";
 import { routes } from "@/shared/router";
+import { Breadcrumbs } from "@/shared/ui";
 
 export default async function Page({ params }: { params: { url_name: string } }) {
   const url = params.url_name;
@@ -42,6 +43,7 @@ export default async function Page({ params }: { params: { url_name: string } })
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
+      <Breadcrumbs title={"Статья"} pathname={`${routes.blog}${routes.article}/${url}`} />
       <BlogArticlePage params={params} />
     </>
   );

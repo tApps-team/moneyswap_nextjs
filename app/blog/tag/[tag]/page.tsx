@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { BlogTagPage } from "@/views/blog-tag";
 import { getAllTags, getTagArticles } from "@/entities/strapi";
 import { routes } from "@/shared/router";
+import { Breadcrumbs } from "@/shared/ui";
 
 export default async function Page({ params }: { params: { tag: string } }) {
   const tag = params.tag;
@@ -36,6 +37,7 @@ export default async function Page({ params }: { params: { tag: string } }) {
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
+      <Breadcrumbs tagName={data.name} pathname={`${routes.blog}${routes.tag}/${tag}`} />
       <BlogTagPage params={params} />
     </>
   );

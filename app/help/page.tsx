@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { HelpPage } from "@/views/help";
 import { faqTypes, getFaq, getHelpPage } from "@/entities/strapi";
 import { routes } from "@/shared/router";
+import { Breadcrumbs } from "@/shared/ui";
 
 // Типы для props
 export type Props = {
@@ -97,6 +98,7 @@ export default async function Page({ searchParams }: Props) {
           }}
         />
       )}
+      <Breadcrumbs />
       <HelpPage searchParams={searchParams} />
     </>
   );

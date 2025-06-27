@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { CryptoExchangersPage } from "@/views/crypto-exchangers";
 import { getExchangerList } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
+import { Breadcrumbs } from "@/shared/ui";
 
 export default async function Page() {
   const exchangers = await getExchangerList();
@@ -21,6 +22,7 @@ export default async function Page() {
         "aggregateRating": {
           "@type": "AggregateRating",
           "reviewCount": exchanger.reviews.negative + exchanger.reviews.neutral + exchanger.reviews.positive,
+          "ratingValue": ((exchanger.reviews.positive * 5) + (exchanger.reviews.neutral * 3) + (exchanger.reviews.negative * 1)) / (exchanger.reviews.positive + exchanger.reviews.neutral + exchanger.reviews.negative)
         },
         "additionalProperty": [
           { "@type": "PropertyValue", "name": "positiveReviews", "value": exchanger.reviews.positive },
@@ -42,6 +44,7 @@ export default async function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
+      <Breadcrumbs />
       <CryptoExchangersPage />
     </>
   );

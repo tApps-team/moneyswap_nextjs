@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { ForPartnersPage } from "@/views/for-partners";
 import { routes } from "@/shared/router";
+import { Breadcrumbs } from "@/shared/ui";
 
 export default function Page() {
   const jsonLd = {
@@ -37,6 +38,7 @@ export default function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
+      <Breadcrumbs />
       <ForPartnersPage />
     </>
   );

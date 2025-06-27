@@ -7,7 +7,7 @@ import "@/shared/styles/globals.scss";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 import NextTopLoader from 'nextjs-toploader';
-import { Toaster, Breadcrumbs } from "@/shared/ui";
+import { Toaster } from "@/shared/ui";
 
 export const metadata = {
   title: "Мониторинг криптообменников онлайн - обмен криптовалюты по лучшим курсам | MoneySwap",
@@ -141,7 +141,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <Header />
           <main className="flex-grow max-w-[1400px] mx-[auto] w-full py-[40px] lg:pt-[130px] pt-[90px] mobile-xl:px-[25px] px-[15px]">
-          {/* <Breadcrumbs /> */}
             {children}
           </main>
           <Footer />
