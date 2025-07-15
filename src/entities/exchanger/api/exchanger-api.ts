@@ -69,16 +69,13 @@ export const getExchangerList = async () => {
   return response;
 };
 
-// export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequset) => {
-//   const url = `/api/exchange_detail`;
-//   const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props);
-//   return response;
-// };
-
 export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequset) => {
   const url = `/api/exchange_detail`;
   try {
-    const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props);
+    const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, {
+      ...props,
+      cache: "no-store"
+    });
     // Если твой apiClient.get возвращает объект с полем status
     if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
       return null;
