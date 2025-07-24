@@ -38,7 +38,7 @@ export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) =
       : "";
   const formattedDate = exchangerInfo.openOnMoneySwap ? new Date(exchangerInfo.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
-  const isAmlActive = false
+  const isAmlActive = true
 
   return (
     <section className="flex flex-col gap-10">
