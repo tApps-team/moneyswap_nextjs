@@ -16,7 +16,7 @@ export async function GET() {
     const sitemapIndexXML = await buildSitemapIndex(sitemaps);
     return new NextResponse(sitemapIndexXML, {
       headers: {
-        "Content-Type": "application/xml",
+        "Content-Type": "text/xml",
         "Content-Length": Buffer.byteLength(sitemapIndexXML).toString(),
       },
     });
@@ -27,15 +27,18 @@ export async function GET() {
 }
 
 async function buildSitemapIndex(sitemaps: string[]) {
+  const currentDate = new Date().toISOString();
+  
   let xml = '<?xml version="1.0" encoding="UTF-8"?>';
-  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+  xml += '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
   for (const sitemapURL of sitemaps) {
-    xml += "<url>";
+    xml += "<sitemap>";
     xml += `<loc>${sitemapURL}</loc>`;
-    xml += "</url>";
+    xml += `<lastmod>${currentDate}</lastmod>`;
+    xml += "</sitemap>";
   }
 
-  xml += "</urlset>";
+  xml += "</sitemapindex>";
   return xml;
 }

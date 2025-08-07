@@ -34,14 +34,10 @@ export class ApiClient {
 
     const response = await fetch(url.toString(), {
       method: "GET",
-
       headers: {
         "Content-Type": "application/json",
       },
-      next: {
-        revalidate: 60,
-      },
-      // cache: requestCache || "no-store",
+      cache: requestCache || "no-store",
     });
 
     return this.handleResponse<TResult>(response);

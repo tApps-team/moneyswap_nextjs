@@ -11,10 +11,9 @@ export const reviewsByExchange = async (
 ): Promise<ReviewsByExchangeDTOResponse> => {
   const response = await apiClient.get<ReviewsByExchangeDTOResponse>(
     "api/reviews/reviews_by_exchange",
-    {
-      ...props,
-      cache: "no-store"
-  });
+    props,
+    "no-store"
+  );
 
   return response;
 };
@@ -23,10 +22,8 @@ export const getCommentsByReview = async (props: GetCommentsByReviewDtoRequest) 
   const { reviewId } = props;
   const response = await apiClient.get<GetCommentsByReviewDtoResponse>(
     `api/reviews/get_comments_by_review?review_id=${reviewId}`,
-    {
-      ...props,
-      cache: "no-store"
-    }
+    props,
+    "no-store"
   );
   return response;
 };
