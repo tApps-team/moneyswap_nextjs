@@ -95,6 +95,6 @@ export const getActualCourse = async (
 
 export const getPairValute = async (props: GetPairValuteDtoRequest) => {
   const url = `/api/direction_pair_by_exchange`;
-  const response = await apiClient.get<GetPairValuteDtoResponse>(url, props);
+  const response = await apiClient.get<GetPairValuteDtoResponse>(url, props, "no-store");
   return response;
 };

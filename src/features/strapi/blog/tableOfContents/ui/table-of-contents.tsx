@@ -91,7 +91,9 @@ export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_c
         {table_of_contents?.map((item, index) => (
           <li
             key={index}
-            ref={(el) => (itemRefs.current[item.id] = el)}
+            ref={(el) => {
+              itemRefs.current[item.id] = el;
+            }}
             className={`relative grid grid-flow-col gap-2 justify-start items-center max:text-base xl:text-sm text-xs font-normal`}
           >
             <span

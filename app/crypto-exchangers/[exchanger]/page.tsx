@@ -6,6 +6,8 @@ import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page({
   params,
   searchParams,

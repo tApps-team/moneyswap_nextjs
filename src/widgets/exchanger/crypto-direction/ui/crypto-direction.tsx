@@ -1,10 +1,10 @@
 import Image from "next/image";
 import searchAnimation from "/public/animated/search_spin.gif";
 import { CurrencyPair } from "@/features/currency";
-import { sortingCurrencyPair } from "../lib/sorting-currency-pair";
 import { CurrencyPair as CurrencyPairType } from "@/entities/currency";
 import { cn } from "@/shared/lib";
 import { ScrollArea } from "@/shared/ui";
+import { sortingCurrencyPair } from "../lib/sorting-currency-pair";
 
 type CryptoDirectionProps = {
   currencyPair: CurrencyPairType[];
