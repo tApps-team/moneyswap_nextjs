@@ -1,8 +1,8 @@
-import { ExchnagerInfo } from "@/entities/exchanger";
+import { ExchangerInfo } from "@/entities/exchanger";
 import { ExchangerMarker } from "@/shared/types";
 
 type CryptoExchangerSeoTextProps = {
-  exchangerInfo: ExchnagerInfo;
+  exchangerInfo: ExchangerInfo;
   marker: ExchangerMarker;
 };
 

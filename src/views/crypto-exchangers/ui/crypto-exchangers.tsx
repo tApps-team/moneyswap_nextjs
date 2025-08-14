@@ -25,7 +25,7 @@ const options = {
 };
 
 const CryptoTable = dynamic(
-  () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.default),
+  () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.CryptoTable),
   {
     suspense: true,
   },
@@ -38,10 +38,6 @@ export const CryptoExchangersPage = async () => {
     getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" }),
     getExchangerList()
   ]);
-
-  // strapi texts
-  // const { data } = await getCryptoExchangersPage();
-  // const { title, header_description, footer_description } = data;
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">

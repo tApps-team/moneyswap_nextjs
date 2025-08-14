@@ -1,9 +1,9 @@
 import { BitcoinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ExchnagerInfo } from "@/entities/exchanger";
+import { ExchangerInfo as ExchangerInfoType } from "@/entities/exchanger";
 type ExchangerInfoProps = {
-  exchangerDetails: ExchnagerInfo;
+  exchangerDetails: ExchangerInfoType;
 };
 export const ExchangerInfo = async (props: ExchangerInfoProps) => {
   const { exchangerDetails } = props;

@@ -1,4 +1,4 @@
-import { Headset } from "lucide-react";
+import { Ban, Headset, ShieldCheck } from "lucide-react";
 import { SVGProps } from "react";
 import {
   FileIcon,
@@ -40,7 +40,21 @@ export const navbarItems: NavbarItems[] = [
   },
   {
     href: routes.exchangers,
-    value: "Обменники",
+    value: "Продукты",
+    children: [
+      {
+        href: `${routes.exchangers}`,
+        value: "Обменники",
+        description: "Список активных обменников, которые рекомендуются к использованию",
+        icon: ShieldCheck as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
+      },
+      {
+        href: `${routes.blacklist}`,
+        value: "Черный список",
+        description: "Остерегайтесь мошенников! Крайне не рекомендуемые обменники",
+        icon: Ban as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
+      },
+    ],
   },
   {
     href: routes.help_article,

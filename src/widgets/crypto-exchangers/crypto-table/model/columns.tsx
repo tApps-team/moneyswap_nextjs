@@ -3,10 +3,11 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
-import { CryptoExchanger } from "@/entities/exchanger";
+import { CryptoExchanger, CryptoExchangerBlackList } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
 
 export type CryptoTableColumns = CryptoExchanger;
+export type CryptoTableColumnsBlackList = CryptoExchangerBlackList;
 
 export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
   {
@@ -132,6 +133,43 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
         className="leading-none text-base hidden text-center bg-[#5C5E62] lg:block rounded-[10px] py-3 font-normal cursor-pointer hover:bg-yellow-main hover:text-black transition-all duration-500"
         href={{
           pathname: `${routes.exchangers}/exchanger-${row.original.id}__${row.original.exchange_marker}`,
+        }}
+      >
+        Подробнее
+      </Link>
+    ),
+  },
+];
+
+// Упрощенные колонки для blacklist страницы
+export const blacklistColumns: ColumnDef<CryptoExchangerBlackList>[] = [
+  {
+    accessorFn: (row) => row.name.ru,
+    id: "name",
+    header: () => {
+      return (
+        <p
+          className="block"
+        >
+        </p>
+      );
+    },
+    cell: ({ row }) => (
+      <p className="leading-none font-semibold xl:text-xl text-base truncate w-[30vw]">
+        {row.original.name.ru}
+      </p>
+    ),
+  },
+  {
+    accessorKey: "id",
+    header: () => {
+      return <p className="block"></p>;
+    },
+    cell: ({ row }) => (
+      <Link
+        className="block leading-none mobile-xl:text-base text-xs text-center bg-[#5C5E62] mobile-xl:rounded-[10px] rounded-[5px] mobile-xl:py-3 py-2 px-2 font-normal cursor-pointer hover:bg-yellow-main hover:text-black transition-all duration-500"
+        href={{
+          pathname: `${routes.blacklist}/exchanger-${row.original.id}__${row.original.exchange_marker}`,
         }}
       >
         Подробнее

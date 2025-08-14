@@ -1,5 +1,5 @@
 import { ExchangerMarker, Name, Review } from "@/shared/types";
-import { Exchanger, ExchnagerInfo } from "../model/types/exchanger-type";
+import { Exchanger, ExchangerInfo } from "../model/types/exchanger-type";
 
 export type GetExchangersDtoRequest = {
   city?: string;
@@ -33,7 +33,7 @@ export type GetSimilarDirectionDtoResponse = {
 export type GetExchangeListDtoResponse = {
   id: number;
   exchangerName: string;
-  exchange_marker: string;
+  exchange_marker: ExchangerMarker;
   workStatus: boolean;
   reserves: string;
   courses: string;
@@ -42,7 +42,7 @@ export type GetExchangeListDtoResponse = {
 }[];
 export type GetExchangeListDtoRequest = {};
 
-export type GetExchnagerDetailDtoResponse = ExchnagerInfo;
+export type GetExchnagerDetailDtoResponse = ExchangerInfo;
 export type GetExchnagerDetailDtoRequset = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;

@@ -9,6 +9,7 @@ export enum routes {
   tag = "/tag",
   article = "/article",
   exchangers = "/crypto-exchangers",
+  blacklist = "/blacklist",
   questions = "/questions",
   contacts = "/contacts",
   exchange = "/exchange",

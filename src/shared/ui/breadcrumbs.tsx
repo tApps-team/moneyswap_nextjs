@@ -11,6 +11,7 @@ const segmentNameMap: Record<string, string> = {
   "blog": "Блог",
   "help": "Помощь",
   "crypto-exchangers": "Криптообменники",
+  "blacklist": "Черный список",
   "for-partners": "Партнёрам",
   "contacts": "Контакты",
   "about": "О нас",
@@ -46,6 +47,13 @@ export function getSmartBreadcrumbs({
   if (segments[0] === "crypto-exchangers" && segments[1]) {
     breadcrumbs.push({ href: `/crypto-exchangers`, label: segmentNameMap["crypto-exchangers"] });
     breadcrumbs.push({ href: `/crypto-exchangers/${segments[1]}`, label: exchangerName || decodeURIComponent(segments[1]) });
+    return breadcrumbs;
+  }
+
+  // /blacklist/[slug]
+  if (segments[0] === "blacklist" && segments[1]) {
+    breadcrumbs.push({ href: `/blacklist`, label: segmentNameMap["blacklist"] });
+    breadcrumbs.push({ href: `/blacklist/${segments[1]}`, label: exchangerName || decodeURIComponent(segments[1]) });
     return breadcrumbs;
   }
 

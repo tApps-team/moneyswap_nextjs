@@ -1,6 +1,5 @@
 "use client";
 import {
-  ColumnDef,
   ColumnFiltersState,
   flexRender,
   getCoreRowModel,
@@ -22,7 +21,6 @@ import { cryptoColumns } from "../model/columns";
 import { CryptoTableColumns } from "../model/columns";
 
 interface DataTableProps<TValue> {
-  //   columns: ColumnDef<CryptoTableColumns, TValue>[];
   data: CryptoTableColumns[];
 }
 

@@ -4,3 +4,10 @@ export enum ExchangerMarker {
   partner = "partner",
   both = "both",
 }
+
+export enum ExchangerStatus {
+  active = "active",
+  inactive = "inactive",
+  disabled = "disabled",
+  scam = "scam",
+}
