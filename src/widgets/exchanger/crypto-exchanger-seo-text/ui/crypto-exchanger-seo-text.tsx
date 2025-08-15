@@ -14,14 +14,14 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
     ? "обмен безналичных направлений" 
     : marker === ExchangerMarker.both 
       ? "обмен наличных и безналичных направлений" 
-      : "";
+      : "обмен наличных и безналичных направлений";
 
   return (
     <section className="flex flex-col gap-2">
       <p className="unbounded_font font-semibold text-sm text-[#7A7C80] uppercase">
         Обменный пункт 
       </p>
-      <h1 className="unbounded_font mobile-xl:text-3xl text-yellow-main text-base font-semibold uppercase">
+      <h1 className="unbounded_font xl:text-3xl mobile-xl:text-xl text-base text-yellow-main font-semibold uppercase">
         {`${exchangerInfo?.name} ${markerText ? `— ${markerText}` : ""}`}
       </h1>
     </section>
@@ -35,7 +35,7 @@ export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) =
     ? "обмен безналичных направлений" 
     : marker === ExchangerMarker.both 
       ? "обмен наличных и безналичных направлений" 
-      : "";
+      : "обмен наличных и безналичных направлений";
   const formattedDate = exchangerInfo.openOnMoneySwap ? new Date(exchangerInfo.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
   const isAmlActive = true
@@ -62,10 +62,6 @@ export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) =
         </p>
       </div>
       <hr className="w-full mobile-xl:border-[#34363A] mobile-xl:border-[1.5px] border-yellow-main border-[1px] rounded-[5px]" />
-      {/* <p className="mobile-xl:block hidden font-semibold md:text-base text-sm">
-        Если вы пользовались услугами обменника, оставьте отзыв о нём в комментариях - это поможет
-        другим пользователям Moneyswap получить достоверную информацию об услугах обменников.
-      </p> */}
     </section>
   );
 };

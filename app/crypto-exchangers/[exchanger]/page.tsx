@@ -37,7 +37,7 @@ export default async function Page({
       ? "обмен безналичных направлений" 
       : marker === ExchangerMarker.both 
         ? "обмен наличных и безналичных направлений" 
-        : ""}`,
+        : "обмен наличных и безналичных направлений"}`,
     "url": exchangerDetails?.url,
     "logo": exchangerDetails?.iconUrl,
     "foundingDate": exchangerDetails?.open,
@@ -108,7 +108,7 @@ export async function generateMetadata(
         ? "обмен безналичных направлений" 
         : marker === ExchangerMarker.both 
           ? "обмен наличных и безналичных направлений" 
-          : "";
+          : "обмен наличных и безналичных направлений";
 
     return {
       title: `Обменный пункт ${exchangerDetails.name} ${markerText ? `— ${markerText}` : ""} | Отзывы на MoneySwap`,

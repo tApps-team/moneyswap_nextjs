@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlacklistExchangerPage } from "@/views/blacklist-exchanger";
 import { getExchangerDetails } from "@/entities/exchanger";
@@ -10,7 +10,6 @@ export const dynamic = 'force-dynamic';
 
 export default async function Page({
   params,
-  searchParams,
 }: {
   params: { exchanger: string };
   searchParams: { grade?: number; page?: number; };
@@ -25,8 +24,6 @@ export default async function Page({
   });
 
   if (!exchangerDetails) return notFound();
-  
-  const ratingValue = ((exchangerDetails.reviews.positive * 5) + (exchangerDetails.reviews.neutral * 3) + (exchangerDetails.reviews.negative * 1)) / (exchangerDetails.reviews.positive + exchangerDetails.reviews.neutral + exchangerDetails.reviews.negative);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -56,8 +53,7 @@ type Props = {
 };
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata,
+  { params }: Props,
 ): Promise<Metadata> {
   if (!params?.exchanger) {
     return notFound();
