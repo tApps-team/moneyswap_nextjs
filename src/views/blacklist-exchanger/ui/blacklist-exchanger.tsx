@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getExchangerDetails } from "@/entities/exchanger";
+import { CryptoExchangerBlackList } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerStatus } from "@/shared/types";
 
 export const BlacklistExchangerPage = async ({
   params,
@@ -20,10 +20,18 @@ export const BlacklistExchangerPage = async ({
   }
 
   try {
-    const exchangerDetails = await getExchangerDetails({
-      exchange_id: Number(exchangerId),
-      exchange_marker: marker as ExchangerMarker,
-    });
+    // const exchangerDetails = await getExchangerDetails({
+    //   exchange_id: Number(exchangerId),
+    //   exchange_marker: marker as ExchangerMarker,
+    // });
+
+    // mock data
+    const exchangerDetails: CryptoExchangerBlackList = {
+      id: 1,
+      name: {ru: "тестовый обменник", en: "test exchange"},
+      exchange_marker: ExchangerStatus.scam,
+      url: "https://test.com",
+   }
 
     if (!exchangerDetails) {
       return notFound();
@@ -37,84 +45,42 @@ export const BlacklistExchangerPage = async ({
             Обменный пункт 
           </p>
           <h1 className="unbounded_font xl:text-3xl mobile-xl:text-xl text-base text-red-500 font-semibold uppercase">
-            {`${exchangerDetails?.name} — мошенник`}
+            {`${exchangerDetails?.name?.ru} — в черном списке`}
           </h1>
-          <h2 className="unbounded_font xl:text-xl mobile-xl:text-lg text-sm text-white font-normal">
-            Обменник находится в черном списке платформы MoneySwap.
+          <h2 className="unbounded_font text-sm font-medium uppercase text-[#7A7C80]">
+            {`Обменник ${exchangerDetails?.name?.ru} (сайт: ${exchangerDetails?.url}) замечен в мошеннических действиях.`}
           </h2>
           </div>
-            <div className="grid grid-flow-row gap-4">
-              <h3 className="unbounded_font mobile-xl:text-xl text-base text-white font-semibold">
-                Информация об обменнике
+            <div className="bg-orange-900/5 border border-orange-600/30 rounded-lg p-4">
+              <h3 className="mobile-xl:text-lg text-base text-white font-medium">
+              Пользователи сообщают, что после перевода средств обмен не производится, а служба поддержки либо игнорирует обращения, либо полностью пропадает.
               </h3>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <h3 className="unbounded_font mobile-xl:text-xl text-base text-white font-semibold">
-                Почему обменник попал в черный список?
-              </h3>
-              <div className="grid gap-4 text-[#7A7C80] mobile-xl:text-base text-sm">
                 <div className="bg-red-900/5 border border-red-600/30 rounded-lg p-4">
-                  <h4 className="text-red-400 font-semibold mb-2 mobile-xl:text-base text-sm">Основные нарушения:</h4>
+                  <h4 className="text-red-400 uppercase font-semibold mb-2 mobile-xl:text-base text-sm">Наиболее частые схемы обмана:</h4>
                   <div className="flex flex-col gap-2 mobile-xl:text-sm text-xs">
-                    <span>— Мошеннические операции и обман клиентов</span>
-                    <span>— Невыполнение обязательств по обменным операциям</span>
-                    <span>— Кража средств пользователей</span>
-                    <span>— Отказ от возврата средств без обоснованных причин</span>
-                    <span>— Блокировка аккаунтов пользователей с их средствами</span>
+                    <span>— отсутствие перевода после оплаты</span>
+                    <span>— блокировка аккаунта клиента</span>
+                    <span>— отправка фальшивых подтверждений транзакции</span>
+                    <span>— обещание вернуть деньги, которое так и не выполняется.</span>
                   </div>
                 </div>
 
-                <div className="bg-orange-900/5 border border-orange-600/30 rounded-lg p-4">
-                  <h4 className="text-orange-400 font-semibold mb-2 mobile-xl:text-base text-sm">Дополнительные факторы:</h4>
-                  <div className="flex flex-col gap-2 mobile-xl:text-sm text-xs">
-                    <span>— Многочисленные жалобы от пользователей</span>
-                    <span>— Подозрительная активность в AML проверках</span>
-                    <span>— Отсутствие прозрачности в работе</span>
-                    <span>— Нарушение правил платформы MoneySwap</span>
-                  </div>
+                <div className="text-[#7A7C80] font-semibold mobile-xl:text-base text-sm">
+                Часто такие обменники привлекают подозрительно выгодными условиями — курс может быть на уровне рыночного или даже ниже, чтобы вызвать доверие и подтолкнуть к быстрой оплате.
                 </div>
 
-                <p className="text-yellow-main mobile-xl:text-base text-sm">
-                  <strong>Внимание!</strong> Настоятельно рекомендуем избегать любых операций 
-                  с данным обменником. Используйте только проверенные и надежные сервисы 
-                  из нашего основного каталога.
+                <div className="text-[#7A7C80] font-semibold mobile-xl:text-base text-sm">
+                Часто такие обменники привлекают подозрительно выгодными условиями — курс может быть на уровне рыночного или даже ниже, чтобы вызвать доверие и подтолкнуть к быстрой оплате.
+                </div>
+
+                <p className="unbounded_font text-yellow-main uppercase mobile-xl:text-base text-sm">
+                  <strong>Внимание!</strong> Команда MoneySwap настоятельно не рекомендует пользоваться услугами {exchangerDetails?.name?.ru}, чтобы не потерять средства.
                 </p>
-              </div>
-            </div>
 
-            {/* <div className="grid grid-flow-row gap-4">
-              <h3 className="unbounded_font mobile-xl:text-xl text-base text-white font-semibold mb-4">
-                Как защитить себя от мошенников
-              </h3>
-              <div className="space-y-4 text-[#B8BCC8]">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-green-900/20 border border-green-600/30 rounded-lg p-4">
-                    <h4 className="text-green-400 font-semibold mb-2">Что делать:</h4>
-                    <ul className="space-y-2 text-sm">
-                      <li>— Проверяйте рейтинги и отзывы</li>
-                      <li>— Изучайте условия обмена</li>
-                      <li>— Начинайте с малых сумм</li>
-                      <li>— Сохраняйте всю переписку</li>
-                      <li>— Используйте только проверенные сервисы</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-red-900/20 border border-red-600/30 rounded-lg p-4">
-                    <h4 className="text-red-400 font-semibold mb-2">Чего избегать:</h4>
-                    <ul className="space-y-2 text-sm">
-                      <li>— Слишком выгодных курсов</li>
-                      <li>— Предоплат без гарантий</li>
-                      <li>— Обменников без отзывов</li>
-                      <li>— Подозрительных требований</li>
-                      <li>— Обменников из черного списка</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div> */}
         </section>
-          <div className="flex flex-col gap-6 rounded-[15px] bg-new-dark-grey md:p-6 mobile-xl:p-4 p-3">
+          <div className="h-fit flex flex-col gap-6 rounded-[15px] bg-new-dark-grey md:p-6 mobile-xl:p-4 p-3">
             <div className="grid grid-flow-row gap-4 bg-gradient-to-br from-red-600 to-red-800 rounded-lg mobile-xl:p-6 p-3 text-white">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
@@ -140,8 +106,8 @@ export const BlacklistExchangerPage = async ({
                     <span className="text-black text-xs font-bold">1</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">Проверяйте рейтинг</h4>
-                    <p className="text-[#7A7C80] text-xs">Всегда смотрите на оценки и отзывы других пользователей</p>
+                    <h4 className="text-white font-medium text-sm">Рейтинг обменника</h4>
+                    <p className="text-[#7A7C80] text-xs">Проверяйте отзывы на независимых площадках</p>
                   </div>
                 </div>
                 
@@ -150,8 +116,8 @@ export const BlacklistExchangerPage = async ({
                     <span className="text-black text-xs font-bold">2</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">Изучайте условия</h4>
-                    <p className="text-[#7A7C80] text-xs">Внимательно читайте правила и условия обмена</p>
+                    <h4 className="text-white font-medium text-sm">Изучите сервис</h4>
+                    <p className="text-[#7A7C80] text-xs">Уточняйте реквизиты, контакты менеджера и юридическую информацию</p>
                   </div>
                 </div>
                 
@@ -160,8 +126,8 @@ export const BlacklistExchangerPage = async ({
                     <span className="text-black text-xs font-bold">3</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">Проверяйте AML-риск</h4>
-                    <p className="text-[#7A7C80] text-xs">Убедитесь, что у обменника низкий AML-риск</p>
+                    <h4 className="text-white font-medium text-sm">Не спешите</h4>
+                    <p className="text-[#7A7C80] text-xs">Не торопитесь с переводом средств, особенно при первом обращении</p>
                   </div>
                 </div>
                 
@@ -170,8 +136,8 @@ export const BlacklistExchangerPage = async ({
                     <span className="text-black text-xs font-bold">4</span>
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">Сохраняйте доказательства</h4>
-                    <p className="text-[#7A7C80] text-xs">Делайте скриншоты переписки и условий</p>
+                    <h4 className="text-white font-medium text-sm">Надёжность</h4>
+                    <p className="text-[#7A7C80] text-xs">Используйте только проверенные сервисы</p>
                   </div>
                 </div>
               </div>

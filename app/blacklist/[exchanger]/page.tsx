@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlacklistExchangerPage } from "@/views/blacklist-exchanger";
-import { getExchangerDetails } from "@/entities/exchanger";
+import { CryptoExchangerBlackList } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerStatus } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
 export const dynamic = 'force-dynamic';
@@ -18,19 +18,20 @@ export default async function Page({
   const [exchangerId, marker] = params.exchanger.split('__');
   if (!exchangerId || !marker) return notFound();
 
-  const exchangerDetails = await getExchangerDetails({
-    exchange_id: Number(exchangerId),
-    exchange_marker: marker as ExchangerMarker,
-  });
+      // mock data
+      const exchangerDetails: CryptoExchangerBlackList = {
+        id: 1,
+        name: {ru: "тестовый обменник", en: "test exchange"},
+        exchange_marker: ExchangerStatus.scam,
+        url: "https://test.com",
+     }
 
   if (!exchangerDetails) return notFound();
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": `${exchangerDetails.name} - был заподозрен в совершении мошеннических действий, обмане пользователей или других незаконных действиях. Будьте осторожны!`,
-    "url": exchangerDetails?.url,
-    "logo": exchangerDetails?.iconUrl,
+    "name": `${exchangerDetails.name?.ru} - заподозрен в мошеннических действиях. Пользователи сообщают, что после перевода средств обмен не производится, а служба поддержки либо игнорирует обращения, либо полностью пропадает. Будьте осторожны!`,
   };
 
   return (
@@ -41,7 +42,7 @@ export default async function Page({
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <Breadcrumbs exchangerName={exchangerDetails?.name} />
+      <Breadcrumbs exchangerName={exchangerDetails?.name?.ru} />
       <BlacklistExchangerPage params={params} />
     </>
   );
@@ -65,10 +66,14 @@ export async function generateMetadata(
   }
 
   try {
-    const exchangerDetails = await getExchangerDetails({
-      exchange_id: Number(exchangerId),
-      exchange_marker: marker as ExchangerMarker,
-    });
+
+      // mock data
+      const exchangerDetails: CryptoExchangerBlackList = {
+          id: 1,
+          name: {ru: "тестовый обменник", en: "test exchange"},
+          exchange_marker: ExchangerStatus.scam,
+          url: "https://test.com",
+       }
 
     if (!exchangerDetails) {
       return notFound();
@@ -77,22 +82,14 @@ export async function generateMetadata(
     const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blacklist}/exchanger-${exchangerId}__${marker}`;
 
     return {
-      title: `Обменный пункт ${exchangerDetails.name} - был заподозрен в совершении мошеннических действий, обмане пользователей или других незаконных действиях. Будьте осторожны!`,
-      description: `${exchangerDetails.name} — входит в черный список криптообменников на MoneySwap. Будьте осторожны! MoneySwap крайне не рекомендует пользоваться этим обменником.`,
+      title: `Обменник валют ${exchangerDetails?.name?.ru} — в черном списке на MoneySwap!`,
+      description: `MoneySwap предупреждает: обменник ${exchangerDetails?.name?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств.`,
       metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
       openGraph: {
-        title: `Обменный пункт ${exchangerDetails.name} - был заподозрен в совершении мошеннических действий, обмане пользователей или других незаконных действиях. Будьте осторожны!`,
-        description: `${exchangerDetails.name} — входит в черный список криптообменников на MoneySwap. Будьте осторожны! MoneySwap крайне не рекомендует пользоваться этим обменником.`,
+        title: `Обменник валют ${exchangerDetails?.name?.ru} — в черном списке на MoneySwap!`,
+        description: `MoneySwap предупреждает: обменник ${exchangerDetails?.name?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств.`,
         url: canonicalUrl,
         siteName: "MoneySwap",
-        images: [
-          {
-            url: exchangerDetails.iconUrl,
-            width: 400,
-            height: 200,
-            alt: exchangerDetails.name,
-          },
-        ],
         locale: "ru-RU",
         type: "website",
       },

@@ -77,14 +77,14 @@ export type CryptoExchangerBlackList = {
     ru: string;
     en: string;
   };
-  exchange_marker: ExchangerStatus;
+  exchange_marker: ExchangerStatus.scam;
   url: string;
 }
 
 export type ExchangerInfo = {
   name: string;
   iconUrl: string;
-  workStatus: boolean;
+  workStatus: Exclude<ExchangerStatus, ExchangerStatus.scam>;
   reviews: Review;
   country: string;
   amountReserves: string;

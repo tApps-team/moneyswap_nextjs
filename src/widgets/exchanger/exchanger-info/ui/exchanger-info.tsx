@@ -2,6 +2,7 @@ import { BitcoinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ExchangerInfo as ExchangerInfoType } from "@/entities/exchanger";
+import { ExchangerStatus } from "@/shared/types";
 type ExchangerInfoProps = {
   exchangerDetails: ExchangerInfoType;
 };
@@ -46,7 +47,7 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
           <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
             <p className=" md:text-base text-[#84868A] text-xs font-semibold">Статус</p>
             <p className="text-yellow-main text-sm uppercase md:text-base font-semibold text-center">
-              {exchangerDetails?.workStatus ? "Активен" : "Не активен"}
+              {exchangerDetails?.workStatus === ExchangerStatus.active ? "Активен" : exchangerDetails?.workStatus === ExchangerStatus.disabled ? "Отключен" : "Неактивный"}
             </p>
           </div>
           <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
@@ -86,7 +87,7 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
             </p>
           </div>
           <div className="rounded-[12px] col-span-2 bg-new-grey flex flex-col items-center justify-center p-4">
-            <p className="md:text-base text-xs text-[#84868A] font-semibold">на MONEYSWAP с</p>
+            <p className="md:text-base text-xs text-[#84868A] font-semibold">{exchangerDetails?.workStatus === ExchangerStatus.disabled ? "отключён от MONEYSWAP с" : "на MONEYSWAP с"}</p>
             <p className="text-yellow-main font-semibold">
               {formattedDate || "---"}
             </p>

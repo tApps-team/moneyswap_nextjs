@@ -8,9 +8,9 @@ import { ExchangerInfo } from "@/widgets/exchanger/exchanger-info";
 import { ExchangerReviews } from "@/widgets/exchanger/exchanger-reviews";
 import { BotBannerSidebar } from "@/features/bot-banner";
 import { getPairValute } from "@/entities/currency";
-import { getExchangerDetails } from "@/entities/exchanger";
+import { ExchangerInfo as ExchangerInfoType, getExchangerDetails } from "@/entities/exchanger";
 import { reviewsByExchange } from "@/entities/exchanger-review";
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerMarker, ExchangerStatus } from "@/shared/types";
 
 export const CryptoExchangerPage = async ({
   params,
@@ -35,10 +35,29 @@ export const CryptoExchangerPage = async ({
   const currentPage = Number(searchParams?.page) || 1;
 
   try {
-    const exchangerDetails = await getExchangerDetails({
-      exchange_id: Number(exchangerId),
-      exchange_marker: marker as ExchangerMarker,
-    });
+    // const exchangerDetails = await getExchangerDetails({
+    //   exchange_id: Number(exchangerId),
+    //   exchange_marker: marker as ExchangerMarker,
+    // });
+
+    // mock data
+    const exchangerDetails: ExchangerInfoType = {
+      name: "тестовый обменник",
+      iconUrl: "",
+      workStatus: ExchangerStatus.disabled,
+      reviews: {
+        positive: 10,
+        neutral: 0,
+        negative: 0,
+      },
+      country: "Россия",
+      amountReserves: "1000000",
+      exchangeRates: 100,
+      open: "09:00",
+      openOnMoneySwap: "09:00",
+      url: "https://test.com",
+      high_aml: false,
+    };
 
     if (!exchangerDetails) {
       return notFound();
