@@ -1,5 +1,5 @@
-import { ExchangerMarker, Name, Review } from "@/shared/types";
-import { Exchanger, ExchangerInfo } from "../model/types/exchanger-type";
+import { ExchangerMarker, Name } from "@/shared/types";
+import { CryptoExchanger, Exchanger, ExchangerInfo } from "../model/types/exchanger-type";
 
 export type GetExchangersDtoRequest = {
   city?: string;
@@ -7,9 +7,7 @@ export type GetExchangersDtoRequest = {
   valute_to: string;
 };
 export type GetExchangersDtoResponse = Exchanger[];
-//вынести в отдельный enum/type "no_cash" | "cash"
 export type GetSimilarDirectionDtoRequset = {
-  exchangeMarker?: "no_cash" | "cash";
   valuteFrom: string;
   valuteTo: string;
   city?: string;
@@ -30,16 +28,7 @@ export type GetSimilarDirectionDtoResponse = {
   };
 }[];
 
-export type GetExchangeListDtoResponse = {
-  id: number;
-  exchangerName: string;
-  exchange_marker: ExchangerMarker;
-  workStatus: boolean;
-  reserves: string;
-  courses: string;
-  url: string;
-  reviews: Review;
-}[];
+export type GetExchangeListDtoResponse = CryptoExchanger[];
 export type GetExchangeListDtoRequest = {};
 
 export type GetExchnagerDetailDtoResponse = ExchangerInfo;

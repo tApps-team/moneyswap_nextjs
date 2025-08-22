@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 import { CryptoExchanger, CryptoExchangerBlackList } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
+import { ExchangerStatus } from "@/shared/types";
 
 export type CryptoTableColumns = CryptoExchanger;
 export type CryptoTableColumnsBlackList = CryptoExchangerBlackList;
@@ -37,9 +38,9 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     accessorKey: "workStatus",
     header: "СТАТУС",
     cell: ({ row }) => {
-      const workStatus = row.original.workStatus ? "Активен" : "Не активен";
+      const workStatus = row.original.workStatus === ExchangerStatus.active ? "Активен" : row.original.workStatus === ExchangerStatus.inactive ? "Неактивен" : "Отключён";
       return (
-        <p className="leading-none uppercase xl:text-xl text-base text-yellow-main truncate">
+        <p className={`leading-none uppercase xl:text-xl text-base truncate ${row.original.workStatus === ExchangerStatus.active ? "text-yellow-main" : row.original.workStatus === ExchangerStatus.inactive ? "text-font-light-grey" : "text-[#FF0000]"}`}>
           {workStatus}
         </p>
       );
@@ -123,7 +124,6 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
     ),
   },
   {
-    //TODO refactor as href
     accessorKey: "id",
     header: () => {
       return <p className="hidden lg:block"></p>;

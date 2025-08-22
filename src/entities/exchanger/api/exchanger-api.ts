@@ -52,7 +52,7 @@ export const getExchangers = async (
 export const getSimilarDirections = async (
   props: GetSimilarDirectionDtoRequset,
 ): Promise<GetSimilarDirectionDtoResponse> => {
-  const { exchangeMarker, valuteFrom, valuteTo, city, limit } = props;
+  const { valuteFrom, valuteTo, city } = props;
   const url = city
     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/similar_directions?exchange_marker=cash&valute_from=${valuteFrom}&valute_to=${valuteTo}&city=${city}`
     : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/similar_directions?exchange_marker=no_cash&valute_from=${valuteFrom}&valute_to=${valuteTo}`;

@@ -17,6 +17,7 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
         : "обмен наличных и безналичных направлений";
 
   const formattedDate = exchangerInfo.openOnMoneySwap ? new Date(exchangerInfo.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";
+  const formattedClosedDate = exchangerInfo.closedOnMoneySwap ? new Date(exchangerInfo.closedOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
   return (
     <section className="flex flex-col gap-2">
@@ -26,7 +27,7 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
       <h1 className={`unbounded_font xl:text-3xl mobile-xl:text-xl text-base font-semibold uppercase ${exchangerInfo?.workStatus === ExchangerStatus.disabled ? "text-font-light-grey" : "text-yellow-main"}`}>
         {`${exchangerInfo?.name} ${markerText ? `— ${markerText}` : ""}`}
       </h1>
-      {exchangerInfo?.workStatus === ExchangerStatus.disabled && <h2 className="unbounded_font uppercase mobile-xl:text-sm text-xs text-white font-medium">Обменный пункт <span className="text-yellow-main font-semibold">{exchangerInfo.name}</span> с <span className="text-yellow-main font-semibold">{formattedDate}</span> отключён и больше не отображается на мониторинге MoneySwap.</h2>}
+      {exchangerInfo?.workStatus === ExchangerStatus.disabled && <h2 className="unbounded_font uppercase mobile-xl:text-sm text-xs text-white font-medium">Обменный пункт <span className="text-yellow-main font-semibold">{exchangerInfo.name}</span> с <span className="text-yellow-main font-semibold">{formattedClosedDate}</span> отключён и больше не отображается на мониторинге MoneySwap.</h2>}
     </section>
   );
 };

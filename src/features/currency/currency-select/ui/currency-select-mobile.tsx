@@ -3,7 +3,7 @@
 import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { useDeferredValue, useState } from "react";
-import { Currency, CurrencyCard, CurrencyResponse, SpecificValute } from "@/entities/currency";
+import { CurrencyCard, CurrencyResponse, SpecificValute } from "@/entities/currency";
 import { HeaderArrow } from "@/shared/assets";
 import { ExchangerMarker } from "@/shared/types";
 import {

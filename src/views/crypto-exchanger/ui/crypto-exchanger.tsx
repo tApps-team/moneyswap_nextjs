@@ -53,8 +53,9 @@ export const CryptoExchangerPage = async ({
       country: "Россия",
       amountReserves: "1000000",
       exchangeRates: 100,
-      open: "09:00",
-      openOnMoneySwap: "09:00",
+      open: "1 год 8 месяцев",
+      openOnMoneySwap: "2024-11-14T15:06:44.262543Z",
+      closedOnMoneySwap: "2024-11-14T15:06:44.262543Z",
       url: "https://test.com",
       high_aml: false,
     };

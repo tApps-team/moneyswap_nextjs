@@ -9,6 +9,7 @@ type ExchangerInfoProps = {
 export const ExchangerInfo = async (props: ExchangerInfoProps) => {
   const { exchangerDetails } = props;
   const formattedDate = exchangerDetails.openOnMoneySwap ? new Date(exchangerDetails.openOnMoneySwap).toLocaleDateString('ru-RU') : "---";
+  const formattedClosedDate = exchangerDetails.closedOnMoneySwap ? new Date(exchangerDetails.closedOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
   return (
     <section className="rounded-[15px] w-full grid grid-row-[auto,1fr] xl:gap-[50px] gap-[20px] bg-new-dark-grey xl:p-10 md:p-5 mobile:pb-7 mobile:px-6 mobile:pt-11 pb-5 pt-7 px-3">
@@ -89,7 +90,7 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
           <div className="rounded-[12px] col-span-2 bg-new-grey flex flex-col items-center justify-center p-4">
             <p className="md:text-base text-xs text-[#84868A] font-semibold">{exchangerDetails?.workStatus === ExchangerStatus.disabled ? "отключён от MONEYSWAP с" : "на MONEYSWAP с"}</p>
             <p className="text-yellow-main font-semibold">
-              {formattedDate || "---"}
+              {exchangerDetails?.workStatus === ExchangerStatus.disabled ? formattedClosedDate : formattedDate || "---"}
             </p>
           </div>
         </div>

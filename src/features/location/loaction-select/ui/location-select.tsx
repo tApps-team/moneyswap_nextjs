@@ -13,6 +13,7 @@ import {
   getSpecificCity,
 } from "@/entities/location";
 import { ArrowRightLineIcon, HeaderArrow, MobileCityArrowIcon } from "@/shared/assets";
+import { useYandexMetrika } from "@/shared/hooks";
 import { useDebounce } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { routes } from "@/shared/router";
@@ -50,7 +51,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const searchParamsCity = searchParams.get("city");
   const pathname = usePathname();
-
+  const { cashCountrySelect } = useYandexMetrika();
   const city = searchParamsCity ? searchParamsCity : pathname === routes.home ? "msk" : null;
   const [cityInfo, setCityInfo] = useState<LocationInfo | null>(null);
   useEffect(() => {
@@ -72,6 +73,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   // убрать очистку городов и пушить город в url
   const onClickCity = (city: City) => {
     setSelectCity(city);
+    cashCountrySelect();
   };
 
   const filteredCountries = useMemo(() => {

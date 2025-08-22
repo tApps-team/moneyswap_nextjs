@@ -37,8 +37,9 @@ export default async function Page({
         country: "Россия",
         amountReserves: "1000000",
         exchangeRates: 100,
-        open: "09:00",
-        openOnMoneySwap: "09:00",
+        open: "1 год 8 месяцев",
+        openOnMoneySwap: "2024-11-14T15:06:44.262543Z",
+        closedOnMoneySwap: "2024-11-14T15:06:44.262543Z",
         url: "https://test.com",
         high_aml: false,
       };
@@ -124,8 +125,9 @@ export async function generateMetadata(
             country: "Россия",
             amountReserves: "1000000",
             exchangeRates: 100,
-            open: "09:00",
-            openOnMoneySwap: "09:00",
+            open: "1 год 8 месяцев",
+            openOnMoneySwap: "2024-11-14T15:06:44.262543Z",
+            closedOnMoneySwap: "2024-11-14T15:06:44.262543Z",
             url: "https://test.com",
             high_aml: false,
           };
@@ -137,6 +139,7 @@ export async function generateMetadata(
     const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchangers}/exchanger-${exchangerId}__${marker}`;
 
     const formattedDate = exchangerDetails.openOnMoneySwap ? new Date(exchangerDetails.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";
+    const formattedClosedDate = exchangerDetails.closedOnMoneySwap ? new Date(exchangerDetails.closedOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
     const isPaginationPage = searchParams.page && Number(searchParams.page) > 1;
 
@@ -148,7 +151,7 @@ export async function generateMetadata(
           ? "обмен наличных и безналичных направлений" 
           : "обмен наличных и безналичных направлений";
 
-    const meta_description = exchangerDetails.workStatus === ExchangerStatus.disabled ? `С ${formattedDate} обменный пункт ${exchangerDetails.name} отключён от мониторинга MoneySwap. Это связано с внутренними правилами и возможными нарушениями. Для обмена валют выбирайте те сервисы, которые продолжают быть активными на платформе.` : `${exchangerDetails.name} — стабильный обменник криптовалют, активен на MoneySwap с ${formattedDate}. В данный момент доступен в ${exchangerDetails.exchangeRates || "___"} направлениях обмена валют. Уровень AML-риска оценивается как ${exchangerDetails.high_aml ? "высокий, что может означать дополнительные проверки и возможные задержки при обмене" : "низкий, что в большинстве случаев позволяет проводить операции без задержек"}`;
+    const meta_description = exchangerDetails.workStatus === ExchangerStatus.disabled ? `С ${formattedClosedDate} обменный пункт ${exchangerDetails.name} отключён от мониторинга MoneySwap. Это связано с внутренними правилами и возможными нарушениями. Для обмена валют выбирайте те сервисы, которые продолжают быть активными на платформе.` : `${exchangerDetails.name} — стабильный обменник криптовалют, активен на MoneySwap с ${formattedDate}. В данный момент доступен в ${exchangerDetails.exchangeRates || "___"} направлениях обмена валют. Уровень AML-риска оценивается как ${exchangerDetails.high_aml ? "высокий, что может означать дополнительные проверки и возможные задержки при обмене" : "низкий, что в большинстве случаев позволяет проводить операции без задержек"}`;
 
     return {
       title: `Обменный пункт ${exchangerDetails.name} ${markerText ? `— ${markerText}` : ""} | Отзывы на MoneySwap`,

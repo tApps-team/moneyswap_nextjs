@@ -36,7 +36,6 @@ type CurrencySelectProps = {
   currencyInfoGet?: SpecificValute | null;
   direction?: ExchangerMarker;
   amount?: number | null;
-  setAmount?: (amount: number) => void;
   actualCourse: number | null;
   type: "give" | "get";
   location_code_name?: string;
@@ -50,7 +49,6 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
     currencies,
     currencyInfoGive,
     currencyInfoGet,
-    setAmount,
     actualCourse,
     type,
     direction,

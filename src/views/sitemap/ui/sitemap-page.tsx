@@ -4,6 +4,8 @@ import { getExchangerList, getSitemapDirections } from "@/entities/exchanger";
 import { getAllArticles, getAllCategories, getAllTags } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 
+export const dynamic = 'force-dynamic';
+
 export const SitemapPage = async () => {
   // Выполняем все запросы параллельно
   const [directions, articles, categories, tags, exchangers] = await Promise.all([

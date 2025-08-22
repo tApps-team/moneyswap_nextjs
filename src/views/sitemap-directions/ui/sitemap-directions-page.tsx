@@ -4,6 +4,8 @@ import { DirectionsPagination } from "@/widgets/sitemap";
 import { getSitemapDirections } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
 
+export const dynamic = 'force-dynamic';
+
 export const SitemapDirectionsPage = async ({
   searchParams,
 }: {

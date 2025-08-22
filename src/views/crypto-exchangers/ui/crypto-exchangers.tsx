@@ -1,28 +1,15 @@
-import { DOMNode, Element } from "html-react-parser";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangerList } from "@/entities/exchanger";
+import { exchangersList } from "@/entities/exchanger/mockData";
 import { BtcIcon, CardIcon, EmptyWalletIcon, SearchIcon, TelegramIcon } from "@/shared/assets";
 import { products } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 
 export const revalidate = 60;
-const options = {
-  replace: (domNode: DOMNode) => {
-    // Проверяем, является ли узел элементом и его типом является img
-    if (domNode instanceof Element && domNode.name === "img") {
-      const { src, alt } = domNode.attribs;
-      return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
-    }
-    if (domNode instanceof Element && domNode.name === "br") {
-      return <hr />;
-    }
-  },
-};
 
 const CryptoTable = dynamic(
   () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.CryptoTable),
@@ -36,7 +23,8 @@ export const CryptoExchangersPage = async () => {
     getSpecificValute({ codeName: "BTC" }),
     getSpecificValute({ codeName: "SBERRUB" }),
     getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" }),
-    getExchangerList()
+    // getExchangerList()
+    exchangersList
   ]);
 
   return (

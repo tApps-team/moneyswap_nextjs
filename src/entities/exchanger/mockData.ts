@@ -1,5 +1,5 @@
-import { ExchangerStatus } from "@/shared/types";
-import { CryptoExchangerBlackList } from "./model/types/exchanger-type";
+import { ExchangerMarker, ExchangerStatus } from "@/shared/types";
+import { CryptoExchanger, CryptoExchangerBlackList } from "./model/types/exchanger-type";
 
 export const blackListExchangers: CryptoExchangerBlackList[] = [
   {
@@ -93,3 +93,76 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
     url: 'https://fraudbit.io'
   }
 ];
+
+export const exchangersList: CryptoExchanger[] = [
+  {
+    id: 1,
+    exchangerName: 'КриптоСкам',
+    exchange_marker: ExchangerMarker.partner,
+    workStatus: ExchangerStatus.active,
+    reserves: '1000000',
+    courses: '1000000',
+    url: 'https://cryptoscam.com',
+    reviews: {
+      positive: 10,
+      neutral: 0,
+      negative: 0,
+    },
+  },
+  {
+    id: 2,
+    exchangerName: 'КриптоСкам',
+    exchange_marker: ExchangerMarker.both,
+    workStatus: ExchangerStatus.disabled,
+    reserves: '1000000',
+    courses: '1000000',
+    url: 'https://cryptoscam.com',
+    reviews: {
+      positive: 10,
+      neutral: 0,
+      negative: 0,
+    },
+  },
+  {
+    id: 3,
+    exchangerName: 'КриптоСкам',
+    exchange_marker: ExchangerMarker.no_cash,
+    workStatus: ExchangerStatus.inactive,
+    reserves: '1000000',
+    courses: '1000000',
+    url: 'https://cryptoscam.com',
+    reviews: {
+      positive: 10,
+      neutral: 0,
+      negative: 0,
+    },
+  },
+  {
+    id: 4,
+    exchangerName: 'КриптоСкам',
+    exchange_marker: ExchangerMarker.cash,
+    workStatus: ExchangerStatus.disabled,
+    reserves: '1000000',
+    courses: '1000000',
+    url: 'https://cryptoscam.com',
+    reviews: {
+      positive: 10,
+      neutral: 0,
+      negative: 0,
+    },
+  },
+  {
+    id: 5,
+    exchangerName: 'КриптоСкам',
+    exchange_marker: ExchangerMarker.cash,
+    workStatus: ExchangerStatus.inactive,
+    reserves: '1000000',
+    courses: '1000000',
+    url: 'https://cryptoscam.com',
+    reviews: {
+      positive: 10,
+      neutral: 0,
+      negative: 0,
+    },
+  }
+]

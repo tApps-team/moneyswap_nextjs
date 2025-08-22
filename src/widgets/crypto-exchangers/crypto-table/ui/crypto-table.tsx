@@ -13,9 +13,9 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { cn } from "@/shared/lib";
-import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
+import { cn, useMediaQuery } from "@/shared/lib";
 import { routes } from "@/shared/router";
+import { ExchangerStatus } from "@/shared/types";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 import { cryptoColumns } from "../model/columns";
 import { CryptoTableColumns } from "../model/columns";
@@ -202,11 +202,11 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                   </p>
                   <p
                     className={cn(
-                      exchanger?.workStatus ? "text-yellow-main" : "text-[#FF6060]",
-                      "mobile-xl:text-base mobile:text-sm text-xs"
+                      exchanger?.workStatus === ExchangerStatus.active ? "text-yellow-main" : exchanger?.workStatus === ExchangerStatus.inactive ? "text-font-light-grey" : "text-[#FF0000]",
+                      "mobile-xl:text-base mobile:text-sm text-xs uppercase"
                     )}
                   >
-                    {exchanger?.workStatus ? "АКТИВЕН" : "НЕ АКТИВЕН"}
+                    {exchanger?.workStatus === ExchangerStatus.active ? "Активен" : exchanger?.workStatus === ExchangerStatus.inactive ? "Неактивен" : "Отключён"}
                   </p>
                 </div>
                 <Link

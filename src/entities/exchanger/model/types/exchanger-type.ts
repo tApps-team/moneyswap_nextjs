@@ -64,7 +64,7 @@ export type CryptoExchanger = {
   id: number;
   exchangerName: string;
   exchange_marker: ExchangerMarker;
-  workStatus: boolean;
+  workStatus: Exclude<ExchangerStatus, ExchangerStatus.scam>;
   reserves: string;
   courses: string;
   url: string;
@@ -91,6 +91,7 @@ export type ExchangerInfo = {
   exchangeRates: number;
   open: string;
   openOnMoneySwap: string;
+  closedOnMoneySwap: string | null;
   url: string;
   high_aml: boolean;
 };
