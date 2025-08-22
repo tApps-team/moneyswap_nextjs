@@ -4,7 +4,7 @@ import { CryptoExchanger, CryptoExchangerBlackList } from "./model/types/exchang
 export const blackListExchangers: CryptoExchangerBlackList[] = [
   {
     id: 1,
-    name: {
+    exchangerName: {
       ru: 'КриптоСкам',
       en: 'CryptoScam'
     },
@@ -13,7 +13,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 2,
-    name: {
+    exchangerName: {
       ru: 'МошенникЭкс',
       en: 'FraudEx'
     },
@@ -22,7 +22,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 3,
-    name: {
+    exchangerName: {
       ru: 'НенадежныйОбмен',
       en: 'UnreliableSwap'
     },
@@ -31,7 +31,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 4,
-    name: {
+    exchangerName: {
       ru: 'ПодозрительныйБит',
       en: 'SuspiciousBit'
     },
@@ -40,7 +40,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 5,
-    name: {
+    exchangerName: {
       ru: 'ЗакрытыйЭкс',
       en: 'ClosedEx'
     },
@@ -49,7 +49,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 6,
-    name: {
+    exchangerName: {
       ru: 'БитМошенник',
       en: 'BitFraud'
     },
@@ -58,7 +58,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 7,
-    name: {
+    exchangerName: {
       ru: 'СкамБит',
       en: 'ScamBit'
     },
@@ -67,7 +67,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 8,
-    name: {
+    exchangerName: {
       ru: 'НенадежныйКрипто',
       en: 'UnreliableCrypto'
     },
@@ -76,7 +76,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 9,
-    name: {
+    exchangerName: {
       ru: 'ПодозрительныйОбмен',
       en: 'SuspiciousSwap'
     },
@@ -85,7 +85,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
   },
   {
     id: 10,
-    name: {
+    exchangerName: {
       ru: 'МошенникБит',
       en: 'FraudBit'
     },
@@ -97,7 +97,10 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
 export const exchangersList: CryptoExchanger[] = [
   {
     id: 1,
-    exchangerName: 'КриптоСкам',
+    exchangerName: {
+      ru: 'КриптоСкам',
+      en: 'CryptoScam'
+    },
     exchange_marker: ExchangerMarker.partner,
     workStatus: ExchangerStatus.active,
     reserves: '1000000',
@@ -111,7 +114,10 @@ export const exchangersList: CryptoExchanger[] = [
   },
   {
     id: 2,
-    exchangerName: 'КриптоСкам',
+    exchangerName: {
+      ru: 'КриптоСкам',
+      en: 'CryptoScam'
+    },
     exchange_marker: ExchangerMarker.both,
     workStatus: ExchangerStatus.disabled,
     reserves: '1000000',
@@ -125,7 +131,10 @@ export const exchangersList: CryptoExchanger[] = [
   },
   {
     id: 3,
-    exchangerName: 'КриптоСкам',
+    exchangerName: {
+      ru: 'КриптоСкам',
+      en: 'CryptoScam'
+    },
     exchange_marker: ExchangerMarker.no_cash,
     workStatus: ExchangerStatus.inactive,
     reserves: '1000000',
@@ -139,7 +148,10 @@ export const exchangersList: CryptoExchanger[] = [
   },
   {
     id: 4,
-    exchangerName: 'КриптоСкам',
+    exchangerName: {
+      ru: 'КриптоСкам',
+      en: 'CryptoScam'
+    },
     exchange_marker: ExchangerMarker.cash,
     workStatus: ExchangerStatus.disabled,
     reserves: '1000000',
@@ -153,7 +165,10 @@ export const exchangersList: CryptoExchanger[] = [
   },
   {
     id: 5,
-    exchangerName: 'КриптоСкам',
+    exchangerName: {
+      ru: 'КриптоСкам',
+      en: 'CryptoScam'
+    },
     exchange_marker: ExchangerMarker.cash,
     workStatus: ExchangerStatus.inactive,
     reserves: '1000000',

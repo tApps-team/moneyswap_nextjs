@@ -62,7 +62,7 @@ export interface Bankomat {
 
 export type CryptoExchanger = {
   id: number;
-  exchangerName: string;
+  exchangerName: Name;
   exchange_marker: ExchangerMarker;
   workStatus: Exclude<ExchangerStatus, ExchangerStatus.scam>;
   reserves: string;
@@ -73,16 +73,13 @@ export type CryptoExchanger = {
 
 export type CryptoExchangerBlackList = {
   id: number;
-  name: {
-    ru: string;
-    en: string;
-  };
+  exchangerName: Name;
   exchange_marker: ExchangerStatus.scam;
   url: string;
 }
 
 export type ExchangerInfo = {
-  name: string;
+  exchangerName: Name;
   iconUrl: string;
   workStatus: Exclude<ExchangerStatus, ExchangerStatus.scam>;
   reviews: Review;

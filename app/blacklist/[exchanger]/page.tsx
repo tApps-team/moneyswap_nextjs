@@ -21,7 +21,7 @@ export default async function Page({
       // mock data
       const exchangerDetails: CryptoExchangerBlackList = {
         id: 1,
-        name: {ru: "тестовый обменник", en: "test exchange"},
+        exchangerName: {ru: "тестовый обменник", en: "test exchange"},
         exchange_marker: ExchangerStatus.scam,
         url: "https://test.com",
      }
@@ -31,7 +31,7 @@ export default async function Page({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": `${exchangerDetails.name?.ru} - заподозрен в мошеннических действиях. Пользователи сообщают, что после перевода средств обмен не производится, а служба поддержки либо игнорирует обращения, либо полностью пропадает. Будьте осторожны!`,
+    "name": `${exchangerDetails.exchangerName?.ru} - заподозрен в мошеннических действиях. Пользователи сообщают, что после перевода средств обмен не производится, а служба поддержки либо игнорирует обращения, либо полностью пропадает. Будьте осторожны!`,
   };
 
   return (
@@ -42,7 +42,7 @@ export default async function Page({
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <Breadcrumbs exchangerName={exchangerDetails?.name?.ru} />
+      <Breadcrumbs exchangerName={exchangerDetails?.exchangerName?.ru} />
       <BlacklistExchangerPage params={params} />
     </>
   );
@@ -70,7 +70,7 @@ export async function generateMetadata(
       // mock data
       const exchangerDetails: CryptoExchangerBlackList = {
           id: 1,
-          name: {ru: "тестовый обменник", en: "test exchange"},
+          exchangerName: {ru: "тестовый обменник", en: "test exchange"},
           exchange_marker: ExchangerStatus.scam,
           url: "https://test.com",
        }
@@ -82,12 +82,12 @@ export async function generateMetadata(
     const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blacklist}/exchanger-${exchangerId}__${marker}`;
 
     return {
-      title: `Обменник валют ${exchangerDetails?.name?.ru} — в черном списке на MoneySwap!`,
-      description: `MoneySwap предупреждает: обменник ${exchangerDetails?.name?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств.`,
+      title: `Обменник валют ${exchangerDetails?.exchangerName?.ru} — в черном списке на MoneySwap!`,
+      description: `MoneySwap предупреждает: обменник ${exchangerDetails?.exchangerName?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств.`,
       metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
       openGraph: {
-        title: `Обменник валют ${exchangerDetails?.name?.ru} — в черном списке на MoneySwap!`,
-        description: `MoneySwap предупреждает: обменник ${exchangerDetails?.name?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств.`,
+        title: `Обменник валют ${exchangerDetails?.exchangerName?.ru} — в черном списке на MoneySwap!`,
+        description: `MoneySwap предупреждает: обменник ${exchangerDetails?.exchangerName?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств.`,
         url: canonicalUrl,
         siteName: "MoneySwap",
         locale: "ru-RU",

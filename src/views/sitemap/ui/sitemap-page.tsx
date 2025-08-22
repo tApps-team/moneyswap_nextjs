@@ -59,8 +59,8 @@ export const SitemapPage = async () => {
               pathname: `${routes.exchangers}/exchanger-${exchanger.id}__${exchanger.exchange_marker}`,
             }}
           >
-            Обменный пункт {exchanger?.exchangerName}
-          </Link>
+            Обменный пункт {exchanger?.exchangerName.ru}
+          </Link> 
         ))}
       </div>
       <div className="flex flex-col gap-2 text-sm">
@@ -74,7 +74,7 @@ export const SitemapPage = async () => {
               pathname: `${routes.blacklist}/exchanger-${exchanger.id}__${exchanger.exchange_marker}`,
             }}
           >
-            Обменный пункт {exchanger?.exchangerName}
+            Обменный пункт {exchanger?.exchangerName.ru}
           </Link>
         ))}
       </div>

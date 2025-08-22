@@ -28,7 +28,7 @@ export const BlacklistExchangerPage = async ({
     // mock data
     const exchangerDetails: CryptoExchangerBlackList = {
       id: 1,
-      name: {ru: "тестовый обменник", en: "test exchange"},
+      exchangerName: {ru: "тестовый обменник", en: "test exchange"},
       exchange_marker: ExchangerStatus.scam,
       url: "https://test.com",
    }
@@ -45,10 +45,10 @@ export const BlacklistExchangerPage = async ({
             Обменный пункт 
           </p>
           <h1 className="unbounded_font xl:text-3xl mobile-xl:text-xl text-base text-red-500 font-semibold uppercase">
-            {`${exchangerDetails?.name?.ru} — в черном списке`}
+            {`${exchangerDetails?.exchangerName?.ru} — в черном списке`}
           </h1>
           <h2 className="unbounded_font text-sm font-medium uppercase text-[#7A7C80]">
-            {`Обменник ${exchangerDetails?.name?.ru} (сайт: ${exchangerDetails?.url}) замечен в мошеннических действиях.`}
+            {`Обменник ${exchangerDetails?.exchangerName?.ru} (сайт: ${exchangerDetails?.url}) замечен в мошеннических действиях.`}
           </h2>
           </div>
             <div className="bg-orange-900/5 border border-orange-600/30 rounded-lg p-4">
@@ -76,7 +76,7 @@ export const BlacklistExchangerPage = async ({
                 </div>
 
                 <p className="unbounded_font text-yellow-main uppercase mobile-xl:text-base text-sm">
-                  <strong>Внимание!</strong> Команда MoneySwap настоятельно не рекомендует пользоваться услугами {exchangerDetails?.name?.ru}, чтобы не потерять средства.
+                  <strong>Внимание!</strong> Команда MoneySwap настоятельно не рекомендует пользоваться услугами {exchangerDetails?.exchangerName?.ru}, чтобы не потерять средства.
                 </p>
 
         </section>

@@ -144,7 +144,7 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
 // Упрощенные колонки для blacklist страницы
 export const blacklistColumns: ColumnDef<CryptoExchangerBlackList>[] = [
   {
-    accessorFn: (row) => row.name.ru,
+    accessorFn: (row) => row.exchangerName.ru,
     id: "name",
     header: () => {
       return (
@@ -156,7 +156,7 @@ export const blacklistColumns: ColumnDef<CryptoExchangerBlackList>[] = [
     },
     cell: ({ row }) => (
       <p className="leading-none font-semibold xl:text-xl text-base truncate w-[30vw]">
-        {row.original.name.ru}
+        {row.original.exchangerName.ru}
       </p>
     ),
   },

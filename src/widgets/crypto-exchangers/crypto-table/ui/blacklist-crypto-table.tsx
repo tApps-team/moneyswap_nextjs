@@ -27,7 +27,7 @@ export function BlacklistCryptoTable(props: DataTableProps) {
 
   useEffect(() => {
     const filtered = data.filter((item) => 
-      item.name.ru.toLowerCase().includes(searchValue.toLowerCase())
+      item.exchangerName.ru.toLowerCase().includes(searchValue.toLowerCase())
     );
     setFilteredData(filtered);
     setPagination(prev => ({ ...prev, pageIndex: 0 }));

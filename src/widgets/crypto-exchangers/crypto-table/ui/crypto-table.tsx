@@ -46,7 +46,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
 
   useEffect(() => {
     const filtered = data.filter((item) => 
-      item.exchangerName.toLowerCase().includes(searchValue.toLowerCase())
+      item.exchangerName.ru.toLowerCase().includes(searchValue.toLowerCase())
     );
     setFilteredData(filtered);
     setCurrentPage(0);
@@ -192,13 +192,13 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
         <div className="flex flex-col gap-2.5 text-white">
           {paginatedData.length > 0 ? paginatedData.map((exchanger) => (
             <div
-              key={exchanger.id + exchanger.exchangerName}
+              key={exchanger.id + exchanger.exchangerName.ru}
               className="flex flex-col gap-2.5 justify-between mobile:p-5 p-4 bg-new-dark-grey rounded-[15px]"
             >
               <div className="flex w-full items-center justify-between">
                 <div className="flex flex-col items-start">
                   <p className="max-w-[45vw] text-base font-semibold truncate">
-                    {exchanger?.exchangerName}
+                    {exchanger?.exchangerName.ru}
                   </p>
                   <p
                     className={cn(

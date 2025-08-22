@@ -25,9 +25,9 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
         Обменный пункт
       </p>
       <h1 className={`unbounded_font xl:text-3xl mobile-xl:text-xl text-base font-semibold uppercase ${exchangerInfo?.workStatus === ExchangerStatus.disabled ? "text-font-light-grey" : "text-yellow-main"}`}>
-        {`${exchangerInfo?.name} ${markerText ? `— ${markerText}` : ""}`}
+        {`${exchangerInfo?.exchangerName.ru} ${markerText ? `— ${markerText}` : ""}`}
       </h1>
-      {exchangerInfo?.workStatus === ExchangerStatus.disabled && <h2 className="unbounded_font uppercase mobile-xl:text-sm text-xs text-white font-medium">Обменный пункт <span className="text-yellow-main font-semibold">{exchangerInfo.name}</span> с <span className="text-yellow-main font-semibold">{formattedClosedDate}</span> отключён и больше не отображается на мониторинге MoneySwap.</h2>}
+      {exchangerInfo?.workStatus === ExchangerStatus.disabled && <h2 className="unbounded_font uppercase mobile-xl:text-sm text-xs text-white font-medium">Обменный пункт <span className="text-yellow-main font-semibold">{exchangerInfo.exchangerName.ru}</span> с <span className="text-yellow-main font-semibold">{formattedClosedDate}</span> отключён и больше не отображается на мониторинге MoneySwap.</h2>}
     </section>
   );
 };
@@ -50,7 +50,7 @@ export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) =
       {exchangerInfo?.workStatus === ExchangerStatus.inactive && (
         <div className="grid grid-flow-row mobile-xl:gap-6 gap-4 bg-new-dark-grey rounded-[15px] mobile-xl:p-6 p-3">
           <h3 className="text-font-light-grey font-semibold mobile-xl:text-base text-sm">
-            В данный момент обменник {exchangerInfo.name} <span className="font-semibold underline">временно недоступен</span>. Это может быть связано с техническими причинами, среди которых:
+            В данный момент обменник {exchangerInfo.exchangerName.ru} <span className="font-semibold underline">временно недоступен</span>. Это может быть связано с техническими причинами, среди которых:
           </h3>
           <ul className="space-y-2 mobile-xl:text-base text-sm font-medium">
             <li>— обновление или технические работы</li>
@@ -59,7 +59,7 @@ export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) =
             <li>— проблемы с резервами или передачей данных в мониторинг</li>
           </ul>
           <p className="text-yellow-main font-semibold mobile-xl:text-base text-sm">
-            После устранения неполадок {exchangerInfo.name} снова появится в списке активных.
+            После устранения неполадок {exchangerInfo.exchangerName.ru} снова появится в списке активных.
           </p>
         </div>
       )}
@@ -88,19 +88,19 @@ export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) =
           </p>
 
           <p>
-          Мы рекомендуем дополнительно проверять информацию об <span className="text-yellow-main font-semibold">{exchangerInfo.name}</span> через независимые источники, так как с момента отключения мониторинг не сможет оказать помощь или выступить посредником в случае спорных ситуаций.
+          Мы рекомендуем дополнительно проверять информацию об <span className="text-yellow-main font-semibold">{exchangerInfo.exchangerName.ru}</span> через независимые источники, так как с момента отключения мониторинг не сможет оказать помощь или выступить посредником в случае спорных ситуаций.
           </p>
         </div>
       ) : (
         <div className="grid grid-flow-row gap-4 lg:text-lg md:text-base text-white text-sm font-normal">
           <h2>
-            <span className="text-yellow-main font-semibold">{exchangerInfo.name}</span> — проверенный обменник криптовалют{markerText ? `, совершает ${markerText}` : ""}, размещён на MoneySwap с {formattedDate}. За это время он рекомендовал себя, как стабильный обменный сервис. Сейчас {exchangerInfo.name} активен в {exchangerInfo.exchangeRates || "___"} направлений обмена.
+            <span className="text-yellow-main font-semibold">{exchangerInfo.exchangerName.ru}</span> — проверенный обменник криптовалют{markerText ? `, совершает ${markerText}` : ""}, размещён на MoneySwap с {formattedDate}. За это время он рекомендовал себя, как стабильный обменный сервис. Сейчас {exchangerInfo.exchangerName.ru} активен в {exchangerInfo.exchangeRates || "___"} направлений обмена.
           </h2>
 
           {isAmlActive && (
             <div className="grid grid-flow-row gap-4">
               <p>
-                У каждого обменника на платформе указан уровень надёжности — {exchangerInfo.name} имеет <span className={`${exchangerInfo.high_aml ? "text-red-500" : "text-green-500"}`}>{exchangerInfo.high_aml ? "HIGH" : "LOW"}</span> AML-риск.
+                У каждого обменника на платформе указан уровень надёжности — {exchangerInfo.exchangerName.ru} имеет <span className={`${exchangerInfo.high_aml ? "text-red-500" : "text-green-500"}`}>{exchangerInfo.high_aml ? "HIGH" : "LOW"}</span> AML-риск.
               </p>
               <p className="font-bold">Что значит AML-риск?</p>
               <p>

@@ -42,7 +42,7 @@ export const CryptoExchangerPage = async ({
 
     // mock data
     const exchangerDetails: ExchangerInfoType = {
-      name: "тестовый обменник",
+      exchangerName: {ru: "тестовый обменник", en: "test exchange"},
       iconUrl: "",
       workStatus: ExchangerStatus.disabled,
       reviews: {
@@ -70,7 +70,7 @@ export const CryptoExchangerPage = async ({
         exchange_marker: marker as ExchangerMarker,
       }),
       reviewsByExchange({
-        exchange_name: exchangerDetails?.name,
+        exchange_name: exchangerDetails?.exchangerName.ru,
         page: currentPage,
         grade_filter: searchParams?.grade,
         element_on_page: reviews_on_page,
@@ -85,7 +85,7 @@ export const CryptoExchangerPage = async ({
             <ExchangerInfo exchangerDetails={exchangerDetails} />
             <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} marker={marker as ExchangerMarker} />
             <ExchangerReviews
-              exchanger_name={exchangerDetails?.name}
+              exchanger_name={exchangerDetails?.exchangerName.ru}
               reviewCount={exchangerDetails.reviews}
               totalPages={reviews.pages}
               reviews={reviews.content}

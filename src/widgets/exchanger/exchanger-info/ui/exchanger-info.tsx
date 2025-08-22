@@ -24,12 +24,12 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
               height={224}
               className="md:size-32 mobile-xl:size-24 size-16 rounded-full"
               src={exchangerDetails.iconUrl}
-              alt={`icon exchnager ${exchangerDetails?.name}`}
+              alt={`icon exchnager ${exchangerDetails?.exchangerName.ru}`}
             />
           )}
           <div className="grid grid-flow-row gap-3 md:content-normal content-center justify-start">
             <p className="unbounded_font font-semibold md:text-xl mobile-xl:text-3xl mobile:text-xl text-base md:text-white text-yellow-main truncate md:max-w-[10vw] max-w-full">
-              {exchangerDetails?.name}
+              {exchangerDetails?.exchangerName.ru}
             </p>
             <h2 className="block md:hidden mobile-xl:text-base mobile:text-sm text-xs font-semibold">
               Общая информация об обменнике
