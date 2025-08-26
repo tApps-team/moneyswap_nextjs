@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlacklistExchangerPage } from "@/views/blacklist-exchanger";
-import { CryptoExchangerBlackList } from "@/entities/exchanger";
+import { getBlackListDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
-import { ExchangerStatus } from "@/shared/types";
+import { ExchangerMarker } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
 export const dynamic = 'force-dynamic';
@@ -18,14 +18,10 @@ export default async function Page({
   const [exchangerId, marker] = params.exchanger.split('__');
   if (!exchangerId || !marker) return notFound();
 
-      // mock data
-      const exchangerDetails: CryptoExchangerBlackList = {
-        id: 1,
-        exchangerName: {ru: "тестовый обменник", en: "test exchange"},
-        exchange_marker: ExchangerStatus.scam,
-        url: "https://test.com",
-     }
-
+  const exchangerDetails = await getBlackListDetails({
+    exchange_id: parseInt(exchangerId),
+    exchange_marker: marker as ExchangerMarker,
+  });
   if (!exchangerDetails) return notFound();
 
   const jsonLd = {
@@ -66,14 +62,10 @@ export async function generateMetadata(
   }
 
   try {
-
-      // mock data
-      const exchangerDetails: CryptoExchangerBlackList = {
-          id: 1,
-          exchangerName: {ru: "тестовый обменник", en: "test exchange"},
-          exchange_marker: ExchangerStatus.scam,
-          url: "https://test.com",
-       }
+    const exchangerDetails = await getBlackListDetails({
+      exchange_id: parseInt(exchangerId),
+      exchange_marker: marker as ExchangerMarker,
+    });
 
     if (!exchangerDetails) {
       return notFound();

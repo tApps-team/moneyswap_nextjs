@@ -202,11 +202,11 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
                   </p>
                   <p
                     className={cn(
-                      exchanger?.workStatus === ExchangerStatus.active ? "text-yellow-main" : exchanger?.workStatus === ExchangerStatus.inactive ? "text-font-light-grey" : "text-[#FF0000]",
+                      exchanger?.workStatus === ExchangerStatus.active ? "text-yellow-main" : exchanger?.workStatus === ExchangerStatus.inactive ? "text-font-light-grey" : exchanger?.workStatus === ExchangerStatus.disabled ? "text-[#FF0000]" : "text-[#FF0000]",
                       "mobile-xl:text-base mobile:text-sm text-xs uppercase"
                     )}
                   >
-                    {exchanger?.workStatus === ExchangerStatus.active ? "Активен" : exchanger?.workStatus === ExchangerStatus.inactive ? "Неактивен" : "Отключён"}
+                    {exchanger?.workStatus === ExchangerStatus.active ? "Активен" : exchanger?.workStatus === ExchangerStatus.inactive ? "Неактивен" : exchanger?.workStatus === ExchangerStatus.disabled ? "Отключён" : "___"}
                   </p>
                 </div>
                 <Link

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CryptoExchangerBlackList } from "@/entities/exchanger";
+import { getBlackListDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
-import { ExchangerStatus } from "@/shared/types";
+import { ExchangerMarker } from "@/shared/types";
 
 export const BlacklistExchangerPage = async ({
   params,
@@ -20,18 +20,10 @@ export const BlacklistExchangerPage = async ({
   }
 
   try {
-    // const exchangerDetails = await getExchangerDetails({
-    //   exchange_id: Number(exchangerId),
-    //   exchange_marker: marker as ExchangerMarker,
-    // });
-
-    // mock data
-    const exchangerDetails: CryptoExchangerBlackList = {
-      id: 1,
-      exchangerName: {ru: "тестовый обменник", en: "test exchange"},
-      exchange_marker: ExchangerStatus.scam,
-      url: "https://test.com",
-   }
+    const exchangerDetails = await getBlackListDetails({
+      exchange_id: Number(exchangerId),
+      exchange_marker: marker as ExchangerMarker,
+    });
 
     if (!exchangerDetails) {
       return notFound();
@@ -47,7 +39,7 @@ export const BlacklistExchangerPage = async ({
           <h1 className="unbounded_font xl:text-3xl mobile-xl:text-xl text-base text-red-500 font-semibold uppercase">
             {`${exchangerDetails?.exchangerName?.ru} — в черном списке`}
           </h1>
-          <h2 className="unbounded_font text-sm font-medium uppercase text-[#7A7C80]">
+          <h2 className="unbounded_font mobile-xl:text-sm text-xs font-medium uppercase text-[#7A7C80]">
             {`Обменник ${exchangerDetails?.exchangerName?.ru} (сайт: ${exchangerDetails?.url}) замечен в мошеннических действиях.`}
           </h2>
           </div>
@@ -75,7 +67,7 @@ export const BlacklistExchangerPage = async ({
                 Часто такие обменники привлекают подозрительно выгодными условиями — курс может быть на уровне рыночного или даже ниже, чтобы вызвать доверие и подтолкнуть к быстрой оплате.
                 </div>
 
-                <p className="unbounded_font text-yellow-main uppercase mobile-xl:text-base text-sm">
+                <p className="unbounded_font text-yellow-main uppercase mobile-xl:text-sm text-xs">
                   <strong>Внимание!</strong> Команда MoneySwap настоятельно не рекомендует пользоваться услугами {exchangerDetails?.exchangerName?.ru}, чтобы не потерять средства.
                 </p>
 

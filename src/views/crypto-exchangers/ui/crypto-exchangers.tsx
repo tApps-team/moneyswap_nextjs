@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangerList } from "@/entities/exchanger";
-import { exchangersList } from "@/entities/exchanger/mockData";
 import { BtcIcon, CardIcon, EmptyWalletIcon, SearchIcon, TelegramIcon } from "@/shared/assets";
 import { products } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
@@ -23,8 +22,7 @@ export const CryptoExchangersPage = async () => {
     getSpecificValute({ codeName: "BTC" }),
     getSpecificValute({ codeName: "SBERRUB" }),
     getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" }),
-    // getExchangerList()
-    exchangersList
+    getExchangerList()
   ]);
 
   return (

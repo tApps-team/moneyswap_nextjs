@@ -1,9 +1,12 @@
 import { apiClient } from "@/shared/api";
 import {
+  GetBlackListDetailDtoRequest,
+  GetBlackListDetailDtoResponse,
+  GetBlackListDtoResponse,
   GetExchangeListDtoResponse,
   GetExchangersDtoRequest,
   GetExchangersDtoResponse,
-  GetExchnagerDetailDtoRequset,
+  GetExchnagerDetailDtoRequest,
   GetExchnagerDetailDtoResponse,
   GetSimilarDirectionDtoRequset,
   GetSimilarDirectionDtoResponse,
@@ -63,16 +66,38 @@ export const getSimilarDirections = async (
   const data = await res.json();
   return data;
 };
+
 export const getExchangerList = async () => {
-  const url = `/api/exchange_list`;
+  const url = `/api/test/exchange_list`;
   const response = await apiClient.get<GetExchangeListDtoResponse>(url);
   return response;
 };
 
-export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequset) => {
-  const url = `/api/exchange_detail`;
+export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequest) => {
+  const url = `/api/test/exchange_detail`;
   try {
     const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props, "no-store");
+    // Если твой apiClient.get возвращает объект с полем status
+    if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
+      return null;
+    }
+    return response;
+  } catch (error) {
+    console.error("getExchangerDetails error:", error);
+    return null;
+  }
+};
+
+export const getBlackList = async () => {
+  const url = `/api/exchangers_blacklist`;
+  const response = await apiClient.get<GetBlackListDtoResponse>(url);
+  return response;
+};
+
+export const getBlackListDetails = async (props: GetBlackListDetailDtoRequest) => {
+  const url = `/api/exchange_blacklist_detail`;
+  try {
+    const response = await apiClient.get<GetBlackListDetailDtoResponse>(url, props, "no-store");
     // Если твой apiClient.get возвращает объект с полем status
     if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
       return null;

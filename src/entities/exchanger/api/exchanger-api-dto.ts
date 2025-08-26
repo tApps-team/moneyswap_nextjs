@@ -1,5 +1,5 @@
 import { ExchangerMarker, Name } from "@/shared/types";
-import { CryptoExchanger, Exchanger, ExchangerInfo } from "../model/types/exchanger-type";
+import { CryptoExchanger, CryptoExchangerBlackList, Exchanger, ExchangerInfo } from "../model/types/exchanger-type";
 
 export type GetExchangersDtoRequest = {
   city?: string;
@@ -32,7 +32,16 @@ export type GetExchangeListDtoResponse = CryptoExchanger[];
 export type GetExchangeListDtoRequest = {};
 
 export type GetExchnagerDetailDtoResponse = ExchangerInfo;
-export type GetExchnagerDetailDtoRequset = {
+export type GetExchnagerDetailDtoRequest = {
+  exchange_id: number;
+  exchange_marker: ExchangerMarker;
+};
+
+export type GetBlackListDtoResponse = CryptoExchangerBlackList[];
+export type GetBlackListDtoRequest = {};
+
+export type GetBlackListDetailDtoResponse = CryptoExchangerBlackList;
+export type GetBlackListDetailDtoRequest = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
 };

@@ -8,7 +8,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'КриптоСкам',
       en: 'CryptoScam'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.both,
     url: 'https://cryptoscam.com'
   },
   {
@@ -17,7 +17,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'МошенникЭкс',
       en: 'FraudEx'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.no_cash,
     url: 'https://fraudex.net'
   },
   {
@@ -26,7 +26,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'НенадежныйОбмен',
       en: 'UnreliableSwap'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.cash,
     url: 'https://unreliableswap.io'
   },
   {
@@ -35,7 +35,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'ПодозрительныйБит',
       en: 'SuspiciousBit'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.partner,
     url: 'https://suspiciousbit.com'
   },
   {
@@ -44,7 +44,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'ЗакрытыйЭкс',
       en: 'ClosedEx'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.partner,
     url: 'https://closedex.org'
   },
   {
@@ -53,7 +53,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'БитМошенник',
       en: 'BitFraud'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.no_cash,
     url: 'https://bitfraud.co'
   },
   {
@@ -62,7 +62,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'СкамБит',
       en: 'ScamBit'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.both,
     url: 'https://scambit.ru'
   },
   {
@@ -71,7 +71,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'НенадежныйКрипто',
       en: 'UnreliableCrypto'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.no_cash,
     url: 'https://unreliablecrypto.net'
   },
   {
@@ -80,7 +80,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'ПодозрительныйОбмен',
       en: 'SuspiciousSwap'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.no_cash,
     url: 'https://suspiciousswap.com'
   },
   {
@@ -89,7 +89,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       ru: 'МошенникБит',
       en: 'FraudBit'
     },
-    exchange_marker: ExchangerStatus.scam,
+    exchange_marker: ExchangerMarker.cash,
     url: 'https://fraudbit.io'
   }
 ];

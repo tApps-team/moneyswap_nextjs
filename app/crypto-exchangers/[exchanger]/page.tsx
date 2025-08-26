@@ -1,7 +1,7 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import { CryptoExchangerPage } from "@/views/crypto-exchanger";
-import { ExchangerInfo, getExchangerDetails } from "@/entities/exchanger";
+import { getExchangerDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
 import { ExchangerMarker, ExchangerStatus } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
@@ -19,30 +19,10 @@ export default async function Page({
   const [exchangerId, marker] = params.exchanger.split('__');
   if (!exchangerId || !marker) return notFound();
 
-  // const exchangerDetails = await getExchangerDetails({
-  //   exchange_id: Number(exchangerId),
-  //   exchange_marker: marker as ExchangerMarker,
-  // });
-
-      // mock data
-      const exchangerDetails: ExchangerInfo = {
-        exchangerName: {ru: "тестовый обменник", en: "test exchange"},
-        iconUrl: "",
-        workStatus: ExchangerStatus.disabled,
-        reviews: {
-          positive: 10,
-          neutral: 0,
-          negative: 0,
-        },
-        country: "Россия",
-        amountReserves: "1000000",
-        exchangeRates: 100,
-        open: "1 год 8 месяцев",
-        openOnMoneySwap: "2024-11-14T15:06:44.262543Z",
-        closedOnMoneySwap: "2024-11-14T15:06:44.262543Z",
-        url: "https://test.com",
-        high_aml: false,
-      };
+  const exchangerDetails = await getExchangerDetails({
+    exchange_id: Number(exchangerId),
+    exchange_marker: marker as ExchangerMarker,
+  });
 
   if (!exchangerDetails) return notFound();
   
@@ -107,30 +87,10 @@ export async function generateMetadata(
   }
 
   try {
-    // const exchangerDetails = await getExchangerDetails({
-    //   exchange_id: Number(exchangerId),
-    //   exchange_marker: marker as ExchangerMarker,
-    // });
-
-          // mock data
-          const exchangerDetails: ExchangerInfo = {
-            exchangerName: {ru: "тестовый обменник", en: "test exchange"},
-            iconUrl: "",
-            workStatus: ExchangerStatus.disabled,
-            reviews: {
-              positive: 10,
-              neutral: 0,
-              negative: 0,
-            },
-            country: "Россия",
-            amountReserves: "1000000",
-            exchangeRates: 100,
-            open: "1 год 8 месяцев",
-            openOnMoneySwap: "2024-11-14T15:06:44.262543Z",
-            closedOnMoneySwap: "2024-11-14T15:06:44.262543Z",
-            url: "https://test.com",
-            high_aml: false,
-          };
+    const exchangerDetails = await getExchangerDetails({
+      exchange_id: Number(exchangerId),
+      exchange_marker: marker as ExchangerMarker,
+    });
 
     if (!exchangerDetails) {
       return notFound();

@@ -1,7 +1,7 @@
 import { Ban, Lightbulb, HeartHandshake } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { blackListExchangers } from "@/entities/exchanger/mockData";
+import { getBlackList } from "@/entities/exchanger";
 import { SearchIcon } from "@/shared/assets";
 
 export const revalidate = 60;
@@ -14,8 +14,8 @@ const BlacklistCryptoTable = dynamic(
 );
 export const BlacklistPage = async () => {
   // Выполняем все запросы параллельно
-  const [cryptoExchangers] = await Promise.all([
-    blackListExchangers
+  const [blackList] = await Promise.all([
+    getBlackList(),
   ]);
 
   return (
@@ -30,7 +30,7 @@ export const BlacklistPage = async () => {
           </h2>
       </div>
       <Suspense fallback={<div>loading</div>}>
-        <BlacklistCryptoTable data={cryptoExchangers} />
+        <BlacklistCryptoTable data={blackList} />
       </Suspense>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-flow-row gap-5">
         <div className="bg-new-dark-grey rounded-[15px] lg:p-10 md:p-8 p-5 grid mobile-xl:grid-rows-[auto,auto,1fr] grid-rows-[auto,1fr] mobile-xl:gap-[30px] gap-5 justify-start">

@@ -74,8 +74,9 @@ export type CryptoExchanger = {
 export type CryptoExchangerBlackList = {
   id: number;
   exchangerName: Name;
-  exchange_marker: ExchangerStatus.scam;
+  exchange_marker: ExchangerMarker;
   url: string;
+  iconUrl?: string;
 }
 
 export type ExchangerInfo = {

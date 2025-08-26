@@ -1,26 +1,24 @@
 import { Metadata } from "next";
 import { BlacklistPage } from "@/views/blacklist";
-import { getExchangerList } from "@/entities/exchanger";
-import { blackListExchangers } from "@/entities/exchanger/mockData";
+import { getBlackList } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
 import { Breadcrumbs } from "@/shared/ui";
 
 export default async function Page() {
-  // const exchangers = await getExchangerList();
-  const exchangers = blackListExchangers;
+  const blackList = await getBlackList();
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Осторожно мошенники! Черный список криптообменников на MoneySwap",
     "description": "Перечень обменников, сайтов, бирж, телеграм-каналов, групп, аккаунтов, которые заподозрены в совершении мошеннических действий, обмане пользователей или других незаконных действиях.",
-    "itemListElement": exchangers.map((exchanger, idx) => ({
+    "itemListElement": blackList.map((exchanger, idx) => ({
       "@type": "ListItem",
       "position": idx + 1,
       "item": {
         "@type": "Organization",
-        "name": exchanger.exchangerName.ru,
-        "url": exchanger.url,
+        "name": exchanger?.exchangerName?.ru,
+        "url": exchanger?.url || "",
       }
     }))
   };

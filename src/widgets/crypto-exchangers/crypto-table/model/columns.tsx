@@ -12,7 +12,8 @@ export type CryptoTableColumnsBlackList = CryptoExchangerBlackList;
 
 export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
   {
-    accessorKey: "exchangerName",
+    accessorFn: (row) => row.exchangerName?.ru,
+    id: "exchangerName",
     header: ({ column }) => {
       return (
         <button
@@ -29,18 +30,44 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
       );
     },
     cell: ({ row }) => (
-      <p className="leading-none font-semibold xl:text-xl text-base truncate max-w-[18vw]">
-        {row.getValue("exchangerName")}
+      <p className="leading-none font-semibold xl:text-xl text-base truncate w-[18vw]">
+        {row.original?.exchangerName?.ru}
       </p>
     ),
   },
   {
     accessorKey: "workStatus",
-    header: "СТАТУС",
-    cell: ({ row }) => {
-      const workStatus = row.original.workStatus === ExchangerStatus.active ? "Активен" : row.original.workStatus === ExchangerStatus.inactive ? "Неактивен" : "Отключён";
+    header: ({ column }) => {
       return (
-        <p className={`leading-none uppercase xl:text-xl text-base truncate ${row.original.workStatus === ExchangerStatus.active ? "text-yellow-main" : row.original.workStatus === ExchangerStatus.inactive ? "text-font-light-grey" : "text-[#FF0000]"}`}>
+        <button
+          className="leading-none flex items-center uppercase"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          СТАТУС
+          {column.getIsSorted() === "asc" ? (
+            <ChevronDown className="ml-2 h-5 w-5" />
+          ) : (
+            <ChevronUp className="ml-2 h-5 w-5" />
+          )}
+        </button>
+      );
+    },
+    sortingFn: (rowA, rowB) => {
+      const statusOrder = {
+        [ExchangerStatus.active]: 1,
+        [ExchangerStatus.inactive]: 2,
+        [ExchangerStatus.disabled]: 3,
+      };
+      
+      const a = statusOrder[rowA.original.workStatus] || 0;
+      const b = statusOrder[rowB.original.workStatus] || 0;
+      
+      return a - b;
+    },
+    cell: ({ row }) => {
+      const workStatus = row.original.workStatus === ExchangerStatus.active ? "Активен" : row.original.workStatus == ExchangerStatus.inactive ? "Неактивен" : row.original.workStatus === ExchangerStatus.disabled ? "Отключён" : "___";
+      return (
+        <p className={`leading-none uppercase xl:text-xl text-base truncate ${row.original.workStatus === ExchangerStatus.active ? "text-yellow-main" : row.original.workStatus === ExchangerStatus.inactive ? "text-font-light-grey" : row.original.workStatus === ExchangerStatus.disabled ? "text-[#FF0000]" : "text-[#FF0000]"}`}>
           {workStatus}
         </p>
       );
@@ -144,8 +171,8 @@ export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
 // Упрощенные колонки для blacklist страницы
 export const blacklistColumns: ColumnDef<CryptoExchangerBlackList>[] = [
   {
-    accessorFn: (row) => row.exchangerName.ru,
-    id: "name",
+    accessorFn: (row) => row.exchangerName?.ru,
+    id: "exchangerName",
     header: () => {
       return (
         <p
@@ -156,7 +183,7 @@ export const blacklistColumns: ColumnDef<CryptoExchangerBlackList>[] = [
     },
     cell: ({ row }) => (
       <p className="leading-none font-semibold xl:text-xl text-base truncate w-[30vw]">
-        {row.original.exchangerName.ru}
+        {row.original?.exchangerName?.ru}
       </p>
     ),
   },
