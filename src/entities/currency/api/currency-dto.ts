@@ -1,10 +1,8 @@
-//TODO Исправить импорт
 // eslint-disable-next-line boundaries/element-types
 import { ExchangerMarker } from "@/shared/types";
 import {
   CurrencyPair,
   CurrencyResponse,
-  ExchangeType,
   SpecificValute,
 } from "../model/types/currencyType";
 
@@ -21,7 +19,7 @@ export type GetSpecificValuteRequest = {
 
 //popular and random directions
 export type GetDirectionsRequest = {
-  exchange_marker: ExchangeType;
+  exchange_marker: Exclude<ExchangerMarker, ExchangerMarker.partner | ExchangerMarker.both>;
   limit: number;
 };
 

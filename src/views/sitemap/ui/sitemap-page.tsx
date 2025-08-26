@@ -4,6 +4,8 @@ import { getExchangerList, getSitemapDirections } from "@/entities/exchanger";
 import { getAllArticles, getAllCategories, getAllTags } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 
+export const dynamic = 'force-dynamic';
+
 export const SitemapPage = async () => {
   // Выполняем все запросы параллельно
   const [directions, articles, categories, tags, exchangers] = await Promise.all([
@@ -23,6 +25,9 @@ export const SitemapPage = async () => {
         </Link>
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.exchangers}>
           Список обменников
+        </Link>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.blacklist}>
+          Черный список
         </Link>
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.partners}>
           Для партнеров
@@ -54,7 +59,22 @@ export const SitemapPage = async () => {
               pathname: `${routes.exchangers}/exchanger-${exchanger.id}__${exchanger.exchange_marker}`,
             }}
           >
-            Обменный пункт {exchanger?.exchangerName}
+            Обменный пункт {exchanger?.exchangerName.ru}
+          </Link> 
+        ))}
+      </div>
+      <div className="flex flex-col gap-2 text-sm">
+        <h2 className="text-xl font-medium uppercase">Черный список</h2>
+
+        {exchangers.map((exchanger) => (
+          <Link
+            key={exchanger.id + exchanger.exchange_marker}
+            className="w-fit text-[#3498db] uppercase font-medium"
+            href={{
+              pathname: `${routes.blacklist}/exchanger-${exchanger.id}__${exchanger.exchange_marker}`,
+            }}
+          >
+            Обменный пункт {exchanger?.exchangerName.ru}
           </Link>
         ))}
       </div>

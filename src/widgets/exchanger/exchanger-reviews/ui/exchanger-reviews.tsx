@@ -24,9 +24,11 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
         </p>
         <AddReview href={`${process.env.NEXT_PUBLIC_TGBOT_BASE_URL}?start=review__${exchanger_name}`}/>
       </div>
-      <div className="lg:block hidden">
-        {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}
-      </div>
+      {totalPages > 0 && (
+        <div className="lg:block hidden">
+          {totalPages > 0 && <ExchangerPagination totalPages={totalPages} />}
+        </div>
+      )}
       <ReviewFilter reviewCount={reviewCount} />
 
       {reviews?.length > 0 ? (

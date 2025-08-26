@@ -1,5 +1,5 @@
-import { ExchangerMarker, Name, Review } from "@/shared/types";
-import { Exchanger, ExchnagerInfo } from "../model/types/exchanger-type";
+import { ExchangerMarker, Name } from "@/shared/types";
+import { CryptoExchanger, CryptoExchangerBlackList, Exchanger, ExchangerInfo } from "../model/types/exchanger-type";
 
 export type GetExchangersDtoRequest = {
   city?: string;
@@ -7,9 +7,7 @@ export type GetExchangersDtoRequest = {
   valute_to: string;
 };
 export type GetExchangersDtoResponse = Exchanger[];
-//вынести в отдельный enum/type "no_cash" | "cash"
 export type GetSimilarDirectionDtoRequset = {
-  exchangeMarker?: "no_cash" | "cash";
   valuteFrom: string;
   valuteTo: string;
   city?: string;
@@ -30,20 +28,20 @@ export type GetSimilarDirectionDtoResponse = {
   };
 }[];
 
-export type GetExchangeListDtoResponse = {
-  id: number;
-  exchangerName: string;
-  exchange_marker: string;
-  workStatus: boolean;
-  reserves: string;
-  courses: string;
-  url: string;
-  reviews: Review;
-}[];
+export type GetExchangeListDtoResponse = CryptoExchanger[];
 export type GetExchangeListDtoRequest = {};
 
-export type GetExchnagerDetailDtoResponse = ExchnagerInfo;
-export type GetExchnagerDetailDtoRequset = {
+export type GetExchnagerDetailDtoResponse = ExchangerInfo;
+export type GetExchnagerDetailDtoRequest = {
+  exchange_id: number;
+  exchange_marker: ExchangerMarker;
+};
+
+export type GetBlackListDtoResponse = CryptoExchangerBlackList[];
+export type GetBlackListDtoRequest = {};
+
+export type GetBlackListDetailDtoResponse = CryptoExchangerBlackList;
+export type GetBlackListDetailDtoRequest = {
   exchange_id: number;
   exchange_marker: ExchangerMarker;
 };

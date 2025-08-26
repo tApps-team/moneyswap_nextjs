@@ -7,6 +7,7 @@ export async function GET() {
     const sitemaps = [
       `${baseUrl}/sitemap.xml`,
       `${baseUrl}/crypto-exchangers/sitemap.xml`,
+      `${baseUrl}/blacklist/sitemap.xml`,
       `${baseUrl}/exchange/sitemap.xml`,
       `${baseUrl}${routes.blog}${routes.article}/sitemap.xml`,
       `${baseUrl}${routes.blog}${routes.category}/sitemap.xml`,

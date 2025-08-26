@@ -1,4 +1,5 @@
 import { LoaderAnimation } from "@/shared/assets";
+import "@/shared/styles/globals.scss";
 
 export default function Loading() {
   return (

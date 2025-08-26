@@ -1,5 +1,8 @@
 import { Metadata } from "next";
 import { SitemapPage } from "@/views/sitemap";
+
+export const dynamic = 'force-dynamic';
+
 export default SitemapPage;
 
 export const metadata: Metadata = {

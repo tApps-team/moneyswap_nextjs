@@ -5,6 +5,7 @@ import Link from "next/link";
 // eslint-disable-next-line boundaries/element-types
 import { defaultUserId, increaseLinkCount, increaseLinkCountPartners } from "@/entities/user";
 import { ExchangerCardArrow } from "@/shared/assets";
+import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
@@ -24,6 +25,8 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
   const isBankomats =
     (exchanger?.info && exchanger.info.bankomats && exchanger?.info?.bankomats.length > 0) || false;
 
+  const { exchangeRedirect, reviewsOpen } = useYandexMetrika();
+
   const handleClick = (exchanger: Exchanger) => {
     if (defaultUserId) {
       const increaseincreaseLinkCountReq = {
@@ -40,6 +43,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             ...increaseincreaseLinkCountReq,
             exchange_marker: exchanger?.exchange_marker,
           });
+      exchangeRedirect();
     }
   };
 
@@ -83,6 +87,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
             <Link
               href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}__${exchanger.exchange_marker}`}
               className="relative z-20 rounded-[6px] border border-[#575A62] gap-1 grid lg:grid-flow-col grid-flow-row justify-items-center justify-center p-1.5"
+              onClick={reviewsOpen}
             >
               <span className="md:text-base mobile-xl:text-sm text-xs font-medium leading-none ">
                 Отзывы

@@ -1,6 +1,5 @@
 "use client";
 import {
-  ColumnDef,
   ColumnFiltersState,
   flexRender,
   getCoreRowModel,
@@ -14,15 +13,14 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { cn } from "@/shared/lib";
-import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
+import { cn, useMediaQuery } from "@/shared/lib";
 import { routes } from "@/shared/router";
+import { ExchangerStatus } from "@/shared/types";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 import { cryptoColumns } from "../model/columns";
 import { CryptoTableColumns } from "../model/columns";
 
 interface DataTableProps<TValue> {
-  //   columns: ColumnDef<CryptoTableColumns, TValue>[];
   data: CryptoTableColumns[];
 }
 
@@ -48,7 +46,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
 
   useEffect(() => {
     const filtered = data.filter((item) => 
-      item.exchangerName.toLowerCase().includes(searchValue.toLowerCase())
+      item.exchangerName.ru.toLowerCase().includes(searchValue.toLowerCase())
     );
     setFilteredData(filtered);
     setCurrentPage(0);
@@ -194,21 +192,21 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
         <div className="flex flex-col gap-2.5 text-white">
           {paginatedData.length > 0 ? paginatedData.map((exchanger) => (
             <div
-              key={exchanger.id + exchanger.exchangerName}
+              key={exchanger.id + exchanger.exchangerName.ru}
               className="flex flex-col gap-2.5 justify-between mobile:p-5 p-4 bg-new-dark-grey rounded-[15px]"
             >
               <div className="flex w-full items-center justify-between">
                 <div className="flex flex-col items-start">
                   <p className="max-w-[45vw] text-base font-semibold truncate">
-                    {exchanger?.exchangerName}
+                    {exchanger?.exchangerName.ru}
                   </p>
                   <p
                     className={cn(
-                      exchanger?.workStatus ? "text-yellow-main" : "text-[#FF6060]",
-                      "mobile-xl:text-base mobile:text-sm text-xs"
+                      exchanger?.workStatus === ExchangerStatus.active ? "text-yellow-main" : exchanger?.workStatus === ExchangerStatus.inactive ? "text-font-light-grey" : exchanger?.workStatus === ExchangerStatus.disabled ? "text-[#FF0000]" : "text-[#FF0000]",
+                      "mobile-xl:text-base mobile:text-sm text-xs uppercase"
                     )}
                   >
-                    {exchanger?.workStatus ? "АКТИВЕН" : "НЕ АКТИВЕН"}
+                    {exchanger?.workStatus === ExchangerStatus.active ? "Активен" : exchanger?.workStatus === ExchangerStatus.inactive ? "Неактивен" : exchanger?.workStatus === ExchangerStatus.disabled ? "Отключён" : "___"}
                   </p>
                 </div>
                 <Link

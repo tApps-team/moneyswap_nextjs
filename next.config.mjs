@@ -17,6 +17,10 @@ const nextConfig = {
         source: "/crypto-exchangers/exchanger-:exchanger",
         destination: "/crypto-exchangers/:exchanger",
       },
+      {
+        source: "/blacklist/exchanger-:exchanger",
+        destination: "/blacklist/:exchanger",
+      },
     ];
   },
   images: {

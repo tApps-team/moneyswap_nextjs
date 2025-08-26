@@ -1,13 +1,15 @@
 import { BitcoinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ExchnagerInfo } from "@/entities/exchanger";
+import { ExchangerInfo as ExchangerInfoType } from "@/entities/exchanger";
+import { ExchangerStatus } from "@/shared/types";
 type ExchangerInfoProps = {
-  exchangerDetails: ExchnagerInfo;
+  exchangerDetails: ExchangerInfoType;
 };
 export const ExchangerInfo = async (props: ExchangerInfoProps) => {
   const { exchangerDetails } = props;
   const formattedDate = exchangerDetails.openOnMoneySwap ? new Date(exchangerDetails.openOnMoneySwap).toLocaleDateString('ru-RU') : "---";
+  const formattedClosedDate = exchangerDetails.closedOnMoneySwap ? new Date(exchangerDetails.closedOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
   return (
     <section className="rounded-[15px] w-full grid grid-row-[auto,1fr] xl:gap-[50px] gap-[20px] bg-new-dark-grey xl:p-10 md:p-5 mobile:pb-7 mobile:px-6 mobile:pt-11 pb-5 pt-7 px-3">
@@ -22,12 +24,12 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
               height={224}
               className="md:size-32 mobile-xl:size-24 size-16 rounded-full"
               src={exchangerDetails.iconUrl}
-              alt={`icon exchnager ${exchangerDetails?.name}`}
+              alt={`icon exchnager ${exchangerDetails?.exchangerName.ru}`}
             />
           )}
           <div className="grid grid-flow-row gap-3 md:content-normal content-center justify-start">
             <p className="unbounded_font font-semibold md:text-xl mobile-xl:text-3xl mobile:text-xl text-base md:text-white text-yellow-main truncate md:max-w-[10vw] max-w-full">
-              {exchangerDetails?.name}
+              {exchangerDetails?.exchangerName.ru}
             </p>
             <h2 className="block md:hidden mobile-xl:text-base mobile:text-sm text-xs font-semibold">
               Общая информация об обменнике
@@ -46,7 +48,7 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
           <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
             <p className=" md:text-base text-[#84868A] text-xs font-semibold">Статус</p>
             <p className="text-yellow-main text-sm uppercase md:text-base font-semibold text-center">
-              {exchangerDetails?.workStatus ? "Активен" : "Не активен"}
+              {exchangerDetails?.workStatus === ExchangerStatus.active ? "Активен" : exchangerDetails?.workStatus === ExchangerStatus.disabled ? "Отключен" : "Неактивный"}
             </p>
           </div>
           <div className="rounded-[12px] bg-new-grey flex flex-col items-center justify-center p-4">
@@ -86,9 +88,9 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
             </p>
           </div>
           <div className="rounded-[12px] col-span-2 bg-new-grey flex flex-col items-center justify-center p-4">
-            <p className="md:text-base text-xs text-[#84868A] font-semibold">на MONEYSWAP с</p>
+            <p className="md:text-base text-xs text-[#84868A] font-semibold">{exchangerDetails?.workStatus === ExchangerStatus.disabled ? "отключён от MONEYSWAP с" : "на MONEYSWAP с"}</p>
             <p className="text-yellow-main font-semibold">
-              {formattedDate || "---"}
+              {exchangerDetails?.workStatus === ExchangerStatus.disabled ? formattedClosedDate : formattedDate || "---"}
             </p>
           </div>
         </div>

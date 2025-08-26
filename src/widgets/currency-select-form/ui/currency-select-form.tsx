@@ -8,6 +8,7 @@ import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
 import { SpecificValute, useGetAvailableValutes } from "@/entities/currency";
 import { LocationInfo, useGetCountries } from "@/entities/location";
+import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { ExchangerMarker } from "@/shared/types";
@@ -43,8 +44,6 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [giveAmount, setGiveAmount] = useState<number>(actualCourse?.in_count || 0);
   const [getAmount, setGetAmount] = useState<number>(actualCourse?.out_count || 0);
-
-  console.log("urlDirection", urlDirection);
 
   const handleAmountChange = (value: number, type: "give" | "get") => {
     const newValue = Number(value.toFixed(3));
@@ -106,6 +105,8 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
 
   const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
 
+  const { selectTypeCashless, selectTypeCash } = useYandexMetrika();
+
   return (
     <section className="h-fit">
       <form
@@ -134,6 +135,9 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
                   "p-0 mobile-xl:text-base text-sm text-center h-full mobile-xl:px-7 px-2 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
                   urlDirection === ExchangerMarker.no_cash && " bg-yellow-main text-black",
                 )}
+                onClick={() => {
+                  selectTypeCashless();
+                }}
               >
                 Безналичные
               </Link>
@@ -147,6 +151,9 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
                   " p-0 mobile-xl:text-base text-sm text-center h-full mobile-xl:px-7 px-2 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
                   urlDirection === ExchangerMarker.cash && " bg-yellow-main text-black",
                 )}
+                onClick={() => {
+                  selectTypeCash();
+                }}
               >
                 Наличные
               </Link>

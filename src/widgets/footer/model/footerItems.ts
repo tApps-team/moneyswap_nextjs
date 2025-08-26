@@ -14,6 +14,10 @@ export const footerItems: FooterItems[] = [
         href: routes.exchangers,
         value: "Обменники",
       },
+      {
+        href: routes.blacklist,
+        value: "Черный список",
+      },
     ],
   },
   {

@@ -13,11 +13,6 @@ export type CurrencyResponse = {
   currencies: Currency[];
 };
 
-export enum ExchangeType {
-  cash = "cash",
-  no_cash = "no_cash",
-}
-
 export type CurrencyPair = {
   valuteFrom: Omit<Currency, "id">;
   valuteTo: Omit<Currency, "id">;

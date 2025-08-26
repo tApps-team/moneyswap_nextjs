@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { CryptoExchangerPage } from "@/views/crypto-exchanger";
 import { getExchangerDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
+import { ExchangerMarker, ExchangerStatus } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
 export const dynamic = 'force-dynamic';
@@ -31,13 +31,13 @@ export default async function Page({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": `${exchangerDetails.name} - ${marker === ExchangerMarker.cash 
+    "name": `${exchangerDetails.exchangerName.ru} - ${marker === ExchangerMarker.cash 
     ? "обмен наличных направлений" 
     : marker === ExchangerMarker.no_cash 
       ? "обмен безналичных направлений" 
       : marker === ExchangerMarker.both 
         ? "обмен наличных и безналичных направлений" 
-        : ""}`,
+        : "обмен наличных и безналичных направлений"}`,
     "url": exchangerDetails?.url,
     "logo": exchangerDetails?.iconUrl,
     "foundingDate": exchangerDetails?.open,
@@ -62,7 +62,7 @@ export default async function Page({
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <Breadcrumbs exchangerName={exchangerDetails?.name} />
+      <Breadcrumbs exchangerName={exchangerDetails?.exchangerName.ru} />
       <CryptoExchangerPage params={params} searchParams={searchParams} />
     </>
   );
@@ -99,6 +99,7 @@ export async function generateMetadata(
     const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchangers}/exchanger-${exchangerId}__${marker}`;
 
     const formattedDate = exchangerDetails.openOnMoneySwap ? new Date(exchangerDetails.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";
+    const formattedClosedDate = exchangerDetails.closedOnMoneySwap ? new Date(exchangerDetails.closedOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
     const isPaginationPage = searchParams.page && Number(searchParams.page) > 1;
 
@@ -108,16 +109,18 @@ export async function generateMetadata(
         ? "обмен безналичных направлений" 
         : marker === ExchangerMarker.both 
           ? "обмен наличных и безналичных направлений" 
-          : "";
+          : "обмен наличных и безналичных направлений";
+
+    const meta_description = exchangerDetails.workStatus === ExchangerStatus.disabled ? `С ${formattedClosedDate} обменный пункт ${exchangerDetails.exchangerName.ru} отключён от мониторинга MoneySwap. Это связано с внутренними правилами и возможными нарушениями. Для обмена валют выбирайте те сервисы, которые продолжают быть активными на платформе.` : `${exchangerDetails.exchangerName.ru} — стабильный обменник криптовалют, активен на MoneySwap с ${formattedDate}. В данный момент доступен в ${exchangerDetails.exchangeRates || "___"} направлениях обмена валют. Уровень AML-риска оценивается как ${exchangerDetails.high_aml ? "высокий, что может означать дополнительные проверки и возможные задержки при обмене" : "низкий, что в большинстве случаев позволяет проводить операции без задержек"}`;
 
     return {
-      title: `Обменный пункт ${exchangerDetails.name} ${markerText ? `— ${markerText}` : ""} | Отзывы на MoneySwap`,
-      description: `${exchangerDetails.name} — проверенный обменник криптовалют${markerText ? `, совершает ${markerText}` : ""}, размещён на MoneySwap с ${formattedDate}. За это время он рекомендовал себя, как стабильный обменный сервис. Сейчас ${exchangerDetails.name} активен в ${exchangerDetails.exchangeRates || "___"} направлений обмена.`,
+      title: `Обменный пункт ${exchangerDetails.exchangerName.ru} ${markerText ? `— ${markerText}` : ""} | Отзывы на MoneySwap`,
+      description: meta_description,
       metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
       robots: isPaginationPage ? 'noindex, follow' : undefined,
       openGraph: {
-        title: `Обменный пункт ${exchangerDetails.name} ${markerText ? `— ${markerText}` : ""} | Отзывы на MoneySwap`,
-        description: `${exchangerDetails.name} — проверенный обменник криптовалют${markerText ? `, совершает ${markerText}` : ""}, размещён на MoneySwap с ${formattedDate}. За это время он рекомендовал себя, как стабильный обменный сервис. Сейчас ${exchangerDetails.name} активен в ${exchangerDetails.exchangeRates || "___"} направлений обмена.`,
+        title: `Обменный пункт ${exchangerDetails.exchangerName.ru} ${markerText ? `— ${markerText}` : ""} | Отзывы на MoneySwap`,
+        description: meta_description,
         url: canonicalUrl,
         siteName: "MoneySwap",
         images: [
@@ -125,7 +128,7 @@ export async function generateMetadata(
             url: exchangerDetails.iconUrl,
             width: 400,
             height: 200,
-            alt: exchangerDetails.name,
+            alt: exchangerDetails.exchangerName.ru,
           },
         ],
         locale: "ru-RU",

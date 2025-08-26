@@ -9,7 +9,7 @@ interface TableOfContentsBlockProps {
 }
 
 export const TableOfContentsBlock: FC<TableOfContentsBlockProps> = ({ table_of_contents }) => {
-  const [activeId, setActiveId] = useState<string | null>(table_of_contents[0].id);
+  const [activeId, setActiveId] = useState<string | null>(table_of_contents[0]?.id || null);
   const tocContainerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<{ [key: string]: HTMLLIElement | null }>({});
 

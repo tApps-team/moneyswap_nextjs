@@ -2,7 +2,9 @@ import { MetadataRoute } from "next";
 import { getSitemapDirections } from "@/entities/exchanger";
 import { baseUrl } from "@/shared/consts";
 import { routes } from "@/shared/router";
-export const revalidate = 3600;
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const directions = await getSitemapDirections({page: 1});
   return directions?.directions?.map((direction) => ({

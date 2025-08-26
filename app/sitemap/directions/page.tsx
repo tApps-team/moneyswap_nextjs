@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { SitemapDirectionsPage } from "@/views/sitemap-directions";
 import { routes } from "@/shared/router";
 
+export const dynamic = 'force-dynamic';
+
 export default SitemapDirectionsPage;
 
 export async function generateMetadata({

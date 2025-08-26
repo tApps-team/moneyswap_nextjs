@@ -1,6 +1,6 @@
 // eslint-disable-next-line boundaries/element-types
 import { LocationInfo } from "@/entities/location";
-import { ExchangerMarker, Name, Review } from "@/shared/types";
+import { ExchangerMarker, ExchangerStatus, Name, Review } from "@/shared/types";
 
 export interface Exchanger {
   id: number;
@@ -62,25 +62,34 @@ export interface Bankomat {
 
 export type CryptoExchanger = {
   id: number;
-  exchangerName: string;
-  exchange_marker: string;
-  workStatus: boolean;
+  exchangerName: Name;
+  exchange_marker: ExchangerMarker;
+  workStatus: Exclude<ExchangerStatus, ExchangerStatus.scam>;
   reserves: string;
   courses: string;
   url: string;
   reviews: Review;
 };
 
-export type ExchnagerInfo = {
-  name: string;
+export type CryptoExchangerBlackList = {
+  id: number;
+  exchangerName: Name;
+  exchange_marker: ExchangerMarker;
+  url: string;
+  iconUrl?: string;
+}
+
+export type ExchangerInfo = {
+  exchangerName: Name;
   iconUrl: string;
-  workStatus: boolean;
+  workStatus: Exclude<ExchangerStatus, ExchangerStatus.scam>;
   reviews: Review;
   country: string;
   amountReserves: string;
   exchangeRates: number;
   open: string;
   openOnMoneySwap: string;
+  closedOnMoneySwap: string | null;
   url: string;
   high_aml: boolean;
 };

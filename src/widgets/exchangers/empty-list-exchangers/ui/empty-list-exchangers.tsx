@@ -1,27 +1,26 @@
 import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ExchangeType, SpecificValute } from "@/entities/currency";
+import { SpecificValute } from "@/entities/currency";
 import { getSimilarDirections } from "@/entities/exchanger";
 import { getSimilarCities } from "@/entities/location";
 import { GetSpecificCityResponse } from "@/entities/location/country/api/country-api-dto";
+
 type EmptyListExchangersProps = {
   valuteFrom: SpecificValute;
   valuteTo: SpecificValute;
   location?: GetSpecificCityResponse;
-  exchangeMarker?: ExchangeType;
   limit?: number;
 };
 
 export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
-  const { valuteFrom, valuteTo, location, exchangeMarker, limit } = props;
+  const { valuteFrom, valuteTo, location, limit } = props;
 
   const exchangers = await getSimilarDirections({
     valuteFrom: valuteTo.code_name,
 
     valuteTo: valuteTo.code_name,
     city: location?.code_name,
-    exchangeMarker,
     limit,
   });
 

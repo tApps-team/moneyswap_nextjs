@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { ExchangerMarker } from "@/shared/types";
 import { Currency, SpecificValute } from "../model/types/currencyType";
@@ -15,6 +16,8 @@ type CurrencyCardProps = {
 export const CurrencyCard = (props: CurrencyCardProps) => {
   const { currency, currencyInfo, type, direction, location_code_name, index } = props;
 
+  const { cashGive, cashReceive, cashlessGive, cashlessReceive } = useYandexMetrika();
+
   const giveRoute =
     direction === ExchangerMarker.cash
       ? `/exchange/${currency?.code_name}-to-${currencyInfo?.code_name}?city=${location_code_name}`
@@ -29,6 +32,13 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
     <Link
       href={type === "give" ? giveRoute : getRoute}
       className={`${index === 0 ? "py-2 pt-5" : "py-2"} relative bg-transparent h-full w-full grid grid-flow-col justify-start justify-items-start gap-5 md:px-3 px-1 text-white rounded-[7px] hover:bg-new-grey`}
+      onClick={() => {
+        if (type === "give") {
+          direction === ExchangerMarker.no_cash ? cashlessGive() : cashGive();
+        } else {
+          direction === ExchangerMarker.no_cash ? cashlessReceive() : cashReceive();
+        }
+      }}
     >
       {currency?.is_popular && (
         <span

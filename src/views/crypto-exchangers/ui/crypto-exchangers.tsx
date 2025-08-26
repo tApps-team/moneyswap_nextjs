@@ -1,6 +1,4 @@
-import { DOMNode, Element } from "html-react-parser";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
@@ -11,21 +9,9 @@ import { products } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 
 export const revalidate = 60;
-const options = {
-  replace: (domNode: DOMNode) => {
-    // Проверяем, является ли узел элементом и его типом является img
-    if (domNode instanceof Element && domNode.name === "img") {
-      const { src, alt } = domNode.attribs;
-      return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
-    }
-    if (domNode instanceof Element && domNode.name === "br") {
-      return <hr />;
-    }
-  },
-};
 
 const CryptoTable = dynamic(
-  () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.default),
+  () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.CryptoTable),
   {
     suspense: true,
   },
@@ -38,10 +24,6 @@ export const CryptoExchangersPage = async () => {
     getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" }),
     getExchangerList()
   ]);
-
-  // strapi texts
-  // const { data } = await getCryptoExchangersPage();
-  // const { title, header_description, footer_description } = data;
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">

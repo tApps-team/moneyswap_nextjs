@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FC } from "react";
 // eslint-disable-next-line boundaries/element-types
 import { CurrencyPair } from "@/features/currency";
-import { ExchangeType, getPopularValutes, getRandomValutes } from "@/entities/currency";
+import { getPopularValutes, getRandomValutes } from "@/entities/currency";
 import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 
@@ -12,19 +12,19 @@ interface TopExchangeSaleProps {
 
 export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) => {
   const popularCashDirections = await getPopularValutes({
-    exchange_marker: ExchangeType.cash,
+    exchange_marker: ExchangerMarker.cash,
     limit: 6,
   });
   const popularNoncashDirections = await getPopularValutes({
-    exchange_marker: ExchangeType.no_cash,
+    exchange_marker: ExchangerMarker.no_cash,
     limit: 6,
   });
   const randomCashDirections = await getRandomValutes({
-    exchange_marker: ExchangeType.cash,
+    exchange_marker: ExchangerMarker.cash,
     limit: 6,
   });
   const randomNoncashDirections = await getRandomValutes({
-    exchange_marker: ExchangeType.no_cash,
+    exchange_marker: ExchangerMarker.no_cash,
     limit: 6,
   });
 
