@@ -39,8 +39,8 @@ export const BlacklistExchangerPage = async ({
           <h1 className="unbounded_font xl:text-3xl mobile-xl:text-xl text-base text-red-500 font-semibold uppercase">
             {`${exchangerDetails?.exchangerName?.ru} — в черном списке`}
           </h1>
-          <h2 className="unbounded_font mobile-xl:text-sm text-xs font-medium uppercase text-[#7A7C80]">
-            {`Обменник ${exchangerDetails?.exchangerName?.ru} (сайт: ${exchangerDetails?.url}) замечен в мошеннических действиях.`}
+          <h2 className="unbounded_font lg:text-base mobile-xl:text-sm text-xs font-medium uppercase text-font-light-grey">
+            {`Обменник ${exchangerDetails?.exchangerName?.ru} (${exchangerDetails?.url}) замечен в мошеннических действиях.`}
           </h2>
           </div>
             <div className="bg-orange-900/5 border border-orange-600/30 rounded-lg p-4">
@@ -57,10 +57,6 @@ export const BlacklistExchangerPage = async ({
                     <span>— отправка фальшивых подтверждений транзакции</span>
                     <span>— обещание вернуть деньги, которое так и не выполняется.</span>
                   </div>
-                </div>
-
-                <div className="text-[#7A7C80] font-semibold mobile-xl:text-base text-sm">
-                Часто такие обменники привлекают подозрительно выгодными условиями — курс может быть на уровне рыночного или даже ниже, чтобы вызвать доверие и подтолкнуть к быстрой оплате.
                 </div>
 
                 <div className="text-[#7A7C80] font-semibold mobile-xl:text-base text-sm">
