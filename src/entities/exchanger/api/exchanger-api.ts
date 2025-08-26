@@ -68,13 +68,13 @@ export const getSimilarDirections = async (
 };
 
 export const getExchangerList = async () => {
-  const url = `/api/test/exchange_list`;
+  const url = `/api/exchange_list`;
   const response = await apiClient.get<GetExchangeListDtoResponse>(url);
   return response;
 };
 
 export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequest) => {
-  const url = `/api/test/exchange_detail`;
+  const url = `/api/exchange_detail`;
   try {
     const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props, "no-store");
     // Если твой apiClient.get возвращает объект с полем status
