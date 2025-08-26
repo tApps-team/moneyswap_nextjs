@@ -1,12 +1,12 @@
 import { MetadataRoute } from "next";
-import { getExchangerList } from "@/entities/exchanger";
+import { getBlackList, getExchangerList } from "@/entities/exchanger";
 import { baseUrl } from "@/shared/consts";
 import { routes } from "@/shared/router";
 export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const cryptoExchangers = await getExchangerList();
-  return cryptoExchangers.map((cryptoExchanger) => ({
-    url: `${baseUrl}${routes.blacklist}/exchanger-${cryptoExchanger.id}__${cryptoExchanger.exchange_marker}`,
+  const blackList = await getBlackList();
+  return blackList.map((blackList) => ({
+    url: `${baseUrl}${routes.blacklist}/exchanger-${blackList.id}__${blackList.exchange_marker}`,
     priority: 0.7,
     lastModified: new Date(),
     changeFrequency: "monthly",

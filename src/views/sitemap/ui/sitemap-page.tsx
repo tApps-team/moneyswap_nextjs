@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { getExchangerList, getSitemapDirections } from "@/entities/exchanger";
+import { getBlackList, getExchangerList, getSitemapDirections } from "@/entities/exchanger";
 import { getAllArticles, getAllCategories, getAllTags } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 
@@ -8,12 +8,13 @@ export const dynamic = 'force-dynamic';
 
 export const SitemapPage = async () => {
   // Выполняем все запросы параллельно
-  const [directions, articles, categories, tags, exchangers] = await Promise.all([
+  const [directions, articles, categories, tags, exchangers, blackList] = await Promise.all([
     getSitemapDirections({ page: 1, element_on_page: 10 }),
     getAllArticles({ page: 1, elements: 1000 }),
     getAllCategories(),
     getAllTags(),
-    getExchangerList()
+    getExchangerList(),
+    getBlackList()
   ]);
   return (
     <section className="flex flex-col gap-6">
@@ -66,15 +67,15 @@ export const SitemapPage = async () => {
       <div className="flex flex-col gap-2 text-sm">
         <h2 className="text-xl font-medium uppercase">Черный список</h2>
 
-        {exchangers.map((exchanger) => (
+        {blackList?.map((blackList) => (
           <Link
-            key={exchanger.id + exchanger.exchange_marker}
+            key={blackList.id + blackList.exchange_marker}
             className="w-fit text-[#3498db] uppercase font-medium"
             href={{
-              pathname: `${routes.blacklist}/exchanger-${exchanger.id}__${exchanger.exchange_marker}`,
+              pathname: `${routes.blacklist}/exchanger-${blackList.id}__${blackList.exchange_marker}`,
             }}
           >
-            Обменный пункт {exchanger?.exchangerName.ru}
+            Обменный пункт {blackList?.exchangerName?.ru}
           </Link>
         ))}
       </div>
