@@ -10,7 +10,7 @@ const segmentNameMap: Record<string, string> = {
   "exchange": "Обмен",
   "blog": "Блог",
   "help": "Помощь",
-  "crypto-exchangers": "Криптообменники",
+  "crypto-exchangers": "Обменники",
   "blacklist": "Черный список",
   "for-partners": "Партнёрам",
   "contacts": "Контакты",

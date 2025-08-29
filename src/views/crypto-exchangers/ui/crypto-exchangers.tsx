@@ -34,7 +34,7 @@ export const CryptoExchangersPage = async () => {
         </h1>
         <div className="xl:max-w-[60%] max-w-[80%] mx-auto md:block hidden">
           <h2 className="text-base text-center font-normal">
-            На этой странице представлен список проверенных криптообменников, которые входят в
+            На этой странице представлен список проверенных обменников, которые входят в
             рейтинг мониторинга MoneySwap. 
           </h2>
         </div>
@@ -102,7 +102,7 @@ export const CryptoExchangersPage = async () => {
           </p>
           <div className="grid grid-flow-row content-start mobile-xl:gap-[30px] gap-5 mobile-xl:text-base mobile:text-sm text-xs text-font-light-grey font-medium lg:mt-[10px] mt-0">
             <div className="grid grid-flow-row gap-5">
-              <span>1. Криптообменники для популярных валют: USDT, BTC, ETH.</span>
+              <span>1. Обменники для популярных валют: USDT, BTC, ETH.</span>
               <span>2. Онлайн и офлайн обменные пункты в более чем 80 странах.</span>
               <span>3. Курсы обмена, основанные на лидирующих биржах.</span>
             </div>

@@ -45,7 +45,7 @@ export const navbarItems: NavbarItems[] = [
       {
         href: `${routes.exchangers}`,
         value: "Обменники",
-        description: "Список активных обменников, которые рекомендуются к использованию",
+        description: "Полный список обменников с актуальным статусом работы",
         icon: ShieldCheck as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
       },
       {
