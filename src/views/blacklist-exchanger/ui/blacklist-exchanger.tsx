@@ -59,7 +59,7 @@ export const BlacklistExchangerPage = async ({
                   </div>
                 </div>
 
-                <div className="text-[#7A7C80] font-semibold mobile-xl:text-base text-sm">
+                <div className="text-font-light-grey font-semibold mobile-xl:text-base text-sm">
                 Часто такие обменники привлекают подозрительно выгодными условиями — курс может быть на уровне рыночного или даже ниже, чтобы вызвать доверие и подтолкнуть к быстрой оплате.
                 </div>
 
