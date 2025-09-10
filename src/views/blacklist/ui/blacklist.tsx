@@ -23,7 +23,7 @@ export const BlacklistPage = async () => {
       <div className="grid grid-flow-row gap-7">
         <h1 className="unbounded_font text-yellow-main uppercase xl:text-3xl mobile-xl:text-2xl text-base font-semibold grid grid-flow-row gap-2">
           <span className="leading-none">Черный список</span>
-          <span className="leading-none">Криптообменников на MoneySwap</span>
+          <span className="leading-none">Обменников на MoneySwap</span>
         </h1>
           <h2 className="text-base font-normal">
             Перечень обменников, сайтов, бирж, телеграм-каналов, групп, аккаунтов, которые заподозрены в совершении мошеннических действий, обмане пользователей или других незаконных действиях. 

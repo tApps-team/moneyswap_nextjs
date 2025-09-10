@@ -9,7 +9,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'CryptoScam'
     },
     exchange_marker: ExchangerMarker.both,
-    url: 'https://cryptoscam.com'
+    iconUrl: 'https://cryptoscam.com'
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'FraudEx'
     },
     exchange_marker: ExchangerMarker.no_cash,
-    url: 'https://fraudex.net'
+    iconUrl: 'https://fraudex.net'
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'UnreliableSwap'
     },
     exchange_marker: ExchangerMarker.cash,
-    url: 'https://unreliableswap.io'
+    iconUrl: 'https://unreliableswap.io'
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'SuspiciousBit'
     },
     exchange_marker: ExchangerMarker.partner,
-    url: 'https://suspiciousbit.com'
+    iconUrl: 'https://suspiciousbit.com'
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'ClosedEx'
     },
     exchange_marker: ExchangerMarker.partner,
-    url: 'https://closedex.org'
+    iconUrl: 'https://closedex.org'
   },
   {
     id: 6,
@@ -54,7 +54,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'BitFraud'
     },
     exchange_marker: ExchangerMarker.no_cash,
-    url: 'https://bitfraud.co'
+    iconUrl: 'https://bitfraud.co'
   },
   {
     id: 7,
@@ -63,7 +63,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'ScamBit'
     },
     exchange_marker: ExchangerMarker.both,
-    url: 'https://scambit.ru'
+    iconUrl: 'https://scambit.ru'
   },
   {
     id: 8,
@@ -72,7 +72,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'UnreliableCrypto'
     },
     exchange_marker: ExchangerMarker.no_cash,
-    url: 'https://unreliablecrypto.net'
+    iconUrl: 'https://unreliablecrypto.net'
   },
   {
     id: 9,
@@ -81,7 +81,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'SuspiciousSwap'
     },
     exchange_marker: ExchangerMarker.no_cash,
-    url: 'https://suspiciousswap.com'
+    iconUrl: 'https://suspiciousswap.com'
   },
   {
     id: 10,
@@ -90,7 +90,7 @@ export const blackListExchangers: CryptoExchangerBlackList[] = [
       en: 'FraudBit'
     },
     exchange_marker: ExchangerMarker.cash,
-    url: 'https://fraudbit.io'
+    iconUrl: 'https://fraudbit.io'
   }
 ];
 

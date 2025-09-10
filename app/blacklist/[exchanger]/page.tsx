@@ -27,7 +27,7 @@ export default async function Page({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": `${exchangerDetails.exchangerName?.ru} - заподозрен в мошеннических действиях. Пользователи сообщают, что после перевода средств обмен не производится, а служба поддержки либо игнорирует обращения, либо полностью пропадает. Будьте осторожны!`,
+    "name": `Осторожно! ${exchangerDetails.exchangerName?.ru} - заподозрен в мошеннических действиях. Пользователи сообщают, что после перевода средств обмен не производится, а служба поддержки либо игнорирует обращения, либо полностью пропадает. Будьте осторожны!`,
   };
 
   return (
@@ -74,12 +74,12 @@ export async function generateMetadata(
     const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blacklist}/exchanger-${exchangerId}__${marker}`;
 
     return {
-      title: `Обменник валют ${exchangerDetails?.exchangerName?.ru} — в черном списке на MoneySwap!`,
-      description: `MoneySwap предупреждает: обменник ${exchangerDetails?.exchangerName?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств.`,
+      title: `Осторожно мошенники! ${exchangerDetails?.exchangerName?.ru} — в черном списке на MoneySwap!`,
+      description: `MoneySwap предупреждает: обменник ${exchangerDetails?.exchangerName?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств. ${exchangerDetails?.linked_urls.length > 0 && `Ссылки на обменник: ${exchangerDetails?.linked_urls.join(', ')}`}`,
       metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
       openGraph: {
-        title: `Обменник валют ${exchangerDetails?.exchangerName?.ru} — в черном списке на MoneySwap!`,
-        description: `MoneySwap предупреждает: обменник ${exchangerDetails?.exchangerName?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств.`,
+        title: `Осторожно мошенники! Обменник валют ${exchangerDetails?.exchangerName?.ru} — в черном списке на MoneySwap!`,
+        description: `MoneySwap предупреждает: обменник ${exchangerDetails?.exchangerName?.ru} признан скам-проектом. Пользователи сообщают о неполучении перевода после оплаты и блокировке аккаунтов. Обмен валют через данный обменник может привести к полной потере средств. ${exchangerDetails?.linked_urls.length > 0 && `Ссылки на обменник: ${exchangerDetails?.linked_urls.join(', ')}`}`,
         url: canonicalUrl,
         siteName: "MoneySwap",
         locale: "ru-RU",

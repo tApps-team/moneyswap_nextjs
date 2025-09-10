@@ -18,7 +18,6 @@ export default async function Page() {
       "item": {
         "@type": "Organization",
         "name": exchanger?.exchangerName?.ru,
-        "url": exchanger?.url || "",
       }
     }))
   };

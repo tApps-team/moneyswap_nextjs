@@ -8,7 +8,7 @@ export default function Page() {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     'name': 'MoneySwap — ваш проводник в мире обмена, переводов и платежных решений',
-    'description': 'Узнайте больше о MoneySwap — платформе, где собраны лучшие криптообменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.',
+    'description': 'Узнайте больше о MoneySwap — платформе, где собраны лучшие обменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.',
     'url': `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.about}`,
     'mainEntity': {
       '@type': 'Organization',
@@ -55,7 +55,7 @@ export default function Page() {
 export const metadata: Metadata = {
   title: "MoneySwap — ваш проводник в мире обмена, переводов и платежных решений",
   description:
-    "Узнайте больше о MoneySwap — платформе, где собраны лучшие криптообменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.",
+    "Узнайте больше о MoneySwap — платформе, где собраны лучшие обменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.about}`,
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MoneySwap — ваш проводник в мире обмена , переводов и платежных решений",
     description:
-      "Узнайте больше о MoneySwap — платформе, где собраны лучшие криптообменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.",
+      "Узнайте больше о MoneySwap — платформе, где собраны лучшие обменники. Мы помогаем находить выгодные курсы и надёжные обменные пункты для комфортного обмена криптовалюты.",
     url: routes.about,
     siteName: "MoneySwap",
     images: [
