@@ -9,7 +9,7 @@ export const ContactsPage = async () => {
         <div className="grid grid-flow-row md:gap-[50px] mobile-xl:gap-10 gap-4">
         <h1 className="unbounded_font lg:text-3xl md:text-2xl mobile-xl:text-xl mobile:text-lg text-base text-yellow-main lg:font-semibold font-medium uppercase md:text-start text-center">Связь с командой MoneySwap</h1>
         <h2 className="">
-        У вас есть вопросы по работе сервиса, не нашли нужный обменник в вашем городе, необходимую валюту или направление обмена?
+        У вас есть вопросы по работе сервиса, не нашли нужный обменник в вашем городе, необходимую валюту, направление обмена или хотите сообщить о мошенничестве?
         </h2>
         </div>
         <p className="">Мы всегда на связи и готовы помочь!</p>

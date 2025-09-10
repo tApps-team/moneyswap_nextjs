@@ -75,8 +75,16 @@ export type CryptoExchangerBlackList = {
   id: number;
   exchangerName: Name;
   exchange_marker: ExchangerMarker;
+  iconUrl: string;
+}
+
+export type CryptoExchangerBlackListDetails = {
+  id: number;
+  exchangerName: Name;
+  exchange_marker: ExchangerMarker;
+  iconUrl: string;
   url: string;
-  iconUrl?: string;
+  linked_urls: string[];
 }
 
 export type ExchangerInfo = {
