@@ -10,7 +10,7 @@ export type ExchangerTable = Exchanger;
 
 export const columns: ColumnDef<ExchangerTable>[] = [
   {
-    accessorKey: `exchangerName.ru`,
+    accessorKey: `name.ru`,
     id: "name",
     header: ({ column }) => {
       return (
