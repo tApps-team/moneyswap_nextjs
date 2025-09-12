@@ -13,7 +13,7 @@ export type CryptoTableColumnsBlackList = CryptoExchangerBlackList;
 export const cryptoColumns: ColumnDef<CryptoTableColumns>[] = [
   {
     accessorFn: (row) => row.exchangerName?.ru,
-    id: "exchangerName",
+    id: "exchangerName.ru",
     header: ({ column }) => {
       return (
         <button
