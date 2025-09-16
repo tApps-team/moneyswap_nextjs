@@ -83,15 +83,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
             k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
             (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-            ym(100210634, "init", {
-              defer: true,
-              clickmap: true,
-              trackLinks: true,
-              accurateTrackBounce: true
-            });
+            
+            // Инициализация после загрузки скрипта
+            (function() {
+              if (typeof window !== 'undefined' && window.ym) {
+                window.ym(100210634, "init", {
+                  defer: true,
+                  clickmap: true,
+                  trackLinks: true,
+                  accurateTrackBounce: true
+                });
+              } else {
+                // Если ym еще не загружен, ждем
+                setTimeout(arguments.callee, 100);
+              }
+            })();
           `}
         </Script>
-        {/* Яндекс.Метрика */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -67,13 +67,13 @@ export const footerItems: FooterItems[] = [
         target: "_blank",
       },
       {
-        href: products.dzen_ru,
-        value: "Дзен",
+        href: products.vc_ru,
+        value: "VC.RU",
         target: "_blank",
       },
       {
-        href: products.vc_ru,
-        value: "VC.RU",
+        href: products.dzen_ru,
+        value: "Дзен",
         target: "_blank",
       },
     ],
