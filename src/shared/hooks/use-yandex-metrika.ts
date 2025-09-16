@@ -7,7 +7,15 @@ declare global {
 export const useYandexMetrika = () => {
   const reachGoal = (target: string) => {
     if (typeof window !== 'undefined' && window.ym) {
-      window.ym(100210634, 'reachGoal', target);
+      try {
+        if (typeof window.ym === 'function') {
+          window.ym(100210634, 'reachGoal', target);
+        } else {
+          console.warn('Yandex Metrika not initialized yet');
+        }
+      } catch (error) {
+        console.warn('Yandex Metrika goal failed:', error);
+      }
     }
   };
 
