@@ -40,12 +40,16 @@ export const footerItems: FooterItems[] = [
         value: "Помощь",
       },
       {
-        href: routes.home, // нужен роут
+        href: routes.privacy,
         value: "Политика конфиденциальности",
       },
       {
-        href: routes.home, // нужен роут
-        value: "Соглашение о  конфиденциальности",
+        href: routes.terms,
+        value: "Пользовательское соглашение",
+      },
+      {
+        href: routes.blacklist_terms,
+        value: "Положение о Чёрном списке",
       },
       {
         href: routes.partners,

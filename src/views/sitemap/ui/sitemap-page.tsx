@@ -48,6 +48,15 @@ export const SitemapPage = async () => {
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.help_faq}>
           FAQ
         </Link>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.terms}>
+          Пользовательское соглашение
+        </Link>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.privacy}>
+          Политика конфиденциальности
+        </Link>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.blacklist_terms}>
+          Положение о Чёрном списке
+        </Link>
       </div>
       <div className="flex flex-col gap-2 text-sm">
         <h2 className="text-xl font-medium uppercase">Доступные обменные пункты</h2>

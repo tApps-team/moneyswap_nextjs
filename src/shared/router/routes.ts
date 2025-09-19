@@ -15,4 +15,7 @@ export enum routes {
   exchange = "/exchange",
   sitemap = "/sitemap",
   directions = "/sitemap/directions",
+  terms = "/terms",
+  privacy = "/privacy",
+  blacklist_terms = "/blacklist-terms",
 }
