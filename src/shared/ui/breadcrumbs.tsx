@@ -11,10 +11,13 @@ const segmentNameMap: Record<string, string> = {
   "blog": "Блог",
   "help": "Помощь",
   "crypto-exchangers": "Обменники",
-  "blacklist": "Черный список",
+  "blacklist": "Чёрный список",
   "for-partners": "Партнёрам",
   "contacts": "Контакты",
   "about": "О нас",
+  "privacy": "Политика конфиденциальности",
+  "terms": "Пользовательское соглашение",
+  "blacklist-terms": "Положение о Чёрном списке",
 };
 
 export interface BreadcrumbsProps {

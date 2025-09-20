@@ -1,8 +1,10 @@
-import { Ban, Lightbulb, HeartHandshake } from "lucide-react";
+import { Ban, Lightbulb, HeartHandshake, ExternalLink } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { Suspense } from "react";
 import { getBlackList } from "@/entities/exchanger";
 import { SearchIcon } from "@/shared/assets";
+import { routes } from "@/shared/router";
 
 export const revalidate = 60;
 
@@ -25,9 +27,17 @@ export const BlacklistPage = async () => {
           <span className="leading-none">Черный список</span>
           <span className="leading-none">Обменников на MoneySwap</span>
         </h1>
-          <h2 className="text-base font-normal">
+          <h2 className="md:text-base text-sm font-normal">
             Перечень обменников, сайтов, бирж, телеграм-каналов, групп, аккаунтов, которые заподозрены в совершении мошеннических действий, обмане пользователей или других незаконных действиях. 
           </h2>
+          <Link href={routes.blacklist_terms} className="flex gap-2 text-yellow-main">
+            <div className="size-6 mobile-xl:block hidden">
+              <ExternalLink className="w-6" />
+            </div>
+            <h3 className="hover:underline unbounded_font md:text-base text-sm font-medium mobile-xl:no-underline underline">
+              Ознакомиться с положением о Чёрном списке сервиса MoneySwap можно здесь
+            </h3>
+          </Link>
       </div>
       <Suspense fallback={<div>loading</div>}>
         <BlacklistCryptoTable data={blackList} />
