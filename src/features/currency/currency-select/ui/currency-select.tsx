@@ -34,7 +34,7 @@ type CurrencySelectProps = {
   currencies?: CurrencyResponse[];
   currencyInfoGive?: SpecificValute | null;
   currencyInfoGet?: SpecificValute | null;
-  direction?: ExchangerMarker;
+  direction?: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
   amount?: number | null;
   actualCourse: number | null;
   type: "give" | "get";

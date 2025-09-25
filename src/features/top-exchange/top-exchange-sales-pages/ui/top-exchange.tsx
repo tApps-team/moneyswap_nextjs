@@ -7,7 +7,7 @@ import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 
 interface TopExchangeSaleProps {
-  direction: ExchangerMarker;
+  direction: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
 }
 
 export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) => {
