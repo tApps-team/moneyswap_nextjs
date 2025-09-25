@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
-import { SwapIcon, SwitcherIcon } from "@/shared/assets";
+import { useCallback } from "react";
+import { SwapIcon } from "@/shared/assets";
+import { useSmartPrefetch } from "@/shared/hooks";
 import { IsEmptyObject } from "@/shared/lib";
 import { ExchangerMarker } from "@/shared/types";
 
 type CurrencySwitcherProps = {
-  direction?: ExchangerMarker;
+  direction?: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
 };
 const defaultCashValutes = {
   valuteFrom: "CASHRUB",
@@ -24,6 +26,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
     slug: string[];
   }>();
   const city = searchParams.get("city") || "msk";
+
   const switchUrl = () => {
     const emptyParams = IsEmptyObject({ obj: params });
 
@@ -48,10 +51,24 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
     return "/";
   };
 
+  const { prefetch, cancelPrefetch } = useSmartPrefetch({ delay: 150, cancelPrevious: true });
+  const handlePrefetch = useCallback(() => {
+    prefetch(switchUrl());
+  }, [prefetch, params]);
+
+  const handleMouseEnter = handlePrefetch;
+  const handleTouchStart = handlePrefetch;
+  const handleMouseLeave = cancelPrefetch;
+  const handleTouchEnd = cancelPrefetch;
+
   return (
     <Link
       href={switchUrl()}
       className="relative w-full mx-auto flex justify-center items-center mobile:-mb-4 -mb-2"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="z-10 bg-new-light-grey md:w-[54px] md:h-[54px] w-[40px] h-[40px] flex justify-center items-center rounded-full">
         <SwapIcon className="md:size-7 size-5" />

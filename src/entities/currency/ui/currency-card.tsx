@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { useYandexMetrika } from "@/shared/hooks";
+import { useCallback } from "react";
+import { useYandexMetrika, useSmartPrefetch } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { ExchangerMarker } from "@/shared/types";
 import { Currency, SpecificValute } from "../model/types/currencyType";
@@ -9,12 +12,13 @@ type CurrencyCardProps = {
   currency: Currency;
   currencyInfo?: SpecificValute | null;
   type: "give" | "get";
-  direction?: ExchangerMarker;
+  direction?: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
   location_code_name?: string;
   index?: number;
 };
 export const CurrencyCard = (props: CurrencyCardProps) => {
   const { currency, currencyInfo, type, direction, location_code_name, index } = props;
+  const { prefetch, cancelPrefetch } = useSmartPrefetch({ delay: 150, cancelPrevious: true });
 
   const { cashGive, cashReceive, cashlessGive, cashlessReceive } = useYandexMetrika();
 
@@ -28,10 +32,24 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
       ? `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}?city=${location_code_name}`
       : `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}`;
 
+  const handlePrefetch = useCallback(() => {
+    const route = type === "give" ? giveRoute : getRoute;
+    prefetch(route);
+  }, [prefetch, type, giveRoute, getRoute]);
+
+  const handleMouseEnter = handlePrefetch;
+  const handleTouchStart = handlePrefetch;
+  const handleMouseLeave = cancelPrefetch;
+  const handleTouchEnd = cancelPrefetch;
+
   return (
     <Link
       href={type === "give" ? giveRoute : getRoute}
       className={`${index === 0 ? "py-2 pt-5" : "py-2"} relative bg-transparent h-full w-full grid grid-flow-col justify-start justify-items-start gap-5 md:px-3 px-1 text-white rounded-[7px] hover:bg-new-grey`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       onClick={() => {
         if (type === "give") {
           direction === ExchangerMarker.no_cash ? cashlessGive() : cashGive();
