@@ -34,7 +34,7 @@ type CurrencySelectFormProps = {
   urlLocation?: LocationInfo;
   urlGetCurrency?: SpecificValute;
   urlGiveCurrency?: SpecificValute;
-  urlDirection: ExchangerMarker;
+  urlDirection: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
   actualCourse: ActualCourse | null;
 };
 

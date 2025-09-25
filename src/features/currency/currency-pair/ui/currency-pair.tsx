@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback } from "react";
 import { CurrencyPair as CurrenyPairType } from "@/entities/currency";
 import { ExchangeArrowIcon } from "@/shared/assets";
+import { useSmartPrefetch } from "@/shared/hooks";
 import { routes } from "@/shared/router";
 import { ExchangerMarker } from "@/shared/types";
 
@@ -15,9 +19,24 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
       return `${routes.home}exchange/${currencyPair.valuteFrom.code_name}-to-${currencyPair.valuteTo.code_name}?direction=${currencyPair.direction_type}`;
     return `${routes.home}exchange/${currencyPair.valuteFrom.code_name}-to-${currencyPair.valuteTo.code_name}`;
   };
+
+  const { prefetch, cancelPrefetch } = useSmartPrefetch({ delay: 150, cancelPrevious: true });
+  const handlePrefetch = useCallback(() => {
+    prefetch(createUrl());
+  }, [prefetch, currencyPair]);
+
+  const handleMouseEnter = handlePrefetch;
+  const handleTouchStart = handlePrefetch;
+  const handleMouseLeave = cancelPrefetch;
+  const handleTouchEnd = cancelPrefetch;
+
   return (
     <Link
       href={createUrl()}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       className="lg:px-3 lg:py-2 px-2.5 py-2 grid mobile-xl:min-w-24 gap-2 grid-flow-col mobile-xl:min-h-12 grid-rows-1 justify-between items-center bg-new-grey hover:scale-[1.025] hover:bg-new-light-grey transition-all duration-300 mobile-xl:rounded-[12px] rounded-[7.5px]"
     >
       <Image
