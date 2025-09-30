@@ -7,7 +7,6 @@ import { CurrencyCard, CurrencyResponse, SpecificValute } from "@/entities/curre
 import { HeaderArrow } from "@/shared/assets";
 import { ExchangerMarker } from "@/shared/types";
 import {
-  DialogClose,
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -60,6 +59,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
   const currencyInfo = type === "give" ? currencyInfoGive : currencyInfoGet;
 
   const [searchValue, setSearchValue] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const searchDeferredValue = useDeferredValue(searchValue);
   const [activeTab, setActiveTab] = useState<string>("Все");
@@ -70,7 +70,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
   });
 
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
       {isCollapsed ? (
         <DrawerTrigger
           className="disabled:opacity-50 gap-2 w-full flex flex-col justify-between items-start"
@@ -222,7 +222,7 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
                     key={tab?.id}
                   >
                     {tab.currencies.map((currency, index) => (
-                      <DialogClose key={currency?.id}>
+                      <div key={currency?.id}>
                         <CurrencyCard
                           key={currency?.id}
                           currency={currency}
@@ -231,8 +231,9 @@ export const CurrencySelectMobile = (props: CurrencySelectProps) => {
                           direction={direction}
                           location_code_name={location_code_name}
                           index={index}
+                          onClose={() => setIsOpen(false)}
                         />
-                      </DialogClose>
+                      </div>
                     ))}
                   </TabsContent>
                 ))}

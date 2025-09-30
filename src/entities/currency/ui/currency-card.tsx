@@ -16,9 +16,10 @@ type CurrencyCardProps = {
   direction?: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
   location_code_name?: string;
   index?: number;
+  onClose?: () => void;
 };
 export const CurrencyCard = (props: CurrencyCardProps) => {
-  const { currency, currencyInfo, type, direction, location_code_name, index } = props;
+  const { currency, currencyInfo, type, direction, location_code_name, index, onClose } = props;
   const { prefetch } = useSmartPrefetch({ delay: 150, cancelPrevious: true });
 
   const { cashGive, cashReceive, cashlessGive, cashlessReceive } = useYandexMetrika();
@@ -40,24 +41,27 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
   const handleMouseEnter = handlePrefetch;
   const handleTouchStart = handlePrefetch;
 
-  const router = useRouter();
-  const prefetchRoute = useCallback((route: string) => {
-    if (currencyInfo?.is_popular || currency?.is_popular) {
-      router.prefetch(route);
-    }
-  }, [router]);
-  useEffect(() => {
-      const route = type === "give" ? giveRoute : getRoute;
-      prefetchRoute(route);
-  }, [prefetchRoute, type, giveRoute, getRoute]);
+  // const router = useRouter();
+  // const prefetchRoute = useCallback((route: string) => {
+  //   if (currencyInfo?.is_popular || currency?.is_popular) {
+  //     router.prefetch(route);
+  //   }
+  // }, [router]);
+  // useEffect(() => {
+  //     const route = type === "give" ? giveRoute : getRoute;
+  //     prefetchRoute(route);
+  // }, [prefetchRoute, type, giveRoute, getRoute]);
 
   return (
     <Link
       href={type === "give" ? giveRoute : getRoute}
       className={`${index === 0 ? "py-2 pt-5" : "py-2"} relative bg-transparent h-full w-full grid grid-flow-col justify-start justify-items-start gap-5 md:px-3 px-1 text-white rounded-[7px] hover:bg-new-grey`}
-      onMouseEnter={handleMouseEnter}
-      onTouchStart={handleTouchStart}
+      // onMouseEnter={handleMouseEnter}
+      // onTouchStart={handleTouchStart}
       onClick={() => {
+        // Закрываем модалку мгновенно
+        onClose?.();
+        
         if (type === "give") {
           direction === ExchangerMarker.no_cash ? cashlessGive() : cashGive();
         } else {
