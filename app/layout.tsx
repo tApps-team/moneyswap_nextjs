@@ -144,12 +144,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NextTopLoader 
           color="#F6FF5F"
           initialPosition={0.08}
-          crawlSpeed={200}
+          crawlSpeed={50}
           height={4}
           crawl={true}
           showSpinner={false}
           easing="ease"
-          speed={200}
+          speed={50}
         />
         {/* Google Tag Manager (noscript) */}
         <noscript>

@@ -68,7 +68,7 @@ export const SeoHeaderText: FC<SeoHeaderText> = async ({
             <div className="mobile-xl:grid hidden lg:grid-cols-2 grid-cols-1 lg:gap-4 gap-0 justify-stretch justify-items-stretch w-fit">
               <BotBannerNew isExchange={isExchange} />
               <div className="xl:block hidden">
-                <HowExchange hover />
+                <HowExchange  />
               </div>
             </div>
           </div>
