@@ -13,7 +13,6 @@ import {
 import type { ExchangerMarker } from "@/shared/types";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -60,6 +59,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
 
   const [searchValue, setSearchValue] = useState<string>("");
   const [activeTab, setActiveTab] = useState<string>("Все");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const searchDeferredValue = useDeferredValue(searchValue);
 
   const filteredTabList = filterTabList({
@@ -81,7 +81,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
         {label}
       </label>
       <div className="relative col-span-full w-full flex gap-2 flex-row items-center lg:flex-col">
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger
             className="disabled:opacity-50 absolute right-2 top-[6px] lg:h-full h-[calc(65px_-_12px)] lg:right-0 lg:top-0 w-[40vw] lg:w-full lg:relative bg-[#191C25] lg:bg-transparent hover:bg-new-light-grey lg:p-3 p-2 px-3"
             disabled={disabled}
@@ -171,7 +171,7 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                       key={tab?.id}
                     >
                       {tab?.currencies.map((currency, index) => (
-                        <DialogClose key={currency?.id}>
+                        <div key={currency?.id}>
                           <CurrencyCard
                             key={currency?.id}
                             currency={currency}
@@ -180,8 +180,9 @@ export const CurrencySelect = (props: CurrencySelectProps) => {
                             direction={direction}
                             location_code_name={location_code_name}
                             index={index}
+                            onClose={() => setIsOpen(false)}
                           />
-                        </DialogClose>
+                        </div>
                       ))}
                     </TabsContent>
                   ))}
