@@ -56,8 +56,8 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
     <Link
       href={type === "give" ? giveRoute : getRoute}
       className={`${index === 0 ? "py-2 pt-5" : "py-2"} relative bg-transparent h-full w-full grid grid-flow-col justify-start justify-items-start gap-5 md:px-3 px-1 text-white rounded-[7px] hover:bg-new-grey`}
-      // onMouseEnter={handleMouseEnter}
-      // onTouchStart={handleTouchStart}
+      onMouseEnter={handleMouseEnter}
+      onTouchStart={handleTouchStart}
       onClick={() => {
         // Закрываем модалку мгновенно
         onClose?.();
