@@ -1,14 +1,7 @@
 // eslint-disable-next-line boundaries/element-types
-import { DirectionMarker } from "@/entities/exchanger";
-import { ExchangerMarker } from "@/shared/types";
-export type IncreaseLinkCountReq = {
-  user_id: number;
-  exchange_id: number;
-  exchange_marker: ExchangerMarker;
-  exchange_direction_id: number;
-};
+import { DirectionMarker } from "@/shared/types";
 
-export type IncreaseLinkCountPartnersReq = {
+export type IncreaseLinkCountReq = {
   user_id: number;
   exchange_id: number;
   direction_marker: DirectionMarker;

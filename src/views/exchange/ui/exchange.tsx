@@ -15,7 +15,7 @@ import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
-import { ExchangerMarker, pageTypes } from "@/shared/types";
+import { pageTypes, SegmentMarker } from "@/shared/types";
 
 // Кэшируем получение начальных данных
 const getExchangeInitialData = cache(async (valute_from: string, valute_to: string, city?: string) => {
@@ -48,11 +48,11 @@ export const ExchangePage = async ({
 }) => {
   const queryClient = new QueryClient();
   const slug = params.slug[0];
-  const currentDirection = searchParams?.direction === "cash" ? ExchangerMarker.cash : ExchangerMarker.no_cash;
+  const currentDirection = searchParams?.direction === "cash" ? SegmentMarker.cash : SegmentMarker.no_cash;
   const city = searchParams?.city;
 
-  const directionCash = !!city || currentDirection === ExchangerMarker.cash;
-  const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
+  const directionCash = !!city || currentDirection === SegmentMarker.cash;
+  const direction = directionCash ? SegmentMarker.cash : SegmentMarker.no_cash;
   const [valute_from, valute_to] = slug.split("-to-").map((str) => str.toLowerCase());
 
   // Используем кэшированную функцию для получения данных
@@ -142,7 +142,7 @@ export const ExchangePage = async ({
         <MainFAQ direction={direction} />
       </Suspense>
       <Suspense>
-        <TopExchangeSale direction={ExchangerMarker.no_cash} />
+        <TopExchangeSale direction={SegmentMarker.no_cash} />
       </Suspense>
     </section>
   );

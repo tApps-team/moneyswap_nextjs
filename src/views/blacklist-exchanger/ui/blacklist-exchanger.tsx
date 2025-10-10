@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBlackListDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
 
 export const BlacklistExchangerPage = async ({
   params,
@@ -14,16 +13,15 @@ export const BlacklistExchangerPage = async ({
     return notFound();
   }
 
-  const [exchangerId, marker] = params.exchanger.split('__');
+  const exchangerId = params.exchanger;
 
-  if (!exchangerId || !marker) {
+  if (!exchangerId) {
     return notFound();
   }
 
   try {
     const exchangerDetails = await getBlackListDetails({
       exchange_id: Number(exchangerId),
-      exchange_marker: marker as ExchangerMarker,
     });
 
     if (!exchangerDetails) {

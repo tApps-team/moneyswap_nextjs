@@ -8,9 +8,8 @@ import {
   CurrencyCard,
   type Currency,
   type CurrencyResponse,
-  type SpecificValute,
 } from "@/entities/currency";
-import type { ExchangerMarker } from "@/shared/types";
+import type { SegmentMarker } from "@/shared/types";
 import {
   Dialog,
   DialogContent,
@@ -31,9 +30,9 @@ type CurrencySelectProps = {
   label?: string;
   disabled?: boolean;
   currencies?: CurrencyResponse[];
-  currencyInfoGive?: SpecificValute | null;
-  currencyInfoGet?: SpecificValute | null;
-  direction?: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
+  currencyInfoGive?: Currency | null;
+  currencyInfoGet?: Currency | null;
+  direction?: Exclude<SegmentMarker, SegmentMarker.both>;
   amount?: number | null;
   actualCourse: number | null;
   type: "give" | "get";

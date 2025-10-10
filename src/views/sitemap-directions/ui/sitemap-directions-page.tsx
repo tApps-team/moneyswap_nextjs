@@ -33,7 +33,7 @@ export const SitemapDirectionsPage = async ({
               direction.valute_to +
               direction.valute_from +
               direction.city +
-              direction.exchange_marker
+              direction.direction_marker
             }
             className="w-fit text-[#3498db] uppercase font-medium"
             href={{

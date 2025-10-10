@@ -3,9 +3,8 @@
 import { Clock, Calendar, Check, X } from "lucide-react";
 import Link from "next/link";
 import { Exchanger, AMLTooltip } from "@/entities/exchanger";
-import { defaultUserId, increaseLinkCount, increaseLinkCountPartners } from "@/entities/user";
+import { defaultUserId, increaseLinkCount } from "@/entities/user";
 import { useYandexMetrika } from "@/shared/hooks";
-import { ExchangerMarker } from "@/shared/types";
 
 interface ExchangerNameCellProps {
   exchanger: Exchanger;
@@ -21,15 +20,10 @@ export const ExchangerNameCell = ({ exchanger }: ExchangerNameCellProps) => {
         exchange_id: exchanger?.exchange_id,
         exchange_direction_id: exchanger?.exchange_direction_id,
       };
-      exchanger?.direction_marker
-        ? increaseLinkCountPartners({
-            ...increaseincreaseLinkCountReq,
-            direction_marker: exchanger?.direction_marker,
-          })
-        : increaseLinkCount({
-            ...increaseincreaseLinkCountReq,
-            exchange_marker: exchanger?.exchange_marker,
-          });
+      increaseLinkCount({
+        ...increaseincreaseLinkCountReq,
+        direction_marker: exchanger?.direction_marker,
+      });
       exchangeRedirect();
     }
   };
@@ -43,8 +37,7 @@ export const ExchangerNameCell = ({ exchanger }: ExchangerNameCellProps) => {
     >
       <p className="font-bold xl:text-lg text-base truncate max-w-[20vw]">{exchanger?.name?.ru}</p>
       <AMLTooltip isHighRisk={exchanger?.info?.high_aml ?? false} />
-      {(exchanger?.exchange_marker === ExchangerMarker.partner || exchanger?.exchange_marker === ExchangerMarker.both) && 
-      (exchanger?.info?.office || exchanger?.info?.delivery || exchanger?.info?.weekdays || exchanger?.info?.weekends || exchanger?.info?.working_days) && (
+      {(exchanger?.info?.office || exchanger?.info?.delivery || exchanger?.info?.weekdays || exchanger?.info?.weekends || exchanger?.info?.working_days) && (
         <span className="xl:text-[12px] text-[10px] font-medium inline-flex truncate gap-1 items-center justify-start leading-none">
           {(exchanger.info?.weekdays?.time_from || exchanger.info?.weekdays?.time_to) && (
             <div className="flex gap-1 items-center">

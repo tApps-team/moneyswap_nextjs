@@ -1,9 +1,9 @@
 // eslint-disable-next-line boundaries/element-types
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 import {
   CurrencyPair,
   CurrencyResponse,
-  SpecificValute,
+  Currency,
 } from "../model/types/currencyType";
 
 export type GetAvailableValutesDtoResponse = CurrencyResponse[];
@@ -12,20 +12,19 @@ export type GetAvailableValutesDtoRequest = {
   base?: string;
 };
 
-export type GetSpecificValuteResponse = SpecificValute;
+export type GetSpecificValuteResponse = Currency;
 export type GetSpecificValuteRequest = {
   codeName: string;
 };
 
 //popular and random directions
 export type GetDirectionsRequest = {
-  exchange_marker: Exclude<ExchangerMarker, ExchangerMarker.partner | ExchangerMarker.both>;
+  segment_marker: SegmentMarker;
   limit: number;
 };
-
 export type GetDirectionsResponse = {
-  valute_from: SpecificValute;
-  valute_to: SpecificValute;
+  valute_from: Currency;
+  valute_to: Currency;
 }[];
 
 export type GetActualCourseDtoResponse = {
@@ -43,6 +42,5 @@ export type GetActualCourseDtoRequest = {
 
 export type GetPairValuteDtoRequest = {
   exchange_id: number;
-  exchange_marker: ExchangerMarker;
 };
 export type GetPairValuteDtoResponse = CurrencyPair[];

@@ -1,4 +1,3 @@
-import { ExchangerMarker } from "@/shared/types";
 import { Comment, ExchangerReview } from "..";
 
 export type ReviewsByExchangeDTOResponse = {
@@ -8,7 +7,7 @@ export type ReviewsByExchangeDTOResponse = {
   pages: number;
 };
 export type ReviewsByExchangeDTORequest = {
-  exchange_name: string;
+  exchange_id: number;
   page: number;
   element_on_page?: number;
   grade_filter?: number;

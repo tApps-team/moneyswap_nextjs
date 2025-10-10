@@ -14,11 +14,11 @@ import { AddComment } from "./add-comment";
 
 type ExchangerReviewCardProps = {
   review: ExchangerReview;
-  exchanger_name: string;
+  exchanger_id: number;
 };
 
 export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
-  const { review, exchanger_name } = props;
+  const { review, exchanger_id } = props;
   const [isOpenReview, setIsOpenReview] = useState(false);
 
   const { data, isLoading, isFetching, isSuccess } = useQuery({
@@ -172,7 +172,7 @@ export const ExchangerReviewCard = (props: ExchangerReviewCardProps) => {
               </>
             )}
           </button>
-          <AddComment exchanger_name={exchanger_name} review_id={review?.id} />
+          <AddComment exchanger_id={exchanger_id} review_id={review?.id} />
         </div>
       </div>
       {isSuccess && <CommentList isOpen={isOpenReview} comments={data} />}

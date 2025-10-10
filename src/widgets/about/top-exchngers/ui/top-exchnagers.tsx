@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { DownPercent, UpPercent } from "@/shared/assets";
-import { cn } from "@/shared/lib";
-import { routes } from "@/shared/router";
-import { ExchangerMarker, Review } from "@/shared/types";
 import { ScrollArea } from "@/shared/ui";
-import { getTopExchangers } from "..";
+import { getTopExchangers } from "../api/top-exchangers-api";
 
 export const TopExchangers = async () => {
   const topExchangers = await getTopExchangers();
@@ -41,7 +37,7 @@ export const TopExchangers = async () => {
               </div>
               <Link
                 href={{
-                  pathname: `/crypto-exchangers/exchanger-${topExchanger?.id}__${topExchanger?.exchangerMarker}`,
+                  pathname: `/crypto-exchangers/exchanger-${topExchanger?.id}`,
                 }}
                 className=" bg-new-grey hover:bg-yellow-main hover:text-black py-2.5 px-5 rounded-[10px] font-semibold text-xs md:text-sm text-white"
               >

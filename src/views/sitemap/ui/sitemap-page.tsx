@@ -63,10 +63,10 @@ export const SitemapPage = async () => {
 
         {exchangers.map((exchanger) => (
           <Link
-            key={exchanger.id + exchanger.exchange_marker}
+            key={exchanger.id}
             className="w-fit text-[#3498db] uppercase font-medium"
             href={{
-              pathname: `${routes.exchangers}/exchanger-${exchanger.id}__${exchanger.exchange_marker}`,
+              pathname: `${routes.exchangers}/exchanger-${exchanger.id}`,
             }}
           >
             Обменный пункт {exchanger?.exchangerName.ru}
@@ -78,10 +78,10 @@ export const SitemapPage = async () => {
 
         {blackList?.map((blackList) => (
           <Link
-            key={blackList.id + blackList.exchange_marker}
+            key={blackList.id}
             className="w-fit text-[#3498db] uppercase font-medium"
             href={{
-              pathname: `${routes.blacklist}/exchanger-${blackList.id}__${blackList.exchange_marker}`,
+              pathname: `${routes.blacklist}/exchanger-${blackList.id}`,
             }}
           >
             Обменный пункт {blackList?.exchangerName?.ru}
@@ -97,7 +97,7 @@ export const SitemapPage = async () => {
               direction.valute_to +
               direction.valute_from +
               direction.city +
-              direction.exchange_marker
+              direction.direction_marker
             }
             className="w-fit text-[#3498db] uppercase font-medium"
             href={{

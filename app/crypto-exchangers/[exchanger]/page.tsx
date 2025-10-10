@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { CryptoExchangerPage } from "@/views/crypto-exchanger";
 import { getExchangerDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
-import { ExchangerMarker, ExchangerStatus } from "@/shared/types";
+import { SegmentMarker, ExchangerStatus } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
 export const dynamic = 'force-dynamic';
@@ -16,14 +16,12 @@ export default async function Page({
   searchParams: { grade?: number; page?: number; };
 }) {
   if (!params?.exchanger) return notFound();
-  const [exchangerId, marker] = params.exchanger.split('__');
-  if (!exchangerId || !marker) return notFound();
+  const exchangerId = params.exchanger;
+  if (!exchangerId) return notFound();
 
   const exchangerDetails = await getExchangerDetails({
     exchange_id: Number(exchangerId),
-    exchange_marker: marker as ExchangerMarker,
   });
-
   if (!exchangerDetails) return notFound();
   
   const ratingValue = ((exchangerDetails.reviews.positive * 5) + (exchangerDetails.reviews.neutral * 3) + (exchangerDetails.reviews.negative * 1)) / (exchangerDetails.reviews.positive + exchangerDetails.reviews.neutral + exchangerDetails.reviews.negative);
@@ -31,11 +29,11 @@ export default async function Page({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": `${exchangerDetails.exchangerName.ru} - ${marker === ExchangerMarker.cash 
+    "name": `${exchangerDetails.exchangerName.ru} - ${exchangerDetails.segment_marker === SegmentMarker.cash 
     ? "обмен наличных направлений" 
-    : marker === ExchangerMarker.no_cash 
+    : exchangerDetails.segment_marker === SegmentMarker.no_cash 
       ? "обмен безналичных направлений" 
-      : marker === ExchangerMarker.both 
+      : exchangerDetails.segment_marker === SegmentMarker.both 
         ? "обмен наличных и безналичных направлений" 
         : "обмен наличных и безналичных направлений"}`,
     "url": exchangerDetails?.url,
@@ -80,34 +78,33 @@ export async function generateMetadata(
   if (!params?.exchanger) {
     return notFound();
   }
-  const [exchangerId, marker] = params.exchanger.split('__');
+  const exchangerId = params.exchanger;
   
-  if (!exchangerId || !marker) {
+  if (!exchangerId) {
     return notFound();
   }
 
   try {
     const exchangerDetails = await getExchangerDetails({
       exchange_id: Number(exchangerId),
-      exchange_marker: marker as ExchangerMarker,
     });
 
     if (!exchangerDetails) {
       return notFound();
     }
 
-    const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchangers}/exchanger-${exchangerId}__${marker}`;
+    const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.exchangers}/exchanger-${exchangerId}`;
 
     const formattedDate = exchangerDetails.openOnMoneySwap ? new Date(exchangerDetails.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";
     const formattedClosedDate = exchangerDetails.closedOnMoneySwap ? new Date(exchangerDetails.closedOnMoneySwap).toLocaleDateString('ru-RU') : "___";
 
     const isPaginationPage = searchParams.page && Number(searchParams.page) > 1;
 
-    const markerText = marker === ExchangerMarker.cash 
+    const markerText = exchangerDetails.segment_marker === SegmentMarker.cash 
       ? "обмен наличных направлений" 
-      : marker === ExchangerMarker.no_cash 
+      : exchangerDetails.segment_marker === SegmentMarker.no_cash 
         ? "обмен безналичных направлений" 
-        : marker === ExchangerMarker.both 
+        : exchangerDetails.segment_marker === SegmentMarker.both 
           ? "обмен наличных и безналичных направлений" 
           : "обмен наличных и безналичных направлений";
 

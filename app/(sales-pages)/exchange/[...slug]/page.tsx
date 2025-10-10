@@ -5,12 +5,12 @@ import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoMeta } from "@/shared/api";
 import { routes } from "@/shared/router";
-import { ExchangerMarker, pageTypes } from "@/shared/types";
+import { pageTypes } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
 type Props = {
   params: { slug: string };
-  searchParams?: { city?: string; direction: ExchangerMarker };
+  searchParams?: { city?: string; direction: "cash" };
 };
 
 export async function generateMetadata(

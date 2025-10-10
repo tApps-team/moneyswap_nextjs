@@ -4,36 +4,36 @@ import { FC } from "react";
 import { CurrencyPair } from "@/features/currency";
 import { getPopularValutes, getRandomValutes } from "@/entities/currency";
 import { routes } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 
 interface TopExchangeSaleProps {
-  direction: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
+  direction: Exclude<SegmentMarker, SegmentMarker.both>;
 }
 
 export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) => {
   const popularCashDirections = await getPopularValutes({
-    exchange_marker: ExchangerMarker.cash,
+    segment_marker: SegmentMarker.cash,
     limit: 6,
   });
   const popularNoncashDirections = await getPopularValutes({
-    exchange_marker: ExchangerMarker.no_cash,
+    segment_marker: SegmentMarker.no_cash,
     limit: 6,
   });
   const randomCashDirections = await getRandomValutes({
-    exchange_marker: ExchangerMarker.cash,
+    segment_marker: SegmentMarker.cash,
     limit: 6,
   });
   const randomNoncashDirections = await getRandomValutes({
-    exchange_marker: ExchangerMarker.no_cash,
+    segment_marker: SegmentMarker.no_cash,
     limit: 6,
   });
 
   // надо знать нал/безнал
   const currentDirection = direction;
   const currentPopularDirections =
-    currentDirection === ExchangerMarker.cash ? popularCashDirections : popularNoncashDirections;
+    currentDirection === SegmentMarker.cash ? popularCashDirections : popularNoncashDirections;
   const currentRandomDirections =
-    currentDirection === ExchangerMarker.cash ? randomCashDirections : randomNoncashDirections;
+    currentDirection === SegmentMarker.cash ? randomCashDirections : randomNoncashDirections;
   return (
     <section className="grid grid-flow-row gap-10">
       <section className="mobile-xl:mt-[50px] mt-10 lg:p-[50px] md:px-6 md:py-8 mobile-xl:px-8 mobile-xl:py-10 px-4 py-6 grid md:grid-cols-2 grid-cols-1 lg:gap-[8%] gap-8 lg:rounded-[25px] mobile-xl:rounded-[15px] rounded-[10px] bg-new-dark-grey">

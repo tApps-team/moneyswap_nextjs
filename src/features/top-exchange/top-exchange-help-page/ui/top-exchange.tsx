@@ -2,7 +2,7 @@ import { FC } from "react";
 // eslint-disable-next-line boundaries/element-types
 import { CurrencyPair } from "@/features/currency";
 import { GetDirectionsResponse } from "@/entities/currency";
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 
 interface TopExchangeHelpProps {
   popularNoncashDirections: GetDirectionsResponse;
@@ -24,7 +24,7 @@ export const TopExchangeHelp: FC<TopExchangeHelpProps> = ({
             <CurrencyPair
               key={direction.valute_from.code_name + direction.valute_to.code_name + index}
               currencyPair={{
-                direction_type: ExchangerMarker.no_cash,
+                direction_type: SegmentMarker.no_cash,
                 valuteFrom: direction.valute_from,
                 valuteTo: direction.valute_to,
               }}
@@ -41,7 +41,7 @@ export const TopExchangeHelp: FC<TopExchangeHelpProps> = ({
             <CurrencyPair
               key={direction.valute_from.code_name + direction.valute_to.code_name + index}
               currencyPair={{
-                direction_type: ExchangerMarker.no_cash,
+                direction_type: SegmentMarker.no_cash,
                 valuteFrom: direction.valute_from,
                 valuteTo: direction.valute_to,
               }}

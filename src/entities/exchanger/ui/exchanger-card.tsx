@@ -3,12 +3,11 @@
 import { Calendar, Check, Clock, X } from "lucide-react";
 import Link from "next/link";
 // eslint-disable-next-line boundaries/element-types
-import { defaultUserId, increaseLinkCount, increaseLinkCountPartners } from "@/entities/user";
+import { defaultUserId, increaseLinkCount } from "@/entities/user";
 import { ExchangerCardArrow } from "@/shared/assets";
 import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
 import { Exchanger } from "..";
 import { AMLTooltip } from "./components/aml-tooltip";
 import { ExchangeRates } from "./components/exchange-rates/ui/exchange-rates";
@@ -34,15 +33,10 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
         exchange_id: exchanger?.exchange_id,
         exchange_direction_id: exchanger?.exchange_direction_id,
       };
-      exchanger?.direction_marker
-        ? increaseLinkCountPartners({
-            ...increaseincreaseLinkCountReq,
-            direction_marker: exchanger?.direction_marker,
-          })
-        : increaseLinkCount({
-            ...increaseincreaseLinkCountReq,
-            exchange_marker: exchanger?.exchange_marker,
-          });
+      increaseLinkCount({
+        ...increaseincreaseLinkCountReq,
+        direction_marker: exchanger?.direction_marker,
+      })
       exchangeRedirect();
     }
   };
@@ -85,7 +79,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
             </div>
             <Link
-              href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}__${exchanger.exchange_marker}`}
+              href={`${routes.exchangers}/exchanger-${exchanger.exchange_id}`}
               className="relative z-20 rounded-[6px] border border-[#575A62] gap-1 grid lg:grid-flow-col grid-flow-row justify-items-center justify-center p-1.5"
               onClick={reviewsOpen}
             >
@@ -103,8 +97,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
               </div>
             </Link>
           </div>
-          {(exchanger?.exchange_marker === ExchangerMarker.partner || exchanger?.exchange_marker === ExchangerMarker.both) && 
-          (exchanger?.info?.office || exchanger?.info?.delivery || exchanger?.info?.weekdays || exchanger?.info?.weekends || exchanger?.info?.working_days) ? (
+          {(exchanger?.info?.office || exchanger?.info?.delivery || exchanger?.info?.weekdays || exchanger?.info?.weekends || exchanger?.info?.working_days) ? (
             <span className="text-[7px] font-medium h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
               {(exchanger?.info?.weekdays?.time_from || exchanger?.info?.weekdays?.time_to) && (
                 <div className="flex gap-1 items-center">

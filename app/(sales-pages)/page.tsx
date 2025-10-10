@@ -2,7 +2,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { Main } from "@/views/main";
 import { getSeoMeta } from "@/shared/api";
 import { routes } from "@/shared/router";
-import { pageTypes, ExchangerMarker } from "@/shared/types";
+import { pageTypes } from "@/shared/types";
 
 // Типы для props
 export type Props = {

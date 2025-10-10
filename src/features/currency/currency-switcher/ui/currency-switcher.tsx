@@ -6,10 +6,10 @@ import { useCallback } from "react";
 import { SwapIcon } from "@/shared/assets";
 import { useSmartPrefetch } from "@/shared/hooks";
 import { IsEmptyObject } from "@/shared/lib";
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 
 type CurrencySwitcherProps = {
-  direction?: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
+  direction?: Exclude<SegmentMarker, SegmentMarker.both>;
 };
 const defaultCashValutes = {
   valuteFrom: "CASHRUB",
@@ -31,19 +31,19 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
     const emptyParams = IsEmptyObject({ obj: params });
 
     if (emptyParams) {
-      if (direction === ExchangerMarker.cash) {
+      if (direction === SegmentMarker.cash) {
         return `/exchange/${defaultCashValutes.valuteTo}-to-${defaultCashValutes.valuteFrom}?city=${city}`;
       }
-      if (direction === ExchangerMarker.no_cash) {
+      if (direction === SegmentMarker.no_cash) {
         return `/exchange/${defaultNoCashValutes.valuteTo}-to-${defaultNoCashValutes.valuteFrom}`;
       }
     }
     if (!emptyParams) {
       const [valuteFrom, valuteTo] = params?.slug[0]?.split("-to-");
-      if (direction === ExchangerMarker.cash) {
+      if (direction === SegmentMarker.cash) {
         return `/exchange/${valuteTo}-to-${valuteFrom}?city=${city}`;
       }
-      if (direction === ExchangerMarker.no_cash) {
+      if (direction === SegmentMarker.no_cash) {
         return `/exchange/${valuteTo}-to-${valuteFrom}`;
       }
     }
