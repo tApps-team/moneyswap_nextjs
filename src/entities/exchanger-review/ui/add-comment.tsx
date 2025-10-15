@@ -8,7 +8,7 @@ interface AddCommentProps {
 }
 
 export const AddComment: FC<AddCommentProps> = ({ exchanger_id, review_id }) => {
-    const url = `${process.env.NEXT_PUBLIC_TGBOT_BASE_URL}?start=comment__${exchanger_id}__${review_id}`;
+    const url = `${process.env.NEXT_PUBLIC_TGBOT_BASE_URL}?start=new_comment__${exchanger_id}__${review_id}`;
     return (
         <Link 
             target="_blank" 
