@@ -1,5 +1,6 @@
-import { ExchangerMarker, Name } from "@/shared/types";
-import { CryptoExchanger, CryptoExchangerBlackList, CryptoExchangerBlackListDetails, Exchanger, ExchangerInfo } from "../model/types/exchanger-type";
+// eslint-disable-next-line boundaries/element-types
+import { Currency } from "@/entities/currency";
+import { CryptoExchanger, CryptoExchangerBlackList, CryptoExchangerBlackListDetails, Exchanger, ExchangerDetail } from "../model/types/exchanger-type";
 
 export type GetExchangersDtoRequest = {
   city?: string;
@@ -7,6 +8,7 @@ export type GetExchangersDtoRequest = {
   valute_to: string;
 };
 export type GetExchangersDtoResponse = Exchanger[];
+
 export type GetSimilarDirectionDtoRequset = {
   valuteFrom: string;
   valuteTo: string;
@@ -14,27 +16,16 @@ export type GetSimilarDirectionDtoRequset = {
   limit?: number;
 };
 export type GetSimilarDirectionDtoResponse = {
-  valute_from: {
-    name: Name;
-    code_name: string;
-    icon_url: string;
-    type_valute: Name;
-  };
-  valute_to: {
-    name: Name;
-    code_name: string;
-    icon_url: string;
-    type_valute: Name;
-  };
+  valute_from: Currency;
+  valute_to: Currency;
 }[];
 
 export type GetExchangeListDtoResponse = CryptoExchanger[];
 export type GetExchangeListDtoRequest = {};
 
-export type GetExchnagerDetailDtoResponse = ExchangerInfo;
+export type GetExchnagerDetailDtoResponse = ExchangerDetail;
 export type GetExchnagerDetailDtoRequest = {
   exchange_id: number;
-  exchange_marker: ExchangerMarker;
 };
 
 export type GetBlackListDtoResponse = CryptoExchangerBlackList[];
@@ -43,7 +34,6 @@ export type GetBlackListDtoRequest = {};
 export type GetBlackListDetailDtoResponse = CryptoExchangerBlackListDetails;
 export type GetBlackListDetailDtoRequest = {
   exchange_id: number;
-  exchange_marker: ExchangerMarker;
 };
 
 export type GetSitemapDirectionsDtoResponse = {
@@ -53,7 +43,7 @@ export type GetSitemapDirectionsDtoResponse = {
   directions: {
     valute_from: string;
     valute_to: string;
-    exchange_marker: ExchangerMarker;
+    direction_marker: "cash" | "no_cash";
     city: string | null;
   }[];
 };

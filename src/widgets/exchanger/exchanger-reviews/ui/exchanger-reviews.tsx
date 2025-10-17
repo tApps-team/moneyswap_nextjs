@@ -4,17 +4,17 @@ import { ReviewFilter } from "@/features/exchanger/review";
 import { AddReview } from "@/features/exchanger/review/add-review";
 import { ExchangerPagination } from "@/features/exchanger/review/pagintaion";
 import { ExchangerReview, ExchangerReviewCard } from "@/entities/exchanger-review";
-import { ExchangerMarker, Review } from "@/shared/types";
+import { Review } from "@/shared/types";
 
 type ExchangerReviewsProps = {
   reviews: ExchangerReview[];
   totalPages: number;
   reviewCount: Review;
   reviews_on_page: number;
-  exchanger_name: string;
+  exchanger_id: number;
 };
 export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
-  const { reviews, totalPages, reviewCount, reviews_on_page, exchanger_name } = props;
+  const { reviews, totalPages, reviewCount, reviews_on_page, exchanger_id } = props;
 
   return (
     <section className="grid items-center md:gap-[50px] gap-[30px]">
@@ -22,7 +22,7 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
         <p className="mobile-xl:block hidden unbounded_font mobile-xl:text-3xl md:font-semibold font-normal text-yellow-main">
           ОТЗЫВЫ
         </p>
-        <AddReview href={`${process.env.NEXT_PUBLIC_TGBOT_BASE_URL}?start=review__${exchanger_name}`}/>
+        <AddReview href={`${process.env.NEXT_PUBLIC_TGBOT_BASE_URL}?start=new_review__${exchanger_id}`}/>
       </div>
       {totalPages > 0 && (
         <div className="lg:block hidden">
@@ -35,7 +35,7 @@ export const ExchangerReviews = async (props: ExchangerReviewsProps) => {
         <>
           <div className="grid grid-flow-row mobile-xl:gap-5 gap-3">
             {reviews?.map((review) => (
-              <ExchangerReviewCard key={review.id} review={review} exchanger_name={exchanger_name} />
+              <ExchangerReviewCard key={review.id} review={review} exchanger_id={exchanger_id} />
             ))}
           </div>
           {totalPages > 0 && reviews.length === reviews_on_page && <ExchangerPagination totalPages={totalPages} />}

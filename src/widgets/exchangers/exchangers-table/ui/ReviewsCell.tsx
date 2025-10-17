@@ -24,7 +24,7 @@ export const ReviewsCell = ({ exchanger }: ReviewsCellProps) => {
         </div>
       )}
       <Link
-        href={`${routes.exchangers}/exchanger-${exchanger?.exchange_id}__${exchanger?.exchange_marker}`}
+        href={`${routes.exchangers}/exchanger-${exchanger?.exchange_id}`}
         className="w-fit xl:text-base text-sm flex gap-1 border-2 border-font-dark-grey rounded-[6px] cursor-pointer hover:border-yellow-main px-3 py-2"
         onClick={reviewsOpen}
       >

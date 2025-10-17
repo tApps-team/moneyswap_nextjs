@@ -1,18 +1,17 @@
-import { ExchangerInfo } from "@/entities/exchanger";
-import { ExchangerMarker, ExchangerStatus } from "@/shared/types";
+import { ExchangerDetail } from "@/entities/exchanger";
+import { ExchangerStatus, SegmentMarker } from "@/shared/types";
 
 type CryptoExchangerSeoTextProps = {
-  exchangerInfo: ExchangerInfo;
-  marker: ExchangerMarker;
+  exchangerInfo: ExchangerDetail;
 };
 
 export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
-  const { exchangerInfo, marker } = props;
-  const markerText = marker === ExchangerMarker.cash
+  const { exchangerInfo } = props;
+  const markerText = exchangerInfo.segment_marker === SegmentMarker.cash
     ? "обмен наличных направлений"
-    : marker === ExchangerMarker.no_cash
+    : exchangerInfo.segment_marker === SegmentMarker.no_cash
       ? "обмен безналичных направлений"
-      : marker === ExchangerMarker.both
+      : exchangerInfo.segment_marker === SegmentMarker.both
         ? "обмен наличных и безналичных направлений"
         : "обмен наличных и безналичных направлений";
 
@@ -32,12 +31,12 @@ export const CryptoExchangerSeoText = (props: CryptoExchangerSeoTextProps) => {
 };
 
 export const CryptoExchangerSeoMainText = (props: CryptoExchangerSeoTextProps) => {
-  const { exchangerInfo, marker } = props;
-  const markerText = marker === ExchangerMarker.cash
+  const { exchangerInfo } = props;
+  const markerText = exchangerInfo.segment_marker === SegmentMarker.cash
     ? "обмен наличных направлений"
-    : marker === ExchangerMarker.no_cash
+    : exchangerInfo.segment_marker === SegmentMarker.no_cash
       ? "обмен безналичных направлений"
-      : marker === ExchangerMarker.both
+      : exchangerInfo.segment_marker === SegmentMarker.both
         ? "обмен наличных и безналичных направлений"
         : "обмен наличных и безналичных направлений";
   const formattedDate = exchangerInfo.openOnMoneySwap ? new Date(exchangerInfo.openOnMoneySwap).toLocaleDateString('ru-RU') : "___";

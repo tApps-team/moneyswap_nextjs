@@ -7,7 +7,7 @@ import { CurrencyPair as CurrenyPairType } from "@/entities/currency";
 import { ExchangeArrowIcon } from "@/shared/assets";
 import { useSmartPrefetch } from "@/shared/hooks";
 import { routes } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 
 type CurrencyPairProps = {
   currencyPair: Omit<CurrenyPairType, "pairCount">;
@@ -15,7 +15,7 @@ type CurrencyPairProps = {
 export const CurrencyPair = (props: CurrencyPairProps) => {
   const { currencyPair } = props;
   const createUrl = () => {
-    if (currencyPair.direction_type === ExchangerMarker.cash)
+    if (currencyPair.direction_type === SegmentMarker.cash)
       return `${routes.home}exchange/${currencyPair.valuteFrom.code_name}-to-${currencyPair.valuteTo.code_name}?direction=${currencyPair.direction_type}`;
     return `${routes.home}exchange/${currencyPair.valuteFrom.code_name}-to-${currencyPair.valuteTo.code_name}`;
   };
@@ -44,7 +44,7 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
         width={45}
         height={45}
         src={currencyPair.valuteFrom.icon_url}
-        alt={`valute ${currencyPair.valuteFrom.name.ru}`}
+        alt={`valute ${currencyPair.valuteFrom.name}`}
       />
       <div className="[&>svg]:w-4">
         <ExchangeArrowIcon />
@@ -54,7 +54,7 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
         width={45}
         height={45}
         src={currencyPair.valuteTo.icon_url}
-        alt={`valute ${currencyPair.valuteFrom.name.ru}`}
+        alt={`valute ${currencyPair.valuteFrom.name}`}
       />
     </Link>
   );

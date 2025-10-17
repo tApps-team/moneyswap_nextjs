@@ -1,21 +1,21 @@
 import { FC } from "react";
 import { AccordionList } from "@/features/strapi";
 import { faqTypes, getFaq } from "@/entities/strapi";
-import { ExchangerMarker, directions } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 
 interface MainFAQProps {
-  direction: ExchangerMarker;
+  direction: Omit<SegmentMarker, SegmentMarker.both>;
 }
 
 export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
   const [filteredFaqs, basicFaqs] = await Promise.all([
-    getFaq(direction === ExchangerMarker.cash ? faqTypes.cash : faqTypes.noncash),
+    getFaq(direction === SegmentMarker.cash ? faqTypes.cash : faqTypes.noncash),
     getFaq(faqTypes.basic),
   ]);
 
   const faqs = [
     {
-      title: direction === ExchangerMarker.cash ? "По наличному обмену" : "По безналичному обмену",
+      title: direction === SegmentMarker.cash ? "По наличному обмену" : "По безналичному обмену",
       faqs: filteredFaqs,
     },
     { title: "Общие вопросы", faqs: basicFaqs },

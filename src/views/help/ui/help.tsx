@@ -1,7 +1,7 @@
 import { HelpBlock } from "@/widgets/strapi";
 import { getPopularValutes, getRandomValutes } from "@/entities/currency";
 import { faqTypes, getFaq, getHelpPage } from "@/entities/strapi";
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 
 export const HelpPage = async ({ searchParams }: { searchParams?: { article?: boolean } }) => {
   const isArticle = searchParams?.article || false;
@@ -24,11 +24,11 @@ export const HelpPage = async ({ searchParams }: { searchParams?: { article?: bo
     getFaq(faqTypes.noncash),
     getFaq(faqTypes.for_partners),
     getPopularValutes({
-      exchange_marker: ExchangerMarker.no_cash,
+      segment_marker: SegmentMarker.no_cash,
       limit: 6,
     }),
     getRandomValutes({
-      exchange_marker: ExchangerMarker.no_cash,
+      segment_marker: SegmentMarker.no_cash,
       limit: 6,
     })
   ]);

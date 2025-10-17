@@ -32,11 +32,18 @@ export class ApiClient {
       });
     }
 
+    // Добавляем хедер Moneyswap для v2 эндпоинтов
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    
+    if (endpoint.includes("/api/v2/")) {
+      headers["Moneyswap"] = "true";
+    }
+
     const response = await fetch(url.toString(), {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       cache: requestCache || "no-store",
     });
 
@@ -47,11 +54,18 @@ export class ApiClient {
     endpoint: string,
     body: TData,
   ): Promise<TResult> {
+    // Добавляем хедер Moneyswap для v2 эндпоинтов
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    
+    if (endpoint.includes("/api/v2/")) {
+      headers["Moneyswap"] = "true";
+    }
+
     const response = await fetch(`${this.baseUrl}${endpoint}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify(body),
     });
 

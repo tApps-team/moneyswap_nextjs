@@ -8,6 +8,7 @@ export type Country = {
   cities: City[];
   is_popular: boolean;
 };
+
 export type LocationInfo = {
   id: number;
   name: Name;

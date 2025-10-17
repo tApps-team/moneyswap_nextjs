@@ -6,12 +6,12 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { SpecificValute, useGetAvailableValutes } from "@/entities/currency";
+import { Currency as SpecificValute, useGetAvailableValutes } from "@/entities/currency";
 import { LocationInfo, useGetCountries } from "@/entities/location";
 import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 
 const CurrencySelectMobile = dynamic(() =>
   import("@/features/currency").then((mod) => mod.CurrencySelectMobile),
@@ -34,7 +34,7 @@ type CurrencySelectFormProps = {
   urlLocation?: LocationInfo;
   urlGetCurrency?: SpecificValute;
   urlGiveCurrency?: SpecificValute;
-  urlDirection: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
+  urlDirection: Exclude<SegmentMarker, SegmentMarker.both>;
   actualCourse: ActualCourse | null;
 };
 
@@ -82,7 +82,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     setIsCollapsed((prev) => !prev);
   };
 
-  const { data: countries } = useGetCountries(urlDirection);
+  const { data: countries } = useGetCountries();
 
   const {
     data: giveCurrencies,
@@ -90,7 +90,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     isError: giveCurrenciesIsError,
   } = useGetAvailableValutes({
     base: "all",
-    city: urlDirection === ExchangerMarker.cash ? urlLocation?.code_name : undefined,
+    city: urlDirection === SegmentMarker.cash ? urlLocation?.code_name : undefined,
   });
 
   const {
@@ -100,7 +100,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     error: getError,
   } = useGetAvailableValutes({
     base: urlGiveCurrency?.code_name,
-    city: urlDirection === ExchangerMarker.cash ? urlLocation?.code_name : undefined,
+    city: urlDirection === SegmentMarker.cash ? urlLocation?.code_name : undefined,
   });
 
   const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
@@ -133,7 +133,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
                 id="changeOnline"
                 className={cn(
                   "p-0 mobile-xl:text-base text-sm text-center h-full mobile-xl:px-7 px-2 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
-                  urlDirection === ExchangerMarker.no_cash && " bg-yellow-main text-black",
+                  urlDirection === SegmentMarker.no_cash && " bg-yellow-main text-black",
                 )}
                 onClick={() => {
                   selectTypeCashless();
@@ -149,7 +149,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
                 id="changeCash"
                 className={cn(
                   " p-0 mobile-xl:text-base text-sm text-center h-full mobile-xl:px-7 px-2 py-4 bg-new-light-grey text-white font-semibold rounded-[10px]",
-                  urlDirection === ExchangerMarker.cash && " bg-yellow-main text-black",
+                  urlDirection === SegmentMarker.cash && " bg-yellow-main text-black",
                 )}
                 onClick={() => {
                   selectTypeCash();
@@ -160,7 +160,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             </div>
           </div>
         </div>
-        {urlDirection === ExchangerMarker.cash && <LocationSelect countries={countries || []} />}
+        {urlDirection === SegmentMarker.cash && <LocationSelect countries={countries || []} />}
         {!isDesktop ? (
           <div
             className={cn(
@@ -176,7 +176,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               disabled={
                 giveCurrenciesIsLoading ||
                 giveCurrenciesIsError ||
-                (urlDirection === ExchangerMarker.cash && !urlLocation)
+                (urlDirection === SegmentMarker.cash && !urlLocation)
               }
               currencyInfoGive={urlGiveCurrency}
               currencyInfoGet={urlGetCurrency}
@@ -216,7 +216,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               disabled={
                 giveCurrenciesIsLoading ||
                 giveCurrenciesIsError ||
-                (urlDirection === ExchangerMarker.cash && !urlLocation)
+                (urlDirection === SegmentMarker.cash && !urlLocation)
               }
               currencyInfoGive={urlGiveCurrency}
               currencyInfoGet={urlGetCurrency}

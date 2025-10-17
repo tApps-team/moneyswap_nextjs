@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { BlacklistExchangerPage } from "@/views/blacklist-exchanger";
 import { getBlackListDetails } from "@/entities/exchanger";
 import { routes } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
 export const dynamic = 'force-dynamic';
@@ -15,12 +14,11 @@ export default async function Page({
   searchParams: { grade?: number; page?: number; };
 }) {
   if (!params?.exchanger) return notFound();
-  const [exchangerId, marker] = params.exchanger.split('__');
-  if (!exchangerId || !marker) return notFound();
+  const exchangerId = params.exchanger;
+  if (!exchangerId) return notFound();
 
   const exchangerDetails = await getBlackListDetails({
     exchange_id: parseInt(exchangerId),
-    exchange_marker: marker as ExchangerMarker,
   });
   if (!exchangerDetails) return notFound();
 
@@ -55,23 +53,22 @@ export async function generateMetadata(
   if (!params?.exchanger) {
     return notFound();
   }
-  const [exchangerId, marker] = params.exchanger.split('__');
+  const exchangerId = params.exchanger;
   
-  if (!exchangerId || !marker) {
+  if (!exchangerId) {
     return notFound();
   }
 
   try {
     const exchangerDetails = await getBlackListDetails({
       exchange_id: parseInt(exchangerId),
-      exchange_marker: marker as ExchangerMarker,
     });
 
     if (!exchangerDetails) {
       return notFound();
     }
 
-    const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blacklist}/exchanger-${exchangerId}__${marker}`;
+    const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.blacklist}/exchanger-${exchangerId}`;
 
     return {
       title: `Осторожно мошенники! ${exchangerDetails?.exchangerName?.ru} — в черном списке на MoneySwap!`,

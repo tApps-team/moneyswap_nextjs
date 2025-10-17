@@ -6,7 +6,7 @@ import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangerList } from "@/entities/exchanger";
 import { BtcIcon, CardIcon, EmptyWalletIcon, SearchIcon, TelegramIcon } from "@/shared/assets";
 import { products } from "@/shared/router";
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 
 export const revalidate = 60;
 
@@ -64,7 +64,7 @@ export const CryptoExchangersPage = async () => {
         </Link>
       </div>
       <CurrencySelectForm
-        urlDirection={ExchangerMarker.no_cash}
+        urlDirection={SegmentMarker.no_cash}
         actualCourse={actualCourse}
         urlGetCurrency={getCurrency}
         urlGiveCurrency={giveCurrency}

@@ -6,14 +6,14 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { useSmartPrefetch, useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
-import { ExchangerMarker } from "@/shared/types";
-import { Currency, SpecificValute } from "../model/types/currencyType";
+import { SegmentMarker } from "@/shared/types";
+import { Currency } from "../model/types/currencyType";
 
 type CurrencyCardProps = {
   currency: Currency;
-  currencyInfo?: SpecificValute | null;
+  currencyInfo?: Currency | null;
   type: "give" | "get";
-  direction?: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
+  direction?: Exclude<SegmentMarker, SegmentMarker.both>;
   location_code_name?: string;
   index?: number;
   onClose?: () => void;
@@ -25,12 +25,12 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
   const { cashGive, cashReceive, cashlessGive, cashlessReceive } = useYandexMetrika();
   
   const giveRoute =
-  direction === ExchangerMarker.cash
+  direction === SegmentMarker.cash
   ? `/exchange/${currency?.code_name}-to-${currencyInfo?.code_name}?city=${location_code_name}`
   : `/exchange/${currency?.code_name}-to-${currencyInfo?.code_name}`;
   
   const getRoute =
-  direction === ExchangerMarker.cash
+  direction === SegmentMarker.cash
   ? `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}?city=${location_code_name}`
   : `/exchange/${currencyInfo?.code_name}-to-${currency?.code_name}`;
 
@@ -63,9 +63,9 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
         onClose?.();
         
         if (type === "give") {
-          direction === ExchangerMarker.no_cash ? cashlessGive() : cashGive();
+          direction === SegmentMarker.no_cash ? cashlessGive() : cashGive();
         } else {
-          direction === ExchangerMarker.no_cash ? cashlessReceive() : cashReceive();
+          direction === SegmentMarker.no_cash ? cashlessReceive() : cashReceive();
         }
       }}
     >

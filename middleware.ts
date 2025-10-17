@@ -19,9 +19,32 @@ export default function middleware(request: NextRequest) {
     }
   }
 
+  // Редирект для crypto-exchangers с маркерами в пути
+  if (pathname.startsWith('/crypto-exchangers/exchanger-')) {
+    const match = pathname.match(/exchanger-(\d+)__(.+)/);
+    if (match) {
+      const exchangerId = match[1];
+      const newUrl = `/crypto-exchangers/exchanger-${exchangerId}`;
+      return NextResponse.redirect(new URL(newUrl, request.url), 301);
+    }
+  }
+
+  // Редирект для blacklist с маркерами в пути
+  if (pathname.startsWith('/blacklist/exchanger-')) {
+    const match = pathname.match(/exchanger-(\d+)__(.+)/);
+    if (match) {
+      const exchangerId = match[1];
+      const newUrl = `/blacklist/exchanger-${exchangerId}`;
+      return NextResponse.redirect(new URL(newUrl, request.url), 301);
+    }
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: "/crypto-exchangers/exchanger-:exchanger*",
+  matcher: [
+    "/crypto-exchangers/exchanger-:exchanger*",
+    "/blacklist/exchanger-:exchanger*"
+  ],
 };

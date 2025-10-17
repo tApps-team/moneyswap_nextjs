@@ -13,8 +13,6 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { Calendar, Check, Clock, X } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState, useEffect, useMemo } from "react";
 import { Exchanger, ExchangerCard, getExchangers } from "@/entities/exchanger";
 import { cn } from "@/shared/lib";
@@ -101,7 +99,6 @@ export function ExchangersTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const router = useRouter();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,

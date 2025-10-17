@@ -20,12 +20,15 @@ export const getExchangers = async (
   const { valute_from, valute_to, city } = props;
 
   const url = city
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions?city=${city}&valute_from=${valute_from}&valute_to=${valute_to}`
-    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/directions?valute_from=${valute_from}&valute_to=${valute_to}`;
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/directions?city=${city}&valute_from=${valute_from}&valute_to=${valute_to}`
+    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/directions?valute_from=${valute_from}&valute_to=${valute_to}`;
 
   try {
     const res = await fetch(url, {
       method: "GET",
+      headers: {
+        "Moneyswap": "true",
+      },
       next: {
         tags: city
           ? ["directions", valute_from, valute_to, city]
@@ -57,24 +60,27 @@ export const getSimilarDirections = async (
 ): Promise<GetSimilarDirectionDtoResponse> => {
   const { valuteFrom, valuteTo, city } = props;
   const url = city
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/similar_directions?exchange_marker=cash&valute_from=${valuteFrom}&valute_to=${valuteTo}&city=${city}`
-    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/similar_directions?exchange_marker=no_cash&valute_from=${valuteFrom}&valute_to=${valuteTo}`;
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/similar_directions?segment_marker=cash&valute_from=${valuteFrom}&valute_to=${valuteTo}&city=${city}`
+    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/similar_directions?segment_marker=no_cash&valute_from=${valuteFrom}&valute_to=${valuteTo}`;
 
   const res = await fetch(url, {
     method: "GET",
+    headers: {
+      "Moneyswap": "true",
+    },
   });
   const data = await res.json();
   return data;
 };
 
 export const getExchangerList = async () => {
-  const url = `/api/exchange_list`;
+  const url = `/api/v2/exchange_list`;
   const response = await apiClient.get<GetExchangeListDtoResponse>(url);
   return response;
 };
 
 export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequest) => {
-  const url = `/api/exchange_detail`;
+  const url = `/api/v2/exchange_detail`;
   try {
     const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props, "no-store");
     // Если твой apiClient.get возвращает объект с полем status
@@ -89,13 +95,13 @@ export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequest) =
 };
 
 export const getBlackList = async () => {
-  const url = `/api/exchangers_blacklist`;
+  const url = `/api/v2/exchangers_blacklist`;
   const response = await apiClient.get<GetBlackListDtoResponse>(url);
   return response;
 };
 
 export const getBlackListDetails = async (props: GetBlackListDetailDtoRequest) => {
-  const url = `/api/exchange_blacklist_detail`;
+  const url = `/api/v2/exchange_blacklist_detail`;
   try {
     const response = await apiClient.get<GetBlackListDetailDtoResponse>(url, props, "no-store");
     // Если твой apiClient.get возвращает объект с полем status
@@ -110,7 +116,7 @@ export const getBlackListDetails = async (props: GetBlackListDetailDtoRequest) =
 };
 
 export const getSitemapDirections = async (props: GetSitemapDirectionsDtoRequest) => {
-  const url = `/api/sitemap_directions`;
+  const url = `/api/v2/sitemap_directions`;
   try {
     const response = await apiClient.get<GetSitemapDirectionsDtoResponse>(url, props);
     // Если твой apiClient.get возвращает объект с полем status

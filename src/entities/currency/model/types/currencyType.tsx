@@ -1,12 +1,15 @@
-import { ExchangerMarker, Name } from "@/shared/types";
+import { SegmentMarker, Name } from "@/shared/types";
 
+// Базовый тип Currency с всеми возможными полями
 export type Currency = {
-  id: string;
+  id: string | number; // может быть string или number в зависимости от контекста
   name: Name;
   code_name: string;
   icon_url: string;
-  is_popular: boolean;
+  is_popular?: boolean; // опциональное поле
+  type_valute?: Name; // опциональное поле для SpecificValute
 };
+
 export type CurrencyResponse = {
   id: string;
   name: Name;
@@ -14,16 +17,11 @@ export type CurrencyResponse = {
 };
 
 export type CurrencyPair = {
-  valuteFrom: Omit<Currency, "id">;
-  valuteTo: Omit<Currency, "id">;
+  valuteFrom: Omit<Currency, "is_popular" | "type_valute">;
+  valuteTo: Omit<Currency, "is_popular" | "type_valute">;
   pairCount: number;
-  direction_type: ExchangerMarker;
+  direction_type: Omit<SegmentMarker, SegmentMarker.both>;
 };
 
-export type SpecificValute = {
-  name: Name;
-  code_name: string;
-  icon_url: string;
-  type_valute: Name;
-  is_popular: boolean;
-};
+// Алиасы для обратной совместимости
+export type SpecificValute = Currency;

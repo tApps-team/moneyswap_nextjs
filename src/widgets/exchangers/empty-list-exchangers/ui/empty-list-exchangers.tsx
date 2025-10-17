@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { SpecificValute } from "@/entities/currency";
+import { Currency as SpecificValute } from "@/entities/currency";
 import { getSimilarDirections } from "@/entities/exchanger";
 import { getSimilarCities } from "@/entities/location";
 import { GetSpecificCityResponse } from "@/entities/location/country/api/country-api-dto";

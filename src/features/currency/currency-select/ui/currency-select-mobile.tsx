@@ -3,9 +3,9 @@
 import { ChevronDown, CircleSlash2, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { useDeferredValue, useState } from "react";
-import { CurrencyCard, CurrencyResponse, SpecificValute } from "@/entities/currency";
+import { CurrencyCard, CurrencyResponse, Currency as SpecificValute } from "@/entities/currency";
 import { HeaderArrow } from "@/shared/assets";
-import { ExchangerMarker } from "@/shared/types";
+import { SegmentMarker } from "@/shared/types";
 import {
   Drawer,
   DrawerClose,
@@ -30,7 +30,7 @@ type CurrencySelectProps = {
   currencies?: CurrencyResponse[];
   currencyInfoGive?: SpecificValute | null;
   currencyInfoGet?: SpecificValute | null;
-  direction?: Exclude<ExchangerMarker, ExchangerMarker.both | ExchangerMarker.partner>;
+  direction?: Exclude<SegmentMarker, SegmentMarker.both>;
   amount?: number | null;
   setAmount?: (amount: number) => void;
   actualCourse: number | null;

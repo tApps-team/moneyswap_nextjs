@@ -16,7 +16,7 @@ import { getActualCourse, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
-import { ExchangerMarker, pageTypes } from "@/shared/types";
+import { pageTypes, SegmentMarker } from "@/shared/types";
 
 const CurrencySelectForm = dynamic(() =>
   import("@/widgets/currency-select-form").then((mod) => mod.CurrencySelectForm),
@@ -28,17 +28,17 @@ const ExchangersTable = dynamic(() =>
 );
 
 // Кэшируем получение начальных данных
-const getInitialData = cache(async (direction: ExchangerMarker, city?: string) => {
+const getInitialData = cache(async (direction: Omit<SegmentMarker, SegmentMarker.both>, city?: string) => {
   const [seoTexts, giveCurrency, getCurrency, actualCourse, location] = await Promise.all([
     getSeoTexts({ page: pageTypes.main }),
     getSpecificValute({
-      codeName: direction === ExchangerMarker.cash ? "cashrub" : "sberrub",
+      codeName: direction === SegmentMarker.cash ? "cashrub" : "sberrub",
     }),
     getSpecificValute({
       codeName: "btc",
     }),
     getActualCourse({ 
-      valuteFrom: direction === ExchangerMarker.cash ? "cashrub" : "sberrub", 
+      valuteFrom: direction === SegmentMarker.cash ? "cashrub" : "sberrub", 
       valuteTo: "btc" 
     }),
     getSpecificCity({ codeName: city ? city : "msk" }),
@@ -55,16 +55,16 @@ export const Main = async ({
   const queryClient = new QueryClient();
 
   const city = searchParams?.city;
-  const currentDirection = searchParams?.direction === "cash" ? ExchangerMarker.cash : ExchangerMarker.no_cash;
+  const currentDirection = searchParams?.direction === "cash" ? SegmentMarker.cash : SegmentMarker.no_cash;
 
-  const directionCash = !!city || currentDirection === ExchangerMarker.cash;
-  const direction = directionCash ? ExchangerMarker.cash : ExchangerMarker.no_cash;
+  const directionCash = !!city || currentDirection === SegmentMarker.cash;
+  const direction = directionCash ? SegmentMarker.cash : SegmentMarker.no_cash;
 
   // Используем кэшированную функцию для получения начальных данных
   const { seoTexts, giveCurrency, getCurrency, actualCourse, location } = await getInitialData(direction, city);
 
   // Формируем параметры запроса обменников
-  const request = direction === ExchangerMarker.cash
+  const request = direction === SegmentMarker.cash
     ? {
         valute_from: giveCurrency?.code_name,
         valute_to: getCurrency?.code_name,
@@ -109,7 +109,7 @@ export const Main = async ({
         ) : (
           <HydrationBoundary state={dehydrate(queryClient)}>
             <ExchangersTable 
-              cityName={direction === ExchangerMarker.cash ? location.name.ru : undefined} 
+              cityName={direction === SegmentMarker.cash ? location.name.ru : undefined} 
               columns={columns} 
               params={request} 
             />
@@ -124,7 +124,7 @@ export const Main = async ({
         <MainFAQ direction={direction} />
       </Suspense>
       <Suspense>
-        <TopExchangeSale direction={ExchangerMarker.no_cash} />
+        <TopExchangeSale direction={SegmentMarker.no_cash} />
       </Suspense>
     </section>
   );
