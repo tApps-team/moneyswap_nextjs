@@ -109,7 +109,7 @@ export const Main = async ({
         ) : (
           <HydrationBoundary state={dehydrate(queryClient)}>
             <ExchangersTable 
-              cityName={direction === SegmentMarker.cash ? location.name.ru : undefined} 
+              cityName={direction === SegmentMarker.cash ? location?.name?.ru : undefined} 
               columns={columns} 
               params={request} 
             />
