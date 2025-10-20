@@ -1,3 +1,5 @@
+import { createStandardHeaders, logRequestHeaders } from "@/shared/lib/debug-headers";
+
 type GetProps = {};
 export class ApiClient {
   private baseUrl: string;
@@ -32,14 +34,16 @@ export class ApiClient {
       });
     }
 
-    // Добавляем хедер Moneyswap для v2 эндпоинтов
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-    };
+    // Создаем стандартные заголовки
+    const headers = createStandardHeaders();
     
+    // Добавляем хедер Moneyswap для v2 эндпоинтов
     if (endpoint.includes("/api/v2/")) {
-      headers["Moneyswap"] = "true";
+      (headers as any)["Moneyswap"] = "true";
     }
+
+    // Логируем заголовки в dev режиме
+    logRequestHeaders(url.toString(), headers);
 
     const response = await fetch(url.toString(), {
       method: "GET",
@@ -54,14 +58,16 @@ export class ApiClient {
     endpoint: string,
     body: TData,
   ): Promise<TResult> {
-    // Добавляем хедер Moneyswap для v2 эндпоинтов
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-    };
+    // Создаем стандартные заголовки
+    const headers = createStandardHeaders();
     
+    // Добавляем хедер Moneyswap для v2 эндпоинтов
     if (endpoint.includes("/api/v2/")) {
-      headers["Moneyswap"] = "true";
+      (headers as any)["Moneyswap"] = "true";
     }
+
+    // Логируем заголовки в dev режиме
+    logRequestHeaders(`${this.baseUrl}${endpoint}`, headers);
 
     const response = await fetch(`${this.baseUrl}${endpoint}`, {
       method: "POST",

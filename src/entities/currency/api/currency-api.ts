@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/shared/api";
+import { createStandardHeaders, logRequestHeaders } from "@/shared/lib/debug-headers";
 import {
   GetActualCourseDtoResponse,
   GetAvailableValutesDtoRequest,
@@ -46,7 +47,7 @@ export const getSpecificValute = async (
 ): Promise<GetSpecificValuteResponse> => {
   const { codeName } = props;
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/specific_valute?code_name=${codeName}`;
-  const result = await apiClient.get<GetSpecificValuteResponse>(url, { method: "GET" });
+  const result = await apiClient.get<GetSpecificValuteResponse>(url);
 
   return result;
 };
@@ -56,11 +57,16 @@ export const getPopularValutes = async (
 ): Promise<GetDirectionsResponse> => {
   const { segment_marker, limit } = props;
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/popular_directions?segment_marker=${segment_marker}&limit=${limit}`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+  
   const result = await fetch(url, { 
     method: "GET",
-    headers: {
-      "Moneyswap": "true",
-    },
+    headers,
   });
   if (!result.ok) {
     throw new Error("Failed to fetch data");
@@ -75,11 +81,16 @@ export const getRandomValutes = async (
 ): Promise<GetDirectionsResponse> => {
   const { segment_marker, limit } = props;
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/random_directions?segment_marker=${segment_marker}&limit=${limit}`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+  
   const result = await fetch(url, { 
     method: "GET",
-    headers: {
-      "Moneyswap": "true",
-    },
+    headers,
   });
   if (!result.ok) {
     throw new Error("Failed to fetch data");
