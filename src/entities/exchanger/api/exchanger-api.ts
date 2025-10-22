@@ -1,4 +1,5 @@
 import { apiClient } from "@/shared/api";
+import { createStandardHeaders, logRequestHeaders } from "@/shared/lib/debug-headers";
 import {
   GetBlackListDetailDtoRequest,
   GetBlackListDetailDtoResponse,
@@ -24,11 +25,15 @@ export const getExchangers = async (
     : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/directions?valute_from=${valute_from}&valute_to=${valute_to}`;
 
   try {
+    const headers = createStandardHeaders({
+      "Moneyswap": "true",
+    });
+    
+    logRequestHeaders(url, headers);
+    
     const res = await fetch(url, {
       method: "GET",
-      headers: {
-        "Moneyswap": "true",
-      },
+      headers,
       next: {
         tags: city
           ? ["directions", valute_from, valute_to, city]
