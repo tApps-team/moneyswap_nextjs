@@ -7,14 +7,14 @@ export default function middleware(request: NextRequest) {
   // Обрабатываем только crypto-exchangers
   if (pathname.startsWith('/crypto-exchangers/exchanger-')) {
     // Проверяем редирект для banner exchangers
-    const match_id = pathname.match(/exchanger-(\d+)/);
-    if (match_id) {
-      const exchangerId = match_id[1];
-      const newPath = handleBannerExchanger(exchangerId);
-      if (newPath) {
-        return NextResponse.redirect(new URL(`/crypto-exchangers/exchanger-${newPath}`, request.url), 301);
-      }
-    }
+    // const match_id = pathname.match(/exchanger-(\d+)/);
+    // if (match_id) {
+    //   const exchangerId = match_id[1];
+    //   const newPath = handleBannerExchanger(exchangerId);
+    //   if (newPath) {
+    //     return NextResponse.redirect(new URL(`/crypto-exchangers/exchanger-${newPath}`, request.url), 301);
+    //   }
+    // }
 
     // Проверяем, что есть query-параметр exchanger-marker
     if (searchParams.has('exchanger-marker')) {
