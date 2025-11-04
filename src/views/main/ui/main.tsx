@@ -2,13 +2,15 @@ import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { cache } from 'react';
+import { AllCurrencies } from "@/widgets/all-currencies";
 import { SkeletonCurrencySelectForm } from "@/widgets/currency-select-form";
 import { columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { ExchangersTableSkeleton } from "@/widgets/exchangers/exchangers-table";
 import { MainFAQ } from "@/widgets/main-faq";
 import { MainTop } from "@/widgets/main-top";
-import { SeoFooterText, SkeletonSeoHeaderText } from "@/widgets/strapi";
+import { SimilarCities } from "@/widgets/similar-cities";
+import { SeoFooterText } from "@/widgets/strapi";
 import { BotBannerNew, SkeletonBotBannerNew } from "@/features/bot-banner";
 import { CurrencyTitle } from "@/features/currency";
 import { TopExchangeSale } from "@/features/top-exchange";
@@ -124,8 +126,16 @@ export const Main = async ({
         <MainFAQ direction={direction} />
       </Suspense>
       <Suspense>
+        <AllCurrencies />
+      </Suspense>
+      <Suspense>
         <TopExchangeSale direction={SegmentMarker.no_cash} />
       </Suspense>
+      {location && (
+        <Suspense>
+          <SimilarCities city={location?.code_name} valute_from={giveCurrency?.code_name} valute_to={getCurrency?.code_name} />
+        </Suspense>
+      )}
     </section>
   );
 };

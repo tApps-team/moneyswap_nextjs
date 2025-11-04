@@ -3,11 +3,13 @@ import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { cache } from 'react';
+import { AllCurrencies } from "@/widgets/all-currencies";
 import { SkeletonCurrencySelectForm } from "@/widgets/currency-select-form";
 import { columns } from "@/widgets/exchangers";
 import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
 import { ExchangersTableSkeleton } from "@/widgets/exchangers/exchangers-table/ui/exchangers-table-skeleton";
 import { MainFAQ } from "@/widgets/main-faq";
+import { SimilarCities } from "@/widgets/similar-cities";
 import { SeoFooterText, SeoHeaderText, SkeletonSeoHeaderText } from "@/widgets/strapi";
 import { CurrencyTitle } from "@/features/currency";
 import { TopExchangeSale } from "@/features/top-exchange";
@@ -142,8 +144,16 @@ export const ExchangePage = async ({
         <MainFAQ direction={direction} />
       </Suspense>
       <Suspense>
+        <AllCurrencies />
+      </Suspense>
+      <Suspense>
         <TopExchangeSale direction={SegmentMarker.no_cash} />
       </Suspense>
+      {location && (
+        <Suspense>
+          <SimilarCities city={location?.code_name} valute_from={giveCurrency?.code_name} valute_to={getCurrency?.code_name} />
+        </Suspense>
+      )}
     </section>
   );
 };

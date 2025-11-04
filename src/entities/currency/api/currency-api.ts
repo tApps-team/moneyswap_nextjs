@@ -11,7 +11,9 @@ import {
   GetPairValuteDtoResponse,
   GetSpecificValuteRequest,
   GetSpecificValuteResponse,
-  GetPairValuteDtoRequest
+  GetPairValuteDtoRequest,
+  GetAllValutesDtoRequest,
+  GetAllValutesDtoResponse
 } from "./currency-dto";
 
 export const useGetAvailableValutes = (props: GetAvailableValutesDtoRequest) => {
@@ -42,6 +44,11 @@ export const useGetAvailableValutes = (props: GetAvailableValutesDtoRequest) => 
   });
 };
 
+export const getAllValutes = async (props: GetAllValutesDtoRequest) => {
+  const url = `/api/v2/all_valutes`;
+  const result = await apiClient.get<GetAllValutesDtoResponse>(url);
+  return result;
+};
 export const getSpecificValute = async (
   props: GetSpecificValuteRequest,
 ): Promise<GetSpecificValuteResponse> => {

@@ -28,7 +28,7 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
     ? await getSimilarCities({
         city: location.code_name,
         valute_to: valuteTo.code_name,
-        vaute_from: valuteFrom.code_name,
+        valute_from: valuteFrom.code_name,
       })
     : null;
 

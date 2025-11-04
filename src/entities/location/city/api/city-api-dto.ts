@@ -5,7 +5,7 @@ export type getSimilarCitiesDtoResponse = {
   exchange_count: number;
 }[];
 export type getSimilarCitiesDtoRequest = {
-  vaute_from: string;
+  valute_from: string;
   valute_to: string;
   city: string;
 };
