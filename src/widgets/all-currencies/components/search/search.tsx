@@ -18,7 +18,7 @@ export const Search:FC<SearchProps> = ({ placeholder, value, onChange }) => {
         color="#bbbbbb"
       />
       <Input
-        className="rounded-[10px] pl-12 bg-new-light-grey border-none placeholder:text-light-gray placeholder:font-normal placeholder:transition-opacity focus:placeholder:opacity-0"
+        className="text-base rounded-[10px] pl-12 bg-new-light-grey border-none placeholder:text-light-gray placeholder:font-normal placeholder:transition-opacity focus:placeholder:opacity-0"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}

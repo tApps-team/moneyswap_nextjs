@@ -20,9 +20,9 @@ export const CurrencyFromCard = (props: CurrencyFromCardProps) => {
   const getRoute = `/exchange/${currencyInfo?.code_name}-to-${currencyCurrent?.code_name}`;
   
   const content = (
-      <div className={cn("w-full h-full grid grid-flow-col gap-2 justify-between justify-items-stretch items-center content-between md:text-base mobile-xl:text-sm text-xs")}>
+      <div className={cn("w-full h-full grid mobile-xl:grid-flow-col grid-flow-row mobile-xl:gap-2 gap-0 justify-between justify-items-stretch items-center content-between md:text-base text-sm")}>
         <p className={cn("font-bold uppercase line-clamp-1 leading-none", selectedCurrency?.id === currencyCurrent?.id ? "text-black" : "text-white")}>{currencyCurrent?.name?.ru}</p>
-        <span className={cn("font-medium leading-none", selectedCurrency?.id === currencyCurrent?.id ? "text-black" : "text-font-dark-grey")}>{currencyCurrent?.code_name}</span>
+        <span className={cn("font-medium leading-none mobile-xl:text-base text-xs", selectedCurrency?.id === currencyCurrent?.id ? "text-black" : "text-font-dark-grey")}>{currencyCurrent?.code_name}</span>
       </div>
   );
 

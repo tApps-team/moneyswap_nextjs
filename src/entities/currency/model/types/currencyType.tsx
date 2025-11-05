@@ -7,11 +7,11 @@ export type Currency = {
   code_name: string;
   icon_url: string;
   is_popular?: boolean; // опциональное поле
-  type_valute?: Name; // опциональное поле для SpecificValute
+  type_valute?: string; // опциональное поле для SpecificValute
 };
 
 export type CurrencyResponse = {
-  id: string;
+  id: number | string;
   name: Name;
   currencies: Currency[];
 };

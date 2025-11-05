@@ -19,10 +19,10 @@ export const SimilarCities = async (props: { city: string, valute_from: string, 
 
   return (
     <div className="flex flex-col gap-4 mt-10">
-      <h2 className="xl:text-3xl lg:text-2xl md:text-xl mobile-xl:text-base text-sm font-medium">
+      <h2 className="xl:text-3xl lg:text-2xl md:text-xl text-base mobile-xl:font-medium font-semibold">
         По выбранному направлению криптообменники работают в городах:
       </h2>
-      <ScrollArea className="max-h-[300px] overflow-auto px-4">
+      <ScrollArea className="max-h-[300px] overflow-auto lg:p-[50px] md:px-6 md:py-8 mobile-xl:px-8 mobile-xl:py-10 px-4 py-6 lg:rounded-[25px] mobile-xl:rounded-[15px] rounded-[10px] bg-new-dark-grey">
         <div className="flex flex-wrap gap-3">
           {similarCities && similarCities?.map((cityItem) => (
             <Link
@@ -35,7 +35,7 @@ export const SimilarCities = async (props: { city: string, valute_from: string, 
               className="w-fit flex items-center gap-1 md:py-2 md:px-3 py-1 px-2 hover:bg-yellow-main group bg-new-grey hover:scale-[1.025] transition-all duration-300 mobile-xl:rounded-[12px] rounded-[7.5px] text-white hover:text-black"
             >
               <MapPin className="size-4 text-blue-600 group-hover:text-black flex-shrink-0" />
-              <p className="lg:text-sm mobile-xl:text-xs text-2xs truncate">
+              <p className="lg:text-sm text-xs truncate">
                 {cityItem?.name}
               </p>
             </Link>

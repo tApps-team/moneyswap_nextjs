@@ -49,15 +49,16 @@ export const CurrenciesColumn = (props: CurrenciesColumnProps) => {
    * 3️⃣ Группируем обратно по категориям
    */
   const groupByCategory = (items: typeof allCurrencies) => {
-    const grouped: Record<string, { name: Name; currencies: typeof allCurrencies }> = {};
+    const grouped: Record<string, { name: Name; currencies: typeof allCurrencies; categoryId: number }> = {};
     for (const item of items) {
-      if (!grouped[item.categoryId]) {
-        grouped[item.categoryId] = { name: item.categoryName, currencies: [] };
+      const categoryKey = String(item.categoryId);
+      if (!grouped[categoryKey]) {
+        grouped[categoryKey] = { name: item.categoryName, currencies: [], categoryId: item.categoryId as number };
       }
-      grouped[item.categoryId].currencies.push(item);
+      grouped[categoryKey].currencies.push(item);
     }
-    return Object.entries(grouped).map(([id, data]) => ({
-      id,
+    return Object.values(grouped).map((data) => ({
+      id: data.categoryId,
       name: data.name,
       currencies: data.currencies,
     }));
@@ -88,7 +89,7 @@ export const CurrenciesColumn = (props: CurrenciesColumnProps) => {
     <div key={category.id}>
       {!category.hideCategoryName && (
         <div className={cn("flex justify-center items-center py-2", index === 0 ? "pt-5" : "pt-2")}>
-          <p className="text-center md:text-base mobile-xl:text-sm text-xs uppercase font-bold text-yellow-main truncate">
+          <p className="text-center md:text-base text-sm uppercase font-bold text-yellow-main">
             {category.name?.ru}
           </p>
         </div>

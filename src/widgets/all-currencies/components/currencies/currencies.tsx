@@ -34,10 +34,10 @@ export const Currencies: FC<CurrenciesProps> = ({ currencies }) => {
           collapsible
           value={accordionOpen}
           onValueChange={setAccordionOpen}
-          className="mt-3"
+          className="lg:p-[50px] !pb-0 md:px-6 md:py-8 mobile-xl:px-8 mobile-xl:py-10 px-4 py-6 lg:rounded-[25px] mobile-xl:rounded-[15px] rounded-[10px] bg-new-dark-grey"
         >
             <AccordionItem value="currencies" className="border-none">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 mobile-xl:gap-4 gap-2">
                     <CurrenciesColumn
                         searchValue={searchValueGive}
                         setSearchValue={setSearchValueGive}
