@@ -37,10 +37,10 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      className="lg:px-3 lg:py-2 px-2.5 py-2 grid mobile-xl:min-w-24 gap-2 grid-flow-col mobile-xl:min-h-12 grid-rows-1 justify-between items-center bg-new-grey hover:scale-[1.025] hover:bg-new-light-grey transition-all duration-300 mobile-xl:rounded-[12px] rounded-[7.5px]"
+      className="lg:px-3 lg:py-2 mobile-xl:px-2.5 px-4 py-2 grid mobile-xl:min-w-24 gap-2 grid-flow-col mobile-xl:min-h-12 grid-rows-1 justify-between items-center bg-new-grey hover:scale-[1.025] hover:bg-new-light-grey transition-all duration-300 mobile-xl:rounded-[12px] rounded-[7.5px]"
     >
       <Image
-        className="rounded-full min-h-[1.65rem] min-w-[1.65rem]"
+        className="rounded-full mobile-xl:size-[45px] size-[30px]"
         width={45}
         height={45}
         src={currencyPair.valuteFrom.icon_url}
@@ -50,7 +50,7 @@ export const CurrencyPair = (props: CurrencyPairProps) => {
         <ExchangeArrowIcon />
       </div>
       <Image
-        className="rounded-full min-h-[1.65rem] min-w-[1.65rem]"
+        className="rounded-full mobile-xl:size-[45px] size-[30px]"
         width={45}
         height={45}
         src={currencyPair.valuteTo.icon_url}

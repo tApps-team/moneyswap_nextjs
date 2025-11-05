@@ -147,7 +147,7 @@ export const ExchangePage = async ({
         <AllCurrencies />
       </Suspense>
       <Suspense>
-        <TopExchangeSale direction={SegmentMarker.no_cash} />
+        <TopExchangeSale direction={direction} />
       </Suspense>
       {location && (
         <Suspense>

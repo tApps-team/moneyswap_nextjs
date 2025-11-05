@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Currency, CurrencyResponse } from "@/entities/currency";
 import { Accordion, AccordionItem, AccordionTrigger } from "@/shared/ui";
 import { filterList } from "../../model";
@@ -15,7 +15,8 @@ export const Currencies: FC<CurrenciesProps> = ({ currencies }) => {
   const [searchValueGet, setSearchValueGet] = useState<string>("");
   const [currencyInfoGive, setCurrencyInfoGive] = useState<Currency | null>(null);
   const [currencyInfoGet, setCurrencyInfoGet] = useState<Currency | null>(null);
-  const [accordionOpen, setAccordionOpen] = useState<string | undefined>(undefined);
+  // ✅ Открыт по умолчанию для SEO - роботы увидят все валюты сразу
+  const [accordionOpen, setAccordionOpen] = useState<string | undefined>("currencies");
 
   const filteredCurrenciesGive = filterList({
     list: currencies,
@@ -26,6 +27,10 @@ export const Currencies: FC<CurrenciesProps> = ({ currencies }) => {
     list: currencies,
     searchValue: searchValueGet,
   });
+
+  useEffect(() => {
+    setAccordionOpen(undefined);
+  }, []);
 
   return (
     <div className="mt-10">

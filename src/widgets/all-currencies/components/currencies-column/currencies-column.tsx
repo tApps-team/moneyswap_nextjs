@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Currency, CurrencyFromCard, CurrencyResponse } from "@/entities/currency";
 import { cn } from "@/shared/lib";
 import { Name } from "@/shared/types";
@@ -25,29 +26,24 @@ export const CurrenciesColumn = (props: CurrenciesColumnProps) => {
     selectedCurrency,
   } = props;
 
-  /**
-   * 1️⃣ Собираем все валюты в один массив с указанием категории
-   */
-  const allCurrencies = currencies.flatMap((category) =>
-    category.currencies.map((currency) => ({
-      ...currency,
-      categoryId: category.id,
-      categoryName: {
-        ru: category.name?.ru,
-        en: category.name?.en,
-      },
-    }))
+  const allCurrencies = useMemo(
+    () =>
+      currencies.flatMap((category) =>
+        category.currencies.map((currency) => ({
+          ...currency,
+          categoryId: category.id,
+          categoryName: {
+            ru: category.name?.ru,
+            en: category.name?.en,
+          },
+        }))
+      ),
+    [currencies]
   );
 
-  /**
-   * 2️⃣ Делим массив на две части
-   */
   const visibleCurrencies = allCurrencies.slice(0, 10);
   const hiddenCurrencies = allCurrencies.slice(10);
 
-  /**
-   * 3️⃣ Группируем обратно по категориям
-   */
   const groupByCategory = (items: typeof allCurrencies) => {
     const grouped: Record<string, { name: Name; currencies: typeof allCurrencies; categoryId: number }> = {};
     for (const item of items) {
@@ -67,21 +63,14 @@ export const CurrenciesColumn = (props: CurrenciesColumnProps) => {
   const visibleCategories = groupByCategory(visibleCurrencies);
   const hiddenCategories = groupByCategory(hiddenCurrencies);
 
-  /**
-   * 4️⃣ Проверяем, есть ли категория и в visible, и в hidden
-   *     Если да — скрываем её название в hiddenCategories
-   */
   const hiddenCategoriesWithFlag = hiddenCategories.map((hiddenCat) => {
     const duplicateInVisible = visibleCategories.find((v) => v.id === hiddenCat.id);
     return {
       ...hiddenCat,
-      hideCategoryName: !!duplicateInVisible, // если категория уже есть в visible — скрываем имя
+      hideCategoryName: !!duplicateInVisible,
     };
   });
 
-  /**
-   * 5️⃣ Функция рендера категории
-   */
   const renderCategoryBlock = (
     category: CurrencyResponse & { hideCategoryName?: boolean },
     index: number
@@ -102,6 +91,7 @@ export const CurrenciesColumn = (props: CurrenciesColumnProps) => {
             currencyInfo={currencyInfo}
             setCurrencyInfo={setCurrencyInfo}
             selectedCurrency={selectedCurrency}
+            currencies={currencies}
           />
         </div>
       ))}

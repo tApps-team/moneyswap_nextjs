@@ -11,21 +11,22 @@ interface TopExchangeSaleProps {
 }
 
 export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) => {
+  console.log("direction", direction);
   const popularCashDirections = await getPopularValutes({
     segment_marker: SegmentMarker.cash,
-    limit: 6,
+    limit: 12,
   });
   const popularNoncashDirections = await getPopularValutes({
     segment_marker: SegmentMarker.no_cash,
-    limit: 6,
+    limit: 12,
   });
   const randomCashDirections = await getRandomValutes({
     segment_marker: SegmentMarker.cash,
-    limit: 6,
+    limit: 12,
   });
   const randomNoncashDirections = await getRandomValutes({
     segment_marker: SegmentMarker.no_cash,
-    limit: 6,
+    limit: 12,
   });
 
   // надо знать нал/безнал
