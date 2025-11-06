@@ -11,7 +11,6 @@ export function useMediaQuery(query: string) {
     const result = matchMedia(query);
 
     result.addEventListener("change", onChange);
-    console.log(result.matches);
     setValue(result.matches);
 
     return () => result.removeEventListener("change", onChange);

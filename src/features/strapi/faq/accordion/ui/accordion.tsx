@@ -1,13 +1,14 @@
+"use client";
+
 import parse, { DOMNode, Element } from "html-react-parser";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { MainFaqs } from "@/entities/strapi";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui";
 
 const options = {
   replace: (domNode: DOMNode) => {
-    // Проверяем, является ли узел элементом и его типом является img
     if (domNode instanceof Element && domNode.name === "img") {
       const { src, alt } = domNode.attribs;
       return <Image src={src} alt={alt || "image"} width={500} height={500} layout="responsive" />;
@@ -19,8 +20,21 @@ const options = {
 };
 
 export const AccordionList: FC<MainFaqs> = ({ data }) => {
+  const [accordionOpen, setAccordionOpen] = useState<string[]>(
+    data?.map((faq) => `Value-${faq?.id}`) || []
+  );
+
+  useEffect(() => {
+    setAccordionOpen([]);
+  }, []);
+
   return (
-    <Accordion type="single" collapsible className="w-full grid lg:gap-6 mobile-xl:gap-4 gap-3">
+    <Accordion
+      type="multiple"
+      value={accordionOpen}
+      onValueChange={setAccordionOpen}
+      className="w-full grid lg:gap-6 mobile-xl:gap-4 gap-3"
+    >
       {data?.map((faq) => (
         <AccordionItem
           value={`Value-${faq?.id}`}

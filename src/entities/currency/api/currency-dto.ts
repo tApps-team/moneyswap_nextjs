@@ -12,6 +12,9 @@ export type GetAvailableValutesDtoRequest = {
   base?: string;
 };
 
+export type GetAllValutesDtoRequest = void;
+export type GetAllValutesDtoResponse = CurrencyResponse[];
+
 export type GetSpecificValuteResponse = Currency;
 export type GetSpecificValuteRequest = {
   codeName: string;

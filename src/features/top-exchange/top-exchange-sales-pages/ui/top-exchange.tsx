@@ -11,21 +11,22 @@ interface TopExchangeSaleProps {
 }
 
 export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) => {
+  console.log("direction", direction);
   const popularCashDirections = await getPopularValutes({
     segment_marker: SegmentMarker.cash,
-    limit: 6,
+    limit: 12,
   });
   const popularNoncashDirections = await getPopularValutes({
     segment_marker: SegmentMarker.no_cash,
-    limit: 6,
+    limit: 12,
   });
   const randomCashDirections = await getRandomValutes({
     segment_marker: SegmentMarker.cash,
-    limit: 6,
+    limit: 12,
   });
   const randomNoncashDirections = await getRandomValutes({
     segment_marker: SegmentMarker.no_cash,
-    limit: 6,
+    limit: 12,
   });
 
   // надо знать нал/безнал
@@ -72,7 +73,7 @@ export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) =
           </div>
         </div>
       </section>
-      <section className="flex justify-center items-center">
+      {/* <section className="flex justify-center items-center">
         <div className="grid mobile-xl:grid-cols-2 gap-2 justify-center justify-items-stretch">
           <Link
             href={routes.home}
@@ -87,7 +88,7 @@ export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) =
             Продать криптовалюту
           </Link>
         </div>
-      </section>
+      </section> */}
     </section>
   );
 };
