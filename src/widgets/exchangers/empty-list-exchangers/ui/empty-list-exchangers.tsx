@@ -43,12 +43,19 @@ export const EmptyListExchangers = async (props: EmptyListExchangersProps) => {
     <section className="mt-6">
       {exchangers.length > 0 && (
         <div className="uppercase  my-6  flex flex-col gap-2">
-          <p className="mobile-xl:text-base text-xs font-medium text-start">
-            На данный момент по направлению {valuteFrom.name.ru} ({valuteFrom.code_name}) на{" "}
-            {valuteTo.name.ru} ({valuteTo.code_name}) отсутствуют обменные пункты в городе{" "}
-            {location?.name.ru}. Попробуйте выбрать другое направление обмена в городе{" "}
-            {location?.name.ru}. Например, такие направления:
-          </p>
+          {location ? (
+            <p className="mobile-xl:text-base text-xs font-medium text-start">
+              На данный момент по направлению {valuteFrom?.name?.ru} ({valuteFrom?.code_name}) на{" "}
+              {valuteTo?.name?.ru} ({valuteTo?.code_name}) отсутствуют обменные пункты в городе{" "}
+              {location?.name.ru}. Попробуйте выбрать другое направление обмена в городе{" "}
+              {location?.name.ru}. Например, такие направления:
+            </p>
+          ) : (
+            <p className="mobile-xl:text-base text-xs font-medium text-start">
+              На данный момент по направлению {valuteFrom?.name?.ru} ({valuteFrom?.code_name}) на{" "}
+              {valuteTo?.name?.ru} ({valuteTo?.code_name}) отсутствуют обменные пункты. Попробуйте выбрать другое направление обмена. Например, такие направления:
+            </p>
+          )}
         </div>
       )}
       <div className=" flex flex-col w-full rounded-[15px] text-white bg-new-dark-grey">
