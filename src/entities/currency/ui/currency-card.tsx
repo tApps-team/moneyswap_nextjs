@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useSmartPrefetch, useYandexMetrika } from "@/shared/hooks";
+// eslint-disable-next-line
+import { increaseDirectionCount } from "@/entities/direction";
 import { cn } from "@/shared/lib";
 import { SegmentMarker } from "@/shared/types";
 import { Currency } from "../model/types/currencyType";
@@ -41,16 +42,17 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
   const handleMouseEnter = handlePrefetch;
   const handleTouchStart = handlePrefetch;
 
-  // const router = useRouter();
-  // const prefetchRoute = useCallback((route: string) => {
-  //   if (currencyInfo?.is_popular || currency?.is_popular) {
-  //     router.prefetch(route);
-  //   }
-  // }, [router]);
-  // useEffect(() => {
-  //     const route = type === "give" ? giveRoute : getRoute;
-  //     prefetchRoute(route);
-  // }, [prefetchRoute, type, giveRoute, getRoute]);
+  // Увеличиваем счетчик популярности направления
+  const handleIncreaseDirectionCount = () => {
+    if (currency?.code_name && currencyInfo?.code_name) {
+      const increaseDirectionCountReq = {
+        valute_from: type === "give" ? currency?.code_name : currencyInfo?.code_name,
+        valute_to: type === "give" ? currencyInfo?.code_name : currency?.code_name,
+        city_code_name: location_code_name ?? null,
+      };
+      increaseDirectionCount(increaseDirectionCountReq);
+    }
+  }
 
   return (
     <Link
@@ -67,6 +69,7 @@ export const CurrencyCard = (props: CurrencyCardProps) => {
         } else {
           direction === SegmentMarker.no_cash ? cashlessReceive() : cashReceive();
         }
+        handleIncreaseDirectionCount();
       }}
     >
       {currency?.is_popular && (

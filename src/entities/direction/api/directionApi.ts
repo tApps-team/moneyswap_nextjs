@@ -1,9 +1,9 @@
 import { createStandardHeaders, logRequestHeaders } from "@/shared/lib/debug-headers";
-import { IncreaseLinkCountReq } from "./userDto";
+import { IncreaseDirectionCountReq } from "./directionDto";
 
-export const increaseLinkCount = async (body: IncreaseLinkCountReq): Promise<void> => {
+export const increaseDirectionCount = async (body: IncreaseDirectionCountReq): Promise<void> => {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/test/increase_link_count`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/test/increase_popular_count`;
     const headers = createStandardHeaders({
       "Moneyswap": "true",
     });

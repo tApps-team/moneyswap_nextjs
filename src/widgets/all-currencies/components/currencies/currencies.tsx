@@ -2,6 +2,7 @@
 
 import { FC, useEffect, useState } from "react";
 import { Currency, CurrencyResponse } from "@/entities/currency";
+import { increaseDirectionCount } from "@/entities/direction";
 import { Accordion, AccordionItem, AccordionTrigger } from "@/shared/ui";
 import { filterList } from "../../model";
 import { CurrenciesColumn } from "../currencies-column/currencies-column";
@@ -32,6 +33,34 @@ export const Currencies: FC<CurrenciesProps> = ({ currencies }) => {
     setAccordionOpen(undefined);
   }, []);
 
+  const handleSetCurrencyInfoGive = (currency: Currency | null) => {
+    if (currency) {
+      setCurrencyInfoGive(currency);
+      if (currencyInfoGet?.code_name) {
+        const increaseDirectionCountReq = {
+          valute_from: currency?.code_name,
+          valute_to: currencyInfoGet?.code_name,
+          city_code_name: null,
+        };
+        increaseDirectionCount(increaseDirectionCountReq);
+      }
+    }
+  };
+
+  const handleSetCurrencyInfoGet = (currency: Currency | null) => {
+    if (currency) {
+      setCurrencyInfoGet(currency);
+      if (currencyInfoGive?.code_name) {
+        const increaseDirectionCountReq = {
+          valute_from: currencyInfoGive?.code_name,
+          valute_to: currency?.code_name,
+          city_code_name: null,
+        };
+        increaseDirectionCount(increaseDirectionCountReq);
+      }
+    }
+  };
+
   return (
     <div className="mt-10">
         <Accordion
@@ -49,7 +78,7 @@ export const Currencies: FC<CurrenciesProps> = ({ currencies }) => {
                         currencies={filteredCurrenciesGive || []}
                         currencyInfo={currencyInfoGet}
                         type="give"
-                        setCurrencyInfo={setCurrencyInfoGive}
+                        setCurrencyInfo={handleSetCurrencyInfoGive}
                         selectedCurrency={currencyInfoGive}
                     />
                     <CurrenciesColumn
@@ -58,7 +87,7 @@ export const Currencies: FC<CurrenciesProps> = ({ currencies }) => {
                         currencies={filteredCurrenciesGet || []}
                         currencyInfo={currencyInfoGive}
                         type="get"
-                        setCurrencyInfo={setCurrencyInfoGet}
+                        setCurrencyInfo={handleSetCurrencyInfoGet}
                         selectedCurrency={currencyInfoGet}
                     />
                 </div>

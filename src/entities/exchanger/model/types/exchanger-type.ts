@@ -44,6 +44,7 @@ export interface Exchanger {
   fromfee?: number | null;
   exchange_rates: ExchangeRate[] | null;
   location?: LocationInfo;
+  city_id?: number;
 }
 
 export interface ExchangerDetail {

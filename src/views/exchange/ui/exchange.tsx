@@ -14,6 +14,7 @@ import { SeoFooterText, SeoHeaderText, SkeletonSeoHeaderText } from "@/widgets/s
 import { CurrencyTitle } from "@/features/currency";
 import { TopExchangeSale } from "@/features/top-exchange";
 import { getActualCourse, getSpecificValute } from "@/entities/currency";
+import { increaseDirectionCount } from "@/entities/direction";
 import { getExchangers } from "@/entities/exchanger";
 import { getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";

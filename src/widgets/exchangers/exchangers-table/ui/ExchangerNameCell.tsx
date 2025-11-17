@@ -15,15 +15,14 @@ export const ExchangerNameCell = ({ exchanger }: ExchangerNameCellProps) => {
   
   const handleClick = (exchanger: Exchanger) => {
     if (defaultUserId) {
-      const increaseincreaseLinkCountReq = {
+      const increaseLinkCountReq = {
         user_id: defaultUserId,
         exchange_id: exchanger?.exchange_id,
-        exchange_direction_id: exchanger?.exchange_direction_id,
+        valute_from: exchanger?.valute_from,
+        valute_to: exchanger?.valute_to,
+        city_id: exchanger?.city_id ?? null,
       };
-      increaseLinkCount({
-        ...increaseincreaseLinkCountReq,
-        direction_marker: exchanger?.direction_marker,
-      });
+      increaseLinkCount(increaseLinkCountReq);
       exchangeRedirect();
     }
   };
