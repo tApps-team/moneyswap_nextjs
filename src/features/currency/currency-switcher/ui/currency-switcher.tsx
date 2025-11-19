@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import { increaseDirectionCount } from "@/entities/direction";
 import { SwapIcon } from "@/shared/assets";
 import { useSmartPrefetch } from "@/shared/hooks";
 import { IsEmptyObject } from "@/shared/lib";
@@ -26,9 +27,9 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
     slug: string[];
   }>();
   const city = searchParams.get("city") || "msk";
+  const emptyParams = IsEmptyObject({ obj: params });
 
   const switchUrl = () => {
-    const emptyParams = IsEmptyObject({ obj: params });
 
     if (emptyParams) {
       if (direction === SegmentMarker.cash) {
@@ -61,6 +62,27 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
   const handleMouseLeave = cancelPrefetch;
   const handleTouchEnd = cancelPrefetch;
 
+  const cityCodeName = searchParams.get("city") ?? null;
+
+  const handleIncreaseDirectionCount = () => {
+    if (!emptyParams) {
+      const [valuteFrom, valuteTo] = params?.slug[0]?.split("-to-");
+      const increaseDirectionCountReq = {
+        valute_from: valuteTo,
+        valute_to: valuteFrom,
+        city_code_name: cityCodeName,
+      };
+      increaseDirectionCount(increaseDirectionCountReq);
+    } else {
+      const increaseDirectionCountReq = {
+        valute_from: direction === SegmentMarker.cash ? defaultCashValutes.valuteTo : defaultNoCashValutes.valuteTo,
+        valute_to: direction === SegmentMarker.cash ? defaultCashValutes.valuteFrom : defaultNoCashValutes.valuteFrom,
+        city_code_name: cityCodeName,
+      };
+      increaseDirectionCount(increaseDirectionCountReq);
+    }
+  }
+
   return (
     <Link
       href={switchUrl()}
@@ -69,6 +91,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onClick={handleIncreaseDirectionCount}
     >
       <div className="z-10 bg-new-light-grey md:w-[54px] md:h-[54px] w-[40px] h-[40px] flex justify-center items-center rounded-full">
         <SwapIcon className="md:size-7 size-5" />
