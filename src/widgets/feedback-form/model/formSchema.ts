@@ -7,7 +7,10 @@ export const feedbackFormSchema = z.object({
     .min(2, { message: "Это поле обязательно" }),
   email: z
     .string({ required_error: "Это поле обязательно" })
-    .min(1, { message: "Это поле обязательно" }),
+    .min(1, { message: "Это поле обязательно" })
+    .refine((val) => val.includes("@"), {
+      message: "Введите корректный email или телеграм юзернейм с @ (пример: @username)",
+    }),
   reasons: z.enum(["Ошибка", "Проблема с обменником", "Сотрудничество", "Другое"]),
 
   description: z
