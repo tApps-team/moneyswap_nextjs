@@ -49,14 +49,33 @@ export const getAllValutes = async (props: GetAllValutesDtoRequest) => {
   const result = await apiClient.get<GetAllValutesDtoResponse>(url);
   return result;
 };
+
 export const getSpecificValute = async (
   props: GetSpecificValuteRequest,
 ): Promise<GetSpecificValuteResponse> => {
   const { codeName } = props;
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/specific_valute?code_name=${codeName}`;
-  const result = await apiClient.get<GetSpecificValuteResponse>(url);
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+  
+  const result = await fetch(url, { 
+    method: "GET",
+    headers,
+    next: { 
+      revalidate: 10,
+      tags: [`valute-${codeName}`]
+    }
+  });
 
-  return result;
+  if (!result.ok) {
+    throw new Error("Failed to fetch specific valute");
+  }
+
+  return result.json();
 };
 
 export const getPopularValutes = async (
@@ -74,7 +93,12 @@ export const getPopularValutes = async (
   const result = await fetch(url, { 
     method: "GET",
     headers,
+    next: { 
+      revalidate: 10,
+      tags: ['popular-directions', segment_marker]
+    }
   });
+  
   if (!result.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -98,10 +122,16 @@ export const getRandomValutes = async (
   const result = await fetch(url, { 
     method: "GET",
     headers,
+    next: { 
+      revalidate: 10,
+      tags: ['random-directions', segment_marker]
+    }
   });
+  
   if (!result.ok) {
     throw new Error("Failed to fetch data");
   }
+  
   const data = await result.json();
   return data;
 };
@@ -110,19 +140,62 @@ export const getActualCourse = async (
   props: GetActualCourseDtoRequest,
 ): Promise<GetActualCourseDtoResponse | null> => {
   const { valuteFrom, valuteTo } = props;
-  const url = `/api/v2/actual_course?valute_from=${valuteFrom}&valute_to=${valuteTo}`;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/actual_course?valute_from=${valuteFrom}&valute_to=${valuteTo}`;
 
   try {
-    const result = await apiClient.get<GetActualCourseDtoResponse>(url);
-    return result;
+    const headers = createStandardHeaders({
+      "Moneyswap": "true",
+    });
+    
+    logRequestHeaders(url, headers);
+    
+    const result = await fetch(url, { 
+      method: "GET",
+      headers,
+      next: { 
+        revalidate: 10,
+      }
+    });
+
+    if (!result.ok) {
+      throw new Error("Failed to fetch the actual course");
+    }
+
+    return result.json();
   } catch (error) {
     console.error("Failed to fetch the actual course:", error);
-    return null; // Return null or an appropriate fallback value if the request fails
+    return null;
   }
 };
 
 export const getPairValute = async (props: GetPairValuteDtoRequest) => {
-  const url = `/api/v2/direction_pair_by_exchange`;
-  const response = await apiClient.get<GetPairValuteDtoResponse>(url, props, "no-store");
-  return response;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/direction_pair_by_exchange`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  const queryParams = new URLSearchParams();
+  Object.entries(props).forEach(([key, value]) => {
+    if (value !== undefined) {
+      queryParams.append(key, value.toString());
+    }
+  });
+  
+  const fullUrl = `${url}?${queryParams.toString()}`;
+  logRequestHeaders(fullUrl, headers);
+  
+  const result = await fetch(fullUrl, { 
+    method: "GET",
+    headers,
+    next: { 
+      revalidate: 10,
+    }
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to fetch pair valute");
+  }
+
+  return result.json();
 };

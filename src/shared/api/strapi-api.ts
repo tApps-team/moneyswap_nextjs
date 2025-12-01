@@ -44,8 +44,7 @@ export const getSeoTexts = async ({
     const res = await fetch(
       `${process.env.STRAPI_BASE_URL}/api/seo-texts-blocks?filters[page][$eq]=${page}&${params.toString()}`,
       {
-        // cache: "no-store",
-        cache: "default",
+        next: { revalidate: 10 },
       },
     );
     return res.json();
@@ -72,8 +71,7 @@ export const getSeoMeta = async ({
     const res = await fetch(
       `${process.env.STRAPI_BASE_URL}/api/seo-meta-blocks?filters[page][$eq]=${page}&${params.toString()}`,
       {
-        // cache: "no-store",
-        cache: "default",
+        next: { revalidate: 10 },
       },
     );
     return res.json();

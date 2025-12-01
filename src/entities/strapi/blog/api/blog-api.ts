@@ -26,8 +26,12 @@ export const getAllArticles = async (
       ? `${process.env.STRAPI_BASE_URL}/api/blog-articles?pagination[page]=${page}&pagination[pageSize]=${elements}&sort=publishedAt:desc${searchFilter}`
       : `${process.env.STRAPI_BASE_URL}/api/blog-articles?pagination[page]=${page}&sort=publishedAt:desc${searchFilter}`;
 
+    // Отключаем кеширование для больших запросов (>100 элементов), чтобы избежать ошибки "items over 2MB"
+    const cacheOption = elements && elements > 100 ? { cache: 'no-store' as const } : {};
+
     const res = await fetch(current_url, {
       method: "GET",
+      ...cacheOption,
     });
     return res.json();
   } catch (error) {

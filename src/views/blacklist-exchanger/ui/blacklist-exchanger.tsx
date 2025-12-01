@@ -78,7 +78,7 @@ export const BlacklistExchangerPage = async ({
                Осторожно! У мошенника есть и другие источники:
               </h3>
               <div className="flex flex-col gap-2 mobile-xl:text-base text-sm">
-                {exchangerDetails?.linked_urls?.map((url) => (
+                {exchangerDetails?.linked_urls?.map((url: string) => (
                   <p className="text-font-light-grey font-normal" key={url}>{url}</p>
                 ))}
               </div>
