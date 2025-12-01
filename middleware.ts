@@ -6,6 +6,11 @@ export default function middleware(request: NextRequest) {
   
   // Обрабатываем только crypto-exchangers
   if (pathname.startsWith('/crypto-exchangers/exchanger-')) {
+    // Возвращаем 404 для конкретной ссылки exchanger-169__both
+    if (pathname === '/crypto-exchangers/exchanger-169__both') {
+      return new NextResponse(null, { status: 404 });
+    }
+
     // Проверяем редирект для banner exchangers
     // const match_id = pathname.match(/exchanger-(\d+)/);
     // if (match_id) {
