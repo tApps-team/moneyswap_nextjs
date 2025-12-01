@@ -35,15 +35,14 @@ export const getExchangers = async (
       method: "GET",
       headers,
       next: {
+        revalidate: 10,
         tags: city
           ? ["directions", valute_from, valute_to, city]
           : ["directions", valute_from, valute_to],
       },
-      cache: "no-store",
     });
 
     if (!res.ok) {
-      // Handle different response statuses accordingly
       return { exchangers: null, status: res.status };
     }
 
@@ -56,7 +55,7 @@ export const getExchangers = async (
     }
   } catch (error) {
     console.error("Network or other error occurred:", error);
-    return { exchangers: null, status: 500 }; // Return a status of 500 or another code indicating a failure
+    return { exchangers: null, status: 500 };
   }
 };
 
@@ -68,12 +67,21 @@ export const getSimilarDirections = async (
     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/similar_directions?segment_marker=cash&valute_from=${valuteFrom}&valute_to=${valuteTo}&city=${city}`
     : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/similar_directions?segment_marker=no_cash&valute_from=${valuteFrom}&valute_to=${valuteTo}`;
 
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+
   const res = await fetch(url, {
     method: "GET",
-    headers: {
-      "Moneyswap": "true",
-    },
+    headers,
+    next: {
+      revalidate: 10,
+      tags: ['similar-directions', valuteFrom, valuteTo]
+    }
   });
+  
   const data = await res.json();
   return data;
 };
@@ -85,10 +93,36 @@ export const getExchangerList = async () => {
 };
 
 export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequest) => {
-  const url = `/api/v2/exchange_detail`;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/exchange_detail`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  const queryParams = new URLSearchParams();
+  Object.entries(props).forEach(([key, value]) => {
+    if (value !== undefined) {
+      queryParams.append(key, value.toString());
+    }
+  });
+  
+  const fullUrl = `${url}?${queryParams.toString()}`;
+  logRequestHeaders(fullUrl, headers);
+  
   try {
-    const response = await apiClient.get<GetExchnagerDetailDtoResponse>(url, props, "no-store");
-    // Если твой apiClient.get возвращает объект с полем status
+    const result = await fetch(fullUrl, { 
+      method: "GET",
+      headers,
+      next: { 
+        revalidate: 10,
+      }
+    });
+
+    if (!result.ok) {
+      return null;
+    }
+
+    const response = await result.json();
     if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
       return null;
     }
@@ -106,10 +140,36 @@ export const getBlackList = async () => {
 };
 
 export const getBlackListDetails = async (props: GetBlackListDetailDtoRequest) => {
-  const url = `/api/v2/exchange_blacklist_detail`;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/exchange_blacklist_detail`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  const queryParams = new URLSearchParams();
+  Object.entries(props).forEach(([key, value]) => {
+    if (value !== undefined) {
+      queryParams.append(key, value.toString());
+    }
+  });
+  
+  const fullUrl = `${url}?${queryParams.toString()}`;
+  logRequestHeaders(fullUrl, headers);
+  
   try {
-    const response = await apiClient.get<GetBlackListDetailDtoResponse>(url, props, "no-store");
-    // Если твой apiClient.get возвращает объект с полем status
+    const result = await fetch(fullUrl, { 
+      method: "GET",
+      headers,
+      next: { 
+        revalidate: 10,
+      }
+    });
+
+    if (!result.ok) {
+      return null;
+    }
+
+    const response = await result.json();
     if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
       return null;
     }
@@ -124,7 +184,6 @@ export const getSitemapDirections = async (props: GetSitemapDirectionsDtoRequest
   const url = `/api/v2/sitemap_directions`;
   try {
     const response = await apiClient.get<GetSitemapDirectionsDtoResponse>(url, props);
-    // Если твой apiClient.get возвращает объект с полем status
     if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
       return null;
     }

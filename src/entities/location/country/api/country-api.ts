@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/shared/api";
+import { createStandardHeaders, logRequestHeaders } from "@/shared/lib/debug-headers";
 import { Country } from "../model/country-types";
 import { GetSpecificCityRequest, GetSpecificCityResponse } from "./country-api-dto";
 
@@ -11,13 +12,30 @@ export const useGetCountries = () => {
     queryFn: fetcher,
   });
 };
+
 export const getSpecificCity = async (
   props: GetSpecificCityRequest,
 ): Promise<GetSpecificCityResponse> => {
   const { codeName } = props;
-  const url = `api/cash/specific_city?code_name=${codeName}`;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/cash/specific_city?code_name=${codeName}`;
 
-  const response = apiClient.get<GetSpecificCityResponse>(url);
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+  
+  const result = await fetch(url, { 
+    method: "GET",
+    headers,
+    next: { 
+      revalidate: 10,
+    }
+  });
 
-  return response;
+  if (!result.ok) {
+    throw new Error("Failed to fetch specific city");
+  }
+
+  return result.json();
 };
