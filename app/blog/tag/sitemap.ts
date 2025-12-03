@@ -3,7 +3,7 @@ import { getAllTags } from "@/entities/strapi";
 import { baseUrl } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
-export const revalidate = 10;
+export const revalidate = 60;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const tags = await getAllTags();

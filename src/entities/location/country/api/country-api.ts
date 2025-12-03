@@ -29,7 +29,7 @@ export const getSpecificCity = async (
     method: "GET",
     headers,
     next: { 
-      revalidate: 10,
+      revalidate: 60,
     }
   });
 
