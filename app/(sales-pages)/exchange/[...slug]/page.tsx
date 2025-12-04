@@ -9,7 +9,7 @@ import { pageTypes } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
 export const revalidate = 60;
-export const dynamic = 'force-static';
+export const dynamic = 'auto';
 export const dynamicParams = true;
 
 type Props = {
