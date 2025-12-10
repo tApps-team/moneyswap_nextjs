@@ -35,7 +35,7 @@ export const getExchangers = async (
       method: "GET",
       headers,
       next: {
-        revalidate: 60,
+        revalidate: 10,
         tags: city
           ? ["directions", valute_from, valute_to, city]
           : ["directions", valute_from, valute_to],
@@ -77,7 +77,7 @@ export const getSimilarDirections = async (
     method: "GET",
     headers,
     next: {
-      revalidate: 60,
+      revalidate: 10,
       tags: ['similar-directions', valuteFrom, valuteTo]
     }
   });
@@ -114,7 +114,7 @@ export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequest) =
       method: "GET",
       headers,
       next: { 
-        revalidate: 60,
+        revalidate: 10,
       }
     });
 
@@ -161,7 +161,7 @@ export const getBlackListDetails = async (props: GetBlackListDetailDtoRequest) =
       method: "GET",
       headers,
       next: { 
-        revalidate: 60,
+        revalidate: 10,
       }
     });
 

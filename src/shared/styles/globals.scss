@@ -262,10 +262,11 @@ body {
   --font-family-regular: "Montserrat";
 }
 
+// switched to montserrat font
 .strapi_fonts_codec {
   text-transform: none;
   font-size: 16px;
-  --font-family-regular: "CodecCold";
+  --font-family-regular: "Montserrat";
 
   @media (max-width: 1024px) {
     font-size: 15px;

@@ -8,7 +8,7 @@ import { BtcIcon, CardIcon, EmptyWalletIcon, SearchIcon, TelegramIcon } from "@/
 import { products } from "@/shared/router";
 import { SegmentMarker } from "@/shared/types";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 const CryptoTable = dynamic(
   () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.CryptoTable),

@@ -1,0 +1,75 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Клонируем репозиторий
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Устанавливаем Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Устанавливаем зависимости
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Собираем проект
+      - name: Build application
+        run: npm run build
+        env:
+          NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+          STRAPI_BASE_URL: ${{ secrets.STRAPI_BASE_URL }}
+          NEXT_PUBLIC_SITE_BASE_URL: ${{ secrets.NEXT_PUBLIC_SITE_BASE_URL }}
+          NEXT_PUBLIC_TGBOT_BASE_URL: ${{ secrets.NEXT_PUBLIC_TGBOT_BASE_URL }}
+
+      # 5. Деплоим на сервер (только при push в main)
+      - name: Deploy to server
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            
+            if [ ! -d .git ]; then
+              git clone https://github.com/tApps-team/moneyswap_nextjs.git .
+            else
+              git reset --hard
+              git clean -fd
+            fi
+            
+            git fetch origin main
+            git checkout -f origin/main
+            
+            npm install
+            
+            cat > .env.local << 'EOF'
+            NEXT_PUBLIC_API_BASE_URL=${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+            STRAPI_BASE_URL=${{ secrets.STRAPI_BASE_URL }}
+            NEXT_PUBLIC_SITE_BASE_URL=${{ secrets.NEXT_PUBLIC_SITE_BASE_URL }}
+            NEXT_PUBLIC_TGBOT_BASE_URL=${{ secrets.NEXT_PUBLIC_TGBOT_BASE_URL }}
+            EOF
+            
+            npm run build
+            
+            pm2 delete moneyswap || true
+            pm2 start npm --name moneyswap -- start
+            pm2 save

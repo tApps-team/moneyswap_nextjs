@@ -107,10 +107,29 @@ export const columns: ColumnDef<ExchangerTable>[] = [
     },
   },
   {
-    accessorKey: "in_count",
-    header: () => (
-      <p className="text-lg font-bold leading-none uppercase truncate">Сумма обмена</p>
+    accessorFn: (exchanger) => {
+      if (!exchanger.min_amount) {
+        return Number.POSITIVE_INFINITY;
+      }
+
+      const numeric = Number(String(exchanger.min_amount).replace(/\s+/g, ""));
+      return Number.isFinite(numeric) ? numeric : Number.POSITIVE_INFINITY;
+    },
+    id: "exchangeAmount",
+    header: ({ column }) => (
+      <button
+        className="flex items-center text-lg font-bold leading-none uppercase truncate"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        <p className="leading-none">Сумма обмена</p>
+        {column.getIsSorted() === "asc" ? (
+          <ChevronDown className="ml-2 h-5 w-5" />
+        ) : (
+          <ChevronUp className="ml-2 h-5 w-5" />
+        )}
+      </button>
     ),
+    sortUndefined: "last",
     enableHiding: true,
     cell: ({ row }) => (
       <div className="flex flex-col">

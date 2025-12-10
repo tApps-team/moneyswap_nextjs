@@ -4,7 +4,7 @@ import { getSeoMeta } from "@/shared/api";
 import { routes } from "@/shared/router";
 import { pageTypes } from "@/shared/types";
 
-export const revalidate = 60;
+export const revalidate = 10;
 export const dynamicParams = true;
 
 // Типы для props

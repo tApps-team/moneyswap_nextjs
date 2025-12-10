@@ -13,11 +13,12 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Exchanger, ExchangerCard, getExchangers } from "@/entities/exchanger";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
+import { MobileExchangersSorting, MobileSortState } from "./mobile-exchangers-sorting";
 
 interface DataTableProps<TValue> {
   columns: ColumnDef<Exchanger, TValue>[];
@@ -50,6 +51,10 @@ export function ExchangersTable<TData, TValue>({
 
   const [userAmount, setUserAmount] = useState<number | null>(null);
   const [inputType, setInputType] = useState<'give' | 'get'>('give');
+  const [mobileSort, setMobileSort] = useState<MobileSortState>({
+    key: null,
+    direction: "asc",
+  });
   
   useEffect(() => {
     const handleAmountChange = (e: CustomEvent<{ value: number; type: 'give' | 'get' }>) => {
@@ -132,6 +137,42 @@ export function ExchangersTable<TData, TValue>({
     },
   });
 
+  const normalizeMinAmount = useCallback((exchanger: Exchanger) => {
+    if (!exchanger.min_amount) {
+      return Number.POSITIVE_INFINITY;
+    }
+    const numeric = Number(String(exchanger.min_amount).replace(/\s+/g, ""));
+    return Number.isFinite(numeric) ? numeric : Number.POSITIVE_INFINITY;
+  }, []);
+
+  const sortedMobileData = useMemo(() => {
+    const list = [...data];
+
+    if (!mobileSort.key) {
+      return list;
+    }
+
+    const directionMultiplier = mobileSort.direction === "asc" ? 1 : -1;
+
+    switch (mobileSort.key) {
+      case "name":
+        return list.sort((a, b) => directionMultiplier * a.name.ru.localeCompare(b.name.ru));
+      case "giveCurrency":
+        return list.sort((a, b) => directionMultiplier * (a.in_count - b.in_count));
+      case "getCurrency":
+        return list.sort((a, b) => directionMultiplier * (a.out_count - b.out_count));
+      case "minAmount":
+        return list.sort((a, b) => directionMultiplier * (normalizeMinAmount(a) - normalizeMinAmount(b)));
+      case "reviews": {
+        const total = (item: Exchanger) =>
+          item.review_count.positive + item.review_count.neutral + item.review_count.negative;
+        return list.sort((a, b) => directionMultiplier * (total(a) - total(b)));
+      }
+      default:
+        return list;
+    }
+  }, [data, mobileSort, normalizeMinAmount]);
+
   const handleShowMore = () => {
     setPagination((prev) => ({
       ...prev,
@@ -210,16 +251,22 @@ export function ExchangersTable<TData, TValue>({
     );
   }
 
-  const mobileExchangers = data.slice(0, pagination.pageSize);
+  const sortedMobileExchangers = sortedMobileData.slice(0, pagination.pageSize);
 
   return (
     <div className="flex flex-col lg:mt-10 mt-0 gap-4 w-full">
-      {mobileExchangers.map((exchanger) => (
+      <MobileExchangersSorting
+        value={mobileSort}
+        onChange={setMobileSort}
+        giveCurrency={exchangers?.[0]?.valute_from || ''}
+        getCurrency={exchangers?.[0]?.valute_to || ''}
+      />
+      {sortedMobileExchangers.map((exchanger) => (
         <ExchangerCard key={exchanger.id} exchanger={exchanger} city={cityName} />
       ))}
       <Button
         onClick={handleShowMore}
-        disabled={mobileExchangers.length >= data.length}
+        disabled={sortedMobileExchangers.length >= data.length}
         className="lg:mt-0 md:mt-6 mt-4 mx-auto w-fit mobile-xl:sm text-xs px-6 py-4 rounded-[10px] text-black bg-yellow-main hover:bg-new-light-grey hover:text-font-light-grey cursor-pointer font-semibold"
       >
         Показать ещё

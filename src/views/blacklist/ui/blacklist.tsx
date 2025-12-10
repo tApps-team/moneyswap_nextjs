@@ -6,7 +6,7 @@ import { getBlackList } from "@/entities/exchanger";
 import { SearchIcon } from "@/shared/assets";
 import { routes } from "@/shared/router";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 const BlacklistCryptoTable = dynamic(
   () => import("@/widgets/crypto-exchangers/crypto-table").then((mod) => mod.BlacklistCryptoTable),
