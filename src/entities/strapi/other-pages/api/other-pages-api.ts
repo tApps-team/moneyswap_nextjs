@@ -9,6 +9,9 @@ export const getAboutPage = async (): Promise<GetAboutPageResponse> => {
   try {
     const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/about-us`, {
       cache: "force-cache",
+      next: { 
+        tags: ['about'] 
+      }
     });
     return res.json();
   } catch (error) {
@@ -21,6 +24,9 @@ export const getHelpPage = async (): Promise<GetHelpPageResponse> => {
   try {
     const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/help-page-article`, {
       cache: "force-cache",
+      next: { 
+        tags: ['help'] 
+      }
     });
     return res.json();
   } catch (error) {
@@ -33,6 +39,9 @@ export const getForPartnersPage = async (): Promise<GetForPartnersPageResponse> 
   try {
     const res = await fetch(`${process.env.STRAPI_BASE_URL}/api/for-partner`, {
       cache: "force-cache",
+      next: { 
+        tags: ['partner'] 
+      }
     });
     return res.json();
   } catch (error) {
