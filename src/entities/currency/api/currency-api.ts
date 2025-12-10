@@ -66,7 +66,7 @@ export const getSpecificValute = async (
     method: "GET",
     headers,
     next: { 
-      revalidate: 60,
+      revalidate: 10,
       tags: [`valute-${codeName}`]
     }
   });
@@ -94,7 +94,7 @@ export const getPopularValutes = async (
     method: "GET",
     headers,
     next: { 
-      revalidate: 60,
+      revalidate: 10,
       tags: ['popular-directions', segment_marker]
     }
   });
@@ -123,7 +123,7 @@ export const getRandomValutes = async (
     method: "GET",
     headers,
     next: { 
-      revalidate: 60,
+      revalidate: 10,
       tags: ['random-directions', segment_marker]
     }
   });
@@ -153,7 +153,7 @@ export const getActualCourse = async (
       method: "GET",
       headers,
       next: { 
-        revalidate: 60,
+        revalidate: 10,
       }
     });
 
@@ -189,7 +189,7 @@ export const getPairValute = async (props: GetPairValuteDtoRequest) => {
     method: "GET",
     headers,
     next: { 
-      revalidate: 60,
+      revalidate: 10,
     }
   });
 

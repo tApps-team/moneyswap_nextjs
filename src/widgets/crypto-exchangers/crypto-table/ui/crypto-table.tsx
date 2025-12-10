@@ -19,6 +19,7 @@ import { ExchangerStatus } from "@/shared/types";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
 import { cryptoColumns } from "../model/columns";
 import { CryptoTableColumns } from "../model/columns";
+import { MobileCryptoSorting, CryptoMobileSort } from "./mobile-crypto-sorting";
 
 interface DataTableProps<TValue> {
   data: CryptoTableColumns[];
@@ -33,6 +34,11 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
   const [rowSelection, setRowSelection] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [filteredData, setFilteredData] = useState(data);
+  // Mobile-specific sorting state
+  const [mobileSort, setMobileSort] = useState<CryptoMobileSort>({
+    key: null,
+    direction: "asc",
+  });
   // Mobile-specific pagination state
   const [currentPage, setCurrentPage] = useState(0);
   const [pagination, setPagination] = useState({
@@ -45,13 +51,67 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
   );
 
   useEffect(() => {
-    const filtered = data.filter((item) => 
-      item.exchangerName.ru.toLowerCase().includes(searchValue.toLowerCase())
-    );
-    setFilteredData(filtered);
+    let processed = [...data];
+    
+    // Фильтрация по поиску
+    if (searchValue) {
+      processed = processed.filter((item) => 
+        item.exchangerName.ru.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+    
+    // Мобильная сортировка
+    if (mobileSort.key) {
+      processed.sort((a, b) => {
+        let comparison = 0;
+        
+        switch (mobileSort.key) {
+          case "name":
+            comparison = a.exchangerName.ru.localeCompare(b.exchangerName.ru);
+            break;
+          case "status": {
+            const statusOrder = {
+              [ExchangerStatus.active]: 1,
+              [ExchangerStatus.inactive]: 2,
+              [ExchangerStatus.disabled]: 3,
+            };
+            const aOrder = statusOrder[a.workStatus] || 0;
+            const bOrder = statusOrder[b.workStatus] || 0;
+            comparison = aOrder - bOrder;
+            break;
+          }
+          case "reserves": {
+            const aStr = typeof a.reserves === 'string' ? a.reserves : String(a.reserves || '');
+            const bStr = typeof b.reserves === 'string' ? b.reserves : String(b.reserves || '');
+            const aNum = Number(aStr.replace(/[^0-9]/g, '')) || 0;
+            const bNum = Number(bStr.replace(/[^0-9]/g, '')) || 0;
+            comparison = aNum - bNum;
+            break;
+          }
+          case "courses": {
+            const aStr = typeof a.courses === 'string' ? a.courses : String(a.courses || '');
+            const bStr = typeof b.courses === 'string' ? b.courses : String(b.courses || '');
+            const aNum = Number(aStr.replace(/[^0-9]/g, '')) || 0;
+            const bNum = Number(bStr.replace(/[^0-9]/g, '')) || 0;
+            comparison = aNum - bNum;
+            break;
+          }
+          case "reviews": {
+            const aTotal = (a.reviews?.positive || 0) + (a.reviews?.neutral || 0) + (a.reviews?.negative || 0);
+            const bTotal = (b.reviews?.positive || 0) + (b.reviews?.neutral || 0) + (b.reviews?.negative || 0);
+            comparison = aTotal - bTotal;
+            break;
+          }
+        }
+        
+        return mobileSort.direction === "asc" ? comparison : -comparison;
+      });
+    }
+    
+    setFilteredData(processed);
     setCurrentPage(0);
-    setPaginatedData(filtered.slice(0, pagination.pageSize));
-  }, [data, searchValue]);
+    setPaginatedData(processed.slice(0, pagination.pageSize));
+  }, [data, searchValue, mobileSort]);
 
   useEffect(() => {
     setPaginatedData(
@@ -187,6 +247,10 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
         placeholder="Поиск обменника..."
         className="w-full mb-4 px-3 py-2 text-base text-white bg-new-grey rounded-[7px] outline-none focus:shadow-[inset_0_0_1px_1px_rgba(246,255,95,1)] focus:placeholder:opacity-0 placeholder:bg-opacity-100 transition-all duration-200"
       />
+      
+      <div className="w-full mb-4">
+        <MobileCryptoSorting value={mobileSort} onChange={setMobileSort} />
+      </div>
 
       <div className="w-full flex flex-col mobile-xl:gap-10 gap-6">
         <div className="flex flex-col gap-2.5 text-white">

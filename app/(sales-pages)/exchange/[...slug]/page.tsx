@@ -8,7 +8,7 @@ import { routes } from "@/shared/router";
 import { pageTypes } from "@/shared/types";
 import { Breadcrumbs } from "@/shared/ui";
 
-export const revalidate = 60;
+export const revalidate = 10;
 export const dynamic = 'auto';
 export const dynamicParams = true;
 
