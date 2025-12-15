@@ -125,24 +125,37 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
                 </div>
               )}
 
+              {exchanger.info?.delivery && 
+                <div className="flex items-center text-black">
+                  {exchanger.info?.delivery ? (
+                    <Check className="size-2.5" />
+                  ) : (
+                    <X className="size-2.5" />
+                  )}
+                  <p>ДОСТАВКА</p>
+                </div>
+              }
+              
+              {exchanger.info?.office && 
+                <div className="flex items-center text-black">
+                  {exchanger.info?.office ? (
+                    <Check className="size-2.5" />
+                  ) : (
+                    <X className="size-2.5" />
+                  )}
+                  <p>ОФИС</p>
+                </div>
+              }
+              
+            </span>
+          ) : exchanger?.info?.delivery ?
+            <span className="text-[7px] font-medium h-4 flex py-2 gap-1 bg-yellow-main items-center justify-center -mx-4">
               <div className="flex items-center text-black">
-                {exchanger.info?.delivery ? (
-                  <Check className="size-2.5" />
-                ) : (
-                  <X className="size-2.5" />
-                )}
+                <Check className="size-2.5" />
                 <p>ДОСТАВКА</p>
               </div>
-              <div className="flex items-center text-black">
-                {exchanger.info?.office ? (
-                  <Check className="size-2.5" />
-                ) : (
-                  <X className="size-2.5" />
-                )}
-                <p>ОФИС</p>
-              </div>
             </span>
-          ) : (
+           : (
             <hr className=" border-[#575A62]" />
           )}
           <div className="relative grid grid-flow-row content-between">

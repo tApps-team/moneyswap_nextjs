@@ -102,22 +102,29 @@ export const ExchangerNameCell = ({ exchanger }: ExchangerNameCellProps) => {
               </div>
             </div>
           )}
-          <div className="flex items-center gap-1 text-font-light-grey">
-            {exchanger.info?.delivery ? (
-              <Check className="size-2.5" />
-            ) : (
-              <X className="size-2.5" />
-            )}
-            <p>Доставка</p>
-          </div>
-          <div className="flex items-center gap-1 text-font-light-grey">
-            {exchanger.info?.office ? (
-              <Check className="size-2.5" />
-            ) : (
-              <X className="size-2.5" />
-            )}
-            <p>Офис</p>
-          </div>
+
+          {exchanger.info?.delivery && 
+            <div className="flex items-center gap-1 text-font-light-grey">
+              {exchanger.info?.delivery ? (
+                <Check className="size-2.5" />
+              ) : (
+                <X className="size-2.5" />
+              )}
+              <p>Доставка</p>
+            </div>
+          }
+          
+          {exchanger.info?.office && 
+            <div className="flex items-center gap-1 text-font-light-grey">
+              {exchanger.info?.office ? (
+                <Check className="size-2.5" />
+              ) : (
+                <X className="size-2.5" />
+              )}
+              <p>Офис</p>
+            </div>
+          }
+
         </span>
       )}
     </Link>

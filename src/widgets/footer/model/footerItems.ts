@@ -80,6 +80,11 @@ export const footerItems: FooterItems[] = [
         value: "Дзен",
         target: "_blank",
       },
+      {
+        href: products.bits_media,
+        value: "Bits.Media",
+        target: "_blank",
+      },
     ],
   },
   {
