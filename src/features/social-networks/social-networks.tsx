@@ -24,6 +24,9 @@ export const SocialNetworks = () => {
       <Link href={products.vc_ru} target="_blank">
         <Image src="/vcru.png" alt="vc.ru icon" width={150} height={150} className="size-10" />
       </Link>
+      <Link href={products.bits_media} target="_blank" className="rounded-[7px] overflow-hidden">
+        <Image src="/bits_media_icon.png" alt="bits.media icon" width={150} height={150} className="size-10" />
+      </Link>
     </section>
   );
 };
