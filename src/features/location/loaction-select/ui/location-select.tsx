@@ -10,7 +10,6 @@ import {
   Country,
   CountryCard,
   LocationInfo,
-  getSpecificCity,
 } from "@/entities/location";
 import { ArrowRightLineIcon, HeaderArrow, MobileCityArrowIcon } from "@/shared/assets";
 import { useYandexMetrika } from "@/shared/hooks";
@@ -43,22 +42,24 @@ import { filteredCountriesFn } from "../lib/filteredCountries";
 
 type LocationSelectProps = {
   countries: Country[];
+  cityInfo?: LocationInfo | null;
 };
 
 export const LocationSelect = (props: LocationSelectProps) => {
-  const { countries } = props;
+  const { countries, cityInfo: initialCityInfo } = props;
   const searchParams = useSearchParams();
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const searchParamsCity = searchParams.get("city");
   const pathname = usePathname();
   const { cashCountrySelect } = useYandexMetrika();
   const city = searchParamsCity ? searchParamsCity : pathname === routes.home ? "msk" : null;
-  const [cityInfo, setCityInfo] = useState<LocationInfo | null>(null);
+  const [cityInfo, setCityInfo] = useState<LocationInfo | null>(initialCityInfo || null);
+  
   useEffect(() => {
-    if (city) {
-      getSpecificCity({ codeName: city }).then((data) => setCityInfo(data));
+    if (initialCityInfo) {
+      setCityInfo(initialCityInfo);
     }
-  }, [city]);
+  }, [initialCityInfo]);
 
   const ref = useRef<HTMLInputElement>(null);
   const [selectCountry, setSelectCountry] = useState<Country | null>(null);

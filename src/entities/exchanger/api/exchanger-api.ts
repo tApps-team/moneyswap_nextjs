@@ -86,10 +86,29 @@ export const getSimilarDirections = async (
   return data;
 };
 
-export const getExchangerList = async () => {
-  const url = `/api/v2/exchange_list`;
-  const response = await apiClient.get<GetExchangeListDtoResponse>(url);
-  return response;
+export const getExchangerList = async (): Promise<GetExchangeListDtoResponse> => {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/exchange_list`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+  
+  const result = await fetch(url, {
+    method: "GET",
+    headers,
+    next: {
+      revalidate: 10,
+      tags: ["exchange_list"],
+    },
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to fetch exchanger list");
+  }
+
+  return result.json();
 };
 
 export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequest) => {
@@ -133,10 +152,29 @@ export const getExchangerDetails = async (props: GetExchnagerDetailDtoRequest) =
   }
 };
 
-export const getBlackList = async () => {
-  const url = `/api/v2/exchangers_blacklist`;
-  const response = await apiClient.get<GetBlackListDtoResponse>(url);
-  return response;
+export const getBlackList = async (): Promise<GetBlackListDtoResponse> => {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/exchangers_blacklist`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+  
+  const result = await fetch(url, {
+    method: "GET",
+    headers,
+    next: {
+      revalidate: 10,
+      tags: ["blacklist"],
+    },
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to fetch black list");
+  }
+
+  return result.json();
 };
 
 export const getBlackListDetails = async (props: GetBlackListDetailDtoRequest) => {
@@ -180,10 +218,40 @@ export const getBlackListDetails = async (props: GetBlackListDetailDtoRequest) =
   }
 };
 
-export const getSitemapDirections = async (props: GetSitemapDirectionsDtoRequest) => {
-  const url = `/api/v2/sitemap_directions`;
+export const getSitemapDirections = async (
+  props: GetSitemapDirectionsDtoRequest,
+): Promise<GetSitemapDirectionsDtoResponse | null> => {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/sitemap_directions`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  const queryParams = new URLSearchParams();
+  Object.entries(props).forEach(([key, value]) => {
+    if (value !== undefined) {
+      queryParams.append(key, value.toString());
+    }
+  });
+  
+  const fullUrl = `${url}?${queryParams.toString()}`;
+  logRequestHeaders(fullUrl, headers);
+  
   try {
-    const response = await apiClient.get<GetSitemapDirectionsDtoResponse>(url, props);
+    const result = await fetch(fullUrl, {
+      method: "GET",
+      headers,
+      next: {
+        revalidate: 10,
+        tags: ["sitemap_directions"],
+      },
+    });
+
+    if (!result.ok) {
+      return null;
+    }
+
+    const response = await result.json();
     if (!response || (typeof response === "object" && "status" in response && response.status !== "200")) {
       return null;
     }

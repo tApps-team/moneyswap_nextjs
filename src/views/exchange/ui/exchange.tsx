@@ -13,10 +13,10 @@ import { SimilarCities } from "@/widgets/similar-cities";
 import { SeoFooterText, SeoHeaderText, SkeletonSeoHeaderText } from "@/widgets/strapi";
 import { CurrencyTitle } from "@/features/currency";
 import { TopExchangeSale } from "@/features/top-exchange";
-import { getActualCourse, getSpecificValute } from "@/entities/currency";
+import { getActualCourse, getAvailableValutes, getSpecificValute } from "@/entities/currency";
 import { increaseDirectionCount } from "@/entities/direction";
 import { getExchangers } from "@/entities/exchanger";
-import { getSpecificCity } from "@/entities/location";
+import { getCountries, getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
 import { pageTypes, SegmentMarker } from "@/shared/types";
 
@@ -79,8 +79,8 @@ export const ExchangePage = async ({
         getCurrency: `${getCurrency?.name?.ru} (${getCurrency?.code_name})`,
       };
 
-  // Параллельные запросы для получения обменников и курса
-  const [exchangersResponse, actualCourse, seoTexts] = await Promise.all([
+  // Параллельные запросы для получения обменников, курса и данных для формы
+  const [exchangersResponse, actualCourse, seoTexts, countries, giveCurrencies, getCurrencies] = await Promise.all([
     getExchangers({
       valute_from: giveCurrency.code_name,
       valute_to: getCurrency.code_name,
@@ -91,6 +91,15 @@ export const ExchangePage = async ({
       valuteTo: getCurrency.code_name,
     }),
     getSeoTexts(reqParams),
+    getCountries(),
+    getAvailableValutes({
+      base: "all",
+      city: direction === SegmentMarker.cash ? location?.code_name : undefined,
+    }),
+    getAvailableValutes({
+      base: giveCurrency?.code_name,
+      city: direction === SegmentMarker.cash ? location?.code_name : undefined,
+    }),
   ]);
 
   const { status } = exchangersResponse;
@@ -119,6 +128,9 @@ export const ExchangePage = async ({
           urlGiveCurrency={giveCurrency}
           urlDirection={direction}
           urlLocation={location}
+          countries={countries}
+          giveCurrencies={giveCurrencies}
+          getCurrencies={getCurrencies}
         />
       </Suspense>
       <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
