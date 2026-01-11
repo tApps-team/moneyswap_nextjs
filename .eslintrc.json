@@ -11,7 +11,6 @@
     "@feature-sliced/eslint-config/rules/import-order",
     // "@feature-sliced/eslint-config/rules/public-api",
     "@feature-sliced/eslint-config/rules/layers-slices",
-    "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react/recommended"
   ],

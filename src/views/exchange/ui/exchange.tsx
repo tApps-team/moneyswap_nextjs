@@ -117,7 +117,7 @@ export const ExchangePage = async ({
           data={seoTexts.data}
           giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
           getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
-          location={location && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
+          location={location ? `${location?.name?.ru}, ${location?.country?.name?.ru}` : undefined}
           isExchange
         />
       </Suspense>
@@ -127,7 +127,7 @@ export const ExchangePage = async ({
           urlGetCurrency={getCurrency}
           urlGiveCurrency={giveCurrency}
           urlDirection={direction}
-          urlLocation={location}
+          urlLocation={location || undefined}
           countries={countries}
           giveCurrencies={giveCurrencies}
           getCurrencies={getCurrencies}
@@ -136,7 +136,7 @@ export const ExchangePage = async ({
       <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
       <Suspense fallback={<ExchangersTableSkeleton />}>
         {status === 404 ? (
-          <EmptyListExchangers valuteFrom={giveCurrency} valuteTo={getCurrency} location={location} />
+          <EmptyListExchangers valuteFrom={giveCurrency} valuteTo={getCurrency} location={location || undefined} />
         ) : (
           <HydrationBoundary state={dehydrate(queryClient)}>
             <ExchangersTable cityName={location?.name?.ru} columns={columns} params={queryParams} />
@@ -150,7 +150,7 @@ export const ExchangePage = async ({
           isExchange
           giveCurrency={`${giveCurrency?.name?.ru} (${giveCurrency?.code_name})`}
           getCurrency={`${getCurrency?.name?.ru} (${getCurrency?.code_name})`}
-          location={city && `${location?.name?.ru}, ${location?.country?.name?.ru}`}
+          location={city && location ? `${location?.name?.ru}, ${location?.country?.name?.ru}` : undefined}
         />
       </Suspense>
       <Suspense>

@@ -110,7 +110,7 @@ export const Main = async ({
       <Suspense fallback={<SkeletonCurrencySelectForm />}>
         <CurrencySelectForm
           actualCourse={actualCourse}
-          urlLocation={location}
+          urlLocation={location || undefined}
           urlGetCurrency={getCurrency}
           urlGiveCurrency={giveCurrency}
           urlDirection={direction}
