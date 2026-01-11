@@ -1,4 +1,4 @@
-import { apiClient } from "@/shared/api";
+import { createStandardHeaders, logRequestHeaders } from "@/shared/lib/debug-headers";
 import {
   GetCommentsByReviewDtoRequest,
   GetCommentsByReviewDtoResponse,
@@ -9,20 +9,62 @@ import {
 export const reviewsByExchange = async (
   props: ReviewsByExchangeDTORequest,
 ): Promise<ReviewsByExchangeDTOResponse> => {
-  const response = await apiClient.get<ReviewsByExchangeDTOResponse>(
-    "/api/v2/reviews/reviews_by_exchange",
-    props,
-    "no-store"
-  );
-  return response;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/reviews/reviews_by_exchange`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  const queryParams = new URLSearchParams();
+  Object.entries(props).forEach(([key, value]) => {
+    if (value !== undefined) {
+      queryParams.append(key, value.toString());
+    }
+  });
+  
+  const fullUrl = `${url}?${queryParams.toString()}`;
+  logRequestHeaders(fullUrl, headers);
+  
+  const result = await fetch(fullUrl, {
+    method: "GET",
+    headers,
+    next: {
+      revalidate: 10,
+      tags: ["reviews_by_exchange", String(props.exchange_id)],
+    },
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to fetch reviews by exchange");
+  }
+
+  return result.json();
 };
 
-export const getCommentsByReview = async (props: GetCommentsByReviewDtoRequest) => {
+export const getCommentsByReview = async (
+  props: GetCommentsByReviewDtoRequest,
+): Promise<GetCommentsByReviewDtoResponse> => {
   const { reviewId } = props;
-  const response = await apiClient.get<GetCommentsByReviewDtoResponse>(
-    `/api/v2/reviews/get_comments_by_review?review_id=${reviewId}`,
-    props,
-    "no-store"
-  );
-  return response;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/reviews/get_comments_by_review?review_id=${reviewId}`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+  
+  const result = await fetch(url, {
+    method: "GET",
+    headers,
+    next: {
+      revalidate: 10,
+      tags: ["comments_by_review", String(reviewId)],
+    },
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to fetch comments by review");
+  }
+
+  return result.json();
 };

@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import { apiClient } from "@/shared/api";
 import { createStandardHeaders, logRequestHeaders } from "@/shared/lib/debug-headers";
 import {
   GetActualCourseDtoResponse,
@@ -16,38 +14,93 @@ import {
   GetAllValutesDtoResponse
 } from "./currency-dto";
 
-export const useGetAvailableValutes = (props: GetAvailableValutesDtoRequest) => {
+export const getAvailableValutes = async (
+  props: GetAvailableValutesDtoRequest,
+): Promise<GetAvailableValutesDtoResponse> => {
   const { base = "all", city } = props;
   const url = city
-    ? `/api/v2/available_valutes?city=${city}&base=${base}`
-    : `/api/v2/available_valutes?base=${base}`;
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/available_valutes?city=${city}&base=${base}`
+    : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/available_valutes?base=${base}`;
 
-  const result = async () => await apiClient.get<GetAvailableValutesDtoResponse>(url);
+  try {
+    const headers = createStandardHeaders({
+      "Moneyswap": "true",
+    });
+    
+    logRequestHeaders(url, headers);
+    
+    const result = await fetch(url, {
+      method: "GET",
+      headers,
+      next: {
+        revalidate: 10,
+        tags: city ? ["available_valutes", base, city] : ["available_valutes", base],
+      },
+    });
 
-  return useQuery<GetAvailableValutesDtoResponse>({
-    queryKey: ["available_valutes_2", base, city],
-    queryFn: result,
-    retry: false,
-    select(currencies) {
+    if (!result.ok) {
+      console.error(`Failed to fetch available valutes: ${result.status} ${result.statusText}`);
+      // Возвращаем дефолтное значение вместо выброса ошибки
       return [
         {
           name: { en: "All", ru: "Все" },
-          currencies: Array.isArray(currencies)
-            ? currencies.map((currency) => currency?.currencies).flat()
-            : [],
+          currencies: [],
           id: "All",
         },
-        ...currencies,
       ];
-    },
-    refetchOnWindowFocus: false,
-  });
+    }
+
+    const currencies = await result.json();
+    
+    // Применяем ту же логику select, что была в useQuery
+    return [
+      {
+        name: { en: "All", ru: "Все" },
+        currencies: Array.isArray(currencies)
+          ? currencies.map((currency) => currency?.currencies).flat()
+          : [],
+        id: "All",
+      },
+      ...currencies,
+    ];
+  } catch (error) {
+    console.error("Error fetching available valutes:", error);
+    // Возвращаем дефолтное значение при ошибке
+    return [
+      {
+        name: { en: "All", ru: "Все" },
+        currencies: [],
+        id: "All",
+      },
+    ];
+  }
 };
 
-export const getAllValutes = async (props: GetAllValutesDtoRequest) => {
-  const url = `/api/v2/all_valutes`;
-  const result = await apiClient.get<GetAllValutesDtoResponse>(url);
-  return result;
+export const getAllValutes = async (
+  props: GetAllValutesDtoRequest,
+): Promise<GetAllValutesDtoResponse> => {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/all_valutes`;
+  
+  const headers = createStandardHeaders({
+    "Moneyswap": "true",
+  });
+  
+  logRequestHeaders(url, headers);
+  
+  const result = await fetch(url, {
+    method: "GET",
+    headers,
+    next: {
+      revalidate: 10,
+      tags: ["all_valutes"],
+    },
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to fetch all valutes");
+  }
+
+  return result.json();
 };
 
 export const getSpecificValute = async (

@@ -60,13 +60,20 @@ export async function generateMetadata(
     currentUrl.searchParams.append("city", searchParams.city);
   }
 
+  // Fallback значения если SEO метаданные не пришли
+  const defaultTitle = `Обмен ${giveCurrency?.name?.ru} на ${getCurrency?.name?.ru}${location ? ` в ${location?.name?.ru}` : ""} | MoneySwap`;
+  const defaultDescription = `Обменяйте ${giveCurrency?.name?.ru} (${giveCurrency?.code_name}) на ${getCurrency?.name?.ru} (${getCurrency?.code_name})${location ? ` в городе ${location?.name?.ru}` : ""} через MoneySwap — агрегатор лучших обменников.`;
+
+  const title = seoMeta.data?.[0]?.title || defaultTitle;
+  const description = seoMeta.data?.[0]?.description || defaultDescription;
+
   return {
-    title: seoMeta.data[0].title,
-    description: seoMeta.data[0].description,
+    title,
+    description,
     metadataBase: new URL(baseUrl),
     openGraph: {
-      title: seoMeta.data[0].title,
-      description: seoMeta.data[0].description,
+      title,
+      description,
       url: currentUrl.toString(),
       siteName: "MoneySwap",
       images: [

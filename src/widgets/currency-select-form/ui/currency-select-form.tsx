@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { CurrencySwitcher } from "@/features/currency";
 import { LocationSelect } from "@/features/location";
-import { Currency as SpecificValute, useGetAvailableValutes } from "@/entities/currency";
-import { LocationInfo, useGetCountries } from "@/entities/location";
+import { Currency as SpecificValute, GetAvailableValutesDtoResponse } from "@/entities/currency";
+import { Country, LocationInfo } from "@/entities/location";
 import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
@@ -36,10 +36,13 @@ type CurrencySelectFormProps = {
   urlGiveCurrency?: SpecificValute;
   urlDirection: Exclude<SegmentMarker, SegmentMarker.both>;
   actualCourse: ActualCourse | null;
+  countries: Country[];
+  giveCurrencies: GetAvailableValutesDtoResponse;
+  getCurrencies: GetAvailableValutesDtoResponse;
 };
 
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
-  const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse } = props;
+  const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse, countries, giveCurrencies, getCurrencies } = props;
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [giveAmount, setGiveAmount] = useState<number>(actualCourse?.in_count || 0);
@@ -82,28 +85,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
     setIsCollapsed((prev) => !prev);
   };
 
-  const { data: countries } = useGetCountries();
-
-  const {
-    data: giveCurrencies,
-    isLoading: giveCurrenciesIsLoading,
-    isError: giveCurrenciesIsError,
-  } = useGetAvailableValutes({
-    base: "all",
-    city: urlDirection === SegmentMarker.cash ? urlLocation?.code_name : undefined,
-  });
-
-  const {
-    data: getCurrencies,
-    isLoading: getCurrenciesIsLoading,
-    isError: getCurrenciesIsError,
-    error: getError,
-  } = useGetAvailableValutes({
-    base: urlGiveCurrency?.code_name,
-    city: urlDirection === SegmentMarker.cash ? urlLocation?.code_name : undefined,
-  });
-
-  const isGetCurrencyDisabled = getCurrenciesIsLoading || getCurrenciesIsError;
+  const isGetCurrencyDisabled = !getCurrencies || getCurrencies.length === 0;
 
   const { selectTypeCashless, selectTypeCash } = useYandexMetrika();
 
@@ -160,7 +142,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             </div>
           </div>
         </div>
-        {urlDirection === SegmentMarker.cash && <LocationSelect countries={countries || []} />}
+        {urlDirection === SegmentMarker.cash && <LocationSelect countries={countries || []} cityInfo={urlLocation} />}
         {!isDesktop ? (
           <div
             className={cn(
@@ -174,8 +156,8 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               isCollapsed={isCollapsed}
               actualCourse={giveAmount}
               disabled={
-                giveCurrenciesIsLoading ||
-                giveCurrenciesIsError ||
+                !giveCurrencies ||
+                giveCurrencies.length === 0 ||
                 (urlDirection === SegmentMarker.cash && !urlLocation)
               }
               currencyInfoGive={urlGiveCurrency}
@@ -214,8 +196,8 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
             <CurrencySelect
               actualCourse={giveAmount}
               disabled={
-                giveCurrenciesIsLoading ||
-                giveCurrenciesIsError ||
+                !giveCurrencies ||
+                giveCurrencies.length === 0 ||
                 (urlDirection === SegmentMarker.cash && !urlLocation)
               }
               currencyInfoGive={urlGiveCurrency}

@@ -14,9 +14,9 @@ import { SeoFooterText } from "@/widgets/strapi";
 import { BotBannerNew, SkeletonBotBannerNew } from "@/features/bot-banner";
 import { CurrencyTitle } from "@/features/currency";
 import { TopExchangeSale } from "@/features/top-exchange";
-import { getActualCourse, getSpecificValute } from "@/entities/currency";
+import { getActualCourse, getAvailableValutes, getSpecificValute } from "@/entities/currency";
 import { getExchangers } from "@/entities/exchanger";
-import { getSpecificCity } from "@/entities/location";
+import { getCountries, getSpecificCity } from "@/entities/location";
 import { getSeoTexts } from "@/shared/api";
 import { pageTypes, SegmentMarker } from "@/shared/types";
 
@@ -43,7 +43,11 @@ const getInitialData = cache(async (direction: Omit<SegmentMarker, SegmentMarker
       valuteFrom: direction === SegmentMarker.cash ? "cashrub" : "sberrub", 
       valuteTo: "btc" 
     }),
-    getSpecificCity({ codeName: city ? city : "msk" }),
+    // Получаем город только если direction === cash И city указан в URL
+    // Не используем дефолтный "msk" чтобы избежать несоответствия с URL
+    direction === SegmentMarker.cash && city
+      ? getSpecificCity({ codeName: city })
+      : Promise.resolve(null),
   ]);
 
   return { seoTexts, giveCurrency, getCurrency, actualCourse, location };
@@ -66,7 +70,7 @@ export const Main = async ({
   const { seoTexts, giveCurrency, getCurrency, actualCourse, location } = await getInitialData(direction, city);
 
   // Формируем параметры запроса обменников
-  const request = direction === SegmentMarker.cash
+  const request = direction === SegmentMarker.cash && location
     ? {
         valute_from: giveCurrency?.code_name,
         valute_to: getCurrency?.code_name,
@@ -77,8 +81,20 @@ export const Main = async ({
         valute_to: getCurrency?.code_name,
       };
 
-  // Получаем данные обменников
-  const exchangersResponse = await getExchangers(request);
+  // Получаем данные обменников и данные для формы выбора валют
+  const [exchangersResponse, countries, giveCurrencies, getCurrencies] = await Promise.all([
+    getExchangers(request),
+    getCountries(),
+    getAvailableValutes({
+      base: "all",
+      city: direction === SegmentMarker.cash ? location?.code_name : undefined,
+    }),
+    getAvailableValutes({
+      base: giveCurrency?.code_name,
+      city: direction === SegmentMarker.cash ? location?.code_name : undefined,
+    }),
+  ]);
+  
   queryClient.setQueryData([request], exchangersResponse.exchangers);
 
   return (
@@ -94,10 +110,13 @@ export const Main = async ({
       <Suspense fallback={<SkeletonCurrencySelectForm />}>
         <CurrencySelectForm
           actualCourse={actualCourse}
-          urlLocation={location}
+          urlLocation={location || undefined}
           urlGetCurrency={getCurrency}
           urlGiveCurrency={giveCurrency}
           urlDirection={direction}
+          countries={countries}
+          giveCurrencies={giveCurrencies}
+          getCurrencies={getCurrencies}
         />
       </Suspense>
       <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />

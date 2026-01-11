@@ -2,8 +2,9 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CurrencySelectForm } from "@/widgets/currency-select-form";
-import { getActualCourse, getSpecificValute } from "@/entities/currency";
+import { getActualCourse, getAvailableValutes, getSpecificValute } from "@/entities/currency";
 import { getExchangerList } from "@/entities/exchanger";
+import { getCountries } from "@/entities/location";
 import { BtcIcon, CardIcon, EmptyWalletIcon, SearchIcon, TelegramIcon } from "@/shared/assets";
 import { products } from "@/shared/router";
 import { SegmentMarker } from "@/shared/types";
@@ -18,11 +19,20 @@ const CryptoTable = dynamic(
 );
 export const CryptoExchangersPage = async () => {
   // Выполняем все запросы параллельно
-  const [giveCurrency, getCurrency, actualCourse, cryptoExchangers] = await Promise.all([
+  const [giveCurrency, getCurrency, actualCourse, cryptoExchangers, countries, giveCurrencies, getCurrencies] = await Promise.all([
     getSpecificValute({ codeName: "BTC" }),
     getSpecificValute({ codeName: "SBERRUB" }),
     getActualCourse({ valuteFrom: "BTC", valuteTo: "SBERRUB" }),
-    getExchangerList()
+    getExchangerList(),
+    getCountries(),
+    getAvailableValutes({
+      base: "all",
+      city: undefined,
+    }),
+    getAvailableValutes({
+      base: "BTC",
+      city: undefined,
+    }),
   ]);
 
   return (
@@ -68,6 +78,9 @@ export const CryptoExchangersPage = async () => {
         actualCourse={actualCourse}
         urlGetCurrency={getCurrency}
         urlGiveCurrency={giveCurrency}
+        countries={countries}
+        giveCurrencies={giveCurrencies}
+        getCurrencies={getCurrencies}
       />
       <Suspense fallback={<div>loading</div>}>
         <CryptoTable data={cryptoExchangers} />

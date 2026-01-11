@@ -16,7 +16,7 @@ import {
 export const getAllArticles = async (
   params: GetAllArticlesRequest,
 ): Promise<GetAllArticlesResponse> => {
-  const { page, elements, searchValue } = params;
+  const { page = 1, elements, searchValue } = params;
 
   try {
     const searchFilter = searchValue
@@ -33,10 +33,36 @@ export const getAllArticles = async (
       method: "GET",
       ...cacheOption,
     });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch articles: ${res.status} ${res.statusText}`);
+      return {
+        data: [],
+        meta: {
+          pagination: {
+            page: page || 1,
+            pageSize: elements || 0,
+            pageCount: 0,
+            total: 0,
+          },
+        },
+      };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          page: page || 1,
+          pageSize: elements || 0,
+          pageCount: 0,
+          total: 0,
+        },
+      },
+    };
   }
 };
 
@@ -51,10 +77,16 @@ export const getArticle = async (params: GetArticleRequest): Promise<GetArticleR
         tags: ['article', `article-${url_name}`] 
       }
     });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch article: ${res.status} ${res.statusText}`);
+      return { data: [] };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    return { data: [] };
   }
 };
 
@@ -71,10 +103,16 @@ export const getTopicArticles = async (
         tags: ['topic-articles', `topic-${topic}`] 
       }
     });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch topic articles: ${res.status} ${res.statusText}`);
+      return { data: null as any };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    return { data: null as any };
   }
 };
 
@@ -88,10 +126,16 @@ export const getAllCategories = async (): Promise<GetAllCategoriesResponse> => {
         tags: ['categories'] 
       }
     });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch categories: ${res.status} ${res.statusText}`);
+      return { data: { categories: [] } };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    return { data: { categories: [] } };
   }
 };
 
@@ -105,10 +149,16 @@ export const getAllTags = async (): Promise<GetAllTagsResponse> => {
         tags: ['tags'] 
       }
     });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch tags: ${res.status} ${res.statusText}`);
+      return { data: { tags: [] } };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    return { data: { tags: [] } };
   }
 };
 
@@ -125,10 +175,16 @@ export const getCategoryArticles = async (
         tags: ['category-articles', `category-${category}`] 
       }
     });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch category articles: ${res.status} ${res.statusText}`);
+      return { data: null as any };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    return { data: null as any };
   }
 };
 
@@ -145,9 +201,15 @@ export const getTagArticles = async (
         tags: ['tag-articles', `tag-${tag}`] 
       }
     });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch tag articles: ${res.status} ${res.statusText}`);
+      return { data: null as any };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    return { data: null as any };
   }
 };

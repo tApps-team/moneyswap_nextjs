@@ -47,10 +47,18 @@ export const getSeoTexts = async ({
         next: { revalidate: 10 },
       },
     );
+
+    if (!res.ok) {
+      console.error(`Failed to fetch SEO texts: ${res.status} ${res.statusText}`);
+      // Возвращаем пустой массив вместо ошибки
+      return { data: [] };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    // Возвращаем пустой массив вместо ошибки
+    return { data: [] };
   }
 };
 
@@ -74,9 +82,17 @@ export const getSeoMeta = async ({
         next: { revalidate: 10 },
       },
     );
+
+    if (!res.ok) {
+      console.error(`Failed to fetch SEO meta: ${res.status} ${res.statusText}`);
+      // Возвращаем пустой массив вместо ошибки
+      return { data: [] };
+    }
+
     return res.json();
   } catch (error) {
     console.error("error:", error);
-    throw new Error("Failed to fetch data");
+    // Возвращаем пустой массив вместо ошибки
+    return { data: [] };
   }
 };

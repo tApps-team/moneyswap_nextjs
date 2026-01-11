@@ -42,12 +42,20 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const seoMeta = await getSeoMeta(reqParams);
   const direction = searchParams?.direction;
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}${direction ? `?direction=${direction}` : ""}`;
+  
+  // Fallback значения если SEO метаданные не пришли
+  const defaultTitle = "MoneySwap — Агрегатор обменников криптовалют";
+  const defaultDescription = "MoneySwap — агрегатор обменников криптовалют. Лучшие курсы, проверенные обменники, быстрый поиск.";
+  
+  const baseTitle = seoMeta?.data?.[0]?.title || defaultTitle;
+  const baseDescription = seoMeta?.data?.[0]?.description || defaultDescription;
+  
   const meta_title = direction === "cash"
-    ? `${seoMeta?.data[0].title} | Наличный обмен`
-    : seoMeta?.data[0].title;
+    ? `${baseTitle} | Наличный обмен`
+    : baseTitle;
   const meta_description = direction === "cash"
-    ? `${seoMeta?.data[0].description} | Наличный обмен`
-    : seoMeta?.data[0].description;
+    ? `${baseDescription} | Наличный обмен`
+    : baseDescription;
 
   return {
     title: meta_title,
