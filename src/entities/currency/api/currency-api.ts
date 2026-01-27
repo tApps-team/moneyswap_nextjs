@@ -221,34 +221,40 @@ export const getActualCourse = async (
   }
 };
 
-export const getPairValute = async (props: GetPairValuteDtoRequest) => {
+export const getPairValute = async (props: GetPairValuteDtoRequest): Promise<GetPairValuteDtoResponse> => {
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/direction_pair_by_exchange`;
   
-  const headers = createStandardHeaders({
-    "Moneyswap": "true",
-  });
-  
-  const queryParams = new URLSearchParams();
-  Object.entries(props).forEach(([key, value]) => {
-    if (value !== undefined) {
-      queryParams.append(key, value.toString());
-    }
-  });
-  
-  const fullUrl = `${url}?${queryParams.toString()}`;
-  logRequestHeaders(fullUrl, headers);
-  
-  const result = await fetch(fullUrl, { 
-    method: "GET",
-    headers,
-    next: { 
-      revalidate: 10,
-    }
-  });
+  try {
+    const headers = createStandardHeaders({
+      "Moneyswap": "true",
+    });
+    
+    const queryParams = new URLSearchParams();
+    Object.entries(props).forEach(([key, value]) => {
+      if (value !== undefined) {
+        queryParams.append(key, value.toString());
+      }
+    });
+    
+    const fullUrl = `${url}?${queryParams.toString()}`;
+    logRequestHeaders(fullUrl, headers);
+    
+    const result = await fetch(fullUrl, { 
+      method: "GET",
+      headers,
+      next: { 
+        revalidate: 10,
+      }
+    });
 
-  if (!result.ok) {
-    throw new Error("Failed to fetch pair valute");
+    if (!result.ok) {
+      console.error(`Failed to fetch pair valute: ${result.status} ${result.statusText}`);
+      return [];
+    }
+
+    return result.json();
+  } catch (error) {
+    console.error("Error fetching pair valute:", error);
+    return [];
   }
-
-  return result.json();
 };

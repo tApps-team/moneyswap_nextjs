@@ -11,34 +11,50 @@ export const reviewsByExchange = async (
 ): Promise<ReviewsByExchangeDTOResponse> => {
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v2/reviews/reviews_by_exchange`;
   
-  const headers = createStandardHeaders({
-    "Moneyswap": "true",
-  });
-  
-  const queryParams = new URLSearchParams();
-  Object.entries(props).forEach(([key, value]) => {
-    if (value !== undefined) {
-      queryParams.append(key, value.toString());
+  try {
+    const headers = createStandardHeaders({
+      "Moneyswap": "true",
+    });
+    
+    const queryParams = new URLSearchParams();
+    Object.entries(props).forEach(([key, value]) => {
+      if (value !== undefined) {
+        queryParams.append(key, value.toString());
+      }
+    });
+    
+    const fullUrl = `${url}?${queryParams.toString()}`;
+    logRequestHeaders(fullUrl, headers);
+    
+    const result = await fetch(fullUrl, {
+      method: "GET",
+      headers,
+      next: {
+        revalidate: 10,
+        tags: ["reviews_by_exchange", String(props.exchange_id)],
+      },
+    });
+
+    if (!result.ok) {
+      console.error(`Failed to fetch reviews by exchange: ${result.status} ${result.statusText}`);
+      return {
+        page: props.page,
+        element_on_page: props.element_on_page || 10,
+        content: [],
+        pages: 0,
+      };
     }
-  });
-  
-  const fullUrl = `${url}?${queryParams.toString()}`;
-  logRequestHeaders(fullUrl, headers);
-  
-  const result = await fetch(fullUrl, {
-    method: "GET",
-    headers,
-    next: {
-      revalidate: 10,
-      tags: ["reviews_by_exchange", String(props.exchange_id)],
-    },
-  });
 
-  if (!result.ok) {
-    throw new Error("Failed to fetch reviews by exchange");
+    return result.json();
+  } catch (error) {
+    console.error("Error fetching reviews by exchange:", error);
+    return {
+      page: props.page,
+      element_on_page: props.element_on_page || 10,
+      content: [],
+      pages: 0,
+    };
   }
-
-  return result.json();
 };
 
 export const getCommentsByReview = async (

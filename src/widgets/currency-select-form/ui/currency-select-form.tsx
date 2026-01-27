@@ -157,8 +157,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               actualCourse={giveAmount}
               disabled={
                 !giveCurrencies ||
-                giveCurrencies.length === 0 ||
-                (urlDirection === SegmentMarker.cash && !urlLocation)
+                giveCurrencies.length === 0
               }
               currencyInfoGive={urlGiveCurrency}
               currencyInfoGet={urlGetCurrency}
@@ -197,8 +196,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               actualCourse={giveAmount}
               disabled={
                 !giveCurrencies ||
-                giveCurrencies.length === 0 ||
-                (urlDirection === SegmentMarker.cash && !urlLocation)
+                giveCurrencies.length === 0
               }
               currencyInfoGive={urlGiveCurrency}
               currencyInfoGet={urlGetCurrency}
