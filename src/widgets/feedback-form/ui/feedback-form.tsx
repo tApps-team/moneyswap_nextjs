@@ -2,11 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { SocialNetworks } from "@/features/social-networks";
 import { useToast } from "@/shared/hooks";
+import { routes } from "@/shared/router";
 import {
   Button,
+  Checkbox,
   Form,
   FormControl,
   FormField,
@@ -21,6 +24,8 @@ import {
 import { postFeedbackForm } from "../api/feedback-form-api";
 import { FeedbackFormType, feedbackFormSchema, reasons } from "../model/formSchema";
 
+const PRIVACY_URL = "https://www.moneyswap.online/privacy";
+
 type FeedbackFormProps = {
   type: "partner" | "user";
 };
@@ -34,12 +39,18 @@ export const FeedbackForm = ({ type }: FeedbackFormProps) => {
       description: "",
       email: "",
       username: "",
+      agreePrivacy: false,
+      agreePricingPolicy: false,
     },
   });
 
+  const currentReasons = form.watch("reasons");
+  const showAgreementsBlock = type === "partner" || currentReasons === "Сотрудничество";
+
   const onSubmit = async (data: FeedbackFormType) => {
+    const { agreePrivacy, agreePricingPolicy, ...payload } = data;
     try {
-      const response = await postFeedbackForm(data);
+      const response = await postFeedbackForm(payload);
       
       if (response.status === "locked" || response.status === "423") {
         toast({
@@ -64,7 +75,16 @@ export const FeedbackForm = ({ type }: FeedbackFormProps) => {
         className: "!p-4",
       });
     } finally {
-      form.reset();
+      const currentValues = form.getValues();
+
+      form.reset({
+        ...currentValues,
+        username: "",
+        email: "",
+        description: "",
+        agreePrivacy: false,
+        agreePricingPolicy: false,
+      });
     }
   };
 
@@ -123,8 +143,8 @@ export const FeedbackForm = ({ type }: FeedbackFormProps) => {
               <FormItem>
                 <FormControl>
                   <RadioGroup
-                    defaultValue={"Ошибка"}
                     className="flex flex-col gap-2 uppercase"
+                    value={field.value}
                     onValueChange={field.onChange}
                   >
                     {reasons.map((reason) => (
@@ -161,6 +181,62 @@ export const FeedbackForm = ({ type }: FeedbackFormProps) => {
             </FormItem>
           )}
         />
+
+        {showAgreementsBlock && (
+          <div className="flex flex-col gap-4">
+            <FormField
+              control={form.control}
+              name="agreePrivacy"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-1">
+                  <div className="flex flex-row items-start gap-3">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="border-white data-[state=checked]:bg-yellow-main data-[state=checked]:text-black"
+                      />
+                    </FormControl>
+                    <FormLabel className="font-light text-sm leading-tight cursor-pointer text-white">
+                      Я ознакомлен с{" "}
+                      <Link href={PRIVACY_URL} className="text-yellow-main underline" target="_blank" rel="noopener noreferrer">
+                        Политикой конфиденциальности
+                      </Link>{" "}
+                      и согласен с её условиями
+                    </FormLabel>
+                  </div>
+                  <FormMessage className="text-xs font-medium text-destructive w-full" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="agreePricingPolicy"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-1">
+                  <div className="flex flex-row items-start gap-3">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="border-white data-[state=checked]:bg-yellow-main data-[state=checked]:text-black"
+                      />
+                    </FormControl>
+                    <FormLabel className="font-light text-sm leading-tight cursor-pointer text-white">
+                      Я ознакомлен с{" "}
+                      <Link href={routes.pricing_policy} className="text-yellow-main underline" target="_blank" rel="noopener noreferrer">
+                        Политикой тарификации и возврата средств
+                      </Link>{" "}
+                      и согласен с её условиями
+                    </FormLabel>
+                  </div>
+                  <FormMessage className="text-xs font-medium text-destructive w-full" />
+                </FormItem>
+              )}
+            />
+          </div>
+        )}
+
         <Button
           className="bg-yellow-main  font-semibold rounded-[9px] text-center w-full text-black h-[54px] "
           type="submit"

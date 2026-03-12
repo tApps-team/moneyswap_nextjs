@@ -54,6 +54,9 @@ export const SitemapPage = async () => {
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.privacy}>
           Политика конфиденциальности
         </Link>
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.pricing_policy}>
+          Политика тарификации и возврата средств
+        </Link>
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.blacklist_terms}>
           Положение о Чёрном списке
         </Link>
