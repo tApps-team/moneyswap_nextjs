@@ -44,6 +44,10 @@ export const footerItems: FooterItems[] = [
         value: "Политика конфиденциальности",
       },
       {
+        href: routes.pricing_policy,
+        value: "Политика тарификации и возврата средств",
+      },
+      {
         href: routes.terms,
         value: "Пользовательское соглашение",
       },

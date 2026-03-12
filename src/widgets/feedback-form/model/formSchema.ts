@@ -16,5 +16,24 @@ export const feedbackFormSchema = z.object({
   description: z
     .string({ required_error: "Это поле обязательно", message: "Это поле обязательно" })
     .min(1, { message: "Это поле обязательно" }),
+
+  agreePrivacy: z.boolean().optional(),
+  agreePricingPolicy: z.boolean().optional(),
+}).superRefine((data, ctx) => {
+  if (data.reasons !== "Сотрудничество") return;
+  if (data.agreePrivacy !== true) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Необходимо ознакомиться с политикой конфиденциальности",
+      path: ["agreePrivacy"],
+    });
+  }
+  if (data.agreePricingPolicy !== true) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Необходимо ознакомиться с политикой тарификации и возврата средств",
+      path: ["agreePricingPolicy"],
+    });
+  }
 });
 export type FeedbackFormType = z.infer<typeof feedbackFormSchema>;

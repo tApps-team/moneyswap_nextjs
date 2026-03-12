@@ -17,6 +17,7 @@ const segmentNameMap: Record<string, string> = {
   "about": "О нас",
   "privacy": "Политика конфиденциальности",
   "terms": "Пользовательское соглашение",
+  "pricing-policy": "Политика тарификации и возврата средств",
   "blacklist-terms": "Положение о Чёрном списке",
 };
 
