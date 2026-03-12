@@ -53,12 +53,30 @@ export default function middleware(request: NextRequest) {
     }
   }
 
+  // Не даём браузеру кешировать HTML страниц (решает проблему со старым кодом после деплоя)
+  const isPageRequest =
+    !pathname.startsWith("/_next") &&
+    !pathname.startsWith("/api") &&
+    !/\.(ico|png|svg|webp|js|css|woff2?)$/i.test(pathname);
+  if (isPageRequest) {
+    const res = NextResponse.next();
+    res.headers.set(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate"
+    );
+    res.headers.set("Pragma", "no-cache");
+    res.headers.set("Expires", "0");
+    return res;
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
     "/crypto-exchangers/exchanger-:exchanger*",
-    "/blacklist/exchanger-:exchanger*"
+    "/blacklist/exchanger-:exchanger*",
+    // Запросы к страницам (не _next, не api, не статика) — для Cache-Control
+    "/((?!_next|api|favicon\\.ico|.*\\.(?:ico|png|svg|webp|js|css|woff2?)$).*)",
   ],
 };

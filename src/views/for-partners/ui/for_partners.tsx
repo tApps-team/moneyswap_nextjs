@@ -11,9 +11,9 @@ export const ForPartnersPage = async () => {
         новых клиентов для вашего обменника.
       </h1>
       <ArticleContent dynamic_content={data.content} />
-      {/* <div className="grow-0">
+      <div className="grow-0">
         <FeedbackForm type="partner" />
-      </div> */}
+      </div>
     </section>
   );
 };
