@@ -45,7 +45,7 @@ export const footerItems: FooterItems[] = [
       },
       {
         href: routes.pricing_policy,
-        value: "Политика тарификации и возврата средств",
+        value: "Политика тарификации",
       },
       {
         href: routes.terms,

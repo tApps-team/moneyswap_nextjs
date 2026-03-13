@@ -7,8 +7,8 @@ export default function Page() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    'name': 'Политика тарификации и возврата средств | MoneySwap',
-    'description': 'Порядок оплаты услуг размещения обменных пунктов и условия возврата средств на MoneySwap.',
+    'name': 'Политика тарификации | MoneySwap',
+    'description': 'Порядок оплаты услуг размещения обменных пунктов на MoneySwap.',
     'url': `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.pricing_policy}`,
     'mainEntity': {
       '@type': 'Organization',
@@ -53,17 +53,17 @@ export default function Page() {
 }
 
 export const metadata: Metadata = {
-  title: "Политика тарификации и возврата средств | MoneySwap",
+  title: "Политика тарификации | MoneySwap",
   description:
-    "Порядок оплаты услуг размещения обменных пунктов на сайте MoneySwap и условия возврата средств.",
+    "Порядок оплаты услуг размещения обменных пунктов на сайте MoneySwap.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || "http://localhost:3000"),
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.pricing_policy}`,
   },
   openGraph: {
-    title: "Политика тарификации и возврата средств | MoneySwap",
+    title: "Политика тарификации | MoneySwap",
     description:
-      "Порядок оплаты услуг размещения обменных пунктов на сайте MoneySwap и условия возврата средств.",
+      "Порядок оплаты услуг размещения обменных пунктов на сайте MoneySwap.",
     url: routes.pricing_policy,
     siteName: "MoneySwap",
     images: [
