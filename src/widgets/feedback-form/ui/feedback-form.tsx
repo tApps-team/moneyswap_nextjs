@@ -225,7 +225,7 @@ export const FeedbackForm = ({ type }: FeedbackFormProps) => {
                     <FormLabel className="font-light text-sm leading-tight cursor-pointer text-white">
                       Я ознакомлен с{" "}
                       <Link href={routes.pricing_policy} className="text-yellow-main underline" target="_blank" rel="noopener noreferrer">
-                        Политикой тарификации и возврата средств
+                        Политикой тарификации
                       </Link>{" "}
                       и согласен с её условиями
                     </FormLabel>

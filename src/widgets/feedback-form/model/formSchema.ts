@@ -31,7 +31,7 @@ export const feedbackFormSchema = z.object({
   if (data.agreePricingPolicy !== true) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Необходимо ознакомиться с политикой тарификации и возврата средств",
+      message: "Необходимо ознакомиться с политикой тарификации",
       path: ["agreePricingPolicy"],
     });
   }

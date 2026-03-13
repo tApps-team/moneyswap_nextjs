@@ -12,7 +12,7 @@ export const pricingPolicyMockData: DynamicContentItem[] = [
       title_id: "pricing-policy",
       title_position: ComponentPosition.center,
       content: `
-        <p>Настоящая Политика тарификации и возврата средств (далее — «Политика») определяет порядок оплаты услуг размещения обменных пунктов на сайте MoneySwap (<a target="_blank" href="${process.env.NEXT_PUBLIC_SITE_BASE_URL || "https://www.moneyswap.online"}">${process.env.NEXT_PUBLIC_SITE_BASE_URL || "https://www.moneyswap.online"}</a>) (далее — «Сайт»), а также условия возврата денежных средств за оплаченные услуги.</p>
+        <p>Настоящая Политика тарификации (далее — «Политика») определяет порядок оплаты услуг размещения обменных пунктов на сайте MoneySwap (<a target="_blank" href="${process.env.NEXT_PUBLIC_SITE_BASE_URL || "https://www.moneyswap.online"}">${process.env.NEXT_PUBLIC_SITE_BASE_URL || "https://www.moneyswap.online"}</a>) (далее — «Сайт»).</p>
       `
     }
   },
@@ -96,6 +96,17 @@ export const pricingPolicyMockData: DynamicContentItem[] = [
         <p>6.1. Администрация Сайта вправе в одностороннем порядке изменять условия тарификации, порядок оплаты и возврата средств.</p>
         <p>6.2. Изменения не распространяются на уже оплаченный тарифный период и применяются только после его окончания.</p>
         <p>6.3. Актуальная версия настоящей Политики публикуется на Сайте. Продолжение использования услуг Сайта после окончания оплаченного периода означает согласие обменного пункта с обновленными условиями.</p>
+      `
+    }
+  },
+  {
+    content_type: DynamicContentType.paragraph,
+    paragraph: {
+      title: null,
+      title_id: null,
+      title_position: ComponentPosition.left,
+      content: `
+        <p><strong>Дата последнего обновления - 13.03.2026</strong></p>
       `
     }
   }
