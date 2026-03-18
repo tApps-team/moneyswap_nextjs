@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/order
 import { Viewport } from "next";
 import Script from "next/script";
-import Head from "next/head";
 import Providers from "@/app/providers/react-query";
 import "@/shared/styles/globals.scss";
 import { Footer } from "@/widgets/footer";
@@ -13,7 +12,13 @@ export const metadata = {
   title: "Мониторинг криптообменников онлайн - обмен криптовалюты по лучшим курсам | MoneySwap",
   description:
     "MoneySwap - удобный помощник для поиска обменников в любой точке мира. На нашей площадке представлены только проверенные обменники с безупречной репутацией. Незаменимый помощник в мире финансов.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
+  metadataBase: process.env.NEXT_PUBLIC_SITE_BASE_URL
+    ? new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL)
+    : undefined,
+  verification: {
+    google: "sPwXL6jSpXeyCa3nGMpepemssgj5Fjd4ZRpE9lofLfc",
+    yandex: "7377d71acbace068",
+  },
   openGraph: {
     title: "Мониторинг криптообменников онлайн - обмен криптовалюты по лучшим курсам | MoneySwap",
     description:
@@ -49,22 +54,49 @@ export const metadata = {
     ],
   },
   manifest: '/favicon/site.webmanifest',
+  other: {
+    "msapplication-TileColor": "#191C25",
+  },
 };
 export const viewport: Viewport = {
   initialScale: 1,
   width: "device-width",
+  themeColor: "#191C25",
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "MoneySwap",
+    url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
+    logo: "/og_logo.svg",
+    description: "MoneySwap - удобный помощник для поиска обменников в любой точке мира",
+    sameAs: [
+      "https://t.me/moneyswap",
+      "https://t.me/moneyswap_robot",
+      "https://vc.ru/u/3979537-moneyswap",
+      "https://dzen.ru/moneyswap",
+    ],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        url: "https://t.me/moneyswap_support",
+        availableLanguage: ["Russian", "English"],
+      },
+      {
+        "@type": "ContactPoint",
+        contactType: "partnership",
+        email: "exchange@moneyswap.online",
+        availableLanguage: ["Russian", "English"],
+      },
+    ],
+    foundingDate: "2024",
+  };
+
   return (
     <html lang="ru">
-      <head>
-        <meta
-          name="google-site-verification"
-          content="sPwXL6jSpXeyCa3nGMpepemssgj5Fjd4ZRpE9lofLfc"
-        />
-        <meta name="yandex-verification" content="7377d71acbace068" />
-        <meta name="msapplication-TileColor" content="#191C25" />
-        <meta name="theme-color" content="#191C25" />
+      <body className="flex flex-col min-h-screen">
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`
@@ -75,13 +107,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })(window,document,'script','dataLayer','GTM-582D3SVQ');
           `}
         </Script>
+
         {/* Яндекс.Метрика */}
         {/* <Script id="yandex-metrika" strategy="afterInteractive">
           {`
             (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
             m[i].l=1*new Date();
             for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,
+            a)})
             (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
             
             // Инициализация после загрузки скрипта
@@ -100,47 +134,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })();
           `}
         </Script> */}
-        <script
+
+        <Script
+          id="org-jsonld"
           type="application/ld+json"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "MoneySwap",
-              "url": process.env.NEXT_PUBLIC_SITE_BASE_URL,
-              "logo": "/og_logo.svg",
-              "description": "MoneySwap - удобный помощник для поиска обменников в любой точке мира",
-              "sameAs": [
-                "https://t.me/moneyswap",
-                "https://t.me/moneyswap_robot",
-                "https://vc.ru/u/3979537-moneyswap",
-                "https://dzen.ru/moneyswap",
-              ],
-              "contactPoint": [
-                {
-                  "@type": "ContactPoint",
-                  "contactType": "customer service",
-                  "url": "https://t.me/moneyswap_support",
-                  "availableLanguage": ["Russian", "English"]
-                },
-                {
-                  "@type": "ContactPoint",
-                  "contactType": "partnership",
-                  "email": "exchange@moneyswap.online",
-                  "availableLanguage": ["Russian", "English"]
-                }
-              ],
-              "foundingDate": "2024",
-            }).replace(/</g, '\\u003c')
+            __html: JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c'),
           }}
         />
-      </head>
-      <Head>
-        <link rel="icon" href="/public/favicon/favicon.ico" />
-        <link rel="icon" href="/favicon/favicon.ico" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <body className="flex flex-col min-h-screen">
+
         <NextTopLoader 
           color="#F6FF5F"
           initialPosition={0.08}
