@@ -35,7 +35,7 @@ export const FeedbackForm = ({ type }: FeedbackFormProps) => {
   const form = useForm<FeedbackFormType>({
     resolver: zodResolver(feedbackFormSchema),
     defaultValues: {
-      reasons: type === "partner" ? "Сотрудничество" : "Ошибка",
+      reasons: type === "partner" ? "Сотрудничество" : undefined,
       description: "",
       email: "",
       username: "",
@@ -144,7 +144,7 @@ export const FeedbackForm = ({ type }: FeedbackFormProps) => {
                 <FormControl>
                   <RadioGroup
                     className="flex flex-col gap-2 uppercase"
-                    value={field.value}
+                    value={field.value ?? ""}
                     onValueChange={field.onChange}
                   >
                     {reasons.map((reason) => (
@@ -160,6 +160,7 @@ export const FeedbackForm = ({ type }: FeedbackFormProps) => {
                     ))}
                   </RadioGroup>
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />

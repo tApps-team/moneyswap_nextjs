@@ -11,7 +11,10 @@ export const feedbackFormSchema = z.object({
     .refine((val) => val.includes("@"), {
       message: "Введите корректный email или телеграм юзернейм с @ (пример: @username)",
     }),
-  reasons: z.enum(["Ошибка", "Проблема с обменником", "Сотрудничество", "Другое"]),
+  reasons: z.enum(["Ошибка", "Проблема с обменником", "Сотрудничество", "Другое"], {
+    required_error: "Это поле обязательно",
+    invalid_type_error: "Это поле обязательно",
+  }),
 
   description: z
     .string({ required_error: "Это поле обязательно", message: "Это поле обязательно" })
