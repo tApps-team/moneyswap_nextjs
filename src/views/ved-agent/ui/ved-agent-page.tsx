@@ -1,0 +1,108 @@
+import { MapPin, Star } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { DynamicContent } from "@/widgets/strapi/dynamic-content";
+import { VedReviews } from "@/widgets/ved/ved-reviews";
+import {
+  VedAgent,
+  formatVedLimit,
+  getVedAgentBySlug,
+  getVedAgentRating,
+} from "@/entities/strapi";
+import { TelegramIcon } from "@/shared/assets";
+import { TagCell } from "@/shared/ui";
+
+interface VedAgentPageProps {
+  slug: string;
+}
+
+export const VedAgentPage = async ({ slug }: VedAgentPageProps) => {
+  const { data: agent } = await getVedAgentBySlug({ slug });
+
+  if (!agent) {
+    return null;
+  }
+
+  const { ratingValue, reviewCount } = getVedAgentRating(agent.reviews);
+
+  return (
+    <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
+      <VedAgentHero agent={agent} ratingValue={ratingValue} reviewCount={reviewCount} />
+
+      <VedReviews reviews={agent.reviews} />
+
+      {agent.about?.length ? <DynamicContent dynamic_content={agent.about} /> : null}
+    </section>
+  );
+};
+
+function VedAgentHero({
+  agent,
+  ratingValue,
+  reviewCount,
+}: {
+  agent: VedAgent;
+  ratingValue: number;
+  reviewCount: number;
+}) {
+  return (
+    <div className="bg-new-dark-grey rounded-[15px] mobile-xl:rounded-[20px] p-5 mobile-xl:p-8 grid gap-6">
+      <div className="flex flex-col md:flex-row md:items-center gap-6 justify-between">
+        <div className="flex items-center gap-4 min-w-0">
+          <Image
+            src={agent.logo}
+            alt={agent.name}
+            width={64}
+            height={64}
+            className="w-16 h-16 rounded-xl object-contain bg-new-grey shrink-0"
+          />
+          <div className="grid gap-2 min-w-0">
+            <h1 className="unbounded_font text-yellow-main uppercase text-base mobile-xl:text-2xl font-semibold truncate">
+              {agent.name}
+            </h1>
+            <div className="flex flex-wrap items-center gap-3 text-xs mobile-xl:text-sm">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-yellow-main/15 text-yellow-main">
+                <MapPin className="w-3.5 h-3.5" />
+                До {agent.commission}%
+              </span>
+              <div className="flex items-center gap-1 text-green-400">
+                <Star className="w-3.5 h-3.5 mobile-xl:w-4 mobile-xl:h-4 fill-green-400" />
+                <span className="font-semibold">{ratingValue || "—"}</span>
+                <span className="text-light-gray">({reviewCount} отзывов)</span>
+              </div>
+            </div>
+            <p className="text-xs mobile-xl:text-sm text-light-gray">
+              От <span className="text-green-400">{formatVedLimit(agent.limits.from)}</span> — До{" "}
+              <span className="text-[#e8a090]">{formatVedLimit(agent.limits.to)}</span> USD
+            </p>
+          </div>
+        </div>
+
+        <Link
+          href={agent.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 w-fit px-5 py-2.5 mobile-xl:py-3 rounded-[10px] bg-yellow-main hover:scale-[1.02] active:scale-[0.98] transition-transform text-black font-medium uppercase text-xs mobile-xl:text-sm"
+        >
+          <TelegramIcon className="w-5 h-5" fill="#000" />
+          Связаться
+        </Link>
+      </div>
+
+      <div className="grid gap-4 mobile-xl:grid-cols-2">
+        {agent.labels.length > 0 && (
+          <div className="grid gap-2">
+            <span className="text-xs mobile-xl:text-sm text-light-gray uppercase">Метки</span>
+            <TagCell items={agent.labels} modalTitle="Метки" visibleCount={3} chip="circle" />
+          </div>
+        )}
+        {agent.countries.length > 0 && (
+          <div className="grid gap-2">
+            <span className="text-xs mobile-xl:text-sm text-light-gray uppercase">Страны</span>
+            <TagCell items={agent.countries} modalTitle="Страны" visibleCount={3} chip="flag" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

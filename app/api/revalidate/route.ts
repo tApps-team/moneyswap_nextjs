@@ -114,6 +114,51 @@ export async function POST(req: Request) {
         }
         revalidatePath(routes.blog);
         break;
+      case StrapiCollectionNames.vedPage:
+        path = routes.ved;
+        revalidateTag("ved-page");
+        revalidateTag("ved-agents");
+        revalidatePath(routes.ved);
+        break;
+      case StrapiCollectionNames.vedAgent:
+        path = entry?.slug ? `${routes.ved_agents}/${entry.slug}` : routes.ved;
+        revalidateTag("ved-agents");
+        if (entry?.slug) {
+          revalidateTag(`ved-agent-${entry.slug}`);
+        }
+        revalidatePath(routes.ved);
+        revalidatePath(path);
+        break;
+      case StrapiCollectionNames.vcPage:
+        path = routes.virtual_cards;
+        revalidateTag("vc-page");
+        revalidateTag("virtual-cards");
+        revalidatePath(routes.virtual_cards);
+        break;
+      case StrapiCollectionNames.virtualCard:
+        path = entry?.slug ? `${routes.vc_cards}/${entry.slug}` : routes.virtual_cards;
+        revalidateTag("virtual-cards");
+        if (entry?.slug) {
+          revalidateTag(`virtual-card-${entry.slug}`);
+        }
+        revalidatePath(routes.virtual_cards);
+        revalidatePath(path);
+        break;
+      case StrapiCollectionNames.esimPage:
+        path = routes.esim;
+        revalidateTag("esim-page");
+        revalidateTag("e-sims");
+        revalidatePath(routes.esim);
+        break;
+      case StrapiCollectionNames.eSim:
+        path = entry?.slug ? `${routes.esim}/${entry.slug}` : routes.esim;
+        revalidateTag("e-sims");
+        if (entry?.slug) {
+          revalidateTag(`e-sim-${entry.slug}`);
+        }
+        revalidatePath(routes.esim);
+        revalidatePath(path);
+        break;
       default:
         console.log("Unknown model:", model);
         return NextResponse.json({ message: "Unknown model" }, { status: 400 });

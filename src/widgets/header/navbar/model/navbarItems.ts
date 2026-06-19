@@ -1,4 +1,4 @@
-import { Ban, Headset, ShieldCheck } from "lucide-react";
+import { Ban, CreditCard, Globe, Headset, ShieldCheck, Smartphone } from "lucide-react";
 import { SVGProps } from "react";
 import {
   FileIcon,
@@ -53,6 +53,30 @@ export const navbarItems: NavbarItems[] = [
         value: "Черный список",
         description: "Остерегайтесь мошенников! Крайне не рекомендуемые обменники",
         icon: Ban as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
+      },
+    ],
+  },
+  {
+    href: routes.ved,
+    value: "Рейтинги",
+    children: [
+      {
+        href: routes.ved,
+        value: "ВЭД",
+        description: "Проверенные сервисы, проводящие международные платежи",
+        icon: Globe as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
+      },
+      {
+        href: routes.virtual_cards,
+        value: "Виртуальные карты",
+        description: "Международные и российские карты для оплаты за рубежом",
+        icon: CreditCard as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
+      },
+      {
+        href: routes.esim,
+        value: "eSIM",
+        description: "Подключение международных и российских виртуальных сим-карт",
+        icon: Smartphone as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
       },
     ],
   },

@@ -20,7 +20,7 @@ export const Footer = () => {
               </Link>
               <SocialNetworks />
             </section>
-            <section className="grid lg:grid-cols-4 lg:grid-rows-1 grid-cols-2 grid-rows-2 lg:justify-normal justify-between justify-items-stretch lg:gap-6 gap-[50px]">
+            <section className="grid lg:grid-cols-5 lg:grid-rows-1 grid-cols-2 grid-rows-3 lg:justify-normal justify-between justify-items-stretch lg:gap-6 gap-[50px]">
               {footerItems.map((item, index) => (
                 <ul key={item.value} className="flex flex-col md:gap-6 xl:gap-3">
                   <p className="lg:text-white text-yellow-main font-semibold uppercase text-base">

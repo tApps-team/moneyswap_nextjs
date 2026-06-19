@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { routes } from "@/shared/router";
 
 // Маппинг сегментов на читаемые названия
 const segmentNameMap: Record<string, string> = {
@@ -19,6 +20,10 @@ const segmentNameMap: Record<string, string> = {
   "terms": "Пользовательское соглашение",
   "pricing-policy": "Политика тарификации",
   "blacklist-terms": "Положение о Чёрном списке",
+  ved: "Мониторинг ВЭД",
+  agents: "Агент",
+  "virtual-cards": "Рейтинг виртуальных карт",
+  esim: "Рейтинг eSIM",
 };
 
 export interface BreadcrumbsProps {
@@ -28,6 +33,9 @@ export interface BreadcrumbsProps {
   tagName?: string;
   exchangerName?: string;
   exchange?: string;
+  vedAgentName?: string;
+  vcServiceName?: string;
+  esimServiceName?: string;
 }
 
 export function getSmartBreadcrumbs({
@@ -37,6 +45,9 @@ export function getSmartBreadcrumbs({
   tagName,
   exchangerName,
   exchange,
+  vedAgentName,
+  vcServiceName,
+  esimServiceName,
 }: BreadcrumbsProps & { pathname: string }) {
   const segments = pathname.split("/").filter(Boolean);
   const breadcrumbs = [{ href: "/", label: segmentNameMap[""] || "Главная" }];
@@ -79,6 +90,54 @@ export function getSmartBreadcrumbs({
   if (segments[0] === "blog" && segments[1] === "tag" && segments[2]) {
     breadcrumbs.push({ href: `/blog`, label: segmentNameMap["blog"] });
     breadcrumbs.push({ href: `/blog/tag/${segments[2]}`, label: tagName || decodeURIComponent(segments[2]) });
+    return breadcrumbs;
+  }
+
+  // /ved
+  if (segments[0] === "ved" && segments.length === 1) {
+    breadcrumbs.push({ href: routes.ved, label: segmentNameMap["ved"] });
+    return breadcrumbs;
+  }
+
+  // /ved/agents/[slug]
+  if (segments[0] === "ved" && segments[1] === "agents" && segments[2]) {
+    breadcrumbs.push({ href: routes.ved, label: segmentNameMap["ved"] });
+    breadcrumbs.push({
+      href: `${routes.ved_agents}/${segments[2]}`,
+      label: vedAgentName || decodeURIComponent(segments[2]),
+    });
+    return breadcrumbs;
+  }
+
+  // /virtual-cards
+  if (segments[0] === "virtual-cards" && segments.length === 1) {
+    breadcrumbs.push({ href: routes.virtual_cards, label: segmentNameMap["virtual-cards"] });
+    return breadcrumbs;
+  }
+
+  // /virtual-cards/cards/[slug]
+  if (segments[0] === "virtual-cards" && segments[1] === "cards" && segments[2]) {
+    breadcrumbs.push({ href: routes.virtual_cards, label: segmentNameMap["virtual-cards"] });
+    breadcrumbs.push({
+      href: `${routes.vc_cards}/${segments[2]}`,
+      label: vcServiceName || decodeURIComponent(segments[2]),
+    });
+    return breadcrumbs;
+  }
+
+  // /esim
+  if (segments[0] === "esim" && segments.length === 1) {
+    breadcrumbs.push({ href: routes.esim, label: segmentNameMap["esim"] });
+    return breadcrumbs;
+  }
+
+  // /esim/[slug]
+  if (segments[0] === "esim" && segments[1] && segments.length === 2) {
+    breadcrumbs.push({ href: routes.esim, label: segmentNameMap["esim"] });
+    breadcrumbs.push({
+      href: `${routes.esim}/${segments[1]}`,
+      label: esimServiceName || decodeURIComponent(segments[1]),
+    });
     return breadcrumbs;
   }
 
