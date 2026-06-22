@@ -1,4 +1,4 @@
-import { MapPin, Star } from "lucide-react";
+import { Gift, MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { VedAgent, formatVedLimit, getVedAgentRating } from "@/entities/strapi";
@@ -6,6 +6,7 @@ import { TelegramIcon } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { TagCell } from "@/shared/ui";
+import { VedPromoTooltip } from "./ved-promo-tooltip";
 
 const VISIBLE_CHIPS = 3;
 
@@ -56,7 +57,10 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
       <CommissionBadge prefix={commissionPrefix} value={agent.commission} />
       <LimitsBlock limits={agent.limits} />
       <RatingBlock ratingValue={ratingValue} reviewCount={reviewCount} />
-      <TelegramButton url={agent.url} className="justify-self-end" />
+      <div className="flex items-center gap-2 justify-self-end">
+        <VedPromoTooltip slug={agent.slug} promocodes={agent.promocodes ?? []} />
+        <TelegramButton url={agent.url} />
+      </div>
     </div>
   );
 }
@@ -91,8 +95,27 @@ export function VedAgentCard({ agent }: VedAgentCardProps) {
         <LabeledTags label="Валюты" items={agent.currencies} chip="code" visibleCount={2} />
       </div>
 
-      <ContactButton url={agent.url} />
+      {(agent.promocodes?.length ?? 0) > 0 ? (
+        <div className="grid gap-2">
+          <PromoLink slug={agent.slug} />
+          <ContactButton url={agent.url} />
+        </div>
+      ) : (
+        <ContactButton url={agent.url} />
+      )}
     </article>
+  );
+}
+
+function PromoLink({ slug }: { slug: string }) {
+  return (
+    <Link
+      href={`${routes.ved_agents}/${slug}`}
+      className="flex items-center justify-center gap-1.5 w-full rounded-[10px] bg-new-grey text-yellow-main text-xs font-normal py-2.5 hover:bg-yellow-main hover:text-black transition-colors"
+    >
+      <Gift className="w-3.5 h-3.5" />
+      Бонусы
+    </Link>
   );
 }
 

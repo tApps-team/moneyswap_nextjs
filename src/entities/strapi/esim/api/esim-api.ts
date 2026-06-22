@@ -8,7 +8,7 @@ import {
 
 const getStrapiUrl = (path: string) => `${process.env.STRAPI_BASE_URL}/api/${path}`;
 
-const esimPopulate = "populate=labels,countries,payment_systems,reviews";
+const esimPopulate = "populate=labels,countries,payment_systems,reviews,promocodes";
 
 export const getEsimPage = async (): Promise<GetEsimPageResponse> => {
   try {

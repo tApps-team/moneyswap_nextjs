@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Gift, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -29,10 +29,42 @@ export const EsimServicePage = async ({ slug }: EsimServicePageProps) => {
         ratingValue={displayRating}
         reviewCount={reviewCount}
       />
+      {(service.promocodes?.length ?? 0) > 0 ? <EsimPromocodes service={service} /> : null}
       <EsimServiceContent service={service} />
     </section>
   );
 };
+
+function EsimPromocodes({ service }: { service: Esim }) {
+  return (
+    <div className="grid gap-4">
+      <h2 className="unbounded_font text-white uppercase text-base mobile-xl:text-2xl font-semibold">
+        Промокоды
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {service.promocodes.map((promo, index) => (
+          <Link
+            key={`${promo.title}-${index}`}
+            href={promo.url || service.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-3 bg-new-dark-grey border border-[#575A62]/50 rounded-[15px] p-5 hover:border-yellow-main transition-colors"
+          >
+            <div className="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-yellow-main/15 text-yellow-main">
+              <Gift className="w-5 h-5" />
+            </div>
+            <div className="grid gap-1 min-w-0">
+              <span className="font-semibold text-white text-sm mobile-xl:text-base">
+                {promo.title}
+              </span>
+              <span className="text-xs mobile-xl:text-sm text-light-gray">{promo.description}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function EsimServiceHero({
   service,

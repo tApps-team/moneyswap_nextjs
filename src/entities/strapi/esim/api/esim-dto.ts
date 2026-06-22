@@ -41,6 +41,13 @@ export interface EsimReview {
   review_date?: string;
 }
 
+export interface EsimPromocode {
+  title: string;
+  icon: string;
+  description: string;
+  url: string;
+}
+
 export interface Esim {
   id: number;
   slug: string;
@@ -59,6 +66,7 @@ export interface Esim {
   labels: EsimLabel[];
   countries: EsimCountry[];
   payment_systems: EsimPaymentSystem[];
+  promocodes: EsimPromocode[];
   reviews: EsimReview[];
   about?: DynamicContentItem[];
   publishedAt?: string;

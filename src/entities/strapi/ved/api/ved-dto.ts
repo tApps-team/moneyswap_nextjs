@@ -31,6 +31,13 @@ export interface VedReview {
   review_date?: string;
 }
 
+export interface VedPromocode {
+  title: string;
+  icon: string;
+  description: string;
+  url: string;
+}
+
 export interface VedAgentLimits {
   from: string | null;
   to: string | null;
@@ -48,6 +55,7 @@ export interface VedAgent {
   labels: VedLabel[];
   countries: VedCountry[];
   currencies: VedCurrency[];
+  promocodes: VedPromocode[];
   reviews: VedReview[];
   about?: DynamicContentItem[];
   publishedAt?: string;

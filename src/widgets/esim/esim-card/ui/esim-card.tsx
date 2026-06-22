@@ -1,8 +1,9 @@
-import { Star } from "lucide-react";
+import { Gift, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
   Esim,
+  EsimPromocode,
   formatEsimPrice,
   formatEsimValidityPeriod,
   formatEsimVolume,
@@ -12,12 +13,13 @@ import {
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { TagCell } from "@/shared/ui";
+import { EsimPromoTooltip } from "./esim-promo-tooltip";
 
 const VISIBLE_CHIPS = 3;
 
 /** Shared grid template — used by both the list header and each desktop row. */
 export const ESIM_GRID =
-  "grid grid-cols-[minmax(140px,1.2fr)_minmax(72px,0.7fr)_minmax(88px,0.8fr)_minmax(72px,0.7fr)_minmax(72px,0.7fr)_minmax(80px,0.75fr)_minmax(88px,0.8fr)_minmax(100px,0.85fr)_240px] gap-4 items-center";
+  "grid grid-cols-[minmax(140px,1.2fr)_minmax(72px,0.7fr)_minmax(88px,0.8fr)_minmax(72px,0.7fr)_minmax(72px,0.7fr)_minmax(80px,0.75fr)_minmax(88px,0.8fr)_minmax(100px,0.85fr)_280px] gap-4 items-center";
 
 interface EsimCardProps {
   service: Esim;
@@ -64,7 +66,12 @@ export function EsimRow({ service }: EsimCardProps) {
         className="flex-nowrap"
       />
       <RatingBlock ratingValue={displayRating} breakdown={breakdown} />
-      <ActionButtons slug={service.slug} url={service.url} className="justify-end" />
+      <ActionButtons
+        slug={service.slug}
+        url={service.url}
+        promocodes={service.promocodes ?? []}
+        className="justify-end"
+      />
     </div>
   );
 }
@@ -107,7 +114,12 @@ export function EsimCard({ service }: EsimCardProps) {
         <RatingBlock ratingValue={displayRating} breakdown={breakdown} compact />
       </div>
 
-      <ActionButtons slug={service.slug} url={service.url} stacked />
+      <ActionButtons
+        slug={service.slug}
+        url={service.url}
+        promocodes={service.promocodes ?? []}
+        stacked
+      />
     </article>
   );
 }
@@ -220,36 +232,78 @@ function RatingBlock({
 function ActionButtons({
   slug,
   url,
+  promocodes,
   className,
   stacked,
 }: {
   slug: string;
   url: string;
+  promocodes: EsimPromocode[];
   className?: string;
   stacked?: boolean;
 }) {
+  const hasPromo = (promocodes?.length ?? 0) > 0;
+
+  const reviewLink = (
+    <Link
+      href={`${routes.esim}/${slug}`}
+      className={cn(
+        "text-center rounded-[10px] border border-[#575A62] text-white font-normal text-xs lg:text-sm px-4 py-2.5 hover:border-yellow-main hover:text-yellow-main transition-colors",
+        stacked ? "w-full" : "flex-1 lg:flex-none",
+      )}
+    >
+      Подробнее
+    </Link>
+  );
+
+  const submitLink = (
+    <Link
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        "text-center rounded-[10px] bg-yellow-main text-black font-normal lg:font-medium text-xs lg:text-sm px-4 py-2.5 hover:bg-yellow-main/90 transition-colors whitespace-nowrap",
+        stacked ? "w-full" : "flex-1 lg:flex-none",
+      )}
+    >
+      Перейти
+    </Link>
+  );
+
+  // Мобильная карточка: при наличии промо — [Подробнее | Бонусы], затем [Перейти].
+  if (stacked) {
+    return (
+      <div className={cn("flex flex-col gap-2", className)}>
+        {hasPromo ? (
+          <>
+            <div className="grid grid-cols-2 gap-2">
+              {reviewLink}
+              <Link
+                href={`${routes.esim}/${slug}`}
+                className="flex items-center justify-center gap-1.5 rounded-[10px] bg-new-grey text-yellow-main text-xs font-normal px-4 py-2.5 hover:bg-yellow-main hover:text-black transition-colors"
+              >
+                <Gift className="w-3.5 h-3.5" />
+                Бонусы
+              </Link>
+            </div>
+            {submitLink}
+          </>
+        ) : (
+          <>
+            {reviewLink}
+            {submitLink}
+          </>
+        )}
+      </div>
+    );
+  }
+
+  // Десктоп-строка: [Подробнее][подарок][Перейти].
   return (
-    <div className={cn("flex items-center gap-2", stacked && "flex-col", className)}>
-      <Link
-        href={`${routes.esim}/${slug}`}
-        className={cn(
-          "text-center rounded-[10px] border border-[#575A62] text-white font-normal text-xs lg:text-sm px-4 py-2.5 hover:border-yellow-main hover:text-yellow-main transition-colors",
-          stacked ? "w-full" : "flex-1 lg:flex-none",
-        )}
-      >
-        Подробнее
-      </Link>
-      <Link
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={cn(
-          "text-center rounded-[10px] bg-yellow-main text-black font-normal lg:font-medium text-xs lg:text-sm px-4 py-2.5 hover:bg-yellow-main/90 transition-colors whitespace-nowrap",
-          stacked ? "w-full" : "flex-1 lg:flex-none",
-        )}
-      >
-        Перейти
-      </Link>
+    <div className={cn("flex items-center gap-2", className)}>
+      {reviewLink}
+      <EsimPromoTooltip slug={slug} promocodes={promocodes} />
+      {submitLink}
     </div>
   );
 }

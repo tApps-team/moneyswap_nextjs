@@ -1,4 +1,4 @@
-import { MapPin, Star } from "lucide-react";
+import { Gift, MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
@@ -29,12 +29,45 @@ export const VedAgentPage = async ({ slug }: VedAgentPageProps) => {
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
       <VedAgentHero agent={agent} ratingValue={ratingValue} reviewCount={reviewCount} />
 
+      {(agent.promocodes?.length ?? 0) > 0 ? <VedPromocodes agent={agent} /> : null}
+
       <VedReviews reviews={agent.reviews} />
 
       {agent.about?.length ? <DynamicContent dynamic_content={agent.about} /> : null}
     </section>
   );
 };
+
+function VedPromocodes({ agent }: { agent: VedAgent }) {
+  return (
+    <div className="grid gap-4">
+      <h2 className="unbounded_font text-white uppercase text-base mobile-xl:text-2xl font-semibold">
+        Промокоды
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {agent.promocodes.map((promo, index) => (
+          <Link
+            key={`${promo.title}-${index}`}
+            href={promo.url || agent.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-3 bg-new-dark-grey border border-[#575A62]/50 rounded-[15px] p-5 hover:border-yellow-main transition-colors"
+          >
+            <div className="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-yellow-main/15 text-yellow-main">
+              <Gift className="w-5 h-5" />
+            </div>
+            <div className="grid gap-1 min-w-0">
+              <span className="font-semibold text-white text-sm mobile-xl:text-base">
+                {promo.title}
+              </span>
+              <span className="text-xs mobile-xl:text-sm text-light-gray">{promo.description}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function VedAgentHero({
   agent,
