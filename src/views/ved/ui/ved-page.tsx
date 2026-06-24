@@ -16,7 +16,7 @@ export const VedPage = async ({ searchParams }: VedPageProps) => {
 
   const [vedPageRes, vedAgentsRes] = await Promise.all([
     getVedPage(),
-    getVedAgents({ page, pageSize: PAGE_SIZE, noStore: true }),
+    getVedAgents({ page, pageSize: PAGE_SIZE }),
   ]);
   const vedPage = vedPageRes.data;
   const agents = vedAgentsRes.data ?? [];

@@ -74,7 +74,7 @@ export function VcCard({ card }: VcCardProps) {
 
       {card.platforms.length > 0 && (
         <div className="grid gap-1.5">
-          <span className="text-light-gray text-[10px] uppercase tracking-wide font-normal">
+          <span className="text-light-gray text-[11px] uppercase tracking-wide font-medium">
             Сервисы
           </span>
           <TagCell
@@ -122,8 +122,8 @@ function VipBadge({ label, className }: { label: string; className?: string }) {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid gap-1 rounded-[10px] bg-new-grey/40 px-2.5 py-2 min-w-0">
-      <span className="text-light-gray text-[8px] uppercase tracking-wide truncate">{label}</span>
-      <span className="text-white text-2xs font-normal truncate">{value}</span>
+      <span className="text-light-gray text-[10px] uppercase tracking-wide truncate">{label}</span>
+      <span className="text-white text-xs font-medium truncate">{value}</span>
     </div>
   );
 }
@@ -132,7 +132,7 @@ function ReviewLink({ slug }: { slug: string }) {
   return (
     <Link
       href={`${routes.vc_cards}/${slug}`}
-      className="text-center rounded-[10px] border border-[#575A62] text-white text-xs font-normal px-4 py-2.5 hover:border-yellow-main hover:text-yellow-main transition-colors"
+      className="text-center rounded-[10px] border border-[#575A62] text-white text-[13px] font-medium px-4 py-2.5 hover:border-yellow-main hover:text-yellow-main transition-colors"
     >
       Обзор
     </Link>
@@ -143,7 +143,7 @@ function PromoLink({ slug }: { slug: string }) {
   return (
     <Link
       href={`${routes.vc_cards}/${slug}`}
-      className="flex items-center justify-center gap-1.5 rounded-[10px] bg-new-grey text-yellow-main text-xs font-normal px-4 py-2.5 hover:bg-yellow-main hover:text-black transition-colors"
+      className="flex items-center justify-center gap-1.5 rounded-[10px] bg-new-grey text-yellow-main text-[13px] font-medium px-4 py-2.5 hover:bg-yellow-main hover:text-black transition-colors"
     >
       <Gift className="w-3.5 h-3.5" />
       Бонусы
@@ -157,16 +157,20 @@ function CardIdentity({ card, className }: { card: VirtualCard; className?: stri
       href={`${routes.vc_cards}/${card.slug}`}
       className={cn("flex items-center gap-3 min-w-0 hover:opacity-90", className)}
     >
-      <Image
-        src={card.logo}
-        alt={card.name}
-        width={40}
-        height={40}
-        className="w-10 h-10 rounded-lg object-contain bg-new-grey shrink-0"
-      />
-      <span className="font-medium lg:font-semibold text-white text-xs lg:text-base truncate">
-        {card.name}
-      </span>
+      {card.logo ? (
+        <Image
+          src={card.logo}
+          alt={card.name}
+          width={40}
+          height={40}
+          className="w-10 h-10 rounded-lg object-contain bg-new-grey shrink-0"
+        />
+      ) : (
+        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-new-grey text-yellow-main font-semibold shrink-0">
+          {card.name.charAt(0)}
+        </div>
+      )}
+      <span className="font-semibold text-white text-sm lg:text-base truncate">{card.name}</span>
     </Link>
   );
 }
@@ -190,14 +194,14 @@ function RatingBlock({
         <Star
           className={cn("fill-green-400 stroke-green-400", compact ? "w-3.5 h-3.5" : "w-4 h-4")}
         />
-        <span className={cn(compact ? "text-xs font-medium" : "text-sm font-semibold")}>
+        <span className={cn(compact ? "text-sm font-semibold" : "text-sm font-semibold")}>
           {ratingValue || "—"}
         </span>
       </div>
       <span
         className={cn(
           "rounded-md bg-green-400/15 text-green-400",
-          compact ? "px-1.5 py-0.5 text-[10px] font-normal" : "px-2 py-1 text-xs font-medium",
+          compact ? "px-1.5 py-0.5 text-[11px] font-medium" : "px-2 py-1 text-xs font-medium",
         )}
       >
         {reviewCount}
@@ -229,7 +233,7 @@ function SubmitButton({ url, className }: { url: string; className?: string }) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "text-center rounded-[10px] bg-yellow-main text-black font-normal lg:font-medium text-xs lg:text-sm px-4 py-2.5 hover:bg-yellow-main/90 transition-colors whitespace-nowrap",
+        "text-center rounded-[10px] bg-yellow-main text-black font-medium text-[13px] lg:text-sm px-4 py-2.5 hover:bg-yellow-main/90 transition-colors whitespace-nowrap",
         className,
       )}
     >

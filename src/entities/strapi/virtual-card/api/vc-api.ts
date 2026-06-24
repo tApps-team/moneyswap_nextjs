@@ -13,7 +13,8 @@ export const getVcPage = async (): Promise<GetVcPageResponse> => {
   try {
     const res = await fetch(getStrapiUrl("vc-page"), {
       method: "GET",
-      cache: "no-store",
+      cache: "force-cache",
+      next: { tags: ["vc-page"] },
     });
 
     if (!res.ok) {
@@ -32,7 +33,6 @@ export const getVirtualCards = async ({
   marketType,
   page,
   pageSize,
-  noStore,
 }: GetVirtualCardsRequest): Promise<GetVirtualCardsResponse> => {
   try {
     // VIP-сервисы всегда идут первыми в выдаче.
@@ -43,12 +43,8 @@ export const getVirtualCards = async ({
 
     const res = await fetch(getStrapiUrl(path), {
       method: "GET",
-      ...(noStore
-        ? { cache: "no-store" as const }
-        : {
-            cache: "force-cache" as const,
-            next: { tags: ["virtual-cards", `virtual-cards-${marketType}`] },
-          }),
+      cache: "force-cache",
+      next: { tags: ["virtual-cards", `virtual-cards-${marketType}`] },
     });
 
     if (!res.ok) {

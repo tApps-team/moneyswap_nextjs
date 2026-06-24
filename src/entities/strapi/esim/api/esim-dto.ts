@@ -86,8 +86,6 @@ export interface GetEsimsRequest {
   marketType: EsimMarketType;
   page?: number;
   pageSize?: number;
-  /** Отключает кэш Strapi-запроса (для динамических страниц). */
-  noStore?: boolean;
 }
 
 export interface GetEsimsResponse {

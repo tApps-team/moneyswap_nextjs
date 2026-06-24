@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: canonical,
       siteName: "MoneySwap",
-      images: [{ url: agent.logo, width: 400, height: 400, alt: agent.name }],
+      images: [{ url: agent.logo || "/og_logo.svg", width: 400, height: 400, alt: agent.name }],
       locale: "ru-RU",
       type: "website",
     },

@@ -48,7 +48,7 @@ export interface VedAgent {
   slug: string;
   name: string;
   url: string;
-  logo: string;
+  logo: string | null;
   is_vip: boolean;
   commission: number;
   limits: VedAgentLimits;
@@ -74,8 +74,6 @@ export interface GetVedPageResponse {
 export interface GetVedAgentsRequest {
   page?: number;
   pageSize?: number;
-  /** Отключает кэш Strapi-запроса (для динамических страниц). */
-  noStore?: boolean;
 }
 
 export interface GetVedAgentsResponse {

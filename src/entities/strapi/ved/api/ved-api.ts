@@ -13,7 +13,8 @@ export const getVedPage = async (): Promise<GetVedPageResponse> => {
   try {
     const res = await fetch(getStrapiUrl("ved-page"), {
       method: "GET",
-      cache: "no-store",
+      cache: "force-cache",
+      next: { tags: ["ved-page"] },
     });
 
     if (!res.ok) {
@@ -31,7 +32,6 @@ export const getVedPage = async (): Promise<GetVedPageResponse> => {
 export const getVedAgents = async ({
   page,
   pageSize,
-  noStore,
 }: GetVedAgentsRequest = {}): Promise<GetVedAgentsResponse> => {
   try {
     // VIP-агенты всегда идут первыми в выдаче.
@@ -42,9 +42,8 @@ export const getVedAgents = async ({
 
     const res = await fetch(getStrapiUrl(path), {
       method: "GET",
-      ...(noStore
-        ? { cache: "no-store" as const }
-        : { cache: "force-cache" as const, next: { tags: ["ved-agents"] } }),
+      cache: "force-cache",
+      next: { tags: ["ved-agents"] },
     });
 
     if (!res.ok) {

@@ -108,7 +108,7 @@ export function EsimCard({ service }: EsimCardProps) {
       </div>
 
       <div className="flex items-center justify-between gap-3 border-t border-white/[0.06] pt-3">
-        <span className="text-light-gray text-[10px] uppercase tracking-wide font-normal">
+        <span className="text-light-gray text-[11px] uppercase tracking-wide font-medium">
           Отзывы
         </span>
         <RatingBlock ratingValue={displayRating} breakdown={breakdown} compact />
@@ -140,8 +140,8 @@ function VipBadge({ label, className }: { label: string; className?: string }) {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid gap-1 rounded-[10px] bg-new-grey/40 px-2.5 py-2 min-w-0">
-      <span className="text-light-gray text-[8px] uppercase tracking-wide truncate">{label}</span>
-      <span className="text-white text-2xs font-normal truncate">{value}</span>
+      <span className="text-light-gray text-[10px] uppercase tracking-wide truncate">{label}</span>
+      <span className="text-white text-xs font-medium truncate">{value}</span>
     </div>
   );
 }
@@ -158,7 +158,7 @@ function LabeledTags({
   if (!items.length) return null;
   return (
     <div className="grid gap-1.5">
-      <span className="text-light-gray text-[10px] uppercase tracking-wide font-normal">
+      <span className="text-light-gray text-[11px] uppercase tracking-wide font-medium">
         {label}
       </span>
       <TagCell items={items} modalTitle={label} chip={chip} />
@@ -185,9 +185,7 @@ function ServiceIdentity({ service, className }: { service: Esim; className?: st
           {service.name.charAt(0)}
         </div>
       )}
-      <span className="font-medium lg:font-semibold text-white text-xs lg:text-base truncate">
-        {service.name}
-      </span>
+      <span className="font-semibold text-white text-sm lg:text-base truncate">{service.name}</span>
     </Link>
   );
 }
@@ -211,14 +209,14 @@ function RatingBlock({
         <Star
           className={cn("fill-green-400 stroke-green-400", compact ? "w-3.5 h-3.5" : "w-4 h-4")}
         />
-        <span className={cn(compact ? "text-xs font-medium" : "text-sm font-semibold")}>
+        <span className={cn(compact ? "text-sm font-semibold" : "text-sm font-semibold")}>
           {ratingValue || "—"}
         </span>
       </div>
       <div
         className={cn(
           "flex items-center gap-1",
-          compact ? "text-[10px] font-normal" : "text-xs font-medium",
+          compact ? "text-[11px] font-medium" : "text-xs font-medium",
         )}
       >
         <span className="text-yellow-main">{breakdown.positive}</span>
@@ -248,7 +246,7 @@ function ActionButtons({
     <Link
       href={`${routes.esim}/${slug}`}
       className={cn(
-        "text-center rounded-[10px] border border-[#575A62] text-white font-normal text-xs lg:text-sm px-4 py-2.5 hover:border-yellow-main hover:text-yellow-main transition-colors",
+        "text-center rounded-[10px] border border-[#575A62] text-white font-medium lg:font-normal text-[13px] lg:text-sm px-4 py-2.5 hover:border-yellow-main hover:text-yellow-main transition-colors",
         stacked ? "w-full" : "flex-1 lg:flex-none",
       )}
     >
@@ -262,7 +260,7 @@ function ActionButtons({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "text-center rounded-[10px] bg-yellow-main text-black font-normal lg:font-medium text-xs lg:text-sm px-4 py-2.5 hover:bg-yellow-main/90 transition-colors whitespace-nowrap",
+        "text-center rounded-[10px] bg-yellow-main text-black font-medium text-[13px] lg:text-sm px-4 py-2.5 hover:bg-yellow-main/90 transition-colors whitespace-nowrap",
         stacked ? "w-full" : "flex-1 lg:flex-none",
       )}
     >
@@ -280,7 +278,7 @@ function ActionButtons({
               {reviewLink}
               <Link
                 href={`${routes.esim}/${slug}`}
-                className="flex items-center justify-center gap-1.5 rounded-[10px] bg-new-grey text-yellow-main text-xs font-normal px-4 py-2.5 hover:bg-yellow-main hover:text-black transition-colors"
+                className="flex items-center justify-center gap-1.5 rounded-[10px] bg-new-grey text-yellow-main text-[13px] font-medium px-4 py-2.5 hover:bg-yellow-main hover:text-black transition-colors"
               >
                 <Gift className="w-3.5 h-3.5" />
                 Бонусы

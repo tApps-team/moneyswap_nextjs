@@ -40,7 +40,7 @@ export interface VirtualCard {
   url: string;
   market_type: VcMarketType;
   is_vip: boolean;
-  logo: string;
+  logo: string | null;
   issuance_cost: number;
   maintenance_info: string;
   topup_commission: string;
@@ -68,8 +68,6 @@ export interface GetVirtualCardsRequest {
   marketType: VcMarketType;
   page?: number;
   pageSize?: number;
-  /** Отключает кэш Strapi-запроса (для динамических страниц). */
-  noStore?: boolean;
 }
 
 export interface GetVirtualCardsResponse {

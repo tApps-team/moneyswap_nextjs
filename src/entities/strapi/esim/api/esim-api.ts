@@ -14,7 +14,8 @@ export const getEsimPage = async (): Promise<GetEsimPageResponse> => {
   try {
     const res = await fetch(getStrapiUrl("esim-page"), {
       method: "GET",
-      cache: "no-store",
+      cache: "force-cache",
+      next: { tags: ["esim-page"] },
     });
 
     if (!res.ok) {
@@ -33,7 +34,6 @@ export const getEsims = async ({
   marketType,
   page,
   pageSize,
-  noStore,
 }: GetEsimsRequest): Promise<GetEsimsResponse> => {
   try {
     // VIP-сервисы всегда идут первыми в выдаче.
@@ -44,9 +44,8 @@ export const getEsims = async ({
 
     const res = await fetch(getStrapiUrl(path), {
       method: "GET",
-      ...(noStore
-        ? { cache: "no-store" as const }
-        : { cache: "force-cache" as const, next: { tags: ["e-sims", `e-sims-${marketType}`] } }),
+      cache: "force-cache",
+      next: { tags: ["e-sims", `e-sims-${marketType}`] },
     });
 
     if (!res.ok) {

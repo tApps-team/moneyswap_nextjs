@@ -6,8 +6,6 @@ import { Breadcrumbs } from "@/shared/ui";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL || "";
 
-export const dynamic = "force-dynamic";
-
 function getVedPageDescription(headerContent: { paragraph?: { content?: string } }[] | undefined) {
   const paragraph = headerContent?.find(
     (item) => item && "paragraph" in item && item.paragraph?.content,
@@ -49,7 +47,7 @@ export default async function Page({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const agents = (await getVedAgents({ noStore: true })).data ?? [];
+  const agents = (await getVedAgents()).data ?? [];
 
   const jsonLd = {
     "@context": "https://schema.org",

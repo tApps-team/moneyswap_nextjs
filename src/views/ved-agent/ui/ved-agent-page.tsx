@@ -82,13 +82,19 @@ function VedAgentHero({
     <div className="bg-new-dark-grey rounded-[15px] mobile-xl:rounded-[20px] p-5 mobile-xl:p-8 grid gap-6">
       <div className="flex flex-col md:flex-row md:items-center gap-6 justify-between">
         <div className="flex items-center gap-4 min-w-0">
-          <Image
-            src={agent.logo}
-            alt={agent.name}
-            width={64}
-            height={64}
-            className="w-16 h-16 rounded-xl object-contain bg-new-grey shrink-0"
-          />
+          {agent.logo ? (
+            <Image
+              src={agent.logo}
+              alt={agent.name}
+              width={64}
+              height={64}
+              className="w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-xl object-contain bg-new-grey shrink-0"
+            />
+          ) : (
+            <div className="flex items-center justify-center w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-xl bg-new-grey text-yellow-main font-semibold text-xl mobile-xl:text-2xl shrink-0">
+              {agent.name.charAt(0)}
+            </div>
+          )}
           <div className="grid gap-2 min-w-0">
             <h1 className="unbounded_font text-yellow-main uppercase text-base mobile-xl:text-2xl font-semibold truncate">
               {agent.name}

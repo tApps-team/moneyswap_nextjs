@@ -6,8 +6,6 @@ import { Breadcrumbs } from "@/shared/ui";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL || "";
 
-export const dynamic = "force-dynamic";
-
 function getEsimPageDescription(headerContent: { paragraph?: { content?: string } }[] | undefined) {
   const paragraph = headerContent?.find(
     (item) => item && "paragraph" in item && item.paragraph?.content,
@@ -50,8 +48,8 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const [international, russian] = await Promise.all([
-    getEsims({ marketType: "international", noStore: true }),
-    getEsims({ marketType: "russian", noStore: true }),
+    getEsims({ marketType: "international" }),
+    getEsims({ marketType: "russian" }),
   ]);
 
   const services = [...(international.data ?? []), ...(russian.data ?? [])];

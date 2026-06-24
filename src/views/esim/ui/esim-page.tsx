@@ -15,7 +15,7 @@ export const EsimPage = async ({ searchParams }: EsimPageProps) => {
 
   const [esimPageRes, esimsRes] = await Promise.all([
     getEsimPage(),
-    getEsims({ marketType, page, pageSize: PAGE_SIZE, noStore: true }),
+    getEsims({ marketType, page, pageSize: PAGE_SIZE }),
   ]);
 
   const esimPage = esimPageRes.data;

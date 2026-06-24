@@ -111,7 +111,7 @@ function PromoLink({ slug }: { slug: string }) {
   return (
     <Link
       href={`${routes.ved_agents}/${slug}`}
-      className="flex items-center justify-center gap-1.5 w-full rounded-[10px] bg-new-grey text-yellow-main text-xs font-normal py-2.5 hover:bg-yellow-main hover:text-black transition-colors"
+      className="flex items-center justify-center gap-1.5 w-full rounded-[10px] bg-new-grey text-yellow-main text-[13px] font-medium py-2.5 hover:bg-yellow-main hover:text-black transition-colors"
     >
       <Gift className="w-3.5 h-3.5" />
       Бонусы
@@ -146,7 +146,7 @@ function LabeledTags({
   if (!items.length) return null;
   return (
     <div className="grid gap-1.5">
-      <span className="text-light-gray text-[10px] uppercase tracking-wide font-normal">
+      <span className="text-light-gray text-[11px] uppercase tracking-wide font-medium">
         {label}
       </span>
       <TagCell items={items} modalTitle={label} chip={chip} visibleCount={visibleCount} />
@@ -156,14 +156,14 @@ function LabeledTags({
 
 function MobileLimits({ limits }: { limits: VedAgent["limits"] }) {
   return (
-    <div className="flex flex-wrap items-center gap-2 text-2xs">
+    <div className="flex flex-wrap items-center gap-2 text-xs">
       <span className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-new-grey">
         <span className="text-light-gray">От</span>
-        <span className="text-green-400 font-normal">{formatVedLimit(limits.from)}</span>
+        <span className="text-green-400 font-medium">{formatVedLimit(limits.from)}</span>
       </span>
       <span className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-new-grey">
         <span className="text-light-gray">До</span>
-        <span className="text-[#e8a090] font-normal">{formatVedLimit(limits.to)}</span>
+        <span className="text-[#e8a090] font-medium">{formatVedLimit(limits.to)}</span>
       </span>
     </div>
   );
@@ -175,7 +175,7 @@ function ContactButton({ url }: { url: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center justify-center gap-2 w-full rounded-[10px] bg-yellow-main text-black font-normal text-xs py-2.5 hover:bg-yellow-main/90 transition-colors"
+      className="flex items-center justify-center gap-2 w-full rounded-[10px] bg-yellow-main text-black font-medium text-[13px] py-2.5 hover:bg-yellow-main/90 transition-colors"
     >
       Связаться
       <TelegramIcon className="w-4 h-4" fill="#000" />
@@ -189,23 +189,27 @@ function AgentIdentity({ agent, className }: { agent: VedAgent; className?: stri
       href={`${routes.ved_agents}/${agent.slug}`}
       className={cn("flex items-center gap-3 min-w-0 hover:opacity-90", className)}
     >
-      <Image
-        src={agent.logo}
-        alt={agent.name}
-        width={40}
-        height={40}
-        className="w-10 h-10 rounded-lg object-contain bg-new-grey shrink-0"
-      />
-      <span className="font-medium lg:font-semibold text-white text-xs lg:text-base truncate">
-        {agent.name}
-      </span>
+      {agent.logo ? (
+        <Image
+          src={agent.logo}
+          alt={agent.name}
+          width={40}
+          height={40}
+          className="w-10 h-10 rounded-lg object-contain bg-new-grey shrink-0"
+        />
+      ) : (
+        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-new-grey text-yellow-main font-semibold shrink-0">
+          {agent.name.charAt(0)}
+        </div>
+      )}
+      <span className="font-semibold text-white text-sm lg:text-base truncate">{agent.name}</span>
     </Link>
   );
 }
 
 function CommissionBadge({ prefix, value }: { prefix: string; value: number }) {
   return (
-    <div className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-yellow-main/15 text-yellow-main text-2xs lg:text-xs whitespace-nowrap">
+    <div className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-yellow-main/15 text-yellow-main text-xs font-medium lg:font-normal whitespace-nowrap">
       <MapPin className="w-3.5 h-3.5 shrink-0" />
       <span>
         {prefix} {value}%
@@ -242,14 +246,14 @@ function RatingBlock({
         <Star
           className={cn("fill-green-400 stroke-green-400", compact ? "w-3.5 h-3.5" : "w-4 h-4")}
         />
-        <span className={cn(compact ? "text-xs font-medium" : "text-sm font-semibold")}>
+        <span className={cn(compact ? "text-sm font-semibold" : "text-sm font-semibold")}>
           {ratingValue || "—"}
         </span>
       </div>
       <span
         className={cn(
           "rounded-md bg-green-400/15 text-green-400",
-          compact ? "px-1.5 py-0.5 text-[10px] font-normal" : "px-2 py-1 text-xs font-medium",
+          compact ? "px-1.5 py-0.5 text-[11px] font-medium" : "px-2 py-1 text-xs font-medium",
         )}
       >
         {reviewCount}

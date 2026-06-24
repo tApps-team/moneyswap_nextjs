@@ -15,7 +15,7 @@ export const VirtualCardsPage = async ({ searchParams }: VirtualCardsPageProps) 
 
   const [vcPageRes, cardsRes] = await Promise.all([
     getVcPage(),
-    getVirtualCards({ marketType, page, pageSize: PAGE_SIZE, noStore: true }),
+    getVirtualCards({ marketType, page, pageSize: PAGE_SIZE }),
   ]);
 
   const vcPage = vcPageRes.data;
