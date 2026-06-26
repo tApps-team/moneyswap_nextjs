@@ -1,4 +1,4 @@
-import { Gift, Star } from "lucide-react";
+import { Gift } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -7,7 +7,6 @@ import {
   formatEsimPrice,
   formatEsimValidityPeriod,
   formatEsimVolume,
-  getEsimRating,
   getEsimReviewBreakdown,
 } from "@/entities/strapi";
 import { cn } from "@/shared/lib";
@@ -27,8 +26,6 @@ interface EsimCardProps {
 
 /** Desktop table row (chromeless — placed inside the shared list container). */
 export function EsimRow({ service }: EsimCardProps) {
-  const { ratingValue } = getEsimRating(service.reviews);
-  const displayRating = ratingValue || service.rating || 0;
   const breakdown = getEsimReviewBreakdown(service.reviews);
 
   return (
@@ -65,7 +62,7 @@ export function EsimRow({ service }: EsimCardProps) {
         chip="icon"
         className="flex-nowrap"
       />
-      <RatingBlock ratingValue={displayRating} breakdown={breakdown} />
+      <RatingBlock breakdown={breakdown} />
       <ActionButtons
         slug={service.slug}
         url={service.url}
@@ -78,8 +75,6 @@ export function EsimRow({ service }: EsimCardProps) {
 
 /** Mobile card. */
 export function EsimCard({ service }: EsimCardProps) {
-  const { ratingValue } = getEsimRating(service.reviews);
-  const displayRating = ratingValue || service.rating || 0;
   const breakdown = getEsimReviewBreakdown(service.reviews);
 
   return (
@@ -111,7 +106,7 @@ export function EsimCard({ service }: EsimCardProps) {
         <span className="text-light-gray text-[11px] uppercase tracking-wide font-medium">
           Отзывы
         </span>
-        <RatingBlock ratingValue={displayRating} breakdown={breakdown} compact />
+        <RatingBlock breakdown={breakdown} compact />
       </div>
 
       <ActionButtons
@@ -178,10 +173,10 @@ function ServiceIdentity({ service, className }: { service: Esim; className?: st
           alt={service.name}
           width={40}
           height={40}
-          className="w-10 h-10 rounded-lg object-contain bg-new-grey shrink-0"
+          className="w-10 h-10 rounded-full object-contain bg-new-grey shrink-0"
         />
       ) : (
-        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-new-grey text-yellow-main font-semibold shrink-0">
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-new-grey text-yellow-main font-semibold shrink-0">
           {service.name.charAt(0)}
         </div>
       )}
@@ -195,34 +190,17 @@ function ValueCell({ value }: { value: string }) {
 }
 
 function RatingBlock({
-  ratingValue,
   breakdown,
   compact,
 }: {
-  ratingValue: number;
   breakdown: { positive: number; neutral: number; negative: number };
   compact?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex items-center gap-1 text-green-400">
-        <Star
-          className={cn("fill-green-400 stroke-green-400", compact ? "w-3.5 h-3.5" : "w-4 h-4")}
-        />
-        <span className={cn(compact ? "text-sm font-semibold" : "text-sm font-semibold")}>
-          {ratingValue || "—"}
-        </span>
-      </div>
-      <div
-        className={cn(
-          "flex items-center gap-1",
-          compact ? "text-[11px] font-medium" : "text-xs font-medium",
-        )}
-      >
-        <span className="text-yellow-main">{breakdown.positive}</span>
-        <span className="text-light-gray">{breakdown.neutral}</span>
-        <span className="text-[#D20000]">{breakdown.negative}</span>
-      </div>
+    <div className={cn("flex items-center gap-1 font-medium", compact ? "text-[11px]" : "text-xs")}>
+      <span className="text-yellow-main">{breakdown.positive}</span>
+      <span className="text-light-gray">{breakdown.neutral}</span>
+      <span className="text-[#D20000]">{breakdown.negative}</span>
     </div>
   );
 }

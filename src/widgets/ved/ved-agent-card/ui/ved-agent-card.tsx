@@ -1,7 +1,7 @@
-import { Gift, MapPin, Star } from "lucide-react";
+import { Gift, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { VedAgent, formatVedLimit, getVedAgentRating } from "@/entities/strapi";
+import { VedAgent, formatVedLimit, getVedReviewBreakdown } from "@/entities/strapi";
 import { TelegramIcon } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
@@ -20,7 +20,7 @@ interface VedAgentCardProps {
 
 /** Desktop table row (chromeless — placed inside the shared list container). */
 export function VedAgentRow({ agent }: VedAgentCardProps) {
-  const { ratingValue, reviewCount } = getVedAgentRating(agent.reviews);
+  const breakdown = getVedReviewBreakdown(agent.reviews);
   const commissionPrefix = agent.is_vip ? "От" : "До";
 
   return (
@@ -56,7 +56,7 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
       />
       <CommissionBadge prefix={commissionPrefix} value={agent.commission} />
       <LimitsBlock limits={agent.limits} />
-      <RatingBlock ratingValue={ratingValue} reviewCount={reviewCount} />
+      <RatingBlock breakdown={breakdown} />
       <div className="flex items-center gap-2 justify-self-end">
         <VedPromoTooltip slug={agent.slug} promocodes={agent.promocodes ?? []} />
         <TelegramButton url={agent.url} />
@@ -67,7 +67,7 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
 
 /** Mobile card. */
 export function VedAgentCard({ agent }: VedAgentCardProps) {
-  const { ratingValue, reviewCount } = getVedAgentRating(agent.reviews);
+  const breakdown = getVedReviewBreakdown(agent.reviews);
   const commissionPrefix = agent.is_vip ? "От" : "До";
 
   return (
@@ -81,7 +81,7 @@ export function VedAgentCard({ agent }: VedAgentCardProps) {
 
       <div className="flex items-center gap-3">
         <AgentIdentity agent={agent} className="flex-1" />
-        <RatingBlock ratingValue={ratingValue} reviewCount={reviewCount} compact />
+        <RatingBlock breakdown={breakdown} compact />
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
@@ -195,10 +195,10 @@ function AgentIdentity({ agent, className }: { agent: VedAgent; className?: stri
           alt={agent.name}
           width={40}
           height={40}
-          className="w-10 h-10 rounded-lg object-contain bg-new-grey shrink-0"
+          className="w-10 h-10 rounded-full object-contain bg-new-grey shrink-0"
         />
       ) : (
-        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-new-grey text-yellow-main font-semibold shrink-0">
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-new-grey text-yellow-main font-semibold shrink-0">
           {agent.name.charAt(0)}
         </div>
       )}
@@ -232,32 +232,17 @@ function LimitsBlock({ limits }: { limits: VedAgent["limits"] }) {
 }
 
 function RatingBlock({
-  ratingValue,
-  reviewCount,
+  breakdown,
   compact,
 }: {
-  ratingValue: number;
-  reviewCount: number;
+  breakdown: { positive: number; neutral: number; negative: number };
   compact?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex items-center gap-1 text-green-400">
-        <Star
-          className={cn("fill-green-400 stroke-green-400", compact ? "w-3.5 h-3.5" : "w-4 h-4")}
-        />
-        <span className={cn(compact ? "text-sm font-semibold" : "text-sm font-semibold")}>
-          {ratingValue || "—"}
-        </span>
-      </div>
-      <span
-        className={cn(
-          "rounded-md bg-green-400/15 text-green-400",
-          compact ? "px-1.5 py-0.5 text-[11px] font-medium" : "px-2 py-1 text-xs font-medium",
-        )}
-      >
-        {reviewCount}
-      </span>
+    <div className={cn("flex items-center gap-1 font-medium", compact ? "text-[11px]" : "text-xs")}>
+      <span className="text-yellow-main">{breakdown.positive}</span>
+      <span className="text-light-gray">{breakdown.neutral}</span>
+      <span className="text-[#D20000]">{breakdown.negative}</span>
     </div>
   );
 }

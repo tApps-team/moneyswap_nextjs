@@ -1,7 +1,7 @@
-import { Gift, Star } from "lucide-react";
+import { Gift } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { VirtualCard, getVcRating } from "@/entities/strapi";
+import { VirtualCard, getVcReviewBreakdown } from "@/entities/strapi";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { TagCell } from "@/shared/ui";
@@ -19,7 +19,7 @@ interface VcCardProps {
 
 /** Desktop table row (chromeless — placed inside the shared list container). */
 export function VcRow({ card }: VcCardProps) {
-  const { ratingValue, reviewCount } = getVcRating(card.reviews);
+  const breakdown = getVcReviewBreakdown(card.reviews);
 
   return (
     <div
@@ -41,7 +41,7 @@ export function VcRow({ card }: VcCardProps) {
         chip="icon"
         className="flex-nowrap"
       />
-      <RatingBlock ratingValue={ratingValue} reviewCount={reviewCount} />
+      <RatingBlock breakdown={breakdown} />
       <ActionsCell card={card} />
     </div>
   );
@@ -49,7 +49,7 @@ export function VcRow({ card }: VcCardProps) {
 
 /** Mobile card. */
 export function VcCard({ card }: VcCardProps) {
-  const { ratingValue, reviewCount } = getVcRating(card.reviews);
+  const breakdown = getVcReviewBreakdown(card.reviews);
   const hasPromo = card.promocodes.length > 0;
 
   return (
@@ -63,7 +63,7 @@ export function VcCard({ card }: VcCardProps) {
 
       <div className="flex items-center gap-3">
         <CardIdentity card={card} className="flex-1" />
-        <RatingBlock ratingValue={ratingValue} reviewCount={reviewCount} compact />
+        <RatingBlock breakdown={breakdown} compact />
       </div>
 
       <div className="grid grid-cols-3 gap-2">
@@ -163,10 +163,10 @@ function CardIdentity({ card, className }: { card: VirtualCard; className?: stri
           alt={card.name}
           width={40}
           height={40}
-          className="w-10 h-10 rounded-lg object-contain bg-new-grey shrink-0"
+          className="w-10 h-10 rounded-full object-contain bg-new-grey shrink-0"
         />
       ) : (
-        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-new-grey text-yellow-main font-semibold shrink-0">
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-new-grey text-yellow-main font-semibold shrink-0">
           {card.name.charAt(0)}
         </div>
       )}
@@ -180,32 +180,17 @@ function ValueCell({ value }: { value: string }) {
 }
 
 function RatingBlock({
-  ratingValue,
-  reviewCount,
+  breakdown,
   compact,
 }: {
-  ratingValue: number;
-  reviewCount: number;
+  breakdown: { positive: number; neutral: number; negative: number };
   compact?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex items-center gap-1 text-green-400">
-        <Star
-          className={cn("fill-green-400 stroke-green-400", compact ? "w-3.5 h-3.5" : "w-4 h-4")}
-        />
-        <span className={cn(compact ? "text-sm font-semibold" : "text-sm font-semibold")}>
-          {ratingValue || "—"}
-        </span>
-      </div>
-      <span
-        className={cn(
-          "rounded-md bg-green-400/15 text-green-400",
-          compact ? "px-1.5 py-0.5 text-[11px] font-medium" : "px-2 py-1 text-xs font-medium",
-        )}
-      >
-        {reviewCount}
-      </span>
+    <div className={cn("flex items-center gap-1 font-medium", compact ? "text-[11px]" : "text-xs")}>
+      <span className="text-yellow-main">{breakdown.positive}</span>
+      <span className="text-light-gray">{breakdown.neutral}</span>
+      <span className="text-[#D20000]">{breakdown.negative}</span>
     </div>
   );
 }

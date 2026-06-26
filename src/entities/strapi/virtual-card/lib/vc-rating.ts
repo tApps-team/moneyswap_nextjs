@@ -22,3 +22,15 @@ export function getVcRating(reviews: VcReview[]) {
     reviewCount,
   };
 }
+
+export function getVcReviewBreakdown(reviews: VcReview[]) {
+  return reviews.reduce(
+    (acc, review) => {
+      if (review.rating === "positive") acc.positive += 1;
+      else if (review.rating === "negative") acc.negative += 1;
+      else acc.neutral += 1;
+      return acc;
+    },
+    { positive: 0, neutral: 0, negative: 0 },
+  );
+}

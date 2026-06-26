@@ -1,4 +1,4 @@
-import { Gift, MapPin, Star } from "lucide-react";
+import { Gift, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
@@ -7,7 +7,7 @@ import {
   VedAgent,
   formatVedLimit,
   getVedAgentBySlug,
-  getVedAgentRating,
+  getVedReviewBreakdown,
 } from "@/entities/strapi";
 import { TelegramIcon } from "@/shared/assets";
 import { TagCell } from "@/shared/ui";
@@ -23,11 +23,11 @@ export const VedAgentPage = async ({ slug }: VedAgentPageProps) => {
     return null;
   }
 
-  const { ratingValue, reviewCount } = getVedAgentRating(agent.reviews);
+  const breakdown = getVedReviewBreakdown(agent.reviews);
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
-      <VedAgentHero agent={agent} ratingValue={ratingValue} reviewCount={reviewCount} />
+      <VedAgentHero agent={agent} breakdown={breakdown} />
 
       {(agent.promocodes?.length ?? 0) > 0 ? <VedPromocodes agent={agent} /> : null}
 
@@ -71,12 +71,10 @@ function VedPromocodes({ agent }: { agent: VedAgent }) {
 
 function VedAgentHero({
   agent,
-  ratingValue,
-  reviewCount,
+  breakdown,
 }: {
   agent: VedAgent;
-  ratingValue: number;
-  reviewCount: number;
+  breakdown: { positive: number; neutral: number; negative: number };
 }) {
   return (
     <div className="bg-new-dark-grey rounded-[15px] mobile-xl:rounded-[20px] p-5 mobile-xl:p-8 grid gap-6">
@@ -88,10 +86,10 @@ function VedAgentHero({
               alt={agent.name}
               width={64}
               height={64}
-              className="w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-xl object-contain bg-new-grey shrink-0"
+              className="w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-full object-contain bg-new-grey shrink-0"
             />
           ) : (
-            <div className="flex items-center justify-center w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-xl bg-new-grey text-yellow-main font-semibold text-xl mobile-xl:text-2xl shrink-0">
+            <div className="flex items-center justify-center w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-full bg-new-grey text-yellow-main font-semibold text-xl mobile-xl:text-2xl shrink-0">
               {agent.name.charAt(0)}
             </div>
           )}
@@ -104,10 +102,10 @@ function VedAgentHero({
                 <MapPin className="w-3.5 h-3.5" />
                 До {agent.commission}%
               </span>
-              <div className="flex items-center gap-1 text-green-400">
-                <Star className="w-3.5 h-3.5 mobile-xl:w-4 mobile-xl:h-4 fill-green-400" />
-                <span className="font-semibold">{ratingValue || "—"}</span>
-                <span className="text-light-gray">({reviewCount} отзывов)</span>
+              <div className="flex items-center gap-1.5 font-medium">
+                <span className="text-yellow-main">{breakdown.positive}</span>
+                <span className="text-light-gray">{breakdown.neutral}</span>
+                <span className="text-[#D20000]">{breakdown.negative}</span>
               </div>
             </div>
             <p className="text-xs mobile-xl:text-sm text-light-gray">

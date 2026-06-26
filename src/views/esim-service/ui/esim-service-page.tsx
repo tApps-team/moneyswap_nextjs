@@ -1,10 +1,10 @@
-import { Gift, Star } from "lucide-react";
+import { Gift } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
   Esim,
   getEsimBySlug,
-  getEsimRating,
+  getEsimReviewBreakdown,
 } from "@/entities/strapi";
 import { EsimServiceContent } from "./esim-service-content";
 
@@ -19,16 +19,11 @@ export const EsimServicePage = async ({ slug }: EsimServicePageProps) => {
     return null;
   }
 
-  const { ratingValue, reviewCount } = getEsimRating(service.reviews);
-  const displayRating = ratingValue || service.rating || 0;
+  const breakdown = getEsimReviewBreakdown(service.reviews);
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
-      <EsimServiceHero
-        service={service}
-        ratingValue={displayRating}
-        reviewCount={reviewCount}
-      />
+      <EsimServiceHero service={service} breakdown={breakdown} />
       {(service.promocodes?.length ?? 0) > 0 ? <EsimPromocodes service={service} /> : null}
       <EsimServiceContent service={service} />
     </section>
@@ -68,12 +63,10 @@ function EsimPromocodes({ service }: { service: Esim }) {
 
 function EsimServiceHero({
   service,
-  ratingValue,
-  reviewCount,
+  breakdown,
 }: {
   service: Esim;
-  ratingValue: number;
-  reviewCount: number;
+  breakdown: { positive: number; neutral: number; negative: number };
 }) {
   return (
     <div className="bg-new-dark-grey rounded-[15px] mobile-xl:rounded-[20px] p-5 mobile-xl:p-8 grid gap-6">
@@ -85,10 +78,10 @@ function EsimServiceHero({
               alt={service.name}
               width={64}
               height={64}
-              className="w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-xl object-contain bg-new-grey shrink-0"
+              className="w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-full object-contain bg-new-grey shrink-0"
             />
           ) : (
-            <div className="flex items-center justify-center w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-xl bg-new-grey text-yellow-main font-semibold text-xl mobile-xl:text-2xl shrink-0">
+            <div className="flex items-center justify-center w-12 h-12 mobile-xl:w-16 mobile-xl:h-16 rounded-full bg-new-grey text-yellow-main font-semibold text-xl mobile-xl:text-2xl shrink-0">
               {service.name.charAt(0)}
             </div>
           )}
@@ -96,10 +89,10 @@ function EsimServiceHero({
             <h1 className="unbounded_font text-yellow-main uppercase text-base mobile-xl:text-2xl font-semibold">
               Виртуальные сим-карты {service.name}
             </h1>
-            <div className="flex items-center gap-1 text-green-400 text-xs mobile-xl:text-sm">
-              <Star className="w-3.5 h-3.5 mobile-xl:w-4 mobile-xl:h-4 fill-green-400" />
-              <span className="font-semibold">{ratingValue || "—"}</span>
-              <span className="text-light-gray">({reviewCount} отзывов)</span>
+            <div className="flex items-center gap-1.5 text-xs mobile-xl:text-sm font-medium">
+              <span className="text-yellow-main">{breakdown.positive}</span>
+              <span className="text-light-gray">{breakdown.neutral}</span>
+              <span className="text-[#D20000]">{breakdown.negative}</span>
             </div>
           </div>
         </div>

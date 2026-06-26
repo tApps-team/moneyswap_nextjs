@@ -83,12 +83,8 @@ export const TagCell: FC<TagCellProps> = ({
                     width={20}
                     height={20}
                     className={cn(
-                      "mobile-xl:w-5 mobile-xl:h-5 w-4 h-4 shrink-0",
-                      chip === "circle"
-                        ? "rounded-full object-contain"
-                        : chip === "flag"
-                          ? "rounded-[4px] object-cover"
-                          : "rounded-[4px] object-contain",
+                      "mobile-xl:w-5 mobile-xl:h-5 w-4 h-4 shrink-0 rounded-full",
+                      chip === "flag" ? "object-cover" : "object-contain",
                     )}
                   />
                 )}
@@ -125,12 +121,8 @@ function VisibleChip({ item, chip }: { item: TagItem; chip: TagChipVariant }) {
       height={28}
       title={item.title}
       className={cn(
-        "w-7 h-7 shrink-0",
-        chip === "circle"
-          ? "rounded-full object-contain bg-new-grey p-0.5"
-          : chip === "flag"
-            ? "rounded-md object-cover"
-            : "rounded-md object-contain bg-new-grey p-0.5",
+        "w-7 h-7 shrink-0 rounded-full",
+        chip === "flag" ? "object-cover" : "object-contain",
       )}
     />
   );

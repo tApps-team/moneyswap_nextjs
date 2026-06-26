@@ -23,6 +23,18 @@ export function getVedAgentRating(reviews: VedReview[]) {
   };
 }
 
+export function getVedReviewBreakdown(reviews: VedReview[]) {
+  return reviews.reduce(
+    (acc, review) => {
+      if (review.rating === "positive") acc.positive += 1;
+      else if (review.rating === "negative") acc.negative += 1;
+      else acc.neutral += 1;
+      return acc;
+    },
+    { positive: 0, neutral: 0, negative: 0 },
+  );
+}
+
 export function formatVedLimit(value: string | null | undefined) {
   if (value == null || value === "") return "—";
   const numeric = Number(value.replace(/\s/g, ""));
