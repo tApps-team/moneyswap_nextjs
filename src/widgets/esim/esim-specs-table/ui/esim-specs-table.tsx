@@ -1,5 +1,3 @@
-import { Star } from "lucide-react";
-import Image from "next/image";
 import { FC, ReactNode } from "react";
 import {
   Esim,
@@ -9,23 +7,16 @@ import {
   formatEsimTopUp,
   formatEsimValidityPeriod,
   formatEsimVolume,
-  getEsimRating,
   getEsimReviewBreakdown,
 } from "@/entities/strapi";
-
-const VISIBLE_CHIPS = 3;
+import { TagCell } from "@/shared/ui";
 
 interface EsimSpecsTableProps {
   service: Esim;
 }
 
 export const EsimSpecsTable: FC<EsimSpecsTableProps> = ({ service }) => {
-  const { ratingValue } = getEsimRating(service.reviews);
-  const displayRating = ratingValue || service.rating || 0;
   const breakdown = getEsimReviewBreakdown(service.reviews);
-  const visibleCountries = service.countries.slice(0, VISIBLE_CHIPS);
-  const visibleLabels = service.labels.slice(0, VISIBLE_CHIPS);
-  const visiblePayments = service.payment_systems.slice(0, VISIBLE_CHIPS);
 
   const rows: { label: string; value: ReactNode }[] = [
     { label: "Цена", value: formatEsimPrice(service.connection_price) },
@@ -37,88 +28,44 @@ export const EsimSpecsTable: FC<EsimSpecsTableProps> = ({ service }) => {
     {
       label: "Страны",
       value: (
-        <div className="flex items-center gap-1.5 justify-end flex-wrap">
-          {visibleCountries.map((country) => (
-            <Image
-              key={country.id}
-              src={country.icon}
-              alt={country.title}
-              width={28}
-              height={28}
-              className="w-7 h-7 rounded-md object-cover"
-            />
-          ))}
-          {service.countries.length > VISIBLE_CHIPS && (
-            <span className="text-yellow-main text-sm">+{service.countries.length - VISIBLE_CHIPS}</span>
-          )}
-          {service.countries.length === 0 && (
-            <span className="text-light-gray text-sm">—</span>
-          )}
-        </div>
+        <TagCell
+          items={service.countries}
+          modalTitle="Страны"
+          chip="flag"
+          className="justify-end"
+        />
       ),
     },
     {
       label: "Рейтинг",
       value: (
-        <div className="flex items-center gap-2 justify-end">
-          <div className="flex items-center gap-1 text-green-400">
-            <Star className="w-4 h-4 fill-green-400 stroke-green-400" />
-            <span className="font-semibold">{displayRating || "—"}</span>
-          </div>
-          <div className="flex items-center gap-1 text-xs font-medium">
-            <span className="text-green-400">{breakdown.positive}</span>
-            <span className="text-yellow-main">{breakdown.neutral}</span>
-            <span className="text-red-500">{breakdown.negative}</span>
-          </div>
+        <div className="flex items-center gap-1.5 justify-end text-xs mobile-xl:text-sm font-medium">
+          <span className="text-green-400">{breakdown.positive}</span>
+          <span className="text-yellow-main">{breakdown.neutral}</span>
+          <span className="text-red-500">{breakdown.negative}</span>
         </div>
       ),
     },
     {
       label: "Метки",
       value: (
-        <div className="flex items-center gap-1.5 justify-end flex-wrap">
-          {visibleLabels.map((label) => (
-            <Image
-              key={label.id}
-              src={label.icon}
-              alt={label.title}
-              width={28}
-              height={28}
-              className="w-7 h-7 rounded-full object-contain bg-new-grey p-0.5"
-              title={label.title}
-            />
-          ))}
-          {service.labels.length > VISIBLE_CHIPS && (
-            <span className="text-yellow-main text-sm">+{service.labels.length - VISIBLE_CHIPS}</span>
-          )}
-          {service.labels.length === 0 && <span className="text-light-gray text-sm">—</span>}
-        </div>
+        <TagCell
+          items={service.labels}
+          modalTitle="Метки"
+          chip="circle"
+          className="justify-end"
+        />
       ),
     },
     {
       label: "Способы оплаты",
       value: (
-        <div className="flex items-center gap-1.5 justify-end flex-wrap">
-          {visiblePayments.map((system) => (
-            <Image
-              key={system.id}
-              src={system.icon}
-              alt={system.title}
-              width={28}
-              height={28}
-              className="w-7 h-7 rounded-md object-contain bg-new-grey p-0.5"
-              title={system.title}
-            />
-          ))}
-          {service.payment_systems.length > VISIBLE_CHIPS && (
-            <span className="text-yellow-main text-sm">
-              +{service.payment_systems.length - VISIBLE_CHIPS}
-            </span>
-          )}
-          {service.payment_systems.length === 0 && (
-            <span className="text-light-gray text-sm">—</span>
-          )}
-        </div>
+        <TagCell
+          items={service.payment_systems}
+          modalTitle="Способы оплаты"
+          chip="icon"
+          className="justify-end"
+        />
       ),
     },
   ];

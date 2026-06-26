@@ -7,6 +7,15 @@ import {
 
 const validityPeriodMap: Record<string, string> = {
   from_1_day: "от 1 дня",
+  from_3_days: "от 3 дней",
+  from_5_days: "от 5 дней",
+  from_7_days: "от 7 дней",
+  from_10_days: "от 10 дней",
+  from_30_days: "от 30 дней",
+  from_6_months: "от 6 месяцев",
+  from_1_year: "от 1 года",
+  from_2_years: "от 2 лет",
+  unlimited: "Безлимит",
 };
 
 const internetSharingMap: Record<string, string> = {
