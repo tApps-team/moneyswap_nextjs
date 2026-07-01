@@ -28,3 +28,4 @@ export * from "./toast";
 export * from "./toaster";
 export * from "./tooltip";
 export * from "./breadcrumbs";
+export * from "./tag-cell/tag-cell";

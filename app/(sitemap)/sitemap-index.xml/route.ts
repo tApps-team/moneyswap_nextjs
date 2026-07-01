@@ -12,6 +12,11 @@ export async function GET() {
       `${baseUrl}${routes.blog}${routes.article}/sitemap.xml`,
       `${baseUrl}${routes.blog}${routes.category}/sitemap.xml`,
       `${baseUrl}${routes.blog}${routes.tag}/sitemap.xml`,
+      `${baseUrl}${routes.ved}/sitemap.xml`,
+      `${baseUrl}${routes.ved_agents}/sitemap.xml`,
+      `${baseUrl}${routes.virtual_cards}/sitemap.xml`,
+      `${baseUrl}${routes.vc_cards}/sitemap.xml`,
+      `${baseUrl}${routes.esim}/sitemap.xml`,
     ];
 
     const sitemapIndexXML = await buildSitemapIndex(sitemaps);

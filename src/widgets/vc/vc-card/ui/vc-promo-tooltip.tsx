@@ -1,0 +1,55 @@
+"use client";
+
+import { Gift } from "lucide-react";
+import Link from "next/link";
+import { VcPromocode } from "@/entities/strapi";
+import { cn } from "@/shared/lib";
+import { routes } from "@/shared/router";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/shared/ui";
+
+interface VcPromoTooltipProps {
+  slug: string;
+  promocodes: VcPromocode[];
+  className?: string;
+}
+
+/** Gift button that reveals promocode title + description on hover. */
+export function VcPromoTooltip({ slug, promocodes, className }: VcPromoTooltipProps) {
+  if (!promocodes.length) return null;
+
+  return (
+    <TooltipProvider delayDuration={150}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link
+            href={`${routes.vc_cards}/${slug}`}
+            aria-label="Промокоды"
+            className={cn(
+              "flex items-center justify-center w-9 h-9 shrink-0 rounded-[8px] bg-new-grey text-yellow-main hover:bg-yellow-main hover:text-black transition-colors",
+              className,
+            )}
+          >
+            <Gift className="w-4 h-4" />
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent
+          side="top"
+          className="max-w-[260px] bg-new-dark-grey border-new-grey text-white p-0 shadow-lg"
+        >
+          <div className="grid gap-2.5 p-3">
+            {promocodes.map((promo, index) => (
+              <div key={`${promo.title}-${index}`} className="grid gap-1">
+                <span className="text-yellow-main text-xs font-semibold leading-tight">
+                  {promo.title}
+                </span>
+                {promo.description && (
+                  <span className="text-light-gray text-2xs leading-snug">{promo.description}</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}

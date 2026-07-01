@@ -7,4 +7,10 @@ export enum StrapiCollectionNames {
   about = "about-us",
   partner = "for-partner",
   help = "help-page-article",
+  vedPage = "ved-page",
+  vedAgent = "ved-agent",
+  vcPage = "vc-page",
+  virtualCard = "virtual-card",
+  esimPage = "esim-page",
+  eSim = "e-sim",
 }

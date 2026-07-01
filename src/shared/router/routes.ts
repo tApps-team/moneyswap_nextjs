@@ -19,4 +19,10 @@ export enum routes {
   privacy = "/privacy",
   pricing_policy = "/pricing-policy",
   blacklist_terms = "/blacklist-terms",
+  ved = "/ved",
+  ved_agents = "/ved/agents",
+  ved_exchange = "/ved/exchange",
+  virtual_cards = "/virtual-cards",
+  vc_cards = "/virtual-cards/cards",
+  esim = "/esim",
 }

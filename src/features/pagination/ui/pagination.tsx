@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FC } from "react";
@@ -11,7 +13,12 @@ interface PaginationProps {
 
 export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route }) => {
   const searchParams = useSearchParams();
-  const searchValue = searchParams.get("search");
+  // Сохраняем все текущие query-параметры (search, market и т.д.), меняем только page.
+  const buildHref = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", String(page));
+    return `${route}?${params.toString()}`;
+  };
   const createPaginationArray = () => {
     const pages = [];
 
@@ -50,7 +57,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, route
         typeof page === "number" ? (
           <Link
             key={index}
-            href={`${route}?page=${page}${searchValue ? `&search=${searchValue}` : ""}`}
+            href={buildHref(page)}
             className={`lg:h-9 lg:w-9 h-8 w-8 lg:text-sm text-xs font-normal flex justify-center items-center rounded-[5px] p-2 transition-all duration-300 ${page === currentPage ? "bg-yellow-main text-black" : "hover:bg-new-grey transition-all duration-300"}`}
             scroll={false}
           >

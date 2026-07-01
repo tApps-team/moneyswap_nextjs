@@ -21,6 +21,23 @@ export const footerItems: FooterItems[] = [
     ],
   },
   {
+    value: "Рейтинги",
+    children: [
+      {
+        href: routes.ved,
+        value: "ВЭД",
+      },
+      {
+        href: routes.virtual_cards,
+        value: "Виртуальные карты",
+      },
+      {
+        href: routes.esim,
+        value: "eSIM",
+      },
+    ],
+  },
+  {
     value: "Поддержка",
     children: [
       {
