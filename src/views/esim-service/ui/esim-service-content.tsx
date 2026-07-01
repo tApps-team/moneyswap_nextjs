@@ -25,6 +25,7 @@ export const EsimServiceContent: FC<EsimServiceContentProps> = ({ service }) => 
 
   return (
     <div className="grid gap-6">
+      {/* Временно скрыты табы Обзор/Отзывы (логика сохранена, дефолт — overview)
       <div className="flex gap-2 p-1.5 rounded-[12px] bg-new-dark-grey w-full lg:w-fit">
         {TABS.map((tab) => (
           <button
@@ -42,6 +43,7 @@ export const EsimServiceContent: FC<EsimServiceContentProps> = ({ service }) => 
           </button>
         ))}
       </div>
+      */}
 
       {activeTab === "overview" ? (
         <div className="grid gap-6 lg:gap-8">

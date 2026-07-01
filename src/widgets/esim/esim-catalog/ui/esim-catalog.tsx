@@ -21,6 +21,7 @@ const TABS: { value: EsimMarketType; label: string }[] = [
 export const EsimCatalog: FC<EsimCatalogProps> = ({ services, marketType, page, totalPages }) => {
   return (
     <div className="grid gap-6">
+      {/* Временно скрыты табы Международные/Российские (логика сохранена, дефолт — международные)
       <div className="flex gap-2 p-1.5 rounded-[12px] bg-new-dark-grey w-full lg:w-fit">
         {TABS.map((tab) => (
           <Link
@@ -38,6 +39,7 @@ export const EsimCatalog: FC<EsimCatalogProps> = ({ services, marketType, page, 
           </Link>
         ))}
       </div>
+      */}
 
       <EsimList services={services} />
 

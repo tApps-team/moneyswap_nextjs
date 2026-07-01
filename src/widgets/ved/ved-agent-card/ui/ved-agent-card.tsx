@@ -11,8 +11,11 @@ import { VedPromoTooltip } from "./ved-promo-tooltip";
 const VISIBLE_CHIPS = 3;
 
 /** Shared grid template — used by both the list header and each desktop row. */
+// ВРЕМЕННО: колонка "Отзывы" (minmax(80px,0.6fr)) убрана из сетки. Вернуть строку ниже когда появятся отзывы:
+// export const VED_GRID =
+//   "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_minmax(80px,0.6fr)_auto] gap-4 items-center";
 export const VED_GRID =
-  "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_minmax(80px,0.6fr)_auto] gap-4 items-center";
+  "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_auto] gap-4 items-center";
 
 interface VedAgentCardProps {
   agent: VedAgent;
@@ -20,7 +23,7 @@ interface VedAgentCardProps {
 
 /** Desktop table row (chromeless — placed inside the shared list container). */
 export function VedAgentRow({ agent }: VedAgentCardProps) {
-  const breakdown = getVedReviewBreakdown(agent.reviews);
+  // ВРЕМЕННО скрыты отзывы: const breakdown = getVedReviewBreakdown(agent.reviews);
   const commissionPrefix = agent.is_vip ? "От" : "До";
 
   return (
@@ -56,7 +59,8 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
       />
       <CommissionBadge prefix={commissionPrefix} value={agent.commission} />
       <LimitsBlock limits={agent.limits} />
-      <RatingBlock breakdown={breakdown} />
+      {/* ВРЕМЕННО скрыт блок отзывов (вместе с колонкой в VED_GRID и заголовком):
+      <RatingBlock breakdown={breakdown} /> */}
       <div className="flex items-center gap-2 justify-self-end">
         <VedPromoTooltip slug={agent.slug} promocodes={agent.promocodes ?? []} />
         <TelegramButton url={agent.url} />
@@ -67,7 +71,7 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
 
 /** Mobile card. */
 export function VedAgentCard({ agent }: VedAgentCardProps) {
-  const breakdown = getVedReviewBreakdown(agent.reviews);
+  // ВРЕМЕННО скрыты отзывы: const breakdown = getVedReviewBreakdown(agent.reviews);
   const commissionPrefix = agent.is_vip ? "От" : "До";
 
   return (
@@ -81,7 +85,7 @@ export function VedAgentCard({ agent }: VedAgentCardProps) {
 
       <div className="flex items-center gap-3">
         <AgentIdentity agent={agent} className="flex-1" />
-        <RatingBlock breakdown={breakdown} compact />
+        {/* ВРЕМЕННО скрыт блок отзывов: <RatingBlock breakdown={breakdown} compact /> */}
       </div>
 
       <div className="flex flex-wrap items-center gap-2">

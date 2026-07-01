@@ -89,11 +89,13 @@ function EsimServiceHero({
             <h1 className="unbounded_font text-yellow-main uppercase text-base mobile-xl:text-2xl font-semibold">
               Виртуальные сим-карты {service.name}
             </h1>
+            {/* Временно скрыт блок отзывов 0 0 0 (логика сохранена)
             <div className="flex items-center gap-1.5 text-xs mobile-xl:text-sm font-medium">
               <span className="text-yellow-main">{breakdown.positive}</span>
               <span className="text-light-gray">{breakdown.neutral}</span>
               <span className="text-[#D20000]">{breakdown.negative}</span>
             </div>
+            */}
           </div>
         </div>
 

@@ -31,7 +31,8 @@ export const VedAgentPage = async ({ slug }: VedAgentPageProps) => {
 
       {(agent.promocodes?.length ?? 0) > 0 ? <VedPromocodes agent={agent} /> : null}
 
-      <VedReviews reviews={agent.reviews} />
+      {/* Временно скрыт блок отзывов (логика сохранена) */}
+      {/* <VedReviews reviews={agent.reviews} /> */}
 
       {agent.about?.length ? <DynamicContent dynamic_content={agent.about} /> : null}
     </section>
@@ -102,11 +103,13 @@ function VedAgentHero({
                 <MapPin className="w-3.5 h-3.5" />
                 До {agent.commission}%
               </span>
+              {/* Временно скрыт блок отзывов 0 0 0 (логика сохранена)
               <div className="flex items-center gap-1.5 font-medium">
                 <span className="text-yellow-main">{breakdown.positive}</span>
                 <span className="text-light-gray">{breakdown.neutral}</span>
                 <span className="text-[#D20000]">{breakdown.negative}</span>
               </div>
+              */}
             </div>
             <p className="text-xs mobile-xl:text-sm text-light-gray">
               От <span className="text-green-400">{formatVedLimit(agent.limits.from)}</span> — До{" "}

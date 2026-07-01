@@ -17,8 +17,11 @@ import { EsimPromoTooltip } from "./esim-promo-tooltip";
 const VISIBLE_CHIPS = 3;
 
 /** Shared grid template — used by both the list header and each desktop row. */
+// ВРЕМЕННО: колонка "Отзывы" (minmax(100px,0.85fr)) убрана из сетки. Вернуть строку ниже когда появятся отзывы:
+// export const ESIM_GRID =
+//   "grid grid-cols-[minmax(140px,1.2fr)_minmax(72px,0.7fr)_minmax(88px,0.8fr)_minmax(72px,0.7fr)_minmax(72px,0.7fr)_minmax(80px,0.75fr)_minmax(88px,0.8fr)_minmax(100px,0.85fr)_280px] gap-4 items-center";
 export const ESIM_GRID =
-  "grid grid-cols-[minmax(140px,1.2fr)_minmax(72px,0.7fr)_minmax(88px,0.8fr)_minmax(72px,0.7fr)_minmax(72px,0.7fr)_minmax(80px,0.75fr)_minmax(88px,0.8fr)_minmax(100px,0.85fr)_280px] gap-4 items-center";
+  "grid grid-cols-[minmax(140px,1.2fr)_minmax(72px,0.7fr)_minmax(88px,0.8fr)_minmax(72px,0.7fr)_minmax(72px,0.7fr)_minmax(80px,0.75fr)_minmax(88px,0.8fr)_280px] gap-4 items-center";
 
 interface EsimCardProps {
   service: Esim;
@@ -26,7 +29,7 @@ interface EsimCardProps {
 
 /** Desktop table row (chromeless — placed inside the shared list container). */
 export function EsimRow({ service }: EsimCardProps) {
-  const breakdown = getEsimReviewBreakdown(service.reviews);
+  // ВРЕМЕННО скрыты отзывы: const breakdown = getEsimReviewBreakdown(service.reviews);
 
   return (
     <div
@@ -62,7 +65,8 @@ export function EsimRow({ service }: EsimCardProps) {
         chip="icon"
         className="flex-nowrap"
       />
-      <RatingBlock breakdown={breakdown} />
+      {/* ВРЕМЕННО скрыт блок отзывов (вместе с колонкой в ESIM_GRID и заголовком):
+      <RatingBlock breakdown={breakdown} /> */}
       <ActionButtons
         slug={service.slug}
         url={service.url}
@@ -75,7 +79,7 @@ export function EsimRow({ service }: EsimCardProps) {
 
 /** Mobile card. */
 export function EsimCard({ service }: EsimCardProps) {
-  const breakdown = getEsimReviewBreakdown(service.reviews);
+  // ВРЕМЕННО скрыты отзывы: const breakdown = getEsimReviewBreakdown(service.reviews);
 
   return (
     <article
@@ -102,12 +106,14 @@ export function EsimCard({ service }: EsimCardProps) {
         <LabeledTags label="Оплата" items={service.payment_systems} chip="icon" />
       </div>
 
+      {/* ВРЕМЕННО скрыт блок отзывов:
       <div className="flex items-center justify-between gap-3 border-t border-white/[0.06] pt-3">
         <span className="text-light-gray text-[11px] uppercase tracking-wide font-medium">
           Отзывы
         </span>
         <RatingBlock breakdown={breakdown} compact />
       </div>
+      */}
 
       <ActionButtons
         slug={service.slug}

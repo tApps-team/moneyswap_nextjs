@@ -10,8 +10,11 @@ import { VcPromoTooltip } from "./vc-promo-tooltip";
 const VISIBLE_PLATFORMS = 3;
 
 /** Shared grid template — used by both the list header and each desktop row. */
+// ВРЕМЕННО: колонка "Отзывы" (minmax(90px,0.7fr)) убрана из сетки. Вернуть строку ниже когда появятся отзывы:
+// export const VC_GRID =
+//   "grid grid-cols-[minmax(150px,1.4fr)_minmax(90px,0.7fr)_minmax(110px,0.9fr)_minmax(120px,0.9fr)_minmax(150px,1fr)_minmax(90px,0.7fr)_minmax(300px,1.4fr)] gap-4 items-center";
 export const VC_GRID =
-  "grid grid-cols-[minmax(150px,1.4fr)_minmax(90px,0.7fr)_minmax(110px,0.9fr)_minmax(120px,0.9fr)_minmax(150px,1fr)_minmax(90px,0.7fr)_minmax(300px,1.4fr)] gap-4 items-center";
+  "grid grid-cols-[minmax(150px,1.4fr)_minmax(90px,0.7fr)_minmax(110px,0.9fr)_minmax(120px,0.9fr)_minmax(150px,1fr)_minmax(300px,1.4fr)] gap-4 items-center";
 
 interface VcCardProps {
   card: VirtualCard;
@@ -19,7 +22,7 @@ interface VcCardProps {
 
 /** Desktop table row (chromeless — placed inside the shared list container). */
 export function VcRow({ card }: VcCardProps) {
-  const breakdown = getVcReviewBreakdown(card.reviews);
+  // ВРЕМЕННО скрыты отзывы: const breakdown = getVcReviewBreakdown(card.reviews);
 
   return (
     <div
@@ -41,7 +44,8 @@ export function VcRow({ card }: VcCardProps) {
         chip="icon"
         className="flex-nowrap"
       />
-      <RatingBlock breakdown={breakdown} />
+      {/* ВРЕМЕННО скрыт блок отзывов (вместе с колонкой в VC_GRID и заголовком):
+      <RatingBlock breakdown={breakdown} /> */}
       <ActionsCell card={card} />
     </div>
   );
@@ -49,7 +53,7 @@ export function VcRow({ card }: VcCardProps) {
 
 /** Mobile card. */
 export function VcCard({ card }: VcCardProps) {
-  const breakdown = getVcReviewBreakdown(card.reviews);
+  // ВРЕМЕННО скрыты отзывы: const breakdown = getVcReviewBreakdown(card.reviews);
   const hasPromo = card.promocodes.length > 0;
 
   return (
@@ -63,7 +67,7 @@ export function VcCard({ card }: VcCardProps) {
 
       <div className="flex items-center gap-3">
         <CardIdentity card={card} className="flex-1" />
-        <RatingBlock breakdown={breakdown} compact />
+        {/* ВРЕМЕННО скрыт блок отзывов: <RatingBlock breakdown={breakdown} compact /> */}
       </div>
 
       <div className="grid grid-cols-3 gap-2">
