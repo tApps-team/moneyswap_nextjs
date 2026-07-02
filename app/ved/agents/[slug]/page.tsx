@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { VedAgentPage } from "@/views/ved-agent";
-import { getVedAgentBySlug, getVedAgentRating } from "@/entities/strapi";
+import { getVedAgentBySlug, getVedAgentRating, getVedAgents } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 import { Breadcrumbs } from "@/shared/ui";
 
@@ -41,6 +41,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: { canonical },
   };
+}
+
+export async function generateStaticParams() {
+  const agents = (await getVedAgents({ page: 1, pageSize: 1000 })).data ?? [];
+
+  return agents.map((agent) => ({ slug: agent.slug }));
 }
 
 export default async function Page({ params }: Props) {
