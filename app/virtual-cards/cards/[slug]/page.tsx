@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { VirtualCardPage } from "@/views/virtual-card";
-import { getVcRating, getVirtualCardBySlug } from "@/entities/strapi";
+import { getVcRating, getVirtualCardBySlug, getVirtualCards } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 import { Breadcrumbs } from "@/shared/ui";
 
@@ -37,6 +37,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: { canonical },
   };
+}
+
+export async function generateStaticParams() {
+  const [international, russian] = await Promise.all([
+    getVirtualCards({ marketType: "international", page: 1, pageSize: 1000 }),
+    getVirtualCards({ marketType: "russian", page: 1, pageSize: 1000 }),
+  ]);
+
+  const cards = [...(international.data ?? []), ...(russian.data ?? [])];
+
+  return cards.map((card) => ({ slug: card.slug }));
 }
 
 export default async function Page({ params }: Props) {

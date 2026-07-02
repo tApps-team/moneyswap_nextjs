@@ -7,8 +7,8 @@ export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [international, russian] = await Promise.all([
-    getVirtualCards({ marketType: "international" }),
-    getVirtualCards({ marketType: "russian" }),
+    getVirtualCards({ marketType: "international", page: 1, pageSize: 1000 }),
+    getVirtualCards({ marketType: "russian", page: 1, pageSize: 1000 }),
   ]);
 
   const cards = [...(international.data ?? []), ...(russian.data ?? [])];

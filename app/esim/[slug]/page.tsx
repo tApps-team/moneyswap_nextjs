@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EsimServicePage } from "@/views/esim-service";
-import { getEsimBySlug, getEsimRating } from "@/entities/strapi";
+import { getEsimBySlug, getEsimRating, getEsims } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 import { Breadcrumbs } from "@/shared/ui";
 
@@ -39,6 +39,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: { canonical },
   };
+}
+
+export async function generateStaticParams() {
+  const [international, russian] = await Promise.all([
+    getEsims({ marketType: "international", page: 1, pageSize: 1000 }),
+    getEsims({ marketType: "russian", page: 1, pageSize: 1000 }),
+  ]);
+
+  const services = [...(international.data ?? []), ...(russian.data ?? [])];
+
+  return services.map((service) => ({ slug: service.slug }));
 }
 
 export default async function Page({ params }: Props) {

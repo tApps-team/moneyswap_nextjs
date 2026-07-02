@@ -6,7 +6,7 @@ import { routes } from "@/shared/router";
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const agents = (await getVedAgents()).data ?? [];
+  const agents = (await getVedAgents({ page: 1, pageSize: 1000 })).data ?? [];
 
   return agents.map((agent) => ({
     url: `${baseUrl}${routes.ved_agents}/${agent.slug}`,
