@@ -61,6 +61,7 @@ export default async function Page({ params }: Props) {
 
   const { ratingValue, reviewCount } = getEsimRating(service.reviews);
   const displayRating = ratingValue || service.rating || 0;
+  const canonical = `${baseUrl}${routes.esim}/${service.slug}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -68,6 +69,13 @@ export default async function Page({ params }: Props) {
     name: service.name,
     ...(service.logo && { image: service.logo }),
     description: `eSIM ${service.name}`,
+    offers: {
+      "@type": "Offer",
+      price: service.connection_price,
+      priceCurrency: "RUB",
+      availability: "https://schema.org/InStock",
+      url: canonical,
+    },
     ...(reviewCount > 0 && {
       aggregateRating: {
         "@type": "AggregateRating",

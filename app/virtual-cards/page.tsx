@@ -62,11 +62,8 @@ export default async function Page({
     itemListElement: cards.map((card, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
-      item: {
-        "@type": "Product",
-        name: card.name,
-        url: `${baseUrl}${routes.vc_cards}/${card.slug}`,
-      },
+      name: card.name,
+      url: `${baseUrl}${routes.vc_cards}/${card.slug}`,
     })),
   };
 

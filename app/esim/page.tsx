@@ -62,11 +62,8 @@ export default async function Page({
     itemListElement: services.map((service, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
-      item: {
-        "@type": "Product",
-        name: service.name,
-        url: `${baseUrl}${routes.esim}/${service.slug}`,
-      },
+      name: service.name,
+      url: `${baseUrl}${routes.esim}/${service.slug}`,
     })),
   };
 
