@@ -58,6 +58,7 @@ export default async function Page({ params }: Props) {
   }
 
   const { ratingValue, reviewCount } = getVcRating(card.reviews);
+  const canonical = `${baseUrl}${routes.vc_cards}/${card.slug}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -65,6 +66,13 @@ export default async function Page({ params }: Props) {
     name: card.name,
     image: card.logo,
     description: `Виртуальная карта ${card.name}`,
+    offers: {
+      "@type": "Offer",
+      price: card.issuance_cost,
+      priceCurrency: "RUB",
+      availability: "https://schema.org/InStock",
+      url: canonical,
+    },
     ...(reviewCount > 0 && {
       aggregateRating: {
         "@type": "AggregateRating",
