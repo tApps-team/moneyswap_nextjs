@@ -24,7 +24,7 @@ interface VedAgentCardProps {
 /** Desktop table row (chromeless — placed inside the shared list container). */
 export function VedAgentRow({ agent }: VedAgentCardProps) {
   // ВРЕМЕННО скрыты отзывы: const breakdown = getVedReviewBreakdown(agent.reviews);
-  const commissionPrefix = agent.is_vip ? "От" : "До";
+  const commissionPrefix = "От";
 
   return (
     <div
@@ -72,7 +72,7 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
 /** Mobile card. */
 export function VedAgentCard({ agent }: VedAgentCardProps) {
   // ВРЕМЕННО скрыты отзывы: const breakdown = getVedReviewBreakdown(agent.reviews);
-  const commissionPrefix = agent.is_vip ? "От" : "До";
+  const commissionPrefix = "От";
 
   return (
     <article
