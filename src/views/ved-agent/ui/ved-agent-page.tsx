@@ -101,7 +101,7 @@ function VedAgentHero({
             <div className="flex flex-wrap items-center gap-3 text-xs mobile-xl:text-sm">
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-yellow-main/15 text-yellow-main">
                 <MapPin className="w-3.5 h-3.5" />
-                До {agent.commission}%
+                От {agent.commission}%
               </span>
               {/* Временно скрыт блок отзывов 0 0 0 (логика сохранена)
               <div className="flex items-center gap-1.5 font-medium">
