@@ -1,26 +1,11 @@
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
-import { VedAgentsList } from "@/widgets/ved/ved-agents-list";
+import { VedAgentsExplorer } from "@/widgets/ved/ved-agents-explorer";
 import { VedPageHeader } from "@/widgets/ved/ved-page-header";
-import { Pagination } from "@/features/pagination";
-import { getVedAgents, getVedPage } from "@/entities/strapi";
-import { routes } from "@/shared/router";
+import { getAllVedAgents, getVedPage } from "@/entities/strapi";
 
-const PAGE_SIZE = 10;
-
-interface VedPageProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-export const VedPage = async ({ searchParams }: VedPageProps) => {
-  const page = Number(searchParams?.page) || 1;
-
-  const [vedPageRes, vedAgentsRes] = await Promise.all([
-    getVedPage(),
-    getVedAgents({ page, pageSize: PAGE_SIZE }),
-  ]);
+export const VedPage = async () => {
+  const [vedPageRes, agents] = await Promise.all([getVedPage(), getAllVedAgents()]);
   const vedPage = vedPageRes.data;
-  const agents = vedAgentsRes.data ?? [];
-  const totalPages = vedAgentsRes.meta?.pagination?.pageCount ?? 1;
 
   const title = vedPage?.title ?? "Рейтинг платежных агентов";
 
@@ -32,15 +17,7 @@ export const VedPage = async ({ searchParams }: VedPageProps) => {
         <DynamicContent dynamic_content={vedPage.header_content} />
       ) : null}
 
-      <div className="grid gap-8">
-        <VedAgentsList agents={agents} />
-
-        {totalPages > 1 ? (
-          <div className="flex justify-center">
-            <Pagination currentPage={page} totalPages={totalPages} route={routes.ved} />
-          </div>
-        ) : null}
-      </div>
+      <VedAgentsExplorer agents={agents} />
 
       {vedPage?.footer_content?.length ? (
         <DynamicContent dynamic_content={vedPage.footer_content} />

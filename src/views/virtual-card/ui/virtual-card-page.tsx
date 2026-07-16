@@ -98,6 +98,31 @@ function VirtualCardHero({
         </div>
       )}
 
+      {card.countries.length > 0 && (
+        <div className="grid gap-2">
+          <span className="text-xs mobile-xl:text-sm text-light-gray uppercase">Страны выпуска</span>
+          <div className="flex flex-wrap gap-2">
+            {card.countries.map((country) => (
+              <span
+                key={country.id}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-new-grey text-xs mobile-xl:text-sm text-white"
+              >
+                {country.icon ? (
+                  <Image
+                    src={country.icon}
+                    alt={country.title}
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 rounded-full object-cover shrink-0"
+                  />
+                ) : null}
+                {country.title}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
       {card.payment_systems.length > 0 && (
         <div className="grid gap-2">
           <span className="text-xs mobile-xl:text-sm text-light-gray uppercase">

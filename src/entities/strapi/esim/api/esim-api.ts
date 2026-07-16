@@ -1,4 +1,6 @@
 import {
+  Esim,
+  EsimMarketType,
   GetEsimBySlugRequest,
   GetEsimBySlugResponse,
   GetEsimPageResponse,
@@ -58,6 +60,29 @@ export const getEsims = async ({
   } catch (error) {
     console.error("getEsims error:", error);
     return { data: [] };
+  }
+};
+
+/**
+ * Забирает все eSIM выбранного рынка (все страницы) для клиентской фильтрации.
+ * VIP-сортировка сохраняется тем же порядком, что и в getEsims.
+ */
+export const getAllEsims = async (marketType: EsimMarketType): Promise<Esim[]> => {
+  try {
+    const pageSize = 100;
+    const first = await getEsims({ marketType, page: 1, pageSize });
+    const pageCount = first.meta?.pagination?.pageCount ?? 1;
+    const services = [...first.data];
+
+    for (let page = 2; page <= pageCount; page++) {
+      const res = await getEsims({ marketType, page, pageSize });
+      services.push(...res.data);
+    }
+
+    return services;
+  } catch (error) {
+    console.error("getAllEsims error:", error);
+    return [];
   }
 };
 

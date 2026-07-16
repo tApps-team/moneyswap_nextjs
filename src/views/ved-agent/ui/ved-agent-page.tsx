@@ -9,7 +9,6 @@ import {
   getVedAgentBySlug,
   getVedReviewBreakdown,
 } from "@/entities/strapi";
-import { TelegramIcon } from "@/shared/assets";
 import { TagCell } from "@/shared/ui";
 
 interface VedAgentPageProps {
@@ -124,7 +123,6 @@ function VedAgentHero({
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 w-fit px-5 py-2.5 mobile-xl:py-3 rounded-[10px] bg-yellow-main hover:scale-[1.02] active:scale-[0.98] transition-transform text-black font-medium uppercase text-xs mobile-xl:text-sm"
         >
-          <TelegramIcon className="w-5 h-5" fill="#000" />
           Связаться
         </Link>
       </div>
