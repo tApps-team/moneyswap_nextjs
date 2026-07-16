@@ -29,3 +29,6 @@ export * from "./toaster";
 export * from "./tooltip";
 export * from "./breadcrumbs";
 export * from "./tag-cell/tag-cell";
+export * from "./multi-select-filter";
+export * from "./local-pagination";
+export * from "./switch";

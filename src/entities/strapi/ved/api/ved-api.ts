@@ -59,6 +59,29 @@ export const getVedAgents = async ({
   }
 };
 
+/**
+ * Забирает всех агентов (все страницы) для клиентской фильтрации.
+ * VIP-сортировка сохраняется тем же порядком, что и в getVedAgents.
+ */
+export const getAllVedAgents = async (): Promise<VedAgent[]> => {
+  try {
+    const pageSize = 100;
+    const first = await getVedAgents({ page: 1, pageSize });
+    const pageCount = first.meta?.pagination?.pageCount ?? 1;
+    const agents = [...first.data];
+
+    for (let page = 2; page <= pageCount; page++) {
+      const res = await getVedAgents({ page, pageSize });
+      agents.push(...res.data);
+    }
+
+    return agents;
+  } catch (error) {
+    console.error("getAllVedAgents error:", error);
+    return [];
+  }
+};
+
 export const getVedAgentBySlug = async ({
   slug,
 }: GetVedAgentBySlugRequest): Promise<GetVedAgentBySlugResponse> => {

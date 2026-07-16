@@ -2,7 +2,6 @@ import { Gift, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { VedAgent, formatVedLimit, getVedReviewBreakdown } from "@/entities/strapi";
-import { TelegramIcon } from "@/shared/assets";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { TagCell } from "@/shared/ui";
@@ -13,9 +12,11 @@ const VISIBLE_CHIPS = 3;
 /** Shared grid template — used by both the list header and each desktop row. */
 // ВРЕМЕННО: колонка "Отзывы" (minmax(80px,0.6fr)) убрана из сетки. Вернуть строку ниже когда появятся отзывы:
 // export const VED_GRID =
-//   "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_minmax(80px,0.6fr)_auto] gap-4 items-center";
+//   "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_minmax(80px,0.6fr)_minmax(160px,0.9fr)] gap-4 items-center";
+// Последний столбец — fr, а не auto: иначе пустая ячейка в шапке даёт 0 ширины,
+// и fr-столбцы шапки разъезжаются вправо относительно данных строк.
 export const VED_GRID =
-  "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_auto] gap-4 items-center";
+  "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_minmax(160px,0.9fr)] gap-4 items-center";
 
 interface VedAgentCardProps {
   agent: VedAgent;
@@ -63,7 +64,7 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
       <RatingBlock breakdown={breakdown} /> */}
       <div className="flex items-center gap-2 justify-self-end">
         <VedPromoTooltip slug={agent.slug} promocodes={agent.promocodes ?? []} />
-        <TelegramButton url={agent.url} />
+        <RowContactButton url={agent.url} />
       </div>
     </div>
   );
@@ -182,7 +183,6 @@ function ContactButton({ url }: { url: string }) {
       className="flex items-center justify-center gap-2 w-full rounded-[10px] bg-yellow-main text-black font-medium text-[13px] py-2.5 hover:bg-yellow-main/90 transition-colors"
     >
       Связаться
-      <TelegramIcon className="w-4 h-4" fill="#000" />
     </Link>
   );
 }
@@ -251,19 +251,18 @@ function RatingBlock({
   );
 }
 
-function TelegramButton({ url, className }: { url: string; className?: string }) {
+function RowContactButton({ url, className }: { url: string; className?: string }) {
   return (
     <Link
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "flex items-center justify-center w-10 h-10 rounded-lg bg-yellow-main hover:bg-yellow-main/90 hover:scale-[1.03] active:scale-[0.98] transition-all",
+        "inline-flex items-center justify-center gap-1.5 h-10 px-4 rounded-lg bg-yellow-main text-black text-[13px] font-medium whitespace-nowrap hover:bg-yellow-main/90 hover:scale-[1.03] active:scale-[0.98] transition-all",
         className,
       )}
-      aria-label="Telegram"
     >
-      <TelegramIcon className="w-5 h-5" fill="#000" />
+      Связаться
     </Link>
   );
 }

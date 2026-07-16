@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { VedPage } from "@/views/ved";
-import { getVedAgents, getVedPage, stripHtmlToText } from "@/entities/strapi";
+import { getAllVedAgents, getVedPage, stripHtmlToText } from "@/entities/strapi";
 import { routes } from "@/shared/router";
 import { Breadcrumbs } from "@/shared/ui";
 
@@ -42,12 +42,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const agents = (await getVedAgents()).data ?? [];
+export default async function Page() {
+  const agents = await getAllVedAgents();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -74,7 +70,7 @@ export default async function Page({
         }}
       />
       <Breadcrumbs />
-      <VedPage searchParams={searchParams} />
+      <VedPage />
     </>
   );
 }

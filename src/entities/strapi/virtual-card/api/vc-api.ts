@@ -4,6 +4,7 @@ import {
   GetVirtualCardBySlugResponse,
   GetVirtualCardsRequest,
   GetVirtualCardsResponse,
+  VcMarketType,
   VirtualCard,
 } from "./vc-dto";
 
@@ -57,6 +58,29 @@ export const getVirtualCards = async ({
   } catch (error) {
     console.error("getVirtualCards error:", error);
     return { data: [] };
+  }
+};
+
+/**
+ * Забирает все виртуальные карты выбранного рынка (все страницы) для клиентской фильтрации.
+ * VIP-сортировка сохраняется тем же порядком, что и в getVirtualCards.
+ */
+export const getAllVirtualCards = async (marketType: VcMarketType): Promise<VirtualCard[]> => {
+  try {
+    const pageSize = 100;
+    const first = await getVirtualCards({ marketType, page: 1, pageSize });
+    const pageCount = first.meta?.pagination?.pageCount ?? 1;
+    const cards = [...first.data];
+
+    for (let page = 2; page <= pageCount; page++) {
+      const res = await getVirtualCards({ marketType, page, pageSize });
+      cards.push(...res.data);
+    }
+
+    return cards;
+  } catch (error) {
+    console.error("getAllVirtualCards error:", error);
+    return [];
   }
 };
 

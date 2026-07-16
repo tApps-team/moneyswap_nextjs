@@ -1,9 +1,7 @@
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
-import { VcCatalog } from "@/widgets/vc/vc-catalog";
+import { VcExplorer } from "@/widgets/vc/vc-explorer";
 import { VcPageHeader } from "@/widgets/vc/vc-page-header";
-import { VcMarketType, getVcPage, getVirtualCards } from "@/entities/strapi";
-
-const PAGE_SIZE = 10;
+import { VcMarketType, getAllVirtualCards, getVcPage } from "@/entities/strapi";
 
 interface VirtualCardsPageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -11,16 +9,10 @@ interface VirtualCardsPageProps {
 
 export const VirtualCardsPage = async ({ searchParams }: VirtualCardsPageProps) => {
   const marketType: VcMarketType = searchParams?.market === "russian" ? "russian" : "international";
-  const page = Number(searchParams?.page) || 1;
 
-  const [vcPageRes, cardsRes] = await Promise.all([
-    getVcPage(),
-    getVirtualCards({ marketType, page, pageSize: PAGE_SIZE }),
-  ]);
+  const [vcPageRes, cards] = await Promise.all([getVcPage(), getAllVirtualCards(marketType)]);
 
   const vcPage = vcPageRes.data;
-  const cards = cardsRes.data ?? [];
-  const totalPages = cardsRes.meta?.pagination?.pageCount ?? 1;
   const title = vcPage?.title ?? "Зарубежные виртуальные карты — рейтинг";
 
   return (
@@ -31,7 +23,7 @@ export const VirtualCardsPage = async ({ searchParams }: VirtualCardsPageProps) 
         <DynamicContent dynamic_content={vcPage.header_content} />
       ) : null}
 
-      <VcCatalog cards={cards} marketType={marketType} page={page} totalPages={totalPages} />
+      <VcExplorer cards={cards} />
 
       {vcPage?.footer_content?.length ? (
         <DynamicContent dynamic_content={vcPage.footer_content} />

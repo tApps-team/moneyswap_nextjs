@@ -95,7 +95,7 @@ export function EsimCard({ service }: EsimCardProps) {
       </div>
 
       <div className="grid grid-cols-3 gap-2">
-        <Field label="Цена" value={formatEsimPrice(service.connection_price)} />
+        <Field label="Цена за ГБ" value={formatEsimPrice(service.connection_price)} />
         <Field label="Объём" value={formatEsimVolume(service.internet_volume)} />
         <Field label="Срок" value={formatEsimValidityPeriod(service.validity_period)} />
       </div>
