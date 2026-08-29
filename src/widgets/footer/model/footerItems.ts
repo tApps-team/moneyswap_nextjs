@@ -1,4 +1,5 @@
 import { HTMLAttributeAnchorTarget } from "react";
+import { RATING_SECTIONS } from "@/shared/consts";
 import { products, routes } from "@/shared/router";
 
 type FooterItems = {
@@ -24,17 +25,14 @@ export const footerItems: FooterItems[] = [
     value: "Рейтинги",
     children: [
       {
-        href: routes.ved,
-        value: "ВЭД",
+        href: routes.ratings,
+        value: "Все рейтинги",
       },
-      {
-        href: routes.virtual_cards,
-        value: "Виртуальные карты",
-      },
-      {
-        href: routes.esim,
-        value: "eSIM",
-      },
+      // Разделы берём из общего конфига — там же, откуда их читают навбар и /ratings.
+      ...RATING_SECTIONS.map((section) => ({
+        href: section.href,
+        value: section.title,
+      })),
     ],
   },
   {
@@ -74,7 +72,7 @@ export const footerItems: FooterItems[] = [
       },
       {
         href: routes.partners,
-        value: "Добавить  обменник",
+        value: "Добавить сервис",
       },
     ],
   },

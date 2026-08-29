@@ -25,4 +25,10 @@ export enum routes {
   virtual_cards = "/virtual-cards",
   vc_cards = "/virtual-cards/cards",
   esim = "/esim",
+  ratings = "/ratings",
+  payment_services = "/payment-services",
+  debit_cards = "/debit-cards",
+  credit_cards = "/credit-cards",
+  credits = "/credits",
+  microloans = "/microloans",
 }

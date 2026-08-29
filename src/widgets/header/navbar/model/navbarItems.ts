@@ -1,4 +1,4 @@
-import { Ban, CreditCard, Globe, Headset, ShieldCheck, Smartphone } from "lucide-react";
+import { Ban, Headset, ShieldCheck } from "lucide-react";
 import { SVGProps } from "react";
 import {
   FileIcon,
@@ -7,15 +7,20 @@ import {
   QuestionIcon,
   WalletIcon,
 } from "@/shared/assets";
+import { RATING_SECTIONS } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
 const HeadsetIcon = Headset as ((props: SVGProps<SVGSVGElement>) => JSX.Element);
 
+type NavbarIcon = (props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element;
+
 type NavbarItems = {
   href: string;
   value: string;
-  icon?: ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element) | string;
+  icon?: NavbarIcon | string;
   className?: string;
+  /** «wide» — выпадающая панель на всю ширину экрана в несколько колонок. */
+  layout?: "wide";
   children?: (NavbarItems & { description?: string })[];
 };
 
@@ -57,28 +62,16 @@ export const navbarItems: NavbarItems[] = [
     ],
   },
   {
-    href: routes.ved,
+    href: routes.ratings,
     value: "Рейтинги",
-    children: [
-      {
-        href: routes.ved,
-        value: "ВЭД",
-        description: "Проверенные сервисы, проводящие международные платежи",
-        icon: Globe as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-      {
-        href: routes.virtual_cards,
-        value: "Виртуальные карты",
-        description: "Международные и российские карты для оплаты за рубежом",
-        icon: CreditCard as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-      {
-        href: routes.esim,
-        value: "eSIM",
-        description: "Подключение международных и российских виртуальных сим-карт",
-        icon: Smartphone as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-    ],
+    layout: "wide",
+    // Разделы берём из общего конфига, чтобы навбар, футер и страница /ratings не расходились.
+    children: RATING_SECTIONS.map((section) => ({
+      href: section.href,
+      value: section.title,
+      description: section.description,
+      icon: section.icon as unknown as NavbarIcon,
+    })),
   },
   {
     href: routes.help_article,

@@ -20,10 +20,16 @@ const segmentNameMap: Record<string, string> = {
   "terms": "Пользовательское соглашение",
   "pricing-policy": "Политика тарификации",
   "blacklist-terms": "Положение о Чёрном списке",
+  ratings: "Рейтинги",
   ved: "Мониторинг ВЭД",
   agents: "Агент",
   "virtual-cards": "Рейтинг виртуальных карт",
   esim: "Рейтинг eSIM",
+  "payment-services": "Оплата зарубежных сервисов",
+  "debit-cards": "Дебетовые карты",
+  "credit-cards": "Кредитные карты",
+  credits: "Кредиты",
+  microloans: "Микрозаймы",
 };
 
 export interface BreadcrumbsProps {
@@ -36,6 +42,14 @@ export interface BreadcrumbsProps {
   vedAgentName?: string;
   vcServiceName?: string;
   esimServiceName?: string;
+  paymentServiceName?: string;
+  bankCreditName?: string;
+  microloanName?: string;
+}
+
+/** Все разделы-рейтинги живут под хабом /ratings — добавляем его промежуточной крошкой. */
+function pushRatingsCrumb(breadcrumbs: { href: string; label: string }[]) {
+  breadcrumbs.push({ href: routes.ratings, label: segmentNameMap["ratings"] });
 }
 
 export function getSmartBreadcrumbs({
@@ -48,6 +62,9 @@ export function getSmartBreadcrumbs({
   vedAgentName,
   vcServiceName,
   esimServiceName,
+  paymentServiceName,
+  bankCreditName,
+  microloanName,
 }: BreadcrumbsProps & { pathname: string }) {
   const segments = pathname.split("/").filter(Boolean);
   const breadcrumbs = [{ href: "/", label: segmentNameMap[""] || "Главная" }];
@@ -95,12 +112,14 @@ export function getSmartBreadcrumbs({
 
   // /ved
   if (segments[0] === "ved" && segments.length === 1) {
+    pushRatingsCrumb(breadcrumbs);
     breadcrumbs.push({ href: routes.ved, label: segmentNameMap["ved"] });
     return breadcrumbs;
   }
 
   // /ved/agents/[slug]
   if (segments[0] === "ved" && segments[1] === "agents" && segments[2]) {
+    pushRatingsCrumb(breadcrumbs);
     breadcrumbs.push({ href: routes.ved, label: segmentNameMap["ved"] });
     breadcrumbs.push({
       href: `${routes.ved_agents}/${segments[2]}`,
@@ -111,12 +130,14 @@ export function getSmartBreadcrumbs({
 
   // /virtual-cards
   if (segments[0] === "virtual-cards" && segments.length === 1) {
+    pushRatingsCrumb(breadcrumbs);
     breadcrumbs.push({ href: routes.virtual_cards, label: segmentNameMap["virtual-cards"] });
     return breadcrumbs;
   }
 
   // /virtual-cards/cards/[slug]
   if (segments[0] === "virtual-cards" && segments[1] === "cards" && segments[2]) {
+    pushRatingsCrumb(breadcrumbs);
     breadcrumbs.push({ href: routes.virtual_cards, label: segmentNameMap["virtual-cards"] });
     breadcrumbs.push({
       href: `${routes.vc_cards}/${segments[2]}`,
@@ -127,17 +148,45 @@ export function getSmartBreadcrumbs({
 
   // /esim
   if (segments[0] === "esim" && segments.length === 1) {
+    pushRatingsCrumb(breadcrumbs);
     breadcrumbs.push({ href: routes.esim, label: segmentNameMap["esim"] });
     return breadcrumbs;
   }
 
   // /esim/[slug]
   if (segments[0] === "esim" && segments[1] && segments.length === 2) {
+    pushRatingsCrumb(breadcrumbs);
     breadcrumbs.push({ href: routes.esim, label: segmentNameMap["esim"] });
     breadcrumbs.push({
       href: `${routes.esim}/${segments[1]}`,
       label: esimServiceName || decodeURIComponent(segments[1]),
     });
+    return breadcrumbs;
+  }
+
+  // Новые разделы-рейтинги: /payment-services, /credits, /microloans (+ детальные страницы),
+  // /debit-cards и /credit-cards — только списки.
+  const ratingSections: { segment: string; route: string; name?: string }[] = [
+    { segment: "payment-services", route: routes.payment_services, name: paymentServiceName },
+    { segment: "debit-cards", route: routes.debit_cards },
+    { segment: "credit-cards", route: routes.credit_cards },
+    { segment: "credits", route: routes.credits, name: bankCreditName },
+    { segment: "microloans", route: routes.microloans, name: microloanName },
+  ];
+
+  const ratingSection = ratingSections.find((section) => section.segment === segments[0]);
+  if (ratingSection) {
+    pushRatingsCrumb(breadcrumbs);
+    breadcrumbs.push({
+      href: ratingSection.route,
+      label: segmentNameMap[ratingSection.segment],
+    });
+    if (segments[1]) {
+      breadcrumbs.push({
+        href: `${ratingSection.route}/${segments[1]}`,
+        label: ratingSection.name || decodeURIComponent(segments[1]),
+      });
+    }
     return breadcrumbs;
   }
 

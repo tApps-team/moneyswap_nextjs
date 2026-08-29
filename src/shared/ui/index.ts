@@ -32,3 +32,7 @@ export * from "./tag-cell/tag-cell";
 export * from "./multi-select-filter";
 export * from "./local-pagination";
 export * from "./switch";
+export * from "./search-input";
+export * from "./sort-chips";
+export * from "./rating-parts";
+export * from "./section-header";

@@ -2,24 +2,25 @@
 
 import { Check, ChevronDown, Search } from "lucide-react";
 import Image from "next/image";
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { RefCallback } from "react";
 import { cn, useMediaQuery } from "@/shared/lib";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "../drawer";
 
-export interface MultiSelectOption {
-  id: number;
+/** id — число для справочников Strapi и строка для enum-значений (категория карты, тип лимита). */
+export interface MultiSelectOption<T extends string | number = number> {
+  id: T;
   title: string;
   icon?: string;
   code?: string;
 }
 
-interface MultiSelectFilterProps {
+interface MultiSelectFilterProps<T extends string | number = number> {
   label: string;
   searchPlaceholder?: string;
-  options: MultiSelectOption[];
-  selected: number[];
-  onChange: (ids: number[]) => void;
+  options: MultiSelectOption<T>[];
+  selected: T[];
+  onChange: (ids: T[]) => void;
   /**
    * Как рисовать иконку элемента:
    * - "flag" — обрезка по кругу (object-cover);
@@ -27,20 +28,23 @@ interface MultiSelectFilterProps {
    * - "code" — плашка с кодом, если иконки нет.
    */
   variant?: "flag" | "code" | "icon";
+  /** Скрыть строку поиска — для коротких списков вроде «Категория карты». */
+  searchable?: boolean;
 }
 
 /**
  * Мультивыбор с поиском внутри списка.
  * На десктопе — выпадающая панель, на мобильном — нижний drawer.
  */
-export const MultiSelectFilter: FC<MultiSelectFilterProps> = ({
+export function MultiSelectFilter<T extends string | number = number>({
   label,
   searchPlaceholder = "Поиск",
   options,
   selected,
   onChange,
   variant = "flag",
-}) => {
+  searchable = true,
+}: MultiSelectFilterProps<T>) {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -72,7 +76,7 @@ export const MultiSelectFilter: FC<MultiSelectFilterProps> = ({
     if (!open) setSearch("");
   }, [open]);
 
-  const toggle = (id: number) => {
+  const toggle = (id: T) => {
     onChange(selected.includes(id) ? selected.filter((s) => s !== id) : [...selected, id]);
   };
 
@@ -108,16 +112,18 @@ export const MultiSelectFilter: FC<MultiSelectFilterProps> = ({
 
   const panelBody = (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-2 h-11 px-3 rounded-[12px] border border-new-grey/60 bg-new-grey/20">
-        <Search className="w-4 h-4 text-light-gray shrink-0" />
-        <input
-          ref={focusSearch}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder={searchPlaceholder}
-          className="w-full bg-transparent text-base lg:text-sm text-white placeholder:text-light-gray outline-none"
-        />
-      </div>
+      {searchable && (
+        <div className="flex items-center gap-2 h-11 px-3 rounded-[12px] border border-new-grey/60 bg-new-grey/20">
+          <Search className="w-4 h-4 text-light-gray shrink-0" />
+          <input
+            ref={focusSearch}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={searchPlaceholder}
+            className="w-full bg-transparent text-base lg:text-sm text-white placeholder:text-light-gray outline-none"
+          />
+        </div>
+      )}
 
       <div className="max-h-[45dvh] lg:max-h-[280px] overflow-y-auto -mr-1 pr-1 scrollbar-thin scrollbar-thumb-new-light-grey scrollbar-track-transparent">
         {filtered.length === 0 ? (

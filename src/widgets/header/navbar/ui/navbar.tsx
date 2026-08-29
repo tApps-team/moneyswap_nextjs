@@ -18,7 +18,10 @@ export const Navbar = () => {
   return (
     <NavigationMenu orientation="horizontal">
       <NavigationMenuList className="">
-        {navbarItems.map((item) => (
+        {navbarItems.map((item) => {
+          const wide = item.layout === "wide";
+
+          return (
           <NavigationMenuItem className="" key={item.href}>
             <NavigationMenuTrigger
               className={cn(
@@ -30,10 +33,27 @@ export const Navbar = () => {
               <Link href={item.href}>{item.value}</Link>
             </NavigationMenuTrigger>
             {item.children && (
-              <NavigationMenuContent className="shadow-[0px_2px_5px_1px_rgba(0,0,0,0.35)] bg-new-dark-grey border-none rounded-[6px] p-4 grid gap-4 text-white">
+              <NavigationMenuContent
+                className={cn(
+                  "shadow-[0px_2px_5px_1px_rgba(0,0,0,0.35)] bg-new-dark-grey border-none rounded-[6px] p-4 grid gap-4 text-white",
+                  // Широкая панель позиционируется по экрану, а не по своему пункту меню,
+                  // иначе при трёх колонках она уезжает за правый край. Префикс md: обязателен:
+                  // базовые классы Radix-контента (md:absolute, md:w-[…viewport-width]) заданы с ним же,
+                  // и без совпадающего модификатора twMerge их не вытеснит.
+                  // Центрируем через inset-x-0 + mx-auto, а не translate: transform у панели
+                  // занят анимацией открытия и перебил бы центрирование.
+                  wide &&
+                    "md:fixed md:top-[74px] md:inset-x-0 md:mx-auto md:w-[min(calc(100vw-40px),1060px)] mt-0 grid-cols-3 gap-2 p-4",
+                )}
+              >
                 {item.children.map((itemChildren) => (
                   <NavigationMenuLink
-                    className="flex flex-col w-80 "
+                    className={cn(
+                      "flex flex-col",
+                      wide
+                        ? "w-full min-w-0 rounded-[10px] p-3 transition-colors hover:bg-new-grey/60"
+                        : "w-80",
+                    )}
                     key={`${itemChildren.href}  ${itemChildren.value}`}
                     href={itemChildren.href}
                   >
@@ -54,7 +74,7 @@ export const Navbar = () => {
                           )}
                         </div>
                       )}
-                      <div className="[&>p]:hover:text-yellow-main flex flex-col gap-1">
+                      <div className="[&>p]:hover:text-yellow-main flex flex-col gap-1 min-w-0">
                         <p className="unbounded_font leading-none uppercase text-sm font-normal">
                           {itemChildren.value}
                         </p>
@@ -68,7 +88,8 @@ export const Navbar = () => {
               </NavigationMenuContent>
             )}
           </NavigationMenuItem>
-        ))}
+          );
+        })}
       </NavigationMenuList>
     </NavigationMenu>
   );
