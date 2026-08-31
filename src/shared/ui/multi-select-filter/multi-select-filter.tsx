@@ -110,8 +110,9 @@ export function MultiSelectFilter<T extends string | number = number>({
     </button>
   );
 
-  const panelBody = (
-    <div className="flex flex-col gap-3">
+  /** inDrawer: на мобильном высоту задаёт drawer, поэтому список тянется, а не диктует высоту. */
+  const renderPanel = (inDrawer = false) => (
+    <div className={cn("flex flex-col gap-3", inDrawer && "flex-1 min-h-0")}>
       {searchable && (
         <div className="flex items-center gap-2 h-11 px-3 rounded-[12px] border border-new-grey/60 bg-new-grey/20">
           <Search className="w-4 h-4 text-light-gray shrink-0" />
@@ -126,7 +127,12 @@ export function MultiSelectFilter<T extends string | number = number>({
       )}
 
       {/* svh, а не dvh: динамическая единица пересчитывается на появление клавиатуры и дёргает высоту. */}
-      <div className="max-h-[45svh] lg:max-h-[280px] overflow-y-auto -mr-1 pr-1 scrollbar-thin scrollbar-thumb-new-light-grey scrollbar-track-transparent">
+      <div
+        className={cn(
+          "overflow-y-auto -mr-1 pr-1 scrollbar-thin scrollbar-thumb-new-light-grey scrollbar-track-transparent",
+          inDrawer ? "flex-1 min-h-0" : "max-h-[45svh] lg:max-h-[280px]",
+        )}
+      >
         {filtered.length === 0 ? (
           <p className="text-center text-light-gray text-sm py-6">Ничего не найдено</p>
         ) : (
@@ -196,7 +202,7 @@ export function MultiSelectFilter<T extends string | number = number>({
 
       {isDesktop && open && (
         <div className="absolute left-0 top-full z-40 mt-2 w-full min-w-[300px] rounded-[16px] border border-new-grey/60 bg-new-dark-grey p-3 shadow-2xl">
-          {panelBody}
+          {renderPanel()}
         </div>
       )}
 
@@ -204,10 +210,10 @@ export function MultiSelectFilter<T extends string | number = number>({
           растягивает drawer по высоте visualViewport и уводит его вверх. */}
       {!isDesktop && (
         <Drawer open={open} onOpenChange={setOpen} repositionInputs={false}>
-          <DrawerContent className="border-new-grey/60 bg-new-dark-grey px-4 pb-6 pt-4">
+          <DrawerContent className="min-h-[70svh] max-h-[90svh] border-new-grey/60 bg-new-dark-grey px-4 pb-6 pt-4">
             <DrawerTitle className="sr-only">{label}</DrawerTitle>
             <DrawerDescription className="sr-only">{label}</DrawerDescription>
-            {panelBody}
+            {renderPanel(true)}
           </DrawerContent>
         </Drawer>
       )}
