@@ -2,6 +2,7 @@ export { cn } from "./utils";
 export { useThrottle } from "./hooks/useThrottle";
 export { useDebounce } from "./hooks/useDebounce";
 export { useMediaQuery } from "./hooks/useMediaQuery";
+export { useKeyboardInset } from "./hooks/useKeyboardInset";
 export * from "./hooks/useLocalStorage";
 export * from "./is-empty-object/is-empty-object";
 export * from "./format-date/format-date";

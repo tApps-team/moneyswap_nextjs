@@ -3,8 +3,8 @@
 import { Check, ChevronDown, Search } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { RefCallback } from "react";
-import { cn, useMediaQuery } from "@/shared/lib";
+import type { CSSProperties, RefCallback } from "react";
+import { cn, useKeyboardInset, useMediaQuery } from "@/shared/lib";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "../drawer";
 
 /** id — число для справочников Strapi и строка для enum-значений (категория карты, тип лимита). */
@@ -32,6 +32,9 @@ interface MultiSelectFilterProps<T extends string | number = number> {
   searchable?: boolean;
 }
 
+/** Поиск + отступы + кнопка «Готово» вокруг списка: на столько ужимаем список под клавиатурой. */
+const PANEL_CHROME_HEIGHT = 190;
+
 /**
  * Мультивыбор с поиском внутри списка.
  * На десктопе — выпадающая панель, на мобильном — нижний drawer.
@@ -47,6 +50,8 @@ export function MultiSelectFilter<T extends string | number = number>({
 }: MultiSelectFilterProps<T>) {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [open, setOpen] = useState(false);
+  // Клавиатуру отслеживаем только пока открыт мобильный drawer.
+  const keyboardInset = useKeyboardInset(open && !isDesktop);
   const [search, setSearch] = useState("");
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -110,7 +115,7 @@ export function MultiSelectFilter<T extends string | number = number>({
     </button>
   );
 
-  const panelBody = (
+  const renderPanel = (listStyle?: CSSProperties) => (
     <div className="flex flex-col gap-3">
       {searchable && (
         <div className="flex items-center gap-2 h-11 px-3 rounded-[12px] border border-new-grey/60 bg-new-grey/20">
@@ -125,7 +130,9 @@ export function MultiSelectFilter<T extends string | number = number>({
         </div>
       )}
 
-      <div className="max-h-[45dvh] lg:max-h-[280px] overflow-y-auto -mr-1 pr-1 scrollbar-thin scrollbar-thumb-new-light-grey scrollbar-track-transparent">
+      <div
+        style={listStyle}
+        className="max-h-[45dvh] lg:max-h-[280px] overflow-y-auto -mr-1 pr-1 scrollbar-thin scrollbar-thumb-new-light-grey scrollbar-track-transparent">
         {filtered.length === 0 ? (
           <p className="text-center text-light-gray text-sm py-6">Ничего не найдено</p>
         ) : (
@@ -195,16 +202,25 @@ export function MultiSelectFilter<T extends string | number = number>({
 
       {isDesktop && open && (
         <div className="absolute left-0 top-full z-40 mt-2 w-full min-w-[300px] rounded-[16px] border border-new-grey/60 bg-new-dark-grey p-3 shadow-2xl">
-          {panelBody}
+          {renderPanel()}
         </div>
       )}
 
+      {/* repositionInputs={false} — встроенная логика vaul при появлении клавиатуры
+          растягивает drawer по высоте visualViewport и уводит его вверх; поднимаем сами. */}
       {!isDesktop && (
-        <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerContent className="border-new-grey/60 bg-new-dark-grey px-4 pb-6 pt-4">
+        <Drawer open={open} onOpenChange={setOpen} repositionInputs={false}>
+          <DrawerContent
+            style={{ bottom: keyboardInset }}
+            className="border-new-grey/60 bg-new-dark-grey px-4 pb-6 pt-4"
+          >
             <DrawerTitle className="sr-only">{label}</DrawerTitle>
             <DrawerDescription className="sr-only">{label}</DrawerDescription>
-            {panelBody}
+            {renderPanel(
+              keyboardInset
+                ? { maxHeight: `calc(100dvh - ${keyboardInset}px - ${PANEL_CHROME_HEIGHT}px)` }
+                : undefined,
+            )}
           </DrawerContent>
         </Drawer>
       )}
