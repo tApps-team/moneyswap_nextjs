@@ -114,7 +114,7 @@ export function MultiSelectFilter<T extends string | number = number>({
   const renderPanel = (inDrawer = false) => (
     <div className={cn("flex flex-col gap-3", inDrawer && "flex-1 min-h-0")}>
       {searchable && (
-        <div className="flex items-center gap-2 h-11 px-3 rounded-[12px] border border-new-grey/60 bg-new-grey/20">
+        <div className="flex items-center gap-2 h-11 shrink-0 px-3 rounded-[12px] border border-new-grey/60 bg-new-grey/20">
           <Search className="w-4 h-4 text-light-gray shrink-0" />
           <input
             ref={focusSearch}
@@ -189,7 +189,7 @@ export function MultiSelectFilter<T extends string | number = number>({
       <button
         type="button"
         onClick={() => setOpen(false)}
-        className="w-full h-11 rounded-[12px] bg-yellow-main text-black text-sm font-medium transition-colors hover:bg-yellow-main/90"
+        className="w-full h-11 shrink-0 rounded-[12px] bg-yellow-main text-black text-sm font-medium transition-colors hover:bg-yellow-main/90"
       >
         Готово
       </button>
