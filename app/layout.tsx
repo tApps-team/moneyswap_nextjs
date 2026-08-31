@@ -62,6 +62,9 @@ export const viewport: Viewport = {
   initialScale: 1,
   width: "device-width",
   themeColor: "#191C25",
+  // Клавиатура накладывается поверх страницы и не сжимает viewport,
+  // иначе блоки с position: fixed уезжают вверх вместе с его нижней границей.
+  interactiveWidget: "overlays-content",
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const organizationJsonLd = {
