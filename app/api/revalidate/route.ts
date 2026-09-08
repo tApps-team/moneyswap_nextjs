@@ -43,11 +43,13 @@ const revalidatePaymentServices = () => {
 const revalidateDebitCards = () => {
   revalidateTag("debit-cards");
   revalidatePath(routes.debit_cards);
+  revalidatePath(`${routes.debit_cards}/[slug]`, "page");
 };
 
 const revalidateCreditCards = () => {
   revalidateTag("credit-cards");
   revalidatePath(routes.credit_cards);
+  revalidatePath(`${routes.credit_cards}/[slug]`, "page");
 };
 
 const revalidateBankCredits = () => {
@@ -296,22 +298,36 @@ export async function POST(req: Request) {
       // --- Дебетовые карты ---
       case StrapiCollectionNames.debitCardPage:
       case StrapiCollectionNames.debitCard:
-        path = routes.debit_cards;
+        // у single type страницы раздела slug'а нет — ведём на сам раздел
+        path =
+          model === StrapiCollectionNames.debitCardPage || !entry?.slug
+            ? routes.debit_cards
+            : `${routes.debit_cards}/${entry.slug}`;
         console.log("Debit cards revalidation:", model);
         if (model === StrapiCollectionNames.debitCardPage) {
           revalidateTag("debit-card-page");
           revalidateRatingsIndex();
+        }
+        if (entry?.slug) {
+          revalidateTag(`debit-card-${entry.slug}`);
         }
         revalidateDebitCards();
         break;
       // --- Кредитные карты ---
       case StrapiCollectionNames.creditCardPage:
       case StrapiCollectionNames.creditCard:
-        path = routes.credit_cards;
+        // у single type страницы раздела slug'а нет — ведём на сам раздел
+        path =
+          model === StrapiCollectionNames.creditCardPage || !entry?.slug
+            ? routes.credit_cards
+            : `${routes.credit_cards}/${entry.slug}`;
         console.log("Credit cards revalidation:", model);
         if (model === StrapiCollectionNames.creditCardPage) {
           revalidateTag("credit-card-page");
           revalidateRatingsIndex();
+        }
+        if (entry?.slug) {
+          revalidateTag(`credit-card-${entry.slug}`);
         }
         revalidateCreditCards();
         break;

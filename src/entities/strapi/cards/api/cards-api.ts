@@ -1,6 +1,8 @@
 import {
   CreditCard,
   DebitCard,
+  GetCardBySlugRequest,
+  GetCardBySlugResponse,
   GetCardsPageResponse,
   GetCardsRequest,
   GetCardsResponse,
@@ -82,6 +84,33 @@ const fetchAllCards = async <T>(
   }
 };
 
+/** Общий загрузчик одной карты: Strapi отдаёт findOne по slug со всеми связями. */
+const fetchCardBySlug = async <T>(
+  endpoint: string,
+  tag: string,
+  itemTag: string,
+  { slug }: GetCardBySlugRequest,
+): Promise<GetCardBySlugResponse<T>> => {
+  try {
+    const res = await fetch(getStrapiUrl(`${endpoint}/${encodeURIComponent(slug)}`), {
+      method: "GET",
+      cache: "force-cache",
+      next: { tags: [tag, `${itemTag}-${slug}`] },
+    });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch ${endpoint}/${slug}: ${res.status} ${res.statusText}`);
+      return { data: null };
+    }
+
+    const json = await res.json();
+    return { data: (json.data as T | null) ?? null };
+  } catch (error) {
+    console.error(`fetchCardBySlug(${endpoint}/${slug}) error:`, error);
+    return { data: null };
+  }
+};
+
 export const getDebitCardPage = () => fetchCardsPage("debit-card-page", "debit-card-page");
 
 export const getDebitCards = (request: GetCardsRequest = {}) =>
@@ -89,9 +118,15 @@ export const getDebitCards = (request: GetCardsRequest = {}) =>
 
 export const getAllDebitCards = () => fetchAllCards<DebitCard>(getDebitCards);
 
+export const getDebitCardBySlug = (request: GetCardBySlugRequest) =>
+  fetchCardBySlug<DebitCard>("debit-cards", "debit-cards", "debit-card", request);
+
 export const getCreditCardPage = () => fetchCardsPage("credit-card-page", "credit-card-page");
 
 export const getCreditCards = (request: GetCardsRequest = {}) =>
   fetchCards<CreditCard>("credit-cards", "credit-cards", request);
 
 export const getAllCreditCards = () => fetchAllCards<CreditCard>(getCreditCards);
+
+export const getCreditCardBySlug = (request: GetCardBySlugRequest) =>
+  fetchCardBySlug<CreditCard>("credit-cards", "credit-cards", "credit-card", request);

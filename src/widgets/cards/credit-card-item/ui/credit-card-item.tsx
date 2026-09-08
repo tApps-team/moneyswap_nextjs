@@ -1,5 +1,6 @@
 import { CreditCard, formatCardCategory, orDash } from "@/entities/strapi";
 import { cn } from "@/shared/lib";
+import { routes } from "@/shared/router";
 import {
   ActionButtons,
   EntityIdentity,
@@ -13,9 +14,9 @@ import {
 
 /** Общая сетка десктопной таблицы — используется и шапкой списка, и строками. */
 export const CREDIT_CARD_GRID =
-  "grid grid-cols-[minmax(180px,1.5fr)_minmax(120px,1fr)_minmax(110px,0.9fr)_minmax(120px,1fr)_minmax(110px,0.9fr)_minmax(110px,0.9fr)_minmax(80px,0.6fr)_180px] gap-4 items-center";
+  "grid grid-cols-[minmax(180px,1.5fr)_minmax(120px,1fr)_minmax(110px,0.9fr)_minmax(120px,1fr)_minmax(110px,0.9fr)_minmax(110px,0.9fr)_minmax(80px,0.6fr)_260px] gap-4 items-center";
 
-export const CREDIT_CARD_MIN_WIDTH = "1220px";
+export const CREDIT_CARD_MIN_WIDTH = "1300px";
 
 interface CreditCardItemProps {
   card: CreditCard;
@@ -23,6 +24,8 @@ interface CreditCardItemProps {
 
 const toTagItems = (items: { id: number; title: string; icon: string | null }[]) =>
   items.map((item) => ({ id: item.id, title: item.title, icon: item.icon ?? undefined }));
+
+const detailHref = (slug: string) => `${routes.credit_cards}/${slug}`;
 
 /** Строка десктопной таблицы. */
 export function CreditCardRow({ card }: CreditCardItemProps) {
@@ -36,7 +39,12 @@ export function CreditCardRow({ card }: CreditCardItemProps) {
     >
       {card.is_vip && <VipBadge label="Лучшее предложение" className="-top-3 left-0" />}
 
-      <EntityIdentity name={card.name} logo={card.logo} subtitle={card.bank?.title} />
+      <EntityIdentity
+        name={card.name}
+        logo={card.logo}
+        subtitle={card.bank?.title}
+        href={detailHref(card.slug)}
+      />
       <ValueCell value={orDash(card.service_cost)} />
       <ValueCell value={orDash(card.grace_period)} />
       <ValueCell value={orDash(card.credit_limit)} />
@@ -49,7 +57,7 @@ export function CreditCardRow({ card }: CreditCardItemProps) {
         className="flex-nowrap"
       />
       <RatingValue rating={card.rating} />
-      <ActionButtons url={card.url} actionLabel="Оформить" />
+      <ActionButtons detailHref={detailHref(card.slug)} url={card.url} actionLabel="Оформить" />
     </div>
   );
 }
@@ -70,6 +78,7 @@ export function CreditCardCard({ card }: CreditCardItemProps) {
           name={card.name}
           logo={card.logo}
           subtitle={card.bank?.title}
+          href={detailHref(card.slug)}
           className="flex-1"
         />
         <RatingValue rating={card.rating} compact />
@@ -100,7 +109,12 @@ export function CreditCardCard({ card }: CreditCardItemProps) {
         <span className="text-white">{formatCardCategory(card.card_category)}</span>
       </div>
 
-      <ActionButtons url={card.url} actionLabel="Оформить" stacked />
+      <ActionButtons
+        detailHref={detailHref(card.slug)}
+        url={card.url}
+        actionLabel="Оформить"
+        stacked
+      />
     </article>
   );
 }

@@ -97,3 +97,11 @@ export interface GetCardsResponse<T> {
     };
   };
 }
+
+export interface GetCardBySlugRequest {
+  slug: string;
+}
+
+export interface GetCardBySlugResponse<T> {
+  data: T | null;
+}

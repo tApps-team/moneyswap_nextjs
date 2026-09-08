@@ -45,6 +45,8 @@ export interface BreadcrumbsProps {
   paymentServiceName?: string;
   bankCreditName?: string;
   microloanName?: string;
+  creditCardName?: string;
+  debitCardName?: string;
 }
 
 /** Все разделы-рейтинги живут под хабом /ratings — добавляем его промежуточной крошкой. */
@@ -65,6 +67,8 @@ export function getSmartBreadcrumbs({
   paymentServiceName,
   bankCreditName,
   microloanName,
+  creditCardName,
+  debitCardName,
 }: BreadcrumbsProps & { pathname: string }) {
   const segments = pathname.split("/").filter(Boolean);
   const breadcrumbs = [{ href: "/", label: segmentNameMap[""] || "Главная" }];
@@ -164,12 +168,12 @@ export function getSmartBreadcrumbs({
     return breadcrumbs;
   }
 
-  // Новые разделы-рейтинги: /payment-services, /credits, /microloans (+ детальные страницы),
-  // /debit-cards и /credit-cards — только списки.
+  // Новые разделы-рейтинги: /payment-services, /debit-cards, /credit-cards, /credits,
+  // /microloans — у каждого есть список и детальная страница.
   const ratingSections: { segment: string; route: string; name?: string }[] = [
     { segment: "payment-services", route: routes.payment_services, name: paymentServiceName },
-    { segment: "debit-cards", route: routes.debit_cards },
-    { segment: "credit-cards", route: routes.credit_cards },
+    { segment: "debit-cards", route: routes.debit_cards, name: debitCardName },
+    { segment: "credit-cards", route: routes.credit_cards, name: creditCardName },
     { segment: "credits", route: routes.credits, name: bankCreditName },
     { segment: "microloans", route: routes.microloans, name: microloanName },
   ];
