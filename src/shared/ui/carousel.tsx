@@ -140,7 +140,15 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     const { carouselRef, orientation } = useCarousel();
 
     return (
-      <div ref={carouselRef} className="overflow-hidden">
+      // touch-pan-y отдаёт вертикальный свайп странице сразу, не дожидаясь
+      // распознавания жеста: иначе скролл по карусели на телефоне подтормаживает
+      <div
+        ref={carouselRef}
+        className={cn(
+          "overflow-hidden",
+          orientation === "horizontal" ? "touch-pan-y" : "touch-pan-x",
+        )}
+      >
         <div
           ref={ref}
           className={cn(

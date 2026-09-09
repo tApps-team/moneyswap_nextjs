@@ -28,17 +28,17 @@ export const MainTop = () => {
           карты, eSIM, банковские карты и займы — всё проверено и собрано в одном месте.
         </p>
 
-        <div className="relative z-10 grid mobile-xl:grid-flow-col grid-flow-row gap-3 mobile-xl:justify-center justify-stretch w-full mobile-xl:w-auto mt-1">
+        <div className="relative z-10 grid mobile-xl:grid-flow-col grid-flow-row gap-3 mobile-xl:justify-center justify-items-stretch w-full mobile-xl:w-auto mt-1">
           <Link
             href={routes.ratings}
-            className="group inline-flex items-center justify-center gap-2 rounded-[10px] bg-yellow-main px-6 py-3 text-sm font-medium uppercase text-black transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] motion-reduce:transition-none"
+            className="group inline-flex w-full mobile-xl:w-auto items-center justify-center gap-2 rounded-[10px] bg-yellow-main px-6 py-3 text-sm font-medium uppercase text-black transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] motion-reduce:transition-none"
           >
             Смотреть рейтинги
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </Link>
           <Link
             href={routes.exchange}
-            className="inline-flex items-center justify-center rounded-[10px] border border-[#575A62] px-6 py-3 text-sm font-medium uppercase text-white transition-colors duration-300 hover:border-yellow-main hover:text-yellow-main active:scale-[0.98]"
+            className="inline-flex w-full mobile-xl:w-auto items-center justify-center rounded-[10px] border border-[#575A62] px-6 py-3 text-sm font-medium uppercase text-white transition-colors duration-300 hover:border-yellow-main hover:text-yellow-main active:scale-[0.98]"
           >
             Обменять криптовалюту
           </Link>
