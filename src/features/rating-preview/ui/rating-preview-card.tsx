@@ -62,11 +62,13 @@ export const RatingPreviewCard: FC<RatingPreviewCardProps> = ({ preview, index =
           </span>
         )}
         <span className="grid min-w-0 gap-0.5">
-          <span className="truncate text-sm font-semibold text-white transition-colors group-hover:text-yellow-main">
+          <span className="truncate text-sm lg:text-base font-semibold text-white transition-colors group-hover:text-yellow-main">
             {preview.name}
           </span>
           {preview.subtitle ? (
-            <span className="truncate text-xs text-light-gray">{preview.subtitle}</span>
+            <span className="truncate text-xs lg:text-[13px] text-light-gray">
+              {preview.subtitle}
+            </span>
           ) : null}
         </span>
       </div>
@@ -82,7 +84,7 @@ export const RatingPreviewCard: FC<RatingPreviewCardProps> = ({ preview, index =
         {visibleTags.length > 0 && (
           <div className="grid gap-1.5 min-w-0">
             {preview.tagsLabel ? (
-              <span className="text-[10px] uppercase tracking-wide text-light-gray/70">
+              <span className="text-[10px] lg:text-[11px] font-medium uppercase tracking-wide text-light-gray/70">
                 {preview.tagsLabel}
               </span>
             ) : null}
@@ -91,7 +93,7 @@ export const RatingPreviewCard: FC<RatingPreviewCardProps> = ({ preview, index =
                 <TagChip key={tag.id} tag={tag} />
               ))}
               {restTags > 0 ? (
-                <span className="rounded-full bg-new-grey/50 px-2 py-1 text-2xs text-light-gray">
+                <span className="rounded-full bg-new-grey/50 px-2 py-1 text-[11px] lg:text-xs font-medium text-light-gray">
                   +{restTags}
                 </span>
               ) : null}
@@ -103,21 +105,21 @@ export const RatingPreviewCard: FC<RatingPreviewCardProps> = ({ preview, index =
       <div className="flex items-center justify-between gap-2 min-w-0 border-t border-white/[0.06] pt-3">
         {preview.rating ? (
           <span className="flex items-baseline gap-1.5 min-w-0">
-            <span className="text-sm font-semibold text-yellow-main">
+            <span className="text-sm lg:text-base font-semibold text-yellow-main">
               {preview.rating.toFixed(1)}
             </span>
             {preview.reviewsCount > 0 ? (
-              <span className="truncate text-2xs text-light-gray">
+              <span className="truncate text-[11px] lg:text-xs text-light-gray">
                 {preview.reviewsCount} отзывов
               </span>
             ) : null}
           </span>
         ) : (
-          <span className="truncate text-2xs text-light-gray">
+          <span className="truncate text-[11px] lg:text-xs text-light-gray">
             {preview.reviewsCount > 0 ? `${preview.reviewsCount} отзывов` : ""}
           </span>
         )}
-        <span className="shrink-0 text-xs font-medium text-yellow-main">Подробнее</span>
+        <span className="shrink-0 text-xs lg:text-sm font-medium text-yellow-main">Подробнее</span>
       </div>
     </Link>
   );
@@ -129,17 +131,23 @@ export const RatingPreviewCard: FC<RatingPreviewCardProps> = ({ preview, index =
  */
 export const PreviewRow: FC<{ field: PreviewField }> = ({ field }) => (
   <span className="flex items-start justify-between gap-3 min-w-0 border-b border-white/[0.05] py-2 last:border-0">
-    <span className="shrink-0 pt-px text-2xs text-light-gray">{field.label}</span>
+    <span className="shrink-0 pt-px text-[11px] lg:text-xs font-medium text-light-gray">
+      {field.label}
+    </span>
     {/* Две строки, а не truncate: «До 100 000 бесплатно» в одну строку не влезает
         и обрывается на самом важном слове */}
-    <span className="line-clamp-2 text-right text-xs font-medium text-white">{field.value}</span>
+    <span className="line-clamp-2 text-right text-[13px] lg:text-sm font-semibold text-white">
+      {field.value}
+    </span>
   </span>
 );
 
 /** Плейсхолдер строки на время догрузки — той же высоты, чтобы карточку не дёргало. */
 export const PreviewRowSkeleton: FC<{ label: string }> = ({ label }) => (
   <span className="flex items-start justify-between gap-3 min-w-0 border-b border-white/[0.05] py-2 last:border-0">
-    <span className="shrink-0 pt-px text-2xs text-light-gray">{label}</span>
+    <span className="shrink-0 pt-px text-[11px] lg:text-xs font-medium text-light-gray">
+      {label}
+    </span>
     <span className="mt-0.5 h-3 w-14 animate-pulse rounded bg-new-grey" />
   </span>
 );
@@ -150,12 +158,12 @@ const TagChip: FC<{ tag: PreviewTag }> = ({ tag }) => (
       <Image
         src={tag.icon}
         alt=""
-        width={12}
-        height={12}
-        sizes="12px"
-        className="size-3 shrink-0 rounded-full object-contain"
+        width={16}
+        height={16}
+        sizes="16px"
+        className="size-3.5 lg:size-4 shrink-0 rounded-full object-contain"
       />
     ) : null}
-    <span className="truncate text-2xs text-light-gray">{tag.title}</span>
+    <span className="truncate text-[11px] lg:text-xs font-medium text-light-gray">{tag.title}</span>
   </span>
 );

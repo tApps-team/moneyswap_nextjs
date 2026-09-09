@@ -45,7 +45,7 @@ const toTags = (
  * Коды валют одной строкой: длинный перечень всё равно обрежется по высоте
  * и закончится висящей запятой, поэтому хвост сворачиваем в «+N».
  */
-const joinCodes = (items: { code: string }[] | undefined, max = 4): string => {
+const joinCodes = (items: { code: string }[] | undefined, max = 3): string => {
   if (!items?.length) return "";
   const codes = items.map((item) => item.code).filter(Boolean);
   if (codes.length <= max) return codes.join(", ");
