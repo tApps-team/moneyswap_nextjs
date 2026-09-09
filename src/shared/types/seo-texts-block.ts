@@ -10,7 +10,10 @@ export interface SeoTextsBlock {
 }
 
 export enum pageTypes {
+  /** Обменная витрина /exchange — исторически заведена в Strapi как «main». */
   main = "main",
+  /** Главная-витрина рейтингов: блок появится, когда тексты заведут в Strapi. */
+  ratings_main = "ratings_main",
   exchange_cash = "exchange_cash",
   exchange_noncash = "exchange_noncash",
   sell_cash = "sell_cash",

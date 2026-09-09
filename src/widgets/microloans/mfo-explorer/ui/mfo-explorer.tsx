@@ -8,14 +8,14 @@ import {
   MICROLOAN_FIRST_LOAN_OPTIONS,
   MICROLOAN_LIMIT_OPTIONS,
   MICROLOAN_TERM_OPTIONS,
-  MICROLOAN_VERIFICATION_OPTIONS,
+  // MICROLOAN_VERIFICATION_OPTIONS, — вместе с фильтром «Проверка условий»
   Microloan,
   MicroloanAmountType,
   MicroloanDurationType,
   MicroloanFirstLoanType,
   MicroloanLimitType,
   MicroloanTermType,
-  MicroloanVerificationStatus,
+  // MicroloanVerificationStatus, — вместе с фильтром «Проверка условий»
 } from "@/entities/strapi";
 import {
   EmptyResult,
@@ -71,11 +71,13 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
     () => keepPresent(MICROLOAN_FIRST_LOAN_OPTIONS, loans.map((loan) => loan.first_loan_type)),
     [loans],
   );
-  const verificationOptions = useMemo(
-    () =>
-      keepPresent(MICROLOAN_VERIFICATION_OPTIONS, loans.map((loan) => loan.verification_status)),
-    [loans],
-  );
+  // Фильтр «Проверка условий» временно скрыт — раскомментировать вместе с
+  // блоком MultiSelectFilter ниже и импортами наверху файла.
+  // const verificationOptions = useMemo(
+  //   () =>
+  //     keepPresent(MICROLOAN_VERIFICATION_OPTIONS, loans.map((loan) => loan.verification_status)),
+  //   [loans],
+  // );
   const limitOptions = useMemo(
     () => keepPresent(MICROLOAN_LIMIT_OPTIONS, loans.map((loan) => loan.loan_limit_type)),
     [loans],
@@ -169,6 +171,7 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
           variant="icon"
           searchable={false}
         />
+        {/* Фильтр «Проверка условий» скрыт по просьбе заказчика.
         <MultiSelectFilter<MicroloanVerificationStatus>
           label="Проверка условий"
           options={verificationOptions}
@@ -176,9 +179,7 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
           onChange={(verification) => setFilter((f) => ({ ...f, verification }))}
           variant="icon"
           searchable={false}
-        />
-
-
+        /> */}
       </FiltersBar>
 
       <SortChips options={SORT_OPTIONS} sort={sort} onSort={handleSort} />

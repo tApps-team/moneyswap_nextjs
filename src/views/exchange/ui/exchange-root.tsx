@@ -1,0 +1,164 @@
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { cache } from "react";
+import { AllCurrencies } from "@/widgets/all-currencies";
+import { SkeletonCurrencySelectForm } from "@/widgets/currency-select-form";
+import { ExchangeTop } from "@/widgets/exchange-top";
+import { columns } from "@/widgets/exchangers";
+import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
+import { ExchangersTableSkeleton } from "@/widgets/exchangers/exchangers-table";
+import { MainFAQ } from "@/widgets/main-faq";
+import { SimilarCities } from "@/widgets/similar-cities";
+import { SeoFooterText } from "@/widgets/strapi";
+import { CurrencyTitle } from "@/features/currency";
+import { TopExchangeSale } from "@/features/top-exchange";
+import { getActualCourse, getAvailableValutes, getSpecificValute } from "@/entities/currency";
+import { getExchangers } from "@/entities/exchanger";
+import { getCountries, getSpecificCity } from "@/entities/location";
+import { getSeoTexts } from "@/shared/api";
+import { pageTypes, SegmentMarker } from "@/shared/types";
+
+const CurrencySelectForm = dynamic(() =>
+  import("@/widgets/currency-select-form").then((mod) => mod.CurrencySelectForm),
+);
+const ExchangersTable = dynamic(() =>
+  import("@/widgets/exchangers/exchangers-table/ui/exchangers-table").then(
+    (mod) => mod.ExchangersTable,
+  ),
+);
+
+// Кэшируем получение начальных данных
+const getInitialData = cache(
+  async (direction: Omit<SegmentMarker, SegmentMarker.both>, city?: string) => {
+    const [seoTexts, giveCurrency, getCurrency, actualCourse, location] = await Promise.all([
+      getSeoTexts({ page: pageTypes.main }),
+      getSpecificValute({
+        codeName: direction === SegmentMarker.cash ? "cashrub" : "sberrub",
+      }),
+      getSpecificValute({
+        codeName: "btc",
+      }),
+      getActualCourse({
+        valuteFrom: direction === SegmentMarker.cash ? "cashrub" : "sberrub",
+        valuteTo: "btc",
+      }),
+      // Получаем город только если direction === cash И city указан в URL
+      // Не используем дефолтный "msk" чтобы избежать несоответствия с URL
+      direction === SegmentMarker.cash && city
+        ? getSpecificCity({ codeName: city })
+        : Promise.resolve(null),
+    ]);
+
+    return { seoTexts, giveCurrency, getCurrency, actualCourse, location };
+  },
+);
+
+/**
+ * Витрина обмена по адресу /exchange — то, что раньше было главной страницей.
+ * Пара по умолчанию SBERRUB→BTC, при ?direction=cash — CASHRUB→BTC.
+ */
+export const ExchangeRootPage = async ({
+  searchParams,
+}: {
+  searchParams?: { direction?: string; city?: string };
+}) => {
+  const queryClient = new QueryClient();
+
+  const city = searchParams?.city;
+  const currentDirection =
+    searchParams?.direction === "cash" ? SegmentMarker.cash : SegmentMarker.no_cash;
+
+  const directionCash = !!city || currentDirection === SegmentMarker.cash;
+  const direction = directionCash ? SegmentMarker.cash : SegmentMarker.no_cash;
+
+  const { seoTexts, giveCurrency, getCurrency, actualCourse, location } = await getInitialData(
+    direction,
+    city,
+  );
+
+  const request =
+    direction === SegmentMarker.cash && location
+      ? {
+          valute_from: giveCurrency?.code_name,
+          valute_to: getCurrency?.code_name,
+          city: location.code_name,
+        }
+      : {
+          valute_from: giveCurrency?.code_name,
+          valute_to: getCurrency?.code_name,
+        };
+
+  const [exchangersResponse, countries, giveCurrencies, getCurrencies] = await Promise.all([
+    getExchangers(request),
+    getCountries(),
+    getAvailableValutes({
+      base: "all",
+      city: direction === SegmentMarker.cash ? location?.code_name : undefined,
+    }),
+    getAvailableValutes({
+      base: giveCurrency?.code_name,
+      city: direction === SegmentMarker.cash ? location?.code_name : undefined,
+    }),
+  ]);
+
+  queryClient.setQueryData([request], exchangersResponse.exchangers);
+
+  return (
+    <section>
+      <ExchangeTop />
+      <Suspense fallback={<SkeletonCurrencySelectForm />}>
+        <CurrencySelectForm
+          actualCourse={actualCourse}
+          urlLocation={location || undefined}
+          urlGetCurrency={getCurrency}
+          urlGiveCurrency={giveCurrency}
+          urlDirection={direction}
+          countries={countries}
+          giveCurrencies={giveCurrencies}
+          getCurrencies={getCurrencies}
+        />
+      </Suspense>
+      <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
+      <Suspense fallback={<ExchangersTableSkeleton />}>
+        {exchangersResponse.status === 404 ? (
+          <EmptyListExchangers
+            valuteFrom={giveCurrency}
+            valuteTo={getCurrency}
+            location={location ? location : undefined}
+          />
+        ) : (
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <ExchangersTable
+              cityName={direction === SegmentMarker.cash ? location?.name?.ru : undefined}
+              columns={columns}
+              params={request}
+            />
+          </HydrationBoundary>
+        )}
+      </Suspense>
+
+      <Suspense>
+        <SeoFooterText data={seoTexts.data} />
+      </Suspense>
+      <Suspense>
+        <MainFAQ direction={direction} />
+      </Suspense>
+      <Suspense>
+        <AllCurrencies />
+      </Suspense>
+      <Suspense>
+        <TopExchangeSale direction={direction} />
+      </Suspense>
+      {location && (
+        <Suspense>
+          <SimilarCities
+            city={location?.code_name}
+            valute_from={giveCurrency?.code_name}
+            valute_to={getCurrency?.code_name}
+          />
+        </Suspense>
+      )}
+    </section>
+  );
+};

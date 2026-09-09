@@ -20,16 +20,18 @@ export const Footer = () => {
               </Link>
               <SocialNetworks />
             </section>
-            <section className="grid lg:grid-cols-5 lg:grid-rows-1 grid-cols-2 grid-rows-3 lg:justify-normal justify-between justify-items-stretch lg:gap-6 gap-[50px]">
-              {footerItems.map((item, index) => (
-                <ul key={item.value} className="flex flex-col md:gap-6 xl:gap-3">
-                  <p className="lg:text-white text-yellow-main font-semibold uppercase text-base">
+            {/* Шесть колонок помещаются только на очень широких экранах:
+                названия документов длинные и на 1440 распирают сетку. */}
+            <section className="grid lg:grid-cols-3 2xl:grid-cols-6 grid-cols-2 lg:justify-normal justify-between justify-items-stretch lg:gap-6 gap-[50px]">
+              {footerItems.map((item) => (
+                <ul key={item.value} className="flex flex-col md:gap-6 xl:gap-3 min-w-0">
+                  <p className="lg:text-white text-yellow-main font-semibold uppercase text-base break-words">
                     {item.value}
                   </p>
                   {item.children?.map((itemChildren) => (
                     <li
                       key={itemChildren.value}
-                      className="hover:text-yellow-main text-sm font-normal"
+                      className="hover:text-yellow-main text-sm font-normal min-w-0 break-words"
                     >
                       <Link target={itemChildren.target} href={itemChildren.href}>
                         {itemChildren.value}
@@ -42,7 +44,10 @@ export const Footer = () => {
           </div>
           <hr />
           <section className="flex items-center justify-between">
-            <p className="uppercase">© moneyswap – мониторинг обменников. Все права защищены.</p>
+            <p className="uppercase">
+              © moneyswap – рейтинги финансовых сервисов и мониторинг обменников. Все права
+              защищены.
+            </p>
             <p className="uppercase">© 2026 Moneyswap.online</p>
           </section>
         </div>

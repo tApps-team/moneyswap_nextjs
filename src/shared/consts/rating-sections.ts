@@ -31,6 +31,13 @@ export interface RatingSection {
   icon: LucideIcon;
 }
 
+/*
+ * Форма совпадает с SiteSection (src/shared/consts/site-sections.ts) — там
+ * рейтинги объединяются с разделами обмена. Отдельным остаётся ключ:
+ * RatingSectionKey связан с PAGE_LOADERS хаба /ratings, поэтому разделы без
+ * страницы в Strapi сюда попадать не должны.
+ */
+
 /**
  * Единый список разделов-рейтингов.
  * Используется в навбаре, футере и на странице-хабе /ratings,
@@ -41,49 +48,50 @@ export const RATING_SECTIONS: RatingSection[] = [
     key: "ved",
     href: routes.ved,
     title: "ВЭД",
-    description: "Проверенные сервисы, проводящие международные платежи",
+    description: "Платёжные агенты для оплаты инвойсов и переводов за рубеж",
     icon: Globe,
   },
   {
     key: "virtual-cards",
     href: routes.virtual_cards,
     title: "Виртуальные карты",
-    description: "Международные и российские карты для оплаты за рубежом",
+    description: "Карты иностранных банков для оплаты зарубежных сервисов и покупок",
     icon: CreditCard,
   },
   {
     key: "esim",
     href: routes.esim,
     title: "eSIM",
-    description: "Подключение международных и российских виртуальных сим-карт",
+    description: "Международные провайдеры мобильного интернета для поездок за рубеж",
     icon: Smartphone,
   },
   {
     key: "payment-services",
     href: routes.payment_services,
     title: "Оплата сервисов",
-    description: "Сервисы для оплаты зарубежных подписок, игр и покупок",
+    description: "Список сервисов, которые помогают оплачивать зарубежные подписки и игры",
     icon: Wallet,
   },
   {
     key: "debit-cards",
     href: routes.debit_cards,
     title: "Дебетовые карты",
-    description: "Карты с кэшбэком, процентом на остаток и бесплатным обслуживанием",
+    description: "Рейтинг карт с кэшбэком, процентом на остаток и условиями обслуживания",
     icon: WalletCards,
   },
   {
     key: "credit-cards",
     href: routes.credit_cards,
     title: "Кредитные карты",
-    description: "Карты с льготным периодом и прозрачными условиями",
+    description: "Предложения банков по кредитным картам с льготным периодом",
     icon: CreditCard,
   },
   {
     key: "credits",
     href: routes.credits,
     title: "Кредиты",
-    description: "Предложения российских банков по потребительским кредитам",
+    description:
+      "Рейтинг потребительских кредитов от банков с реальной ПСК и условиями досрочного погашения",
     icon: Landmark,
   },
   {

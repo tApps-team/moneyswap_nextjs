@@ -1,77 +1,66 @@
-import { Ban, Headset, ShieldCheck } from "lucide-react";
+import { Headset } from "lucide-react";
 import { SVGProps } from "react";
-import {
-  FileIcon,
-  MoneyesIcon,
-  PeopleIcon,
-  QuestionIcon,
-  WalletIcon,
-} from "@/shared/assets";
-import { RATING_SECTIONS } from "@/shared/consts";
+import { FileIcon, PeopleIcon, QuestionIcon } from "@/shared/assets";
+import { SECTION_GROUPS, getGroupSections } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
-const HeadsetIcon = Headset as ((props: SVGProps<SVGSVGElement>) => JSX.Element);
+const HeadsetIcon = Headset as (props: SVGProps<SVGSVGElement>) => JSX.Element;
 
 type NavbarIcon = (props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element;
+
+type NavbarLink = {
+  href: string;
+  value: string;
+  description?: string;
+  icon?: NavbarIcon | string;
+};
+
+/** Колонка мега-панели: заголовок группы и её разделы. */
+export type NavbarGroup = {
+  key: string;
+  title: string;
+  subtitle: string;
+  href: string;
+  icon: NavbarIcon;
+  items: NavbarLink[];
+};
 
 type NavbarItems = {
   href: string;
   value: string;
   icon?: NavbarIcon | string;
   className?: string;
-  /** «wide» — выпадающая панель на всю ширину экрана в несколько колонок. */
-  layout?: "wide";
-  children?: (NavbarItems & { description?: string })[];
+  /** «mega» — панель во всю ширину экрана, колонка на каждую группу разделов. */
+  layout?: "mega";
+  groups?: NavbarGroup[];
+  children?: NavbarLink[];
 };
+
+/** Группы и разделы берём из общего конфига, чтобы меню, футер и /ratings не расходились. */
+const serviceGroups: NavbarGroup[] = SECTION_GROUPS.map((group) => ({
+  key: group.key,
+  title: group.title,
+  subtitle: group.subtitle,
+  href: group.href,
+  icon: group.icon as unknown as NavbarIcon,
+  items: getGroupSections(group).map((section) => ({
+    href: section.href,
+    value: section.title,
+    description: section.description,
+    icon: section.icon as unknown as NavbarIcon,
+  })),
+}));
 
 export const navbarItems: NavbarItems[] = [
   {
-    href: routes.home,
-    value: "Обмен криптовалюты",
-    children: [
-      {
-        href: `${routes.home}`,
-        value: "Безналичный Обмен",
-        description: "Купить и продать криптовалюту с безналичной оплатой",
-        icon: WalletIcon,
-      },
-      {
-        href: `${routes.home}?direction=cash`,
-        value: "наличный Обмен",
-        description: "Купить и продать криптовалюту за наличные",
-        icon: MoneyesIcon,
-      },
-    ],
-  },
-  {
-    href: routes.exchangers,
-    value: "Продукты",
-    children: [
-      {
-        href: `${routes.exchangers}`,
-        value: "Обменники",
-        description: "Полный список обменников с актуальным статусом работы",
-        icon: ShieldCheck as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-      {
-        href: `${routes.blacklist}`,
-        value: "Черный список",
-        description: "Остерегайтесь мошенников! Крайне не рекомендуемые обменники",
-        icon: Ban as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-    ],
-  },
-  {
     href: routes.ratings,
-    value: "Рейтинги",
-    layout: "wide",
-    // Разделы берём из общего конфига, чтобы навбар, футер и страница /ratings не расходились.
-    children: RATING_SECTIONS.map((section) => ({
-      href: section.href,
-      value: section.title,
-      description: section.description,
-      icon: section.icon as unknown as NavbarIcon,
-    })),
+    value: "Сервисы",
+    layout: "mega",
+    groups: serviceGroups,
+  },
+  {
+    href: routes.blog,
+    value: "Блог",
   },
   {
     href: routes.help_article,
@@ -108,9 +97,5 @@ export const navbarItems: NavbarItems[] = [
         icon: "public import",
       },
     ],
-  },
-  {
-    href: routes.blog,
-    value: "Блог",
   },
 ];

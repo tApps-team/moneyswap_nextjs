@@ -35,4 +35,5 @@ export * from "./switch";
 export * from "./search-input";
 export * from "./sort-chips";
 export * from "./rating-parts";
+export * from "./reveal";
 export * from "./section-header";

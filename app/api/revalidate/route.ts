@@ -14,54 +14,64 @@ import { routes } from "@/shared/router";
  */
 const revalidateRatingsIndex = () => {
   revalidatePath(routes.ratings);
+  // Главная-витрина показывает подборки всех разделов
+  revalidatePath(routes.home);
 };
 
 const revalidateVedAgents = () => {
   revalidateTag("ved-agents");
   revalidatePath(routes.ved);
   revalidatePath(`${routes.ved_agents}/[slug]`, "page");
+  revalidatePath(routes.home);
 };
 
 const revalidateEsims = () => {
   revalidateTag("e-sims");
   revalidatePath(routes.esim);
   revalidatePath(`${routes.esim}/[slug]`, "page");
+  revalidatePath(routes.home);
 };
 
 const revalidateVirtualCards = () => {
   revalidateTag("virtual-cards");
   revalidatePath(routes.virtual_cards);
   revalidatePath(`${routes.vc_cards}/[slug]`, "page");
+  revalidatePath(routes.home);
 };
 
 const revalidatePaymentServices = () => {
   revalidateTag("payment-services");
   revalidatePath(routes.payment_services);
   revalidatePath(`${routes.payment_services}/[slug]`, "page");
+  revalidatePath(routes.home);
 };
 
 const revalidateDebitCards = () => {
   revalidateTag("debit-cards");
   revalidatePath(routes.debit_cards);
   revalidatePath(`${routes.debit_cards}/[slug]`, "page");
+  revalidatePath(routes.home);
 };
 
 const revalidateCreditCards = () => {
   revalidateTag("credit-cards");
   revalidatePath(routes.credit_cards);
   revalidatePath(`${routes.credit_cards}/[slug]`, "page");
+  revalidatePath(routes.home);
 };
 
 const revalidateBankCredits = () => {
   revalidateTag("bank-credits");
   revalidatePath(routes.credits);
   revalidatePath(`${routes.credits}/[slug]`, "page");
+  revalidatePath(routes.home);
 };
 
 const revalidateMicroloans = () => {
   revalidateTag("microloans");
   revalidatePath(routes.microloans);
   revalidatePath(`${routes.microloans}/[slug]`, "page");
+  revalidatePath(routes.home);
 };
 
 export async function POST(req: Request) {

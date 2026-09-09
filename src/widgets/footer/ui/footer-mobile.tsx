@@ -38,7 +38,9 @@ export const FooterMobile = () => {
       </section>
       <hr />
       <section className="flex flex-col justify-center mobile-xl:text-xs text-2xs items-center gap-2 pt-4">
-        <p className="uppercase">© moneyswap – мониторинг обменников. Все права защищены.</p>
+        <p className="uppercase">
+          © moneyswap – рейтинги финансовых сервисов и мониторинг обменников. Все права защищены.
+        </p>
         <p className="uppercase">© 2026 Moneyswap.online</p>
       </section>
     </footer>

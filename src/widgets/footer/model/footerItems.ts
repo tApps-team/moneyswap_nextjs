@@ -1,43 +1,31 @@
 import { HTMLAttributeAnchorTarget } from "react";
-import { RATING_SECTIONS } from "@/shared/consts";
-import { products, routes } from "@/shared/router";
+import { SECTION_GROUPS, getGroupSections } from "@/shared/consts";
+import { routes } from "@/shared/router";
 
 type FooterItems = {
   value: string;
 
   children?: (FooterItems & { href: string; target?: HTMLAttributeAnchorTarget })[];
 };
+
+/** Колонки разделов собираем из тех же групп, что и меню, — иначе они разойдутся. */
+const groupColumns: FooterItems[] = SECTION_GROUPS.map((group) => ({
+  value: group.title,
+  children: getGroupSections(group).map((section) => ({
+    href: section.href,
+    value: section.title,
+  })),
+}));
+
 export const footerItems: FooterItems[] = [
+  ...groupColumns,
   {
-    value: "Продукты",
-    children: [
-      {
-        href: routes.exchangers,
-        value: "Обменники",
-      },
-      {
-        href: routes.blacklist,
-        value: "Черный список",
-      },
-    ],
-  },
-  {
-    value: "Рейтинги",
+    value: "Компания",
     children: [
       {
         href: routes.ratings,
         value: "Все рейтинги",
       },
-      // Разделы берём из общего конфига — там же, откуда их читают навбар и /ratings.
-      ...RATING_SECTIONS.map((section) => ({
-        href: section.href,
-        value: section.title,
-      })),
-    ],
-  },
-  {
-    value: "Поддержка",
-    children: [
       {
         href: routes.about,
         value: "О проекте",
@@ -55,6 +43,23 @@ export const footerItems: FooterItems[] = [
         value: "Помощь",
       },
       {
+        href: routes.blog,
+        value: "Блог",
+      },
+      {
+        href: routes.partners,
+        value: "Добавить сервис",
+      },
+      {
+        href: routes.sitemap,
+        value: "Карта сайта",
+      },
+    ],
+  },
+  {
+    value: "Документы",
+    children: [
+      {
         href: routes.privacy,
         value: "Политика конфиденциальности",
       },
@@ -69,57 +74,6 @@ export const footerItems: FooterItems[] = [
       {
         href: routes.blacklist_terms,
         value: "Положение о Чёрном списке",
-      },
-      {
-        href: routes.partners,
-        value: "Добавить сервис",
-      },
-    ],
-  },
-  {
-    value: "Социальные сети",
-    children: [
-      {
-        href: products.telegram_channel,
-        value: "Telegram",
-        target: "_blank",
-      },
-      {
-        href: products.telegram_bot,
-        value: "YouTube",
-        target: "_blank",
-      },
-      {
-        href: products.vc_ru,
-        value: "VC.RU",
-        target: "_blank",
-      },
-      {
-        href: products.dzen_ru,
-        value: "Дзен",
-        target: "_blank",
-      },
-      {
-        href: products.bits_media,
-        value: "Bits.Media",
-        target: "_blank",
-      },
-    ],
-  },
-  {
-    value: "Возможности",
-    children: [
-      {
-        href: routes.blog,
-        value: "Статьи",
-      },
-      {
-        href: routes.blog, // нужен роут
-        value: "Новости",
-      },
-      {
-        href: routes.sitemap,
-        value: "Карта сайта",
       },
     ],
   },

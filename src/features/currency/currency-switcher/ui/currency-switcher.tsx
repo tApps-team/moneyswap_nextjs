@@ -7,6 +7,7 @@ import { increaseDirectionCount } from "@/entities/direction";
 import { SwapIcon } from "@/shared/assets";
 import { useSmartPrefetch } from "@/shared/hooks";
 import { IsEmptyObject } from "@/shared/lib";
+import { routes } from "@/shared/router";
 import { SegmentMarker } from "@/shared/types";
 
 type CurrencySwitcherProps = {
@@ -49,7 +50,7 @@ export const CurrencySwitcher = (props: CurrencySwitcherProps) => {
       }
     }
 
-    return "/";
+    return routes.exchange;
   };
 
   const { prefetch, cancelPrefetch } = useSmartPrefetch({ delay: 150, cancelPrevious: true });

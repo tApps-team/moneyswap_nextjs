@@ -76,13 +76,13 @@ export const TopExchangeSale: FC<TopExchangeSaleProps> = async ({ direction }) =
       {/* <section className="flex justify-center items-center">
         <div className="grid mobile-xl:grid-cols-2 gap-2 justify-center justify-items-stretch">
           <Link
-            href={routes.home}
+            href={routes.exchange}
             className="bg-yellow-main text-black text-sm rounded-[10px] p-4 font-normal md:text-base text-center hover:bg-yellow-main hover:scale-[1.05] transition-all duration-300"
           >
             Купить криптовалюту
           </Link>
           <Link
-            href={routes.home}
+            href={routes.exchange}
             className="bg-yellow-main text-black text-sm rounded-[10px] p-4 font-normal md:text-base text-center hover:bg-yellow-main hover:scale-[1.05] transition-all duration-300"
           >
             Продать криптовалюту

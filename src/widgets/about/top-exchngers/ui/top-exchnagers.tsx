@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTopExchangers } from "@/entities/exchanger";
 import { ScrollArea } from "@/shared/ui";
-import { getTopExchangers } from "../api/top-exchangers-api";
 
 export const TopExchangers = async () => {
   const topExchangers = await getTopExchangers();

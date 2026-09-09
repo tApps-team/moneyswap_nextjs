@@ -3,16 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { ALL_SECTIONS } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
-// Маппинг сегментов на читаемые названия
-const segmentNameMap: Record<string, string> = {
+// Сегменты, у которых нет своей записи в конфиге разделов
+const staticSegmentNames: Record<string, string> = {
   "": "Главная",
-  "exchange": "Обмен",
   "blog": "Блог",
   "help": "Помощь",
-  "crypto-exchangers": "Обменники",
-  "blacklist": "Чёрный список",
   "for-partners": "Партнёрам",
   "contacts": "Контакты",
   "about": "О нас",
@@ -21,15 +19,17 @@ const segmentNameMap: Record<string, string> = {
   "pricing-policy": "Политика тарификации",
   "blacklist-terms": "Положение о Чёрном списке",
   ratings: "Рейтинги",
-  ved: "Мониторинг ВЭД",
   agents: "Агент",
-  "virtual-cards": "Рейтинг виртуальных карт",
-  esim: "Рейтинг eSIM",
-  "payment-services": "Оплата зарубежных сервисов",
-  "debit-cards": "Дебетовые карты",
-  "credit-cards": "Кредитные карты",
-  credits: "Кредиты",
-  microloans: "Микрозаймы",
+};
+
+/** Названия разделов берём из общего конфига, чтобы они не расходились с меню. */
+const sectionSegmentNames = Object.fromEntries(
+  ALL_SECTIONS.map((section) => [section.href.replace(/^\//, ""), section.title]),
+);
+
+const segmentNameMap: Record<string, string> = {
+  ...staticSegmentNames,
+  ...sectionSegmentNames,
 };
 
 export interface BreadcrumbsProps {
@@ -75,7 +75,14 @@ export function getSmartBreadcrumbs({
 
   // /exchange/[slug]
   if (segments[0] === "exchange" && segments[1]) {
+    breadcrumbs.push({ href: routes.exchange, label: segmentNameMap["exchange"] });
     breadcrumbs.push({ href: `/exchange/${segments[1]}`, label: exchange || decodeURIComponent(segments[1]) });
+    return breadcrumbs;
+  }
+
+  // /exchange — витрина обмена
+  if (segments[0] === "exchange" && segments.length === 1) {
+    breadcrumbs.push({ href: routes.exchange, label: segmentNameMap["exchange"] });
     return breadcrumbs;
   }
 

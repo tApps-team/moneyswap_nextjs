@@ -11,6 +11,7 @@ import { Country, LocationInfo } from "@/entities/location";
 import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
+import { routes } from "@/shared/router";
 import { SegmentMarker } from "@/shared/types";
 
 const CurrencySelectMobile = dynamic(() =>
@@ -109,7 +110,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
           <div className="flex flex-col mobile-xs:flex-row justify-center md:justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
             <div className="grid grid-cols-2 gap-2 items-center w-full md:gap-2">
               <Link
-                href={"/"}
+                href={routes.exchange}
                 type="button"
                 role="tab"
                 id="changeOnline"
@@ -125,7 +126,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               </Link>
 
               <Link
-                href={`/?direction=cash`}
+                href={`${routes.exchange}?direction=cash`}
                 type="button"
                 role="tab"
                 id="changeCash"
