@@ -11,6 +11,7 @@ import { Country, LocationInfo } from "@/entities/location";
 import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
+import { routes } from "@/shared/router";
 import { SegmentMarker } from "@/shared/types";
 
 const CurrencySelectMobile = dynamic(() =>
@@ -39,10 +40,16 @@ type CurrencySelectFormProps = {
   countries: Country[];
   giveCurrencies: GetAvailableValutesDtoResponse;
   getCurrencies: GetAvailableValutesDtoResponse;
+  /**
+   * Куда ведут вкладки «Наличные/Безналичные». По умолчанию — витрина обмена;
+   * на хабе передаётся его собственный адрес, чтобы выбор города не уводил
+   * со страницы.
+   */
+  basePath?: string;
 };
 
 export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
-  const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse, countries, giveCurrencies, getCurrencies } = props;
+  const { urlLocation, urlGetCurrency, urlGiveCurrency, urlDirection, actualCourse, countries, giveCurrencies, getCurrencies, basePath = routes.exchange } = props;
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [giveAmount, setGiveAmount] = useState<number>(actualCourse?.in_count || 0);
@@ -109,7 +116,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
           <div className="flex flex-col mobile-xs:flex-row justify-center md:justify-between mobile-xs:gap-0 items-start mobile-xs:items-center">
             <div className="grid grid-cols-2 gap-2 items-center w-full md:gap-2">
               <Link
-                href={"/"}
+                href={basePath}
                 type="button"
                 role="tab"
                 id="changeOnline"
@@ -125,7 +132,7 @@ export const CurrencySelectForm = (props: CurrencySelectFormProps) => {
               </Link>
 
               <Link
-                href={`/?direction=cash`}
+                href={`${basePath}?direction=cash`}
                 type="button"
                 role="tab"
                 id="changeCash"

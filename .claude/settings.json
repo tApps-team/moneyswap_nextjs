@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp\" && npx tsc --noEmit 2>&1 | head -20; echo \"=== tsc завершён ===\")",
+      "Read(//Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp/**)",
+      "Bash(npm run *)",
+      "Bash(cd \"/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp\" && ls .prettierrc* 2>/dev/null; grep -n \"prettier\" package.json | head -5)",
+      "Bash(cd \"/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp\" *)",
+      "Bash(npx eslint *)",
+      "Bash(python3 -c ' *)",
+      "Bash(cd \"/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp\" && find src -name \"*.test.*\" -o -name \"*.spec.*\" | head -10; echo \"--- setup ---\"; grep -n \"test:\" -A 10 vite.config.ts | head -20)",
+      "Bash(curl -s \"https://strp.moneyswap.online/api/main-faqs?sort%5B0%5D=id:asc&pagination%5BpageSize%5D=200\" --max-time 60 -o /tmp/faq.json)"
+    ],
+    "additionalDirectories": [
+      "/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp/src/widgets/ratings/sections/credit-cards/ui",
+      "/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp/src/widgets/ratings/sections/debit-cards/ui",
+      "/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp/src/widgets/ratings/section-screen/ui",
+      "/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp/src/entities/strapi",
+      "/Users/macbro/Desktop/Шахстке/coding/front/moneyswap/moneyswap_webapp/src/widgets/more/ui"
+    ]
+  }
+}

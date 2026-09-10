@@ -66,12 +66,54 @@ export const HeaderMobile = () => {
             <ScrollArea className="mobile-xl:max-h-[calc(100svh_-_126px_-_80px_-_60px)] max-h-[calc(100svh_-_90px_-_60px_-_40px)]">
               <Accordion type="single" collapsible className="flex flex-col gap-4 w-full pb-10">
                 {navbarItems.map((item) =>
-                  item?.children ? (
+                  item?.children || item?.items ? (
                     <AccordionItem value={item.value} key={item.value} className="">
-                      <AccordionTrigger className="font-bold bg-new-dark-grey mobile-xl:rounded-[15px] rounded-[10px] mobile-xl:py-7 mobile-xl:px-12 p-5 uppercase mobile-xl:text-xl text-sm">
-                        <p className="leading-none">{item.value}</p>
+                      {/* text-left — у кнопки по умолчанию text-align: center,
+                          и длинное название при переносе вставало по центру */}
+                      <AccordionTrigger className="font-bold bg-new-dark-grey mobile-xl:rounded-[15px] rounded-[10px] mobile-xl:py-7 mobile-xl:px-12 p-5 uppercase mobile-xl:text-xl text-sm text-left">
+                        <span className="flex items-center gap-3 min-w-0">
+                          {item.icon && typeof item.icon !== "string" && (
+                            <item.icon className="mobile-xl:size-7 size-5 shrink-0 text-yellow-main" />
+                          )}
+                          <p className="leading-none">{item.fullValue ?? item.value}</p>
+                        </span>
                       </AccordionTrigger>
-                      <AccordionContent className="flex flex-col gap-6 hover:text-yellow-main p-0 pt-6 pb-2 mobile-xl:pl-[50px] pl-5">
+                      {/* pr-4 — чтобы описания не уходили под полосу прокрутки */}
+                      <AccordionContent className="flex flex-col gap-6 hover:text-yellow-main p-0 pt-6 pb-2 mobile-xl:pl-[50px] pl-5 pr-4">
+                        {item.items?.map((link) => (
+                          <DrawerClose asChild key={link.href}>
+                            <Link target="_self" href={link.href}>
+                              <div className="grid grid-cols-[auto,1fr] gap-4 break-words">
+                                {link.icon && typeof link.icon !== "string" && (
+                                  <div className="bg-new-dark-grey rounded-[6px] mobile-xl:size-[48px] size-8 mobile-xl:p-1.5 p-1">
+                                    <link.icon className="w-full h-full text-yellow-main" />
+                                  </div>
+                                )}
+                                <div className="grid grid-flow-row gap-[2px] h-full content-between items-stretch">
+                                  <p className="leading-none uppercase mobile-xl:text-xl text-sm text-white font-bold">
+                                    {link.value}
+                                  </p>
+                                  <p className="leading-tight mobile-xl:text-sm text-xs text-[#878787] font-normal">
+                                    {link.description}
+                                  </p>
+                                </div>
+                              </div>
+                            </Link>
+                          </DrawerClose>
+                        ))}
+
+                        {/* Хаб направления — внизу: сверху он дублировал бы заголовок аккордеона */}
+                        {item.moreHref && (
+                          <DrawerClose asChild>
+                            <Link
+                              href={item.moreHref}
+                              className="uppercase mobile-xl:text-lg text-sm text-yellow-main font-bold"
+                            >
+                              Подробнее
+                            </Link>
+                          </DrawerClose>
+                        )}
+
                         {item.children?.map((itemChildren) => (
                           <DrawerClose asChild key={itemChildren.value}>
                             <Link target="_self" href={itemChildren.href}>
@@ -112,7 +154,12 @@ export const HeaderMobile = () => {
                       asChild
                       className="font-bold bg-new-dark-grey mobile-xl:rounded-[15px] rounded-[10px] mobile-xl:py-7 mobile-xl:px-12 p-5 uppercase mobile-xl:text-xl text-sm w-full"
                     >
-                      <Link href={item.href}>{item.value}</Link>
+                      <Link href={item.href} className="flex items-center gap-3 min-w-0">
+                        {item.icon && typeof item.icon !== "string" && (
+                          <item.icon className="mobile-xl:size-7 size-5 shrink-0 text-yellow-main" />
+                        )}
+                        <span className="leading-none">{item.value}</span>
+                      </Link>
                     </DrawerClose>
                   ),
                 )}

@@ -1,160 +1,65 @@
-import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { cache } from 'react';
-import { AllCurrencies } from "@/widgets/all-currencies";
-import { SkeletonCurrencySelectForm } from "@/widgets/currency-select-form";
-import { columns } from "@/widgets/exchangers";
-import { EmptyListExchangers } from "@/widgets/exchangers/empty-list-exchangers";
-import { ExchangersTableSkeleton } from "@/widgets/exchangers/exchangers-table";
+import { GroupPreviews } from "@/widgets/home/group-previews";
+import { PreviewsSliderSkeleton } from "@/widgets/home/previews-slider";
+import { SectionGroupsGrid } from "@/widgets/home/section-groups-grid";
+import { SectionShelf } from "@/widgets/home/section-shelf";
+import { TopExchangersSlider } from "@/widgets/home/top-exchangers-slider";
 import { MainFAQ } from "@/widgets/main-faq";
 import { MainTop } from "@/widgets/main-top";
-import { SimilarCities } from "@/widgets/similar-cities";
 import { SeoFooterText } from "@/widgets/strapi";
 import { BotBannerNew, SkeletonBotBannerNew } from "@/features/bot-banner";
-import { CurrencyTitle } from "@/features/currency";
-import { TopExchangeSale } from "@/features/top-exchange";
-import { getActualCourse, getAvailableValutes, getSpecificValute } from "@/entities/currency";
-import { getExchangers } from "@/entities/exchanger";
-import { getCountries, getSpecificCity } from "@/entities/location";
+import { faqTypes } from "@/entities/strapi";
 import { getSeoTexts } from "@/shared/api";
-import { pageTypes, SegmentMarker } from "@/shared/types";
+import { HOME_SHELVES } from "@/shared/consts";
+import { pageTypes } from "@/shared/types";
 
-const CurrencySelectForm = dynamic(() =>
-  import("@/widgets/currency-select-form").then((mod) => mod.CurrencySelectForm),
-);
-const ExchangersTable = dynamic(() =>
-  import("@/widgets/exchangers/exchangers-table/ui/exchangers-table").then(
-    (mod) => mod.ExchangersTable,
-  ),
-);
-
-// Кэшируем получение начальных данных
-const getInitialData = cache(async (direction: Omit<SegmentMarker, SegmentMarker.both>, city?: string) => {
-  const [seoTexts, giveCurrency, getCurrency, actualCourse, location] = await Promise.all([
-    getSeoTexts({ page: pageTypes.main }),
-    getSpecificValute({
-      codeName: direction === SegmentMarker.cash ? "cashrub" : "sberrub",
-    }),
-    getSpecificValute({
-      codeName: "btc",
-    }),
-    getActualCourse({ 
-      valuteFrom: direction === SegmentMarker.cash ? "cashrub" : "sberrub", 
-      valuteTo: "btc" 
-    }),
-    // Получаем город только если direction === cash И city указан в URL
-    // Не используем дефолтный "msk" чтобы избежать несоответствия с URL
-    direction === SegmentMarker.cash && city
-      ? getSpecificCity({ codeName: city })
-      : Promise.resolve(null),
-  ]);
-
-  return { seoTexts, giveCurrency, getCurrency, actualCourse, location };
-});
-
-export const Main = async ({
-  searchParams,
-}: {
-  searchParams?: { direction?: string; city?: string };
-}) => {
-  const queryClient = new QueryClient();
-
-  const city = searchParams?.city;
-  const currentDirection = searchParams?.direction === "cash" ? SegmentMarker.cash : SegmentMarker.no_cash;
-
-  const directionCash = !!city || currentDirection === SegmentMarker.cash;
-  const direction = directionCash ? SegmentMarker.cash : SegmentMarker.no_cash;
-
-  // Используем кэшированную функцию для получения начальных данных
-  const { seoTexts, giveCurrency, getCurrency, actualCourse, location } = await getInitialData(direction, city);
-
-  // Формируем параметры запроса обменников
-  const request = direction === SegmentMarker.cash && location
-    ? {
-        valute_from: giveCurrency?.code_name,
-        valute_to: getCurrency?.code_name,
-        city: location.code_name,
-      }
-    : {
-        valute_from: giveCurrency?.code_name,
-        valute_to: getCurrency?.code_name,
-      };
-
-  // Получаем данные обменников и данные для формы выбора валют
-  const [exchangersResponse, countries, giveCurrencies, getCurrencies] = await Promise.all([
-    getExchangers(request),
-    getCountries(),
-    getAvailableValutes({
-      base: "all",
-      city: direction === SegmentMarker.cash ? location?.code_name : undefined,
-    }),
-    getAvailableValutes({
-      base: giveCurrency?.code_name,
-      city: direction === SegmentMarker.cash ? location?.code_name : undefined,
-    }),
-  ]);
-  
-  queryClient.setQueryData([request], exchangersResponse.exchangers);
+/**
+ * Главная — витрина сервисов.
+ *
+ * Первые блоки не ходят в сеть, поэтому шапка и навигация по разделам уходят
+ * в первый чанк HTML. Каждая полка обёрнута в свой Suspense: Next стримит их
+ * по мере готовности, и медленный ответ Strapi не задерживает отрисовку.
+ *
+ * Ключ ratings_main достался от прежнего хаба /ratings — за ним живой контент
+ * в Strapi, поэтому переименовывать его не стали.
+ */
+export const Main = async () => {
+  const seoTexts = await getSeoTexts({ page: pageTypes.ratings_main });
 
   return (
-    <section>
-      <Suspense>
+    <section className="grid grid-flow-row lg:gap-[70px] md:gap-[50px] gap-[40px] min-w-0">
+      <div>
         <MainTop />
-      </Suspense>
-      <div className="lg:-mt-8 -mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
-        <Suspense fallback={<SkeletonBotBannerNew />}>
-          <BotBannerNew />
-        </Suspense>
+        <div className="lg:-mt-8 -mt-14 mobile-xl:block hidden">
+          <Suspense fallback={<SkeletonBotBannerNew />}>
+            <BotBannerNew />
+          </Suspense>
+        </div>
       </div>
-      <Suspense fallback={<SkeletonCurrencySelectForm />}>
-        <CurrencySelectForm
-          actualCourse={actualCourse}
-          urlLocation={location || undefined}
-          urlGetCurrency={getCurrency}
-          urlGiveCurrency={giveCurrency}
-          urlDirection={direction}
-          countries={countries}
-          giveCurrencies={giveCurrencies}
-          getCurrencies={getCurrencies}
-        />
-      </Suspense>
-      <CurrencyTitle give={giveCurrency?.name?.ru} get={getCurrency?.name?.ru} />
-      <Suspense fallback={<ExchangersTableSkeleton />}>
-        {exchangersResponse.status === 404 ? (
-          <EmptyListExchangers
-            valuteFrom={giveCurrency}
-            valuteTo={getCurrency}
-            location={location ? location : undefined}
-          />
-        ) : (
-          <HydrationBoundary state={dehydrate(queryClient)}>
-            <ExchangersTable 
-              cityName={direction === SegmentMarker.cash ? location?.name?.ru : undefined} 
-              columns={columns} 
-              params={request} 
-            />
-          </HydrationBoundary>
-        )}
-      </Suspense>
+
+      <SectionGroupsGrid />
+
+      {HOME_SHELVES.map((entry) => (
+        <Suspense key={entry.key} fallback={<PreviewsSliderSkeleton />}>
+          {entry.kind === "group" ? (
+            // У «Криптовалют» карточки приходят из основного API, а не из Strapi
+            entry.key === "crypto" ? (
+              <TopExchangersSlider />
+            ) : (
+              <GroupPreviews group={entry.group} />
+            )
+          ) : (
+            <SectionShelf sectionKey={entry.key} />
+          )}
+        </Suspense>
+      ))}
 
       <Suspense>
         <SeoFooterText data={seoTexts.data} />
       </Suspense>
       <Suspense>
-        <MainFAQ direction={direction} />
+        <MainFAQ primary={{ type: faqTypes.from_users, title: "Вопросы от пользователей" }} />
       </Suspense>
-      <Suspense>
-        <AllCurrencies />
-      </Suspense>
-      <Suspense>
-        <TopExchangeSale direction={direction} />
-      </Suspense>
-      {location && (
-        <Suspense>
-          <SimilarCities city={location?.code_name} valute_from={giveCurrency?.code_name} valute_to={getCurrency?.code_name} />
-        </Suspense>
-      )}
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import { SkeletonCurrencySelectForm } from "@/widgets/currency-select-form";
+import { PreviewsSliderSkeleton } from "@/widgets/home/previews-slider";
 import { SkeletonMainTop } from "@/widgets/main-top";
 import { SkeletonBotBannerNew } from "@/features/bot-banner";
 import { Skeleton } from "@/shared/ui";
@@ -6,15 +6,23 @@ import "@/shared/styles/globals.scss";
 
 export default function Loading() {
   return (
-    <section className="">
-      <SkeletonMainTop />
-      <div className="lg:-mt-8 -mt-14 mobile-xl:block hidden lg:mb-[65px] mobile-xl:mb-10">
-        <SkeletonBotBannerNew />
+    <section className="grid grid-flow-row lg:gap-[70px] md:gap-[50px] gap-[40px]">
+      <div>
+        <SkeletonMainTop />
+        <div className="lg:-mt-8 -mt-14 mobile-xl:block hidden">
+          <SkeletonBotBannerNew />
+        </div>
       </div>
-      <div className="grid grid-flow-row gap-10">
-        <SkeletonCurrencySelectForm />
-        <Skeleton className="rounded-3xl w-full h-[56rem]  bg-new-grey" />
+
+      {/* Сетка направлений: шесть карточек, как в SectionGroupsGrid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mobile-xl:gap-5">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <Skeleton key={index} className="h-[260px] w-full rounded-[20px] bg-new-dark-grey" />
+        ))}
       </div>
+
+      <PreviewsSliderSkeleton />
+      <PreviewsSliderSkeleton />
     </section>
   );
 }

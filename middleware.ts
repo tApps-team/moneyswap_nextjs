@@ -3,7 +3,15 @@ import { handleBannerExchanger } from "./src/shared/consts/banner-exchangers";
 
 export default function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
-  
+
+  // Обменная витрина переехала с главной на /exchange: старая ссылка на наличный обмен
+  // уже проиндексирована, поэтому уводим её постоянным редиректом.
+  if (pathname === "/" && searchParams.has("direction")) {
+    const url = new URL("/exchange", request.url);
+    url.search = searchParams.toString();
+    return NextResponse.redirect(url, 301);
+  }
+
   // Обрабатываем только crypto-exchangers
   if (pathname.startsWith('/crypto-exchangers/exchanger-')) {
     // Возвращаем 404 для конкретной ссылки exchanger-169__both

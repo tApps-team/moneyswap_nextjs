@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { baseUrl } from "@/shared/consts";
+import { ALL_SECTIONS, SECTION_GROUPS, baseUrl } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -10,42 +10,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/?direction=cash`,
+    // Хабы направлений — вторая по важности точка входа после главной
+    ...SECTION_GROUPS.map((group) => ({
+      url: `${baseUrl}${group.href}`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}${routes.exchangers}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}${routes.blacklist}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}${routes.ved}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "weekly" as const,
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}${routes.virtual_cards}`,
+    })),
+    // Разделы витрины берём из общего конфига, чтобы список не расходился с меню
+    ...ALL_SECTIONS.map((section) => ({
+      url: `${baseUrl}${section.href}`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "weekly" as const,
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}${routes.esim}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
+    })),
     {
       url: `${baseUrl}${routes.help_faq}`,
       lastModified: new Date(),

@@ -9,9 +9,9 @@ import NextTopLoader from 'nextjs-toploader';
 import { Toaster } from "@/shared/ui";
 
 export const metadata = {
-  title: "Мониторинг криптообменников онлайн - обмен криптовалюты по лучшим курсам | MoneySwap",
+  title: "MoneySwap — рейтинги финансовых сервисов и мониторинг обменников",
   description:
-    "MoneySwap - удобный помощник для поиска обменников в любой точке мира. На нашей площадке представлены только проверенные обменники с безупречной репутацией. Незаменимый помощник в мире финансов.",
+    "MoneySwap — независимые рейтинги финансовых сервисов: обменники криптовалюты, платёжные агенты ВЭД, виртуальные карты, eSIM, банковские карты, кредиты и микрозаймы.",
   metadataBase: process.env.NEXT_PUBLIC_SITE_BASE_URL
     ? new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL)
     : undefined,
@@ -20,9 +20,9 @@ export const metadata = {
     yandex: "7377d71acbace068",
   },
   openGraph: {
-    title: "Мониторинг криптообменников онлайн - обмен криптовалюты по лучшим курсам | MoneySwap",
+    title: "MoneySwap — рейтинги финансовых сервисов и мониторинг обменников",
     description:
-      "MoneySwap - удобный помощник для поиска обменников в любой точке мира. На нашей площадке представлены только проверенные обменники с безупречной репутацией. Незаменимый помощник в мире финансов.",
+      "MoneySwap — независимые рейтинги финансовых сервисов: обменники криптовалюты, платёжные агенты ВЭД, виртуальные карты, eSIM, банковские карты, кредиты и микрозаймы.",
     url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
     siteName: "MoneySwap",
     images: [
@@ -62,6 +62,9 @@ export const viewport: Viewport = {
   initialScale: 1,
   width: "device-width",
   themeColor: "#191C25",
+  // Клавиатура накладывается поверх страницы и не сжимает viewport,
+  // иначе блоки с position: fixed уезжают вверх вместе с его нижней границей.
+  interactiveWidget: "overlays-content",
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const organizationJsonLd = {
@@ -70,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     name: "MoneySwap",
     url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
     logo: "/og_logo.svg",
-    description: "MoneySwap - удобный помощник для поиска обменников в любой точке мира",
+    description: "MoneySwap — рейтинги финансовых сервисов и мониторинг обменников криптовалюты",
     sameAs: [
       "https://t.me/moneyswap",
       "https://t.me/moneyswap_robot",

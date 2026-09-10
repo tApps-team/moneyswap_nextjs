@@ -52,7 +52,7 @@ export const LocationSelect = (props: LocationSelectProps) => {
   const searchParamsCity = searchParams.get("city");
   const pathname = usePathname();
   const { cashCountrySelect } = useYandexMetrika();
-  const city = searchParamsCity ? searchParamsCity : pathname === routes.home ? "msk" : null;
+  const city = searchParamsCity ? searchParamsCity : pathname === routes.exchange ? "msk" : null;
   const [cityInfo, setCityInfo] = useState<LocationInfo | null>(initialCityInfo || null);
   
   useEffect(() => {

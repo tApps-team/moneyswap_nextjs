@@ -9,6 +9,9 @@
 # testing
 /coverage
 
+# скриншоты адаптива — рабочие артефакты, в репозитории не нужны
+/scripts/data/shots
+
 # next.js
 /.next/
 /out/

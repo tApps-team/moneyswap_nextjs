@@ -4,20 +4,29 @@ import { faqTypes, getFaq } from "@/entities/strapi";
 import { SegmentMarker } from "@/shared/types";
 
 interface MainFAQProps {
-  direction: Omit<SegmentMarker, SegmentMarker.both>;
+  /** Страницы обмена показывают вопросы по своему направлению. */
+  direction?: Omit<SegmentMarker, SegmentMarker.both>;
+  /**
+   * Первый блок, если он не про обмен: витрине сервисов вопросы про наличный
+   * и безналичный обмен ни к чему, ей нужны вопросы от пользователей.
+   */
+  primary?: { type: faqTypes; title: string };
 }
 
-export const MainFAQ: FC<MainFAQProps> = async ({ direction }) => {
+export const MainFAQ: FC<MainFAQProps> = async ({ direction, primary }) => {
+  const primaryType =
+    primary?.type ?? (direction === SegmentMarker.cash ? faqTypes.cash : faqTypes.noncash);
+  const primaryTitle =
+    primary?.title ??
+    (direction === SegmentMarker.cash ? "По наличному обмену" : "По безналичному обмену");
+
   const [filteredFaqs, basicFaqs] = await Promise.all([
-    getFaq(direction === SegmentMarker.cash ? faqTypes.cash : faqTypes.noncash),
+    getFaq(primaryType),
     getFaq(faqTypes.basic),
   ]);
 
   const faqs = [
-    {
-      title: direction === SegmentMarker.cash ? "По наличному обмену" : "По безналичному обмену",
-      faqs: filteredFaqs,
-    },
+    { title: primaryTitle, faqs: filteredFaqs },
     { title: "Общие вопросы", faqs: basicFaqs },
   ];
 

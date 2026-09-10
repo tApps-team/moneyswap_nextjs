@@ -1,88 +1,82 @@
-import { Ban, CreditCard, Globe, Headset, ShieldCheck, Smartphone } from "lucide-react";
+import { Headset, Newspaper } from "lucide-react";
 import { SVGProps } from "react";
-import {
-  FileIcon,
-  MoneyesIcon,
-  PeopleIcon,
-  QuestionIcon,
-  WalletIcon,
-} from "@/shared/assets";
+import { FileIcon, PeopleIcon, QuestionIcon } from "@/shared/assets";
+import { NAV_ENTRIES, entryIcon, entryShortTitle, getGroupSections } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
-const HeadsetIcon = Headset as ((props: SVGProps<SVGSVGElement>) => JSX.Element);
+const HeadsetIcon = Headset as (props: SVGProps<SVGSVGElement>) => JSX.Element;
+const NewspaperIcon = Newspaper as (props: SVGProps<SVGSVGElement>) => JSX.Element;
 
-type NavbarItems = {
+type NavbarIcon = (props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element;
+
+export type NavbarLink = {
   href: string;
   value: string;
-  icon?: ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element) | string;
-  className?: string;
-  children?: (NavbarItems & { description?: string })[];
+  description?: string;
+  icon?: NavbarIcon | string;
 };
 
-export const navbarItems: NavbarItems[] = [
+export type NavbarItem = {
+  /** Куда ведёт сам пункт: хаб группы или страница раздела. */
+  href: string;
+  /** Подпись для десктопа — сокращённая там, где полная не влезает в строку. */
+  value: string;
+  /** Подпись для бургера: в столбик помещается полное название. */
+  fullValue?: string;
+  /** Иконка пункта. Рисуется в бургере: на десктопе строка меню только текстовая. */
+  icon?: NavbarIcon | string;
+  className?: string;
+  /** Разделы группы в выпадающей панели. Нет — пункт рисуется обычной ссылкой. */
+  items?: NavbarLink[];
+  /** Ссылка «Подробнее» в подвале панели: тот же хаб, что и сам пункт. */
+  moreHref?: string;
+  /** Панель «Поддержки» — одна колонка ссылок без хаба. */
+  children?: NavbarLink[];
+  /**
+   * Пункт только для бургера. На десктопе шесть направлений и «Поддержка» уже
+   * на пределе по ширине, а в мобильном меню место есть.
+   */
+  mobileOnly?: boolean;
+  /** Панель крайних правых пунктов прижимается к правому краю, иначе уезжает за экран. */
+  align?: "start" | "end";
+};
+
+/** Пункты направлений берём из общего конфига, чтобы меню и футер не расходились. */
+const sectionItems: NavbarItem[] = NAV_ENTRIES.map((entry) =>
+  entry.kind === "group"
+    ? {
+        href: entry.group.href,
+        value: entryShortTitle(entry),
+        fullValue: entry.group.title,
+        icon: entryIcon(entry) as unknown as NavbarIcon,
+        moreHref: entry.group.href,
+        items: getGroupSections(entry.group).map((section) => ({
+          href: section.href,
+          value: section.title,
+          description: section.description,
+          icon: section.icon as unknown as NavbarIcon,
+        })),
+      }
+    : {
+        href: entry.section.href,
+        value: entry.section.title,
+        icon: entryIcon(entry) as unknown as NavbarIcon,
+      },
+);
+
+export const navbarItems: NavbarItem[] = [
+  ...sectionItems,
   {
-    href: routes.home,
-    value: "Обмен криптовалюты",
-    children: [
-      {
-        href: `${routes.home}`,
-        value: "Безналичный Обмен",
-        description: "Купить и продать криптовалюту с безналичной оплатой",
-        icon: WalletIcon,
-      },
-      {
-        href: `${routes.home}?direction=cash`,
-        value: "наличный Обмен",
-        description: "Купить и продать криптовалюту за наличные",
-        icon: MoneyesIcon,
-      },
-    ],
-  },
-  {
-    href: routes.exchangers,
-    value: "Продукты",
-    children: [
-      {
-        href: `${routes.exchangers}`,
-        value: "Обменники",
-        description: "Полный список обменников с актуальным статусом работы",
-        icon: ShieldCheck as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-      {
-        href: `${routes.blacklist}`,
-        value: "Черный список",
-        description: "Остерегайтесь мошенников! Крайне не рекомендуемые обменники",
-        icon: Ban as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-    ],
-  },
-  {
-    href: routes.ved,
-    value: "Рейтинги",
-    children: [
-      {
-        href: routes.ved,
-        value: "ВЭД",
-        description: "Проверенные сервисы, проводящие международные платежи",
-        icon: Globe as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-      {
-        href: routes.virtual_cards,
-        value: "Виртуальные карты",
-        description: "Международные и российские карты для оплаты за рубежом",
-        icon: CreditCard as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-      {
-        href: routes.esim,
-        value: "eSIM",
-        description: "Подключение международных и российских виртуальных сим-карт",
-        icon: Smartphone as ((props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element),
-      },
-    ],
+    href: routes.blog,
+    value: "Блог",
+    icon: NewspaperIcon,
+    mobileOnly: true,
   },
   {
     href: routes.help_article,
     value: "Поддержка",
+    icon: HeadsetIcon,
+    align: "end",
     children: [
       {
         href: `${routes.about}`,
@@ -116,8 +110,7 @@ export const navbarItems: NavbarItems[] = [
       },
     ],
   },
-  {
-    href: routes.blog,
-    value: "Блог",
-  },
 ];
+
+/** Десктопное меню: без пунктов, которые живут только в бургере. */
+export const desktopNavbarItems = navbarItems.filter((item) => !item.mobileOnly);

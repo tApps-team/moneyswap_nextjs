@@ -1,72 +1,74 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { Main } from "@/views/main";
 import { getSeoMeta } from "@/shared/api";
+import { ALL_SECTIONS } from "@/shared/consts";
 import { routes } from "@/shared/router";
 import { pageTypes } from "@/shared/types";
 
-export const revalidate = 10;
-export const dynamicParams = true;
+// Курсов обменников на главной больше нет: витрина рейтингов меняется заметно реже.
+export const revalidate = 300;
 
-// Типы для props
-export type Props = {
-  searchParams?: { direction?: string; city?: string };
-};
+export default function Page() {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL;
 
-export default function Page({ searchParams }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "MoneySwap",
-    "url": process.env.NEXT_PUBLIC_SITE_BASE_URL,
-    "description": "MoneySwap — агрегатор обменников криптовалют. Лучшие курсы, проверенные обменники, быстрый поиск.",
-  }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        name: "MoneySwap",
+        url: baseUrl,
+        description:
+          "MoneySwap — рейтинги финансовых сервисов: обменники криптовалюты, платёжные агенты ВЭД, виртуальные карты, eSIM, банковские карты и займы.",
+      },
+      {
+        "@type": "ItemList",
+        name: "Сервисы MoneySwap",
+        itemListElement: ALL_SECTIONS.map((section, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: section.title,
+          description: section.description,
+          url: `${baseUrl}${section.href}`,
+        })),
+      },
+    ],
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\u003c'),
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <Main searchParams={searchParams} />
+      <Main />
     </>
   );
 }
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const reqParams = {
-    page: pageTypes.main,
-  };
+export async function generateMetadata(): Promise<Metadata> {
+  const seoMeta = await getSeoMeta({ page: pageTypes.ratings_main });
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}`;
 
-  const seoMeta = await getSeoMeta(reqParams);
-  const direction = searchParams?.direction;
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${routes.home}${direction ? `?direction=${direction}` : ""}`;
-  
-  // Fallback значения если SEO метаданные не пришли
-  const defaultTitle = "MoneySwap — Агрегатор обменников криптовалют";
-  const defaultDescription = "MoneySwap — агрегатор обменников криптовалют. Лучшие курсы, проверенные обменники, быстрый поиск.";
-  
-  const baseTitle = seoMeta?.data?.[0]?.title || defaultTitle;
-  const baseDescription = seoMeta?.data?.[0]?.description || defaultDescription;
-  
-  const meta_title = direction === "cash"
-    ? `${baseTitle} | Наличный обмен`
-    : baseTitle;
-  const meta_description = direction === "cash"
-    ? `${baseDescription} | Наличный обмен`
-    : baseDescription;
+  const defaultTitle = "MoneySwap — рейтинги финансовых сервисов и мониторинг обменников";
+  const defaultDescription =
+    "Независимые рейтинги MoneySwap: обменники криптовалюты, платёжные агенты ВЭД, виртуальные карты, eSIM, дебетовые и кредитные карты, кредиты и микрозаймы.";
+
+  const title = seoMeta?.data?.[0]?.title || defaultTitle;
+  const description = seoMeta?.data?.[0]?.description || defaultDescription;
 
   return {
-    title: meta_title,
-    description: meta_description,
+    title,
+    description,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_BASE_URL || ""),
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: meta_title,
-      description: meta_description,
+      title,
+      description,
       url: process.env.NEXT_PUBLIC_SITE_BASE_URL,
       siteName: "MoneySwap",
       images: [
