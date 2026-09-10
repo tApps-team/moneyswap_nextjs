@@ -17,14 +17,14 @@ export default function Page({ searchParams }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Обмен криптовалюты",
+    name: "обмен валюты",
     url: canonical,
     description:
       "Курсы проверенных обменников криптовалюты: выберите пару валют и город, сравните предложения и перейдите к обмену.",
     mainEntity: {
       "@type": "Service",
-      name: "Обмен криптовалюты",
-      serviceType: "Обмен криптовалюты и электронных денег",
+      name: "обмен валюты",
+      serviceType: "обмен валюты и электронных денег",
       provider: {
         "@type": "Organization",
         name: "MoneySwap",
@@ -55,7 +55,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     direction ? `?direction=${direction}` : ""
   }`;
 
-  const defaultTitle = "Обмен криптовалюты — курсы проверенных обменников | MoneySwap";
+  const defaultTitle = "обмен валюты — курсы проверенных обменников | MoneySwap";
   const defaultDescription =
     "Выберите пару валют и город: MoneySwap покажет актуальные курсы проверенных обменников, отзывы и статус их работы.";
 

@@ -29,7 +29,7 @@ export const EXCHANGE_SECTIONS: SiteSection[] = [
   {
     key: "exchange",
     href: routes.exchange,
-    title: "Обмен криптовалюты",
+    title: "обмен валюты",
     description: "Поиск выгодного курса по нужной паре валют и городу",
     icon: ArrowLeftRight,
   },

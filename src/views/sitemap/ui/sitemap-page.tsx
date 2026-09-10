@@ -22,7 +22,7 @@ export const SitemapPage = async () => {
       <div className="flex flex-col gap-2 text-sm">
         <h2 className="text-xl font-medium uppercase">Основные разделы</h2>
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.home}>
-          Обмен криптовалюты
+          обмен валюты
         </Link>
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.exchangers}>
           Список обменников

@@ -52,7 +52,7 @@ export const BlacklistPage = async () => {
           </p>
           <div className="grid grid-flow-row content-start mobile-xl:gap-[30px] gap-5 mobile-xl:text-base mobile:text-sm text-xs text-font-light-grey font-medium lg:mt-[10px] mt-0">
             <span>
-            Скам-обменник — это сайт или сервис, который выдаёт себя за легальный обмен криптовалюты, но на самом деле создан для кражи средств.
+            Скам-обменник — это сайт или сервис, который выдаёт себя за легальный обмен валюты, но на самом деле создан для кражи средств.
             Такие площадки могут использовать поддельные курсы, фальшивые отзывы или копировать дизайн известных сервисов.
             </span>
             <span>
