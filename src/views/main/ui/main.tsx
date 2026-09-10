@@ -7,9 +7,10 @@ import { MainFAQ } from "@/widgets/main-faq";
 import { MainTop } from "@/widgets/main-top";
 import { SeoFooterText } from "@/widgets/strapi";
 import { BotBannerNew, SkeletonBotBannerNew } from "@/features/bot-banner";
+import { faqTypes } from "@/entities/strapi";
 import { getSeoTexts } from "@/shared/api";
 import { SECTION_GROUPS } from "@/shared/consts";
-import { pageTypes, SegmentMarker } from "@/shared/types";
+import { pageTypes } from "@/shared/types";
 
 /**
  * Главная — витрина сервисов.
@@ -52,7 +53,7 @@ export const Main = async () => {
         <SeoFooterText data={seoTexts.data} />
       </Suspense>
       <Suspense>
-        <MainFAQ direction={SegmentMarker.no_cash} />
+        <MainFAQ primary={{ type: faqTypes.from_users, title: "Вопросы от пользователей" }} />
       </Suspense>
     </section>
   );
