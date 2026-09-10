@@ -1,6 +1,7 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { getAllCategories, getAllTags, StrapiCollectionNames } from "@/entities/strapi";
+import { GROUP_BY_SECTION_KEY, SiteSectionKey } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
 /**
@@ -9,69 +10,71 @@ import { routes } from "@/shared/router";
  * через populate. Поэтому при их изменении сбрасываем кэш списков и детальных страниц.
  */
 /**
- * Страница-хаб /ratings собирает описания разделов из их single types,
- * поэтому обновляется вместе с любой из восьми страниц разделов.
+ * Витрины, где раздел показан карточкой: главная и хаб его направления.
+ *
+ * Сбрасывать нужно и при правке отдельного предложения, а не только страницы
+ * раздела: на витринах лежат превью самих предложений.
  */
-const revalidateRatingsIndex = () => {
-  revalidatePath(routes.ratings);
-  // Главная-витрина показывает подборки всех разделов
+const revalidateShowcase = (sectionKey: SiteSectionKey) => {
   revalidatePath(routes.home);
+  const group = GROUP_BY_SECTION_KEY[sectionKey];
+  if (group) revalidatePath(group.href);
 };
 
 const revalidateVedAgents = () => {
   revalidateTag("ved-agents");
   revalidatePath(routes.ved);
   revalidatePath(`${routes.ved_agents}/[slug]`, "page");
-  revalidatePath(routes.home);
+  revalidateShowcase("ved");
 };
 
 const revalidateEsims = () => {
   revalidateTag("e-sims");
   revalidatePath(routes.esim);
   revalidatePath(`${routes.esim}/[slug]`, "page");
-  revalidatePath(routes.home);
+  revalidateShowcase("esim");
 };
 
 const revalidateVirtualCards = () => {
   revalidateTag("virtual-cards");
   revalidatePath(routes.virtual_cards);
   revalidatePath(`${routes.vc_cards}/[slug]`, "page");
-  revalidatePath(routes.home);
+  revalidateShowcase("virtual-cards");
 };
 
 const revalidatePaymentServices = () => {
   revalidateTag("payment-services");
   revalidatePath(routes.payment_services);
   revalidatePath(`${routes.payment_services}/[slug]`, "page");
-  revalidatePath(routes.home);
+  revalidateShowcase("payment-services");
 };
 
 const revalidateDebitCards = () => {
   revalidateTag("debit-cards");
   revalidatePath(routes.debit_cards);
   revalidatePath(`${routes.debit_cards}/[slug]`, "page");
-  revalidatePath(routes.home);
+  revalidateShowcase("debit-cards");
 };
 
 const revalidateCreditCards = () => {
   revalidateTag("credit-cards");
   revalidatePath(routes.credit_cards);
   revalidatePath(`${routes.credit_cards}/[slug]`, "page");
-  revalidatePath(routes.home);
+  revalidateShowcase("credit-cards");
 };
 
 const revalidateBankCredits = () => {
   revalidateTag("bank-credits");
   revalidatePath(routes.credits);
   revalidatePath(`${routes.credits}/[slug]`, "page");
-  revalidatePath(routes.home);
+  revalidateShowcase("credits");
 };
 
 const revalidateMicroloans = () => {
   revalidateTag("microloans");
   revalidatePath(routes.microloans);
   revalidatePath(`${routes.microloans}/[slug]`, "page");
-  revalidatePath(routes.home);
+  revalidateShowcase("microloans");
 };
 
 export async function POST(req: Request) {
@@ -97,7 +100,7 @@ export async function POST(req: Request) {
         path = `${routes.blog}${routes.article}/${entry?.url_name}`;
         console.log("Article path constructed:", path);
         // Инвалидируем теги кэша для статьи
-        revalidateTag('article');
+        revalidateTag("article");
         if (entry?.url_name) {
           revalidateTag(`article-${entry.url_name}`);
           console.log("✓ Tag revalidated: article-" + entry.url_name);
@@ -120,8 +123,8 @@ export async function POST(req: Request) {
         path = `${routes.blog}${routes.category}/${entry?.category}`;
         console.log("Category path constructed:", path);
         // Инвалидируем теги кэша для категории
-        revalidateTag('categories');
-        revalidateTag('category-articles');
+        revalidateTag("categories");
+        revalidateTag("category-articles");
         if (entry?.category) {
           revalidateTag(`category-${entry.category}`);
           console.log("✓ Tag revalidated: category-" + entry.category);
@@ -133,8 +136,8 @@ export async function POST(req: Request) {
         path = `${routes.blog}${routes.tag}/${entry?.tag}`;
         console.log("Tag path constructed:", path);
         // Инвалидируем теги кэша для тега
-        revalidateTag('tags');
-        revalidateTag('tag-articles');
+        revalidateTag("tags");
+        revalidateTag("tag-articles");
         if (entry?.tag) {
           revalidateTag(`tag-${entry.tag}`);
           console.log("✓ Tag revalidated: tag-" + entry.tag);
@@ -146,28 +149,28 @@ export async function POST(req: Request) {
         path = routes.about;
         console.log("About path constructed:", path);
         // Инвалидируем теги кэша для about
-        revalidateTag('about');
+        revalidateTag("about");
         revalidatePath(path);
         break;
       case StrapiCollectionNames.partner:
         path = routes.partners;
         console.log("Partner path constructed:", path);
         // Инвалидируем теги кэша для partner
-        revalidateTag('partner');
+        revalidateTag("partner");
         revalidatePath(path);
         break;
       case StrapiCollectionNames.help:
         path = routes.help_faq;
         console.log("Help path constructed:", path);
         // Инвалидируем теги кэша для help
-        revalidateTag('help');
+        revalidateTag("help");
         revalidatePath(path);
         break;
       case StrapiCollectionNames.faq:
         path = routes.help_faq;
         console.log("FAQ path constructed:", path);
         // Инвалидируем теги кэша для FAQ
-        revalidateTag('faq');
+        revalidateTag("faq");
         // Если есть тип FAQ, инвалидируем конкретный тег
         if (entry?.type) {
           revalidateTag(`faq-${entry.type}`);
@@ -178,7 +181,7 @@ export async function POST(req: Request) {
       case StrapiCollectionNames.topic:
         console.log("Topic revalidation");
         // Инвалидируем теги кэша для topic
-        revalidateTag('topic-articles');
+        revalidateTag("topic-articles");
         if (entry?.type) {
           revalidateTag(`topic-${entry.type}`);
           console.log("✓ Tag revalidated: topic-" + entry.type);
@@ -190,7 +193,7 @@ export async function POST(req: Request) {
         revalidateTag("ved-page");
         revalidateTag("ved-agents");
         revalidatePath(routes.ved);
-        revalidateRatingsIndex();
+        revalidateShowcase("ved");
         break;
       case StrapiCollectionNames.vedAgent:
         path = entry?.slug ? `${routes.ved_agents}/${entry.slug}` : routes.ved;
@@ -206,7 +209,7 @@ export async function POST(req: Request) {
         revalidateTag("vc-page");
         revalidateTag("virtual-cards");
         revalidatePath(routes.virtual_cards);
-        revalidateRatingsIndex();
+        revalidateShowcase("virtual-cards");
         break;
       case StrapiCollectionNames.virtualCard:
         path = entry?.slug ? `${routes.vc_cards}/${entry.slug}` : routes.virtual_cards;
@@ -222,7 +225,7 @@ export async function POST(req: Request) {
         revalidateTag("esim-page");
         revalidateTag("e-sims");
         revalidatePath(routes.esim);
-        revalidateRatingsIndex();
+        revalidateShowcase("esim");
         break;
       case StrapiCollectionNames.eSim:
         path = entry?.slug ? `${routes.esim}/${entry.slug}` : routes.esim;
@@ -298,7 +301,7 @@ export async function POST(req: Request) {
         console.log("Payment services revalidation:", model);
         if (model === StrapiCollectionNames.paymentServicePage) {
           revalidateTag("payment-service-page");
-          revalidateRatingsIndex();
+          revalidateShowcase("payment-services");
         }
         if (entry?.slug) {
           revalidateTag(`payment-service-${entry.slug}`);
@@ -316,7 +319,7 @@ export async function POST(req: Request) {
         console.log("Debit cards revalidation:", model);
         if (model === StrapiCollectionNames.debitCardPage) {
           revalidateTag("debit-card-page");
-          revalidateRatingsIndex();
+          revalidateShowcase("debit-cards");
         }
         if (entry?.slug) {
           revalidateTag(`debit-card-${entry.slug}`);
@@ -334,7 +337,7 @@ export async function POST(req: Request) {
         console.log("Credit cards revalidation:", model);
         if (model === StrapiCollectionNames.creditCardPage) {
           revalidateTag("credit-card-page");
-          revalidateRatingsIndex();
+          revalidateShowcase("credit-cards");
         }
         if (entry?.slug) {
           revalidateTag(`credit-card-${entry.slug}`);
@@ -352,7 +355,7 @@ export async function POST(req: Request) {
         console.log("Bank credits revalidation:", model);
         if (model === StrapiCollectionNames.bankCreditPage) {
           revalidateTag("bank-credit-page");
-          revalidateRatingsIndex();
+          revalidateShowcase("credits");
         }
         if (entry?.slug) {
           revalidateTag(`bank-credit-${entry.slug}`);
@@ -370,7 +373,7 @@ export async function POST(req: Request) {
         console.log("Microloans revalidation:", model);
         if (model === StrapiCollectionNames.microloanPage) {
           revalidateTag("microloan-page");
-          revalidateRatingsIndex();
+          revalidateShowcase("microloans");
         }
         if (entry?.slug) {
           revalidateTag(`microloan-${entry.slug}`);
@@ -407,10 +410,10 @@ export async function POST(req: Request) {
 
     console.log("=== REVALIDATION COMPLETE ===");
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       message: "Revalidation successful",
       path: path || "none",
-      model: model 
+      model: model,
     });
   } catch (error) {
     console.error("Error during revalidation:", error);

@@ -7,7 +7,7 @@ import { Breadcrumbs } from "@/shared/ui";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL || "";
 
 const DEFAULT_DESCRIPTION =
-  "Микрозаймы онлайн: лимиты, сроки, ставка в день и полная стоимость займа в проверенных МФО — сравнение условий на MoneySwap.";
+  "Займы онлайн: лимиты, сроки, ставка в день и полная стоимость займа в проверенных МФО — сравнение условий на MoneySwap.";
 
 function getPageDescription(headerContent: { paragraph?: { content?: string } }[] | undefined) {
   const paragraph = headerContent?.find(
@@ -21,7 +21,7 @@ function getPageDescription(headerContent: { paragraph?: { content?: string } }[
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data: page } = await getMicroloanPage();
-  const title = page?.title ? `${page.title} | MoneySwap` : "Микрозаймы | MoneySwap";
+  const title = page?.title ? `${page.title} | MoneySwap` : "Займы | MoneySwap";
   const description = getPageDescription(page?.header_content);
 
   return {
@@ -49,7 +49,7 @@ export default async function Page() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Рейтинг МФО",
+    name: "Рейтинг займов в МФО",
     description: DEFAULT_DESCRIPTION,
     itemListElement: loans.map((loan, idx) => ({
       "@type": "ListItem",

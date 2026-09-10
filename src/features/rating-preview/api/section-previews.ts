@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { getTopExchangers } from "@/entities/exchanger";
+import { getBlackList, getTopExchangers } from "@/entities/exchanger";
 import {
   getBankCredits,
   getCreditCards,
@@ -13,6 +13,7 @@ import {
 import { RatingSectionKey } from "@/shared/consts";
 import {
   toBankCreditPreview,
+  toBlacklistPreview,
   toCreditCardPreview,
   toDebitCardPreview,
   toEsimPreview,
@@ -85,6 +86,19 @@ export const getTopExchangerPreviews = cache(
     } catch (error) {
       // Страница-витрина не должна падать из-за одного блока
       console.error("getTopExchangerPreviews error:", error);
+      return [];
+    }
+  },
+);
+
+/** Чёрный список — тоже из основного API. getBlackList бросает, поэтому try/catch. */
+export const getBlacklistPreviews = cache(
+  async (limit = PREVIEW_LIMIT): Promise<RatingPreview[]> => {
+    try {
+      const blacklist = await getBlackList();
+      return (blacklist ?? []).slice(0, limit).map(toBlacklistPreview);
+    } catch (error) {
+      console.error("getBlacklistPreviews error:", error);
       return [];
     }
   },

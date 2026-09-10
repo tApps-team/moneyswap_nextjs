@@ -1,70 +1,76 @@
 import { Headset } from "lucide-react";
 import { SVGProps } from "react";
 import { FileIcon, PeopleIcon, QuestionIcon } from "@/shared/assets";
-import { SECTION_GROUPS, getGroupSections } from "@/shared/consts";
+import { NAV_ENTRIES, entryShortTitle, getGroupSections } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
 const HeadsetIcon = Headset as (props: SVGProps<SVGSVGElement>) => JSX.Element;
 
 type NavbarIcon = (props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element;
 
-type NavbarLink = {
+export type NavbarLink = {
   href: string;
   value: string;
   description?: string;
   icon?: NavbarIcon | string;
 };
 
-/** Колонка мега-панели: заголовок группы и её разделы. */
-export type NavbarGroup = {
-  key: string;
-  title: string;
-  subtitle: string;
+export type NavbarItem = {
+  /** Куда ведёт сам пункт: хаб группы или страница раздела. */
   href: string;
-  icon: NavbarIcon;
-  items: NavbarLink[];
-};
-
-type NavbarItems = {
-  href: string;
+  /** Подпись для десктопа — сокращённая там, где полная не влезает в строку. */
   value: string;
+  /** Подпись для бургера: в столбик помещается полное название. */
+  fullValue?: string;
   icon?: NavbarIcon | string;
   className?: string;
-  /** «mega» — панель во всю ширину экрана, колонка на каждую группу разделов. */
-  layout?: "mega";
-  groups?: NavbarGroup[];
+  /** Разделы группы в выпадающей панели. Нет — пункт рисуется обычной ссылкой. */
+  items?: NavbarLink[];
+  /** Ссылка «Подробнее» в подвале панели: тот же хаб, что и сам пункт. */
+  moreHref?: string;
+  /** Панель «Поддержки» — одна колонка ссылок без хаба. */
   children?: NavbarLink[];
+  /**
+   * Пункт только для бургера. На десктопе шесть направлений и «Поддержка» уже
+   * на пределе по ширине, а в мобильном меню место есть.
+   */
+  mobileOnly?: boolean;
+  /** Панель крайних правых пунктов прижимается к правому краю, иначе уезжает за экран. */
+  align?: "start" | "end";
 };
 
-/** Группы и разделы берём из общего конфига, чтобы меню, футер и /ratings не расходились. */
-const serviceGroups: NavbarGroup[] = SECTION_GROUPS.map((group) => ({
-  key: group.key,
-  title: group.title,
-  subtitle: group.subtitle,
-  href: group.href,
-  icon: group.icon as unknown as NavbarIcon,
-  items: getGroupSections(group).map((section) => ({
-    href: section.href,
-    value: section.title,
-    description: section.description,
-    icon: section.icon as unknown as NavbarIcon,
-  })),
-}));
+/** Пункты направлений берём из общего конфига, чтобы меню и футер не расходились. */
+const sectionItems: NavbarItem[] = NAV_ENTRIES.map((entry) =>
+  entry.kind === "group"
+    ? {
+        href: entry.group.href,
+        value: entryShortTitle(entry),
+        fullValue: entry.group.title,
+        moreHref: entry.group.href,
+        items: getGroupSections(entry.group).map((section) => ({
+          href: section.href,
+          value: section.title,
+          description: section.description,
+          icon: section.icon as unknown as NavbarIcon,
+        })),
+      }
+    : {
+        href: entry.section.href,
+        value: entry.section.title,
+      },
+);
 
-export const navbarItems: NavbarItems[] = [
-  {
-    href: routes.ratings,
-    value: "Сервисы",
-    layout: "mega",
-    groups: serviceGroups,
-  },
+export const navbarItems: NavbarItem[] = [
+  ...sectionItems,
   {
     href: routes.blog,
     value: "Блог",
+    mobileOnly: true,
   },
   {
     href: routes.help_article,
     value: "Поддержка",
+    align: "end",
     children: [
       {
         href: `${routes.about}`,
@@ -99,3 +105,6 @@ export const navbarItems: NavbarItems[] = [
     ],
   },
 ];
+
+/** Десктопное меню: без пунктов, которые живут только в бургере. */
+export const desktopNavbarItems = navbarItems.filter((item) => !item.mobileOnly);

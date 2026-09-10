@@ -12,8 +12,15 @@ export interface SeoTextsBlock {
 export enum pageTypes {
   /** Обменная витрина /exchange — исторически заведена в Strapi как «main». */
   main = "main",
-  /** Главная-витрина рейтингов: блок появится, когда тексты заведут в Strapi. */
+  /**
+   * Главная-витрина. Ключ старше удаления /ratings — за ним стоит живой контент
+   * в Strapi, поэтому переименовывать его не стали.
+   */
   ratings_main = "ratings_main",
+  /** Хабы групп. Значения нужно завести в Strapi; до тех пор работают фолбэки. */
+  crypto_services = "crypto_services",
+  abroad_services = "abroad_services",
+  cards_services = "cards_services",
   exchange_cash = "exchange_cash",
   exchange_noncash = "exchange_noncash",
   sell_cash = "sell_cash",

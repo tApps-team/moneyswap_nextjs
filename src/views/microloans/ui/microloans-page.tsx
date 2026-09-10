@@ -7,7 +7,8 @@ export const MicroloansPage = async () => {
   const [pageRes, loans] = await Promise.all([getMicroloanPage(), getAllMicroloans()]);
 
   const page = pageRes.data;
-  const title = page?.title ?? "Микрозаймы онлайн";
+  // Заголовок приходит из Strapi; фолбэк — на случай, когда CMS недоступна
+  const title = page?.title ?? "Займы онлайн";
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px] min-w-0">

@@ -14,9 +14,9 @@ export default function Loading() {
         </div>
       </div>
 
-      {/* Сетка направлений */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mobile-xl:gap-5">
-        {Array.from({ length: 4 }).map((_, index) => (
+      {/* Сетка направлений: шесть карточек, как в SectionGroupsGrid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mobile-xl:gap-5">
+        {Array.from({ length: 6 }).map((_, index) => (
           <Skeleton key={index} className="h-[260px] w-full rounded-[20px] bg-new-dark-grey" />
         ))}
       </div>

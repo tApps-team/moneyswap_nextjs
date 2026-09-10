@@ -19,8 +19,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // представителю списка и детальной карточки рейтинга.
 const DEFAULT_PAGES = [
   "/",
+  "/crypto-services",
+  "/abroad-services",
+  "/cards-services",
   "/exchange",
-  "/ratings",
   "/crypto-exchangers",
   "/credit-cards",
   "/microloans",

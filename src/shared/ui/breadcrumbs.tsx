@@ -3,22 +3,26 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { ALL_SECTIONS } from "@/shared/consts";
+import {
+  ALL_SECTIONS,
+  GROUP_BY_SECTION_KEY,
+  SECTION_GROUPS,
+  SiteSectionKey,
+} from "@/shared/consts";
 import { routes } from "@/shared/router";
 
 // Сегменты, у которых нет своей записи в конфиге разделов
 const staticSegmentNames: Record<string, string> = {
   "": "Главная",
-  "blog": "Блог",
-  "help": "Помощь",
+  blog: "Блог",
+  help: "Помощь",
   "for-partners": "Партнёрам",
-  "contacts": "Контакты",
-  "about": "О нас",
-  "privacy": "Политика конфиденциальности",
-  "terms": "Пользовательское соглашение",
+  contacts: "Контакты",
+  about: "О нас",
+  privacy: "Политика конфиденциальности",
+  terms: "Пользовательское соглашение",
   "pricing-policy": "Политика тарификации",
   "blacklist-terms": "Положение о Чёрном списке",
-  ratings: "Рейтинги",
   agents: "Агент",
 };
 
@@ -27,9 +31,15 @@ const sectionSegmentNames = Object.fromEntries(
   ALL_SECTIONS.map((section) => [section.href.replace(/^\//, ""), section.title]),
 );
 
+/** Хабы направлений: названия тоже из конфига. */
+const hubSegmentNames = Object.fromEntries(
+  SECTION_GROUPS.map((group) => [group.href.replace(/^\//, ""), group.title]),
+);
+
 const segmentNameMap: Record<string, string> = {
   ...staticSegmentNames,
   ...sectionSegmentNames,
+  ...hubSegmentNames,
 };
 
 export interface BreadcrumbsProps {
@@ -49,9 +59,16 @@ export interface BreadcrumbsProps {
   debitCardName?: string;
 }
 
-/** Все разделы-рейтинги живут под хабом /ratings — добавляем его промежуточной крошкой. */
-function pushRatingsCrumb(breadcrumbs: { href: string; label: string }[]) {
-  breadcrumbs.push({ href: routes.ratings, label: segmentNameMap["ratings"] });
+/**
+ * Раздел внутри направления получает промежуточную крошку — хаб своей группы.
+ * У разделов без группы (ВЭД, Займы, Кредиты) её нет, и функция ничего не делает.
+ */
+function pushGroupCrumb(
+  breadcrumbs: { href: string; label: string }[],
+  sectionKey: SiteSectionKey,
+) {
+  const group = GROUP_BY_SECTION_KEY[sectionKey];
+  if (group) breadcrumbs.push({ href: group.href, label: group.title });
 }
 
 export function getSmartBreadcrumbs({
@@ -75,62 +92,84 @@ export function getSmartBreadcrumbs({
 
   // /exchange/[slug]
   if (segments[0] === "exchange" && segments[1]) {
+    pushGroupCrumb(breadcrumbs, "exchange");
     breadcrumbs.push({ href: routes.exchange, label: segmentNameMap["exchange"] });
-    breadcrumbs.push({ href: `/exchange/${segments[1]}`, label: exchange || decodeURIComponent(segments[1]) });
+    breadcrumbs.push({
+      href: `/exchange/${segments[1]}`,
+      label: exchange || decodeURIComponent(segments[1]),
+    });
     return breadcrumbs;
   }
 
   // /exchange — витрина обмена
   if (segments[0] === "exchange" && segments.length === 1) {
+    pushGroupCrumb(breadcrumbs, "exchange");
     breadcrumbs.push({ href: routes.exchange, label: segmentNameMap["exchange"] });
     return breadcrumbs;
   }
 
   // /crypto-exchangers/[slug]
   if (segments[0] === "crypto-exchangers" && segments[1]) {
+    pushGroupCrumb(breadcrumbs, "exchangers");
     breadcrumbs.push({ href: `/crypto-exchangers`, label: segmentNameMap["crypto-exchangers"] });
-    breadcrumbs.push({ href: `/crypto-exchangers/${segments[1]}`, label: exchangerName || decodeURIComponent(segments[1]) });
+    breadcrumbs.push({
+      href: `/crypto-exchangers/${segments[1]}`,
+      label: exchangerName || decodeURIComponent(segments[1]),
+    });
     return breadcrumbs;
   }
 
   // /blacklist/[slug]
   if (segments[0] === "blacklist" && segments[1]) {
+    pushGroupCrumb(breadcrumbs, "blacklist");
     breadcrumbs.push({ href: `/blacklist`, label: segmentNameMap["blacklist"] });
-    breadcrumbs.push({ href: `/blacklist/${segments[1]}`, label: exchangerName || decodeURIComponent(segments[1]) });
+    breadcrumbs.push({
+      href: `/blacklist/${segments[1]}`,
+      label: exchangerName || decodeURIComponent(segments[1]),
+    });
     return breadcrumbs;
   }
 
   // /blog/article/[slug]
   if (segments[0] === "blog" && segments[1] === "article" && segments[2]) {
     breadcrumbs.push({ href: `/blog`, label: segmentNameMap["blog"] });
-    breadcrumbs.push({ href: `/blog/article/${segments[2]}`, label: title || decodeURIComponent(segments[2]) });
+    breadcrumbs.push({
+      href: `/blog/article/${segments[2]}`,
+      label: title || decodeURIComponent(segments[2]),
+    });
     return breadcrumbs;
   }
 
   // /blog/category/[slug]
   if (segments[0] === "blog" && segments[1] === "category" && segments[2]) {
     breadcrumbs.push({ href: `/blog`, label: segmentNameMap["blog"] });
-    breadcrumbs.push({ href: `/blog/category/${segments[2]}`, label: categoryName || decodeURIComponent(segments[2]) });
+    breadcrumbs.push({
+      href: `/blog/category/${segments[2]}`,
+      label: categoryName || decodeURIComponent(segments[2]),
+    });
     return breadcrumbs;
   }
 
   // /blog/tag/[slug]
   if (segments[0] === "blog" && segments[1] === "tag" && segments[2]) {
     breadcrumbs.push({ href: `/blog`, label: segmentNameMap["blog"] });
-    breadcrumbs.push({ href: `/blog/tag/${segments[2]}`, label: tagName || decodeURIComponent(segments[2]) });
+    breadcrumbs.push({
+      href: `/blog/tag/${segments[2]}`,
+      label: tagName || decodeURIComponent(segments[2]),
+    });
     return breadcrumbs;
   }
 
   // /ved
   if (segments[0] === "ved" && segments.length === 1) {
-    pushRatingsCrumb(breadcrumbs);
+    pushGroupCrumb(breadcrumbs, "ved");
     breadcrumbs.push({ href: routes.ved, label: segmentNameMap["ved"] });
     return breadcrumbs;
   }
 
   // /ved/agents/[slug]
   if (segments[0] === "ved" && segments[1] === "agents" && segments[2]) {
-    pushRatingsCrumb(breadcrumbs);
+    pushGroupCrumb(breadcrumbs, "ved");
     breadcrumbs.push({ href: routes.ved, label: segmentNameMap["ved"] });
     breadcrumbs.push({
       href: `${routes.ved_agents}/${segments[2]}`,
@@ -141,14 +180,14 @@ export function getSmartBreadcrumbs({
 
   // /virtual-cards
   if (segments[0] === "virtual-cards" && segments.length === 1) {
-    pushRatingsCrumb(breadcrumbs);
+    pushGroupCrumb(breadcrumbs, "virtual-cards");
     breadcrumbs.push({ href: routes.virtual_cards, label: segmentNameMap["virtual-cards"] });
     return breadcrumbs;
   }
 
   // /virtual-cards/cards/[slug]
   if (segments[0] === "virtual-cards" && segments[1] === "cards" && segments[2]) {
-    pushRatingsCrumb(breadcrumbs);
+    pushGroupCrumb(breadcrumbs, "virtual-cards");
     breadcrumbs.push({ href: routes.virtual_cards, label: segmentNameMap["virtual-cards"] });
     breadcrumbs.push({
       href: `${routes.vc_cards}/${segments[2]}`,
@@ -159,14 +198,14 @@ export function getSmartBreadcrumbs({
 
   // /esim
   if (segments[0] === "esim" && segments.length === 1) {
-    pushRatingsCrumb(breadcrumbs);
+    pushGroupCrumb(breadcrumbs, "esim");
     breadcrumbs.push({ href: routes.esim, label: segmentNameMap["esim"] });
     return breadcrumbs;
   }
 
   // /esim/[slug]
   if (segments[0] === "esim" && segments[1] && segments.length === 2) {
-    pushRatingsCrumb(breadcrumbs);
+    pushGroupCrumb(breadcrumbs, "esim");
     breadcrumbs.push({ href: routes.esim, label: segmentNameMap["esim"] });
     breadcrumbs.push({
       href: `${routes.esim}/${segments[1]}`,
@@ -187,7 +226,7 @@ export function getSmartBreadcrumbs({
 
   const ratingSection = ratingSections.find((section) => section.segment === segments[0]);
   if (ratingSection) {
-    pushRatingsCrumb(breadcrumbs);
+    pushGroupCrumb(breadcrumbs, ratingSection.segment as SiteSectionKey);
     breadcrumbs.push({
       href: ratingSection.route,
       label: segmentNameMap[ratingSection.segment],
@@ -228,24 +267,39 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = (props) => {
   const breadcrumbs = getSmartBreadcrumbs({ ...props, pathname });
 
   // SEO: schema.org BreadcrumbList
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL || '';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL || "";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": breadcrumbs.map((b, i) => ({
+    itemListElement: breadcrumbs.map((b, i) => ({
       "@type": "ListItem",
-      "position": i + 1,
-      "name": b.label,
-      "item": `${baseUrl}${b.href}`,
+      position: i + 1,
+      name: b.label,
+      item: `${baseUrl}${b.href}`,
     })),
   };
 
   return (
-    <nav aria-label="Хлебные крошки" className="mb-4 lg:-mt-4 mt-0 mobile-xl:bg-new-dark-grey bg-transparent w-fit mobile-xl:px-4 mobile-xl:py-3 p-0 mobile-xl:rounded-[10px] uppercase mobile-xl:text-font-light-grey text-font-dark-grey font-semibold max:text-base xl:text-sm mobile:text-xs text-2xs truncate" itemScope itemType="https://schema.org/BreadcrumbList">
+    <nav
+      aria-label="Хлебные крошки"
+      className="mb-4 lg:-mt-4 mt-0 mobile-xl:bg-new-dark-grey bg-transparent w-fit mobile-xl:px-4 mobile-xl:py-3 p-0 mobile-xl:rounded-[10px] uppercase mobile-xl:text-font-light-grey text-font-dark-grey font-semibold max:text-base xl:text-sm mobile:text-xs text-2xs truncate"
+      itemScope
+      itemType="https://schema.org/BreadcrumbList"
+    >
       <ol className="flex flex-wrap gap-1 justify-start justify-items-start items-center">
         {breadcrumbs.map((b, i) => (
-          <li key={b.href} className="flex items-center" itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-            {i !== 0 && <span className="mr-1" aria-hidden="true">/</span>}
+          <li
+            key={b.href}
+            className="flex items-center"
+            itemProp="itemListElement"
+            itemScope
+            itemType="https://schema.org/ListItem"
+          >
+            {i !== 0 && (
+              <span className="mr-1" aria-hidden="true">
+                /
+              </span>
+            )}
             {i < breadcrumbs.length - 1 ? (
               <Link href={b.href} className="hover:underline" itemProp="item">
                 <span itemProp="name">{b.label}</span>

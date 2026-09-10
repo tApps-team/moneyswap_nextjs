@@ -47,7 +47,7 @@ export type SiteSectionKey = ExchangeSectionKey | RatingSectionKey;
 /**
  * Все разделы витрины.
  * Важно: рейтинги остаются отдельным списком (RATING_SECTIONS) — только они
- * имеют страницы в Strapi и попадают в хаб /ratings и его JSON-LD.
+ * имеют коллекции в Strapi, из которых собираются подборки карточек.
  */
 export const ALL_SECTIONS: SiteSection[] = [...EXCHANGE_SECTIONS, ...RATING_SECTIONS];
 

@@ -1,70 +1,69 @@
-import { Banknote, Globe, LucideIcon, Plane, Repeat } from "lucide-react";
+import { Bitcoin, LucideIcon, Plane, WalletCards } from "lucide-react";
 import { routes } from "../router";
 import { RATING_SECTIONS, RatingSection } from "./rating-sections";
 import { SECTION_BY_KEY, SiteSection, SiteSectionKey } from "./site-sections";
 
-export type SectionGroupKey =
-  | "currency-exchange"
-  | "international-payments"
-  | "abroad-services"
-  | "bank-products";
+export type SectionGroupKey = "crypto" | "abroad-services" | "cards";
 
 export interface SectionGroup {
   key: SectionGroupKey;
   title: string;
-  /** Одна строка для меню, карточки группы на главной и шапки блока-подборки. */
+  /** Короткое имя для навбара: полное название не влезает в строку на 1024. */
+  shortTitle?: string;
+  /** Одна строка для меню, карточки группы на главной и шапки хаба. */
   subtitle: string;
   icon: LucideIcon;
-  /** Куда ведёт заголовок группы: обмен — на свою страницу, остальные — на якорь хаба. */
+  /** Хаб группы: и пункт меню, и «Подробнее», и средняя хлебная крошка ведут сюда. */
   href: string;
   sectionKeys: SiteSectionKey[];
 }
 
 /**
  * Смысловые группы разделов — единый источник для меню, футера,
- * хаба /ratings и подборок на главной.
+ * хабов и подборок на главной.
+ *
+ * Группа означает ровно одно: у направления есть своя страница-хаб. Разделы без
+ * группы (ВЭД, Займы, Кредиты) живут в NAV_ENTRIES отдельным видом записи.
  */
 export const SECTION_GROUPS: SectionGroup[] = [
   {
-    key: "currency-exchange",
-    title: "Обмен валют",
+    key: "crypto",
+    title: "Криптовалюты",
     subtitle: "Обменники криптовалюты, курсы и проверка на добросовестность",
-    icon: Repeat,
-    href: routes.exchangers,
+    icon: Bitcoin,
+    href: routes.crypto_services,
     sectionKeys: ["exchangers", "exchange", "blacklist"],
-  },
-  {
-    key: "international-payments",
-    title: "Международные платежи",
-    subtitle: "Переводы за рубеж и карты для оплаты в других странах",
-    icon: Globe,
-    href: `${routes.ratings}#international-payments`,
-    sectionKeys: ["ved", "virtual-cards"],
   },
   {
     key: "abroad-services",
     title: "Сервисы за рубежом",
+    shortTitle: "За рубежом",
     subtitle: "Оплата зарубежных подписок, игр и мобильная связь",
     icon: Plane,
-    href: `${routes.ratings}#abroad-services`,
+    href: routes.abroad_services,
     sectionKeys: ["payment-services", "esim"],
   },
   {
-    key: "bank-products",
-    title: "Банковские продукты",
-    subtitle: "Карты, кредиты и займы российских банков и МФО",
-    icon: Banknote,
-    href: `${routes.ratings}#bank-products`,
-    sectionKeys: ["debit-cards", "credit-cards", "credits", "microloans"],
+    key: "cards",
+    title: "Карты",
+    subtitle: "Кредитные, дебетовые и виртуальные карты для оплаты где угодно",
+    icon: WalletCards,
+    href: routes.cards_services,
+    sectionKeys: ["credit-cards", "debit-cards", "virtual-cards"],
   },
 ];
 
-/** Все разделы группы — включая те, у которых нет страницы в Strapi. */
+/** Все разделы группы — включая те, у которых нет коллекции в Strapi. */
 export const getGroupSections = (group: SectionGroup): SiteSection[] =>
   group.sectionKeys.map((key) => SECTION_BY_KEY[key]);
 
-/** Только разделы-рейтинги: для подборок на главной и группировки хаба. */
+/** Только разделы с коллекцией в Strapi: для подборок карточек. */
 export const getGroupRatingSections = (group: SectionGroup): RatingSection[] =>
   group.sectionKeys
     .map((key) => RATING_SECTIONS.find((section) => section.key === key))
     .filter((section): section is RatingSection => Boolean(section));
+
+/** Группа раздела — для хлебных крошек и точечной инвалидации хаба. */
+export const GROUP_BY_SECTION_KEY = Object.fromEntries(
+  SECTION_GROUPS.flatMap((group) => group.sectionKeys.map((key) => [key, group])),
+) as Partial<Record<SiteSectionKey, SectionGroup>>;

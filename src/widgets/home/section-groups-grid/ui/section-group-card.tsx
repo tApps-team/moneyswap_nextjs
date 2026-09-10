@@ -1,17 +1,36 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { FC } from "react";
-import { SectionGroup, getGroupSections } from "@/shared/consts";
+import {
+  NavEntry,
+  entryHref,
+  entryIcon,
+  entrySubtitle,
+  entryTitle,
+  getGroupSections,
+} from "@/shared/consts";
 
 interface SectionGroupCardProps {
-  group: SectionGroup;
+  entry: NavEntry;
   index?: number;
 }
 
-/** Карточка группы: заголовок, описание и прямые ссылки на разделы внутри. */
-export const SectionGroupCard: FC<SectionGroupCardProps> = ({ group, index = 0 }) => {
-  const sections = getGroupSections(group);
-  const Icon = group.icon;
+/**
+ * Карточка направления: заголовок, описание и ссылки внутрь.
+ *
+ * У группы в нижней строке перечислены её разделы, у отдельного сервиса —
+ * одна ссылка на рейтинг, чтобы карточки в сетке не разъезжались по высоте.
+ */
+export const SectionGroupCard: FC<SectionGroupCardProps> = ({ entry, index = 0 }) => {
+  const Icon = entryIcon(entry);
+  const links =
+    entry.kind === "group"
+      ? getGroupSections(entry.group).map((section) => ({
+          key: section.key,
+          href: section.href,
+          title: section.title,
+        }))
+      : [{ key: entry.key, href: entry.section.href, title: "Смотреть рейтинг" }];
 
   return (
     <div
@@ -22,22 +41,22 @@ export const SectionGroupCard: FC<SectionGroupCardProps> = ({ group, index = 0 }
         <Icon className="size-6" strokeWidth={1.5} />
       </span>
 
-      <Link href={group.href} className="grid gap-2 min-w-0">
+      <Link href={entryHref(entry)} className="grid gap-2 min-w-0">
         <h3 className="unbounded_font uppercase leading-tight text-sm mobile-xl:text-base font-normal text-white transition-colors group-hover:text-yellow-main break-words">
-          {group.title}
+          {entryTitle(entry)}
         </h3>
-        <p className="text-light-gray text-sm leading-snug">{group.subtitle}</p>
+        <p className="text-light-gray text-sm leading-snug">{entrySubtitle(entry)}</p>
       </Link>
 
       <ul className="grid content-start gap-1.5 min-w-0">
-        {sections.map((section) => (
-          <li key={section.key} className="min-w-0">
+        {links.map((link) => (
+          <li key={link.key} className="min-w-0">
             <Link
-              href={section.href}
+              href={link.href}
               className="group/link flex items-center gap-2 min-w-0 text-sm text-light-gray transition-colors hover:text-yellow-main"
             >
               <ArrowRight className="size-3.5 shrink-0 transition-transform group-hover/link:translate-x-1" />
-              <span className="truncate">{section.title}</span>
+              <span className="truncate">{link.title}</span>
             </Link>
           </li>
         ))}

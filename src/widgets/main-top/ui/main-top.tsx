@@ -29,11 +29,13 @@ export const MainTop = () => {
         </p>
 
         <div className="relative z-10 grid mobile-xl:grid-flow-col grid-flow-row gap-3 mobile-xl:justify-center justify-items-stretch w-full mobile-xl:w-auto mt-1">
+          {/* Якорь на сетку направлений: единого хаба больше нет, а выделять
+              одно направление в ущерб остальным незачем */}
           <Link
-            href={routes.ratings}
+            href="#sections"
             className="group inline-flex w-full mobile-xl:w-auto items-center justify-center gap-2 rounded-[10px] bg-yellow-main px-6 py-3 text-sm font-medium uppercase text-black transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] motion-reduce:transition-none"
           >
-            Смотреть рейтинги
+            Все направления
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </Link>
           <Link

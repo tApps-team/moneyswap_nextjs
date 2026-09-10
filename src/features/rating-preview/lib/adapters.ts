@@ -1,4 +1,4 @@
-import { TopExchanger } from "@/entities/exchanger";
+import { CryptoExchangerBlackList, TopExchanger } from "@/entities/exchanger";
 import {
   BankCredit,
   CreditCard,
@@ -246,5 +246,29 @@ export const toExchangerPreview = (exchanger: TopExchanger): RatingPreview => {
       { label: "Положительных", value: String(positive) },
       { label: "Отрицательных", value: String(negative) },
     ]),
+  };
+};
+
+/**
+ * Чёрный список.
+ * API отдаёт только имя и id, поэтому карточка выходит минимальной: заглушка
+ * вместо логотипа, одна строка со статусом и ссылка на подробности.
+ */
+export const toBlacklistPreview = (exchanger: CryptoExchangerBlackList): RatingPreview => {
+  const name = exchanger.exchangerName?.ru || exchanger.exchangerName?.en || "—";
+  const alias = exchanger.exchangerName?.en;
+
+  return {
+    id: `blacklist:${exchanger.id}`,
+    entityId: exchanger.id,
+    sectionKey: "blacklist",
+    name,
+    subtitle: alias && alias !== name ? alias : null,
+    logo: null,
+    href: `${routes.blacklist}/exchanger-${exchanger.id}`,
+    isVip: false,
+    rating: null,
+    reviewsCount: 0,
+    fields: [{ label: "Статус", value: "В чёрном списке" }],
   };
 };

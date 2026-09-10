@@ -34,13 +34,14 @@ export interface RatingSection {
 /*
  * Форма совпадает с SiteSection (src/shared/consts/site-sections.ts) — там
  * рейтинги объединяются с разделами обмена. Отдельным остаётся ключ:
- * RatingSectionKey связан с PAGE_LOADERS хаба /ratings, поэтому разделы без
- * страницы в Strapi сюда попадать не должны.
+ * RatingSectionKey связан с исчерпывающим switch в getSectionPreviews
+ * (src/features/rating-preview/api/section-previews.ts), поэтому разделы без
+ * коллекции в Strapi сюда попадать не должны.
  */
 
 /**
  * Единый список разделов-рейтингов.
- * Используется в навбаре, футере и на странице-хабе /ratings,
+ * Используется в навбаре, футере, на главной и на хабах групп,
  * чтобы порядок и названия разделов не расходились между местами.
  */
 export const RATING_SECTIONS: RatingSection[] = [
@@ -97,8 +98,8 @@ export const RATING_SECTIONS: RatingSection[] = [
   {
     key: "microloans",
     href: routes.microloans,
-    title: "Микрозаймы",
-    description: "Надёжные МФО с быстрым одобрением и понятными условиями",
+    title: "Займы",
+    description: "Займы онлайн в проверенных МФО: лимиты, сроки и полная стоимость",
     icon: Coins,
   },
 ];

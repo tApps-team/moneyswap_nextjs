@@ -23,18 +23,25 @@ interface GroupPreviewsTabsProps {
   subtitle: string;
   groupHref: string;
   tabs: GroupPreviewTab[];
+  /** Подпись ссылки в шапке полки: у полки одного раздела «разделов» нет. */
+  groupLabel?: string;
+  /** Подпись последнего слайда-ссылки. */
+  allLabel?: string;
 }
 
 /**
  * Полка одной группы разделов.
  * Данные всех вкладок уже пришли с сервера, поэтому переключение мгновенное
- * и не требует запросов.
+ * и не требует запросов. С одной вкладкой ряд табов не рисуется — так же
+ * выглядят полки отдельных разделов.
  */
 export const GroupPreviewsTabs: FC<GroupPreviewsTabsProps> = ({
   title,
   subtitle,
   groupHref,
   tabs,
+  groupLabel = "Все разделы",
+  allLabel,
 }) => {
   const [activeKey, setActiveKey] = useState(tabs[0]?.key);
   const active = tabs.find((tab) => tab.key === activeKey) ?? tabs[0];
@@ -57,7 +64,7 @@ export const GroupPreviewsTabs: FC<GroupPreviewsTabsProps> = ({
           href={groupHref}
           className="group hidden mobile-xl:flex items-center gap-2 shrink-0 text-sm text-yellow-main transition-colors hover:opacity-80"
         >
-          Все разделы
+          {groupLabel}
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
@@ -98,7 +105,12 @@ export const GroupPreviewsTabs: FC<GroupPreviewsTabsProps> = ({
         </div>
       )}
 
-      <PreviewsSlider previews={active.previews} href={active.href} slots={active.slots} />
+      <PreviewsSlider
+        previews={active.previews}
+        href={active.href}
+        allLabel={allLabel}
+        slots={active.slots}
+      />
     </Reveal>
   );
 };

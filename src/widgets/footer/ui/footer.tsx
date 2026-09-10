@@ -25,9 +25,19 @@ export const Footer = () => {
             <section className="grid lg:grid-cols-3 2xl:grid-cols-6 grid-cols-2 lg:justify-normal justify-between justify-items-stretch lg:gap-6 gap-[50px]">
               {footerItems.map((item) => (
                 <ul key={item.value} className="flex flex-col md:gap-6 xl:gap-3 min-w-0">
-                  <p className="lg:text-white text-yellow-main font-semibold uppercase text-base break-words">
-                    {item.value}
-                  </p>
+                  {/* У колонок-групп заголовок ведёт на хаб направления */}
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      className="lg:text-white text-yellow-main font-semibold uppercase text-base break-words hover:text-yellow-main"
+                    >
+                      {item.value}
+                    </Link>
+                  ) : (
+                    <p className="lg:text-white text-yellow-main font-semibold uppercase text-base break-words">
+                      {item.value}
+                    </p>
+                  )}
                   {item.children?.map((itemChildren) => (
                     <li
                       key={itemChildren.value}

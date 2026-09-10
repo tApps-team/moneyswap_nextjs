@@ -25,7 +25,10 @@ export enum routes {
   virtual_cards = "/virtual-cards",
   vc_cards = "/virtual-cards/cards",
   esim = "/esim",
-  ratings = "/ratings",
+  /** Хабы групп: страница-витрина направления со всеми его разделами. */
+  crypto_services = "/crypto-services",
+  abroad_services = "/abroad-services",
+  cards_services = "/cards-services",
   payment_services = "/payment-services",
   debit_cards = "/debit-cards",
   credit_cards = "/credit-cards",

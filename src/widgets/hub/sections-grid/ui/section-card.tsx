@@ -1,16 +1,22 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { FC } from "react";
-import { RatingSection } from "@/shared/consts";
+import { SiteSection } from "@/shared/consts";
 
-export interface RatingSectionCardProps {
-  section: RatingSection;
+export interface SectionCardProps {
+  section: SiteSection;
   /** Описание раздела из Strapi; если его нет — берётся фолбэк из конфига. */
   description?: string | null;
+  /** Подпись действия: у разделов обмена «рейтинг» звучит неуместно. */
+  actionLabel?: string;
 }
 
-/** Карточка раздела-рейтинга на странице /ratings. */
-export const RatingSectionCard: FC<RatingSectionCardProps> = ({ section, description }) => {
+/** Карточка раздела на странице-хабе группы. */
+export const SectionCard: FC<SectionCardProps> = ({
+  section,
+  description,
+  actionLabel = "Смотреть рейтинг",
+}) => {
   const Icon = section.icon;
 
   return (
@@ -32,7 +38,7 @@ export const RatingSectionCard: FC<RatingSectionCardProps> = ({ section, descrip
       </p>
 
       <span className="flex items-center gap-2 text-yellow-main text-sm font-medium">
-        Смотреть рейтинг
+        {actionLabel}
         <ArrowRight className="size-4 shrink-0 transition-transform group-hover:translate-x-1" />
       </span>
     </Link>
