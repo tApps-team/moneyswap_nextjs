@@ -21,8 +21,8 @@ export const SitemapPage = async () => {
       <h1 className="font-medium text-2xl uppercase">Карта сайта</h1>
       <div className="flex flex-col gap-2 text-sm">
         <h2 className="text-xl font-medium uppercase">Основные разделы</h2>
-        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.home}>
-          обмен валюты
+        <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.exchange}>
+          Обмен валюты
         </Link>
         <Link className="w-fit text-[#3498db] uppercase font-medium" href={routes.exchangers}>
           Список обменников

@@ -135,7 +135,7 @@ export const CryptoExchangersPage = async () => {
             <span>Курсы обменников на MoneySwap ориентируются на лидеров рынка:</span>
             <div className="grid grid-flow-row gap-5">
               <span>
-                1. обмен валюты на фиат (например, USDT на рубли) основывается на курсах
+                1. Обмен валюты на фиат (например, USDT на рубли) основывается на курсах
                 p2p-бирж.
               </span>
               <span>
