@@ -72,7 +72,7 @@ export const Navbar = () => {
                     // (md:absolute, md:w-[…viewport-width]) заданы с ним же, и без
                     // совпадающего модификатора twMerge их не вытеснит.
                     // Центрировать через translate нельзя: transform занят анимацией открытия.
-                    "md:absolute md:top-full md:w-[340px] xl:md:w-[380px]",
+                    "md:absolute md:top-full md:w-[300px] xl:md:w-[330px]",
                     item.align === "end" ? "md:left-auto md:right-0" : "md:left-0 md:right-auto",
                     "mt-0 p-3 grid gap-1",
                   )}
@@ -84,15 +84,15 @@ export const Navbar = () => {
                       className="group flex items-start gap-2.5 rounded-[10px] p-2 transition-colors hover:bg-new-grey/60"
                     >
                       {typeof link.icon !== "string" && link.icon && (
-                        <span className="grid place-items-center size-9 shrink-0 rounded-[10px] bg-[#43464E] text-yellow-main">
-                          <link.icon width={20} height={20} />
+                        <span className="grid place-items-center size-7 shrink-0 rounded-[8px] bg-[#43464E] text-yellow-main">
+                          <link.icon width={16} height={16} />
                         </span>
                       )}
                       <span className="grid gap-1 min-w-0">
-                        <span className="unbounded_font leading-none uppercase text-sm font-normal transition-colors group-hover:text-yellow-main">
+                        <span className="unbounded_font leading-none uppercase text-[11px] font-light transition-colors group-hover:text-yellow-main">
                           {link.value}
                         </span>
-                        <span className="leading-tight text-xs text-[#878787] font-normal line-clamp-2">
+                        <span className="leading-tight text-[10px] text-[#878787] font-light line-clamp-2">
                           {link.description}
                         </span>
                       </span>
@@ -104,10 +104,10 @@ export const Navbar = () => {
                       <span className="block h-px bg-new-grey/60 mx-2 my-1" />
                       <NavigationMenuLink
                         href={item.moreHref}
-                        className="group flex items-center justify-center gap-2 rounded-[10px] border border-new-grey/60 py-2.5 text-sm text-yellow-main transition-colors hover:bg-new-grey/60"
+                        className="group flex items-center justify-center gap-2 rounded-[10px] border border-new-grey/60 py-2 text-[11px] font-light uppercase text-yellow-main transition-colors hover:bg-new-grey/60"
                       >
                         Подробнее
-                        <ArrowRight className="size-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                        <ArrowRight className="size-3.5 shrink-0 transition-transform group-hover:translate-x-1" />
                       </NavigationMenuLink>
                     </>
                   )}
@@ -118,41 +118,41 @@ export const Navbar = () => {
               {item.children && (
                 <NavigationMenuContent
                   className={cn(
-                    "shadow-[0px_2px_5px_1px_rgba(0,0,0,0.35)] bg-new-dark-grey border-none rounded-[6px] p-4 grid gap-4 text-white",
+                    "shadow-[0px_2px_5px_1px_rgba(0,0,0,0.35)] bg-new-dark-grey border-none rounded-[6px] p-3 grid gap-3 text-white",
                     item.align === "end" && "md:left-auto md:right-0",
                   )}
                 >
                   {item.children.map((itemChildren) => (
                     <NavigationMenuLink
-                      className="flex flex-col w-80"
+                      className="flex flex-col w-72"
                       key={`${itemChildren.href}  ${itemChildren.value}`}
                       href={itemChildren.href}
                     >
                       <div className="flex gap-2.5 justify-start items-start break-words">
                         {itemChildren.icon && (
-                          <div className="bg-[#43464E] rounded-[6px] p-1.5">
+                          <div className="bg-[#43464E] rounded-[6px] p-1">
                             {typeof itemChildren.icon === "string" ? (
                               <Image
                                 src={"/phone-email.png"}
                                 alt=""
                                 width={30}
                                 height={30}
-                                className="w-7 h-auto"
+                                className="w-[22px] h-auto"
                               />
                             ) : (
                               <itemChildren.icon
                                 className="flex-shrink-0 text-yellow-main"
-                                width={24}
-                                height={24}
+                                width={18}
+                                height={18}
                               />
                             )}
                           </div>
                         )}
                         <div className="[&>p]:hover:text-yellow-main flex flex-col gap-1 min-w-0">
-                          <p className="unbounded_font leading-none uppercase text-sm font-normal">
+                          <p className="unbounded_font leading-none uppercase text-[11px] font-light">
                             {itemChildren.value}
                           </p>
-                          <p className="leading-tight text-xs text-[#878787] font-normal">
+                          <p className="leading-tight text-[10px] text-[#878787] font-light">
                             {itemChildren.description}
                           </p>
                         </div>
