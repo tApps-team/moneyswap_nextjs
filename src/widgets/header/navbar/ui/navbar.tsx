@@ -15,12 +15,17 @@ import {
 import { desktopNavbarItems } from "../model/navbarItems";
 
 /*
- * Размеры пункта. Шесть направлений плюс «Поддержка» не помещаются в строку
- * на 1024 с прежними p-6 и text-sm, поэтому до 1400px шрифт и отступы меньше.
+ * Один класс на триггеры и на простые ссылки.
+ *
+ * Структурная часть (inline-flex, фиксированная высота, выравнивание) —
+ * обязательна: NavigationMenuLink рисуется обычным инлайновым <a>, и без неё
+ * пункты без панели встают по базовой линии, а не по центру, из-за чего строка
+ * меню разъезжается лесенкой.
  */
 const TRIGGER_CLASSES =
-  "unbounded_font bg-transparent hover:bg-yellow-main hover:text-black font-normal uppercase rounded-[10px] data-[state=open]:text-black " +
-  "lg:text-[11px] lg:px-2.5 lg:py-4 xl:text-[13px] xl:px-3.5 xl:py-5 max:text-sm max:px-6 max:py-6";
+  "inline-flex h-9 w-max items-center justify-center rounded-[10px] transition-colors " +
+  "unbounded_font bg-transparent uppercase text-[10px] font-light px-3 " +
+  "hover:bg-yellow-main hover:text-black data-[state=open]:text-black";
 
 export const Navbar = () => {
   const pathname = usePathname();
