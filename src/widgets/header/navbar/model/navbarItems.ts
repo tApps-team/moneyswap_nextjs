@@ -1,10 +1,11 @@
-import { Headset } from "lucide-react";
+import { Headset, Newspaper } from "lucide-react";
 import { SVGProps } from "react";
 import { FileIcon, PeopleIcon, QuestionIcon } from "@/shared/assets";
-import { NAV_ENTRIES, entryShortTitle, getGroupSections } from "@/shared/consts";
+import { NAV_ENTRIES, entryIcon, entryShortTitle, getGroupSections } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
 const HeadsetIcon = Headset as (props: SVGProps<SVGSVGElement>) => JSX.Element;
+const NewspaperIcon = Newspaper as (props: SVGProps<SVGSVGElement>) => JSX.Element;
 
 type NavbarIcon = (props: SVGProps<SVGSVGElement> & { className?: string }) => JSX.Element;
 
@@ -22,6 +23,7 @@ export type NavbarItem = {
   value: string;
   /** Подпись для бургера: в столбик помещается полное название. */
   fullValue?: string;
+  /** Иконка пункта. Рисуется в бургере: на десктопе строка меню только текстовая. */
   icon?: NavbarIcon | string;
   className?: string;
   /** Разделы группы в выпадающей панели. Нет — пункт рисуется обычной ссылкой. */
@@ -46,6 +48,7 @@ const sectionItems: NavbarItem[] = NAV_ENTRIES.map((entry) =>
         href: entry.group.href,
         value: entryShortTitle(entry),
         fullValue: entry.group.title,
+        icon: entryIcon(entry) as unknown as NavbarIcon,
         moreHref: entry.group.href,
         items: getGroupSections(entry.group).map((section) => ({
           href: section.href,
@@ -57,6 +60,7 @@ const sectionItems: NavbarItem[] = NAV_ENTRIES.map((entry) =>
     : {
         href: entry.section.href,
         value: entry.section.title,
+        icon: entryIcon(entry) as unknown as NavbarIcon,
       },
 );
 
@@ -65,11 +69,13 @@ export const navbarItems: NavbarItem[] = [
   {
     href: routes.blog,
     value: "Блог",
+    icon: NewspaperIcon,
     mobileOnly: true,
   },
   {
     href: routes.help_article,
     value: "Поддержка",
+    icon: HeadsetIcon,
     align: "end",
     children: [
       {

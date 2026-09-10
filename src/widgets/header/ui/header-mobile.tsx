@@ -68,8 +68,15 @@ export const HeaderMobile = () => {
                 {navbarItems.map((item) =>
                   item?.children || item?.items ? (
                     <AccordionItem value={item.value} key={item.value} className="">
-                      <AccordionTrigger className="font-bold bg-new-dark-grey mobile-xl:rounded-[15px] rounded-[10px] mobile-xl:py-7 mobile-xl:px-12 p-5 uppercase mobile-xl:text-xl text-sm">
-                        <p className="leading-none">{item.fullValue ?? item.value}</p>
+                      {/* text-left — у кнопки по умолчанию text-align: center,
+                          и длинное название при переносе вставало по центру */}
+                      <AccordionTrigger className="font-bold bg-new-dark-grey mobile-xl:rounded-[15px] rounded-[10px] mobile-xl:py-7 mobile-xl:px-12 p-5 uppercase mobile-xl:text-xl text-sm text-left">
+                        <span className="flex items-center gap-3 min-w-0">
+                          {item.icon && typeof item.icon !== "string" && (
+                            <item.icon className="mobile-xl:size-7 size-5 shrink-0 text-yellow-main" />
+                          )}
+                          <p className="leading-none">{item.fullValue ?? item.value}</p>
+                        </span>
                       </AccordionTrigger>
                       {/* pr-4 — чтобы описания не уходили под полосу прокрутки */}
                       <AccordionContent className="flex flex-col gap-6 hover:text-yellow-main p-0 pt-6 pb-2 mobile-xl:pl-[50px] pl-5 pr-4">
@@ -147,7 +154,12 @@ export const HeaderMobile = () => {
                       asChild
                       className="font-bold bg-new-dark-grey mobile-xl:rounded-[15px] rounded-[10px] mobile-xl:py-7 mobile-xl:px-12 p-5 uppercase mobile-xl:text-xl text-sm w-full"
                     >
-                      <Link href={item.href}>{item.value}</Link>
+                      <Link href={item.href} className="flex items-center gap-3 min-w-0">
+                        {item.icon && typeof item.icon !== "string" && (
+                          <item.icon className="mobile-xl:size-7 size-5 shrink-0 text-yellow-main" />
+                        )}
+                        <span className="leading-none">{item.value}</span>
+                      </Link>
                     </DrawerClose>
                   ),
                 )}
