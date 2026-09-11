@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { FC } from "react";
 import { CreditSpecsTable } from "@/widgets/credits/credit-specs-table";
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
+import { AgentPageView, AgentSiteLink } from "@/features/analytics";
 import { BankCredit, orDash } from "@/entities/strapi";
 
 interface CreditContentProps {
@@ -14,6 +14,7 @@ export const CreditContent: FC<CreditContentProps> = ({ credit }) => {
 
   return (
     <div className="grid gap-6 min-w-0">
+      <AgentPageView serviceType="credits" slug={credit.slug} />
       <div className="grid gap-[30px] md:gap-[40px] lg:gap-8 lg:grid-cols-[1fr_minmax(320px,360px)] lg:items-start min-w-0">
         <div className="grid gap-[30px] md:gap-[40px] lg:gap-[50px] lg:col-start-1 lg:row-start-1 min-w-0">
           <CreditHero credit={credit} />
@@ -72,14 +73,14 @@ function CreditHero({ credit }: { credit: BankCredit }) {
           </div>
         </div>
 
-        <Link
+        <AgentSiteLink
+          serviceType="credits"
+          slug={credit.slug}
           href={credit.url}
-          target="_blank"
-          rel="noopener noreferrer"
           className="inline-flex items-center justify-center w-full md:w-fit shrink-0 px-5 mobile-xl:px-6 py-2.5 mobile-xl:py-3 rounded-[10px] bg-yellow-main hover:scale-[1.02] active:scale-[0.98] transition-transform text-black font-medium uppercase text-xs mobile-xl:text-sm"
         >
           Оформить
-        </Link>
+        </AgentSiteLink>
       </div>
 
       {credit.description ? (

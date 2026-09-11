@@ -1,8 +1,8 @@
 import { Gift, MapPin } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
 import { VedReviews } from "@/widgets/ved/ved-reviews";
+import { AgentPageView, AgentSiteLink } from "@/features/analytics";
 import {
   VedAgent,
   formatVedLimit,
@@ -26,6 +26,7 @@ export const VedAgentPage = async ({ slug }: VedAgentPageProps) => {
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
+      <AgentPageView serviceType="ved" slug={agent.slug} />
       <VedAgentHero agent={agent} breakdown={breakdown} />
 
       {(agent.promocodes?.length ?? 0) > 0 ? <VedPromocodes agent={agent} /> : null}
@@ -46,11 +47,11 @@ function VedPromocodes({ agent }: { agent: VedAgent }) {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {agent.promocodes.map((promo, index) => (
-          <Link
+          <AgentSiteLink
             key={`${promo.title}-${index}`}
+            serviceType="ved"
+            slug={agent.slug}
             href={promo.url || agent.url}
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex items-start gap-3 bg-new-dark-grey border border-[#575A62]/50 rounded-[15px] p-5 hover:border-yellow-main transition-colors"
           >
             <div className="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-yellow-main/15 text-yellow-main">
@@ -62,7 +63,7 @@ function VedPromocodes({ agent }: { agent: VedAgent }) {
               </span>
               <span className="text-xs mobile-xl:text-sm text-light-gray">{promo.description}</span>
             </div>
-          </Link>
+          </AgentSiteLink>
         ))}
       </div>
     </div>
@@ -117,14 +118,14 @@ function VedAgentHero({
           </div>
         </div>
 
-        <Link
+        <AgentSiteLink
+          serviceType="ved"
+          slug={agent.slug}
           href={agent.url}
-          target="_blank"
-          rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 w-fit px-5 py-2.5 mobile-xl:py-3 rounded-[10px] bg-yellow-main hover:scale-[1.02] active:scale-[0.98] transition-transform text-black font-medium uppercase text-xs mobile-xl:text-sm"
         >
           Связаться
-        </Link>
+        </AgentSiteLink>
       </div>
 
       <div className="grid gap-4 mobile-xl:grid-cols-2">

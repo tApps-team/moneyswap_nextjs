@@ -1,8 +1,8 @@
 import { Gift } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
 import { VedReviews } from "@/widgets/ved/ved-reviews";
+import { AgentPageView, AgentSiteLink } from "@/features/analytics";
 import {
   VirtualCard,
   getVcReviewBreakdown,
@@ -25,6 +25,7 @@ export const VirtualCardPage = async ({ slug }: VirtualCardPageProps) => {
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
+      <AgentPageView serviceType="virtual-cards" slug={card.slug} />
       <VirtualCardHero card={card} breakdown={breakdown} />
 
       {card.promocodes.length > 0 ? <VcPromocodes card={card} /> : null}
@@ -75,14 +76,14 @@ function VirtualCardHero({
           </div>
         </div>
 
-        <Link
+        <AgentSiteLink
+          serviceType="virtual-cards"
+          slug={card.slug}
           href={card.url}
-          target="_blank"
-          rel="noopener noreferrer"
           className="inline-flex items-center justify-center w-fit px-5 mobile-xl:px-6 py-2.5 mobile-xl:py-3 rounded-[10px] bg-yellow-main hover:scale-[1.02] active:scale-[0.98] transition-transform text-black font-medium uppercase text-xs mobile-xl:text-sm"
         >
           Оформить
-        </Link>
+        </AgentSiteLink>
       </div>
 
       <div className="grid grid-cols-1 mobile-xl:grid-cols-3 gap-4">
@@ -161,11 +162,11 @@ function VcPromocodes({ card }: { card: VirtualCard }) {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {card.promocodes.map((promo, index) => (
-          <Link
+          <AgentSiteLink
             key={`${promo.title}-${index}`}
+            serviceType="virtual-cards"
+            slug={card.slug}
             href={promo.url || card.url}
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex items-start gap-3 bg-new-dark-grey border border-[#575A62]/50 rounded-[15px] p-5 hover:border-yellow-main transition-colors"
           >
             <div className="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-yellow-main/15 text-yellow-main">
@@ -177,7 +178,7 @@ function VcPromocodes({ card }: { card: VirtualCard }) {
               </span>
               <span className="text-xs mobile-xl:text-sm text-light-gray">{promo.description}</span>
             </div>
-          </Link>
+          </AgentSiteLink>
         ))}
       </div>
     </div>
