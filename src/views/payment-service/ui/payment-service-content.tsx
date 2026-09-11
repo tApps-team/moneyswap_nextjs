@@ -1,9 +1,9 @@
 import { Gift } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { FC } from "react";
 import { PsSpecsTable } from "@/widgets/payment-services/ps-specs-table";
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
+import { AgentPageView, AgentSiteLink } from "@/features/analytics";
 import { PaymentService, formatCommission, formatReviewsCount } from "@/entities/strapi";
 
 interface PaymentServiceContentProps {
@@ -16,6 +16,7 @@ export const PaymentServiceContent: FC<PaymentServiceContentProps> = ({ service 
 
   return (
     <div className="grid gap-6 min-w-0">
+      <AgentPageView serviceType="payment-services" slug={service.slug} />
       <div className="grid gap-[30px] md:gap-[40px] lg:gap-8 lg:grid-cols-[1fr_minmax(320px,360px)] lg:items-start min-w-0">
         <div className="grid gap-[30px] md:gap-[40px] lg:gap-[50px] lg:col-start-1 lg:row-start-1 min-w-0">
           <PaymentServiceHero service={service} />
@@ -78,14 +79,14 @@ function PaymentServiceHero({ service }: { service: PaymentService }) {
           </div>
         </div>
 
-        <Link
+        <AgentSiteLink
+          serviceType="payment-services"
+          slug={service.slug}
           href={service.url}
-          target="_blank"
-          rel="noopener noreferrer"
           className="inline-flex items-center justify-center w-full md:w-fit shrink-0 px-5 mobile-xl:px-6 py-2.5 mobile-xl:py-3 rounded-[10px] bg-yellow-main hover:scale-[1.02] active:scale-[0.98] transition-transform text-black font-medium uppercase text-xs mobile-xl:text-sm"
         >
           Перейти на сайт
-        </Link>
+        </AgentSiteLink>
       </div>
 
       {service.description ? (
@@ -103,11 +104,11 @@ function PaymentServicePromocodes({ service }: { service: PaymentService }) {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {service.promocodes.map((promo, index) => (
-          <Link
+          <AgentSiteLink
             key={`${promo.title}-${index}`}
+            serviceType="payment-services"
+            slug={service.slug}
             href={promo.url || service.url}
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex items-start gap-3 bg-new-dark-grey border border-[#575A62]/50 rounded-[15px] p-5 hover:border-yellow-main transition-colors min-w-0"
           >
             <div className="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-yellow-main/15 text-yellow-main">
@@ -123,7 +124,7 @@ function PaymentServicePromocodes({ service }: { service: PaymentService }) {
                 </span>
               ) : null}
             </div>
-          </Link>
+          </AgentSiteLink>
         ))}
       </div>
     </div>

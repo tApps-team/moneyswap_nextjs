@@ -2,11 +2,11 @@
 
 import { Gift } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { FC, useState } from "react";
 import { EsimSpecsTable } from "@/widgets/esim/esim-specs-table";
 import { DynamicContent } from "@/widgets/strapi/dynamic-content";
 import { VedReviews } from "@/widgets/ved/ved-reviews";
+import { AgentPageView, AgentSiteLink } from "@/features/analytics";
 import { Esim, getEsimReviewBreakdown, VedReview } from "@/entities/strapi";
 import { cn } from "@/shared/lib";
 
@@ -29,6 +29,7 @@ export const EsimServiceContent: FC<EsimServiceContentProps> = ({ service }) => 
 
   return (
     <div className="grid gap-6">
+      <AgentPageView serviceType="esim" slug={service.slug} />
       {/* Временно скрыты табы Обзор/Отзывы (логика сохранена, дефолт — overview)
       <div className="flex gap-2 p-1.5 rounded-[12px] bg-new-dark-grey w-full lg:w-fit">
         {TABS.map((tab) => (
@@ -81,11 +82,11 @@ function EsimPromocodes({ service }: { service: Esim }) {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {service.promocodes.map((promo, index) => (
-          <Link
+          <AgentSiteLink
             key={`${promo.title}-${index}`}
+            serviceType="esim"
+            slug={service.slug}
             href={promo.url || service.url}
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex items-start gap-3 bg-new-dark-grey border border-[#575A62]/50 rounded-[15px] p-5 hover:border-yellow-main transition-colors"
           >
             <div className="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-yellow-main/15 text-yellow-main">
@@ -97,7 +98,7 @@ function EsimPromocodes({ service }: { service: Esim }) {
               </span>
               <span className="text-xs mobile-xl:text-sm text-light-gray">{promo.description}</span>
             </div>
-          </Link>
+          </AgentSiteLink>
         ))}
       </div>
     </div>
@@ -142,14 +143,14 @@ function EsimServiceHero({
           </div>
         </div>
 
-        <Link
+        <AgentSiteLink
+          serviceType="esim"
+          slug={service.slug}
           href={service.url}
-          target="_blank"
-          rel="noopener noreferrer"
           className="inline-flex items-center justify-center w-fit px-5 mobile-xl:px-6 py-2.5 mobile-xl:py-3 rounded-[10px] bg-yellow-main hover:scale-[1.02] active:scale-[0.98] transition-transform text-black font-medium uppercase text-xs mobile-xl:text-sm"
         >
           Перейти на сайт
-        </Link>
+        </AgentSiteLink>
       </div>
     </div>
   );
