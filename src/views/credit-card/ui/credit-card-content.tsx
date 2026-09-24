@@ -38,10 +38,9 @@ function CreditCardHero({ card }: { card: CreditCard }) {
   const logo = card.logo ?? card.bank?.logo ?? null;
   const bankTitle = card.bank?.title ?? null;
   /** У части карт название совпадает с банком — второй раз его не повторяем. */
-  const heading =
-    bankTitle && bankTitle !== card.name
-      ? `Кредитная карта «${card.name}» — ${bankTitle}`
-      : `Кредитная карта «${card.name}»`;
+  // Без префикса «Кредитная карта»: он почти всегда уже есть в названии карты
+  // и в хлебных крошках, из-за чего заголовок читался как дубль.
+  const heading = bankTitle && bankTitle !== card.name ? `${card.name} — ${bankTitle}` : card.name;
 
   return (
     <div className="bg-new-dark-grey rounded-[15px] mobile-xl:rounded-[20px] p-5 mobile-xl:p-8 grid gap-6 min-w-0">

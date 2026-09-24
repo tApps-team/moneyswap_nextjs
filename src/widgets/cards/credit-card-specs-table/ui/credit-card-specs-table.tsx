@@ -59,7 +59,6 @@ export const CreditCardSpecsTable: FC<CreditCardSpecsTableProps> = ({ card }) =>
         />
       ),
     },
-    { label: "Город", value: orDash(card.city) },
     {
       label: "Рейтинг",
       value: card.rating ? (

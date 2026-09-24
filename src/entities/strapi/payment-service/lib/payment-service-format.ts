@@ -1,5 +1,5 @@
 import { parseNumeric } from "../../lib/numeric";
-import { PaymentService, PaymentServicePlatform } from "../api/payment-service-dto";
+import { PaymentService } from "../api/payment-service-dto";
 
 /** Комиссия для таблицы: «От 3%» как есть, пусто — прочерк. */
 export function formatCommission(service: PaymentService): string {
@@ -25,6 +25,3 @@ export function formatReviewsCount(count: number): string {
   if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return `${count} отзыва`;
   return `${count} отзывов`;
 }
-
-export const isGamePlatform = (platform: PaymentServicePlatform) => platform.kind === "game";
-export const isServicePlatform = (platform: PaymentServicePlatform) => platform.kind !== "game";

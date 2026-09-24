@@ -5,8 +5,6 @@ import {
   MicroloanFirstLoanType,
   MicroloanIssueChannel,
   MicroloanLimitType,
-  MicroloanTermType,
-  MicroloanVerificationStatus,
   compareNullable,
   getMicroloanLimitValue,
   getMicroloanRateValue,
@@ -16,9 +14,7 @@ import { MultiSelectOption, SortState } from "@/shared/ui";
 
 export interface MfoFilterState {
   amounts: MicroloanAmountType[];
-  terms: MicroloanTermType[];
   firstLoan: MicroloanFirstLoanType[];
-  verification: MicroloanVerificationStatus[];
   limitTypes: MicroloanLimitType[];
   durationTypes: MicroloanDurationType[];
   /** id каналов получения денег */
@@ -28,9 +24,7 @@ export interface MfoFilterState {
 
 export const EMPTY_MFO_FILTER: MfoFilterState = {
   amounts: [],
-  terms: [],
   firstLoan: [],
-  verification: [],
   limitTypes: [],
   durationTypes: [],
   channels: [],
@@ -64,9 +58,7 @@ export function keepPresent<T extends string>(
 export function isMfoFilterActive(filter: MfoFilterState): boolean {
   return (
     filter.amounts.length > 0 ||
-    filter.terms.length > 0 ||
     filter.firstLoan.length > 0 ||
-    filter.verification.length > 0 ||
     filter.limitTypes.length > 0 ||
     filter.durationTypes.length > 0 ||
     filter.channels.length > 0 ||
@@ -83,9 +75,7 @@ export function filterMicroloans(loans: Microloan[], filter: MfoFilterState): Mi
 
   return loans.filter((loan) => {
     if (!matchesEnum(filter.amounts, loan.loan_amount_type)) return false;
-    if (!matchesEnum(filter.terms, loan.loan_term_type)) return false;
     if (!matchesEnum(filter.firstLoan, loan.first_loan_type)) return false;
-    if (!matchesEnum(filter.verification, loan.verification_status)) return false;
     if (!matchesEnum(filter.limitTypes, loan.loan_limit_type)) return false;
     if (!matchesEnum(filter.durationTypes, loan.loan_duration_type)) return false;
 
@@ -120,9 +110,7 @@ export function sortMicroloans(loans: Microloan[], sort: MfoSort | null): Microl
 export function countMfoFilters(filter: MfoFilterState): number {
   return (
     filter.amounts.length +
-    filter.terms.length +
     filter.firstLoan.length +
-    filter.verification.length +
     filter.limitTypes.length +
     filter.durationTypes.length +
     filter.channels.length

@@ -1,4 +1,4 @@
-import { formatMoney, parseBigInteger, parseNumeric } from "../../lib/numeric";
+import { parseBigInteger, parseNumeric } from "../../lib/numeric";
 import {
   Microloan,
   MicroloanAmountType,
@@ -6,7 +6,6 @@ import {
   MicroloanDurationType,
   MicroloanFirstLoanType,
   MicroloanLimitType,
-  MicroloanTermType,
   MicroloanVerificationStatus,
 } from "../api/microloan-dto";
 
@@ -16,16 +15,19 @@ const approvalMap: Record<MicroloanApproval, string> = {
   low: "Низкое",
 };
 
+/**
+ * Сноска к параметру «Одобрение».
+ * ЧЕРНОВИК: заменить на согласованную формулировку, когда её пришлют.
+ */
+export const APPROVAL_HINT =
+  "Уровень одобрения — примерная доля одобренных заявок по данным МФО: " +
+  "высокое — больше 70%, среднее — 40–70%, низкое — меньше 40%. " +
+  "Финальное решение всегда принимает МФО.";
+
 const amountTypeMap: Record<MicroloanAmountType, string> = {
   to_30000: "До 30 000 ₽",
   to_50000: "До 50 000 ₽",
   to_100000: "До 100 000 ₽",
-};
-
-const termTypeMap: Record<MicroloanTermType, string> = {
-  to_30_days: "До 30 дней",
-  to_35_days: "До 35 дней",
-  to_180_days: "До 180 дней",
 };
 
 const firstLoanMap: Record<MicroloanFirstLoanType, string> = {
@@ -55,7 +57,6 @@ const toOptions = <T extends string>(map: Record<T, string>) =>
   (Object.keys(map) as T[]).map((id) => ({ id, title: map[id] }));
 
 export const MICROLOAN_AMOUNT_OPTIONS = toOptions(amountTypeMap);
-export const MICROLOAN_TERM_OPTIONS = toOptions(termTypeMap);
 export const MICROLOAN_FIRST_LOAN_OPTIONS = toOptions(firstLoanMap);
 export const MICROLOAN_VERIFICATION_OPTIONS = toOptions(verificationMap);
 export const MICROLOAN_LIMIT_OPTIONS = toOptions(limitTypeMap);
@@ -67,9 +68,6 @@ export const formatApproval = (value: MicroloanApproval | null) =>
 
 export const formatLoanAmountType = (value: MicroloanAmountType | null) =>
   value ? (amountTypeMap[value] ?? value) : "—";
-
-export const formatLoanTermType = (value: MicroloanTermType | null) =>
-  value ? (termTypeMap[value] ?? value) : "—";
 
 export const formatFirstLoanType = (value: MicroloanFirstLoanType | null) =>
   value ? (firstLoanMap[value] ?? value) : "—";
@@ -83,18 +81,31 @@ export const formatLimitType = (value: MicroloanLimitType | null) =>
 export const formatDurationType = (value: MicroloanDurationType | null) =>
   value ? (durationTypeMap[value] ?? value) : "—";
 
-/** Лимит для таблицы: сумма из данных, иначе подпись группы. */
-export function formatMicroloanLimit(loan: Microloan): string {
-  const max = parseBigInteger(loan.amount_limits?.to);
-  if (max != null) return `до ${formatMoney(max)}`;
-  return formatLoanAmountType(loan.loan_amount_type);
+/**
+ * Диапазон «от … до …» с единицей измерения в конце: «от 1 000 до 100 000 ₽».
+ * Выводим ровно те границы, которые заданы, — половина МФО указывает только максимум.
+ */
+function formatRange(from: number | null, to: number | null, unit: string): string | null {
+  const num = (value: number) => value.toLocaleString("ru-RU");
+  if (from != null && to != null) return `от ${num(from)} до ${num(to)} ${unit}`;
+  if (to != null) return `до ${num(to)} ${unit}`;
+  if (from != null) return `от ${num(from)} ${unit}`;
+  return null;
 }
 
-/** Срок для таблицы: дни из данных, иначе подпись группы. */
+/** Лимит для таблицы: диапазон сумм из данных, иначе подпись группы. */
+export function formatMicroloanLimit(loan: Microloan): string {
+  const range = formatRange(
+    parseBigInteger(loan.amount_limits?.from),
+    parseBigInteger(loan.amount_limits?.to),
+    "₽",
+  );
+  return range ?? formatLoanAmountType(loan.loan_amount_type);
+}
+
+/** Срок для таблицы: диапазон дней из данных. */
 export function formatMicroloanTerm(loan: Microloan): string {
-  const max = loan.term_limits?.to;
-  if (max != null) return `до ${max} дн.`;
-  return formatLoanTermType(loan.loan_term_type);
+  return formatRange(loan.term_limits?.from ?? null, loan.term_limits?.to ?? null, "дн.") ?? "—";
 }
 
 export function getMicroloanLimitValue(loan: Microloan): number | null {

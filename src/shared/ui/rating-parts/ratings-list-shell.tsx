@@ -9,7 +9,7 @@ interface RatingsListShellProps<K extends string> {
   grid: string;
   /** Минимальная ширина таблицы: ниже неё включается горизонтальный скролл внутри контейнера. */
   minWidth: string;
-  headers: { label: string; sortKey?: K }[];
+  headers: { label: string; sortKey?: K; hint?: string }[];
   sort?: SortState<K> | null;
   onSort?: (key: K) => void;
   /** Строки десктопной таблицы. */
@@ -48,6 +48,7 @@ export function RatingsListShell<K extends string>({
                 sortKey={header.sortKey}
                 sort={sort}
                 onSort={onSort}
+                hint={header.hint}
               />
             ))}
           </div>

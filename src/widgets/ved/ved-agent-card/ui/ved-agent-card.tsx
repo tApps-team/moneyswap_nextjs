@@ -16,7 +16,7 @@ const VISIBLE_CHIPS = 3;
 // Последний столбец — fr, а не auto: иначе пустая ячейка в шапке даёт 0 ширины,
 // и fr-столбцы шапки разъезжаются вправо относительно данных строк.
 export const VED_GRID =
-  "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_minmax(160px,0.9fr)] gap-4 items-center";
+  "grid grid-cols-[minmax(140px,1.2fr)_minmax(80px,0.8fr)_minmax(100px,0.9fr)_minmax(90px,0.8fr)_minmax(100px,0.7fr)_minmax(110px,0.8fr)_minmax(260px,1.4fr)] gap-4 items-center";
 
 interface VedAgentCardProps {
   agent: VedAgent;
@@ -64,6 +64,7 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
       <RatingBlock breakdown={breakdown} /> */}
       <div className="flex items-center gap-2 justify-self-end">
         <VedPromoTooltip slug={agent.slug} promocodes={agent.promocodes ?? []} />
+        <RowDetailButton slug={agent.slug} />
         <RowContactButton url={agent.url} />
       </div>
     </div>
@@ -100,14 +101,13 @@ export function VedAgentCard({ agent }: VedAgentCardProps) {
         <LabeledTags label="Валюты" items={agent.currencies} chip="code" visibleCount={2} />
       </div>
 
-      {(agent.promocodes?.length ?? 0) > 0 ? (
-        <div className="grid gap-2">
-          <PromoLink slug={agent.slug} />
+      <div className="grid gap-2">
+        {(agent.promocodes?.length ?? 0) > 0 && <PromoLink slug={agent.slug} />}
+        <div className="grid grid-cols-2 gap-2">
+          <DetailButton slug={agent.slug} />
           <ContactButton url={agent.url} />
         </div>
-      ) : (
-        <ContactButton url={agent.url} />
-      )}
+      </div>
     </article>
   );
 }
@@ -171,6 +171,18 @@ function MobileLimits({ limits }: { limits: VedAgent["limits"] }) {
         <span className="text-[#e8a090] font-medium">{formatVedLimit(limits.to)}</span>
       </span>
     </div>
+  );
+}
+
+/** «Подробнее» в мобильной карточке — как в остальных рейтингах (см. ActionButtons). */
+function DetailButton({ slug }: { slug: string }) {
+  return (
+    <Link
+      href={`${routes.ved_agents}/${slug}`}
+      className="flex items-center justify-center rounded-[10px] border border-[#575A62] text-white font-medium text-[13px] py-2.5 hover:border-yellow-main hover:text-yellow-main transition-colors"
+    >
+      Подробнее
+    </Link>
   );
 }
 
@@ -248,6 +260,20 @@ function RatingBlock({
       <span className="text-light-gray">{breakdown.neutral}</span>
       <span className="text-[#D20000]">{breakdown.negative}</span>
     </div>
+  );
+}
+
+function RowDetailButton({ slug, className }: { slug: string; className?: string }) {
+  return (
+    <Link
+      href={`${routes.ved_agents}/${slug}`}
+      className={cn(
+        "inline-flex items-center justify-center h-10 px-4 rounded-lg border border-[#575A62] text-white text-[13px] whitespace-nowrap hover:border-yellow-main hover:text-yellow-main transition-colors",
+        className,
+      )}
+    >
+      Подробнее
+    </Link>
   );
 }
 

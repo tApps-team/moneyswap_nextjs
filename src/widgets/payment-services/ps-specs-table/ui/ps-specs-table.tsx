@@ -42,7 +42,7 @@ export const PsSpecsTable: FC<PsSpecsTableProps> = ({ service }) => {
       ),
     },
     {
-      label: "Сервисы и игры",
+      label: "Платформы",
       value: (
         <TagCell
           items={service.platforms.map((platform) => ({
@@ -50,7 +50,7 @@ export const PsSpecsTable: FC<PsSpecsTableProps> = ({ service }) => {
             title: platform.title,
             icon: platform.icon ?? undefined,
           }))}
-          modalTitle="Сервисы и игры"
+          modalTitle="Платформы"
           chip="icon"
           className="justify-end"
         />

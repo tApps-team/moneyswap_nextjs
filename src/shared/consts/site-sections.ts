@@ -22,14 +22,14 @@ export const EXCHANGE_SECTIONS: SiteSection[] = [
   {
     key: "exchangers",
     href: routes.exchangers,
-    title: "Обменники",
+    title: "Список всех обменных пунктов",
     description: "Проверенные вручную обменные пункты с отзывами пользователей",
     icon: ShieldCheck,
   },
   {
     key: "exchange",
     href: routes.exchange,
-    title: "Обмен валюты",
+    title: "Выбрать направление обмена",
     description: "Поиск выгодного курса по нужной паре валют и городу",
     icon: ArrowLeftRight,
   },

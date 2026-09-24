@@ -137,7 +137,7 @@ export const toPaymentServicePreview = (service: PaymentService): RatingPreview 
   fields: filled([
     { label: "Комиссия", value: formatCommission(service) },
     {
-      label: "Сервисы и игры",
+      label: "Платформы",
       value: service.platforms?.length ? String(service.platforms.length) : "",
     },
     { label: "Валюты", value: joinCodes(service.currencies) },
