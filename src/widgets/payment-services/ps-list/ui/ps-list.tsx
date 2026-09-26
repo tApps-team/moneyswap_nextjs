@@ -16,7 +16,7 @@ const HEADERS: { label: string; sortKey?: PsSortKey }[] = [
   { label: "Название" },
   { label: "Комиссия", sortKey: "commission" },
   { label: "Способ оплаты" },
-  { label: "Сервисы и игры", sortKey: "platforms" },
+  { label: "Платформы" },
   { label: "Валюты" },
   { label: "Рейтинг", sortKey: "rating" },
   { label: "" },

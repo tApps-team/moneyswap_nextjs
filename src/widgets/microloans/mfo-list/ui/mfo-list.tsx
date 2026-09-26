@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { MFO_GRID, MFO_MIN_WIDTH, MfoCard, MfoRow } from "@/widgets/microloans/mfo-item";
-import { Microloan } from "@/entities/strapi";
+import { APPROVAL_HINT, Microloan } from "@/entities/strapi";
 import { RatingsListShell } from "@/shared/ui";
 import { MfoSort, MfoSortKey } from "../../mfo-explorer/lib/filter";
 
@@ -12,13 +12,13 @@ interface MfoListProps {
   onSort?: (key: MfoSortKey) => void;
 }
 
-const HEADERS: { label: string; sortKey?: MfoSortKey }[] = [
+const HEADERS: { label: string; sortKey?: MfoSortKey; hint?: string }[] = [
   { label: "МФО" },
   { label: "Лимит", sortKey: "limit" },
   { label: "Срок займа", sortKey: "term" },
   { label: "Ставка в день", sortKey: "rate" },
   { label: "ПСК" },
-  { label: "Одобрение" },
+  { label: "Одобрение", hint: APPROVAL_HINT },
   { label: "Рейтинг", sortKey: "rating" },
   { label: "" },
 ];

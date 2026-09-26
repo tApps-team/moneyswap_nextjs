@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import {
+  APPROVAL_HINT,
   Microloan,
   formatApproval,
   formatDurationType,
@@ -7,10 +8,9 @@ import {
   formatLimitType,
   formatMicroloanLimit,
   formatMicroloanTerm,
-  formatVerificationStatus,
   orDash,
 } from "@/entities/strapi";
-import { TagCell } from "@/shared/ui";
+import { InfoHint, TagCell } from "@/shared/ui";
 
 interface MfoSpecsTableProps {
   loan: Microloan;
@@ -18,16 +18,15 @@ interface MfoSpecsTableProps {
 
 /** Таблица условий займа на детальной странице. */
 export const MfoSpecsTable: FC<MfoSpecsTableProps> = ({ loan }) => {
-  const rows: { label: string; value: ReactNode }[] = [
+  const rows: { label: string; hint?: string; value: ReactNode }[] = [
     { label: "Лимит", value: formatMicroloanLimit(loan) },
     { label: "Срок займа", value: formatMicroloanTerm(loan) },
     { label: "Ставка в день", value: orDash(loan.rate) },
     { label: "ПСК", value: orDash(loan.psk) },
-    { label: "Одобрение", value: formatApproval(loan.approval) },
+    { label: "Одобрение", hint: APPROVAL_HINT, value: formatApproval(loan.approval) },
     { label: "Первый займ", value: formatFirstLoanType(loan.first_loan_type) },
     { label: "Тип лимита", value: formatLimitType(loan.loan_limit_type) },
     { label: "Тип срока", value: formatDurationType(loan.loan_duration_type) },
-    { label: "Проверка условий", value: formatVerificationStatus(loan.verification_status) },
     {
       label: "Получение денег",
       value: (
@@ -67,7 +66,10 @@ export const MfoSpecsTable: FC<MfoSpecsTableProps> = ({ loan }) => {
             index < rows.length - 1 ? "border-b border-[#575A62]/40" : ""
           }`}
         >
-          <span className="text-sm text-light-gray shrink-0">{row.label}</span>
+          <span className="flex items-center gap-1.5 text-sm text-light-gray shrink-0">
+            {row.label}
+            {row.hint && <InfoHint text={row.hint} label={`Что значит «${row.label}»`} />}
+          </span>
           <div className="text-sm text-white text-right min-w-0">{row.value}</div>
         </div>
       ))}

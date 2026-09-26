@@ -56,7 +56,7 @@ export function PsRow({ service }: PsCardProps) {
       />
       <TagCell
         items={toTagItems(service.platforms)}
-        modalTitle="Сервисы и игры"
+        modalTitle="Платформы"
         visibleCount={3}
         chip="icon"
         className="flex-nowrap"
@@ -105,12 +105,12 @@ export function PsCard({ service }: PsCardProps) {
 
       <div className="grid grid-cols-2 gap-2">
         <Field label="Комиссия" value={formatCommission(service)} />
-        <Field label="Сервисы и игры" value={`${service.platforms.length}`} />
+        <Field label="Платформы" value={`${service.platforms.length}`} />
       </div>
 
       <div className="grid gap-3">
         <LabeledTags label="Способы оплаты" items={service.payment_systems} chip="icon" />
-        <LabeledTags label="Сервисы и игры" items={service.platforms} chip="icon" />
+        <LabeledTags label="Платформы" items={service.platforms} chip="icon" />
         <LabeledTags
           label="Валюты"
           items={service.currencies.map((currency) => ({

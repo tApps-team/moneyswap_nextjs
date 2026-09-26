@@ -18,9 +18,8 @@ import {
   PsSort,
   PsSortKey,
   collectPsCurrencies,
-  collectPsGames,
   collectPsPaymentSystems,
-  collectPsServices,
+  collectPsPlatforms,
   filterPaymentServices,
   isPsFilterActive,
   sortPaymentServices,
@@ -32,7 +31,6 @@ const PAGE_SIZE = 10;
 /** Колонки сортировки для мобильного ряда (на десктопе — заголовки таблицы). */
 const SORT_OPTIONS: { key: PsSortKey; label: string }[] = [
   { key: "commission", label: "Комиссия" },
-  { key: "platforms", label: "Сервисы и игры" },
   { key: "rating", label: "Рейтинг" },
 ];
 
@@ -45,8 +43,7 @@ export const PsExplorer: FC<PsExplorerProps> = ({ services }) => {
   const [sort, setSort] = useState<PsSort | null>(null);
   const [page, setPage] = useState(1);
 
-  const serviceOptions = useMemo(() => collectPsServices(services), [services]);
-  const gameOptions = useMemo(() => collectPsGames(services), [services]);
+  const platformOptions = useMemo(() => collectPsPlatforms(services), [services]);
   const paymentOptions = useMemo(() => collectPsPaymentSystems(services), [services]);
   const currencyOptions = useMemo(() => collectPsCurrencies(services), [services]);
 
@@ -87,19 +84,11 @@ export const PsExplorer: FC<PsExplorerProps> = ({ services }) => {
         }
       >
         <MultiSelectFilter
-          label="Сервисы"
-          searchPlaceholder="Поиск сервиса"
-          options={serviceOptions}
-          selected={filter.services}
-          onChange={(services) => setFilter((f) => ({ ...f, services }))}
-          variant="icon"
-        />
-        <MultiSelectFilter
-          label="Игры"
-          searchPlaceholder="Поиск игры"
-          options={gameOptions}
-          selected={filter.games}
-          onChange={(games) => setFilter((f) => ({ ...f, games }))}
+          label="Платформы"
+          searchPlaceholder="Поиск платформы"
+          options={platformOptions}
+          selected={filter.platforms}
+          onChange={(platforms) => setFilter((f) => ({ ...f, platforms }))}
           variant="icon"
         />
         <MultiSelectFilter

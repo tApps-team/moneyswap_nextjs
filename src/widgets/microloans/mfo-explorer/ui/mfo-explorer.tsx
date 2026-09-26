@@ -7,15 +7,11 @@ import {
   MICROLOAN_DURATION_OPTIONS,
   MICROLOAN_FIRST_LOAN_OPTIONS,
   MICROLOAN_LIMIT_OPTIONS,
-  MICROLOAN_TERM_OPTIONS,
-  // MICROLOAN_VERIFICATION_OPTIONS, — вместе с фильтром «Проверка условий»
   Microloan,
   MicroloanAmountType,
   MicroloanDurationType,
   MicroloanFirstLoanType,
   MicroloanLimitType,
-  MicroloanTermType,
-  // MicroloanVerificationStatus, — вместе с фильтром «Проверка условий»
 } from "@/entities/strapi";
 import {
   EmptyResult,
@@ -63,21 +59,10 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
     () => keepPresent(MICROLOAN_AMOUNT_OPTIONS, loans.map((loan) => loan.loan_amount_type)),
     [loans],
   );
-  const termOptions = useMemo(
-    () => keepPresent(MICROLOAN_TERM_OPTIONS, loans.map((loan) => loan.loan_term_type)),
-    [loans],
-  );
   const firstLoanOptions = useMemo(
     () => keepPresent(MICROLOAN_FIRST_LOAN_OPTIONS, loans.map((loan) => loan.first_loan_type)),
     [loans],
   );
-  // Фильтр «Проверка условий» временно скрыт — раскомментировать вместе с
-  // блоком MultiSelectFilter ниже и импортами наверху файла.
-  // const verificationOptions = useMemo(
-  //   () =>
-  //     keepPresent(MICROLOAN_VERIFICATION_OPTIONS, loans.map((loan) => loan.verification_status)),
-  //   [loans],
-  // );
   const limitOptions = useMemo(
     () => keepPresent(MICROLOAN_LIMIT_OPTIONS, loans.map((loan) => loan.loan_limit_type)),
     [loans],
@@ -131,14 +116,6 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
           variant="icon"
           searchable={false}
         />
-        <MultiSelectFilter<MicroloanTermType>
-          label="Срок займа"
-          options={termOptions}
-          selected={filter.terms}
-          onChange={(terms) => setFilter((f) => ({ ...f, terms }))}
-          variant="icon"
-          searchable={false}
-        />
         <MultiSelectFilter<MicroloanFirstLoanType>
           label="Первый займ"
           options={firstLoanOptions}
@@ -171,15 +148,6 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
           variant="icon"
           searchable={false}
         />
-        {/* Фильтр «Проверка условий» скрыт по просьбе заказчика.
-        <MultiSelectFilter<MicroloanVerificationStatus>
-          label="Проверка условий"
-          options={verificationOptions}
-          selected={filter.verification}
-          onChange={(verification) => setFilter((f) => ({ ...f, verification }))}
-          variant="icon"
-          searchable={false}
-        /> */}
       </FiltersBar>
 
       <SortChips options={SORT_OPTIONS} sort={sort} onSort={handleSort} />

@@ -112,7 +112,7 @@ export const termsMockData: DynamicContentItem[] = [
       title_id: null,
       title_position: ComponentPosition.left,
       content: `
-        <p><strong>Дата последнего обновления - 19.09.2025</strong></p>
+        <p><strong>Дата последнего обновления - 10.09.2026</strong></p>
       `
     }
   }

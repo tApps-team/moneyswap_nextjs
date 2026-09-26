@@ -2,6 +2,7 @@
 
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import { cn } from "@/shared/lib";
+import { InfoHint } from "../info-hint";
 
 export type SortDir = "asc" | "desc";
 
@@ -70,6 +71,8 @@ interface SortableHeaderProps<K extends string> {
   sortKey?: K;
   sort: SortState<K> | null;
   onSort?: (key: K) => void;
+  /** Пояснение к колонке — показывается иконкой «i» рядом с заголовком. */
+  hint?: string;
 }
 
 /** Заголовок колонки десктопной таблицы: сортируемый — кнопкой, обычный — текстом. */
@@ -78,9 +81,15 @@ export function SortableHeader<K extends string>({
   sortKey,
   sort,
   onSort,
+  hint,
 }: SortableHeaderProps<K>) {
   if (!sortKey || !onSort) {
-    return <span className="truncate">{label}</span>;
+    return (
+      <span className="flex items-center gap-1 min-w-0">
+        <span className="truncate">{label}</span>
+        {hint && <InfoHint text={hint} label={`Что значит «${label}»`} />}
+      </span>
+    );
   }
 
   const active = sort?.key === sortKey;

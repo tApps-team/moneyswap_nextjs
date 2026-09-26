@@ -34,6 +34,7 @@ export * from "./local-pagination";
 export * from "./switch";
 export * from "./search-input";
 export * from "./sort-chips";
+export * from "./info-hint";
 export * from "./rating-parts";
 export * from "./reveal";
 export * from "./section-header";
