@@ -140,7 +140,10 @@ export const toPaymentServicePreview = (service: PaymentService): RatingPreview 
       label: "Платформы",
       value: service.platforms?.length ? String(service.platforms.length) : "",
     },
-    { label: "Валюты", value: joinCodes(service.currencies) },
+    {
+      label: "Страны",
+      value: service.countries?.length ? String(service.countries.length) : "",
+    },
   ]),
   tags: toTags(service.payment_systems),
   tagsLabel: "Способы оплаты",
