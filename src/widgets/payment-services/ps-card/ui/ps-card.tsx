@@ -62,13 +62,10 @@ export function PsRow({ service }: PsCardProps) {
         className="flex-nowrap"
       />
       <TagCell
-        items={toTagItems(service.currencies).map((item, index) => ({
-          ...item,
-          code: service.currencies[index]?.code,
-        }))}
-        modalTitle="Валюты"
+        items={toTagItems(service.countries ?? [])}
+        modalTitle="Страны"
         visibleCount={3}
-        chip="code"
+        chip="flag"
         className="flex-nowrap"
       />
       <RatingValue rating={service.rating} reviewsCount={service.reviews_count} />
@@ -111,16 +108,7 @@ export function PsCard({ service }: PsCardProps) {
       <div className="grid gap-3">
         <LabeledTags label="Способы оплаты" items={service.payment_systems} chip="icon" />
         <LabeledTags label="Платформы" items={service.platforms} chip="icon" />
-        <LabeledTags
-          label="Валюты"
-          items={service.currencies.map((currency) => ({
-            id: currency.id,
-            title: currency.title,
-            icon: currency.icon,
-            code: currency.code,
-          }))}
-          chip="code"
-        />
+        <LabeledTags label="Страны" items={service.countries ?? []} chip="flag" />
       </div>
 
       {hasPromo ? (

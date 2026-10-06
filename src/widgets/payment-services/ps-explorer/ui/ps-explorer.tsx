@@ -17,7 +17,7 @@ import {
   PsFilterState,
   PsSort,
   PsSortKey,
-  collectPsCurrencies,
+  collectPsCountries,
   collectPsPaymentSystems,
   collectPsPlatforms,
   filterPaymentServices,
@@ -45,7 +45,7 @@ export const PsExplorer: FC<PsExplorerProps> = ({ services }) => {
 
   const platformOptions = useMemo(() => collectPsPlatforms(services), [services]);
   const paymentOptions = useMemo(() => collectPsPaymentSystems(services), [services]);
-  const currencyOptions = useMemo(() => collectPsCurrencies(services), [services]);
+  const countryOptions = useMemo(() => collectPsCountries(services), [services]);
 
   const filtered = useMemo(() => filterPaymentServices(services, filter), [services, filter]);
   const sorted = useMemo(() => sortPaymentServices(filtered, sort), [filtered, sort]);
@@ -101,12 +101,12 @@ export const PsExplorer: FC<PsExplorerProps> = ({ services }) => {
           searchable={false}
         />
         <MultiSelectFilter
-          label="Валюты"
-          searchPlaceholder="Поиск валюты"
-          options={currencyOptions}
-          selected={filter.currencies}
-          onChange={(currencies) => setFilter((f) => ({ ...f, currencies }))}
-          variant="code"
+          label="Страны"
+          searchPlaceholder="Поиск страны"
+          options={countryOptions}
+          selected={filter.countries}
+          onChange={(countries) => setFilter((f) => ({ ...f, countries }))}
+          variant="flag"
         />
 
 

@@ -26,17 +26,16 @@ export const PsSpecsTable: FC<PsSpecsTableProps> = ({ service }) => {
       ),
     },
     {
-      label: "Валюты",
+      label: "Страны",
       value: (
         <TagCell
-          items={service.currencies.map((currency) => ({
-            id: currency.id,
-            title: currency.title,
-            icon: currency.icon ?? undefined,
-            code: currency.code,
+          items={(service.countries ?? []).map((country) => ({
+            id: country.id,
+            title: country.title,
+            icon: country.icon ?? undefined,
           }))}
-          modalTitle="Валюты"
-          chip="code"
+          modalTitle="Страны"
+          chip="flag"
           className="justify-end"
         />
       ),

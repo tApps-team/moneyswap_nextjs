@@ -243,14 +243,14 @@ export async function POST(req: Request) {
         console.log("VED reference collection revalidation:", model);
         revalidateVedAgents();
         break;
-      // Страны и валюты общие: страны используются в VED, eSIM и виртуальных картах,
-      // валюты — в VED и виртуальных картах.
+      // Страны общие: ВЭД, eSIM, виртуальные карты и оплата сервисов.
       case StrapiCollectionNames.vedCountry:
         path = routes.ved;
         console.log("Country revalidation:", model);
         revalidateVedAgents();
         revalidateEsims();
         revalidateVirtualCards();
+        revalidatePaymentServices();
         break;
       // Валюты используются в ВЭД, виртуальных картах и оплате сервисов.
       case StrapiCollectionNames.vedCurrency:

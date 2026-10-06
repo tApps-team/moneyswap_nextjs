@@ -25,6 +25,14 @@ export interface PaymentServiceCurrency {
   code: string;
 }
 
+/** Регион аккаунта, через который сервис оплачивает (коллекция ved-country). */
+export interface PaymentServiceCountry {
+  id: number;
+  title: string;
+  icon: string | null;
+  slug: string;
+}
+
 export interface PaymentServicePromocode {
   title: string;
   icon: string | null;
@@ -48,6 +56,11 @@ export interface PaymentService {
   reviews_count: number;
   payment_systems: PaymentServiceMethod[];
   currencies: PaymentServiceCurrency[];
+  /**
+   * Опционально намеренно: поле появилось в Strapi позже фронта, и до деплоя
+   * бэкенда его в ответе нет. Везде читаем через `?? []`.
+   */
+  countries?: PaymentServiceCountry[];
   platforms: PaymentServicePlatform[];
   promocodes: PaymentServicePromocode[];
   about?: DynamicContentItem[];
