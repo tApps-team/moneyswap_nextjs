@@ -2,6 +2,7 @@ import { Gift } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { VirtualCard, getVcReviewBreakdown } from "@/entities/strapi";
+import { agentMark } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { TagCell } from "@/shared/ui";
@@ -26,6 +27,7 @@ export function VcRow({ card }: VcCardProps) {
 
   return (
     <div
+      {...agentMark("virtual-cards", card.slug, card.name)}
       className={cn(
         "relative px-5 py-4 transition-colors hover:bg-new-grey/30",
         card.is_vip && "bg-yellow-main/[0.05]",
@@ -58,6 +60,7 @@ export function VcCard({ card }: VcCardProps) {
 
   return (
     <article
+      {...agentMark("virtual-cards", card.slug, card.name)}
       className={cn(
         "relative flex flex-col gap-3 bg-new-dark-grey rounded-[16px] p-4",
         card.is_vip ? "border border-yellow-main/40" : "border border-new-grey/50",

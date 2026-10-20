@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, ArrowUpDown, Search, X } from "lucide-react";
 import { FC, useEffect, useMemo, useState } from "react";
 import { VcList } from "@/widgets/vc/vc-list";
 import { VirtualCard } from "@/entities/strapi";
+import { listMark, trackFilter, useTrackSort } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { LocalPagination, MultiSelectFilter } from "@/shared/ui";
 import {
@@ -37,6 +38,7 @@ export const VcExplorer: FC<VcExplorerProps> = ({ cards }) => {
   const platformOptions = useMemo(() => collectVcPlatforms(cards), [cards]);
 
   const filtered = useMemo(() => filterVirtualCards(cards, filter), [cards, filter]);
+  useTrackSort(sort);
   const sorted = useMemo(() => sortVirtualCards(filtered, sort), [filtered, sort]);
   const active = isVcFilterActive(filter);
 
@@ -61,6 +63,7 @@ export const VcExplorer: FC<VcExplorerProps> = ({ cards }) => {
   };
 
   const reset = () => {
+    trackFilter("Все фильтры", "", "reset");
     setFilter(EMPTY_VC_FILTER);
     setSort(null);
   };
@@ -150,7 +153,9 @@ export const VcExplorer: FC<VcExplorerProps> = ({ cards }) => {
           )}
         </div>
       ) : (
-        <VcList cards={visible} sort={sort} onSort={handleSort} />
+        <div className="contents" {...listMark({ offset: (page - 1) * PAGE_SIZE, total: sorted.length })}>
+          <VcList cards={visible} sort={sort} onSort={handleSort} />
+        </div>
       )}
 
       {totalPages > 1 && (

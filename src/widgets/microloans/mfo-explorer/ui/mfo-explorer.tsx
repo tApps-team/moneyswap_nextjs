@@ -13,6 +13,7 @@ import {
   MicroloanFirstLoanType,
   MicroloanLimitType,
 } from "@/entities/strapi";
+import { listMark, trackFilter, useTrackSort } from "@/shared/analytics";
 import {
   EmptyResult,
   FiltersBar,
@@ -73,6 +74,7 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
   );
 
   const filtered = useMemo(() => filterMicroloans(loans, filter), [loans, filter]);
+  useTrackSort(sort);
   const sorted = useMemo(() => sortMicroloans(filtered, sort), [filtered, sort]);
   const active = isMfoFilterActive(filter);
 
@@ -90,6 +92,7 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
   const handleSort = (key: MfoSortKey) => setSort((prev) => nextSortState(prev, key));
 
   const reset = () => {
+    trackFilter("Все фильтры", "", "reset");
     setFilter(EMPTY_MFO_FILTER);
     setSort(null);
   };
@@ -160,7 +163,9 @@ export const MfoExplorer: FC<MfoExplorerProps> = ({ loans }) => {
           onReset={reset}
         />
       ) : (
-        <MfoList loans={visible} sort={sort} onSort={handleSort} />
+        <div className="contents" {...listMark({ offset: (page - 1) * PAGE_SIZE, total: sorted.length })}>
+          <MfoList loans={visible} sort={sort} onSort={handleSort} />
+        </div>
       )}
 
       {totalPages > 1 && (

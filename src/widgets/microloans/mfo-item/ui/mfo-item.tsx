@@ -6,6 +6,7 @@ import {
   formatMicroloanTerm,
   orDash,
 } from "@/entities/strapi";
+import { agentMark } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import {
@@ -34,6 +35,7 @@ const detailHref = (slug: string) => `${routes.microloans}/${slug}`;
 export function MfoRow({ loan }: MfoItemProps) {
   return (
     <div
+      {...agentMark("microloans", loan.slug, loan.name)}
       className={cn(
         "relative px-5 py-4 transition-colors hover:bg-new-grey/30",
         loan.is_vip && "bg-yellow-main/[0.05]",
@@ -58,6 +60,7 @@ export function MfoRow({ loan }: MfoItemProps) {
 export function MfoCard({ loan }: MfoItemProps) {
   return (
     <article
+      {...agentMark("microloans", loan.slug, loan.name)}
       className={cn(
         "relative flex flex-col gap-3 bg-new-dark-grey rounded-[16px] p-4 min-w-0",
         loan.is_vip ? "border border-yellow-main/40" : "border border-new-grey/50",

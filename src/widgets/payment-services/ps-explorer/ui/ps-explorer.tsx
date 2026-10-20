@@ -3,6 +3,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { PsList } from "@/widgets/payment-services/ps-list";
 import { PaymentService } from "@/entities/strapi";
+import { listMark, trackFilter, useTrackSort } from "@/shared/analytics";
 import {
   EmptyResult,
   FiltersBar,
@@ -48,6 +49,7 @@ export const PsExplorer: FC<PsExplorerProps> = ({ services }) => {
   const countryOptions = useMemo(() => collectPsCountries(services), [services]);
 
   const filtered = useMemo(() => filterPaymentServices(services, filter), [services, filter]);
+  useTrackSort(sort);
   const sorted = useMemo(() => sortPaymentServices(filtered, sort), [filtered, sort]);
   const active = isPsFilterActive(filter);
 
@@ -65,6 +67,7 @@ export const PsExplorer: FC<PsExplorerProps> = ({ services }) => {
   const handleSort = (key: PsSortKey) => setSort((prev) => nextSortState(prev, key));
 
   const reset = () => {
+    trackFilter("Все фильтры", "", "reset");
     setFilter(EMPTY_PS_FILTER);
     setSort(null);
   };
@@ -122,7 +125,9 @@ export const PsExplorer: FC<PsExplorerProps> = ({ services }) => {
           onReset={reset}
         />
       ) : (
-        <PsList services={visible} sort={sort} onSort={handleSort} />
+        <div className="contents" {...listMark({ offset: (page - 1) * PAGE_SIZE, total: sorted.length })}>
+          <PsList services={visible} sort={sort} onSort={handleSort} />
+        </div>
       )}
 
       {totalPages > 1 && (

@@ -16,7 +16,7 @@ export const PaymentServiceContent: FC<PaymentServiceContentProps> = ({ service 
 
   return (
     <div className="grid gap-6 min-w-0">
-      <AgentPageView serviceType="payment-services" slug={service.slug} />
+      <AgentPageView serviceType="payment-services" slug={service.slug} name={service.name} />
       <div className="grid gap-[30px] md:gap-[40px] lg:gap-8 lg:grid-cols-[1fr_minmax(320px,360px)] lg:items-start min-w-0">
         <div className="grid gap-[30px] md:gap-[40px] lg:gap-[50px] lg:col-start-1 lg:row-start-1 min-w-0">
           <PaymentServiceHero service={service} />
@@ -105,6 +105,7 @@ function PaymentServicePromocodes({ service }: { service: PaymentService }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {service.promocodes.map((promo, index) => (
           <AgentSiteLink
+            promo
             key={`${promo.title}-${index}`}
             serviceType="payment-services"
             slug={service.slug}

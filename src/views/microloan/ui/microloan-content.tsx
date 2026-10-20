@@ -19,7 +19,7 @@ export const MicroloanContent: FC<MicroloanContentProps> = ({ loan }) => {
 
   return (
     <div className="grid gap-6 min-w-0">
-      <AgentPageView serviceType="microloans" slug={loan.slug} />
+      <AgentPageView serviceType="microloans" slug={loan.slug} name={loan.name} />
       <div className="grid gap-[30px] md:gap-[40px] lg:gap-8 lg:grid-cols-[1fr_minmax(320px,360px)] lg:items-start min-w-0">
         <div className="grid gap-[30px] md:gap-[40px] lg:gap-[50px] lg:col-start-1 lg:row-start-1 min-w-0">
           <MicroloanHero loan={loan} />

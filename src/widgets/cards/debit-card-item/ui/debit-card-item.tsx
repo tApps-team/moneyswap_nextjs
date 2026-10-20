@@ -1,4 +1,5 @@
 import { DebitCard, formatCardCategory, orDash } from "@/entities/strapi";
+import { agentMark } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import {
@@ -31,6 +32,7 @@ const detailHref = (slug: string) => `${routes.debit_cards}/${slug}`;
 export function DebitCardRow({ card }: DebitCardItemProps) {
   return (
     <div
+      {...agentMark("debit-cards", card.slug, card.name)}
       className={cn(
         "relative px-5 py-4 transition-colors hover:bg-new-grey/30",
         card.is_vip && "bg-yellow-main/[0.05]",
@@ -66,6 +68,7 @@ export function DebitCardRow({ card }: DebitCardItemProps) {
 export function DebitCardCard({ card }: DebitCardItemProps) {
   return (
     <article
+      {...agentMark("debit-cards", card.slug, card.name)}
       className={cn(
         "relative flex flex-col gap-3 bg-new-dark-grey rounded-[16px] p-4 min-w-0",
         card.is_vip ? "border border-yellow-main/40" : "border border-new-grey/50",

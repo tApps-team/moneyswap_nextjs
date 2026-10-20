@@ -1,3 +1,4 @@
+import { track } from "@/shared/analytics";
 import { RatingSectionKey } from "@/shared/consts";
 
 /** Параметры визита: произвольное дерево, которое Метрика показывает в отчётах. */
@@ -19,6 +20,9 @@ export type AgentGoalType = "agent_page" | "agent_site";
 
 export const useYandexMetrika = () => {
   const reachGoal = (target: string, params?: YmParams) => {
+    // Цели дублируются в собственную статистику. Рейтинговую — нет: открытия
+    // карточек и переходы трекер сайта считает сам, подробнее, чем цель.
+    if (target !== RATING_GOAL) track({ t: "goal", n: target });
     if (typeof window !== "undefined" && window.ym) {
       try {
         if (typeof window.ym === "function") {

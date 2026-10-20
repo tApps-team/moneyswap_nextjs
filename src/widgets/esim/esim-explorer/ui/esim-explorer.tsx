@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, ArrowUpDown, X } from "lucide-react";
 import { FC, useEffect, useMemo, useState } from "react";
 import { EsimList } from "@/widgets/esim/esim-list";
 import { Esim } from "@/entities/strapi";
+import { listMark, trackFilter, useTrackSort } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { LocalPagination, MultiSelectFilter, Switch } from "@/shared/ui";
 import {
@@ -46,6 +47,7 @@ export const EsimExplorer: FC<EsimExplorerProps> = ({ services }) => {
   const countryOptions = useMemo(() => collectEsimCountries(services), [services]);
 
   const filtered = useMemo(() => filterEsims(services, filter), [services, filter]);
+  useTrackSort(sort);
   const sorted = useMemo(() => sortEsims(filtered, sort), [filtered, sort]);
   const active = isEsimFilterActive(filter);
 
@@ -70,6 +72,7 @@ export const EsimExplorer: FC<EsimExplorerProps> = ({ services }) => {
   };
 
   const reset = () => {
+    trackFilter("Все фильтры", "", "reset");
     setFilter(EMPTY_ESIM_FILTER);
     setSort(null);
   };
@@ -187,7 +190,9 @@ export const EsimExplorer: FC<EsimExplorerProps> = ({ services }) => {
           )}
         </div>
       ) : (
-        <EsimList services={visible} sort={sort} onSort={handleSort} />
+        <div className="contents" {...listMark({ offset: (page - 1) * PAGE_SIZE, total: sorted.length })}>
+          <EsimList services={visible} sort={sort} onSort={handleSort} />
+        </div>
       )}
 
       {totalPages > 1 && (

@@ -3,6 +3,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { DebitCardsList } from "@/widgets/cards/debit-cards-list";
 import { CardCategory, DebitCard } from "@/entities/strapi";
+import { listMark, trackFilter, useTrackSort } from "@/shared/analytics";
 import {
   EmptyResult,
   FiltersBar,
@@ -56,6 +57,7 @@ export const DebitCardsExplorer: FC<DebitCardsExplorerProps> = ({ cards }) => {
   const categoryOptions = useMemo(() => collectCardCategories(cards), [cards]);
 
   const filtered = useMemo(() => filterDebitCards(cards, filter), [cards, filter]);
+  useTrackSort(sort);
   const sorted = useMemo(() => sortDebitCards(filtered, sort), [filtered, sort]);
   const active = isDebitCardFilterActive(filter);
 
@@ -73,6 +75,7 @@ export const DebitCardsExplorer: FC<DebitCardsExplorerProps> = ({ cards }) => {
   const handleSort = (key: DebitCardSortKey) => setSort((prev) => nextSortState(prev, key));
 
   const reset = () => {
+    trackFilter("Все фильтры", "", "reset");
     setFilter(EMPTY_DEBIT_CARD_FILTER);
     setSort(null);
   };
@@ -145,7 +148,9 @@ export const DebitCardsExplorer: FC<DebitCardsExplorerProps> = ({ cards }) => {
           onReset={reset}
         />
       ) : (
-        <DebitCardsList cards={visible} sort={sort} onSort={handleSort} />
+        <div className="contents" {...listMark({ offset: (page - 1) * PAGE_SIZE, total: sorted.length })}>
+          <DebitCardsList cards={visible} sort={sort} onSort={handleSort} />
+        </div>
       )}
 
       {totalPages > 1 && (

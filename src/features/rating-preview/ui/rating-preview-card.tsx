@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FC, ReactNode } from "react";
+import { agentFromHref, agentMark } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { PreviewField, PreviewTag, RatingPreview } from "../model/types";
 
@@ -25,8 +26,11 @@ export const RatingPreviewCard: FC<RatingPreviewCardProps> = ({ preview, index =
   const visibleTags = tags.slice(0, VISIBLE_TAGS);
   const restTags = tags.length - visibleTags.length;
 
+  const agent = agentFromHref(preview.href);
+
   return (
     <Link
+      {...(agent ? agentMark(agent.section, agent.slug, preview.name) : {})}
       href={preview.href}
       style={{ animationDelay: `${Math.min(index, 6) * 60}ms` }}
       className={cn(

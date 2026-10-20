@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FC, ReactNode } from "react";
+import { promoMark, siteMark } from "@/shared/analytics";
 import { RatingSectionKey } from "@/shared/consts";
 import { useYandexMetrika } from "@/shared/hooks";
 
@@ -10,6 +11,8 @@ interface AgentSiteLinkProps {
   slug: string;
   href: string;
   className?: string;
+  /** Ссылка промокода: в собственной статистике такие переходы считаются отдельно. */
+  promo?: boolean;
   children: ReactNode;
 }
 
@@ -24,6 +27,7 @@ export const AgentSiteLink: FC<AgentSiteLinkProps> = ({
   slug,
   href,
   className,
+  promo,
   children,
 }) => {
   const { agentSiteClick } = useYandexMetrika();
@@ -34,6 +38,7 @@ export const AgentSiteLink: FC<AgentSiteLinkProps> = ({
       target="_blank"
       rel="noopener noreferrer"
       className={className}
+      {...(promo ? promoMark : siteMark)}
       onClick={() => agentSiteClick(serviceType, slug)}
     >
       {children}

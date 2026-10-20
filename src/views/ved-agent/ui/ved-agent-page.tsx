@@ -26,7 +26,7 @@ export const VedAgentPage = async ({ slug }: VedAgentPageProps) => {
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
-      <AgentPageView serviceType="ved" slug={agent.slug} />
+      <AgentPageView serviceType="ved" slug={agent.slug} name={agent.name} />
       <VedAgentHero agent={agent} breakdown={breakdown} />
 
       {(agent.promocodes?.length ?? 0) > 0 ? <VedPromocodes agent={agent} /> : null}
@@ -48,6 +48,7 @@ function VedPromocodes({ agent }: { agent: VedAgent }) {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {agent.promocodes.map((promo, index) => (
           <AgentSiteLink
+            promo
             key={`${promo.title}-${index}`}
             serviceType="ved"
             slug={agent.slug}

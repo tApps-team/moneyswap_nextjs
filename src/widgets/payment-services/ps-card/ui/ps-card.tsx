@@ -1,6 +1,7 @@
 import { Gift } from "lucide-react";
 import Link from "next/link";
 import { PaymentService, formatCommission } from "@/entities/strapi";
+import { agentMark } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import {
@@ -33,6 +34,7 @@ const toTagItems = (items: { id: number; title: string; icon: string | null }[])
 export function PsRow({ service }: PsCardProps) {
   return (
     <div
+      {...agentMark("payment-services", service.slug, service.name)}
       className={cn(
         "relative px-5 py-4 transition-colors hover:bg-new-grey/30",
         service.is_vip && "bg-yellow-main/[0.05]",
@@ -83,6 +85,7 @@ export function PsCard({ service }: PsCardProps) {
 
   return (
     <article
+      {...agentMark("payment-services", service.slug, service.name)}
       className={cn(
         "relative flex flex-col gap-3 bg-new-dark-grey rounded-[16px] p-4 min-w-0",
         service.is_vip ? "border border-yellow-main/40" : "border border-new-grey/50",

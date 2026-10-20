@@ -3,6 +3,7 @@ import { Viewport } from "next";
 import Script from "next/script";
 import Providers from "@/app/providers/react-query";
 import "@/shared/styles/globals.scss";
+import { SiteTracker } from "@/features/analytics";
 import { Footer } from "@/widgets/footer";
 import { Header } from "@/widgets/header";
 import NextTopLoader from 'nextjs-toploader';
@@ -175,6 +176,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
         </Providers>
+        <SiteTracker />
         <Toaster />
       </body>
     </html>
