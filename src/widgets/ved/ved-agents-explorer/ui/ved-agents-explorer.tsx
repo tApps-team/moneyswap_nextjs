@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, ArrowUpDown, X } from "lucide-react";
 import { FC, useEffect, useMemo, useState } from "react";
 import { VedAgentsList } from "@/widgets/ved/ved-agents-list";
 import { VedAgent } from "@/entities/strapi";
+import { listMark, trackFilter, useTrackSort } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { LocalPagination, MultiSelectFilter } from "@/shared/ui";
 import {
@@ -39,6 +40,7 @@ export const VedAgentsExplorer: FC<VedAgentsExplorerProps> = ({ agents }) => {
   const currencyOptions = useMemo(() => collectCurrencies(agents), [agents]);
 
   const filtered = useMemo(() => filterVedAgents(agents, filter), [agents, filter]);
+  useTrackSort(sort);
   const sorted = useMemo(() => sortVedAgents(filtered, sort), [filtered, sort]);
   const active = isVedFilterActive(filter);
 
@@ -63,6 +65,7 @@ export const VedAgentsExplorer: FC<VedAgentsExplorerProps> = ({ agents }) => {
   };
 
   const reset = () => {
+    trackFilter("Все фильтры", "", "reset");
     setFilter(EMPTY_VED_FILTER);
     setSort(null);
   };
@@ -162,7 +165,9 @@ export const VedAgentsExplorer: FC<VedAgentsExplorerProps> = ({ agents }) => {
           )}
         </div>
       ) : (
-        <VedAgentsList agents={visible} sort={sort} onSort={handleSort} />
+        <div className="contents" {...listMark({ offset: (page - 1) * PAGE_SIZE, total: sorted.length })}>
+          <VedAgentsList agents={visible} sort={sort} onSort={handleSort} />
+        </div>
       )}
 
       {totalPages > 1 && (

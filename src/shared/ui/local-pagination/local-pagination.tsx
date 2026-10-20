@@ -1,6 +1,7 @@
 "use client";
 
 import { FC } from "react";
+import { track } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 
 interface LocalPaginationProps {
@@ -39,7 +40,10 @@ export const LocalPagination: FC<LocalPaginationProps> = ({
           <button
             key={index}
             type="button"
-            onClick={() => onPageChange(page)}
+            onClick={() => {
+              onPageChange(page);
+              track({ t: "paginate", num: page });
+            }}
             className={cn(
               "lg:h-9 lg:w-9 h-8 w-8 lg:text-sm text-xs font-normal flex justify-center items-center rounded-[5px] p-2 transition-all duration-300",
               page === currentPage

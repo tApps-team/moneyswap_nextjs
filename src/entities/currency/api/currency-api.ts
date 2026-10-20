@@ -39,7 +39,10 @@ export const getAvailableValutes = async (
     });
 
     if (!result.ok) {
-      console.error(`Failed to fetch available valutes: ${result.status} ${result.statusText}`);
+      // 404 — для такого направления валют нет: обычная ситуация, не ошибка.
+      if (result.status !== 404) {
+        console.error(`Failed to fetch available valutes: ${result.status} ${result.statusText}`);
+      }
       // Возвращаем дефолтное значение вместо выброса ошибки
       return [
         {
@@ -210,13 +213,17 @@ export const getActualCourse = async (
       }
     });
 
+    // 404 — курса для этой пары сейчас нет: страница покажется без него, в журнал не пишем.
+    if (result.status === 404) return null;
     if (!result.ok) {
-      throw new Error("Failed to fetch the actual course");
+      console.error(`Failed to fetch the actual course: ${result.status} ${valuteFrom}→${valuteTo}`);
+      return null;
     }
 
     return result.json();
   } catch (error) {
-    console.error("Failed to fetch the actual course:", error);
+    // Сбой сети или API — одной строкой, без трассировки на каждый запрос.
+    console.error("Failed to fetch the actual course:", error instanceof Error ? error.message : error);
     return null;
   }
 };

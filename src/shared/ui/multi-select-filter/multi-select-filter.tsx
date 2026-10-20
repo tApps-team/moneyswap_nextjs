@@ -4,6 +4,7 @@ import { Check, ChevronDown, Search } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { RefCallback } from "react";
+import { trackFilter } from "@/shared/analytics";
 import { cn, useMediaQuery } from "@/shared/lib";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "../drawer";
 
@@ -77,7 +78,9 @@ export function MultiSelectFilter<T extends string | number = number>({
   }, [open]);
 
   const toggle = (id: T) => {
-    onChange(selected.includes(id) ? selected.filter((s) => s !== id) : [...selected, id]);
+    const adding = !selected.includes(id);
+    onChange(adding ? [...selected, id] : selected.filter((s) => s !== id));
+    trackFilter(label, options.find((o) => o.id === id)?.title ?? String(id), adding ? "add" : "remove");
   };
 
   const count = selected.length;

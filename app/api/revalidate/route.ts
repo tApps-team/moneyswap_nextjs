@@ -5,6 +5,17 @@ import { GROUP_BY_SECTION_KEY, SiteSectionKey } from "@/shared/consts";
 import { routes } from "@/shared/router";
 
 /**
+ * Шаблон динамической страницы сайта для revalidatePath(..., "page").
+ *
+ * Next строит неявные теги страницы по её ФАЙЛОВОМУ пути, а route group входит
+ * в этот путь: страница лежит в app/(site)/payment-services/[slug]/page.tsx и
+ * получает тег «/(site)/payment-services/[slug]/page». Без префикса группы
+ * вызов молча промахивается мимо кэша. Простые пути без типа (revalidatePath("/ved"))
+ * сопоставляются по URL и префикс не требуют.
+ */
+const sitePage = (path: string) => `/(site)${path}`;
+
+/**
  * Справочники (метки, отзывы, страны, валюты, платёжные системы, платформы)
  * не имеют собственных страниц — они приезжают на фронт внутри агентов / карт / eSIM
  * через populate. Поэтому при их изменении сбрасываем кэш списков и детальных страниц.
@@ -24,56 +35,56 @@ const revalidateShowcase = (sectionKey: SiteSectionKey) => {
 const revalidateVedAgents = () => {
   revalidateTag("ved-agents");
   revalidatePath(routes.ved);
-  revalidatePath(`${routes.ved_agents}/[slug]`, "page");
+  revalidatePath(sitePage(`${routes.ved_agents}/[slug]`), "page");
   revalidateShowcase("ved");
 };
 
 const revalidateEsims = () => {
   revalidateTag("e-sims");
   revalidatePath(routes.esim);
-  revalidatePath(`${routes.esim}/[slug]`, "page");
+  revalidatePath(sitePage(`${routes.esim}/[slug]`), "page");
   revalidateShowcase("esim");
 };
 
 const revalidateVirtualCards = () => {
   revalidateTag("virtual-cards");
   revalidatePath(routes.virtual_cards);
-  revalidatePath(`${routes.vc_cards}/[slug]`, "page");
+  revalidatePath(sitePage(`${routes.vc_cards}/[slug]`), "page");
   revalidateShowcase("virtual-cards");
 };
 
 const revalidatePaymentServices = () => {
   revalidateTag("payment-services");
   revalidatePath(routes.payment_services);
-  revalidatePath(`${routes.payment_services}/[slug]`, "page");
+  revalidatePath(sitePage(`${routes.payment_services}/[slug]`), "page");
   revalidateShowcase("payment-services");
 };
 
 const revalidateDebitCards = () => {
   revalidateTag("debit-cards");
   revalidatePath(routes.debit_cards);
-  revalidatePath(`${routes.debit_cards}/[slug]`, "page");
+  revalidatePath(sitePage(`${routes.debit_cards}/[slug]`), "page");
   revalidateShowcase("debit-cards");
 };
 
 const revalidateCreditCards = () => {
   revalidateTag("credit-cards");
   revalidatePath(routes.credit_cards);
-  revalidatePath(`${routes.credit_cards}/[slug]`, "page");
+  revalidatePath(sitePage(`${routes.credit_cards}/[slug]`), "page");
   revalidateShowcase("credit-cards");
 };
 
 const revalidateBankCredits = () => {
   revalidateTag("bank-credits");
   revalidatePath(routes.credits);
-  revalidatePath(`${routes.credits}/[slug]`, "page");
+  revalidatePath(sitePage(`${routes.credits}/[slug]`), "page");
   revalidateShowcase("credits");
 };
 
 const revalidateMicroloans = () => {
   revalidateTag("microloans");
   revalidatePath(routes.microloans);
-  revalidatePath(`${routes.microloans}/[slug]`, "page");
+  revalidatePath(sitePage(`${routes.microloans}/[slug]`), "page");
   revalidateShowcase("microloans");
 };
 

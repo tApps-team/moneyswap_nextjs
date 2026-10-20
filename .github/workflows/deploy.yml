@@ -66,6 +66,7 @@ jobs:
             STRAPI_BASE_URL=${{ secrets.STRAPI_BASE_URL }}
             NEXT_PUBLIC_SITE_BASE_URL=${{ secrets.NEXT_PUBLIC_SITE_BASE_URL }}
             NEXT_PUBLIC_TGBOT_BASE_URL=${{ secrets.NEXT_PUBLIC_TGBOT_BASE_URL }}
+            ANALYTICS_DATABASE_URL=${{ secrets.ANALYTICS_DATABASE_URL }}
             EOF
             
             rm -rf .next

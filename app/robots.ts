@@ -11,6 +11,9 @@ export default function robots(): MetadataRoute.Robots {
         '/api/',
         '/admin/',
         '/private/',
+        // CMS для контент-менеджеров: закрыта логином, дополнительно noindex
+        // в метатеге и заголовке X-Robots-Tag.
+        '/strapi',
       ],
     },
     sitemap: `${baseUrl}/sitemap-index.xml`,

@@ -8,6 +8,7 @@ import {
   GRACE_PERIOD_OPTIONS,
   GracePeriodBucket,
 } from "@/entities/strapi";
+import { listMark, trackFilter, useTrackSort } from "@/shared/analytics";
 import {
   EmptyResult,
   FiltersBar,
@@ -62,6 +63,7 @@ export const CreditCardsExplorer: FC<CreditCardsExplorerProps> = ({ cards }) => 
   const categoryOptions = useMemo(() => collectCardCategories(cards), [cards]);
 
   const filtered = useMemo(() => filterCreditCards(cards, filter), [cards, filter]);
+  useTrackSort(sort);
   const sorted = useMemo(() => sortCreditCards(filtered, sort), [filtered, sort]);
   const active = isCreditCardFilterActive(filter);
 
@@ -79,6 +81,7 @@ export const CreditCardsExplorer: FC<CreditCardsExplorerProps> = ({ cards }) => 
   const handleSort = (key: CreditCardSortKey) => setSort((prev) => nextSortState(prev, key));
 
   const reset = () => {
+    trackFilter("Все фильтры", "", "reset");
     setFilter(EMPTY_CREDIT_CARD_FILTER);
     setSort(null);
   };
@@ -159,7 +162,9 @@ export const CreditCardsExplorer: FC<CreditCardsExplorerProps> = ({ cards }) => 
           onReset={reset}
         />
       ) : (
-        <CreditCardsList cards={visible} sort={sort} onSort={handleSort} />
+        <div className="contents" {...listMark({ offset: (page - 1) * PAGE_SIZE, total: sorted.length })}>
+          <CreditCardsList cards={visible} sort={sort} onSort={handleSort} />
+        </div>
       )}
 
       {totalPages > 1 && (

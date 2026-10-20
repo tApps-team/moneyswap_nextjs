@@ -1,4 +1,5 @@
 import { CreditCard, formatCardCategory, orDash } from "@/entities/strapi";
+import { agentMark } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import {
@@ -31,6 +32,7 @@ const detailHref = (slug: string) => `${routes.credit_cards}/${slug}`;
 export function CreditCardRow({ card }: CreditCardItemProps) {
   return (
     <div
+      {...agentMark("credit-cards", card.slug, card.name)}
       className={cn(
         "relative px-5 py-4 transition-colors hover:bg-new-grey/30",
         card.is_vip && "bg-yellow-main/[0.05]",
@@ -66,6 +68,7 @@ export function CreditCardRow({ card }: CreditCardItemProps) {
 export function CreditCardCard({ card }: CreditCardItemProps) {
   return (
     <article
+      {...agentMark("credit-cards", card.slug, card.name)}
       className={cn(
         "relative flex flex-col gap-3 bg-new-dark-grey rounded-[16px] p-4 min-w-0",
         card.is_vip ? "border border-yellow-main/40" : "border border-new-grey/50",

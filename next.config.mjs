@@ -52,6 +52,10 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    // Драйвер Postgres статистики — нативный модуль Node, в бандл его не тянем.
+    serverComponentsExternalPackages: ["pg"],
+  },
   images: {
     remotePatterns: [
       {

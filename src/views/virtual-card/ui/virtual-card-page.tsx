@@ -25,7 +25,7 @@ export const VirtualCardPage = async ({ slug }: VirtualCardPageProps) => {
 
   return (
     <section className="grid grid-flow-row lg:gap-[50px] md:gap-[40px] gap-[30px]">
-      <AgentPageView serviceType="virtual-cards" slug={card.slug} />
+      <AgentPageView serviceType="virtual-cards" slug={card.slug} name={card.name} />
       <VirtualCardHero card={card} breakdown={breakdown} />
 
       {card.promocodes.length > 0 ? <VcPromocodes card={card} /> : null}
@@ -163,6 +163,7 @@ function VcPromocodes({ card }: { card: VirtualCard }) {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {card.promocodes.map((promo, index) => (
           <AgentSiteLink
+            promo
             key={`${promo.title}-${index}`}
             serviceType="virtual-cards"
             slug={card.slug}

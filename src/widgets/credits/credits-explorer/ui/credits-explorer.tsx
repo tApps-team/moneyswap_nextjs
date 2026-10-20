@@ -3,6 +3,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { CreditsList } from "@/widgets/credits/credits-list";
 import { BankCredit, CREDIT_TERM_OPTIONS, CreditTermBucket } from "@/entities/strapi";
+import { listMark, trackFilter, useTrackSort } from "@/shared/analytics";
 import {
   EmptyResult,
   FiltersBar,
@@ -46,6 +47,7 @@ export const CreditsExplorer: FC<CreditsExplorerProps> = ({ credits }) => {
   const bankOptions = useMemo(() => collectCreditBanks(credits), [credits]);
 
   const filtered = useMemo(() => filterCredits(credits, filter), [credits, filter]);
+  useTrackSort(sort);
   const sorted = useMemo(() => sortCredits(filtered, sort), [filtered, sort]);
   const active = isCreditsFilterActive(filter);
 
@@ -63,6 +65,7 @@ export const CreditsExplorer: FC<CreditsExplorerProps> = ({ credits }) => {
   const handleSort = (key: CreditsSortKey) => setSort((prev) => nextSortState(prev, key));
 
   const reset = () => {
+    trackFilter("Все фильтры", "", "reset");
     setFilter(EMPTY_CREDITS_FILTER);
     setSort(null);
   };
@@ -123,7 +126,9 @@ export const CreditsExplorer: FC<CreditsExplorerProps> = ({ credits }) => {
           onReset={reset}
         />
       ) : (
-        <CreditsList credits={visible} sort={sort} onSort={handleSort} />
+        <div className="contents" {...listMark({ offset: (page - 1) * PAGE_SIZE, total: sorted.length })}>
+          <CreditsList credits={visible} sort={sort} onSort={handleSort} />
+        </div>
       )}
 
       {totalPages > 1 && (

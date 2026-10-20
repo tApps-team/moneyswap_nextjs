@@ -2,6 +2,7 @@ import { Gift, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { VedAgent, formatVedLimit, getVedReviewBreakdown } from "@/entities/strapi";
+import { agentMark } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { TagCell } from "@/shared/ui";
@@ -29,6 +30,7 @@ export function VedAgentRow({ agent }: VedAgentCardProps) {
 
   return (
     <div
+      {...agentMark("ved", agent.slug, agent.name)}
       className={cn(
         "relative px-5 py-4 transition-colors hover:bg-new-grey/30",
         agent.is_vip && "bg-yellow-main/[0.05]",
@@ -78,6 +80,7 @@ export function VedAgentCard({ agent }: VedAgentCardProps) {
 
   return (
     <article
+      {...agentMark("ved", agent.slug, agent.name)}
       className={cn(
         "relative flex flex-col gap-3 bg-new-dark-grey rounded-[16px] p-4",
         agent.is_vip ? "border border-yellow-main/40" : "border border-new-grey/50",

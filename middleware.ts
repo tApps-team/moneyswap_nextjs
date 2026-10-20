@@ -1,8 +1,47 @@
 import { NextRequest, NextResponse } from "next/server";
+import { CMS_BASE, CMS_COOKIE } from "./src/cms/config/paths";
 import { handleBannerExchanger } from "./src/shared/consts/banner-exchangers";
+
+/**
+ * CMS (/strapi): без сессии — на вход, API отвечает 401 вместо редиректа.
+ * Здесь проверяется только наличие cookie; сам токен валидирует Strapi
+ * в серверном layout'е CMS, при отказе cookie удаляется и пользователь
+ * попадает на вход. Все ответы помечаются noindex.
+ */
+function handleCms(request: NextRequest): NextResponse {
+  const { pathname, search } = request.nextUrl;
+  const hasSession = request.cookies.has(CMS_COOKIE);
+  const isApi = pathname.startsWith(`${CMS_BASE}/api/`);
+  const isAuthApi = pathname.startsWith(`${CMS_BASE}/api/auth/`);
+  const isLogin = pathname === `${CMS_BASE}/login`;
+
+  let res: NextResponse;
+  if (isApi) {
+    res =
+      hasSession || isAuthApi
+        ? NextResponse.next()
+        : NextResponse.json({ message: "Нет сессии" }, { status: 401 });
+  } else if (isLogin) {
+    res = hasSession ? NextResponse.redirect(new URL(CMS_BASE, request.url)) : NextResponse.next();
+  } else if (hasSession) {
+    res = NextResponse.next();
+  } else {
+    const login = new URL(`${CMS_BASE}/login`, request.url);
+    login.searchParams.set("next", pathname + search);
+    res = NextResponse.redirect(login);
+  }
+
+  res.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+  res.headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
+  return res;
+}
 
 export default function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
+
+  if (pathname === CMS_BASE || pathname.startsWith(`${CMS_BASE}/`)) {
+    return handleCms(request);
+  }
 
   // Обменная витрина переехала с главной на /exchange: старая ссылка на наличный обмен
   // уже проиндексирована, поэтому уводим её постоянным редиректом.

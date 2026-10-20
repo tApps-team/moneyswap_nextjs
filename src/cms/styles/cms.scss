@@ -1,0 +1,48 @@
+/*
+ * Глобальные стили CMS — отдельные от сайта.
+ *
+ * Сайтовый globals.scss сюда намеренно НЕ подключается: в нём сброс
+ * `:root p, h1, h2, h3, li { padding: 0; margin: 0 }` со специфичностью
+ * (0,1,1), который перебивает утилиты Tailwind вроде `px-3` (0,1,0).
+ * У CMS свой корневой layout, поэтому и база своя: Tailwind + фирменные
+ * цвета поверх переменных shadcn.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 19% 12%;          /* #191C25 */
+    --foreground: 0 0% 96%;
+    --card: 225 12% 17%;                /* #252830 */
+    --card-foreground: 0 0% 96%;
+    --popover: 225 12% 17%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 63 100% 69%;             /* #F6FF5F */
+    --primary-foreground: 225 19% 12%;
+    --secondary: 225 10% 21%;           /* #2F323A */
+    --secondary-foreground: 0 0% 96%;
+    --muted: 225 10% 21%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 225 9% 25%;               /* #393C44 */
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 225 9% 25%;
+    --input: 225 9% 25%;
+    --ring: 63 100% 69%;
+    --radius: 0.625rem;
+
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  }
+}

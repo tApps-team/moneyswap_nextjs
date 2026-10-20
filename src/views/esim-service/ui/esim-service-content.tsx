@@ -29,7 +29,7 @@ export const EsimServiceContent: FC<EsimServiceContentProps> = ({ service }) => 
 
   return (
     <div className="grid gap-6">
-      <AgentPageView serviceType="esim" slug={service.slug} />
+      <AgentPageView serviceType="esim" slug={service.slug} name={service.name} />
       {/* Временно скрыты табы Обзор/Отзывы (логика сохранена, дефолт — overview)
       <div className="flex gap-2 p-1.5 rounded-[12px] bg-new-dark-grey w-full lg:w-fit">
         {TABS.map((tab) => (
@@ -83,6 +83,7 @@ function EsimPromocodes({ service }: { service: Esim }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {service.promocodes.map((promo, index) => (
           <AgentSiteLink
+            promo
             key={`${promo.title}-${index}`}
             serviceType="esim"
             slug={service.slug}
