@@ -31,7 +31,7 @@
       }
     },
     {
-      "files": ["app/layout.tsx"],
+      "files": ["app/layout.tsx", "app/(site)/layout.tsx", "app/(cms)/**/layout.tsx"],
       "rules": {
         "import/order": "off"
       }
