@@ -15,6 +15,7 @@ import {
 } from "@tanstack/react-table";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { Exchanger, ExchangerCard, getExchangers } from "@/entities/exchanger";
+import { agentMark, listMark } from "@/shared/analytics";
 import { cn } from "@/shared/lib";
 import { useMediaQuery } from "@/shared/lib/hooks/useMediaQuery";
 import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shared/ui";
@@ -201,10 +202,11 @@ export function ExchangersTable<TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody className="[&_tr]:bg-new-grey">
+            <TableBody className="[&_tr]:bg-new-grey" {...listMark({ total: data.length })}>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
+                    {...agentMark("exchangers", String(row.original.exchange_id), row.original.name?.ru)}
                     className={cn(
                       "relative",
                       row.original.is_vip
@@ -261,9 +263,11 @@ export function ExchangersTable<TData, TValue>({
         giveCurrency={exchangers?.[0]?.valute_from || ''}
         getCurrency={exchangers?.[0]?.valute_to || ''}
       />
-      {sortedMobileExchangers.map((exchanger) => (
-        <ExchangerCard key={exchanger.id} exchanger={exchanger} city={cityName} />
-      ))}
+      <div className="contents" {...listMark({ total: data.length })}>
+        {sortedMobileExchangers.map((exchanger) => (
+          <ExchangerCard key={exchanger.id} exchanger={exchanger} city={cityName} />
+        ))}
+      </div>
       <Button
         onClick={handleShowMore}
         disabled={sortedMobileExchangers.length >= data.length}

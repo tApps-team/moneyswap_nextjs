@@ -6,6 +6,7 @@ import { useState } from "react";
 import type { agentReport } from "@/cms/server/stats/agents";
 import { STAT_SECTIONS, StatSection } from "@/shared/analytics/classify";
 import { BarList, Funnel, LineChart } from "./charts";
+import { code, pairLabel } from "./exchange-page";
 import {
   CLICK_SOURCE_TITLES,
   DEVICE_TITLES,
@@ -195,6 +196,25 @@ export function AgentPage({ section, slug }: { section: StatSection; slug: strin
       </div>
 
       <div className="grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-2">
+        {data.directions.length > 0 && (
+          <Panel title="Направления обмена" hint="На страницах каких направлений обменника показывали и откуда к нему переходили" className="lg:col-span-2">
+            <StatsTable
+              rows={data.directions}
+              rowKey={(r) => `${r.from}:${r.to}:${r.city ?? ""}`}
+              defaultSort={{ key: "outbound", dir: "desc" }}
+              search={(r) => `${r.from} ${r.to} ${r.city ?? ""}`}
+              searchPlaceholder="Валюта или город"
+              columns={[
+                { key: "pair", label: "Направление", primary: true, value: (r) => pairLabel(r.from, r.to, r.city) },
+                { key: "impressions", label: "Показы", numeric: true, value: (r) => r.impressions, render: (r) => fmtInt(r.impressions) },
+                { key: "avgPosition", label: "Ср. позиция", numeric: true, value: (r) => r.avgPosition, render: (r) => fmtDec(r.avgPosition) },
+                { key: "outbound", label: "Переходы", numeric: true, value: (r) => r.outbound, render: (r) => fmtInt(r.outbound) },
+                { key: "ctr", label: "CTR", numeric: true, value: (r) => share(r.outbound, r.impressions), render: (r) => fmtPct(share(r.outbound, r.impressions)) },
+              ]}
+            />
+            <p className="mt-2 text-xs text-muted-foreground">Коды как в адресе страницы: {code("cashrub")} — наличные рубли, город — код из адреса.</p>
+          </Panel>
+        )}
         <Panel title="Источники визитов" hint="Визиты, в которых видели или открывали этого агента">
           <BarList
             limit={8}

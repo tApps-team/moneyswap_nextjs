@@ -12,6 +12,7 @@ function defaultSource(path: string): ClickSource {
   switch (classifyPath(path).pageType) {
     case "section_list":
     case "section_main":
+    case "exchange":
       return "list";
     case "hub":
       return "hub";

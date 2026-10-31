@@ -4,6 +4,7 @@ import { Calendar, Check, Clock, X } from "lucide-react";
 import Link from "next/link";
 // eslint-disable-next-line boundaries/element-types
 import { defaultUserId, increaseLinkCount } from "@/entities/user";
+import { agentMark } from "@/shared/analytics";
 import { ExchangerCardArrow } from "@/shared/assets";
 import { useYandexMetrika } from "@/shared/hooks";
 import { cn } from "@/shared/lib";
@@ -41,7 +42,7 @@ export const ExchangerCard = (props: ExchangerCardProps) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" {...agentMark("exchangers", String(exchanger.exchange_id), exchanger.name?.ru)}>
       <Link
         onClick={() => handleClick(exchanger)}
         target="_blank"

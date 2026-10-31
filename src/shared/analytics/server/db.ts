@@ -66,6 +66,14 @@ create index if not exists ms_events_session on ms_events (session_id, ts);
 create index if not exists ms_events_visitor on ms_events (visitor_id, ts);
 create index if not exists ms_events_page on ms_events (page_type, ts);
 
+-- Направление обмена страницы, на которой случилось событие (добавлено позже,
+-- поэтому отдельными alter: на уже созданной таблице колонки появятся сами).
+alter table ms_events add column if not exists valute_from text;
+alter table ms_events add column if not exists valute_to text;
+alter table ms_events add column if not exists city text;
+alter table ms_events add column if not exists segment text;
+create index if not exists ms_events_direction on ms_events (valute_from, valute_to, ts) where valute_from is not null;
+
 create table if not exists ms_entities (
   kind       text not null,
   slug       text not null,

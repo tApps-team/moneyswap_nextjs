@@ -18,7 +18,7 @@ export async function funnel(f: StatsFilters) {
      ),
      s as (
        select session_id, coalesce(section, page_section) as sec,
-         bool_or(type = 'page_view' and page_type in ('section_list','section_main')) as list_view,
+         bool_or(type = 'page_view' and page_type in ('section_list','section_main','exchange')) as list_view,
          bool_or(type = 'impression') as impression,
          bool_or(type = 'detail_click' or (type = 'page_view' and page_type = 'agent')) as detail,
          bool_or(type = 'page_view' and page_type = 'agent') as agent_view,

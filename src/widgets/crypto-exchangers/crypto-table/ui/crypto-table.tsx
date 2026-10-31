@@ -13,6 +13,7 @@ import {
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { agentMark } from "@/shared/analytics";
 import { cn, useMediaQuery } from "@/shared/lib";
 import { routes } from "@/shared/router";
 import { ExchangerStatus } from "@/shared/types";
@@ -197,6 +198,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
+                    {...agentMark("exchangers", String(row.original.id), row.original.exchangerName?.ru)}
                     className="border-none bg-new-grey xl:rounded-[15px] rounded-[10px]"
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
@@ -257,6 +259,7 @@ export function CryptoTable<TData, TValue>(props: DataTableProps<TData>) {
           {paginatedData.length > 0 ? paginatedData.map((exchanger) => (
             <div
               key={exchanger.id + exchanger.exchangerName.ru}
+              {...agentMark("exchangers", String(exchanger.id), exchanger.exchangerName?.ru)}
               className="flex flex-col gap-2.5 justify-between mobile:p-5 p-4 bg-new-dark-grey rounded-[15px]"
             >
               <div className="flex w-full items-center justify-between">

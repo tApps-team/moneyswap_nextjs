@@ -136,7 +136,7 @@ export async function sectionsBreakdown(f: StatsFilters) {
     q,
     `select coalesce(section, page_section) as section,
        count(distinct session_id) filter (where type = 'page_view') as sessions,
-       count(*) filter (where type = 'page_view' and page_type in ('section_list','section_main')) as list_views,
+       count(*) filter (where type = 'page_view' and page_type in ('section_list','section_main','exchange')) as list_views,
        count(*) filter (where type = 'page_view' and page_type = 'agent') as agent_views,
        count(*) filter (where type = 'impression') as impressions,
        count(*) filter (where type = 'detail_click') as detail,
