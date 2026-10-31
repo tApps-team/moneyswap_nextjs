@@ -241,7 +241,7 @@ export const toExchangerPreview = (exchanger: TopExchanger): RatingPreview => {
     name: exchanger.name,
     logo: exchanger.iconUrl,
     href: `${routes.exchangers}/exchanger-${exchanger.id}`,
-    isVip: false,
+    isVip: Boolean(exchanger.is_vip),
     rating: null,
     reviewsCount: positive + neutral + negative,
     // Направления и резервы приезжают отдельным запросом — см. ExchangerStats
