@@ -5,4 +5,9 @@ export type TopExchanger = {
   iconUrl: string;
   name: string;
   reviewCount: Review;
+  /**
+   * Платное размещение — плашка «Лучшее предложение», как в таблице направлений.
+   * Пока API top_exchanges этого поля не отдаёт; появится — карточка подхватит сама.
+   */
+  is_vip?: boolean;
 };

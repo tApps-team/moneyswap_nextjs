@@ -6,6 +6,7 @@ import {
 } from "@/widgets/exchanger/crypto-exchanger-seo-text";
 import { ExchangerInfo } from "@/widgets/exchanger/exchanger-info";
 import { ExchangerReviews } from "@/widgets/exchanger/exchanger-reviews";
+import { ExchangerPageView } from "@/features/analytics";
 import { BotBannerSidebar } from "@/features/bot-banner";
 import { getPairValute } from "@/entities/currency";
 import { getExchangerDetails } from "@/entities/exchanger";
@@ -59,6 +60,7 @@ export const CryptoExchangerPage = async ({
         <CryptoExchangerSeoText exchangerInfo={exchangerDetails} />
         <section className="grid xl:grid-cols-[1fr,0.4fr] lg:grid-cols-[1fr,0.5fr] grid-cols-1 gap-7">
           <div className="grid md:gap-[50px] gap-10">
+            <ExchangerPageView id={exchangerDetails.id} name={exchangerDetails.exchangerName?.ru} />
             <ExchangerInfo exchangerDetails={exchangerDetails} />
             <CryptoExchangerSeoMainText exchangerInfo={exchangerDetails} />
             <ExchangerReviews

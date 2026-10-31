@@ -1,4 +1,5 @@
 import { StatSection } from "@/shared/analytics/classify";
+import { exchangerDirections } from "./exchange";
 import { kpis, series } from "./overview";
 import { eventScope, num, previousPeriod, SOURCE_TYPE_SQL, Sql, StatsFilters } from "./query";
 import { entityNames, run } from "./run";
@@ -135,7 +136,7 @@ export async function agentReport(f: StatsFilters, section: StatSection, slug: s
   const sec1 = q1.p(section);
   const slug1 = q1.p(slug);
 
-  const [rows, chart, sectionKpis, clickSources, positions, devices, entry, exitAfter, engagement, filtersBefore, traffic] =
+  const [rows, chart, sectionKpis, clickSources, positions, devices, entry, exitAfter, engagement, filtersBefore, traffic, directions] =
     await Promise.all([
       agentsTable(f, only),
       series(scoped, agentCond),
@@ -272,6 +273,8 @@ export async function agentReport(f: StatsFilters, section: StatSection, slug: s
            from src group by 1, 2 order by sessions desc limit 30`,
         );
       })(),
+      // У обменников: по каким направлениям обмена к ним переходили.
+      section === "exchangers" ? exchangerDirections(f, slug) : Promise.resolve([]),
     ]);
 
   const engagementBy = (converted: boolean) => {
@@ -304,5 +307,6 @@ export async function agentReport(f: StatsFilters, section: StatSection, slug: s
     engagement: { converted: engagementBy(true), notConverted: engagementBy(false) },
     filtersBefore: filtersBefore.map((r) => ({ name: String(r.name), value: String(r.value), sessions: num(r.sessions) })),
     traffic: traffic.map((r) => ({ key: String(r.key), host: String(r.host), sessions: num(r.sessions) })),
+    directions,
   };
 }

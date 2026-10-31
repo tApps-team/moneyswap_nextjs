@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { classifyPath, isStatSection } from "../classify";
+import { classifyPath, isStatSection, parseDirection } from "../classify";
 import { EVENT_TYPES } from "../events";
 import { analyticsPool, withClient } from "./db";
 import { isBot, parseUa } from "./ua";
@@ -40,6 +40,7 @@ const COLUMNS = [
   "ts", "type", "visitor_id", "session_id", "view_id", "path", "page_type", "page_section", "page_entity",
   "section", "entity", "name", "value", "source", "position", "num", "num2",
   "referrer_host", "utm_source", "utm_medium", "utm_campaign", "device", "browser", "os", "is_staff",
+  "valute_from", "valute_to", "city", "segment",
 ] as const;
 
 const hostOf = (url: string | undefined) => {
@@ -92,6 +93,7 @@ export async function ingest(batch: Batch, userAgent: string): Promise<number> {
     const section = isAgentEvent && isStatSection(e.s) ? e.s : null;
     const entity = isAgentEvent && section ? e.e ?? null : null;
     const isView = e.t === "page_view";
+    const direction = parseDirection(e.p);
 
     // Названия агентов и статей — для отчётов, где есть только slug.
     if (section && entity && e.n) names.set(`${section}:${entity}`, { kind: section, slug: entity, name: e.n });
@@ -127,6 +129,10 @@ export async function ingest(batch: Batch, userAgent: string): Promise<number> {
       browser,
       os,
       batch.st === 1,
+      direction?.from ?? null,
+      direction?.to ?? null,
+      direction?.city ?? null,
+      direction?.segment ?? null,
     ]);
   }
 

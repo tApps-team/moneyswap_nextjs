@@ -6,7 +6,11 @@
  * его импортируют и сборщик событий, и отчёты CMS.
  */
 
-/** Разделы-рейтинги — совпадают с RatingSectionKey. */
+/**
+ * Разделы статистики: рейтинги (совпадают с RatingSectionKey) и обменники.
+ * У обменников «список» — их рейтинг, а основная витрина — страницы
+ * направлений /exchange/…, они тоже относятся к этому разделу.
+ */
 export const STAT_SECTIONS = {
   // Списки ВЭД и виртуальных карт живут на главных разделов: /ved/agents и
   // /virtual-cards/cards — только редиректы туда, а карточки остаются глубже.
@@ -18,6 +22,7 @@ export const STAT_SECTIONS = {
   "credit-cards": { title: "Кредитные карты", list: "/credit-cards", detail: "/credit-cards/" },
   credits: { title: "Кредиты", list: "/credits", detail: "/credits/" },
   microloans: { title: "Займы", list: "/microloans", detail: "/microloans/" },
+  exchangers: { title: "Обменники", list: "/crypto-exchangers", detail: "/crypto-exchangers/" },
 } as const;
 
 export type StatSection = keyof typeof STAT_SECTIONS;
@@ -93,11 +98,17 @@ export function classifyPath(rawPath: string): PageInfo {
   if (path === "/virtual-cards/cards") return page("section_list", "virtual-cards");
   if (path === "/ved/exchange" || path.startsWith("/ved/exchange/")) return page("section_main", "ved", slugAfter(path, "/ved/exchange/"));
 
+  // Направления обмена: «/exchange/BTC-to-CASHRUB» — витрина обменников.
+  if (path === "/exchange" || path.startsWith("/exchange/")) {
+    return page("exchange", "exchangers", path.slice("/exchange/".length).toLowerCase() || null);
+  }
+
   for (const key of STAT_SECTION_KEYS) {
     const s = STAT_SECTIONS[key];
     if (path === s.list) return page("section_list", key);
     const slug = slugAfter(path, s.detail);
-    if (slug) return page("agent", key, slug);
+    // Страница обменника — «/crypto-exchangers/exchanger-1446», в статистике это просто 1446.
+    if (slug) return page("agent", key, key === "exchangers" ? slug.replace(/^exchanger-/, "") : slug);
   }
 
   if (path === "/blog") return page("blog");
@@ -108,10 +119,6 @@ export function classifyPath(rawPath: string): PageInfo {
   const tag = slugAfter(path, "/blog/tag/");
   if (tag) return page("blog_tag", null, tag);
 
-  if (path === "/exchange" || path.startsWith("/exchange/")) return page("exchange", null, path.slice("/exchange/".length) || null);
-  if (path === "/crypto-exchangers") return page("exchangers");
-  const exchanger = slugAfter(path, "/crypto-exchangers/");
-  if (exchanger) return page("exchanger", null, exchanger.replace(/^exchanger-/, ""));
   if (path === "/blacklist" || path.startsWith("/blacklist/")) return page("blacklist", null, slugAfter(path, "/blacklist/"));
   if (INFO.some((p) => path === p || path.startsWith(`${p}/`))) return page("info");
   return page("other");
@@ -121,4 +128,26 @@ export function classifyPath(rawPath: string): PageInfo {
 export function agentFromHref(href: string): { section: StatSection; slug: string } | null {
   const info = classifyPath(href);
   return info.pageType === "agent" && info.section && info.entity ? { section: info.section, slug: info.entity } : null;
+}
+
+export interface DirectionInfo {
+  /** Коды валют в нижнем регистре, как в адресе: «btc», «cashrub». */
+  from: string;
+  to: string;
+  /** Код города для наличного обмена: «msk». */
+  city: string | null;
+  segment: "cash" | "noncash";
+}
+
+/** Пара валют и город из адреса направления: «/exchange/BTC-to-CASHRUB?city=msk». */
+export function parseDirection(rawPath: string): DirectionInfo | null {
+  const [pathname, query = ""] = rawPath.split("#")[0].split("?");
+  const slug = pathname.replace(/\/+$/, "").match(/^\/exchange\/([^/]+)$/)?.[1];
+  if (!slug) return null;
+  const [from, to] = decodeURIComponent(slug).toLowerCase().split("-to-");
+  if (!from || !to) return null;
+  const params = new URLSearchParams(query);
+  const city = params.get("city")?.toLowerCase().slice(0, 60) || null;
+  const segment = city || params.get("direction") === "cash" || from.startsWith("cash") || to.startsWith("cash") ? "cash" : "noncash";
+  return { from: from.slice(0, 40), to: to.slice(0, 40), city, segment };
 }

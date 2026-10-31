@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ExchangerDetail } from "@/entities/exchanger";
+import { siteMark } from "@/shared/analytics";
 import { ExchangerStatus } from "@/shared/types";
 type ExchangerInfoProps = {
   exchangerDetails: ExchangerDetail;
@@ -38,6 +39,7 @@ export const ExchangerInfo = async (props: ExchangerInfoProps) => {
 
         <div className="grid gap-4 grid-cols-2 grid-rows-4  md:grid-cols-4  md:grid-rows-2">
           <Link
+            {...siteMark}
             target="_blank"
             href={exchangerDetails?.url}
             className="rounded-[12px] flex justify-center items-center text-center bg-new-grey text-yellow-main  p-4"

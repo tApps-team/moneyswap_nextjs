@@ -15,12 +15,13 @@ export const STATS_BASE = `${CMS_BASE}/stats`;
 const TABS = [
   { href: "", label: "Обзор" },
   { href: "/agents", label: "Агенты" },
+  { href: "/exchange", label: "Обменники" },
   { href: "/funnel", label: "Воронка" },
   { href: "/filters", label: "Фильтры" },
   { href: "/pages", label: "Страницы" },
   { href: "/sources", label: "Источники" },
   { href: "/blog", label: "Блог" },
-  { href: "/events", label: "Обмен и события" },
+  { href: "/events", label: "Цели и ссылки" },
   { href: "/sessions", label: "Визиты" },
 ];
 

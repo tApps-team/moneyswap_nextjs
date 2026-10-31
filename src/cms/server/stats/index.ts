@@ -1,6 +1,7 @@
 import { isStatSection } from "@/shared/analytics/classify";
 import { agentReport, agentsTable } from "./agents";
 import { filtersReport, funnel } from "./behavior";
+import { exchangeReport } from "./exchange";
 import { devicesBreakdown, overview, sourcesBreakdown } from "./overview";
 import { blogReport, eventsReport, pagesReport } from "./pages";
 import { parseFilters } from "./query";
@@ -20,6 +21,8 @@ export async function runReport(report: string, params: URLSearchParams): Promis
       if (!isStatSection(section) || !slug) return null;
       return agentReport(f, section, slug);
     }
+    case "exchange":
+      return exchangeReport(f);
     case "funnel":
       return funnel(f);
     case "filters":
